@@ -142,10 +142,10 @@ implements org.springframework.context.ApplicationContextAware</span></div>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static tools.jackson.databind.ObjectMapper</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static tools.jackson.databind.json.JsonMapper</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getInstance()" class="member-name-link">getInstance</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">获取 ObjectMapper 单例实例</div>
+<div class="block">获取 JsonMapper 单例实例</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static tools.jackson.databind.JsonNode</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#readTree(byte%5B%5D)" class="member-name-link">readTree</a><wbr>(byte[]&nbsp;content)</code></div>
@@ -236,7 +236,7 @@ implements org.springframework.context.ApplicationContextAware</span></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setApplicationContext(org.springframework.context.ApplicationContext)" class="member-name-link">setApplicationContext</a><wbr>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">注入 ObjectMapper Bean</div>
+<div class="block">注入 JsonMapper Bean</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @Nullable <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#toJson(java.lang.Object)" class="member-name-link">toJson</a><wbr>(@Nullable <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;value)</code></div>
@@ -290,8 +290,8 @@ implements org.springframework.context.ApplicationContextAware</span></div>
 <section class="detail" id="getInstance()">
 <h3>getInstance</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">tools.jackson.databind.ObjectMapper</span>&nbsp;<span class="element-name">getInstance</span>()</div>
-<div class="block">获取 ObjectMapper 单例实例</div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">tools.jackson.databind.json.JsonMapper</span>&nbsp;<span class="element-name">getInstance</span>()</div>
+<div class="block">获取 JsonMapper 单例实例</div>
 </div>
 </section>
 </li>
@@ -513,7 +513,7 @@ implements org.springframework.context.ApplicationContextAware</span></div>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setApplicationContext</span><wbr><span class="parameters">(org.springframework.context.ApplicationContext&nbsp;applicationContext)</span>
                            throws <span class="exceptions">org.springframework.beans.BeansException</span></div>
-<div class="block">注入 ObjectMapper Bean</div>
+<div class="block">注入 JsonMapper Bean</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>setApplicationContext</code>&nbsp;在接口中&nbsp;<code>org.springframework.context.ApplicationContextAware</code></dd>
