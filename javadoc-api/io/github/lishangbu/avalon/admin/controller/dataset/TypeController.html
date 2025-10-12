@@ -68,6 +68,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">save(Type)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">update(Type)</a></li>
 <li><a href="#deleteById(java.lang.Long)" tabindex="0">deleteById(Long)</a></li>
+<li><a href="#listTypes(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">listTypes(Type)</a></li>
 </ol>
 </li>
 </ol>
@@ -138,14 +139,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">导入数据源</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">save</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#listTypes(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">listTypes</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">新增属性类型</div>
+<div class="block">条件查询属性类型列表</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">update</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">save</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">新增属性类型</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">update</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">更新属性类型</div>
 </div>
 </div>
@@ -262,6 +268,24 @@ loadScripts(document, 'script');</script>
 </div>
 </section>
 </li>
+<li>
+<section class="detail" id="listTypes(io.github.lishangbu.avalon.dataset.entity.Type)">
+<h3>listTypes</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="annotations">@GetMapping("/list")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">listTypes</span><wbr><span class="parameters">(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
+<div class="block">条件查询属性类型列表
+<p>
+支持按 name/internalName 模糊查询，其余字段精确匹配</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>type</code> - 查询条件，支持部分字段模糊查询</dd>
+<dt>返回:</dt>
+<dd>属性类型列表</dd>
+</dl>
+</div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -270,7 +294,7 @@ loadScripts(document, 'script');</script>
 <!-- ========= END OF CLASS DATA ========= -->
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;1980. All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;2025. All rights reserved.</small></p>
 </footer>
 </main>
 </div>
