@@ -60,38 +60,19 @@ loadScripts(document, 'script');</script>
 <section class="hierarchy">
 <h2 title="接口分层结构">接口分层结构</h2>
 <ul>
-<li class="circle">org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;
-<ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)
-<ul>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="MenuRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationConsentRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationConsentRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2RegisteredClientRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2RegisteredClientRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="RoleRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="UserRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="circle">org.springframework.data.repository.Repository&lt;T,<wbr>ID&gt;
 <ul>
 <li class="circle">org.springframework.data.repository.CrudRepository&lt;T,<wbr>ID&gt;
 <ul>
 <li class="circle">org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;
 <ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;)
-<ul>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="MenuRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationConsentRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationConsentRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2RegisteredClientRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2RegisteredClientRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="RoleRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="UserRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a></li>
-</ul>
-</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="MenuRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthAuthorizationConsentRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationConsentRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthAuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthRegisteredClientRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthRegisteredClientRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="RoleRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="UserRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a> (并 extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)</li>
 </ul>
 </li>
 </ul>
@@ -100,17 +81,13 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;
 <ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;)
-<ul>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="MenuRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationConsentRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationConsentRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2AuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2AuthorizationRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="Oauth2RegisteredClientRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">Oauth2RegisteredClientRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="RoleRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a></li>
-<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="UserRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a></li>
-</ul>
-</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="MenuRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthAuthorizationConsentRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationConsentRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthAuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="OauthRegisteredClientRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthRegisteredClientRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="RoleRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
+<li class="circle">io.github.lishangbu.avalon.authorization.repository.<a href="UserRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a> (并 extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;)</li>
 </ul>
 </li>
 </ul>
