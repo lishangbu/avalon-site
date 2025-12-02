@@ -169,34 +169,27 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>accessTokenExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> accessTokenExpiresAt</pre>
-<div class="block">访问令牌过期时间
-超过此时间后访问令牌失效,需要使用刷新令牌获取新令牌</div>
+<div class="block">访问令牌过期时间 超过此时间后访问令牌失效,需要使用刷新令牌获取新令牌</div>
 </li>
 <li class="block-list">
 <h5>accessTokenIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> accessTokenIssuedAt</pre>
-<div class="block">访问令牌签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">访问令牌签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>accessTokenMetadata</h5>
-<pre>byte[] accessTokenMetadata</pre>
-<div class="block">访问令牌元数据,存储访问令牌相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; accessTokenMetadata</pre>
+<div class="block">访问令牌元数据,存储访问令牌相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>accessTokenScopes</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> accessTokenScopes</pre>
-<div class="block">访问令牌关联的权限范围,逗号分隔的权限字符串
-记录此访问令牌可以访问的资源范围
-最大长度1000个字符</div>
+<div class="block">访问令牌关联的权限范围,逗号分隔的权限字符串 记录此访问令牌可以访问的资源范围 最大长度1000个字符</div>
 </li>
 <li class="block-list">
 <h5>accessTokenType</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> accessTokenType</pre>
-<div class="block">访问令牌类型,标识令牌的使用方式
-通常为 Bearer 类型
-最大长度100个字符</div>
+<div class="block">访问令牌类型,标识令牌的使用方式 通常为 Bearer 类型 最大长度100个字符</div>
 </li>
 <li class="block-list">
 <h5>accessTokenValue</h5>
@@ -205,27 +198,23 @@ loadScripts(document, 'script');</script>
 </li>
 <li class="block-list">
 <h5>attributes</h5>
-<pre>byte[] attributes</pre>
-<div class="block">授权属性数据,存储授权相关的元数据
-使用二进制格式存储序列化后的属性对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; attributes</pre>
+<div class="block">授权属性数据,存储授权相关的元数据</div>
 </li>
 <li class="block-list">
 <h5>authorizationCodeExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> authorizationCodeExpiresAt</pre>
-<div class="block">授权码过期时间
-超过此时间后授权码失效无法使用</div>
+<div class="block">授权码过期时间 超过此时间后授权码失效无法使用</div>
 </li>
 <li class="block-list">
 <h5>authorizationCodeIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> authorizationCodeIssuedAt</pre>
-<div class="block">授权码签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">授权码签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>authorizationCodeMetadata</h5>
-<pre>byte[] authorizationCodeMetadata</pre>
-<div class="block">授权码元数据,存储授权码相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; authorizationCodeMetadata</pre>
+<div class="block">授权码元数据,存储授权码相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>authorizationCodeValue</h5>
@@ -235,34 +224,28 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>authorizationGrantType</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> authorizationGrantType</pre>
-<div class="block">授权类型,标识使用的授权流程
-可选值: authorization_code、client_credentials、refresh_token、device_code 等
+<div class="block">授权类型,标识使用的授权流程 可选值: authorization_code、client_credentials、refresh_token、device_code 等
 最大长度100个字符</div>
 </li>
 <li class="block-list">
 <h5>authorizedScopes</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> authorizedScopes</pre>
-<div class="block">已授权的权限范围集合,逗号分隔的权限字符串
-记录用户实际授予客户端的权限
-最大长度1000个字符</div>
+<div class="block">已授权的权限范围集合,逗号分隔的权限字符串 记录用户实际授予客户端的权限 最大长度1000个字符</div>
 </li>
 <li class="block-list">
 <h5>deviceCodeExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> deviceCodeExpiresAt</pre>
-<div class="block">设备码过期时间
-超过此时间后设备码失效无法轮询</div>
+<div class="block">设备码过期时间 超过此时间后设备码失效无法轮询</div>
 </li>
 <li class="block-list">
 <h5>deviceCodeIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> deviceCodeIssuedAt</pre>
-<div class="block">设备码签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">设备码签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>deviceCodeMetadata</h5>
-<pre>byte[] deviceCodeMetadata</pre>
-<div class="block">设备码元数据,存储设备码相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; deviceCodeMetadata</pre>
+<div class="block">设备码元数据,存储设备码相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>deviceCodeValue</h5>
@@ -272,26 +255,22 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>id</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> id</pre>
-<div class="block">授权记录唯一标识符,数据库主键
-最大长度100个字符</div>
+<div class="block">授权记录唯一标识符,数据库主键 最大长度100个字符</div>
 </li>
 <li class="block-list">
 <h5>oidcIdTokenExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> oidcIdTokenExpiresAt</pre>
-<div class="block">ID令牌过期时间
-超过此时间后ID令牌失效</div>
+<div class="block">ID令牌过期时间 超过此时间后ID令牌失效</div>
 </li>
 <li class="block-list">
 <h5>oidcIdTokenIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> oidcIdTokenIssuedAt</pre>
-<div class="block">ID令牌签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">ID令牌签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>oidcIdTokenMetadata</h5>
-<pre>byte[] oidcIdTokenMetadata</pre>
-<div class="block">ID令牌元数据,存储ID令牌相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; oidcIdTokenMetadata</pre>
+<div class="block">ID令牌元数据,存储ID令牌相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>oidcIdTokenValue</h5>
@@ -301,27 +280,22 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>principalName</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> principalName</pre>
-<div class="block">用户主体名称,标识被授权的用户
-通常为用户名或用户唯一标识
-最大长度200个字符</div>
+<div class="block">用户主体名称,标识被授权的用户 通常为用户名或用户唯一标识 最大长度200个字符</div>
 </li>
 <li class="block-list">
 <h5>refreshTokenExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> refreshTokenExpiresAt</pre>
-<div class="block">刷新令牌过期时间
-超过此时间后刷新令牌失效,用户需要重新授权</div>
+<div class="block">刷新令牌过期时间 超过此时间后刷新令牌失效,用户需要重新授权</div>
 </li>
 <li class="block-list">
 <h5>refreshTokenIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> refreshTokenIssuedAt</pre>
-<div class="block">刷新令牌签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">刷新令牌签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>refreshTokenMetadata</h5>
-<pre>byte[] refreshTokenMetadata</pre>
-<div class="block">刷新令牌元数据,存储刷新令牌相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; refreshTokenMetadata</pre>
+<div class="block">刷新令牌元数据,存储刷新令牌相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>refreshTokenValue</h5>
@@ -331,33 +305,27 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>registeredClientId</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> registeredClientId</pre>
-<div class="block">注册客户端ID,关联到 OAuth2 客户端
-标识发起授权请求的客户端应用
-最大长度100个字符</div>
+<div class="block">注册客户端ID,关联到 OAuth2 客户端 标识发起授权请求的客户端应用 最大长度100个字符</div>
 </li>
 <li class="block-list">
 <h5>state</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> state</pre>
-<div class="block">授权状态信息,存储授权流程的状态数据
-最大长度500个字符</div>
+<div class="block">授权状态信息,存储授权流程的状态数据 最大长度500个字符</div>
 </li>
 <li class="block-list">
 <h5>userCodeExpiresAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> userCodeExpiresAt</pre>
-<div class="block">用户码过期时间
-超过此时间后用户码失效无法验证</div>
+<div class="block">用户码过期时间 超过此时间后用户码失效无法验证</div>
 </li>
 <li class="block-list">
 <h5>userCodeIssuedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="java.time中的类或接口" class="external-link">Instant</a> userCodeIssuedAt</pre>
-<div class="block">用户码签发时间
-使用 UTC 时区存储精确时间戳</div>
+<div class="block">用户码签发时间 使用 UTC 时区存储精确时间戳</div>
 </li>
 <li class="block-list">
 <h5>userCodeMetadata</h5>
-<pre>byte[] userCodeMetadata</pre>
-<div class="block">用户码元数据,存储用户码相关的附加信息
-使用二进制格式存储序列化后的元数据对象</div>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; userCodeMetadata</pre>
+<div class="block">用户码元数据,存储用户码相关的附加信息</div>
 </li>
 <li class="block-list">
 <h5>userCodeValue</h5>
@@ -577,112 +545,6 @@ during client authentication when using the tls_client_auth method</div>
 </section>
 </li>
 <li>
-<section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.entity.Permission">
-<h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/entity/Permission.html" title="io.github.lishangbu.avalon.authorization.entity中的类">io.github.lishangbu.avalon.authorization.entity.Permission</a></h3>
-<div class="type-signature">class Permission extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
-<dl class="name-value">
-<dt>serialVersionUID:</dt>
-<dd>1L</dd>
-</dl>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>序列化字段</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>code</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> code</pre>
-<div class="block">权限编码</div>
-</li>
-<li class="block-list">
-<h5>description</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> description</pre>
-<div class="block">描述</div>
-</li>
-<li class="block-list">
-<h5>enabled</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> enabled</pre>
-<div class="block">是否启用</div>
-</li>
-<li class="block-list">
-<h5>id</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
-<div class="block">主键</div>
-</li>
-<li class="block-list">
-<h5>method</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> method</pre>
-<div class="block">请求方法</div>
-</li>
-<li class="block-list">
-<h5>name</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
-<div class="block">权限名称</div>
-</li>
-<li class="block-list">
-<h5>parentId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> parentId</pre>
-<div class="block">父权限ID</div>
-</li>
-<li class="block-list">
-<h5>sortOrder</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> sortOrder</pre>
-<div class="block">排序顺序</div>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.entity.Profile">
-<h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/entity/Profile.html" title="io.github.lishangbu.avalon.authorization.entity中的类">io.github.lishangbu.avalon.authorization.entity.Profile</a></h3>
-<div class="type-signature">class Profile extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
-<dl class="name-value">
-<dt>serialVersionUID:</dt>
-<dd>1L</dd>
-</dl>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>序列化字段</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>address</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> address</pre>
-</li>
-<li class="block-list">
-<h5>avatar</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> avatar</pre>
-</li>
-<li class="block-list">
-<h5>email</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> email</pre>
-</li>
-<li class="block-list">
-<h5>gender</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> gender</pre>
-</li>
-<li class="block-list">
-<h5>id</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
-</li>
-<li class="block-list">
-<h5>nickname</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> nickname</pre>
-</li>
-<li class="block-list">
-<h5>userId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> userId</pre>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
 <section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.entity.Role">
 <h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/entity/Role.html" title="io.github.lishangbu.avalon.authorization.entity中的类">io.github.lishangbu.avalon.authorization.entity.Role</a></h3>
 <div class="type-signature">class Role extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
@@ -779,25 +641,6 @@ during client authentication when using the tls_client_auth method</div>
 <li class="block-list">
 <h5>children</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="io/github/lishangbu/avalon/authorization/model/MenuTreeNode.html" title="io.github.lishangbu.avalon.authorization.model中的类">MenuTreeNode</a>&gt; children</pre>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.model.PermissionTreeNode">
-<h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/model/PermissionTreeNode.html" title="io.github.lishangbu.avalon.authorization.model中的类">io.github.lishangbu.avalon.authorization.model.PermissionTreeNode</a></h3>
-<div class="type-signature">class PermissionTreeNode extends <a href="io/github/lishangbu/avalon/authorization/entity/Permission.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Permission</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>序列化字段</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>children</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="io/github/lishangbu/avalon/authorization/model/PermissionTreeNode.html" title="io.github.lishangbu.avalon.authorization.model中的类">PermissionTreeNode</a>&gt; children</pre>
 </li>
 </ul>
 </section>

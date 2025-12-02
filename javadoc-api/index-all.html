@@ -667,6 +667,14 @@ Token Response</code>.</div>
 <dd>
 <div class="block">将 HTTP 请求转换为 OAuth2 密码授权类型的认证令牌</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html#convert(java.lang.String)" class="member-name-link">convert(String)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">StringToMapConverter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html#convert(java.util.Map)" class="member-name-link">convert(Map)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToJsonbConverter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html#convert(java.util.Map)" class="member-name-link">convert(Map)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToStringConverter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html#convert(org.postgresql.util.PGobject)" class="member-name-link">convert(PGobject)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">JsonbToMapConverter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/item/Item.html#cost()" class="member-name-link">cost()</a> - 记录类中的方法 io.github.lishangbu.avalon.pokeapi.model.item.<a href="io/github/lishangbu/avalon/pokeapi/model/item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a></dt>
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/item/Item.html#param-cost"><code>cost</code></a> 记录组件的值。</div>
@@ -784,7 +792,7 @@ Token Response</code>.</div>
 <dd>
 <div class="block">默认Oauth2授权服务</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#%3Cinit%3E(org.springframework.jdbc.core.JdbcOperations,org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository)" class="member-name-link">DefaultOAuth2AuthorizationService(JdbcOperations, RegisteredClientRepository)</a> - 类的构造器 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
+<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#%3Cinit%3E()" class="member-name-link">DefaultOAuth2AuthorizationService()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/introspection/DefaultOpaqueTokenIntrospector.html" class="type-name-link" title="io.github.lishangbu.avalon.oauth2.authorizationserver.introspection中的类">DefaultOpaqueTokenIntrospector</a> - <a href="io/github/lishangbu/avalon/oauth2/authorizationserver/introspection/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.introspection</a>中的类</dt>
 <dd>
@@ -1699,15 +1707,6 @@ Token Response</code>.</div>
   使用实体关系 join，避免直接依赖中间表
 </div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/repository/PermissionRepository.html#findAllEnabledPermissionsByRoleCodes(java.util.List)" class="member-name-link">findAllEnabledPermissionsByRoleCodes(List)</a> - 接口中的方法 io.github.lishangbu.avalon.authorization.repository.<a href="io/github/lishangbu/avalon/authorization/repository/PermissionRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a></dt>
-<dd>
-<div class="block">通过角色代码查询所有权限
-
-
-  使用 DISTINCT 去重，避免 JOIN 导致重复权限记录
-  使用实体关系 join，避免直接依赖中间表
-</div>
-</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationRepository.html#findByAccessTokenValue(java.lang.String)" class="member-name-link">findByAccessTokenValue(String)</a> - 接口中的方法 io.github.lishangbu.avalon.authorization.repository.<a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a></dt>
 <dd>
 <div class="block">根据访问令牌查询认证信息</div>
@@ -1724,6 +1723,8 @@ Token Response</code>.</div>
 <dd>
 <div class="block">根据设备码查询认证信息</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#findById(java.lang.String)" class="member-name-link">findById(String)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultRegisteredClientRepository.html#findById(java.lang.String)" class="member-name-link">findById(String)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultRegisteredClientRepository.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultRegisteredClientRepository</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html#findById(java.lang.String,java.lang.String)" class="member-name-link">findById(String, String)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationConsentService</a></dt>
@@ -1749,6 +1750,8 @@ Token Response</code>.</div>
 <div class="block">根据多种 token 字段联合查询认证信息，支持
 state、authorizationCode、accessToken、refreshToken、idToken、userCode、deviceCode 任意一种 token。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#findByToken(java.lang.String,org.springframework.security.oauth2.server.authorization.OAuth2TokenType)" class="member-name-link">findByToken(String, OAuth2TokenType)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationRepository.html#findByUserCodeValue(java.lang.String)" class="member-name-link">findByUserCodeValue(String)</a> - 接口中的方法 io.github.lishangbu.avalon.authorization.repository.<a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a></dt>
 <dd>
 <div class="block">根据用户码查询认证信息</div>
@@ -3040,6 +3043,8 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/package-summary.html">io.github.lishangbu.avalon.admin.service.dataset.impl</a> - 程序包 io.github.lishangbu.avalon.admin.service.dataset.impl</dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a> - 程序包 io.github.lishangbu.avalon.authorization.config</dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/controller/package-summary.html">io.github.lishangbu.avalon.authorization.controller</a> - 程序包 io.github.lishangbu.avalon.authorization.controller</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/entity/package-summary.html">io.github.lishangbu.avalon.authorization.entity</a> - 程序包 io.github.lishangbu.avalon.authorization.entity</dt>
@@ -3513,6 +3518,20 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/contest/ContestEffect.html#param-jam"><code>jam</code></a> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html#jdbcCustomConversions()" class="member-name-link">jdbcCustomConversions()</a> - 类中的方法 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html" title="io.github.lishangbu.avalon.authorization.config中的类">JdbcCustomConversionsAutoConfiguration</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.config中的类">JdbcCustomConversionsAutoConfiguration</a> - <a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a>中的类</dt>
+<dd>
+<div class="block">为 Spring Data JDBC 注册自定义类型转换器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html#%3Cinit%3E()" class="member-name-link">JdbcCustomConversionsAutoConfiguration()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html" title="io.github.lishangbu.avalon.authorization.config中的类">JdbcCustomConversionsAutoConfiguration</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.config中的类">JsonbToMapConverter</a> - <a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a>中的类</dt>
+<dd>
+<div class="block">将 PostgreSQL 的 jsonb（PGobject）转换为 Map\<span class="invalid-tag">无效输入：'&lt;'</span>String, Object\&gt;</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html#%3Cinit%3E()" class="member-name-link">JsonbToMapConverter()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">JsonbToMapConverter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/json/autoconfiguration/JacksonAutoConfiguration.html#jsonMapper()" class="member-name-link">jsonMapper()</a> - 类中的方法 io.github.lishangbu.avalon.json.autoconfiguration.<a href="io/github/lishangbu/avalon/json/autoconfiguration/JacksonAutoConfiguration.html" title="io.github.lishangbu.avalon.json.autoconfiguration中的类">JacksonAutoConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/web/util/JsonResponseWriter.html" class="type-name-link" title="io.github.lishangbu.avalon.web.util中的类">JsonResponseWriter</a> - <a href="io/github/lishangbu/avalon/web/util/package-summary.html">io.github.lishangbu.avalon.web.util</a>中的类</dt>
@@ -3697,14 +3716,6 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">获取命名资源列表</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/controller/PermissionController.html#listPermissionTree(io.github.lishangbu.avalon.oauth2.common.userdetails.UserInfo)" class="member-name-link">listPermissionTree(UserInfo)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.controller.<a href="io/github/lishangbu/avalon/authorization/controller/PermissionController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">PermissionController</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/PermissionServiceImpl.html#listPermissionTreeByRoleCodes(java.util.List)" class="member-name-link">listPermissionTreeByRoleCodes(List)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/PermissionServiceImpl.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">PermissionServiceImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/PermissionService.html#listPermissionTreeByRoleCodes(java.util.List)" class="member-name-link">listPermissionTreeByRoleCodes(List)</a> - 接口中的方法 io.github.lishangbu.avalon.authorization.service.<a href="io/github/lishangbu/avalon/authorization/service/PermissionService.html" title="io.github.lishangbu.avalon.authorization.service中的接口">PermissionService</a></dt>
-<dd>
-<div class="block">根据角色代码获取权限树</div>
-</dd>
 <dt><a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeController.html#listTypes(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">listTypes(Type)</a> - 类中的方法 io.github.lishangbu.avalon.admin.controller.dataset.<a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeController.html" title="io.github.lishangbu.avalon.admin.controller.dataset中的类">TypeController</a></dt>
 <dd>
 <div class="block">条件查询属性类型列表</div>
@@ -3830,6 +3841,18 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/game/Generation.html#param-mainRegion"><code>mainRegion</code></a> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.config中的类">MapToJsonbConverter</a> - <a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a>中的类</dt>
+<dd>
+<div class="block">将 Map\<span class="invalid-tag">无效输入：'&lt;'</span>String, Object\&gt; 转换为 PostgreSQL 的 jsonb 类型（PGobject）</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html#%3Cinit%3E()" class="member-name-link">MapToJsonbConverter()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToJsonbConverter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.config中的类">MapToStringConverter</a> - <a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a>中的类</dt>
+<dd>
+<div class="block">将 Map<span class="invalid-tag">无效输入：'&lt;'</span>String, Object&gt; 转换为 JSON 字符串的 Converter，适用于非 Postgres 场景（例如 H2）</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html#%3Cinit%3E()" class="member-name-link">MapToStringConverter()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToStringConverter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/util/OAuth2EndpointUtils.html#matchesPkceTokenRequest(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">matchesPkceTokenRequest(HttpServletRequest)</a> - 类中的静态方法 io.github.lishangbu.avalon.oauth2.authorizationserver.util.<a href="io/github/lishangbu/avalon/oauth2/authorizationserver/util/OAuth2EndpointUtils.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.util中的类">OAuth2EndpointUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/common/VersionEncounterDetail.html#maxChance()" class="member-name-link">maxChance()</a> - 记录类中的方法 io.github.lishangbu.avalon.pokeapi.model.common.<a href="io/github/lishangbu/avalon/pokeapi/model/common/VersionEncounterDetail.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VersionEncounterDetail</a></dt>
@@ -4892,38 +4915,6 @@ parameters.</div>
 <dd>
 <div class="block">带有错误信息的构造函数，创建一个新的 PathNotFoundException 异常实例。</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/entity/Permission.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.entity中的类">Permission</a> - <a href="io/github/lishangbu/avalon/authorization/entity/package-summary.html">io.github.lishangbu.avalon.authorization.entity</a>中的类</dt>
-<dd>
-<div class="block">权限(Permission)实体类</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/entity/Permission.html#%3Cinit%3E()" class="member-name-link">Permission()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.entity.<a href="io/github/lishangbu/avalon/authorization/entity/Permission.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Permission</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/controller/PermissionController.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.controller中的类">PermissionController</a> - <a href="io/github/lishangbu/avalon/authorization/controller/package-summary.html">io.github.lishangbu.avalon.authorization.controller</a>中的类</dt>
-<dd>
-<div class="block">权限服务控制器</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/controller/PermissionController.html#%3Cinit%3E()" class="member-name-link">PermissionController()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.controller.<a href="io/github/lishangbu/avalon/authorization/controller/PermissionController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">PermissionController</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/repository/PermissionRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">PermissionRepository</a> - <a href="io/github/lishangbu/avalon/authorization/repository/package-summary.html">io.github.lishangbu.avalon.authorization.repository</a>中的接口</dt>
-<dd>
-<div class="block">权限(permission)表数据库访问层</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/PermissionService.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.service中的接口">PermissionService</a> - <a href="io/github/lishangbu/avalon/authorization/service/package-summary.html">io.github.lishangbu.avalon.authorization.service</a>中的接口</dt>
-<dd>
-<div class="block">权限服务接口</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/PermissionServiceImpl.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.service.impl中的类">PermissionServiceImpl</a> - <a href="io/github/lishangbu/avalon/authorization/service/impl/package-summary.html">io.github.lishangbu.avalon.authorization.service.impl</a>中的类</dt>
-<dd>
-<div class="block">权限服务实现</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/PermissionServiceImpl.html#%3Cinit%3E()" class="member-name-link">PermissionServiceImpl()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/PermissionServiceImpl.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">PermissionServiceImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/model/PermissionTreeNode.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.model中的类">PermissionTreeNode</a> - <a href="io/github/lishangbu/avalon/authorization/model/package-summary.html">io.github.lishangbu.avalon.authorization.model</a>中的类</dt>
-<dd>
-<div class="block">权限树节点</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/model/PermissionTreeNode.html#%3Cinit%3E(io.github.lishangbu.avalon.authorization.entity.Permission)" class="member-name-link">PermissionTreeNode(Permission)</a> - 类的构造器 io.github.lishangbu.avalon.authorization.model.<a href="io/github/lishangbu/avalon/authorization/model/PermissionTreeNode.html" title="io.github.lishangbu.avalon.authorization.model中的类">PermissionTreeNode</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/item/ItemCategory.html#pocket()" class="member-name-link">pocket()</a> - 记录类中的方法 io.github.lishangbu.avalon.pokeapi.model.item.<a href="io/github/lishangbu/avalon/pokeapi/model/item/ItemCategory.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">ItemCategory</a></dt>
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/item/ItemCategory.html#param-pocket"><code>pocket</code></a> 记录组件的值。</div>
@@ -5336,12 +5327,6 @@ parameters.</div>
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/move/Move.html#param-priority"><code>priority</code></a> 记录组件的值。</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/entity/Profile.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.entity中的类">Profile</a> - <a href="io/github/lishangbu/avalon/authorization/entity/package-summary.html">io.github.lishangbu.avalon.authorization.entity</a>中的类</dt>
-<dd>
-<div class="block">用户个人资料表(Profile)实体类</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/authorization/entity/Profile.html#%3Cinit%3E()" class="member-name-link">Profile()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.entity.<a href="io/github/lishangbu/avalon/authorization/entity/Profile.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Profile</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dufs/properties/DufsProperties.html#PROPERTIES_PREFIX" class="member-name-link">PROPERTIES_PREFIX</a> - 类中的静态变量 io.github.lishangbu.avalon.dufs.properties.<a href="io/github/lishangbu/avalon/dufs/properties/DufsProperties.html" title="io.github.lishangbu.avalon.dufs.properties中的类">DufsProperties</a></dt>
 <dd>
 <div class="block">配置属性前缀</div>
@@ -5467,6 +5452,8 @@ parameters.</div>
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html#param-relativePhysicalStats"><code>relativePhysicalStats</code></a> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#remove(org.springframework.security.oauth2.server.authorization.OAuth2Authorization)" class="member-name-link">remove(OAuth2Authorization)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html#remove(org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent)" class="member-name-link">remove(OAuth2AuthorizationConsent)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationConsentService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/admin/service/dataset/BerryFirmnessService.html#removeById(java.lang.Long)" class="member-name-link">removeById(Long)</a> - 接口中的方法 io.github.lishangbu.avalon.admin.service.dataset.<a href="io/github/lishangbu/avalon/admin/service/dataset/BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></dt>
@@ -5597,6 +5584,8 @@ parameters.</div>
 <div class="block">新增属性类型</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultRegisteredClientRepository.html#save(org.springframework.security.oauth2.server.authorization.client.RegisteredClient)" class="member-name-link">save(RegisteredClient)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultRegisteredClientRepository.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultRegisteredClientRepository</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html#save(org.springframework.security.oauth2.server.authorization.OAuth2Authorization)" class="member-name-link">save(OAuth2Authorization)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html#save(org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent)" class="member-name-link">save(OAuth2AuthorizationConsent)</a> - 类中的方法 io.github.lishangbu.avalon.authorization.service.impl.<a href="io/github/lishangbu/avalon/authorization/service/impl/DefaultOAuth2AuthorizationConsentService.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">DefaultOAuth2AuthorizationConsentService</a></dt>
 <dd>&nbsp;</dd>
@@ -5743,6 +5732,12 @@ and additional context information.</div>
 <dd>
 <div class="block">返回 <code>status</code> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.config中的类">StringToMapConverter</a> - <a href="io/github/lishangbu/avalon/authorization/config/package-summary.html">io.github.lishangbu.avalon.authorization.config</a>中的类</dt>
+<dd>
+<div class="block">将 JSON 字符串转换为 Map<span class="invalid-tag">无效输入：'&lt;'</span>String, Object&gt; 的 Converter，适用于非 Postgres 场景（例如 H2）</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html#%3Cinit%3E()" class="member-name-link">StringToMapConverter()</a> - 类的构造器 io.github.lishangbu.avalon.authorization.config.<a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">StringToMapConverter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/web/result/ApiResult.html#SUCCESS_CODE" class="member-name-link">SUCCESS_CODE</a> - 记录类中的静态变量 io.github.lishangbu.avalon.web.result.<a href="io/github/lishangbu/avalon/web/result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a></dt>
 <dd>
 <div class="block">默认的成功操作码，通常用于表示操作成功。</div>
