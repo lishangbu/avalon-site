@@ -514,14 +514,6 @@ Token Response</code>.</div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">jackson自动配置</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/config/JdbcCustomConversionsAutoConfiguration.html" title="io.github.lishangbu.avalon.authorization.config中的类">JdbcCustomConversionsAutoConfiguration</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">为 Spring Data JDBC 注册自定义类型转换器</div>
-</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/config/JsonbToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">JsonbToMapConverter</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">将 PostgreSQL 的 jsonb（PGobject）转换为 Map\<span class="invalid-tag">无效输入：'&lt;'</span>String, Object\&gt;</div>
-</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/web/util/JsonResponseWriter.html" title="io.github.lishangbu.avalon.web.util中的类">JsonResponseWriter</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">json格式的response写入工具类</div>
@@ -582,14 +574,6 @@ Token Response</code>.</div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Utility/Common Models/MachineVersionDetail</a></div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/config/MapToJsonbConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToJsonbConverter</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">将 Map\<span class="invalid-tag">无效输入：'&lt;'</span>String, Object\&gt; 转换为 PostgreSQL 的 jsonb 类型（PGobject）</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/config/MapToStringConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">MapToStringConverter</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
-<div class="block">将 Map<span class="invalid-tag">无效输入：'&lt;'</span>String, Object&gt; 转换为 JSON 字符串的 Converter，适用于非 Postgres 场景（例如 H2）</div>
-</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/Menu.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">菜单</div>
@@ -598,9 +582,9 @@ Token Response</code>.</div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">菜单控制器</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/MenuRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">MenuRepository</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/MenuMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">MenuMapper</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">
-<div class="block">菜单存储</div>
+<div class="block">菜单表的 MyBatis-Plus Mapper</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/service/MenuService.html" title="io.github.lishangbu.avalon.authorization.service中的接口">MenuService</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
@@ -718,105 +702,107 @@ Token Response</code>.</div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">招式目标(MoveTarget)数据访问层</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/mybatisplus/autoconfiguration/MybatisPlusAutoConfiguration.html" title="io.github.lishangbu.avalon.mybatisplus.autoconfiguration中的类">MybatisPlusAutoConfiguration</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">MyBatis-Plus 基础配置</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Utility/Common Models/Name</a></div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource&lt;T&gt;</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource&lt;T&gt;</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2#resource-listspagination-section">官网Resource
 Lists/Pagination-named</a></div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/resource/NamedAPIResourceList.html" title="io.github.lishangbu.avalon.pokeapi.model.resource中的类">NamedAPIResourceList</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/resource/NamedAPIResourceList.html" title="io.github.lishangbu.avalon.pokeapi.model.resource中的类">NamedAPIResourceList</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Resource Lists/Pagination/NamedAPIResourceList</a></div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/pokeapi/util/NamedApiResourceUtils.html" title="io.github.lishangbu.avalon.pokeapi.util中的类">NamedApiResourceUtils</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/pokeapi/util/NamedApiResourceUtils.html" title="io.github.lishangbu.avalon.pokeapi.util中的类">NamedApiResourceUtils</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">命名资源工具类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/Nature.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Nature</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/Nature.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Nature</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">性格影响宝可梦的属性成长方式。</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NaturePokeathlonStatAffect.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NaturePokeathlonStatAffect</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NaturePokeathlonStatAffect.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NaturePokeathlonStatAffect</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">性格对宝可梦状态的影响</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NaturePokeathlonStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NaturePokeathlonStatAffectSets</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NaturePokeathlonStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NaturePokeathlonStatAffectSets</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">性格对宝可梦竞技状态影响的集合</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NatureStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NatureStatAffectSets</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NatureStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NatureStatAffectSets</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">NatureStatAffectSets - 性格对竞技状态影响的集合</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NatureStatChange.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NatureStatChange</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/NatureStatChange.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NatureStatChange</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">性格对宝可梦竞技状态的改变</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">An implementation of an <code>AuthenticationSuccessHandler</code> used for handling an <code>OAuth2AccessTokenAuthenticationToken</code> and returning the <code>Access
 Token Response</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/util/OAuth2EndpointUtils.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.util中的类">OAuth2EndpointUtils</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/util/OAuth2EndpointUtils.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.util中的类">OAuth2EndpointUtils</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">An implementation of an <code>AuthenticationFailureHandler</code> used for handling an <code>OAuth2AuthenticationException</code> and returning the <code>OAuth 2.0 Error Response</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/web/authentication/OAuth2PasswordAuthenticationConverter.html" title="org.springframework.security.oauth2.server.authorization.web.authentication中的类">OAuth2PasswordAuthenticationConverter</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/web/authentication/OAuth2PasswordAuthenticationConverter.html" title="org.springframework.security.oauth2.server.authorization.web.authentication中的类">OAuth2PasswordAuthenticationConverter</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">OAuth2 密码授权类型认证转换器</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">OAuth2PasswordAuthenticationProvider</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthorizationGrantAuthenticationToken.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">OAuth2PasswordAuthorizationGrantAuthenticationToken</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">OAuth2PasswordAuthenticationProvider</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthorizationGrantAuthenticationToken.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">OAuth2PasswordAuthorizationGrantAuthenticationToken</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">OAuth2 密码授权模式的认证令牌</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">OAuth2 安全配置属性类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/token/OAuth2RefreshTokenGenerator.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.token中的类">OAuth2RefreshTokenGenerator</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/token/OAuth2RefreshTokenGenerator.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.token中的类">OAuth2RefreshTokenGenerator</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">自定义refreshToken生成器 不管任何模式都会返回UUID风格的refreshToken</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/autoconfiguration/OAuth2TokenCustomizerAutoConfiguration.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration中的类">OAuth2TokenCustomizerAutoConfiguration</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/autoconfiguration/OAuth2TokenCustomizerAutoConfiguration.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration中的类">OAuth2TokenCustomizerAutoConfiguration</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">OAUTH2 Token自定义配置类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/autoconfiguration/OAuth2TokenGeneratorAutoConfiguration.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration中的类">OAuth2TokenGeneratorAutoConfiguration</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/autoconfiguration/OAuth2TokenGeneratorAutoConfiguration.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration中的类">OAuth2TokenGeneratorAutoConfiguration</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">x</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">用户认证信息表(OauthAuthorization)实体类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">用户授权确认表(OauthAuthorizationConsent)实体类</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorizationConsent.AuthorizationConsentId.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent.AuthorizationConsentId</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationConsentRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationConsentRepository</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/OauthAuthorizationConsentMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">OauthAuthorizationConsentMapper</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">
-<div class="block">用户授权确认表(oauth_authorization_consent)数据库访问层</div>
+<div class="block">OauthAuthorizationConsent具有复合主键，所以使用原生mybatis功能实现</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/OauthAuthorizationRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/OauthAuthorizationMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">OauthAuthorizationMapper</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">用户认证信息表(oauth_authorization)表数据库访问层</div>
+<div class="block">OauthAuthorization 数据访问接口</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/OauthRegisteredClient.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthRegisteredClient</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Oauth2注册客户端(OauthRegisteredClient)实体类</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/OauthRegisteredClientRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthRegisteredClientRepository</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/OauthRegisteredClientMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">OauthRegisteredClientMapper</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Oauth2注册客户端(oauth_registered_client)表数据库访问层</div>
+<div class="block">OauthRegisteredClientMapper</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/authorizationserver/autoconfiguration/OpaqueTokenIntrospectorAutoConfiguration.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration中的类">OpaqueTokenIntrospectorAutoConfiguration</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
@@ -1002,143 +988,147 @@ Token Response</code>.</div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">角色控制器</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/RoleMenuRelation.html" title="io.github.lishangbu.avalon.authorization.entity中的类">RoleMenuRelation</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/RoleMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">RoleMapper</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/RoleMenuRelation.html" title="io.github.lishangbu.avalon.authorization.entity中的类">RoleMenuRelation</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">中间表实体，使用 AggregateReference 表示引用 Menu 聚合的 id（不会自动加载 Menu）</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/RoleRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">RoleRepository</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">角色信息(role)表数据库访问层</div>
-</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/service/RoleService.html" title="io.github.lishangbu.avalon.authorization.service中的接口">RoleService</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/RoleMenuRelationMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">RoleMenuRelationMapper</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="block">角色与菜单关联的 Mapper 接口</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/service/RoleService.html" title="io.github.lishangbu.avalon.authorization.service中的接口">RoleService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">角色服务</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/service/impl/RoleServiceImpl.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">RoleServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/service/impl/RoleServiceImpl.html" title="io.github.lishangbu.avalon.authorization.service.impl中的类">RoleServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">角色信息服务实现类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/constant/SecurityBeanDefinitionConstants.html" title="io.github.lishangbu.avalon.oauth2.common.constant中的类">SecurityBeanDefinitionConstants</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/constant/SecurityBeanDefinitionConstants.html" title="io.github.lishangbu.avalon.oauth2.common.constant中的类">SecurityBeanDefinitionConstants</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">安全相关Bean顺序配置</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/constant/SecurityConstants.html" title="io.github.lishangbu.avalon.oauth2.common.constant中的类">SecurityConstants</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/constant/SecurityConstants.html" title="io.github.lishangbu.avalon.oauth2.common.constant中的类">SecurityConstants</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">security相关常量类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="io/github/lishangbu/avalon/oauth2/common/result/SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="io/github/lishangbu/avalon/oauth2/common/result/SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">web api 结果</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/baomidou/mybatisplus/extension/handlers/SpringSecuritySerializableJackson3TypeHandler.html" title="com.baomidou.mybatisplus.extension.handlers中的类">SpringSecuritySerializableJackson3TypeHandler</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">支持spring security 序列化的 Jackson3 TypeHandler</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/Stat.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Stat</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">属性决定了战斗的某些方面。</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/config/StringToMapConverter.html" title="io.github.lishangbu.avalon.authorization.config中的类">StringToMapConverter</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">将 JSON 字符串转换为 Map<span class="invalid-tag">无效输入：'&lt;'</span>String, Object&gt; 的 Converter，适用于非 Postgres 场景（例如 H2）</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/contest/SuperContestEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">SuperContestEffect</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/contest/SuperContestEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">SuperContestEffect</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">超级华丽大赛效果指的是招式在超级华丽大赛中使用时产生的效果</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/controller/TokenController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">TokenController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/controller/TokenController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">TokenController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">令牌接口</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/web/util/TreeUtils.html" title="io.github.lishangbu.avalon.web.util中的类">TreeUtils</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/web/util/TreeUtils.html" title="io.github.lishangbu.avalon.web.util中的类">TreeUtils</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">树形结构工具类，用于处理树形数据</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性(Type)实体类</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">属性是宝可梦及其招式的属性。</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeController.html" title="io.github.lishangbu.avalon.admin.controller.dataset中的类">TypeController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeController.html" title="io.github.lishangbu.avalon.admin.controller.dataset中的类">TypeController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性控制器</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性相互克制关系(TypeDamageRelation)实体类</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.TypeDamageRelationId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation.TypeDamageRelationId</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeDamageRelationController.html" title="io.github.lishangbu.avalon.admin.controller.dataset中的类">TypeDamageRelationController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.TypeDamageRelationId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation.TypeDamageRelationId</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/controller/dataset/TypeDamageRelationController.html" title="io.github.lishangbu.avalon.admin.controller.dataset中的类">TypeDamageRelationController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性克制关系控制器</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性克制矩阵展示响应</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.Cell.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse.Cell</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.Cell.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse.Cell</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">单元格数据</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.Row.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse.Row</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/model/dataset/TypeDamageRelationMatrixResponse.Row.html" title="io.github.lishangbu.avalon.admin.model.dataset中的类">TypeDamageRelationMatrixResponse.Row</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">单行数据</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/dataset/repository/TypeDamageRelationRepository.html" title="io.github.lishangbu.avalon.dataset.repository中的接口">TypeDamageRelationRepository</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/dataset/repository/TypeDamageRelationRepository.html" title="io.github.lishangbu.avalon.dataset.repository中的接口">TypeDamageRelationRepository</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">属性克制关系(TypeDamageRelation)数据访问层</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/admin/service/dataset/TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/admin/service/dataset/TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">属性克制关系服务接口</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/TypeDamageRelationServiceImpl.html" title="io.github.lishangbu.avalon.admin.service.dataset.impl中的类">TypeDamageRelationServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/TypeDamageRelationServiceImpl.html" title="io.github.lishangbu.avalon.admin.service.dataset.impl中的类">TypeDamageRelationServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性克制关系服务实现</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypePokemon.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypePokemon</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypePokemon.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypePokemon</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Pokémon/Types/TypePokemon</a></div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypeRelations.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypeRelations</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypeRelations.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypeRelations</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Pokémon/Types/TypeRelations</a></div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypeRelationsPast.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypeRelationsPast&lt;T&gt;</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="io/github/lishangbu/avalon/pokeapi/model/pokemon/TypeRelationsPast.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">TypeRelationsPast&lt;T&gt;</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">参考<a href="https://pokeapi.co/docs/v2">官网Pokémon/Types/TypeRelationsPast</a></div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/dataset/repository/TypeRepository.html" title="io.github.lishangbu.avalon.dataset.repository中的接口">TypeRepository</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/dataset/repository/TypeRepository.html" title="io.github.lishangbu.avalon.dataset.repository中的接口">TypeRepository</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">属性(Type)数据访问层</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/admin/service/dataset/TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/admin/service/dataset/TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">属性服务</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/TypeServiceImpl.html" title="io.github.lishangbu.avalon.admin.service.dataset.impl中的类">TypeServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/TypeServiceImpl.html" title="io.github.lishangbu.avalon.admin.service.dataset.impl中的类">TypeServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">属性服务实现</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/User.html" title="io.github.lishangbu.avalon.authorization.entity中的类">User</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/User.html" title="io.github.lishangbu.avalon.authorization.entity中的类">User</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">用户信息(User)实体类</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/controller/UserController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">UserController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/controller/UserController.html" title="io.github.lishangbu.avalon.authorization.controller中的类">UserController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">用户控制器</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/userdetails/UserInfo.html" title="io.github.lishangbu.avalon.oauth2.common.userdetails中的类">UserInfo</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/oauth2/common/userdetails/UserInfo.html" title="io.github.lishangbu.avalon.oauth2.common.userdetails中的类">UserInfo</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">用户信息</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/repository/UserRepository.html" title="io.github.lishangbu.avalon.authorization.repository中的接口">UserRepository</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">用户信息(user)表数据库访问层</div>
-</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/UserRoleRelation.html" title="io.github.lishangbu.avalon.authorization.entity中的类">UserRoleRelation</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/UserMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">UserMapper</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/github/lishangbu/avalon/authorization/entity/UserRoleRelation.html" title="io.github.lishangbu.avalon.authorization.entity中的类">UserRoleRelation</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">中间表实体，使用 AggregateReference 表示引用 Role 聚合的 id（不会自动加载 Role）</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/mapper/UserRoleRelationMapper.html" title="io.github.lishangbu.avalon.authorization.mapper中的接口">UserRoleRelationMapper</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="block">用户与角色关联的 Mapper，使用 XML 实现 SQL</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/github/lishangbu/avalon/authorization/service/UserService.html" title="io.github.lishangbu.avalon.authorization.service中的接口">UserService</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">

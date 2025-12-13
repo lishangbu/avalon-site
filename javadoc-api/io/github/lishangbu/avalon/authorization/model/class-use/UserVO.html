@@ -60,10 +60,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.authorization.controller">io.github.lishangbu.avalon.authorization.controller</a></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.authorization.service">io.github.lishangbu.avalon.authorization.service</a></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.authorization.service.impl">io.github.lishangbu.avalon.authorization.service.impl</a></div>
+<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.authorization.mapper">io.github.lishangbu.avalon.authorization.mapper</a></div>
+<div class="col-last odd-row-color">
+<div class="block">数据库访问层</div>
+</div>
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.authorization.service">io.github.lishangbu.avalon.authorization.service</a></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.authorization.service.impl">io.github.lishangbu.avalon.authorization.service.impl</a></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
@@ -78,6 +82,22 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="../UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a></code></div>
 <div class="col-second even-row-color"><span class="type-name-label">UserController.</span><code><a href="../../controller/UserController.html#getUserInfo(io.github.lishangbu.avalon.oauth2.common.userdetails.UserInfo)" class="member-name-link">getUserInfo</a><wbr>(<a href="../../../oauth2/common/userdetails/UserInfo.html" title="io.github.lishangbu.avalon.oauth2.common.userdetails中的类">UserInfo</a>&nbsp;user)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.authorization.mapper">
+<h2><a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中<a href="../UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a>的使用</h2>
+<div class="caption"><span>返回变量类型为<a href="../UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a>的类型的<a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UserMapper.</span><code><a href="../../mapper/UserMapper.html#selectByUsername(java.lang.String)" class="member-name-link">selectByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;username)</code></div>
+<div class="col-last even-row-color">
+<div class="block">根据用户名查询 UserVO，包含 userRoles（中间表）和 roles（完整角色实体） 由 XML 通过 JOIN 实现并返回 UserVO</div>
+</div>
 </div>
 </section>
 </li>

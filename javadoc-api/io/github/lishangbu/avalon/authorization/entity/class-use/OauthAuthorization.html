@@ -58,7 +58,7 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">程序包</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.authorization.repository">io.github.lishangbu.avalon.authorization.repository</a></div>
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.authorization.mapper">io.github.lishangbu.avalon.authorization.mapper</a></div>
 <div class="col-last even-row-color">
 <div class="block">数据库访问层</div>
 </div>
@@ -66,69 +66,63 @@ loadScripts(document, 'script');</script>
 <section class="class-uses">
 <ul class="block-list">
 <li>
-<section class="detail" id="io.github.lishangbu.avalon.authorization.repository">
-<h2><a href="../../repository/package-summary.html">io.github.lishangbu.avalon.authorization.repository</a>中<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的使用</h2>
-<div class="caption"><span><a href="../../repository/package-summary.html">io.github.lishangbu.avalon.authorization.repository</a> 中类型参数类型为 <a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a> 的子接口</span></div>
+<section class="detail" id="io.github.lishangbu.avalon.authorization.mapper">
+<h2><a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的使用</h2>
+<div class="caption"><span>返回<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的<a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中的方法</span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">修饰符和类型</div>
-<div class="table-header col-second">接口</div>
+<div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color"><code>interface&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../repository/OauthAuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">用户认证信息表(oauth_authorization)表数据库访问层</div>
+<div class="col-first even-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByAccessTokenValue(java.lang.String)" class="member-name-link">selectByAccessTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;accessToken)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByAuthorizationCodeValue(java.lang.String)" class="member-name-link">selectByAuthorizationCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;authorizationCode)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByDeviceCodeValue(java.lang.String)" class="member-name-link">selectByDeviceCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;deviceCode)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByOidcIdTokenValue(java.lang.String)" class="member-name-link">selectByOidcIdTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;idToken)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByRefreshTokenValue(java.lang.String)" class="member-name-link">selectByRefreshTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;refreshToken)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByState(java.lang.String)" class="member-name-link">selectByState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;state)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByToken(java.lang.String)" class="member-name-link">selectByToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectByUserCodeValue(java.lang.String)" class="member-name-link">selectByUserCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;userCode)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
-<div class="col-first odd-row-color"><code>interface&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../repository/OauthAuthorizationRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.repository中的接口">OauthAuthorizationRepository</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">用户认证信息表(oauth_authorization)表数据库访问层</div>
-</div>
-</div>
-<div class="caption"><span>返回变量类型为<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的类型的<a href="../../repository/package-summary.html">io.github.lishangbu.avalon.authorization.repository</a>中的方法</span></div>
+<div class="caption"><span>返回变量类型为<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的类型的<a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中的方法</span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByAccessTokenValue(java.lang.String)" class="member-name-link">findByAccessTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;accessToken)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#selectById(java.lang.String)" class="member-name-link">selectById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color">
-<div class="block">根据访问令牌查询认证信息</div>
+<div class="block">根据 id 查询授权记录</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByAuthorizationCodeValue(java.lang.String)" class="member-name-link">findByAuthorizationCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;authorizationCode)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">根据授权码查询认证信息</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByDeviceCodeValue(java.lang.String)" class="member-name-link">findByDeviceCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;deviceCode)</code></div>
+<div class="caption"><span>参数类型为<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>的<a href="../../mapper/package-summary.html">io.github.lishangbu.avalon.authorization.mapper</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>int</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#insert(io.github.lishangbu.avalon.authorization.entity.OauthAuthorization)" class="member-name-link">insert</a><wbr>(<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&nbsp;entity)</code></div>
 <div class="col-last even-row-color">
-<div class="block">根据设备码查询认证信息</div>
+<div class="block">插入一条完整的授权信息记录</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByOidcIdTokenValue(java.lang.String)" class="member-name-link">findByOidcIdTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;idToken)</code></div>
+<div class="col-first odd-row-color"><code>int</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationMapper.</span><code><a href="../../mapper/OauthAuthorizationMapper.html#updateById(io.github.lishangbu.avalon.authorization.entity.OauthAuthorization)" class="member-name-link">updateById</a><wbr>(<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&nbsp;entity)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">根据 OIDC ID Token 查询认证信息</div>
-</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByRefreshTokenValue(java.lang.String)" class="member-name-link">findByRefreshTokenValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;refreshToken)</code></div>
-<div class="col-last even-row-color">
-<div class="block">根据刷新令牌查询认证信息</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByState(java.lang.String)" class="member-name-link">findByState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;state)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">根据 state 查询认证信息</div>
-</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByToken(java.lang.String)" class="member-name-link">findByToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;token)</code></div>
-<div class="col-last even-row-color">
-<div class="block">根据多种 token 字段联合查询认证信息，支持
-state、authorizationCode、accessToken、refreshToken、idToken、userCode、deviceCode 任意一种 token。</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../OauthAuthorization.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorization</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">OauthAuthorizationRepository.</span><code><a href="../../repository/OauthAuthorizationRepository.html#findByUserCodeValue(java.lang.String)" class="member-name-link">findByUserCodeValue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;userCode)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">根据用户码查询认证信息</div>
+<div class="block">根据 id 更新整条记录</div>
 </div>
 </div>
 </section>
