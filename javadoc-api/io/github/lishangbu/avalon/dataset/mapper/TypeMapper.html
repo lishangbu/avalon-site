@@ -134,7 +134,8 @@ extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Ty
 <section class="detail" id="selectList(io.github.lishangbu.avalon.dataset.entity.Type)">
 <h3>selectList</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(@Param("type")
+ <a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
 <div class="block">查询属性列表（支持动态条件）
 
 <p>根据提供的查询条件动态筛选属性数据 支持按 ID、内部名称、显示名称等条件进行查询 按 ID 升序排列返回</div>
@@ -149,7 +150,9 @@ extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Ty
 <section class="detail" id="selectList(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)">
 <h3>selectList</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
+<div class="member-signature"><span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(@Param("page")
+ com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
+ @Param("type")
  <a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
 <div class="block">分页查询属性列表（支持动态条件）
 
