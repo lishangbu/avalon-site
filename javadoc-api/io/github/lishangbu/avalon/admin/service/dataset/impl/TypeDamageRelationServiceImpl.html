@@ -63,11 +63,11 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation,org.springframework.data.domain.Pageable)" tabindex="0">getPageByCondition(TypeDamageRelation, Pageable)</a></li>
+<li><a href="#getTypeDamageRelationPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" tabindex="0">getTypeDamageRelationPage(Page, TypeDamageRelation)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" tabindex="0">save(TypeDamageRelation)</a></li>
-<li><a href="#removeById(java.lang.Integer,java.lang.Integer)" tabindex="0">removeById(Integer, Integer)</a></li>
+<li><a href="#removeByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)" tabindex="0">removeByAttackingTypeIdAndDefendingTypeId(Long, Long)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" tabindex="0">update(TypeDamageRelation)</a></li>
-<li><a href="#getById(java.lang.Integer,java.lang.Integer)" tabindex="0">getById(Integer, Integer)</a></li>
+<li><a href="#getByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)" tabindex="0">getByAttackingTypeIdAndDefendingTypeId(Long, Long)</a></li>
 <li><a href="#getMatrix()" tabindex="0">getMatrix()</a></li>
 </ol>
 </li>
@@ -128,8 +128,8 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getById(java.lang.Integer,java.lang.Integer)" class="member-name-link">getById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;attackingTypeId,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;defendingTypeId)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)" class="member-name-link">getByAttackingTypeIdAndDefendingTypeId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据复合主键查询属性克制关系</div>
 </div>
@@ -138,25 +138,25 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">查询全量的属性克制矩阵以便表格展示</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;probe,
- org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypeDamageRelationPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" class="member-name-link">getTypeDamageRelationPage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;&nbsp;page,
+ <a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据条件分页查询属性克制关系</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Integer,java.lang.Integer)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;attackingTypeId,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;defendingTypeId)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)" class="member-name-link">removeByAttackingTypeIdAndDefendingTypeId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据复合主键删除属性克制关系</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" class="member-name-link">save</a><wbr>(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;entity)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" class="member-name-link">save</a><wbr>(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">新增属性克制关系</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" class="member-name-link">update</a><wbr>(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;entity)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)" class="member-name-link">update</a><wbr>(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">更新属性克制关系</div>
 </div>
@@ -194,19 +194,19 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getPageByCondition(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation,org.springframework.data.domain.Pageable)">
-<h3>getPageByCondition</h3>
+<section class="detail" id="getTypeDamageRelationPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">
+<h3>getTypeDamageRelationPage</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">getPageByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;probe,
- org.springframework.data.domain.Pageable&nbsp;pageable)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation,org.springframework.data.domain.Pageable)">TypeDamageRelationService</a></code></span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">getTypeDamageRelationPage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;&nbsp;page,
+ <a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
+<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#getTypeDamageRelationPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">TypeDamageRelationService</a></code></span></div>
 <div class="block">根据条件分页查询属性克制关系</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../TypeDamageRelationService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation,org.springframework.data.domain.Pageable)">getPageByCondition</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
+<dd><code><a href="../TypeDamageRelationService.html#getTypeDamageRelationPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">getTypeDamageRelationPage</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>probe</code> - 查询条件实体，非空字段将作为过滤条件</dd>
-<dd><code>pageable</code> - 分页参数</dd>
+<dd><code>page</code> - 分页参数</dd>
+<dd><code>typeDamageRelation</code> - 查询条件实体，非空字段将作为过滤条件</dd>
 <dt>返回:</dt>
 <dd>分页结果</dd>
 </dl>
@@ -218,14 +218,14 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 <h3>save</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional(rollbackFor=<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;entity)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#save(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">TypeDamageRelationService</a></code></span></div>
 <div class="block">新增属性克制关系</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../TypeDamageRelationService.html#save(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">save</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>entity</code> - 要保存的实体</dd>
+<dd><code>typeDamageRelation</code> - 要保存的实体</dd>
 <dt>返回:</dt>
 <dd>保存后的实体</dd>
 </dl>
@@ -233,17 +233,17 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 </section>
 </li>
 <li>
-<section class="detail" id="removeById(java.lang.Integer,java.lang.Integer)">
-<h3>removeById</h3>
+<section class="detail" id="removeByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">
+<h3>removeByAttackingTypeIdAndDefendingTypeId</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional(rollbackFor=<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;attackingTypeId,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;defendingTypeId)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#removeById(java.lang.Integer,java.lang.Integer)">TypeDamageRelationService</a></code></span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeByAttackingTypeIdAndDefendingTypeId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</span></div>
+<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#removeByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">TypeDamageRelationService</a></code></span></div>
 <div class="block">根据复合主键删除属性克制关系</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../TypeDamageRelationService.html#removeById(java.lang.Integer,java.lang.Integer)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
+<dd><code><a href="../TypeDamageRelationService.html#removeByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">removeByAttackingTypeIdAndDefendingTypeId</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
 <dt>参数:</dt>
 <dd><code>attackingTypeId</code> - 攻击方类型内部名称</dd>
 <dd><code>defendingTypeId</code> - 防御方类型内部名称</dd>
@@ -256,14 +256,14 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 <h3>update</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional(rollbackFor=<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;entity)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#update(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">TypeDamageRelationService</a></code></span></div>
 <div class="block">更新属性克制关系</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../TypeDamageRelationService.html#update(io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation)">update</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>entity</code> - 要更新的实体</dd>
+<dd><code>typeDamageRelation</code> - 要更新的实体</dd>
 <dt>返回:</dt>
 <dd>更新后的实体</dd>
 </dl>
@@ -271,19 +271,19 @@ implements <a href="../TypeDamageRelationService.html" title="io.github.lishangb
 </section>
 </li>
 <li>
-<section class="detail" id="getById(java.lang.Integer,java.lang.Integer)">
-<h3>getById</h3>
+<section class="detail" id="getByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">
+<h3>getByAttackingTypeIdAndDefendingTypeId</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">getById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;attackingTypeId,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;defendingTypeId)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#getById(java.lang.Integer,java.lang.Integer)">TypeDamageRelationService</a></code></span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../../../../dataset/entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">getByAttackingTypeIdAndDefendingTypeId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</span></div>
+<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../TypeDamageRelationService.html#getByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">TypeDamageRelationService</a></code></span></div>
 <div class="block">根据复合主键查询属性克制关系</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../TypeDamageRelationService.html#getById(java.lang.Integer,java.lang.Integer)">getById</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
+<dd><code><a href="../TypeDamageRelationService.html#getByAttackingTypeIdAndDefendingTypeId(java.lang.Long,java.lang.Long)">getByAttackingTypeIdAndDefendingTypeId</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeDamageRelationService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeDamageRelationService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>attackingTypeId</code> - 攻击方类型内部名称</dd>
-<dd><code>defendingTypeId</code> - 防御方类型内部名称</dd>
+<dd><code>attackingTypeId</code> - 攻击方属性ID</dd>
+<dd><code>defendingTypeId</code> - 防御方属性ID</dd>
 <dt>返回:</dt>
 <dd>包含结果的 Optional</dd>
 </dl>

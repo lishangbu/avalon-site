@@ -64,7 +64,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
 <li><a href="#importTypes()" tabindex="0">importTypes()</a></li>
-<li><a href="#getTypePage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">getTypePage(Pageable, Type)</a></li>
+<li><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">getTypePage(Page, Type)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">save(Type)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">update(Type)</a></li>
 <li><a href="#deleteById(java.lang.Integer)" tabindex="0">deleteById(Integer)</a></li>
@@ -128,8 +128,8 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据ID删除属性类型</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypePage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">getTypePage</a><wbr>(org.springframework.data.domain.Pageable&nbsp;pageable,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">getTypePage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
  <a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">分页条件查询属性类型</div>
@@ -202,16 +202,16 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getTypePage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Type)">
+<section class="detail" id="getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)">
 <h3>getTypePage</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@GetMapping("/page")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">getTypePage</span><wbr><span class="parameters">(org.springframework.data.domain.Pageable&nbsp;pageable,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">getTypePage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
  <a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
 <div class="block">分页条件查询属性类型</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>pageable</code> - 分页参数（如 page, size, sort）</dd>
+<dd><code>page</code> - 分页参数</dd>
 <dd><code>type</code> - 查询条件，支持 name/internalName 模糊查询，其余字段精确匹配</dd>
 <dt>返回:</dt>
 <dd>属性类型分页结果</dd>
