@@ -77,7 +77,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">PokeApiService</span></div>
-<div class="block">Poke API 请求模板</div>
+<div class="block"><p>Poke API 请求模板</p>
+<p>提供对 PokeAPI 的常用访问方法，包括列表查询、按 URI 获取实体以及批量导入并转换插入的辅助方法</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/20</dd>
@@ -103,7 +105,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getEntityFromUri(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Integer)" class="member-name-link">getEntityFromUri</a><wbr>(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;typeEnum,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">通过指定的URI和参数获取指定类型的数据实体</div>
+<div class="block">通过指定的 URI 和参数获取指定类型的数据实体</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default &lt;S,<wbr>T&gt;&nbsp;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#importData(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.util.function.Function,java.util.function.Consumer,java.lang.Class)" class="member-name-link">importData</a><wbr>(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;dataTypeEnum,
@@ -111,7 +113,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="java.util.function中的类或接口" class="external-link">Consumer</a>&lt;T&gt;&nbsp;insertFunc,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;S&gt;&nbsp;sourceClass)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">导入指定类型的数据资源，并进行转换和插入操作，返回插入后的实体列表。</div>
+<div class="block">导入指定类型的数据资源，并进行转换和插入操作，返回插入后的实体列表</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../model/resource/NamedAPIResourceList.html" title="io.github.lishangbu.avalon.pokeapi.model.resource中的类">NamedAPIResourceList</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#listNamedAPIResources(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum)" class="member-name-link">listNamedAPIResources</a><wbr>(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;typeEnum)</code></div>
@@ -153,11 +155,11 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">getEntityFromUri</span><wbr><span class="parameters">(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;typeEnum,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
-<div class="block">通过指定的URI和参数获取指定类型的数据实体</div>
+<div class="block">通过指定的 URI 和参数获取指定类型的数据实体</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>typeEnum</code> - 资源类型枚举</dd>
-<dd><code>id</code> - 资源对应的唯一ID</dd>
+<dd><code>id</code> - 资源对应的唯一 ID</dd>
 <dt>返回:</dt>
 <dd>指定类型的数据实体</dd>
 </dl>
@@ -172,24 +174,9 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Function.html" title="java.util.function中的类或接口" class="external-link">Function</a>&lt;S,<wbr>T&gt;&nbsp;convertFunc,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="java.util.function中的类或接口" class="external-link">Consumer</a>&lt;T&gt;&nbsp;insertFunc,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;S&gt;&nbsp;sourceClass)</span></div>
-<div class="block">导入指定类型的数据资源，并进行转换和插入操作，返回插入后的实体列表。
-
-<p>使用示例：
-
-<pre>
-List&lt;Type&gt; typeList = pokeApiService.importData(
-    PokeDataTypeEnum.TYPE,
-    typeData -&gt; {
-        Type type = new Type();
-        type.setInternalName(typeData.name());
-        type.setId(typeData.id().longValue());
-        type.setName(LocalizationUtils.getLocalizationName(typeData.names()).get().name());
-        return type;
-    },
-    typeMapper::insert,
-    io.github.lishangbu.avalon.pokeapi.model.pokemon.Type.class
-);
-</pre></div>
+<div class="block"><p>导入指定类型的数据资源，并进行转换和插入操作，返回插入后的实体列表</p>
+<p>该方法会按资源列表逐项获取实体、转换并通过提供的插入函数持久化</p>
+</div>
 <dl class="notes">
 <dt>类型参数:</dt>
 <dd><span id="importData(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.util.function.Function,java.util.function.Consumer,java.lang.Class)-type-param-S"><code>S</code> - 源数据类型</span></dd>

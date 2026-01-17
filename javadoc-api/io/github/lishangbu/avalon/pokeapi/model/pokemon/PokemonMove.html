@@ -85,14 +85,16 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-move">move</span></code> - 宝可梦可以学习的技能<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类"><code>Move</code></a></dd>
-<dd><code><span id="param-versionGroupDetails">versionGroupDetails</span></code> - 宝可梦可以学习该技能的游戏版本详情<a href="PokemonMoveVersion.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonMoveVersion</code></a></dd>
+<dd><code><span id="param-move">move</span></code> - 招式引用</dd>
+<dd><code><span id="param-versionGroupDetails">versionGroupDetails</span></code> - 学习此招式的版本组详情列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PokemonMove</span>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;&nbsp;move, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="PokemonMoveVersion.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonMoveVersion</a>&gt;&nbsp;versionGroupDetails)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">宝可梦可以学习的技能</div>
+<div class="block"><p>宝可梦可学习的招式模型</p>
+<p>表示宝可梦可以学习的技能及其在不同版本组下的学习详情</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

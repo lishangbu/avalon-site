@@ -87,16 +87,18 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-names">names</span></code> - 不同语言中列出的此资源名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
-<dd><code><span id="param-versionGroup">versionGroup</span></code> - 此版本所属的版本组<a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>VersionGroup</code></a></dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-names">names</span></code> - 不同语言下的名称列表</dd>
+<dd><code><span id="param-versionGroup">versionGroup</span></code> - 此版本所属的版本组引用</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Version</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">VersionGroup</a>&gt;&nbsp;versionGroup)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">游戏的版本，例如红、蓝或黄。</div>
+<div class="block"><p>游戏版本模型</p>
+<p>表示游戏版本（如 红/蓝/黄）及其多语言名称与所属版本组</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/24</dd>

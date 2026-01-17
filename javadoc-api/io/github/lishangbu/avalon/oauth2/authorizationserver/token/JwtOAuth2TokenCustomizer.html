@@ -86,7 +86,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">JwtOAuth2TokenCustomizer</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer&lt;org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext&gt;</span></div>
-<div class="block">JWT token定制</div>
+<div class="block"><p>JWT token 定制</p>
+<p>在 JWT 生成阶段注入自定义声明（如 loginType、authorities 等），并支持将第三方 OIDC/OAuth2 属性合并到 id_token</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/21</dd>

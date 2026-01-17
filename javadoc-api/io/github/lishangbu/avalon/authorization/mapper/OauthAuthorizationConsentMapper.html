@@ -74,7 +74,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">OauthAuthorizationConsentMapper</span></div>
-<div class="block">OauthAuthorizationConsent具有复合主键，所以使用原生mybatis功能实现</div>
+<div class="block">OauthAuthorizationConsent 具有复合主键，因此使用原生 MyBatis XML 映射实现</div>
 </div>
 </section>
 <section class="summary">
@@ -94,23 +94,23 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deleteByRegisteredClientIdAndPrincipalName(java.lang.String,java.lang.String)" class="member-name-link">deleteByRegisteredClientIdAndPrincipalName</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;registeredClientId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;principalName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">根据 registeredClientId 与 principalName 删除授权确认记录，XML 实现</div>
+<div class="block">根据 registeredClientId 与 principalName 删除授权确认记录（XML 实现）</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#insert(io.github.lishangbu.avalon.authorization.entity.OauthAuthorizationConsent)" class="member-name-link">insert</a><wbr>(<a href="../entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a>&nbsp;consent)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">插入一条授权确认记录，XML 实现</div>
+<div class="block">插入一条授权确认记录（XML 实现）</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#selectByRegisteredClientIdAndPrincipalName(java.lang.String,java.lang.String)" class="member-name-link">selectByRegisteredClientIdAndPrincipalName</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;registeredClientId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;principalName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">根据 registeredClientId 与 principalName 查询授权确认记录，XML 实现</div>
+<div class="block">根据 registeredClientId 与 principalName 查询授权确认记录（XML 实现）</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#updateById(io.github.lishangbu.avalon.authorization.entity.OauthAuthorizationConsent)" class="member-name-link">updateById</a><wbr>(<a href="../entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a>&nbsp;consent)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">根据复合主键 (registeredClientId, principalName) 更新授权确认记录</div>
+<div class="block">根据复合主键 (registeredClientId, principalName) 更新授权确认记录，仅更新 authorities 字段</div>
 </div>
 </div>
 </div>
@@ -134,7 +134,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;registeredClientId,
  @Param("principalName")
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;principalName)</span></div>
-<div class="block">根据 registeredClientId 与 principalName 查询授权确认记录，XML 实现</div>
+<div class="block">根据 registeredClientId 与 principalName 查询授权确认记录（XML 实现）</div>
 </div>
 </section>
 </li>
@@ -146,7 +146,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;registeredClientId,
  @Param("principalName")
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;principalName)</span></div>
-<div class="block">根据 registeredClientId 与 principalName 删除授权确认记录，XML 实现</div>
+<div class="block">根据 registeredClientId 与 principalName 删除授权确认记录（XML 实现）</div>
 </div>
 </section>
 </li>
@@ -155,7 +155,7 @@ loadScripts(document, 'script');</script>
 <h3>insert</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">insert</span><wbr><span class="parameters">(<a href="../entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a>&nbsp;consent)</span></div>
-<div class="block">插入一条授权确认记录，XML 实现</div>
+<div class="block">插入一条授权确认记录（XML 实现）</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>consent</code> - 要插入的实体</dd>
@@ -170,9 +170,7 @@ loadScripts(document, 'script');</script>
 <h3>updateById</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">updateById</span><wbr><span class="parameters">(<a href="../entity/OauthAuthorizationConsent.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthAuthorizationConsent</a>&nbsp;consent)</span></div>
-<div class="block">根据复合主键 (registeredClientId, principalName) 更新授权确认记录
-
-<p>仅更新 authorities 字段</div>
+<div class="block">根据复合主键 (registeredClientId, principalName) 更新授权确认记录，仅更新 authorities 字段</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>consent</code> - 要更新的实体，必须包含 registeredClientId 与 principalName</dd>

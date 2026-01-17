@@ -90,19 +90,21 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 资源的名称</dd>
-<dd><code><span id="param-gameIndex">gameIndex</span></code> - 游戏数据内API资源的内部ID</dd>
-<dd><code><span id="param-encounterMethodRates">encounterMethodRates</span></code> - 宝可梦在此区域可能遇到的方法列表<a href="EncounterMethodRate.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类"><code>EncounterMethodRate</code></a>，以及该方法在游戏不同版本中出现的可能性</dd>
-<dd><code><span id="param-location">location</span></code> - 可以找到此位置区域的区域<a href="Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类"><code>Location</code></a></dd>
-<dd><code><span id="param-names">names</span></code> - 此资源在不同语言中列出的名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
-<dd><code><span id="param-pokemonEncounters">pokemonEncounters</span></code> - 可在此区域遇到的宝可梦列表及其版本特定的遭遇详情<a href="PokemonEncounter.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类"><code>PokemonEncounter</code></a></dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-gameIndex">gameIndex</span></code> - 游戏数据内 API 资源的内部 ID</dd>
+<dd><code><span id="param-encounterMethodRates">encounterMethodRates</span></code> - 遭遇方法及其在不同版本中的出现概率</dd>
+<dd><code><span id="param-location">location</span></code> - 所属区域引用</dd>
+<dd><code><span id="param-names">names</span></code> - 不同语言下的名称列表</dd>
+<dd><code><span id="param-pokemonEncounters">pokemonEncounters</span></code> - 在此区域遇到的宝可梦及其版本性遭遇详情</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">LocationArea</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;gameIndex, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="EncounterMethodRate.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">EncounterMethodRate</a>&gt;&nbsp;encounterMethodRates, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;&nbsp;location, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="PokemonEncounter.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">PokemonEncounter</a>&gt;&nbsp;pokemonEncounters)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">位置区域是区域的分段，例如建筑物或洞穴中的楼层。每个区域都有自己的一组可能的宝可梦遭遇。</div>
+<div class="block"><p>位置区域模型</p>
+<p>表示区域内的子区域（如建筑物楼层或洞穴区域），每个区域都有特定的遭遇列表</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/26</dd>

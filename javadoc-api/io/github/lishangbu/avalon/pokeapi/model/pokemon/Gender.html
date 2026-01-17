@@ -87,16 +87,18 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-pokemonSpeciesDetails">pokemonSpeciesDetails</span></code> - 可以是此性别的宝可梦种类<a href="PokemonSpeciesGender.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonSpeciesGender</code></a>列表及其可能性</dd>
-<dd><code><span id="param-requiredForEvolution">requiredForEvolution</span></code> - 需要此性别才能进化的宝可梦种类<a href="PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonSpecies</code></a>列表</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-pokemonSpeciesDetails">pokemonSpeciesDetails</span></code> - 该性别下的宝可梦种类及其可能性 <a href="PokemonSpeciesGender.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonSpeciesGender</code></a></dd>
+<dd><code><span id="param-requiredForEvolution">requiredForEvolution</span></code> - 需要此性别才能进化的宝可梦种类列表 <a href="PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonSpecies</code></a></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Gender</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="PokemonSpeciesGender.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpeciesGender</a>&gt;&nbsp;pokemonSpeciesDetails, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&gt;&nbsp;requiredForEvolution)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">性别是在第二代游戏中引入的，主要用于宝可梦的繁殖，但也可能导致外观差异甚至不同的进化路线。 更多详情请查阅 <a href="http://bulbapedia.bulbagarden.net/wiki/Gender">Bulbapedia</a>。</div>
+<div class="block"><p>性别模型</p>
+<p>性别主要用于宝可梦繁殖，并可能影响外观或进化，详情参考 <a href="http://bulbapedia.bulbagarden.net/wiki/Gender">Bulbapedia</a></p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

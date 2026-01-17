@@ -107,36 +107,38 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 资源的名称</dd>
-<dd><code><span id="param-accuracy">accuracy</span></code> - 此招式成功的概率百分比值</dd>
-<dd><code><span id="param-effectChance">effectChance</span></code> - 此招式效果发生的概率百分比值</dd>
-<dd><code><span id="param-pp">pp</span></code> - 技能点数。此招式可以使用的次数</dd>
-<dd><code><span id="param-priority">priority</span></code> - -8到8之间的值。设置战斗中招式执行的顺序。详见Bulbapedia</dd>
-<dd><code><span id="param-power">power</span></code> - 此招式的基础威力，如果没有基础威力则为0</dd>
-<dd><code><span id="param-contestCombos">contestCombos</span></code> - 需要此招式的普通和超级华丽大赛组合的详情</dd>
-<dd><code><span id="param-contestType">contestType</span></code> - 此招式在华丽大赛中给宝可梦带来的魅力类型</dd>
-<dd><code><span id="param-contestEffect">contestEffect</span></code> - 此招式在华丽大赛中的效果</dd>
-<dd><code><span id="param-damageClass">damageClass</span></code> - 此招式对目标造成的伤害类型，例如物理</dd>
-<dd><code><span id="param-effectEntries">effectEntries</span></code> - 此招式在不同语言中列出的效果</dd>
-<dd><code><span id="param-effectChanges">effectChanges</span></code> - 此招式在游戏的不同版本组中曾经有过的效果列表</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-accuracy">accuracy</span></code> - 命中率（百分比）</dd>
+<dd><code><span id="param-effectChance">effectChance</span></code> - 效果触发概率（百分比）</dd>
+<dd><code><span id="param-pp">pp</span></code> - 技能点数</dd>
+<dd><code><span id="param-priority">priority</span></code> - 招式优先级（-8 到 8）</dd>
+<dd><code><span id="param-power">power</span></code> - 基础威力</dd>
+<dd><code><span id="param-contestCombos">contestCombos</span></code> - 华丽大赛招式组合详情</dd>
+<dd><code><span id="param-contestType">contestType</span></code> - 华丽大赛下的招式类型</dd>
+<dd><code><span id="param-contestEffect">contestEffect</span></code> - 华丽大赛效果引用</dd>
+<dd><code><span id="param-damageClass">damageClass</span></code> - 伤害类别引用</dd>
+<dd><code><span id="param-effectEntries">effectEntries</span></code> - 多语言效果描述</dd>
+<dd><code><span id="param-effectChanges">effectChanges</span></code> - 不同版本组的效果变化</dd>
 <dd><code><span id="param-learnedByPokemon">learnedByPokemon</span></code> - 可以学习此招式的宝可梦列表</dd>
-<dd><code><span id="param-flavorTextEntries">flavorTextEntries</span></code> - 此招式在不同语言中列出的偏好文本</dd>
-<dd><code><span id="param-generation">generation</span></code> - 引入此招式的世代</dd>
+<dd><code><span id="param-flavorTextEntries">flavorTextEntries</span></code> - 偏好文本（多语言）</dd>
+<dd><code><span id="param-generation">generation</span></code> - 引入此招式的世代引用</dd>
 <dd><code><span id="param-machines">machines</span></code> - 教授此招式的机器列表</dd>
-<dd><code><span id="param-meta">meta</span></code> - 关于此招式的元数据</dd>
-<dd><code><span id="param-names">names</span></code> - 此资源在不同语言中列出的名称</dd>
-<dd><code><span id="param-pastValues">pastValues</span></code> - 游戏不同版本组中招式资源值变化的列���</dd>
-<dd><code><span id="param-statChanges">statChanges</span></code> - 此招式影响的属性列表及其影响程度</dd>
-<dd><code><span id="param-superContestEffect">superContestEffect</span></code> - 此招式在超级华丽大赛中的效果</dd>
-<dd><code><span id="param-target">target</span></code> - 接收攻击效果的目标类型</dd>
-<dd><code><span id="param-type">type</span></code> - 此招式的元素类型</dd>
+<dd><code><span id="param-meta">meta</span></code> - 招式元数据</dd>
+<dd><code><span id="param-names">names</span></code> - 多语言名称</dd>
+<dd><code><span id="param-pastValues">pastValues</span></code> - 历史版本的值变化</dd>
+<dd><code><span id="param-statChanges">statChanges</span></code> - 招式影响的属性变化</dd>
+<dd><code><span id="param-superContestEffect">superContestEffect</span></code> - 超级华丽大赛效果引用</dd>
+<dd><code><span id="param-target">target</span></code> - 招式目标类型引用</dd>
+<dd><code><span id="param-type">type</span></code> - 招式元素类型引用</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Move</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;accuracy, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;effectChance, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;pp, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;priority, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;power, <a href="ContestComboSets.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">ContestComboSets</a>&nbsp;contestCombos, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../contest/ContestType.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">ContestType</a>&gt;&nbsp;contestType, <a href="../common/APIResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">APIResource</a>&lt;<a href="../contest/ContestEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">ContestEffect</a>&gt;&nbsp;contestEffect, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="MoveDamageClass.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveDamageClass</a>&gt;&nbsp;damageClass, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;effectEntries, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;?&gt;&nbsp;effectChanges, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;learnedByPokemon, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="MoveFlavorText.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveFlavorText</a>&gt;&nbsp;flavorTextEntries, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Generation.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Generation</a>&gt;&nbsp;generation, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/MachineVersionDetail.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">MachineVersionDetail</a>&gt;&nbsp;machines, <a href="MoveMetaData.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveMetaData</a>&nbsp;meta, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="PastMoveStatValues.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">PastMoveStatValues</a>&gt;&nbsp;pastValues, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="MoveStatChange.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveStatChange</a>&gt;&nbsp;statChanges, <a href="../common/APIResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">APIResource</a>&lt;<a href="../contest/SuperContestEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">SuperContestEffect</a>&gt;&nbsp;superContestEffect, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="MoveTarget.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveTarget</a>&gt;&nbsp;target, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;type)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">招式是宝可梦在战斗中的技能。在战斗中，宝可梦每回合使用一个招式。一些招式（包括通过秘传机学习的招式）也可以在战斗外使用，通常用于清除障碍物或探索新区域。</div>
+<div class="block"><p>招式模型</p>
+<p>表示宝可梦在战斗或非战斗中可使用的技能，包含命中率、威力、优先级及多语言描述等信息</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/7</dd>

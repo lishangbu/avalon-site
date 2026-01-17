@@ -86,7 +86,9 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">LocalizationUtils</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">本地化工具</div>
+<div class="block"><p>本地化工具</p>
+<p>提供从 PokeAPI 的本地化资源列表中按语言解析首选本地化资源的方法</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/21</dd>
@@ -143,7 +145,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getLocalizationName(java.util.List,java.lang.String...)" class="member-name-link">getLocalizationName</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>...&nbsp;locales)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">获取本地化的语言</div>
+<div class="block">获取本地化的名称</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../model/common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getLocalizationVerboseEffect(java.util.List,java.lang.String...)" class="member-name-link">getLocalizationVerboseEffect</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;verboseEffects,
@@ -196,13 +198,13 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;</span>&nbsp;<span class="element-name">getLocalizationName</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>...&nbsp;locales)</span></div>
-<div class="block">获取本地化的语言</div>
+<div class="block">获取本地化的名称</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>names</code> - 语言资源列表</dd>
 <dd><code>locales</code> - 要查找的语言</dd>
 <dt>返回:</dt>
-<dd>本地化的语言名称</dd>
+<dd>本地化的名称</dd>
 </dl>
 </div>
 </section>

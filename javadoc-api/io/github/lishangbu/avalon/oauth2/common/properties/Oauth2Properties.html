@@ -84,23 +84,10 @@ loadScripts(document, 'script');</script>
 @ConfigurationProperties(prefix="oauth2")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">Oauth2Properties</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">OAuth2 安全配置属性类
-
-<p>封装 OAuth2 授权服务器的核心配置参数，支持通过 application.yml 或 application.properties 进行配置 配置前缀为
-oauth2，包含认证路径控制、JWT 密钥管理、Token 签发等关键设置
-
-<p>配置示例：
-
-<pre><code>oauth2:
-  issuer-url: http://localhost:8080
-  ignore-urls:
-    - /public/**
-    - /health
-  username-parameter-name: username
-  password-parameter-name: password
-  jwt-public-key-location: classpath:rsa/public.key
-  jwt-private-key-location: classpath:rsa/private.key
-</code></pre></div>
+<div class="block"><p>OAuth2 安全配置属性类</p>
+<p>封装 OAuth2 授权服务器的核心配置参数，支持通过 application.yml 或 application.properties 进行配置
+前缀为 <code>oauth2</code>，包含认证路径控制、JWT 密钥管理、Token 签发等关键设置</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/17</dd>

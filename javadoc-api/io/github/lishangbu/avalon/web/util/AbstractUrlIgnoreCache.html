@@ -82,16 +82,15 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractUrlIgnoreCache</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">忽略URL 缓存基类。
-
-<p>该类提供了基于 LRU 缓存的 URL 忽略功能，使用 `AntPathMatcher` 进行路径匹配。 子类需要实现 `getIgnoreUrls` 方法以提供忽略的 URL 列表。
-
-<p>主要功能：
-
+<div class="block"><p>忽略 URL 缓存基类</p>
+<p>提供基于 LRU 缓存的 URL 忽略功能，使用 AntPathMatcher 进行路径匹配
+子类需要实现 <code>getIgnoreUrls</code> 方法以提供忽略的 URL 列表</p>
+<p>主要功能：</p>
 <ul>
-  <li>缓存 URL 匹配结果以提高性能。
-  <li>支持基于通配符的路径匹配。
-</ul></div>
+<li>缓存 URL 匹配结果以提高性能</li>
+<li>支持基于通配符的路径匹配</li>
+</ul>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2024/2/7</dd>
@@ -112,7 +111,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">说明</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">AbstractUrlIgnoreCache</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">构造方法，初始化 LRU 缓存。</div>
+<div class="block">构造方法，初始化 LRU 缓存（默认容量 1024）</div>
 </div>
 </div>
 </section>
@@ -131,12 +130,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getIgnoreUrls()" class="member-name-link">getIgnoreUrls</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">获取忽略的 URL 列表。</div>
+<div class="block">获取忽略的 URL 列表（由子类实现）</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shouldIgnore(java.lang.String)" class="member-name-link">shouldIgnore</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;url)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">判断给定的 URL 是否应被忽略。</div>
+<div class="block">判断给定的 URL 是否应被忽略</div>
 </div>
 </div>
 </div>
@@ -160,9 +159,7 @@ loadScripts(document, 'script');</script>
 <h3>AbstractUrlIgnoreCache</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AbstractUrlIgnoreCache</span>()</div>
-<div class="block">构造方法，初始化 LRU 缓存。
-
-<p>缓存的最大容量为 1024。</div>
+<div class="block">构造方法，初始化 LRU 缓存（默认容量 1024）</div>
 </div>
 </section>
 </li>
@@ -179,7 +176,7 @@ loadScripts(document, 'script');</script>
 <h3>shouldIgnore</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">shouldIgnore</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;url)</span></div>
-<div class="block">判断给定的 URL 是否应被忽略。</div>
+<div class="block">判断给定的 URL 是否应被忽略</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>url</code> - 要检查的 URL</dd>
@@ -194,9 +191,7 @@ loadScripts(document, 'script');</script>
 <h3>getIgnoreUrls</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getIgnoreUrls</span>()</div>
-<div class="block">获取忽略的 URL 列表。
-
-<p>该方法由子类实现，通常从配置文件或数据库中加载忽略的 URL。</div>
+<div class="block">获取忽略的 URL 列表（由子类实现）</div>
 <dl class="notes">
 <dt>返回:</dt>
 <dd>忽略的 URL 列表</dd>

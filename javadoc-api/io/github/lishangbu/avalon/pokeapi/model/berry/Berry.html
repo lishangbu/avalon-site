@@ -95,29 +95,29 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-growthTime">growthTime</span></code> - 树生长到下一个阶段所需的时间（小时）</dd>
-<dd><code><span id="param-maxHarvest">maxHarvest</span></code> - 第四世代中一棵树上最多可生长的该树果数量</dd>
-<dd><code><span id="param-naturalGiftPower">naturalGiftPower</span></code> - 搭配该树果使用"自然之恩"招式时的威力</dd>
-<dd><code><span id="param-size">size</span></code> - 该树果的大小（毫米）</dd>
-<dd><code><span id="param-smoothness">smoothness</span></code> - 该树果的光滑度，用于制作宝可方块或宝芬</dd>
-<dd><code><span id="param-soilDryness">soilDryness</span></code> - 树果生长时使土壤干燥的速度，数值越高土壤干燥越快</dd>
-<dd><code><span id="param-firmness">firmness</span></code> - 该树果的硬度<a href="BerryFirmness.html" title="io.github.lishangbu.avalon.pokeapi.model.berry中的类"><code>BerryFirmness</code></a>，用于制作宝可方块或宝芬</dd>
-<dd><code><span id="param-flavors">flavors</span></code> - 该树果的风味及其对应的强度列表<a href="FlavorBerryMap.html" title="io.github.lishangbu.avalon.pokeapi.model.berry中的类"><code>FlavorBerryMap</code></a></dd>
-<dd><code><span id="param-item">item</span></code> - 该树果对应的道具<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类"><code>Item</code></a>数据</dd>
-<dd><code><span id="param-naturalGiftType">naturalGiftType</span></code> - 搭配该树果使用"自然之恩"招式时继承的属性类型</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-growthTime">growthTime</span></code> - 生长到下一个阶段所需时间（小时）</dd>
+<dd><code><span id="param-maxHarvest">maxHarvest</span></code> - 第四世代中一棵树上最多可收获的数量</dd>
+<dd><code><span id="param-naturalGiftPower">naturalGiftPower</span></code> - 自然之恩招式的威力</dd>
+<dd><code><span id="param-size">size</span></code> - 大小（毫米）</dd>
+<dd><code><span id="param-smoothness">smoothness</span></code> - 光滑度</dd>
+<dd><code><span id="param-soilDryness">soilDryness</span></code> - 土壤干燥速度</dd>
+<dd><code><span id="param-firmness">firmness</span></code> - 树果硬度引用</dd>
+<dd><code><span id="param-flavors">flavors</span></code> - 树果风味及强度列表</dd>
+<dd><code><span id="param-item">item</span></code> - 对应的道具引用</dd>
+<dd><code><span id="param-naturalGiftType">naturalGiftType</span></code> - 自然之恩招式继承的属性类型引用</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Berry</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;growthTime, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxHarvest, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;naturalGiftPower, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;size, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;smoothness, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;soilDryness, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&nbsp;firmness, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="FlavorBerryMap.html" title="io.github.lishangbu.avalon.pokeapi.model.berry中的类">FlavorBerryMap</a>&gt;&nbsp;flavors, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&nbsp;item, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;naturalGiftType)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">树果是可以为宝可梦恢复HP和异常状态、提升能力，甚至在食用时抵消伤害的小型果实。详情可参考<a href="http://bulbapedia.bulbagarden.net/wiki/Berry">Bulbapedia</a></div>
+<div class="block"><p>树果模型</p>
+<p>表示树果的游戏数据，包括生长时间、口味、对应道具与相关属性等</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/21</dd>
-<dt>作者:</dt>
-<dd>lishangbu</dd>
 <dt>另请参阅:</dt>
 <dd>
 <ul class="tag-list">

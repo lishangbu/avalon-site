@@ -95,7 +95,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public enum </span><span class="element-name type-name-label">DefaultErrorResultCode</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Enum.html" title="java.lang中的类或接口" class="external-link">Enum</a>&lt;<a href="DefaultErrorResultCode.html" title="io.github.lishangbu.avalon.web.result 中的枚举类">DefaultErrorResultCode</a>&gt;
 implements <a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></span></div>
-<div class="block">web api 结果</div>
+<div class="block"><p>web api 结果默认错误码</p>
+<p>定义常见的 HTTP 错误码与默认错误信息</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/4/8</dd>
@@ -156,12 +158,12 @@ implements <a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#code()" class="member-name-link">code</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">获取错误的状态码。</div>
+<div class="block">获取错误的状态码</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#errorMessage()" class="member-name-link">errorMessage</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">获取与错误状态码关联的错误信息。</div>
+<div class="block">获取与错误状态码关联的错误信息</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="DefaultErrorResultCode.html" title="io.github.lishangbu.avalon.web.result 中的枚举类">DefaultErrorResultCode</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#valueOf(java.lang.String)" class="member-name-link">valueOf</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name)</code></div>
@@ -279,14 +281,12 @@ implements <a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></span>&nbsp;<span class="element-name">code</span>()</div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="ErrorResultCode.html#code()">ErrorResultCode</a></code></span></div>
-<div class="block">获取错误的状态码。
-
-<p>该方法用于返回与特定错误相关联的状态码。 状态码通常用于表示错误的类型或分类，便于系统根据不同的错误类型进行处理。</div>
+<div class="block">获取错误的状态码</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="ErrorResultCode.html#code()">code</a></code>&nbsp;在接口中&nbsp;<code><a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></code></dd>
 <dt>返回:</dt>
-<dd>返回错误的状态码（Integer类型）。</dd>
+<dd>返回错误的状态码（Integer 类型）</dd>
 </dl>
 </div>
 </section>
@@ -297,14 +297,12 @@ implements <a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">errorMessage</span>()</div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="ErrorResultCode.html#errorMessage()">ErrorResultCode</a></code></span></div>
-<div class="block">获取与错误状态码关联的错误信息。
-
-<p>该方法用于返回错误状态码对应的详细错误信息或描述。 错误信息通常用于帮助开发者或用户理解发生的错误及其原因。</div>
+<div class="block">获取与错误状态码关联的错误信息</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="ErrorResultCode.html#errorMessage()">errorMessage</a></code>&nbsp;在接口中&nbsp;<code><a href="ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></code></dd>
 <dt>返回:</dt>
-<dd>返回错误的详细信息（String类型）。</dd>
+<dd>返回错误的详细信息（String 类型）</dd>
 </dl>
 </div>
 </section>

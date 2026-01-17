@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements org.springframework.security.web.authentication.AuthenticationSuccessHandler</span></div>
 <div class="block">An implementation of an <code>AuthenticationSuccessHandler</code> used for handling an <code>OAuth2AccessTokenAuthenticationToken</code> and returning the <code>Access
-Token Response</code>.</div>
+Token Response</code></div>
 <dl class="notes">
 <dt>作者:</dt>
 <dd>Dmitriy Dubson, lishangbu</dd>
@@ -136,8 +136,7 @@ Token Response</code>.</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAccessTokenResponseCustomizer(java.util.function.Consumer)" class="member-name-link">setAccessTokenResponseCustomizer</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="java.util.function中的类或接口" class="external-link">Consumer</a>&lt;org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationContext&gt;&nbsp;accessTokenResponseCustomizer)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the <code>Consumer</code> providing access to the <code>OAuth2AccessTokenAuthenticationContext</code> containing an <code>OAuth2AccessTokenResponse.Builder</code>
-and additional context information.</div>
+<div class="block">OAuth2AccessTokenResponse.Builder}</div>
 </div>
 </div>
 </div>
@@ -199,12 +198,7 @@ jakarta.servlet.ServletException</span></div>
 <h3>setAccessTokenResponseCustomizer</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setAccessTokenResponseCustomizer</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="java.util.function中的类或接口" class="external-link">Consumer</a>&lt;org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationContext&gt;&nbsp;accessTokenResponseCustomizer)</span></div>
-<div class="block">Sets the <code>Consumer</code> providing access to the <code>OAuth2AccessTokenAuthenticationContext</code> containing an <code>OAuth2AccessTokenResponse.Builder</code>
-and additional context information.</div>
-<dl class="notes">
-<dt>参数:</dt>
-<dd><code>accessTokenResponseCustomizer</code> - the <code>Consumer</code> providing access to the <code>OAuth2AccessTokenAuthenticationContext</code> containing an <code>OAuth2AccessTokenResponse.Builder</code></dd>
-</dl>
+<div class="block">OAuth2AccessTokenResponse.Builder}</div>
 </div>
 </section>
 </li>

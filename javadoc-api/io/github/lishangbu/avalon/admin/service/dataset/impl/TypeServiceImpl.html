@@ -92,7 +92,9 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">TypeServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></span></div>
-<div class="block">属性服务实现</div>
+<div class="block"><p>属性服务实现</p>
+<p>提供属性类型的数据导入、分页查询与 CRUD 操作</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/24</dd>
@@ -131,7 +133,7 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">getTypePage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
  <a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据条件分页查询属性类型，结果按ID升序排序</div>
+<div class="block">根据条件分页查询属性类型，结果按 ID 升序排序</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#importTypes()" class="member-name-link">importTypes</a>()</code></div>
@@ -197,9 +199,9 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional(rollbackFor=<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">importTypes</span>()</div>
-<div class="block">导入属性类型数据
-
-<p>通过 PokeApiService 拉取并保存属性类型数据。</div>
+<div class="block"><p>导入属性类型数据</p>
+<p>通过 PokeApiService 拉取并保存属性类型数据</p>
+</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../TypeService.html#importTypes()">importTypes</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
@@ -215,7 +217,7 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">getTypePage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
  <a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">根据条件分页查询属性类型，结果按ID升序排序</div>
+<div class="block">根据条件分页查询属性类型，结果按 ID 升序排序</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../TypeService.html#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)">getTypePage</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
@@ -223,7 +225,7 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <dd><code>page</code> - 分页参数</dd>
 <dd><code>type</code> - 查询条件实体，非空字段将作为过滤条件</dd>
 <dt>返回:</dt>
-<dd>分页结果，按ID升序排序</dd>
+<dd>分页结果，按 ID 升序排序</dd>
 </dl>
 </div>
 </section>
@@ -285,9 +287,9 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <h3>listByCondition</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">listByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">根据条件查询属性类型列表
-
-<p>支持按 name/internalName 模糊查询，其余字段精确匹配</div>
+<div class="block"><p>根据条件查询属性类型列表</p>
+<p>支持按 name/internalName 模糊查询，其余字段精确匹配</p>
+</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../TypeService.html#listByCondition(io.github.lishangbu.avalon.dataset.entity.Type)">listByCondition</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>

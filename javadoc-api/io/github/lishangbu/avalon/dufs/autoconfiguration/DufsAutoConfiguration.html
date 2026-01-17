@@ -90,7 +90,13 @@ loadScripts(document, 'script');</script>
 @AutoConfiguration
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">DufsAutoConfiguration</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">DUFS请求客户端配置</div>
+<div class="block"><p>DUFS 请求客户端配置</p>
+<p>提供用于和 DUFS 服务通信的 RestClient 与 DufsClient Bean</p>
+<ul>
+<li>dufsRestClient: 基于 JDK HttpClient 的 RestClient，支持重定向与基础认证头</li>
+<li>dufsClient: 使用 DefaultDufsClient 封装 RestClient</li>
+</ul>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/11</dd>
@@ -142,17 +148,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../component/DufsClient.html" title="io.github.lishangbu.avalon.dufs.component中的接口">DufsClient</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dufsClient(org.springframework.web.client.RestClient)" class="member-name-link">dufsClient</a><wbr>(org.springframework.web.client.RestClient&nbsp;restClient)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">DUFS 客户端封装，用于提供高层 API</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.web.client.RestClient</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dufsRestClient(io.github.lishangbu.avalon.dufs.properties.DufsProperties)" class="member-name-link">dufsRestClient</a><wbr>(<a href="../properties/DufsProperties.html" title="io.github.lishangbu.avalon.dufs.properties中的类">DufsProperties</a>&nbsp;properties)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">用于请求的web客户端
-
-
-  处理重定向支持,参考<a href="https://github.com/spring-projects/spring-framework/issues/33734">github
-      issues</a>的处理
-  添加默认访问地址
-</div>
+<div class="block">提供用于发送 HTTP 请求的 RestClient</div>
 </div>
 </div>
 </div>
@@ -220,16 +222,17 @@ loadScripts(document, 'script');</script>
 @ConditionalOnProperty(prefix="dufs",
                        name="url")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.web.client.RestClient</span>&nbsp;<span class="element-name">dufsRestClient</span><wbr><span class="parameters">(<a href="../properties/DufsProperties.html" title="io.github.lishangbu.avalon.dufs.properties中的类">DufsProperties</a>&nbsp;properties)</span></div>
-<div class="block">用于请求的web客户端
-
+<div class="block"><p>提供用于发送 HTTP 请求的 RestClient</p>
 <ul>
-  <li>处理重定向支持,参考<a href="https://github.com/spring-projects/spring-framework/issues/33734">github
-      issues</a>的处理
-  <li>添加默认访问地址
-</ul></div>
+<li>当配置中存在 <code>dufs.url</code> 时才创建该 Bean</li>
+<li>自动添加 Basic Auth 头（如配置了 username/password）</li>
+</ul>
+</div>
 <dl class="notes">
+<dt>参数:</dt>
+<dd><code>properties</code> - DUFS 配置属性</dd>
 <dt>返回:</dt>
-<dd>Rest 请求客户端</dd>
+<dd>RestClient 请求客户端</dd>
 </dl>
 </div>
 </section>
@@ -242,6 +245,13 @@ loadScripts(document, 'script');</script>
 @ConditionalOnMissingBean(<a href="../component/DufsClient.html" title="io.github.lishangbu.avalon.dufs.component中的接口">DufsClient</a>.class)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../component/DufsClient.html" title="io.github.lishangbu.avalon.dufs.component中的接口">DufsClient</a></span>&nbsp;<span class="element-name">dufsClient</span><wbr><span class="parameters">(@Qualifier("dufsRestClient")
  org.springframework.web.client.RestClient&nbsp;restClient)</span></div>
+<div class="block">DUFS 客户端封装，用于提供高层 API</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>restClient</code> - 注入的 RestClient</dd>
+<dt>返回:</dt>
+<dd>DufsClient 默认实现</dd>
+</dl>
 </div>
 </section>
 </li>

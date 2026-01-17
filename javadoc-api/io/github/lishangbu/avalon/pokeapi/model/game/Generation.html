@@ -92,21 +92,23 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-abilities">abilities</span></code> - 在此世代中引入的特性列表</dd>
-<dd><code><span id="param-names">names</span></code> - 不同语言中列出的此资源名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
-<dd><code><span id="param-mainRegion">mainRegion</span></code> - 此世代中游历的主要区域</dd>
-<dd><code><span id="param-moves">moves</span></code> - 在此世代中引入的招式列表</dd>
-<dd><code><span id="param-pokemonSpecies">pokemonSpecies</span></code> - 在此世代中引入的宝可梦物种列表</dd>
-<dd><code><span id="param-types">types</span></code> - 在此世代中引入的属性<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Type</code></a>列表</dd>
-<dd><code><span id="param-versionGroups">versionGroups</span></code> - 在此世代中引入的版本组<a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>VersionGroup</code></a>列表</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-abilities">abilities</span></code> - 本世代引入的特性列表</dd>
+<dd><code><span id="param-names">names</span></code> - 多语言名称列表</dd>
+<dd><code><span id="param-mainRegion">mainRegion</span></code> - 本世代的主要区域引用</dd>
+<dd><code><span id="param-moves">moves</span></code> - 本世代引入的招式列表</dd>
+<dd><code><span id="param-pokemonSpecies">pokemonSpecies</span></code> - 本世代引入的宝可梦物种列表</dd>
+<dd><code><span id="param-types">types</span></code> - 本世代引入的属性列表</dd>
+<dd><code><span id="param-versionGroups">versionGroups</span></code> - 本世代引入的版本组列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Generation</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;abilities, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;mainRegion, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;moves, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;pokemonSpecies, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&gt;&nbsp;types, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">VersionGroup</a>&gt;&gt;&nbsp;versionGroups)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">世代是指在游戏系列历史上于特定时期推出的一组宝可梦游戏，通常以新版本、新地区和新宝可梦为标志。</div>
+<div class="block"><p>世代模型</p>
+<p>表示在游戏系列历史上推出的一组宝可梦游戏，通常包含新版本、新地区和新增宝可梦</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/24</dd>
@@ -115,9 +117,6 @@ loadScripts(document, 'script');</script>
 <dt>另请参阅:</dt>
 <dd>
 <ul class="tag-list">
-<li><a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></li>
-<li><a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Type</code></a></li>
-<li><a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>VersionGroup</code></a></li>
 <li><a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></li>
 <li><a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Type</code></a></li>
 <li><a href="VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>VersionGroup</code></a></li>

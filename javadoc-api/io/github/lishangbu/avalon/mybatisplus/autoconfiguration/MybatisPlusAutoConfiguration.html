@@ -53,7 +53,11 @@ loadScripts(document, 'script');</script>
 <nav role="navigation" class="toc" aria-label="目录">
 <div class="toc-header">目录&nbsp;<input type="text" class="filter-input" disabled placeholder="筛选内容（键入 .）" aria-label="筛选目录" autocomplete="off" spellcheck="false"><input type="reset" class="reset-filter" disabled tabindex="-1" value="重置"></div>
 <ol class="toc-list" tabindex="-1">
-<li><a href="#" tabindex="0">说明</a></li>
+<li><a href="#" tabindex="0">说明</a>
+<ol class="toc-list">
+<li><a href="#mybatis-plus--heading" tabindex="0">MyBatis-Plus 基础配置</a></li>
+</ol>
+</li>
 <li><a href="#constructor-summary" tabindex="0">构造器概要</a></li>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
 <li><a href="#constructor-detail" tabindex="0">构造器详细资料</a>
@@ -83,13 +87,16 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations">@AutoConfiguration
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">MybatisPlusAutoConfiguration</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">MyBatis-Plus 基础配置
-
-<p>为项目统一配置 MyBatis-Plus 的基础能力，包括分页插件、乐观锁等常用拦截器 并通过程序化方式注册 Mapper 接口扫描，支持按模块结构组织 mapper 包
-
-<p>注意：在模块化多 module 项目中，使用通配包路径（如 io.github.lishangbu.avalon.**.mapper）可以方便统一扫描 但部分 IDE
-对此类通配路径的静态检查可能会报“包不存在”的提示，这属于 IDE 检查问题， 运行时 Spring Boot 与 MyBatis 会正确加载 mapper 接口；如需在 IDE
-中消除警告可以添加相应的忽略注释。</div>
+<div class="block"><h2 id="mybatis-plus--heading">MyBatis-Plus 基础配置</h2>
+<p>为项目统一配置 MyBatis-Plus 的基础能力</p>
+<ul>
+<li>包含分页拦截器等常用扩展</li>
+<li>通过程序化方式注册 Mapper 接口扫描，支持按模块结构组织 mapper 包</li>
+</ul>
+<p>注意：在模块化多 module 项目中，使用通配包路径（如 <code>io.github.lishangbu.avalon.**.mapper</code>）可以方便统一扫描
+部分 IDE 对此类通配路径的静态检查可能会报“包不存在”的提示，这属于 IDE 检查问题，运行时 Spring Boot 与 MyBatis 会正确加载 mapper 接口
+如需在 IDE 中消除警告可以按团队约定添加相应的忽略注释</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/12/11</dd>
@@ -127,7 +134,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.mybatis.spring.mapper.MapperScannerConfigurer</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mapperScannerConfigurer()" class="member-name-link">mapperScannerConfigurer</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">MapperScannerConfigurer扫描Mapper接口</div>
+<div class="block">MapperScannerConfigurer 扫描 Mapper 接口</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mybatisPlusInterceptor()" class="member-name-link">mybatisPlusInterceptor</a>()</code></div>
@@ -187,7 +194,7 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.mybatis.spring.mapper.MapperScannerConfigurer</span>&nbsp;<span class="element-name">mapperScannerConfigurer</span>()</div>
-<div class="block">MapperScannerConfigurer扫描Mapper接口</div>
+<div class="block">MapperScannerConfigurer 扫描 Mapper 接口</div>
 <dl class="notes">
 <dt>返回:</dt>
 <dd>MapperScannerConfigurer 用于扫描 mapper 接口</dd>

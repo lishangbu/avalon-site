@@ -86,15 +86,17 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-isHidden">isHidden</span></code> - 这是否为隐藏特性</dd>
-<dd><code><span id="param-slot">slot</span></code> - 此特性在宝可梦种类中占据的位置</dd>
-<dd><code><span id="param-ability">ability</span></code> - 宝可梦可能拥有的特性<a href="Ability.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Ability</code></a></dd>
+<dd><code><span id="param-isHidden">isHidden</span></code> - 是否为隐藏特性</dd>
+<dd><code><span id="param-slot">slot</span></code> - 特性的位置索引</dd>
+<dd><code><span id="param-ability">ability</span></code> - 特性引用</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PokemonAbility</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;isHidden, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;slot, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Ability.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Ability</a>&gt;&nbsp;ability)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">宝可梦的特性</div>
+<div class="block"><p>宝可梦的特性模型</p>
+<p>表示宝可梦拥有的特性及其在种类中的位置</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

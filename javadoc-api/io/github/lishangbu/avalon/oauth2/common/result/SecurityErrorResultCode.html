@@ -93,7 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public enum </span><span class="element-name type-name-label">SecurityErrorResultCode</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Enum.html" title="java.lang中的类或接口" class="external-link">Enum</a>&lt;<a href="SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a>&gt;
 implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></span></div>
-<div class="block">web api 结果</div>
+<div class="block"><p>安全模块使用的默认错误码</p>
+<p>提供常见的 HTTP 授权/认证相关错误码定义</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/4/8</dd>
@@ -123,11 +125,11 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><code><a href="#FORBIDDEN" class="member-name-link">FORBIDDEN</a></code></div>
 <div class="col-last even-row-color">
-<div class="block"><code>403 Forbidden</code>.</div>
+<div class="block">403 Forbidden</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="#UNAUTHORIZED" class="member-name-link">UNAUTHORIZED</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block"><code>401 Unauthorized</code>.</div>
+<div class="block">401 Unauthorized</div>
 </div>
 </div>
 </section>
@@ -146,12 +148,12 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#code()" class="member-name-link">code</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">获取错误的状态码。</div>
+<div class="block">获取错误的状态码</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#errorMessage()" class="member-name-link">errorMessage</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">获取与错误状态码关联的错误信息。</div>
+<div class="block">获取与错误状态码关联的错误信息</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#valueOf(java.lang.String)" class="member-name-link">valueOf</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name)</code></div>
@@ -189,13 +191,12 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <h3>UNAUTHORIZED</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a></span>&nbsp;<span class="element-name">UNAUTHORIZED</span></div>
-<div class="block"><code>401 Unauthorized</code>.</div>
+<div class="block">401 Unauthorized</div>
 <dl class="notes">
 <dt>另请参阅:</dt>
 <dd>
-<ul class="tag-list-long">
-<li><a href="https://tools.ietf.org/html/rfc7235#section-3.1">HTTP/1.1: Authentication,
-    section 3.1</a></li>
+<ul class="tag-list">
+<li><a href="https://tools.ietf.org/html/rfc7235#section-3.1">HTTP/1.1: Authentication</a></li>
 </ul>
 </dd>
 </dl>
@@ -207,13 +208,12 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <h3>FORBIDDEN</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="SecurityErrorResultCode.html" title="io.github.lishangbu.avalon.oauth2.common.result 中的枚举类">SecurityErrorResultCode</a></span>&nbsp;<span class="element-name">FORBIDDEN</span></div>
-<div class="block"><code>403 Forbidden</code>.</div>
+<div class="block">403 Forbidden</div>
 <dl class="notes">
 <dt>另请参阅:</dt>
 <dd>
-<ul class="tag-list-long">
-<li><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">HTTP/1.1: Semantics and
-    Content, section 6.5.3</a></li>
+<ul class="tag-list">
+<li><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">HTTP/1.1: Semantics and</li>
 </ul>
 </dd>
 </dl>
@@ -269,14 +269,12 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></span>&nbsp;<span class="element-name">code</span>()</div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../../../web/result/ErrorResultCode.html#code()">ErrorResultCode</a></code></span></div>
-<div class="block">获取错误的状态码。
-
-<p>该方法用于返回与特定错误相关联的状态码。 状态码通常用于表示错误的类型或分类，便于系统根据不同的错误类型进行处理。</div>
+<div class="block">获取错误的状态码</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../../../web/result/ErrorResultCode.html#code()">code</a></code>&nbsp;在接口中&nbsp;<code><a href="../../../web/result/ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></code></dd>
 <dt>返回:</dt>
-<dd>返回错误的状态码（Integer类型）。</dd>
+<dd>返回错误的状态码（Integer 类型）</dd>
 </dl>
 </div>
 </section>
@@ -287,14 +285,12 @@ implements <a href="../../../web/result/ErrorResultCode.html" title="io.github.l
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">errorMessage</span>()</div>
 <div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../../../web/result/ErrorResultCode.html#errorMessage()">ErrorResultCode</a></code></span></div>
-<div class="block">获取与错误状态码关联的错误信息。
-
-<p>该方法用于返回错误状态码对应的详细错误信息或描述。 错误信息通常用于帮助开发者或用户理解发生的错误及其原因。</div>
+<div class="block">获取与错误状态码关联的错误信息</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../../../web/result/ErrorResultCode.html#errorMessage()">errorMessage</a></code>&nbsp;在接口中&nbsp;<code><a href="../../../web/result/ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a></code></dd>
 <dt>返回:</dt>
-<dd>返回错误的详细信息（String类型）。</dd>
+<dd>返回错误的详细信息（String 类型）</dd>
 </dl>
 </div>
 </section>

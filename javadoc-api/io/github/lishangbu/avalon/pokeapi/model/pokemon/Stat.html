@@ -92,21 +92,23 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-gameIndex">gameIndex</span></code> - 游戏用于此属性的ID</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-gameIndex">gameIndex</span></code> - 游戏侧用于此属性的 ID</dd>
 <dd><code><span id="param-isBattleOnly">isBattleOnly</span></code> - 此属性是否仅在战斗中存在</dd>
-<dd><code><span id="param-affectingMoves">affectingMoves</span></code> - 详细说明正面或负面影响此属性的技能<a href="MoveStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>MoveStatAffectSets</code></a></dd>
-<dd><code><span id="param-affectingNatures">affectingNatures</span></code> - 详细说明正面或负面影响此属性的性格<a href="NatureStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>NatureStatAffectSets</code></a></dd>
-<dd><code><span id="param-characteristics">characteristics</span></code> - 当宝可梦的最高基础属性是此属性时，设置的特征<a href="Characteristic.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Characteristic</code></a>列表</dd>
-<dd><code><span id="param-moveDamageClass">moveDamageClass</span></code> - 与此属性直接相关的伤害类别<a href="../move/MoveDamageClass.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类"><code>MoveDamageClass</code></a></dd>
-<dd><code><span id="param-names">names</span></code> - 该资源在不同语言中列出的名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
+<dd><code><span id="param-affectingMoves">affectingMoves</span></code> - 影响此属性的技能集合 <a href="MoveStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>MoveStatAffectSets</code></a></dd>
+<dd><code><span id="param-affectingNatures">affectingNatures</span></code> - 影响此属性的性格集合 <a href="NatureStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>NatureStatAffectSets</code></a></dd>
+<dd><code><span id="param-characteristics">characteristics</span></code> - 当宝可梦最高基础属性为此属性时的特征列表 <a href="Characteristic.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Characteristic</code></a></dd>
+<dd><code><span id="param-moveDamageClass">moveDamageClass</span></code> - 与此属性相关的伤害类别 <a href="../move/MoveDamageClass.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类"><code>MoveDamageClass</code></a></dd>
+<dd><code><span id="param-names">names</span></code> - 多语言名称列表 <a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Stat</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;gameIndex, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;isBattleOnly, <a href="MoveStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">MoveStatAffectSets</a>&nbsp;affectingMoves, <a href="NatureStatAffectSets.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">NatureStatAffectSets</a>&nbsp;affectingNatures, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/APIResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">APIResource</a>&lt;<a href="Characteristic.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Characteristic</a>&gt;&gt;&nbsp;characteristics, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/MoveDamageClass.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">MoveDamageClass</a>&gt;&nbsp;moveDamageClass, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">属性决定了战斗的某些方面。每个宝可梦都有各种属性值，这些属性值会随着等级提升而增长，并且可以在战斗中被临时效果改变。</div>
+<div class="block"><p>属性模型</p>
+<p>属性决定了战斗的某些方面；可随等级增长并受战斗效果临时改变</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

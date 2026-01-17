@@ -53,7 +53,11 @@ loadScripts(document, 'script');</script>
 <div class="toc-header">目录</div>
 <ol class="toc-list" tabindex="-1">
 <li><a href="#" tabindex="0">说明</a></li>
-<li><a href="#related-package-summary" tabindex="0">相关程序包</a></li>
+<li><a href="#related-package-summary" tabindex="0">相关程序包</a>
+<ol class="toc-list">
+<li><a href="#mapstruct--heading" tabindex="0">MapStruct 基类</a></li>
+</ol>
+</li>
 <li><a href="#class-summary" tabindex="0">类和接口</a></li>
 </ol>
 <button class="hide-sidebar"><span>隐藏子工具栏&nbsp;</span><img src="../../../../../../resource-files/left.svg" alt="隐藏子工具栏"></button><button class="show-sidebar"><img src="../../../../../../resource-files/right.svg" alt="显示子工具栏"><span>&nbsp;显示子工具栏</span></button></nav>
@@ -86,7 +90,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="AbstractMapstruct.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">AbstractMapstruct</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">MapStruct 基类，提供公共的转换辅助方法</div>
+<div class="block"><h2 id="mapstruct--heading">MapStruct 基类</h2>
+<p>提供公共的转换辅助方法，供各个 MapStruct 映射器复用</p>
+</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="BerryConversionMapper.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryConversionMapper</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
@@ -102,12 +108,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color class-summary class-summary-tab2">&nbsp;</div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="BerryFlavorConversionMapper.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapper</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor
-
-按照服务层 <code>importBerryFlavors</code> 的转换规则进行实现：
-- id -&gt; Long
-- internalName <span class="invalid-tag">无效输入：'&lt;'</span>- name
-- name 使用本地化名称（从 names 列表中解析）</div>
+<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="BerryFlavorConversionMapperImpl.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapperImpl</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">&nbsp;</div>

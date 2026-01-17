@@ -88,10 +88,10 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">ApiResultResponseAdvice</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt;</span></div>
-<div class="block">API响应结果包装增强器，统一封装所有 Controller 返回值为 ApiResult
-
-<p>支持自动包装普通对象、字符串类型和已包装的 ApiResult 类型 字符串类型特殊处理，保证响应内容为标准 JSON 格式 适用于 io.github.lishangbu.avalon
-包下所有 RestController</div>
+<div class="block"><p>API 响应结果包装增强器，统一封装所有 Controller 返回值为 ApiResult</p>
+<p>支持自动包装普通对象、字符串类型和已包装的 ApiResult 类型，字符串类型特殊处理，保证响应内容为标准 JSON
+适用于 io.github.lishangbu.avalon 包下所有 RestController</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2023/5/1</dd>
@@ -140,7 +140,7 @@ implements org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdv
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#supports(org.springframework.core.MethodParameter,java.lang.Class)" class="member-name-link">supports</a><wbr>(org.springframework.core.MethodParameter&nbsp;returnType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;? extends org.springframework.http.converter.HttpMessageConverter&lt;?&gt;&gt;&nbsp;converterType)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">判断是否需要处理响应体</div>
+<div class="block">判断是否需要处理响应体（本实现总是处理）</div>
 </div>
 </div>
 </div>
@@ -184,17 +184,10 @@ implements org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdv
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">supports</span><wbr><span class="parameters">(org.springframework.core.MethodParameter&nbsp;returnType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;? extends org.springframework.http.converter.HttpMessageConverter&lt;?&gt;&gt;&nbsp;converterType)</span></div>
-<div class="block">判断是否需要处理响应体
-
-<p>所有类型均支持包装</div>
+<div class="block">判断是否需要处理响应体（本实现总是处理）</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>supports</code>&nbsp;在接口中&nbsp;<code>org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt;</code></dd>
-<dt>参数:</dt>
-<dd><code>returnType</code> - 方法返回类型参数</dd>
-<dd><code>converterType</code> - 消息转换器类型</dd>
-<dt>返回:</dt>
-<dd>总是返回 true，表示所有响应均处理</dd>
 </dl>
 </div>
 </section>
@@ -209,9 +202,7 @@ implements org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdv
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;? extends org.springframework.http.converter.HttpMessageConverter&lt;?&gt;&gt;&nbsp;selectedConverterType,
  org.springframework.http.server.ServerHttpRequest&nbsp;request,
  org.springframework.http.server.ServerHttpResponse&nbsp;response)</span></div>
-<div class="block">响应体写出前的统一包装处理
-
-<p>将原始响应体包装为 ApiResult，字符串类型特殊处理为 JSON 字符串</div>
+<div class="block">响应体写出前的统一包装处理</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>beforeBodyWrite</code>&nbsp;在接口中&nbsp;<code>org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt;</code></dd>

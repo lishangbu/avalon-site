@@ -90,19 +90,21 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-accuracy">accuracy</span></code> - 此招式成功的概率百分比值</dd>
-<dd><code><span id="param-effectChance">effectChance</span></code> - 此招式效果触发的概率百分比值</dd>
-<dd><code><span id="param-power">power</span></code> - 此招式的基础威力，如果没有基础威力则为0</dd>
-<dd><code><span id="param-pp">pp</span></code> - 技能点数。此招式可以使用的次数</dd>
-<dd><code><span id="param-effectEntries">effectEntries</span></code> - 此招式在不同语言中列出的效果<a href="../common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>VerboseEffect</code></a></dd>
-<dd><code><span id="param-type">type</span></code> - 此招式的属性<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Type</code></a>类型</dd>
-<dd><code><span id="param-versionGroup">versionGroup</span></code> - 这些招式统计值生效的版本组<a href="../game/VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>VersionGroup</code></a></dd>
+<dd><code><span id="param-accuracy">accuracy</span></code> - 命中率（百分比）</dd>
+<dd><code><span id="param-effectChance">effectChance</span></code> - 效果触发概率（百分比）</dd>
+<dd><code><span id="param-power">power</span></code> - 基础威力</dd>
+<dd><code><span id="param-pp">pp</span></code> - 技能点数</dd>
+<dd><code><span id="param-effectEntries">effectEntries</span></code> - 多语言效果描述</dd>
+<dd><code><span id="param-type">type</span></code> - 招式属性类型引用</dd>
+<dd><code><span id="param-versionGroup">versionGroup</span></code> - 此数值生效的版本组引用</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PastMoveStatValues</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;accuracy, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;effectChance, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;power, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;pp, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;effectEntries, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;type, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/VersionGroup.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">VersionGroup</a>&gt;&nbsp;versionGroup)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">招式在之前游戏版本中的数值统计。</div>
+<div class="block"><p>历史招式数值模型</p>
+<p>表示招式在以往版本中的数值与描述</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/7</dd>

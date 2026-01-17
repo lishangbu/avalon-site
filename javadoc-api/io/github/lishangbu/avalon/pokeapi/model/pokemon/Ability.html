@@ -92,21 +92,23 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-isMainSeries">isMainSeries</span></code> - 此特性是否起源于视频游戏的主系列</dd>
-<dd><code><span id="param-generation">generation</span></code> - 此特性起源的游戏世代<a href="../game/Generation.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>Generation</code></a></dd>
-<dd><code><span id="param-names">names</span></code> - 该资源在不同语言中列出的名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
-<dd><code><span id="param-effectEntries">effectEntries</span></code> - 此特性在不同语言中列出的效果<a href="../common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>VerboseEffect</code></a></dd>
-<dd><code><span id="param-effectChanges">effectChanges</span></code> - 此特性在不同版本组中曾经有过的先前效果<a href="AbilityEffectChange.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>AbilityEffectChange</code></a>列表</dd>
-<dd><code><span id="param-flavorTextEntries">flavorTextEntries</span></code> - 此特性在不同语言中列出的风味文本<a href="AbilityFlavorText.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>AbilityFlavorText</code></a></dd>
-<dd><code><span id="param-pokemon">pokemon</span></code> - 可能拥有此特性的宝可梦<a href="AbilityPokemon.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>AbilityPokemon</code></a>列表</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-isMainSeries">isMainSeries</span></code> - 是否起源于主系列游戏</dd>
+<dd><code><span id="param-generation">generation</span></code> - 特性起源的世代引用</dd>
+<dd><code><span id="param-names">names</span></code> - 多语言名称列表</dd>
+<dd><code><span id="param-effectEntries">effectEntries</span></code> - 多语言效果描述</dd>
+<dd><code><span id="param-effectChanges">effectChanges</span></code> - 不同版本组下的先前效果列表</dd>
+<dd><code><span id="param-flavorTextEntries">flavorTextEntries</span></code> - 风味文本（多语言）</dd>
+<dd><code><span id="param-pokemon">pokemon</span></code> - 可能拥有此特性的宝可梦列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Ability</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;isMainSeries, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Generation.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Generation</a>&gt;&nbsp;generation, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;effectEntries, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="AbilityEffectChange.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">AbilityEffectChange</a>&gt;&nbsp;effectChanges, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="AbilityFlavorText.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">AbilityFlavorText</a>&gt;&nbsp;flavorTextEntries, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="AbilityPokemon.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">AbilityPokemon</a>&gt;&nbsp;pokemon)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">特性为宝可梦在战斗中或在主世界中提供被动效果。宝可梦可能拥有多种可能的特性，但一次只能拥有一种特性。 查看 <a href="http://bulbapedia.bulbagarden.net/wiki/Ability">Bulbapedia</a> 获取更多详情。</div>
+<div class="block"><p>特性模型</p>
+<p>特性为宝可梦提供被动效果，详情参考 <a href="http://bulbapedia.bulbagarden.net/wiki/Ability">Bulbapedia</a></p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

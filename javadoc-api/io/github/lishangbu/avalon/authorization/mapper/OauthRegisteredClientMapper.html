@@ -76,7 +76,9 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">OauthRegisteredClientMapper</span><span class="extends-implements">
 extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/OauthRegisteredClient.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthRegisteredClient</a>&gt;</span></div>
-<div class="block">OauthRegisteredClientMapper</div>
+<div class="block"><p>OauthRegisteredClient 数据访问 Mapper</p>
+<p>提供对 OauthRegisteredClient 实体的查询方法</p>
+</div>
 <dl class="notes">
 <dt>作者:</dt>
 <dd>lishangbu</dd>
@@ -123,14 +125,12 @@ extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Oa
 <h3>selectByClientId</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../entity/OauthRegisteredClient.html" title="io.github.lishangbu.avalon.authorization.entity中的类">OauthRegisteredClient</a>&gt;</span>&nbsp;<span class="element-name">selectByClientId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;clientId)</span></div>
-<div class="block">根据 client_id 查询注册客户端实体
-
-<p>使用 XML 映射或注解都可，XML 已存在 select 映射，此处保留方法签名返回实体</div>
+<div class="block">根据 client_id 查询注册客户端实体</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>clientId</code> - 客户端标识</dd>
 <dt>返回:</dt>
-<dd>查询到的 OauthRegisteredClient，未找到返回 null</dd>
+<dd>查询到的 OauthRegisteredClient，未找到返回 Optional.empty()</dd>
 </dl>
 </div>
 </section>

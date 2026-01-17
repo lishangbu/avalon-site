@@ -88,7 +88,9 @@ loadScripts(document, 'script');</script>
 @RequestMapping("/type")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">TypeController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">属性控制器</div>
+<div class="block"><p>属性控制器</p>
+<p>提供属性类型的导入、分页查询及 CRUD 接口</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/24</dd>
@@ -126,7 +128,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Integer)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据ID删除属性类型</div>
+<div class="block">根据 ID 删除属性类型</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">getTypePage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
@@ -142,7 +144,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#listTypes(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">listTypes</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">条件查询属性类型列表</div>
+<div class="block">条件查询属性类型列表，支持按 name/internalName 模糊查询</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">save</a><wbr>(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
@@ -260,10 +262,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@DeleteMapping("/{id:\\d+}")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteById</span><wbr><span class="parameters">(@PathVariable
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
-<div class="block">根据ID删除属性类型</div>
+<div class="block">根据 ID 删除属性类型</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>id</code> - 属性类型ID</dd>
+<dd><code>id</code> - 属性类型 ID</dd>
 </dl>
 </div>
 </section>
@@ -274,9 +276,7 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@GetMapping("/list")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">listTypes</span><wbr><span class="parameters">(<a href="../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">条件查询属性类型列表
-
-<p>支持按 name/internalName 模糊查询，其余字段精确匹配</div>
+<div class="block">条件查询属性类型列表，支持按 name/internalName 模糊查询</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>type</code> - 查询条件，支持部分字段模糊查询</dd>

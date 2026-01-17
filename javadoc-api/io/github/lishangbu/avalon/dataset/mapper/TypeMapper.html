@@ -78,9 +78,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations">@Mapper
 </span><span class="modifiers">public interface </span><span class="element-name type-name-label">TypeMapper</span><span class="extends-implements">
 extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span></div>
-<div class="block">属性(Type)数据访问层
-
-<p>提供属性数据的 CRUD 操作 继承 MyBatis-Plus BaseMapper，自动获得基础的增删改查方法 包含自定义的查询方法用于业务需求</div>
+<div class="block"><p>属性(Type)数据访问层</p>
+<p>提供属性数据的 CRUD 操作，继承 MyBatis-Plus BaseMapper，并包含自定义查询方法</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/09/14</dd>
@@ -136,9 +136,9 @@ extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Ty
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(@Param("type")
  <a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">查询属性列表（支持动态条件）
-
-<p>根据提供的查询条件动态筛选属性数据 支持按 ID、内部名称、显示名称等条件进行查询 按 ID 升序排列返回</div>
+<div class="block"><p>查询属性列表（支持动态条件）</p>
+<p>根据提供的查询条件动态筛选属性数据，支持按 ID、内部名称、显示名称等条件进行查询，按 ID 升序排列返回</p>
+</div>
 <dl class="notes">
 <dt>返回:</dt>
 <dd>属性列表，符合查询条件的属性类型信息</dd>
@@ -154,9 +154,9 @@ extends com.baomidou.mybatisplus.core.mapper.BaseMapper&lt;<a href="../entity/Ty
  com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
  @Param("type")
  <a href="../entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">分页查询属性列表（支持动态条件）
-
-<p>根据提供的查询条件和分页参数进行分页查询 支持按 ID、内部名称、显示名称等条件进行筛选 按 ID 升序排列返回分页结果</div>
+<div class="block"><p>分页查询属性列表（支持动态条件）</p>
+<p>根据提供的查询条件和分页参数进行分页查询，支持按 ID、内部名称、显示名称等条件进行筛选，按 ID 升序排列返回分页结果</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>page</code> - 分页参数，包含页码、每页大小等信息</dd>

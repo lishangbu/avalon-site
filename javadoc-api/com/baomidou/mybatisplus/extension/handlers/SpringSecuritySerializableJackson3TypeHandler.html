@@ -53,7 +53,11 @@ loadScripts(document, 'script');</script>
 <nav role="navigation" class="toc" aria-label="目录">
 <div class="toc-header">目录&nbsp;<input type="text" class="filter-input" disabled placeholder="筛选内容（键入 .）" aria-label="筛选目录" autocomplete="off" spellcheck="false"><input type="reset" class="reset-filter" disabled tabindex="-1" value="重置"></div>
 <ol class="toc-list" tabindex="-1">
-<li><a href="#" tabindex="0">说明</a></li>
+<li><a href="#" tabindex="0">说明</a>
+<ol class="toc-list">
+<li><a href="#spring-security-jackson3-typehandler-heading" tabindex="0">Spring Security Jackson3 TypeHandler</a></li>
+</ol>
+</li>
 <li><a href="#field-summary" tabindex="0">字段概要</a></li>
 <li><a href="#constructor-summary" tabindex="0">构造器概要</a></li>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
@@ -94,7 +98,13 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">SpringSecuritySerializableJackson3TypeHandler</span>
 <span class="extends-implements">extends com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt;</span></div>
-<div class="block">支持spring security 序列化的 Jackson3 TypeHandler</div>
+<div class="block"><h2 id="spring-security-jackson3-typehandler-heading">Spring Security Jackson3 TypeHandler</h2>
+<p>为可序列化的 Spring Security 对象提供 Jackson3 支持</p>
+<ul>
+<li>使用 <code>SecurityJacksonModules</code> 注册必要模块，保证权限相关类可被序列化</li>
+<li>通过 JsonMapper 构造器复用模块配置，parse/toJson 保持一致行为</li>
+</ul>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/12/13</dd>

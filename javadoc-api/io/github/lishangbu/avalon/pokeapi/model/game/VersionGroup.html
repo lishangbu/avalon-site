@@ -91,20 +91,22 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-order">order</span></code> - 用于排序的顺序。几乎按发行日期排序，但类似的版本会被归为一组</dd>
-<dd><code><span id="param-generation">generation</span></code> - 引入该版本组的世代<a href="Generation.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>Generation</code></a></dd>
-<dd><code><span id="param-moveLearnMethods">moveLearnMethods</span></code> - 这个版本组中宝可梦可以学习招式的方法列表</dd>
-<dd><code><span id="param-pokedexes">pokedexes</span></code> - 在该版本组中引入的图鉴列表<a href="Pokedex.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>Pokedex</code></a></dd>
-<dd><code><span id="param-regions">regions</span></code> - 在该版本组中可以访问的区域列表</dd>
-<dd><code><span id="param-versions">versions</span></code> - 该版本组拥有的版本列表<a href="Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类"><code>Version</code></a></dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-order">order</span></code> - 排序顺序</dd>
+<dd><code><span id="param-generation">generation</span></code> - 引入该版本组的世代引用</dd>
+<dd><code><span id="param-moveLearnMethods">moveLearnMethods</span></code> - 该组中学习招式的方法列表</dd>
+<dd><code><span id="param-pokedexes">pokedexes</span></code> - 引入的图鉴列表</dd>
+<dd><code><span id="param-regions">regions</span></code> - 可访问的区域列表</dd>
+<dd><code><span id="param-versions">versions</span></code> - 此版本组下的版本列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">VersionGroup</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;order, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Generation.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Generation</a>&gt;&nbsp;generation, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;moveLearnMethods, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Pokedex.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Pokedex</a>&gt;&gt;&nbsp;pokedexes, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&gt;&nbsp;regions, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;&gt;&nbsp;versions)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">版本组对高度相似的游戏版本进行分类。</div>
+<div class="block"><p>版本组模型</p>
+<p>将高度相似的游戏版本分组，包含引入的图鉴、可访问的区域与相关版本列表</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/5/24</dd>

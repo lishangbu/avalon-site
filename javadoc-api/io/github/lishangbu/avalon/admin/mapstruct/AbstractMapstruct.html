@@ -53,7 +53,16 @@ loadScripts(document, 'script');</script>
 <nav role="navigation" class="toc" aria-label="目录">
 <div class="toc-header">目录&nbsp;<input type="text" class="filter-input" disabled placeholder="筛选内容（键入 .）" aria-label="筛选目录" autocomplete="off" spellcheck="false"><input type="reset" class="reset-filter" disabled tabindex="-1" value="重置"></div>
 <ol class="toc-list" tabindex="-1">
-<li><a href="#" tabindex="0">说明</a></li>
+<li><a href="#" tabindex="0">说明</a>
+<ol class="toc-list">
+<li><a href="#mapstruct--heading" tabindex="0">MapStruct 基类</a>
+<ol class="toc-list">
+<li><a href="#--heading" tabindex="0">主要职责</a></li>
+<li><a href="#--heading1" tabindex="0">设计要点</a></li>
+</ol>
+</li>
+</ol>
+</li>
 <li><a href="#field-summary" tabindex="0">字段概要</a></li>
 <li><a href="#constructor-summary" tabindex="0">构造器概要</a></li>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
@@ -93,9 +102,19 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractMapstruct</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">MapStruct 基类，提供公共的转换辅助方法
-
-<p>集中处理本地化名称的解析逻辑，避免在每个映射器中重复实现</div>
+<div class="block"><h2 id="mapstruct--heading">MapStruct 基类</h2>
+<p>提供公共的转换辅助方法，供各个 MapStruct 映射器复用</p>
+<h3 id="--heading">主要职责</h3>
+<ul>
+<li>集中处理本地化名称的解析逻辑，避免重复实现</li>
+<li>提供从 PokeAPI 实体或 <code>names</code> 列表解析本地化名称的通用工具方法</li>
+</ul>
+<h3 id="--heading1">设计要点</h3>
+<ul>
+<li>通过依赖注入 <a href="../../pokeapi/component/PokeApiService.html" title="io.github.lishangbu.avalon.pokeapi.component中的接口"><code>PokeApiService</code></a> 按需加载实体</li>
+<li>使用反射安全地尝试解析 <a href="../../pokeapi/util/LocalizationUtils.html#getLocalizationName(java.util.List,java.lang.String...)"><code>LocalizationUtils.getLocalizationName(List, String...)</code></a> 方法，失败时回退默认名称</li>
+</ul>
+</div>
 </div>
 </section>
 <section class="summary">
@@ -146,14 +165,18 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedNameFromNames(java.util.List,java.lang.String)" class="member-name-link">resolveLocalizedNameFromNames</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;?&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">从 PokeAPI 资源的 names 列表中解析本地化名称，失败时返回默认名称</div>
+<div class="block"><h5 id="--heading2">名称解析</h5>
+<p>解析 PokeAPI 中的 <code>names</code> 列表获取本地化名称，失败时使用默认值</p>
+</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedNameFromResource(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.String)" class="member-name-link">resolveLocalizedNameFromResource</a><wbr>(<a href="../../pokeapi/model/common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;resource,
  <a href="../../pokeapi/enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;dataType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">通过 NamedApiResource 和数据类型，从 PokeApiService 获取实体并解析其 names 列表</div>
+<div class="block"><h5 id="--heading3">资源名称解析</h5>
+<p>通过指定的数据类型和 <code>NamedApiResource</code> 获取实体并解析其 <code>names</code> 列表</p>
+</div>
 </div>
 </div>
 </div>
@@ -218,11 +241,13 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedNameFromNames</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;?&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</span></div>
-<div class="block">从 PokeAPI 资源的 names 列表中解析本地化名称，失败时返回默认名称</div>
+<div class="block"><h5 id="--heading4">名称解析</h5>
+<p>解析 PokeAPI 中的 <code>names</code> 列表获取本地化名称，失败时使用默认值</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>names</code> - PokeAPI 的 names 列表，可能为 null</dd>
-<dd><code>defaultName</code> - 默认名称，当找不到本地化名称时使用</dd>
+<dd><code>defaultName</code> - 默认名称，当无法解析本地化名称时使用</dd>
 <dt>返回:</dt>
 <dd>本地化名称或默认名称</dd>
 </dl>
@@ -236,7 +261,9 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedNameFromResource</span><wbr><span class="parameters">(<a href="../../pokeapi/model/common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;resource,
  <a href="../../pokeapi/enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;dataType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</span></div>
-<div class="block">通过 NamedApiResource 和数据类型，从 PokeApiService 获取实体并解析其 names 列表</div>
+<div class="block"><h5 id="--heading5">资源名称解析</h5>
+<p>通过指定的数据类型和 <code>NamedApiResource</code> 获取实体并解析其 <code>names</code> 列表</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>resource</code> - 资源引用，可能为 null</dd>

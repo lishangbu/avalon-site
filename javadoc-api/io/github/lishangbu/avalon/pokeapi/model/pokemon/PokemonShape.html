@@ -88,17 +88,19 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-id">id</span></code> - 该资源的标识符</dd>
-<dd><code><span id="param-name">name</span></code> - 该资源的名称</dd>
-<dd><code><span id="param-awesomeNames">awesomeNames</span></code> - 这种宝可梦形状的不同语言"科学"名称<a href="AwesomeName.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>AwesomeName</code></a>列表</dd>
-<dd><code><span id="param-names">names</span></code> - 该资源在不同语言中列出的名称<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类"><code>Name</code></a></dd>
-<dd><code><span id="param-pokemonSpecies">pokemonSpecies</span></code> - 具有这种形状的宝可梦种类<a href="PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>PokemonSpecies</code></a>列表</dd>
+<dd><code><span id="param-id">id</span></code> - 资源标识符</dd>
+<dd><code><span id="param-name">name</span></code> - 资源名称</dd>
+<dd><code><span id="param-awesomeNames">awesomeNames</span></code> - 形状的科学名称（多语言）</dd>
+<dd><code><span id="param-names">names</span></code> - 多语言名称列表</dd>
+<dd><code><span id="param-pokemonSpecies">pokemonSpecies</span></code> - 拥有此形状的宝可梦种类列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PokemonShape</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;name, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="AwesomeName.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">AwesomeName</a>&gt;&nbsp;awesomeNames, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&gt;&nbsp;pokemonSpecies)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">用于在宝可梦图鉴中对宝可梦进行分类的形状。</div>
+<div class="block"><p>宝可梦形状模型</p>
+<p>用于在图鉴中根据宝可梦的形状对其进行分类</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>

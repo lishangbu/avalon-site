@@ -92,9 +92,12 @@ loadScripts(document, 'script');</script>
 @Order(2147483646)
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">GlobalExceptionHandler</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
+<div class="block"><p>全局异常处理器</p>
+<p>统一处理控制器层抛出的各种异常并包装为标准的 ApiResult 返回</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
-<dd>2018/8/30 全局异常处理器</dd>
+<dd>2018/8/30</dd>
 <dt>作者:</dt>
 <dd>lishangbu</dd>
 </dl>
@@ -129,17 +132,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleBodyValidException(org.springframework.web.bind.MethodArgumentNotValidException)" class="member-name-link">handleBodyValidException</a><wbr>(org.springframework.web.bind.MethodArgumentNotValidException&nbsp;exception)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">BindException</div>
+<div class="block">处理参数绑定错误（MethodArgumentNotValidException / BindException）</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleGlobalException(java.lang.Exception)" class="member-name-link">handleGlobalException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>&nbsp;e)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">全局异常.</div>
+<div class="block">全局异常</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleHttpMessageNotWritableException(org.springframework.http.converter.HttpMessageNotWritableException)" class="member-name-link">handleHttpMessageNotWritableException</a><wbr>(org.springframework.http.converter.HttpMessageNotWritableException&nbsp;e)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">运行时异常.</div>
+<div class="block">HttpMessageNotWritableException</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleHttpRequestMethodNotSupportedExceptionn(org.springframework.web.HttpRequestMethodNotSupportedException)" class="member-name-link">handleHttpRequestMethodNotSupportedExceptionn</a><wbr>(org.springframework.web.HttpRequestMethodNotSupportedException&nbsp;exception)</code></div>
@@ -147,7 +150,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleIllegalArgumentException(java.lang.IllegalArgumentException)" class="member-name-link">handleIllegalArgumentException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalArgumentException.html" title="java.lang中的类或接口" class="external-link">IllegalArgumentException</a>&nbsp;exception)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">处理业务校验过程中碰到的非法参数异常 该异常基本由<code>Assert</code>抛出</div>
+<div class="block">处理业务校验过程中碰到的非法参数异常，该异常基本由 <code>Assert</code> 抛出</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleIllegalStateException(java.lang.IllegalStateException)" class="member-name-link">handleIllegalStateException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="java.lang中的类或接口" class="external-link">IllegalStateException</a>&nbsp;exception)</code></div>
@@ -162,12 +165,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleRuntimeException(java.lang.RuntimeException)" class="member-name-link">handleRuntimeException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/RuntimeException.html" title="java.lang中的类或接口" class="external-link">RuntimeException</a>&nbsp;e)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">运行时异常.</div>
+<div class="block">运行时异常</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleSQLException(java.sql.SQLException)" class="member-name-link">handleSQLException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.sql/java/sql/SQLException.html" title="java.sql中的类或接口" class="external-link">SQLException</a>&nbsp;exception)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">处理SQL异常</div>
+<div class="block">处理 SQL 异常</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleUnsupportedOperationException(java.lang.UnsupportedOperationException)" class="member-name-link">handleUnsupportedOperationException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang中的类或接口" class="external-link">UnsupportedOperationException</a>&nbsp;exception)</code></div>
@@ -214,12 +217,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
 @ResponseStatus(INTERNAL_SERVER_ERROR)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleGlobalException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>&nbsp;e)</span></div>
-<div class="block">全局异常.</div>
+<div class="block">全局异常</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>e</code> - the e</dd>
+<dd><code>e</code> - 异常实例</dd>
 <dt>返回:</dt>
-<dd>ResultBean</dd>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -231,12 +234,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/RuntimeException.html" title="java.lang中的类或接口" class="external-link">RuntimeException</a>.class)
 @ResponseStatus(INTERNAL_SERVER_ERROR)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleRuntimeException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/RuntimeException.html" title="java.lang中的类或接口" class="external-link">RuntimeException</a>&nbsp;e)</span></div>
-<div class="block">运行时异常.</div>
+<div class="block">运行时异常</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>e</code> - the e</dd>
+<dd><code>e</code> - 异常实例</dd>
 <dt>返回:</dt>
-<dd>ResultBean</dd>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -248,12 +251,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler(org.springframework.http.converter.HttpMessageNotWritableException.class)
 @ResponseStatus(INTERNAL_SERVER_ERROR)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleHttpMessageNotWritableException</span><wbr><span class="parameters">(org.springframework.http.converter.HttpMessageNotWritableException&nbsp;e)</span></div>
-<div class="block">运行时异常.</div>
+<div class="block">HttpMessageNotWritableException</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>e</code> - the e</dd>
+<dd><code>e</code> - 异常实例</dd>
 <dt>返回:</dt>
-<dd>ResultBean</dd>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -265,12 +268,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler({org.springframework.web.bind.MethodArgumentNotValidException.class,org.springframework.validation.BindException.class})
 @ResponseStatus(BAD_REQUEST)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleBodyValidException</span><wbr><span class="parameters">(org.springframework.web.bind.MethodArgumentNotValidException&nbsp;exception)</span></div>
-<div class="block">BindException</div>
+<div class="block">处理参数绑定错误（MethodArgumentNotValidException / BindException）</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>exception</code> - 参数绑定错误</dd>
+<dd><code>exception</code> - 参数绑定异常</dd>
 <dt>返回:</dt>
-<dd>ResultBean</dd>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -282,12 +285,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalArgumentException.html" title="java.lang中的类或接口" class="external-link">IllegalArgumentException</a>.class)
 @ResponseStatus(INTERNAL_SERVER_ERROR)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleIllegalArgumentException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalArgumentException.html" title="java.lang中的类或接口" class="external-link">IllegalArgumentException</a>&nbsp;exception)</span></div>
-<div class="block">处理业务校验过程中碰到的非法参数异常 该异常基本由<code>Assert</code>抛出</div>
+<div class="block">处理业务校验过程中碰到的非法参数异常，该异常基本由 <code>Assert</code> 抛出</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>exception</code> - 参数校验异常</dd>
 <dt>返回:</dt>
-<dd>API返回结果对象包装后的错误输出结果</dd>
+<dd>ApiResult 包装的错误信息</dd>
 <dt>另请参阅:</dt>
 <dd>
 <ul class="tag-list-long">
@@ -312,8 +315,9 @@ loadScripts(document, 'script');</script>
 <div class="block">处理非法状态</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>exception</code> - </dd>
+<dd><code>exception</code> - 异常实例</dd>
 <dt>返回:</dt>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -325,11 +329,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@ExceptionHandler(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.sql/java/sql/SQLException.html" title="java.sql中的类或接口" class="external-link">SQLException</a>.class)
 @ResponseStatus(INTERNAL_SERVER_ERROR)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ApiResult.html" title="io.github.lishangbu.avalon.web.result中的类">ApiResult</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html" title="java.lang中的类或接口" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">handleSQLException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.sql/java/sql/SQLException.html" title="java.sql中的类或接口" class="external-link">SQLException</a>&nbsp;exception)</span></div>
-<div class="block">处理SQL异常</div>
+<div class="block">处理 SQL 异常</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>exception</code> - </dd>
+<dd><code>exception</code> - SQL 异常实例</dd>
 <dt>返回:</dt>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -344,8 +349,9 @@ loadScripts(document, 'script');</script>
 <div class="block">不支持的操作类型</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>exception</code> - </dd>
+<dd><code>exception</code> - 异常实例</dd>
 <dt>返回:</dt>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>
@@ -362,6 +368,7 @@ loadScripts(document, 'script');</script>
 <dt>参数:</dt>
 <dd><code>exception</code> - 资源不存在异常</dd>
 <dt>返回:</dt>
+<dd>ApiResult 包装的错误信息</dd>
 </dl>
 </div>
 </section>

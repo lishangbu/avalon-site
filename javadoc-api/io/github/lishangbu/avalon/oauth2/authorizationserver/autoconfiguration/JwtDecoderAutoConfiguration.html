@@ -82,7 +82,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations">@AutoConfiguration
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">JwtDecoderAutoConfiguration</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block">JwtDecoder 自动装配</div>
+<div class="block"><p>JwtDecoder 自动装配</p>
+<p>提供基于 JWKSource 的 JwtDecoder 实例，用于解码签名的访问令牌</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/17</dd>
@@ -165,8 +167,9 @@ loadScripts(document, 'script');</script>
 <div class="block">An instance of JwtDecoder for decoding signed access tokens.</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>jwkSource</code> - </dd>
+<dd><code>jwkSource</code> - JWKSource 实例</dd>
 <dt>返回:</dt>
+<dd>JwtDecoder</dd>
 </dl>
 </div>
 </section>

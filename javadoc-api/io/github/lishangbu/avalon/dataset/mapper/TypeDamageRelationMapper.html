@@ -77,9 +77,9 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="annotations">@Mapper
 </span><span class="modifiers">public interface </span><span class="element-name type-name-label">TypeDamageRelationMapper</span></div>
-<div class="block">属性克制关系数据访问层
-
-<p>提供属性克制关系的 CRUD 操作 继承 MyBatis-Plus BaseMapper，自动获得基础的增删改查方法 包含 insert、updateById、deleteById 等方法</div>
+<div class="block"><p>属性克制关系数据访问层</p>
+<p>提供属性克制关系的 CRUD 操作，包含插入、按复合主键更新与删除、以及支持动态条件的查询方法</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/09/14</dd>
@@ -153,14 +153,14 @@ loadScripts(document, 'script');</script>
 <h3>insert</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">insert</span><wbr><span class="parameters">(<a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
-<div class="block">插入属性克制关系记录
-
-<p>将新的属性克制关系数据插入到数据库中 基于复合主键（攻击方ID和防御方ID）确保唯一性</div>
+<div class="block"><p>插入属性克制关系记录</p>
+<p>将新的属性克制关系数据插入到数据库中，基于复合主键（攻击方ID和防御方ID）确保唯一性</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>typeDamageRelation</code> - 属性克制关系实体对象，不能为空</dd>
 <dt>返回:</dt>
-<dd>影响的行数，成功插入返回1</dd>
+<dd>影响的行数，成功插入返回 1</dd>
 </dl>
 </div>
 </section>
@@ -170,14 +170,14 @@ loadScripts(document, 'script');</script>
 <h3>update</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
-<div class="block">根据复合主键更新属性克制关系
-
-<p>根据攻击方ID和防御方ID更新对应的伤害倍数 只更新 multiplier 字段，其他字段作为查询条件</div>
+<div class="block"><p>根据复合主键更新属性克制关系</p>
+<p>根据攻击方ID和防御方ID更新对应的伤害倍数，仅更新 multiplier 字段</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>typeDamageRelation</code> - 属性克制关系实体对象，包含更新后的数据</dd>
 <dt>返回:</dt>
-<dd>影响的行数，成功更新返回1，记录不存在返回0</dd>
+<dd>影响的行数，成功更新返回 1，记录不存在返回 0</dd>
 </dl>
 </div>
 </section>
@@ -188,15 +188,13 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">deleteByAttackingTypeIdAndDefendingTypeId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</span></div>
-<div class="block">根据复合主键删除属性克制关系
-
-<p>根据攻击方ID和防御方ID删除对应的克制关系记录 删除操作不可逆，请谨慎使用</div>
+<div class="block">根据复合主键删除属性克制关系</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>attackingTypeId</code> - 攻击者属性ID</dd>
-<dd><code>defendingTypeId</code> - 攻击者属性ID</dd>
+<dd><code>attackingTypeId</code> - 攻击者属性 ID</dd>
+<dd><code>defendingTypeId</code> - 防御者属性 ID</dd>
 <dt>返回:</dt>
-<dd>影响的行数，成功删除返回1，记录不存在返回0</dd>
+<dd>影响的行数，成功删除返回 1，记录不存在返回 0</dd>
 </dl>
 </div>
 </section>
@@ -207,13 +205,11 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">selectByAttackingTypeIdAndDefendingTypeId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;attackingTypeId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;defendingTypeId)</span></div>
-<div class="block">根据复合主键查询属性克制关系
-
-<p>根据攻击方属性ID和防御方属性ID查询对应的克制关系记录 用于获取特定属性组合的伤害倍数信息</div>
+<div class="block">根据复合主键查询属性克制关系</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>attackingTypeId</code> - 攻击方属性ID，不能为空</dd>
-<dd><code>defendingTypeId</code> - 防御方属性ID，不能为空</dd>
+<dd><code>attackingTypeId</code> - 攻击方属性 ID，不能为空</dd>
+<dd><code>defendingTypeId</code> - 防御方属性 ID，不能为空</dd>
 <dt>返回:</dt>
 <dd>包含查询结果的 Optional 对象，如果记录存在则返回实体对象，否则返回空 Optional</dd>
 </dl>
@@ -228,9 +224,9 @@ loadScripts(document, 'script');</script>
  com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;&nbsp;page,
  @Param("typeDamageRelation")
  <a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
-<div class="block">分页查询属性克制关系列表（支持动态条件）
-
-<p>根据提供的查询条件和分页参数进行分页查询 支持按攻击方ID、防御方ID、伤害倍数等条件进行筛选 按攻击方ID和防御方ID升序排列返回分页结果</div>
+<div class="block"><p>分页查询属性克制关系列表（支持动态条件）</p>
+<p>根据提供的查询条件和分页参数进行分页查询，支持按攻击方ID、防御方ID、伤害倍数等条件筛选</p>
+</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>page</code> - 分页参数，包含页码、每页大小等信息</dd>
@@ -247,9 +243,7 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&gt;</span>&nbsp;<span class="element-name">selectList</span><wbr><span class="parameters">(@Param("typeDamageRelation")
  <a href="../entity/TypeDamageRelation.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation</a>&nbsp;typeDamageRelation)</span></div>
-<div class="block">查询属性克制关系列表（支持动态条件）
-
-<p>根据提供的查询条件查询属性克制关系列表 支持按攻击方ID、防御方ID、伤害倍数等条件进行筛选 按攻击方ID和防御方ID升序排列返回结果列表</div>
+<div class="block">查询属性克制关系列表（支持动态条件）</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>typeDamageRelation</code> - 查询条件对象，包含筛选条件</dd>

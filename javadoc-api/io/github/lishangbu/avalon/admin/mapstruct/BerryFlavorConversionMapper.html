@@ -88,12 +88,14 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">BerryFlavorConversionMapper</span>
 <span class="extends-implements">extends <a href="AbstractMapstruct.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">AbstractMapstruct</a></span></div>
-<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor
-
-按照服务层 <code>importBerryFlavors</code> 的转换规则进行实现：
-- id -&gt; Long
-- internalName <span class="invalid-tag">无效输入：'&lt;'</span>- name
-- name 使用本地化名称（从 names 列表中解析）</div>
+<div class="block"><p>MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor</p>
+<p>按照服务层的 importBerryFlavors 转换规则：</p>
+<ul>
+<li>id -&gt; Long</li>
+<li>internalName &lt;- name</li>
+<li>name 使用本地化名称（从 names 列表中解析）</li>
+</ul>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/12/24</dd>

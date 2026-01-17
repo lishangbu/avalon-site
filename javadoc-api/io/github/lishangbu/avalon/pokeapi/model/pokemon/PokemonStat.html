@@ -86,15 +86,17 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-stat">stat</span></code> - 宝可梦拥有的属性<a href="Stat.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Stat</code></a></dd>
-<dd><code><span id="param-effort">effort</span></code> - 宝可梦在该属性上的努力值(EV)</dd>
+<dd><code><span id="param-stat">stat</span></code> - 宝可梦的属性引用 <a href="Stat.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类"><code>Stat</code></a></dd>
+<dd><code><span id="param-effort">effort</span></code> - 努力值 (EV)</dd>
 <dd><code><span id="param-baseStat">baseStat</span></code> - 属性的基础值</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PokemonStat</span>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="Stat.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Stat</a>&gt;&nbsp;stat, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;effort, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;baseStat)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
-<div class="block">宝可梦的属性统计</div>
+<div class="block"><p>宝可梦属性统计模型</p>
+<p>表示宝可梦在特定属性上的基础值、努力值与属性引用</p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/6/8</dd>
