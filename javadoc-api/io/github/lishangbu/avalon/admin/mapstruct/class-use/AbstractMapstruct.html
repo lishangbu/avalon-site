@@ -90,7 +90,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../BerryFlavorConversionMapper.html" class="type-name-link" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapper</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor</div>
+<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor
+
+按照服务层 <code>importBerryFlavors</code> 的转换规则进行实现：
+- id -&gt; Long
+- internalName <span class="invalid-tag">无效输入：'&lt;'</span>- name
+- name 使用本地化名称（从 names 列表中解析）</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../BerryFlavorConversionMapperImpl.html" class="type-name-link" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapperImpl</a></code></div>
@@ -110,7 +115,7 @@ loadScripts(document, 'script');</script>
 </section>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;2025. All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;2026. All rights reserved.</small></p>
 </footer>
 </main>
 </div>

@@ -488,7 +488,12 @@ Token Response</code>.</div>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/admin/mapstruct/BerryFlavorConversionMapper.html" class="type-name-link" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapper</a> - <a href="io/github/lishangbu/avalon/admin/mapstruct/package-summary.html">io.github.lishangbu.avalon.admin.mapstruct</a>中的类</dt>
 <dd>
-<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor</div>
+<div class="block">MapStruct 映射器：PokeAPI 的 BerryFlavor -&gt; Dataset BerryFlavor
+
+按照服务层 <code>importBerryFlavors</code> 的转换规则进行实现：
+- id -&gt; Long
+- internalName <span class="invalid-tag">无效输入：'&lt;'</span>- name
+- name 使用本地化名称（从 names 列表中解析）</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/admin/mapstruct/BerryFlavorConversionMapper.html#%3Cinit%3E()" class="member-name-link">BerryFlavorConversionMapper()</a> - 类的构造器 io.github.lishangbu.avalon.admin.mapstruct.<a href="io/github/lishangbu/avalon/admin/mapstruct/BerryFlavorConversionMapper.html" title="io.github.lishangbu.avalon.admin.mapstruct中的类">BerryFlavorConversionMapper</a></dt>
 <dd>&nbsp;</dd>
@@ -6984,7 +6989,7 @@ and additional context information.</div>
 <a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:Z">Z</a>&nbsp;<br><a href="constant-values.html">常量字段值</a><span class="vertical-separator">|</span><a href="allpackages-index.html">所有程序包</a><span class="vertical-separator">|</span><a href="allclasses-index.html">所有类和接口</a><span class="vertical-separator">|</span><a href="serialized-form.html">序列化表格</a>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;2025. All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &#169; 2024&#x2013;2026. All rights reserved.</small></p>
 </footer>
 </main>
 </div>
