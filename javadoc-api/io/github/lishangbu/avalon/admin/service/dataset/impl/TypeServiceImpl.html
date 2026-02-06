@@ -63,9 +63,9 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">getTypePage(Page, Type)</a></li>
+<li><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Type,org.springframework.data.domain.Pageable)" tabindex="0">getPageByCondition(Type, Pageable)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">save(Type)</a></li>
-<li><a href="#removeById(java.lang.Integer)" tabindex="0">removeById(Integer)</a></li>
+<li><a href="#removeById(java.lang.Long)" tabindex="0">removeById(Long)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">update(Type)</a></li>
 <li><a href="#listByCondition(io.github.lishangbu.avalon.dataset.entity.Type)" tabindex="0">listByCondition(Type)</a></li>
 </ol>
@@ -91,9 +91,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">TypeServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></span></div>
-<div class="block"><p>属性服务实现</p>
-<p>提供属性类型的数据导入、分页查询与 CRUD 操作</p>
-</div>
+<div class="block">属性服务实现</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/24</dd>
@@ -128,11 +126,11 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">getTypePage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Type,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据条件分页查询属性类型，结果按 ID 升序排序</div>
+<div class="block">根据条件分页查询属性类型，结果按ID升序排序</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#listByCondition(io.github.lishangbu.avalon.dataset.entity.Type)" class="member-name-link">listByCondition</a><wbr>(<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</code></div>
@@ -140,7 +138,7 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="block">根据条件查询属性类型列表</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Integer)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Long)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据主键删除属性类型</div>
 </div>
@@ -188,20 +186,20 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)">
-<h3>getTypePage</h3>
+<section class="detail" id="getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Type,org.springframework.data.domain.Pageable)">
+<h3>getPageByCondition</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">getTypePage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
-<div class="block">根据条件分页查询属性类型，结果按 ID 升序排序</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">getPageByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</span></div>
+<div class="block">根据条件分页查询属性类型，结果按ID升序排序</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../TypeService.html#getTypePage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Type)">getTypePage</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
+<dd><code><a href="../TypeService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Type,org.springframework.data.domain.Pageable)">getPageByCondition</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>page</code> - 分页参数</dd>
 <dd><code>type</code> - 查询条件实体，非空字段将作为过滤条件</dd>
+<dd><code>pageable</code> - 分页参数</dd>
 <dt>返回:</dt>
-<dd>分页结果，按 ID 升序排序</dd>
+<dd>分页结果，按ID升序排序</dd>
 </dl>
 </div>
 </section>
@@ -225,15 +223,15 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 </section>
 </li>
 <li>
-<section class="detail" id="removeById(java.lang.Integer)">
+<section class="detail" id="removeById(java.lang.Long)">
 <h3>removeById</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional(rollbackFor=<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a>.class)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">根据主键删除属性类型</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../TypeService.html#removeById(java.lang.Integer)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
+<dd><code><a href="../TypeService.html#removeById(java.lang.Long)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../TypeService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">TypeService</a></code></dd>
 <dt>参数:</dt>
 <dd><code>id</code> - 属性类型主键</dd>
 </dl>
@@ -264,7 +262,7 @@ implements <a href="../TypeService.html" title="io.github.lishangbu.avalon.admin
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">listByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&nbsp;type)</span></div>
 <div class="block"><p>根据条件查询属性类型列表</p>
-<p>支持按 name/internalName 模糊查询，其余字段精确匹配</p>
+<p>支持按 name/internalName 模糊查询，其余字段精确匹配
 </div>
 <dl class="notes">
 <dt>指定者:</dt>

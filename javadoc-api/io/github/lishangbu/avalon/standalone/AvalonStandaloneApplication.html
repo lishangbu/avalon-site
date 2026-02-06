@@ -74,7 +74,9 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="annotations">@SpringBootApplication(scanBasePackages="io.github.lishangbu.avalon")
+<div class="type-signature"><span class="annotations">@EnableJpaRepositories("io.github.lishangbu.avalon.**.repository")
+@EntityScan("io.github.lishangbu.avalon.**.entity")
+@SpringBootApplication(scanBasePackages="io.github.lishangbu.avalon")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">AvalonStandaloneApplication</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
 </div>

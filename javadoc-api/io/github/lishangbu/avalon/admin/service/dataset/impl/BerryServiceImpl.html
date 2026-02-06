@@ -63,9 +63,9 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">getBerryPage(Page, Berry)</a></li>
+<li><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Berry,org.springframework.data.domain.Pageable)" tabindex="0">getPageByCondition(Berry, Pageable)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">save(Berry)</a></li>
-<li><a href="#removeById(java.lang.Integer)" tabindex="0">removeById(Integer)</a></li>
+<li><a href="#removeById(java.lang.Long)" tabindex="0">removeById(Long)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">update(Berry)</a></li>
 </ol>
 </li>
@@ -90,9 +90,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">BerryServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements <a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></span></div>
-<div class="block"><p>Berry 服务实现</p>
-<p>提供树果数据的导入、分页查询以及 CRUD 操作</p>
-</div>
+<div class="block">Berry 服务实现</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/10/4</dd>
@@ -127,26 +125,26 @@ implements <a href="../BerryService.html" title="io.github.lishangbu.avalon.admi
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)" class="member-name-link">getBerryPage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Berry,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据条件分页查询树果</div>
+<div class="block">根据条件分页查询 Berry</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Integer)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Long)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据主键删除树果</div>
+<div class="block">根据主键删除 Berry</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.Berry)" class="member-name-link">save</a><wbr>(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">新增树果</div>
+<div class="block">新增 Berry</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.Berry)" class="member-name-link">update</a><wbr>(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">更新树果</div>
+<div class="block">更新 Berry</div>
 </div>
 </div>
 </div>
@@ -182,19 +180,18 @@ implements <a href="../BerryService.html" title="io.github.lishangbu.avalon.admi
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)">
-<h3>getBerryPage</h3>
+<section class="detail" id="getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Berry,org.springframework.data.domain.Pageable)">
+<h3>getPageByCondition</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</span>&nbsp;<span class="element-name">getBerryPage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryService.html#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)">BerryService</a></code></span></div>
-<div class="block">根据条件分页查询树果</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</span>&nbsp;<span class="element-name">getPageByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</span></div>
+<div class="block">根据条件分页查询 Berry</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../BerryService.html#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)">getBerryPage</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
+<dd><code><a href="../BerryService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Berry,org.springframework.data.domain.Pageable)">getPageByCondition</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>page</code> - 分页信息</dd>
 <dd><code>berry</code> - 查询条件</dd>
+<dd><code>pageable</code> - 分页信息</dd>
 <dt>返回:</dt>
 <dd>分页结果</dd>
 </dl>
@@ -206,31 +203,29 @@ implements <a href="../BerryService.html" title="io.github.lishangbu.avalon.admi
 <h3>save</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryService.html#save(io.github.lishangbu.avalon.dataset.entity.Berry)">BerryService</a></code></span></div>
-<div class="block">新增树果</div>
+<div class="block">新增 Berry</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../BerryService.html#save(io.github.lishangbu.avalon.dataset.entity.Berry)">save</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>berry</code> - 要保存的树果实体</dd>
+<dd><code>berry</code> - 要保存的 Berry 实体</dd>
 <dt>返回:</dt>
-<dd>保存后的树果实体</dd>
+<dd>保存后的 Berry 实体</dd>
 </dl>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="removeById(java.lang.Integer)">
+<section class="detail" id="removeById(java.lang.Long)">
 <h3>removeById</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryService.html#removeById(java.lang.Integer)">BerryService</a></code></span></div>
-<div class="block">根据主键删除树果</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="block">根据主键删除 Berry</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../BerryService.html#removeById(java.lang.Integer)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
+<dd><code><a href="../BerryService.html#removeById(java.lang.Long)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>id</code> - 要删除的树果主键</dd>
+<dd><code>id</code> - 要删除的 Berry 主键</dd>
 </dl>
 </div>
 </section>
@@ -240,15 +235,14 @@ implements <a href="../BerryService.html" title="io.github.lishangbu.avalon.admi
 <h3>update</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryService.html#update(io.github.lishangbu.avalon.dataset.entity.Berry)">BerryService</a></code></span></div>
-<div class="block">更新树果</div>
+<div class="block">更新 Berry</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../BerryService.html#update(io.github.lishangbu.avalon.dataset.entity.Berry)">update</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>berry</code> - 要更新的树果实体</dd>
+<dd><code>berry</code> - 要更新的 Berry 实体</dd>
 <dt>返回:</dt>
-<dd>更新后的树果实体</dd>
+<dd>更新后的 Berry 实体</dd>
 </dl>
 </div>
 </section>

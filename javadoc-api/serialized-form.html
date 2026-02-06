@@ -353,17 +353,40 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>authorities</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> authorities</pre>
-<div class="block">授权确认的 scope</div>
+<div class="block">授权确认的scope</div>
 </li>
 <li class="block-list">
 <h5>principalName</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> principalName</pre>
-<div class="block">复合主键 - principal_name</div>
+<div class="block">当前授权确认用户的 username</div>
 </li>
 <li class="block-list">
 <h5>registeredClientId</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> registeredClientId</pre>
-<div class="block">复合主键 - registered_client_id</div>
+<div class="block">当前授权确认的客户端id</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.entity.OauthAuthorizationConsent.AuthorizationConsentId">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/entity/OauthAuthorizationConsent.AuthorizationConsentId.html" title="io.github.lishangbu.avalon.authorization.entity中的类">io.github.lishangbu.avalon.authorization.entity.OauthAuthorizationConsent.AuthorizationConsentId</a></h3>
+<div class="type-signature">class AuthorizationConsentId extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>principalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> principalName</pre>
+</li>
+<li class="block-list">
+<h5>registeredClientId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> registeredClientId</pre>
 </li>
 </ul>
 </section>
@@ -544,6 +567,11 @@ during client authentication when using the tls_client_auth method</div>
 <div class="block">主键</div>
 </li>
 <li class="block-list">
+<h5>menus</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="java.util中的类或接口" class="external-link">Set</a>&lt;<a href="io/github/lishangbu/avalon/authorization/entity/Menu.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a>&gt; menus</pre>
+<div class="block">角色与权限多对多关系</div>
+</li>
+<li class="block-list">
 <h5>name</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
 <div class="block">角色名称</div>
@@ -578,6 +606,11 @@ during client authentication when using the tls_client_auth method</div>
 <div class="block">密码（写入-only，不会在 toString 中显示）</div>
 </li>
 <li class="block-list">
+<h5>roles</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="java.util中的类或接口" class="external-link">Set</a>&lt;<a href="io/github/lishangbu/avalon/authorization/entity/Role.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Role</a>&gt; roles</pre>
+<div class="block">用户与角色多对多关系</div>
+</li>
+<li class="block-list">
 <h5>username</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> username</pre>
 <div class="block">用户名</div>
@@ -607,25 +640,6 @@ during client authentication when using the tls_client_auth method</div>
 <li class="block-list">
 <h5>children</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="io/github/lishangbu/avalon/authorization/model/MenuTreeNode.html" title="io.github.lishangbu.avalon.authorization.model中的类">MenuTreeNode</a>&gt; children</pre>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="io.github.lishangbu.avalon.authorization.model.UserVO">
-<h3>类&nbsp;<a href="io/github/lishangbu/avalon/authorization/model/UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">io.github.lishangbu.avalon.authorization.model.UserVO</a></h3>
-<div class="type-signature">class UserVO extends <a href="io/github/lishangbu/avalon/authorization/entity/User.html" title="io.github.lishangbu.avalon.authorization.entity中的类">User</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>序列化字段</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>roles</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="io/github/lishangbu/avalon/authorization/entity/Role.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Role</a>&gt; roles</pre>
 </li>
 </ul>
 </section>
@@ -1653,6 +1667,25 @@ during client authentication when using the tls_client_auth method</div>
 </li>
 <li>
 <section class="serialized-package-container">
+<h2 title="程序包">程序包&nbsp;<a href="io/github/lishangbu/avalon/hibernate/package-summary.html">io.github.lishangbu.avalon.hibernate</a></h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.hibernate.AbstractIdentifierGenerator">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/hibernate/AbstractIdentifierGenerator.html" title="io.github.lishangbu.avalon.hibernate中的类">io.github.lishangbu.avalon.hibernate.AbstractIdentifierGenerator</a></h3>
+<div class="type-signature">class AbstractIdentifierGenerator extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.hibernate.FlexIdentifierGenerator">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/hibernate/FlexIdentifierGenerator.html" title="io.github.lishangbu.avalon.hibernate中的类">io.github.lishangbu.avalon.hibernate.FlexIdentifierGenerator</a></h3>
+<div class="type-signature">class FlexIdentifierGenerator extends <a href="io/github/lishangbu/avalon/hibernate/AbstractIdentifierGenerator.html" title="io.github.lishangbu.avalon.hibernate中的类">AbstractIdentifierGenerator</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-package-container">
 <h2 title="程序包">程序包&nbsp;<a href="io/github/lishangbu/avalon/ip2location/exception/package-summary.html">io.github.lishangbu.avalon.ip2location.exception</a></h2>
 <ul class="block-list">
 <li>
@@ -1785,6 +1818,33 @@ during client authentication when using the tls_client_auth method</div>
 </section>
 </li>
 </ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-package-container">
+<h2 title="程序包">程序包&nbsp;<a href="org/hibernate/event/internal/package-summary.html">org.hibernate.event.internal</a></h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="org.hibernate.event.internal.EntityCopyLogging_$logger">
+<h3>类&nbsp;org.hibernate.event.internal.EntityCopyLogging_$logger</h3>
+<div class="type-signature">class EntityCopyLogging_$logger extends org.jboss.logging.DelegatingBasicLogger implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.hibernate.event.internal.EventListenerLogging_$logger">
+<h3>类&nbsp;org.hibernate.event.internal.EventListenerLogging_$logger</h3>
+<div class="type-signature">class EventListenerLogging_$logger extends org.jboss.logging.DelegatingBasicLogger implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
 </section>
 </li>
 </ul>

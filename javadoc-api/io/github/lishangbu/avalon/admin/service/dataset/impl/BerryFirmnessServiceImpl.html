@@ -63,11 +63,11 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getBerryFirmnessesPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" tabindex="0">getBerryFirmnessesPage(Page, BerryFirmness)</a></li>
+<li><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness,org.springframework.data.domain.Pageable)" tabindex="0">getPageByCondition(BerryFirmness, Pageable)</a></li>
 <li><a href="#listByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" tabindex="0">listByCondition(BerryFirmness)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" tabindex="0">save(BerryFirmness)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" tabindex="0">update(BerryFirmness)</a></li>
-<li><a href="#removeById(java.lang.Integer)" tabindex="0">removeById(Integer)</a></li>
+<li><a href="#removeById(java.lang.Long)" tabindex="0">removeById(Long)</a></li>
 </ol>
 </li>
 </ol>
@@ -91,9 +91,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">BerryFirmnessServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></span></div>
-<div class="block"><p>树果坚硬度服务实现类</p>
-<p>提供树果坚硬度的数据导入、列表及 CRUD 操作</p>
-</div>
+<div class="block">树果坚硬度服务实现类</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/10/5</dd>
@@ -128,11 +126,11 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryFirmnessesPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" class="member-name-link">getBerryFirmnessesPage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">分页条件查询树果坚硬度</div>
+<div class="block">根据条件分页查询 BerryFirmness</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#listByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" class="member-name-link">listByCondition</a><wbr>(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</code></div>
@@ -140,19 +138,19 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <div class="block">根据条件查询树果坚硬度列表</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Integer)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeById(java.lang.Long)" class="member-name-link">removeById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">根据ID删除树果坚硬度</div>
+<div class="block">根据主键删除 BerryFirmness</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" class="member-name-link">save</a><wbr>(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">新增树果坚硬度</div>
+<div class="block">新增 BerryFirmness</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)" class="member-name-link">update</a><wbr>(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">更新树果坚硬度</div>
+<div class="block">更新 BerryFirmness</div>
 </div>
 </div>
 </div>
@@ -188,21 +186,20 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getBerryFirmnessesPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">
-<h3>getBerryFirmnessesPage</h3>
+<section class="detail" id="getPageByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness,org.springframework.data.domain.Pageable)">
+<h3>getPageByCondition</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</span>&nbsp;<span class="element-name">getBerryFirmnessesPage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;&nbsp;page,
- <a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryFirmnessService.html#getBerryFirmnessesPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">BerryFirmnessService</a></code></span></div>
-<div class="block">分页条件查询树果坚硬度</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</span>&nbsp;<span class="element-name">getPageByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</span></div>
+<div class="block">根据条件分页查询 BerryFirmness</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../BerryFirmnessService.html#getBerryFirmnessesPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">getBerryFirmnessesPage</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
+<dd><code><a href="../BerryFirmnessService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.BerryFirmness,org.springframework.data.domain.Pageable)">getPageByCondition</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>page</code> - 分页参数</dd>
-<dd><code>berryFirmness</code> - 查询条件，支持 name/internalName 模糊查询，其余字段精确匹配</dd>
+<dd><code>berryFirmness</code> - 查询条件</dd>
+<dd><code>pageable</code> - 分页信息</dd>
 <dt>返回:</dt>
-<dd>树果坚硬度分页结果</dd>
+<dd>分页结果</dd>
 </dl>
 </div>
 </section>
@@ -213,7 +210,7 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</span>&nbsp;<span class="element-name">listByCondition</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</span></div>
 <div class="block"><p>根据条件查询树果坚硬度列表</p>
-<p>支持按 name/internalName 模糊查询，其余字段精确匹配</p>
+<p>支持按 name/internalName 模糊查询，其余字段精确匹配
 </div>
 <dl class="notes">
 <dt>指定者:</dt>
@@ -231,15 +228,14 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <h3>save</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryFirmnessService.html#save(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">BerryFirmnessService</a></code></span></div>
-<div class="block">新增树果坚硬度</div>
+<div class="block">新增 BerryFirmness</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../BerryFirmnessService.html#save(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">save</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>berryFirmness</code> - 树果坚硬度实体</dd>
+<dd><code>berryFirmness</code> - 要保存的 BerryFirmness 实体</dd>
 <dt>返回:</dt>
-<dd>保存后的树果坚硬度</dd>
+<dd>保存后的 BerryFirmness 实体</dd>
 </dl>
 </div>
 </section>
@@ -249,31 +245,29 @@ implements <a href="../BerryFirmnessService.html" title="io.github.lishangbu.ava
 <h3>update</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../../../dataset/entity/BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&nbsp;berryFirmness)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryFirmnessService.html#update(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">BerryFirmnessService</a></code></span></div>
-<div class="block">更新树果坚硬度</div>
+<div class="block">更新 BerryFirmness</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="../BerryFirmnessService.html#update(io.github.lishangbu.avalon.dataset.entity.BerryFirmness)">update</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>berryFirmness</code> - 树果坚硬度实体</dd>
+<dd><code>berryFirmness</code> - 要更新的 BerryFirmness 实体</dd>
 <dt>返回:</dt>
-<dd>更新后的树果坚硬度</dd>
+<dd>更新后的 BerryFirmness 实体</dd>
 </dl>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="removeById(java.lang.Integer)">
+<section class="detail" id="removeById(java.lang.Long)">
 <h3>removeById</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="../BerryFirmnessService.html#removeById(java.lang.Integer)">BerryFirmnessService</a></code></span></div>
-<div class="block">根据ID删除树果坚硬度</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="block">根据主键删除 BerryFirmness</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="../BerryFirmnessService.html#removeById(java.lang.Integer)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
+<dd><code><a href="../BerryFirmnessService.html#removeById(java.lang.Long)">removeById</a></code>&nbsp;在接口中&nbsp;<code><a href="../BerryFirmnessService.html" title="io.github.lishangbu.avalon.admin.service.dataset中的接口">BerryFirmnessService</a></code></dd>
 <dt>参数:</dt>
-<dd><code>id</code> - 树果坚硬度ID</dd>
+<dd><code>id</code> - 要删除的 BerryFirmness 主键</dd>
 </dl>
 </div>
 </section>

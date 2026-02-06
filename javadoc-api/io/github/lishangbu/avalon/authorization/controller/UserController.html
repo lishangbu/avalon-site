@@ -83,9 +83,7 @@ loadScripts(document, 'script');</script>
 @RestController
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">UserController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block"><p>用户控制器</p>
-<p>提供用于获取当前用户信息的 REST 接口</p>
-</div>
+<div class="block">用户控制器</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/30</dd>
@@ -120,9 +118,11 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../model/UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../model/UserWithRoles.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserWithRoles</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUserInfo(io.github.lishangbu.avalon.oauth2.common.userdetails.UserInfo)" class="member-name-link">getUserInfo</a><wbr>(<a href="../../oauth2/common/userdetails/UserInfo.html" title="io.github.lishangbu.avalon.oauth2.common.userdetails中的类">UserInfo</a>&nbsp;user)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">获取当前用户信息</div>
+</div>
 </div>
 </div>
 </div>
@@ -161,8 +161,15 @@ loadScripts(document, 'script');</script>
 <h3>getUserInfo</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@GetMapping("/info")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../model/UserVO.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserVO</a></span>&nbsp;<span class="element-name">getUserInfo</span><wbr><span class="parameters">(@AuthenticationPrincipal
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../model/UserWithRoles.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserWithRoles</a></span>&nbsp;<span class="element-name">getUserInfo</span><wbr><span class="parameters">(@AuthenticationPrincipal
  <a href="../../oauth2/common/userdetails/UserInfo.html" title="io.github.lishangbu.avalon.oauth2.common.userdetails中的类">UserInfo</a>&nbsp;user)</span></div>
+<div class="block">获取当前用户信息</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>user</code> - 当前用户信息</dd>
+<dt>返回:</dt>
+<dd>用户信息</dd>
+</dl>
 </div>
 </section>
 </li>

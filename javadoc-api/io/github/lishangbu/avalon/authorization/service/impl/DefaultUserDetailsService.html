@@ -87,9 +87,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">DefaultUserDetailsService</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements org.springframework.security.core.userdetails.UserDetailsService</span></div>
-<div class="block"><p>用户详细信息服务</p>
-<p>用于加载用户的认证信息（UserDetails），将数据库中的用户与角色转换为 Spring Security 的 UserDetails</p>
-</div>
+<div class="block">用户服务</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/17</dd>
@@ -126,7 +124,9 @@ implements org.springframework.security.core.userdetails.UserDetailsService</spa
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.core.userdetails.UserDetails</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadUserByUsername(java.lang.String)" class="member-name-link">loadUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;username)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">根据用户名加载用户详情</div>
+</div>
 </div>
 </div>
 </div>
@@ -166,11 +166,16 @@ implements org.springframework.security.core.userdetails.UserDetailsService</spa
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.core.userdetails.UserDetails</span>&nbsp;<span class="element-name">loadUserByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;username)</span>
                                                                              throws <span class="exceptions">org.springframework.security.core.userdetails.UsernameNotFoundException</span></div>
+<div class="block">根据用户名加载用户详情</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>loadUserByUsername</code>&nbsp;在接口中&nbsp;<code>org.springframework.security.core.userdetails.UserDetailsService</code></dd>
+<dt>参数:</dt>
+<dd><code>username</code> - 用户名</dd>
+<dt>返回:</dt>
+<dd>用户详情</dd>
 <dt>抛出:</dt>
-<dd><code>org.springframework.security.core.userdetails.UsernameNotFoundException</code></dd>
+<dd><code>org.springframework.security.core.userdetails.UsernameNotFoundException</code> - 用户未找到时抛出</dd>
 </dl>
 </div>
 </section>

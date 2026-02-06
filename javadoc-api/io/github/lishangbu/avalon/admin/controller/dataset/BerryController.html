@@ -63,10 +63,10 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">getBerryPage(Page, Berry)</a></li>
+<li><a href="#getBerryPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">getBerryPage(Pageable, Berry)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">save(Berry)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.Berry)" tabindex="0">update(Berry)</a></li>
-<li><a href="#deleteById(java.lang.Integer)" tabindex="0">deleteById(Integer)</a></li>
+<li><a href="#deleteById(java.lang.Long)" tabindex="0">deleteById(Long)</a></li>
 </ol>
 </li>
 </ol>
@@ -86,9 +86,7 @@ loadScripts(document, 'script');</script>
 @RequestMapping("/berry")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">BerryController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block"><p>Berry 控制器</p>
-<p>提供对树果资源的导入、分页查询及 CRUD 接口</p>
-</div>
+<div class="block">Berry 控制器</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/10/4</dd>
@@ -124,12 +122,12 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Integer)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Long)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据 ID 删除树果</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)" class="member-name-link">getBerryPage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;&nbsp;page,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Berry)" class="member-name-link">getBerryPage</a><wbr>(org.springframework.data.domain.Pageable&nbsp;pageable,
  <a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">分页条件查询树果</div>
@@ -178,16 +176,16 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getBerryPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.Berry)">
+<section class="detail" id="getBerryPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Berry)">
 <h3>getBerryPage</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@GetMapping("/page")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</span>&nbsp;<span class="element-name">getBerryPage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;&nbsp;page,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&gt;</span>&nbsp;<span class="element-name">getBerryPage</span><wbr><span class="parameters">(org.springframework.data.domain.Pageable&nbsp;pageable,
  <a href="../../../dataset/entity/Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>&nbsp;berry)</span></div>
 <div class="block">分页条件查询树果</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>page</code> - 分页参数</dd>
+<dd><code>pageable</code> - 分页参数</dd>
 <dd><code>berry</code> - 查询条件</dd>
 <dt>返回:</dt>
 <dd>Berry 分页结果</dd>
@@ -230,12 +228,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="deleteById(java.lang.Integer)">
+<section class="detail" id="deleteById(java.lang.Long)">
 <h3>deleteById</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@DeleteMapping("/{id:\\d+}")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteById</span><wbr><span class="parameters">(@PathVariable
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">根据 ID 删除树果</div>
 <dl class="notes">
 <dt>参数:</dt>

@@ -63,10 +63,10 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#getBerryFlavorPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" tabindex="0">getBerryFlavorPage(Page, BerryFlavor)</a></li>
+<li><a href="#getBerryFlavorPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" tabindex="0">getBerryFlavorPage(Pageable, BerryFlavor)</a></li>
 <li><a href="#save(io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" tabindex="0">save(BerryFlavor)</a></li>
 <li><a href="#update(io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" tabindex="0">update(BerryFlavor)</a></li>
-<li><a href="#deleteById(java.lang.Integer)" tabindex="0">deleteById(Integer)</a></li>
+<li><a href="#deleteById(java.lang.Long)" tabindex="0">deleteById(Long)</a></li>
 </ol>
 </li>
 </ol>
@@ -122,12 +122,12 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Integer)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Long)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">根据ID删除树果风味</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.baomidou.mybatisplus.core.metadata.IPage<wbr>&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryFlavorPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" class="member-name-link">getBerryFlavorPage</a><wbr>(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;&nbsp;page,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBerryFlavorPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)" class="member-name-link">getBerryFlavorPage</a><wbr>(org.springframework.data.domain.Pageable&nbsp;pageable,
  <a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&nbsp;berryFlavor)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">分页条件查询树果风味</div>
@@ -176,16 +176,16 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getBerryFlavorPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)">
+<section class="detail" id="getBerryFlavorPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.BerryFlavor)">
 <h3>getBerryFlavorPage</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@GetMapping("/page")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.baomidou.mybatisplus.core.metadata.IPage&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;</span>&nbsp;<span class="element-name">getBerryFlavorPage</span><wbr><span class="parameters">(com.baomidou.mybatisplus.extension.plugins.pagination.Page&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;&nbsp;page,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.data.domain.Page&lt;<a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&gt;</span>&nbsp;<span class="element-name">getBerryFlavorPage</span><wbr><span class="parameters">(org.springframework.data.domain.Pageable&nbsp;pageable,
  <a href="../../../dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a>&nbsp;berryFlavor)</span></div>
 <div class="block">分页条件查询树果风味</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>page</code> - 分页参数（如 page, size, sort）</dd>
+<dd><code>pageable</code> - 分页参数（如 page, size, sort）</dd>
 <dd><code>berryFlavor</code> - 查询条件，支持 name/internalName 模糊查询，其余字段精确匹配</dd>
 <dt>返回:</dt>
 <dd>树果风味分页结果</dd>
@@ -228,12 +228,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="deleteById(java.lang.Integer)">
+<section class="detail" id="deleteById(java.lang.Long)">
 <h3>deleteById</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@DeleteMapping("/{id:\\d+}")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteById</span><wbr><span class="parameters">(@PathVariable
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;id)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a>&nbsp;id)</span></div>
 <div class="block">根据ID删除树果风味</div>
 <dl class="notes">
 <dt>参数:</dt>

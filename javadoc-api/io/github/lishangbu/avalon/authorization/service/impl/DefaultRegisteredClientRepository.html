@@ -89,9 +89,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">DefaultRegisteredClientRepository</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository</span></div>
-<div class="block"><p>JDBC 注册客户端仓库实现</p>
-<p>基于数据库的 RegisteredClient 存储实现，负责在数据库与 RegisteredClient 之间进行转换</p>
-</div>
+<div class="block">JPA 注册客户端</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/8/17</dd>
@@ -128,13 +126,19 @@ implements org.springframework.security.oauth2.server.authorization.client.Regis
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.oauth2.server.authorization.client.RegisteredClient</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByClientId(java.lang.String)" class="member-name-link">findByClientId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;clientId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">根据客户端ID查找注册客户端</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.oauth2.server.authorization.client.RegisteredClient</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findById(java.lang.String)" class="member-name-link">findById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;id)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">根据ID查找注册客户端</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(org.springframework.security.oauth2.server.authorization.client.RegisteredClient)" class="member-name-link">save</a><wbr>(org.springframework.security.oauth2.server.authorization.client.RegisteredClient&nbsp;registeredClient)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">保存注册客户端</div>
+</div>
 </div>
 </div>
 </div>
@@ -173,9 +177,12 @@ implements org.springframework.security.oauth2.server.authorization.client.Regis
 <h3>save</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(org.springframework.security.oauth2.server.authorization.client.RegisteredClient&nbsp;registeredClient)</span></div>
+<div class="block">保存注册客户端</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>save</code>&nbsp;在接口中&nbsp;<code>org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository</code></dd>
+<dt>参数:</dt>
+<dd><code>registeredClient</code> - 注册客户端</dd>
 </dl>
 </div>
 </section>
@@ -185,9 +192,14 @@ implements org.springframework.security.oauth2.server.authorization.client.Regis
 <h3>findById</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.oauth2.server.authorization.client.RegisteredClient</span>&nbsp;<span class="element-name">findById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;id)</span></div>
+<div class="block">根据ID查找注册客户端</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>findById</code>&nbsp;在接口中&nbsp;<code>org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository</code></dd>
+<dt>参数:</dt>
+<dd><code>id</code> - 客户端ID</dd>
+<dt>返回:</dt>
+<dd>注册客户端，未找到返回null</dd>
 </dl>
 </div>
 </section>
@@ -197,9 +209,14 @@ implements org.springframework.security.oauth2.server.authorization.client.Regis
 <h3>findByClientId</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.oauth2.server.authorization.client.RegisteredClient</span>&nbsp;<span class="element-name">findByClientId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;clientId)</span></div>
+<div class="block">根据客户端ID查找注册客户端</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code>findByClientId</code>&nbsp;在接口中&nbsp;<code>org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository</code></dd>
+<dt>参数:</dt>
+<dd><code>clientId</code> - 客户端ID</dd>
+<dt>返回:</dt>
+<dd>注册客户端，未找到返回null</dd>
 </dl>
 </div>
 </section>
