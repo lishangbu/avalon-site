@@ -89,8 +89,7 @@ loadScripts(document, 'script');</script>
 implements jakarta.persistence.AttributeConverter&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt;, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</span></div>
 <div class="block"><p>Spring Security 属性转换器</p>
 <p>用于 JPA 实体中 Map&lt;String, Object&gt; 类型属性的数据库存储与读取，
-通过 JSON 序列化/反序列化实现，支持 Spring Security 对象的安全转换。
-自动应用到所有 Map&lt;String, Object&gt; 字段，避免手动转换。</p>
+通过 JSON 序列化/反序列化实现，支持 Spring Security 对象的安全转换。</p>
 <p>配置说明：</p>
 <ul>
 <li>使用 JsonMapper 配置 SecurityJacksonModules，确保 Spring Security 对象正确序列化。</li>

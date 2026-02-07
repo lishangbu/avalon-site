@@ -84,7 +84,7 @@ loadScripts(document, 'script');</script>
 </li>
 <li class="block-list">
 <h5>extra</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> extra</pre>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="java.util中的类或接口" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&gt; extra</pre>
 <div class="block">菜单项的额外部分</div>
 </li>
 <li class="block-list">
@@ -115,7 +115,7 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>parentId</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> parentId</pre>
-<div class="block">父权限 ID</div>
+<div class="block">父菜单 ID</div>
 </li>
 <li class="block-list">
 <h5>path</h5>
@@ -500,13 +500,12 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>requireProofKey</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> requireProofKey</pre>
-<div class="block">true if the client is required to provide a proof key challenge and verifier when performing
-the Authorization Code Grant flow. The default is false.</div>
+<div class="block">true if the client is required to provide a proof key challenge and verifier when performing</div>
 </li>
 <li class="block-list">
 <h5>reuseRefreshTokens</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> reuseRefreshTokens</pre>
-<div class="block">a new refresh token is issued. The default is true.</div>
+<div class="block">Returns true if refresh tokens are reused when returning the access token response, or false</div>
 </li>
 <li class="block-list">
 <h5>scopes</h5>
@@ -516,21 +515,17 @@ the Authorization Code Grant flow. The default is false.</div>
 <li class="block-list">
 <h5>tokenEndpointAuthenticationSigningAlgorithm</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> tokenEndpointAuthenticationSigningAlgorithm</pre>
-<div class="block">the JWS algorithm that must be used for signing the JWT used to authenticate the Client at the
-Token Endpoint for the private_key_jwt and client_secret_jwt authentication methods.</div>
+<div class="block">the JWS algorithm that must be used for signing the JWT used to authenticate the Client at the</div>
 </li>
 <li class="block-list">
 <h5>x509CertificateBoundAccessTokens</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> x509CertificateBoundAccessTokens</pre>
-<div class="block">true if access tokens must be bound to the client X509Certificate received during client
-authentication when using the tls_client_auth or self_signed_tls_client_auth method. The
-default is false.</div>
+<div class="block">true if access tokens must be bound to the client X509Certificate received during client</div>
 </li>
 <li class="block-list">
 <h5>x509CertificateSubjectDn</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> x509CertificateSubjectDn</pre>
-<div class="block">the expected subject distinguished name associated to the client X509Certificate received
-during client authentication when using the tls_client_auth method</div>
+<div class="block">the expected subject distinguished name associated to the client X509Certificate received</div>
 </li>
 </ul>
 </section>
