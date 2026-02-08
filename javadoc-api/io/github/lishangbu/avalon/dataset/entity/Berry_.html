@@ -67,8 +67,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#BULK" tabindex="0">BULK</a></li>
 <li><a href="#SMOOTHNESS" tabindex="0">SMOOTHNESS</a></li>
 <li><a href="#SOIL_DRYNESS" tabindex="0">SOIL_DRYNESS</a></li>
-<li><a href="#FIRMNESS_INTERNAL_NAME" tabindex="0">FIRMNESS_INTERNAL_NAME</a></li>
-<li><a href="#NATURAL_GIFT_TYPE_INTERNAL_NAME" tabindex="0">NATURAL_GIFT_TYPE_INTERNAL_NAME</a></li>
+<li><a href="#BERRY_FIRMNESS" tabindex="0">BERRY_FIRMNESS</a></li>
+<li><a href="#NATURAL_GIFT_TYPE" tabindex="0">NATURAL_GIFT_TYPE</a></li>
 <li><a href="#NATURAL_GIFT_POWER" tabindex="0">NATURAL_GIFT_POWER</a></li>
 <li><a href="#class_" tabindex="0">class_</a></li>
 <li><a href="#id" tabindex="0">id</a></li>
@@ -79,8 +79,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#bulk" tabindex="0">bulk</a></li>
 <li><a href="#smoothness" tabindex="0">smoothness</a></li>
 <li><a href="#soilDryness" tabindex="0">soilDryness</a></li>
-<li><a href="#firmnessInternalName" tabindex="0">firmnessInternalName</a></li>
-<li><a href="#naturalGiftTypeInternalName" tabindex="0">naturalGiftTypeInternalName</a></li>
+<li><a href="#berryFirmness" tabindex="0">berryFirmness</a></li>
+<li><a href="#naturalGiftType" tabindex="0">naturalGiftType</a></li>
 <li><a href="#naturalGiftPower" tabindex="0">naturalGiftPower</a></li>
 </ol>
 </li>
@@ -118,6 +118,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">字段</div>
 <div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#BERRY_FIRMNESS" class="member-name-link">BERRY_FIRMNESS</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>, <a href="BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#berryFirmness" class="member-name-link">berryFirmness</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Static metamodel for attribute <code>Berry.berryFirmness</code></div>
+</div>
 <div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#bulk" class="member-name-link">bulk</a></code></div>
 <div class="col-last even-row-color">
@@ -130,14 +138,6 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color"><code><a href="#class_" class="member-name-link">class_</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">Static metamodel type for <a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类"><code>Berry</code></a></div>
-</div>
-<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#FIRMNESS_INTERNAL_NAME" class="member-name-link">FIRMNESS_INTERNAL_NAME</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#firmnessInternalName" class="member-name-link">firmnessInternalName</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">Static metamodel for attribute <code>Berry.firmnessInternalName</code></div>
 </div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#GROWTH_TIME" class="member-name-link">GROWTH_TIME</a></code></div>
@@ -183,17 +183,17 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color"><code><a href="#NATURAL_GIFT_POWER" class="member-name-link">NATURAL_GIFT_POWER</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#NATURAL_GIFT_TYPE_INTERNAL_NAME" class="member-name-link">NATURAL_GIFT_TYPE_INTERNAL_NAME</a></code></div>
+<div class="col-second even-row-color"><code><a href="#NATURAL_GIFT_TYPE" class="member-name-link">NATURAL_GIFT_TYPE</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#naturalGiftPower" class="member-name-link">naturalGiftPower</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">Static metamodel for attribute <code>Berry.naturalGiftPower</code></div>
 </div>
-<div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#naturalGiftTypeInternalName" class="member-name-link">naturalGiftTypeInternalName</a></code></div>
+<div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#naturalGiftType" class="member-name-link">naturalGiftType</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Static metamodel for attribute <code>Berry.naturalGiftTypeInternalName</code></div>
+<div class="block">Static metamodel for attribute <code>Berry.naturalGiftType</code></div>
 </div>
 <div class="col-first odd-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#smoothness" class="member-name-link">smoothness</a></code></div>
@@ -382,16 +382,16 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="FIRMNESS_INTERNAL_NAME">
-<h3>FIRMNESS_INTERNAL_NAME</h3>
+<section class="detail" id="BERRY_FIRMNESS">
+<h3>BERRY_FIRMNESS</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">FIRMNESS_INTERNAL_NAME</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">BERRY_FIRMNESS</span></div>
 <dl class="notes">
 <dt>另请参阅:</dt>
 <dd>
 <ul class="tag-list">
-<li><a href="#firmnessInternalName"><code>firmnessInternalName</code></a></li>
-<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Berry_.FIRMNESS_INTERNAL_NAME">常量字段值</a></li>
+<li><a href="#berryFirmness"><code>berryFirmness</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Berry_.BERRY_FIRMNESS">常量字段值</a></li>
 </ul>
 </dd>
 </dl>
@@ -399,16 +399,16 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="NATURAL_GIFT_TYPE_INTERNAL_NAME">
-<h3>NATURAL_GIFT_TYPE_INTERNAL_NAME</h3>
+<section class="detail" id="NATURAL_GIFT_TYPE">
+<h3>NATURAL_GIFT_TYPE</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">NATURAL_GIFT_TYPE_INTERNAL_NAME</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">NATURAL_GIFT_TYPE</span></div>
 <dl class="notes">
 <dt>另请参阅:</dt>
 <dd>
 <ul class="tag-list">
-<li><a href="#naturalGiftTypeInternalName"><code>naturalGiftTypeInternalName</code></a></li>
-<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Berry_.NATURAL_GIFT_TYPE_INTERNAL_NAME">常量字段值</a></li>
+<li><a href="#naturalGiftType"><code>naturalGiftType</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Berry_.NATURAL_GIFT_TYPE">常量字段值</a></li>
 </ul>
 </dd>
 </dl>
@@ -514,20 +514,20 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="firmnessInternalName">
-<h3>firmnessInternalName</h3>
+<section class="detail" id="berryFirmness">
+<h3>berryFirmness</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">firmnessInternalName</span></div>
-<div class="block">Static metamodel for attribute <code>Berry.firmnessInternalName</code></div>
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>, <a href="BerryFirmness.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFirmness</a>&gt;</span>&nbsp;<span class="element-name">berryFirmness</span></div>
+<div class="block">Static metamodel for attribute <code>Berry.berryFirmness</code></div>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="naturalGiftTypeInternalName">
-<h3>naturalGiftTypeInternalName</h3>
+<section class="detail" id="naturalGiftType">
+<h3>naturalGiftType</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">naturalGiftTypeInternalName</span></div>
-<div class="block">Static metamodel for attribute <code>Berry.naturalGiftTypeInternalName</code></div>
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Berry.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry</a>,<wbr><a href="Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a>&gt;</span>&nbsp;<span class="element-name">naturalGiftType</span></div>
+<div class="block">Static metamodel for attribute <code>Berry.naturalGiftType</code></div>
 </div>
 </section>
 </li>
