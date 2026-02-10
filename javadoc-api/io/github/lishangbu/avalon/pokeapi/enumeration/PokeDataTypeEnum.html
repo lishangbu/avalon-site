@@ -70,6 +70,17 @@ loadScripts(document, 'script');</script>
 <li><a href="#ENCOUNTER_CONDITION" tabindex="0">ENCOUNTER_CONDITION</a></li>
 <li><a href="#ENCOUNTER_CONDITION_VALUE" tabindex="0">ENCOUNTER_CONDITION_VALUE</a></li>
 <li><a href="#GENDER" tabindex="0">GENDER</a></li>
+<li><a href="#POKEMON_COLOR" tabindex="0">POKEMON_COLOR</a></li>
+<li><a href="#POKEMON_FORM" tabindex="0">POKEMON_FORM</a></li>
+<li><a href="#POKEMON_HABITAT" tabindex="0">POKEMON_HABITAT</a></li>
+<li><a href="#POKEMON_SHAPE" tabindex="0">POKEMON_SHAPE</a></li>
+<li><a href="#POKEMON_SPECIES" tabindex="0">POKEMON_SPECIES</a></li>
+<li><a href="#POKEMON" tabindex="0">POKEMON</a></li>
+<li><a href="#CHARACTERISTIC" tabindex="0">CHARACTERISTIC</a></li>
+<li><a href="#ABILITY" tabindex="0">ABILITY</a></li>
+<li><a href="#GROWTH_RATE" tabindex="0">GROWTH_RATE</a></li>
+<li><a href="#STAT" tabindex="0">STAT</a></li>
+<li><a href="#NATURE" tabindex="0">NATURE</a></li>
 <li><a href="#ITEM" tabindex="0">ITEM</a></li>
 <li><a href="#ITEM_ATTRIBUTE" tabindex="0">ITEM_ATTRIBUTE</a></li>
 <li><a href="#ITEM_CATEGORY" tabindex="0">ITEM_CATEGORY</a></li>
@@ -82,7 +93,13 @@ loadScripts(document, 'script');</script>
 <li><a href="#MOVE_DAMAGE_CLASS" tabindex="0">MOVE_DAMAGE_CLASS</a></li>
 <li><a href="#MOVE_LEARN_METHOD" tabindex="0">MOVE_LEARN_METHOD</a></li>
 <li><a href="#MOVE_TARGET" tabindex="0">MOVE_TARGET</a></li>
+<li><a href="#MOVE_BATTLE_STYLE" tabindex="0">MOVE_BATTLE_STYLE</a></li>
+<li><a href="#EVOLUTION_TRIGGER" tabindex="0">EVOLUTION_TRIGGER</a></li>
+<li><a href="#EVOLUTION_CHAIN" tabindex="0">EVOLUTION_CHAIN</a></li>
 <li><a href="#TYPE" tabindex="0">TYPE</a></li>
+<li><a href="#REGION" tabindex="0">REGION</a></li>
+<li><a href="#LOCATION" tabindex="0">LOCATION</a></li>
+<li><a href="#LOCATION_AREA" tabindex="0">LOCATION_AREA</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
@@ -145,17 +162,25 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">枚举常量</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color"><code><a href="#BERRY" class="member-name-link">BERRY</a></code></div>
+<div class="col-first even-row-color"><code><a href="#ABILITY" class="member-name-link">ABILITY</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">特性 为宝可梦提供被动效果</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#BERRY" class="member-name-link">BERRY</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">树果：可为宝可梦恢复 HP、异常状态或提供其他效果的水果</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#BERRY_FIRMNESS" class="member-name-link">BERRY_FIRMNESS</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#BERRY_FIRMNESS" class="member-name-link">BERRY_FIRMNESS</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">树果的硬度分类</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#BERRY_FLAVOR" class="member-name-link">BERRY_FLAVOR</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#BERRY_FLAVOR" class="member-name-link">BERRY_FLAVOR</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">树果的风味信息</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#CHARACTERISTIC" class="member-name-link">CHARACTERISTIC</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">特征 表示哪个属性包含宝可梦的最高个体值 (IV)</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="#CONTEST_EFFECT" class="member-name-link">CONTEST_EFFECT</a></code></div>
 <div class="col-last odd-row-color">
@@ -181,41 +206,65 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">遭遇方式（玩家在野外遇到宝可梦的方式）</div>
 </div>
+<div class="col-first odd-row-color"><code><a href="#EVOLUTION_CHAIN" class="member-name-link">EVOLUTION_CHAIN</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">进化链 表示宝可梦进化的全过程，包括所有中间阶段</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#EVOLUTION_TRIGGER" class="member-name-link">EVOLUTION_TRIGGER</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">进化触发器 表示导致宝可梦进化的事件与条件</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#GENDER" class="member-name-link">GENDER</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">性别 主要用于宝可梦繁殖，并可能影响外观或进化，详情参考 <a href="http://bulbapedia.bulbagarden.net/wiki/Gender">Bulbapedia</a></div>
 </div>
-<div class="col-first even-row-color"><code><a href="#ITEM" class="member-name-link">ITEM</a></code></div>
+<div class="col-first even-row-color"><code><a href="#GROWTH_RATE" class="member-name-link">GROWTH_RATE</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">成长速率 表示宝可梦通过经验获得等级的速度</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#ITEM" class="member-name-link">ITEM</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">道具（可收集和使用的物品）</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#ITEM_ATTRIBUTE" class="member-name-link">ITEM_ATTRIBUTE</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#ITEM_ATTRIBUTE" class="member-name-link">ITEM_ATTRIBUTE</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">道具属性（例如是否可在战斗中使用）</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#ITEM_CATEGORY" class="member-name-link">ITEM_CATEGORY</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#ITEM_CATEGORY" class="member-name-link">ITEM_CATEGORY</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">道具类别（背包中的存放分类）</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#ITEM_FLING_EFFECT" class="member-name-link">ITEM_FLING_EFFECT</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#ITEM_FLING_EFFECT" class="member-name-link">ITEM_FLING_EFFECT</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">道具投掷时的效果</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#ITEM_POCKET" class="member-name-link">ITEM_POCKET</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#ITEM_POCKET" class="member-name-link">ITEM_POCKET</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">背包中按类别存放道具的口袋</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#MACHINE" class="member-name-link">MACHINE</a></code></div>
+<div class="col-first even-row-color"><code><a href="#LOCATION" class="member-name-link">LOCATION</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">位置（更具体的地理区域，通常是宝可梦的具体栖息地）</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#LOCATION_AREA" class="member-name-link">LOCATION_AREA</a></code></div>
 <div class="col-last odd-row-color">
+<div class="block">位置区域（位置内的具体区域或地点）</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#MACHINE" class="member-name-link">MACHINE</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">教授招式的机器（例如 TM / HM 等）</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#MOVE" class="member-name-link">MOVE</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#MOVE" class="member-name-link">MOVE</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">招式（宝可梦在战斗中的技能）</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#MOVE_AILMENT" class="member-name-link">MOVE_AILMENT</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#MOVE_AILMENT" class="member-name-link">MOVE_AILMENT</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">招式造成的异常状态或副作用</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#MOVE_BATTLE_STYLE" class="member-name-link">MOVE_BATTLE_STYLE</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">招式战斗风格（对战开拓区中使用的招式风格）</div>
 </div>
 <div class="col-first even-row-color"><code><a href="#MOVE_CATEGORY" class="member-name-link">MOVE_CATEGORY</a></code></div>
 <div class="col-last even-row-color">
@@ -233,12 +282,48 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">招式目标（战斗中招式可指向的对象）</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#SUPER_CONTEST_EFFECT" class="member-name-link">SUPER_CONTEST_EFFECT</a></code></div>
+<div class="col-first even-row-color"><code><a href="#NATURE" class="member-name-link">NATURE</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">性格 影响宝可梦的属性成长方式</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#POKEMON" class="member-name-link">POKEMON</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">宝可梦 表示栖息在宝可梦游戏世界中的生物</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#POKEMON_COLOR" class="member-name-link">POKEMON_COLOR</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">宝可梦颜色 用于在图鉴中根据宝可梦的主色对其进行分类</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#POKEMON_FORM" class="member-name-link">POKEMON_FORM</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">宝可梦形态 表示宝可梦的视觉形态，适用于纯粹的外观变化</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#POKEMON_HABITAT" class="member-name-link">POKEMON_HABITAT</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">宝可梦栖息地 表示宝可梦可能被发现的地形或区域</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#POKEMON_SHAPE" class="member-name-link">POKEMON_SHAPE</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">宝可梦形状 用于在图鉴中根据宝可梦的形状对其进行分类</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#POKEMON_SPECIES" class="member-name-link">POKEMON_SPECIES</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">宝可梦种类 表示至少一种宝可梦的基础，其属性在该种类内的所有变种中共享</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#REGION" class="member-name-link">REGION</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">地区（例如关卡、城镇等），宝可梦的栖息地或出现区域</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#STAT" class="member-name-link">STAT</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">属性 决定了战斗的某些方面；可随等级增长并受战斗效果临时改变</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#SUPER_CONTEST_EFFECT" class="member-name-link">SUPER_CONTEST_EFFECT</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">超级华丽大赛中招式的效果</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#TYPE" class="member-name-link">TYPE</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#TYPE" class="member-name-link">TYPE</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">属性（例如水、火等），以及属性间的相互克制关系</div>
 </div>
 </div>
@@ -395,6 +480,105 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="POKEMON_COLOR">
+<h3>POKEMON_COLOR</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON_COLOR</span></div>
+<div class="block">宝可梦颜色 用于在图鉴中根据宝可梦的主色对其进行分类</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="POKEMON_FORM">
+<h3>POKEMON_FORM</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON_FORM</span></div>
+<div class="block">宝可梦形态 表示宝可梦的视觉形态，适用于纯粹的外观变化</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="POKEMON_HABITAT">
+<h3>POKEMON_HABITAT</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON_HABITAT</span></div>
+<div class="block">宝可梦栖息地 表示宝可梦可能被发现的地形或区域</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="POKEMON_SHAPE">
+<h3>POKEMON_SHAPE</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON_SHAPE</span></div>
+<div class="block">宝可梦形状 用于在图鉴中根据宝可梦的形状对其进行分类</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="POKEMON_SPECIES">
+<h3>POKEMON_SPECIES</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON_SPECIES</span></div>
+<div class="block">宝可梦种类 表示至少一种宝可梦的基础，其属性在该种类内的所有变种中共享</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="POKEMON">
+<h3>POKEMON</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">POKEMON</span></div>
+<div class="block">宝可梦 表示栖息在宝可梦游戏世界中的生物</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="CHARACTERISTIC">
+<h3>CHARACTERISTIC</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">CHARACTERISTIC</span></div>
+<div class="block">特征 表示哪个属性包含宝可梦的最高个体值 (IV)</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="ABILITY">
+<h3>ABILITY</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">ABILITY</span></div>
+<div class="block">特性 为宝可梦提供被动效果</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="GROWTH_RATE">
+<h3>GROWTH_RATE</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">GROWTH_RATE</span></div>
+<div class="block">成长速率 表示宝可梦通过经验获得等级的速度</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="STAT">
+<h3>STAT</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">STAT</span></div>
+<div class="block">属性 决定了战斗的某些方面；可随等级增长并受战斗效果临时改变</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="NATURE">
+<h3>NATURE</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">NATURE</span></div>
+<div class="block">性格 影响宝可梦的属性成长方式</div>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="ITEM">
 <h3>ITEM</h3>
 <div class="horizontal-scroll">
@@ -503,11 +687,65 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="MOVE_BATTLE_STYLE">
+<h3>MOVE_BATTLE_STYLE</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">MOVE_BATTLE_STYLE</span></div>
+<div class="block">招式战斗风格（对战开拓区中使用的招式风格）</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="EVOLUTION_TRIGGER">
+<h3>EVOLUTION_TRIGGER</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">EVOLUTION_TRIGGER</span></div>
+<div class="block">进化触发器 表示导致宝可梦进化的事件与条件</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="EVOLUTION_CHAIN">
+<h3>EVOLUTION_CHAIN</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">EVOLUTION_CHAIN</span></div>
+<div class="block">进化链 表示宝可梦进化的全过程，包括所有中间阶段</div>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="TYPE">
 <h3>TYPE</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">TYPE</span></div>
 <div class="block">属性（例如水、火等），以及属性间的相互克制关系</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="REGION">
+<h3>REGION</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">REGION</span></div>
+<div class="block">地区（例如关卡、城镇等），宝可梦的栖息地或出现区域</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="LOCATION">
+<h3>LOCATION</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">LOCATION</span></div>
+<div class="block">位置（更具体的地理区域，通常是宝可梦的具体栖息地）</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="LOCATION_AREA">
+<h3>LOCATION_AREA</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a></span>&nbsp;<span class="element-name">LOCATION_AREA</span></div>
+<div class="block">位置区域（位置内的具体区域或地点）</div>
 </div>
 </section>
 </li>

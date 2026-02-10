@@ -58,7 +58,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
 <li><a href="#constructor-detail" tabindex="0">构造器详细资料</a>
 <ol class="toc-list">
-<li><a href="#%3Cinit%3E(java.lang.Integer,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)" tabindex="0">Encounter(Integer, Integer, NamedApiResource, Integer, NamedApiResource)</a></li>
+<li><a href="#%3Cinit%3E(java.lang.Integer,java.lang.Integer,java.util.List,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)" tabindex="0">Encounter(Integer, Integer, List, Integer, NamedApiResource)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
@@ -96,7 +96,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Encounter</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxLevel, <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;conditionValues, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;chance, <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;method)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Encounter</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxLevel, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../encounter/EncounterConditionValue.html" title="io.github.lishangbu.avalon.pokeapi.model.encounter中的类">EncounterConditionValue</a>&gt;&gt;&nbsp;conditionValues, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;chance, <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;method)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
 <div class="block">PokeAPI 遭遇记录模型</div>
 <dl class="notes">
@@ -117,9 +117,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">构造器</div>
 <div class="table-header col-last">说明</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Integer,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)" class="member-name-link">Encounter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Integer,java.lang.Integer,java.util.List,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)" class="member-name-link">Encounter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxLevel,
- <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;conditionValues,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../encounter/EncounterConditionValue.html" title="io.github.lishangbu.avalon.pokeapi.model.encounter中的类">EncounterConditionValue</a>&gt;&gt;&nbsp;conditionValues,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;chance,
  <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;method)</code></div>
 <div class="col-last even-row-color">
@@ -144,7 +144,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-chance"><code>chance</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../encounter/EncounterConditionValue.html" title="io.github.lishangbu.avalon.pokeapi.model.encounter中的类">EncounterConditionValue</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#conditionValues()" class="member-name-link">conditionValues</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-conditionValues"><code>conditionValues</code></a> 记录组件的值。</div>
@@ -197,12 +197,12 @@ loadScripts(document, 'script');</script>
 <h2>构造器详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Integer,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)">
+<section class="detail" id="&lt;init&gt;(java.lang.Integer,java.lang.Integer,java.util.List,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)">
 <h3>Encounter</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Encounter</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxLevel,
- <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;conditionValues,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../encounter/EncounterConditionValue.html" title="io.github.lishangbu.avalon.pokeapi.model.encounter中的类">EncounterConditionValue</a>&gt;&gt;&nbsp;conditionValues,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;chance,
  <a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;method)</span></div>
 <div class="block">创建 <code>Encounter</code> 记录类的实例。</div>
@@ -302,7 +302,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="conditionValues()">
 <h3>conditionValues</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;</span>&nbsp;<span class="element-name">conditionValues</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../encounter/EncounterConditionValue.html" title="io.github.lishangbu.avalon.pokeapi.model.encounter中的类">EncounterConditionValue</a>&gt;&gt;</span>&nbsp;<span class="element-name">conditionValues</span>()</div>
 <div class="block">返回 <a href="#param-conditionValues"><code>conditionValues</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>

@@ -70,7 +70,10 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
 <li><a href="#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" tabindex="0">fetch(PokeDataTypeEnum, Class)</a></li>
-<li><a href="#resolveLocalizedNameFromNames(java.util.List,java.lang.String)" tabindex="0">resolveLocalizedNameFromNames(List, String)</a></li>
+<li><a href="#resolveLocalizedName(java.util.List,java.lang.String)" tabindex="0">resolveLocalizedName(List, String)</a></li>
+<li><a href="#resolveLocalizedDescription(java.util.List)" tabindex="0">resolveLocalizedDescription(List)</a></li>
+<li><a href="#resolveLocalizedEffect(java.util.List)" tabindex="0">resolveLocalizedEffect(List)</a></li>
+<li><a href="#resolveLocalizedVerboseEffect(java.util.List)" tabindex="0">resolveLocalizedVerboseEffect(List)</a></li>
 </ol>
 </li>
 </ol>
@@ -90,7 +93,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>直接已知子类:</dt>
-<dd><code><a href="BerryDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryDataProvider</a>, <a href="BerryFirmnessDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryFirmnessDataProvider</a>, <a href="BerryFlavorDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryFlavorDataProvider</a>, <a href="EggGroupDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EggGroupDataProvider</a>, <a href="GenderDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">GenderDataProvider</a>, <a href="MoveAilmentDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveAilmentDataProvider</a>, <a href="MoveCategoryDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveCategoryDataProvider</a>, <a href="MoveDamageClassDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveDamageClassDataProvider</a>, <a href="MoveLearnMethodDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveLearnMethodDataProvider</a>, <a href="MoveTargetDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveTargetDataProvider</a>, <a href="TypeDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">TypeDataProvider</a></code></dd>
+<dd><code><a href="AbilityDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">AbilityDataProvider</a>, <a href="BerryDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryDataProvider</a>, <a href="BerryFirmnessDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryFirmnessDataProvider</a>, <a href="BerryFlavorDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">BerryFlavorDataProvider</a>, <a href="CharacteristicDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">CharacteristicDataProvider</a>, <a href="EggGroupDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EggGroupDataProvider</a>, <a href="EncounterConditionDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EncounterConditionDataProvider</a>, <a href="EncounterConditionValueDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EncounterConditionValueDataProvider</a>, <a href="EncounterMethodDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EncounterMethodDataProvider</a>, <a href="EvolutionChainDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EvolutionChainDataProvider</a>, <a href="EvolutionTriggerDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EvolutionTriggerDataProvider</a>, <a href="GenderDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">GenderDataProvider</a>, <a href="GrowthRateDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">GrowthRateDataProvider</a>, <a href="ItemAttributeDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemAttributeDataProvider</a>, <a href="ItemCategoryDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemCategoryDataProvider</a>, <a href="ItemDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemDataProvider</a>, <a href="ItemFlingEffectDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemFlingEffectDataProvider</a>, <a href="ItemPocketDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemPocketDataProvider</a>, <a href="LocationAreaDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">LocationAreaDataProvider</a>, <a href="LocationDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">LocationDataProvider</a>, <a href="MachineDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MachineDataProvider</a>, <a href="MoveAilmentDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveAilmentDataProvider</a>, <a href="MoveBattleStyleDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveBattleStyleDataProvider</a>, <a href="MoveCategoryDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveCategoryDataProvider</a>, <a href="MoveDamageClassDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveDamageClassDataProvider</a>, <a href="MoveDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveDataProvider</a>, <a href="MoveLearnMethodDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveLearnMethodDataProvider</a>, <a href="MoveTargetDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">MoveTargetDataProvider</a>, <a href="NatureDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">NatureDataProvider</a>, <a href="PokemonColorDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonColorDataProvider</a>, <a href="PokemonDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonDataProvider</a>, <a href="PokemonFormDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonFormDataProvider</a>, <a href="PokemonHabitatDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonHabitatDataProvider</a>, <a href="PokemonShapeDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonShapeDataProvider</a>, <a href="PokemonSpeciesDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">PokemonSpeciesDataProvider</a>, <a href="RegionDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">RegionDataProvider</a>, <a href="StatDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">StatDataProvider</a>, <a href="TypeDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">TypeDataProvider</a></code></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
@@ -154,11 +157,32 @@ implements <a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.
 <div class="block">按 PokeAPI 类型枚举获取数据列表</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedNameFromNames(java.util.List,java.lang.String)" class="member-name-link">resolveLocalizedNameFromNames</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;?&gt;&nbsp;names,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedDescription(java.util.List)" class="member-name-link">resolveLocalizedDescription</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Description.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Description</a>&gt;&nbsp;descriptions)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"><h5 id="--heading">描述解析</h5>
+<p>解析 PokeAPI 中的 <code>descriptions</code> 列表获取本地化描述，失败时返回 null</p>
+</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedEffect(java.util.List)" class="member-name-link">resolveLocalizedEffect</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Effect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Effect</a>&gt;&nbsp;effectEntries)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"><h5 id="--heading1">效果解析</h5>
+<p>解析 PokeAPI 中的 <code>effectEntries</code> 列表获取本地化效果，失败时返回 null</p>
+</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedName(java.util.List,java.lang.String)" class="member-name-link">resolveLocalizedName</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"><h5 id="--heading">名称解析</h5>
+<div class="block"><h5 id="--heading2">名称解析</h5>
 <p>解析 PokeAPI 中的 <code>names</code> 列表获取本地化名称，失败时使用默认值</p>
+</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveLocalizedVerboseEffect(java.util.List)" class="member-name-link">resolveLocalizedVerboseEffect</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;verboseEffectEntries)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"><h5 id="--heading3">详尽效果解析</h5>
+<p>解析 PokeAPI 中的 <code>verboseEffectEntries</code> 列表获取本地化详尽效果，失败时返回 null</p>
 </div>
 </div>
 </div>
@@ -235,12 +259,12 @@ implements <a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.
 </section>
 </li>
 <li>
-<section class="detail" id="resolveLocalizedNameFromNames(java.util.List,java.lang.String)">
-<h3>resolveLocalizedNameFromNames</h3>
+<section class="detail" id="resolveLocalizedName(java.util.List,java.lang.String)">
+<h3>resolveLocalizedName</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedNameFromNames</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;?&gt;&nbsp;names,
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedName</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Name.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Name</a>&gt;&nbsp;names,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;defaultName)</span></div>
-<div class="block"><h5 id="--heading1">名称解析</h5>
+<div class="block"><h5 id="--heading4">名称解析</h5>
 <p>解析 PokeAPI 中的 <code>names</code> 列表获取本地化名称，失败时使用默认值</p>
 </div>
 <dl class="notes">
@@ -249,6 +273,57 @@ implements <a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.
 <dd><code>defaultName</code> - 默认名称，当无法解析本地化名称时使用</dd>
 <dt>返回:</dt>
 <dd>本地化名称或默认名称</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolveLocalizedDescription(java.util.List)">
+<h3>resolveLocalizedDescription</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedDescription</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Description.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Description</a>&gt;&nbsp;descriptions)</span></div>
+<div class="block"><h5 id="--heading5">描述解析</h5>
+<p>解析 PokeAPI 中的 <code>descriptions</code> 列表获取本地化描述，失败时返回 null</p>
+</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>descriptions</code> - PokeAPI 的 descriptions 列表，可能为 null</dd>
+<dt>返回:</dt>
+<dd>本地化描述或 null</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolveLocalizedEffect(java.util.List)">
+<h3>resolveLocalizedEffect</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedEffect</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/Effect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Effect</a>&gt;&nbsp;effectEntries)</span></div>
+<div class="block"><h5 id="--heading6">效果解析</h5>
+<p>解析 PokeAPI 中的 <code>effectEntries</code> 列表获取本地化效果，失败时返回 null</p>
+</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>effectEntries</code> - PokeAPI 的 effectEntries 列表，可能为 null</dd>
+<dt>返回:</dt>
+<dd>本地化效果或 null</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolveLocalizedVerboseEffect(java.util.List)">
+<h3>resolveLocalizedVerboseEffect</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">resolveLocalizedVerboseEffect</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/common/VerboseEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">VerboseEffect</a>&gt;&nbsp;verboseEffectEntries)</span></div>
+<div class="block"><h5 id="--heading7">详尽效果解析</h5>
+<p>解析 PokeAPI 中的 <code>verboseEffectEntries</code> 列表获取本地化详尽效果，失败时返回 null</p>
+</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>verboseEffectEntries</code> - PokeAPI 的 verboseEffectEntries 列表，可能为 null</dd>
+<dt>返回:</dt>
+<dd>本地化详尽效果或 null</dd>
 </dl>
 </div>
 </section>

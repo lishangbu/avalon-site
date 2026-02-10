@@ -68,7 +68,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#equals(java.lang.Object)" tabindex="0">equals(Object)</a></li>
 <li><a href="#version()" tabindex="0">version()</a></li>
 <li><a href="#maxChance()" tabindex="0">maxChance()</a></li>
-<li><a href="#encounter_details()" tabindex="0">encounter_details()</a></li>
+<li><a href="#encounterDetails()" tabindex="0">encounterDetails()</a></li>
 </ol>
 </li>
 </ol>
@@ -88,11 +88,11 @@ loadScripts(document, 'script');</script>
 <dt>记录组件：</dt>
 <dd><code><span id="param-version">version</span></code> - 该遭遇发生的游戏版本</dd>
 <dd><code><span id="param-maxChance">maxChance</span></code> - 所有遭遇潜力的最大百分比</dd>
-<dd><code><span id="param-encounter_details">encounter_details</span></code> - 遭遇及其详细信息的列表</dd>
+<dd><code><span id="param-encounterDetails">encounterDetails</span></code> - 遭遇及其详细信息的列表</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">VersionEncounterDetail</span>(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;version, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxChance, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounter_details)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">VersionEncounterDetail</span>(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;&nbsp;version, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxChance, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounterDetails)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
 <div class="block">版本遭遇详情模型</div>
 <dl class="notes">
@@ -113,9 +113,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">构造器</div>
 <div class="table-header col-last">说明</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.util.List)" class="member-name-link">VersionEncounterDetail</a><wbr>(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;version,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.util.List)" class="member-name-link">VersionEncounterDetail</a><wbr>(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;&nbsp;version,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxChance,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounter_details)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounterDetails)</code></div>
 <div class="col-last even-row-color">
 <div class="block">创建 <code>VersionEncounterDetail</code> 记录类的实例。</div>
 </div>
@@ -134,9 +134,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#encounter_details()" class="member-name-link">encounter_details</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#encounterDetails()" class="member-name-link">encounterDetails</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">返回 <a href="#param-encounter_details"><code>encounter_details</code></a> 记录组件的值。</div>
+<div class="block">返回 <a href="#param-encounterDetails"><code>encounterDetails</code></a> 记录组件的值。</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;o)</code></div>
@@ -158,7 +158,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回此记录类的字符串表示形式。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../game/Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#version()" class="member-name-link">version</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-version"><code>version</code></a> 记录组件的值。</div>
@@ -184,15 +184,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.util.List)">
 <h3>VersionEncounterDetail</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VersionEncounterDetail</span><wbr><span class="parameters">(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;version,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VersionEncounterDetail</span><wbr><span class="parameters">(<a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;&nbsp;version,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;maxChance,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounter_details)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;&nbsp;encounterDetails)</span></div>
 <div class="block">创建 <code>VersionEncounterDetail</code> 记录类的实例。</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>version</code> - <a href="#param-version"><code>version</code></a> 记录组件的值</dd>
 <dd><code>maxChance</code> - <a href="#param-maxChance"><code>maxChance</code></a> 记录组件的值</dd>
-<dd><code>encounter_details</code> - <a href="#param-encounter_details"><code>encounter_details</code></a> 记录组件的值</dd>
+<dd><code>encounterDetails</code> - <a href="#param-encounterDetails"><code>encounterDetails</code></a> 记录组件的值</dd>
 </dl>
 </div>
 </section>
@@ -256,7 +256,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="version()">
 <h3>version</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;</span>&nbsp;<span class="element-name">version</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../game/Version.html" title="io.github.lishangbu.avalon.pokeapi.model.game中的类">Version</a>&gt;</span>&nbsp;<span class="element-name">version</span>()</div>
 <div class="block">返回 <a href="#param-version"><code>version</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>
@@ -279,14 +279,14 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="encounter_details()">
-<h3>encounter_details</h3>
+<section class="detail" id="encounterDetails()">
+<h3>encounterDetails</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;</span>&nbsp;<span class="element-name">encounter_details</span>()</div>
-<div class="block">返回 <a href="#param-encounter_details"><code>encounter_details</code></a> 记录组件的值。</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="Encounter.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">Encounter</a>&gt;</span>&nbsp;<span class="element-name">encounterDetails</span>()</div>
+<div class="block">返回 <a href="#param-encounterDetails"><code>encounterDetails</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>
-<dd><a href="#param-encounter_details"><code>encounter_details</code></a> 记录组件的值</dd>
+<dd><a href="#param-encounterDetails"><code>encounterDetails</code></a> 记录组件的值</dd>
 </dl>
 </div>
 </section>

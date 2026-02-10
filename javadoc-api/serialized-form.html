@@ -1225,24 +1225,9 @@ loadScripts(document, 'script');</script>
 <div class="block">此攻击导致状态异常的可能性</div>
 </li>
 <li class="block-list">
-<h5>ailmentInternalName</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> ailmentInternalName</pre>
-<div class="block">招式导致的状态异常(内部名称)</div>
-</li>
-<li class="block-list">
-<h5>categoryInternalName</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> categoryInternalName</pre>
-<div class="block">招式分类(内部名称)</div>
-</li>
-<li class="block-list">
 <h5>critRate</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> critRate</pre>
 <div class="block">暴击率加成</div>
-</li>
-<li class="block-list">
-<h5>damageClassInternalName</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> damageClassInternalName</pre>
-<div class="block">此招式对目标造成的伤害类型(内部名称)</div>
 </li>
 <li class="block-list">
 <h5>drain</h5>
@@ -1282,12 +1267,32 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>maxTurns</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> maxTurns</pre>
-<div class="block">此招式持续生效的最小回合数。如果总是只持续一回合，则为空</div>
+<div class="block">此招式持续生效的最大回合数。如果总是只持续一回合，则为空</div>
 </li>
 <li class="block-list">
 <h5>minHits</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> minHits</pre>
 <div class="block">此招式持续生效的最小回合数。如果总是只持续一回合，则为空</div>
+</li>
+<li class="block-list">
+<h5>moveAilment</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/MoveAilment.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveAilment</a> moveAilment</pre>
+<div class="block">招式导致的状态异常</div>
+</li>
+<li class="block-list">
+<h5>moveCategory</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/MoveCategory.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveCategory</a> moveCategory</pre>
+<div class="block">招式分类</div>
+</li>
+<li class="block-list">
+<h5>moveDamageClass</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/MoveDamageClass.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveDamageClass</a> moveDamageClass</pre>
+<div class="block">此招式对目标造成的伤害类型</div>
+</li>
+<li class="block-list">
+<h5>moveTarget</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/MoveTarget.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveTarget</a> moveTarget</pre>
+<div class="block">接收攻击效果的目标类型</div>
 </li>
 <li class="block-list">
 <h5>name</h5>
@@ -1317,12 +1322,9 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>statChance</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> statChance</pre>
-<div class="block">此攻击导致目标宝可梦能力值变化的可能性</div>
-</li>
-<li class="block-list">
-<h5>targetInternalName</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> targetInternalName</pre>
-<div class="block">接收攻击效果的目标类型(内部名称)</div>
+<div class="block"><p>此攻击导致目标宝可梦能力值变化的可能性</p>
+<p><code>Move.effectChance</code> 目前这两个字段的值是相同的，可能是因为在某些版本中，这两种效果被分开计算了概率</p>
+</div>
 </li>
 <li class="block-list">
 <h5>text</h5>
@@ -1330,9 +1332,9 @@ loadScripts(document, 'script');</script>
 <div class="block">文本描述</div>
 </li>
 <li class="block-list">
-<h5>typeInternalName</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> typeInternalName</pre>
-<div class="block">属性内部名称</div>
+<h5>type</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a> type</pre>
+<div class="block">属性</div>
 </li>
 </ul>
 </section>
