@@ -113,6 +113,11 @@ loadScripts(document, 'script');</script>
 <div class="block">名称</div>
 </li>
 <li class="block-list">
+<h5>order</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> order</pre>
+<div class="block">排序顺序</div>
+</li>
+<li class="block-list">
 <h5>parentId</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> parentId</pre>
 <div class="block">父菜单 ID</div>
@@ -141,11 +146,6 @@ loadScripts(document, 'script');</script>
 <h5>showTab</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> showTab</pre>
 <div class="block">显示标签页</div>
-</li>
-<li class="block-list">
-<h5>sortOrder</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> sortOrder</pre>
-<div class="block">排序顺序</div>
 </li>
 </ul>
 </section>
@@ -1572,6 +1572,60 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.Nature">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/Nature.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.Nature</a></h3>
+<div class="type-signature">class Nature extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>decreasedStat</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a> decreasedStat</pre>
+<div class="block">降低 10% 的属性</div>
+</li>
+<li class="block-list">
+<h5>hatesFlavor</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a> hatesFlavor</pre>
+<div class="block">讨厌的口味</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
+<div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>increasedStat</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a> increasedStat</pre>
+<div class="block">增加 10% 的属性</div>
+</li>
+<li class="block-list">
+<h5>internalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
+<div class="block">内部名称</div>
+</li>
+<li class="block-list">
+<h5>likesFlavor</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/BerryFlavor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">BerryFlavor</a> likesFlavor</pre>
+<div class="block">喜欢的口味</div>
+</li>
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
+<div class="block">显示名称</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.Pokemon">
 <h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/Pokemon.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.Pokemon</a></h3>
 <div class="type-signature">class Pokemon extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
@@ -1592,7 +1646,7 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>height</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> height</pre>
-<div class="block">身高，单位为分米</div>
+<div class="block">身高（以分米为单位）</div>
 </li>
 <li class="block-list">
 <h5>id</h5>
@@ -1610,9 +1664,240 @@ loadScripts(document, 'script');</script>
 <div class="block">宝可梦名称</div>
 </li>
 <li class="block-list">
+<h5>order</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> order</pre>
+<div class="block">用于排序的顺序</div>
+</li>
+<li class="block-list">
+<h5>pokemonSpecies</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/PokemonSpecies.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonSpecies</a> pokemonSpecies</pre>
+<div class="block">宝可梦种类</div>
+</li>
+<li class="block-list">
 <h5>weight</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> weight</pre>
-<div class="block">体重，数字每增加1，体重增加0.1kg</div>
+<div class="block">体重（以百克为单位）</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonColor">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonColor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonColor</a></h3>
+<div class="type-signature">class PokemonColor extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
+<div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>internalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
+<div class="block">内部名称</div>
+</li>
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
+<div class="block">显示名称</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonHabitat">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonHabitat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonHabitat</a></h3>
+<div class="type-signature">class PokemonHabitat extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
+<div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>internalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
+<div class="block">内部名称</div>
+</li>
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
+<div class="block">显示名称</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonShape">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonShape.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonShape</a></h3>
+<div class="type-signature">class PokemonShape extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
+<div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>internalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
+<div class="block">内部名称</div>
+</li>
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
+<div class="block">显示名称</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonSpecies">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonSpecies.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonSpecies</a></h3>
+<div class="type-signature">class PokemonSpecies extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>baseHappiness</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> baseHappiness</pre>
+<div class="block">基础幸福度</div>
+</li>
+<li class="block-list">
+<h5>captureRate</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> captureRate</pre>
+<div class="block">捕获率</div>
+</li>
+<li class="block-list">
+<h5>colorId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> colorId</pre>
+<div class="block">颜色 ID</div>
+</li>
+<li class="block-list">
+<h5>evolutionChainId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> evolutionChainId</pre>
+<div class="block">进化链 ID</div>
+</li>
+<li class="block-list">
+<h5>evolvesFromSpeciesId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> evolvesFromSpeciesId</pre>
+<div class="block">进化来源种类 ID</div>
+</li>
+<li class="block-list">
+<h5>formsSwitchable</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> formsSwitchable</pre>
+<div class="block">形态是否可切换</div>
+</li>
+<li class="block-list">
+<h5>genderRate</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> genderRate</pre>
+<div class="block">性别比例</div>
+</li>
+<li class="block-list">
+<h5>generationId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> generationId</pre>
+<div class="block">世代 ID</div>
+</li>
+<li class="block-list">
+<h5>growthRateId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> growthRateId</pre>
+<div class="block">成长速率 ID</div>
+</li>
+<li class="block-list">
+<h5>habitatId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> habitatId</pre>
+<div class="block">栖息地 ID</div>
+</li>
+<li class="block-list">
+<h5>hasGenderDifferences</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> hasGenderDifferences</pre>
+<div class="block">是否有性别差异</div>
+</li>
+<li class="block-list">
+<h5>hatchCounter</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> hatchCounter</pre>
+<div class="block">孵化周期</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
+<div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>internalName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
+<div class="block">内部名称</div>
+</li>
+<li class="block-list">
+<h5>isBaby</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> isBaby</pre>
+<div class="block">是否为幼年形态</div>
+</li>
+<li class="block-list">
+<h5>isLegendary</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> isLegendary</pre>
+<div class="block">是否为传说宝可梦</div>
+</li>
+<li class="block-list">
+<h5>isMythical</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> isMythical</pre>
+<div class="block">是否为神话宝可梦</div>
+</li>
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
+<div class="block">显示名称</div>
+</li>
+<li class="block-list">
+<h5>order</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> order</pre>
+<div class="block">排序顺序</div>
+</li>
+<li class="block-list">
+<h5>shapeId</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> shapeId</pre>
+<div class="block">形状 ID</div>
 </li>
 </ul>
 </section>
