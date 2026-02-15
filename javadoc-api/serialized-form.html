@@ -673,24 +673,19 @@ loadScripts(document, 'script');</script>
 <div class="block">主键</div>
 </li>
 <li class="block-list">
-<h5>info</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> info</pre>
-<div class="block">基本信息</div>
-</li>
-<li class="block-list">
 <h5>internalName</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> internalName</pre>
 <div class="block">内部名称</div>
 </li>
 <li class="block-list">
+<h5>introduction</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> introduction</pre>
+<div class="block">文字介绍</div>
+</li>
+<li class="block-list">
 <h5>name</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> name</pre>
 <div class="block">名称</div>
-</li>
-<li class="block-list">
-<h5>text</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> text</pre>
-<div class="block">文字介绍</div>
 </li>
 </ul>
 </section>
@@ -1971,6 +1966,11 @@ loadScripts(document, 'script');</script>
 <h4>序列化字段</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>abilities</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonAbility.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonAbility</a>&gt; abilities</pre>
+<div class="block">宝可梦特性列表</div>
+</li>
+<li class="block-list">
 <h5>baseExperience</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> baseExperience</pre>
 <div class="block">基础经验值</div>
@@ -2009,6 +2009,69 @@ loadScripts(document, 'script');</script>
 <h5>weight</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> weight</pre>
 <div class="block">体重（以百克为单位）</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonAbility">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonAbility.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonAbility</a></h3>
+<div class="type-signature">class PokemonAbility extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/PokemonAbility.PokemonAbilityId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonAbility.PokemonAbilityId</a> id</pre>
+<div class="block">复合主键</div>
+</li>
+<li class="block-list">
+<h5>isHidden</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a> isHidden</pre>
+<div class="block">是否隐藏特性</div>
+</li>
+<li class="block-list">
+<h5>slot</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a> slot</pre>
+<div class="block">特性槽位（1-第一槽位，2-第二槽位，3-第三槽位）</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.PokemonAbility.PokemonAbilityId">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/PokemonAbility.PokemonAbilityId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.PokemonAbility.PokemonAbilityId</a></h3>
+<div class="type-signature">class PokemonAbilityId extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>ability</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Ability.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Ability</a> ability</pre>
+<div class="block">特性引用</div>
+</li>
+<li class="block-list">
+<h5>pokemon</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Pokemon.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Pokemon</a> pokemon</pre>
+<div class="block">宝可梦引用</div>
 </li>
 </ul>
 </section>
@@ -2142,11 +2205,6 @@ loadScripts(document, 'script');</script>
 <div class="block">捕获率</div>
 </li>
 <li class="block-list">
-<h5>colorId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> colorId</pre>
-<div class="block">颜色 ID</div>
-</li>
-<li class="block-list">
 <h5>evolutionChainId</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> evolutionChainId</pre>
 <div class="block">进化链 ID</div>
@@ -2172,14 +2230,9 @@ loadScripts(document, 'script');</script>
 <div class="block">世代 ID</div>
 </li>
 <li class="block-list">
-<h5>growthRateId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> growthRateId</pre>
-<div class="block">成长速率 ID</div>
-</li>
-<li class="block-list">
-<h5>habitatId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> habitatId</pre>
-<div class="block">栖息地 ID</div>
+<h5>growthRate</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/GrowthRate.html" title="io.github.lishangbu.avalon.dataset.entity中的类">GrowthRate</a> growthRate</pre>
+<div class="block">成长速率</div>
 </li>
 <li class="block-list">
 <h5>hasGenderDifferences</h5>
@@ -2222,9 +2275,19 @@ loadScripts(document, 'script');</script>
 <div class="block">显示名称</div>
 </li>
 <li class="block-list">
-<h5>shapeId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> shapeId</pre>
-<div class="block">形状 ID</div>
+<h5>pokemonColor</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/PokemonColor.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonColor</a> pokemonColor</pre>
+<div class="block">颜色</div>
+</li>
+<li class="block-list">
+<h5>pokemonHabitat</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/PokemonHabitat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonHabitat</a> pokemonHabitat</pre>
+<div class="block">栖息地</div>
+</li>
+<li class="block-list">
+<h5>pokemonShape</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/PokemonShape.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonShape</a> pokemonShape</pre>
+<div class="block">形状</div>
 </li>
 <li class="block-list">
 <h5>sortingOrder</h5>
@@ -2373,14 +2436,9 @@ loadScripts(document, 'script');</script>
 <h4>序列化字段</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>attackingTypeId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> attackingTypeId</pre>
-<div class="block">攻击方 ID</div>
-</li>
-<li class="block-list">
-<h5>defendingTypeId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> defendingTypeId</pre>
-<div class="block">防御方 ID</div>
+<h5>id</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.TypeDamageRelationId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">TypeDamageRelation.TypeDamageRelationId</a> id</pre>
+<div class="block">复合主键</div>
 </li>
 <li class="block-list">
 <h5>multiplier</h5>
@@ -2397,18 +2455,24 @@ loadScripts(document, 'script');</script>
 <section class="serialized-class-details" id="io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation.TypeDamageRelationId">
 <h3>类&nbsp;<a href="io/github/lishangbu/avalon/dataset/entity/TypeDamageRelation.TypeDamageRelationId.html" title="io.github.lishangbu.avalon.dataset.entity中的类">io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation.TypeDamageRelationId</a></h3>
 <div class="type-signature">class TypeDamageRelationId extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
 <ul class="block-list">
 <li>
 <section class="detail">
 <h4>序列化字段</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>attackingTypeId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> attackingTypeId</pre>
+<h5>attackingType</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a> attackingType</pre>
+<div class="block">攻击方属性</div>
 </li>
 <li class="block-list">
-<h5>defendingTypeId</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> defendingTypeId</pre>
+<h5>defendingType</h5>
+<pre><a href="io/github/lishangbu/avalon/dataset/entity/Type.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Type</a> defendingType</pre>
+<div class="block">防御方属性</div>
 </li>
 </ul>
 </section>
