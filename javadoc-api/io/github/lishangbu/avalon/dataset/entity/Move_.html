@@ -73,7 +73,11 @@ loadScripts(document, 'script');</script>
 <li><a href="#TEXT" tabindex="0">TEXT</a></li>
 <li><a href="#SHORT_EFFECT" tabindex="0">SHORT_EFFECT</a></li>
 <li><a href="#EFFECT" tabindex="0">EFFECT</a></li>
+<li><a href="#MOVE_CATEGORY" tabindex="0">MOVE_CATEGORY</a></li>
+<li><a href="#MOVE_AILMENT" tabindex="0">MOVE_AILMENT</a></li>
 <li><a href="#MIN_HITS" tabindex="0">MIN_HITS</a></li>
+<li><a href="#MAX_HITS" tabindex="0">MAX_HITS</a></li>
+<li><a href="#MIN_TURNS" tabindex="0">MIN_TURNS</a></li>
 <li><a href="#MAX_TURNS" tabindex="0">MAX_TURNS</a></li>
 <li><a href="#DRAIN" tabindex="0">DRAIN</a></li>
 <li><a href="#HEALING" tabindex="0">HEALING</a></li>
@@ -81,8 +85,6 @@ loadScripts(document, 'script');</script>
 <li><a href="#AILMENT_CHANCE" tabindex="0">AILMENT_CHANCE</a></li>
 <li><a href="#FLINCH_CHANCE" tabindex="0">FLINCH_CHANCE</a></li>
 <li><a href="#STAT_CHANCE" tabindex="0">STAT_CHANCE</a></li>
-<li><a href="#MOVE_CATEGORY" tabindex="0">MOVE_CATEGORY</a></li>
-<li><a href="#MOVE_AILMENT" tabindex="0">MOVE_AILMENT</a></li>
 <li><a href="#class_" tabindex="0">class_</a></li>
 <li><a href="#id" tabindex="0">id</a></li>
 <li><a href="#internalName" tabindex="0">internalName</a></li>
@@ -98,7 +100,11 @@ loadScripts(document, 'script');</script>
 <li><a href="#text" tabindex="0">text</a></li>
 <li><a href="#shortEffect" tabindex="0">shortEffect</a></li>
 <li><a href="#effect" tabindex="0">effect</a></li>
+<li><a href="#moveCategory" tabindex="0">moveCategory</a></li>
+<li><a href="#moveAilment" tabindex="0">moveAilment</a></li>
 <li><a href="#minHits" tabindex="0">minHits</a></li>
+<li><a href="#maxHits" tabindex="0">maxHits</a></li>
+<li><a href="#minTurns" tabindex="0">minTurns</a></li>
 <li><a href="#maxTurns" tabindex="0">maxTurns</a></li>
 <li><a href="#drain" tabindex="0">drain</a></li>
 <li><a href="#healing" tabindex="0">healing</a></li>
@@ -106,8 +112,6 @@ loadScripts(document, 'script');</script>
 <li><a href="#ailmentChance" tabindex="0">ailmentChance</a></li>
 <li><a href="#flinchChance" tabindex="0">flinchChance</a></li>
 <li><a href="#statChance" tabindex="0">statChance</a></li>
-<li><a href="#moveCategory" tabindex="0">moveCategory</a></li>
-<li><a href="#moveAilment" tabindex="0">moveAilment</a></li>
 </ol>
 </li>
 <li><a href="#constructor-detail" tabindex="0">构造器详细资料</a>
@@ -230,8 +234,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Static metamodel for attribute <code>Move.internalName</code></div>
 </div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#MAX_TURNS" class="member-name-link">MAX_TURNS</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#MAX_HITS" class="member-name-link">MAX_HITS</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#MAX_TURNS" class="member-name-link">MAX_TURNS</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#maxHits" class="member-name-link">maxHits</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Static metamodel for attribute <code>Move.maxHits</code></div>
+</div>
 <div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#maxTurns" class="member-name-link">maxTurns</a></code></div>
 <div class="col-last even-row-color">
@@ -240,10 +252,18 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#MIN_HITS" class="member-name-link">MIN_HITS</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#minHits" class="member-name-link">minHits</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#MIN_TURNS" class="member-name-link">MIN_TURNS</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#minHits" class="member-name-link">minHits</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Static metamodel for attribute <code>Move.minHits</code></div>
+</div>
+<div class="col-first even-row-color"><code>static jakarta.persistence.metamodel.SingularAttribute<wbr>&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#minTurns" class="member-name-link">minTurns</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Static metamodel for attribute <code>Move.minTurns</code></div>
 </div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#MOVE_AILMENT" class="member-name-link">MOVE_AILMENT</a></code></div>
@@ -614,6 +634,40 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="MOVE_CATEGORY">
+<h3>MOVE_CATEGORY</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MOVE_CATEGORY</span></div>
+<dl class="notes">
+<dt>另请参阅:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#moveCategory"><code>moveCategory</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MOVE_CATEGORY">常量字段值</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="MOVE_AILMENT">
+<h3>MOVE_AILMENT</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MOVE_AILMENT</span></div>
+<dl class="notes">
+<dt>另请参阅:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#moveAilment"><code>moveAilment</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MOVE_AILMENT">常量字段值</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="MIN_HITS">
 <h3>MIN_HITS</h3>
 <div class="horizontal-scroll">
@@ -624,6 +678,40 @@ loadScripts(document, 'script');</script>
 <ul class="tag-list">
 <li><a href="#minHits"><code>minHits</code></a></li>
 <li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MIN_HITS">常量字段值</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="MAX_HITS">
+<h3>MAX_HITS</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MAX_HITS</span></div>
+<dl class="notes">
+<dt>另请参阅:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#maxHits"><code>maxHits</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MAX_HITS">常量字段值</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="MIN_TURNS">
+<h3>MIN_TURNS</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MIN_TURNS</span></div>
+<dl class="notes">
+<dt>另请参阅:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#minTurns"><code>minTurns</code></a></li>
+<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MIN_TURNS">常量字段值</a></li>
 </ul>
 </dd>
 </dl>
@@ -743,40 +831,6 @@ loadScripts(document, 'script');</script>
 <ul class="tag-list">
 <li><a href="#statChance"><code>statChance</code></a></li>
 <li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.STAT_CHANCE">常量字段值</a></li>
-</ul>
-</dd>
-</dl>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="MOVE_CATEGORY">
-<h3>MOVE_CATEGORY</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MOVE_CATEGORY</span></div>
-<dl class="notes">
-<dt>另请参阅:</dt>
-<dd>
-<ul class="tag-list">
-<li><a href="#moveCategory"><code>moveCategory</code></a></li>
-<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MOVE_CATEGORY">常量字段值</a></li>
-</ul>
-</dd>
-</dl>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="MOVE_AILMENT">
-<h3>MOVE_AILMENT</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">MOVE_AILMENT</span></div>
-<dl class="notes">
-<dt>另请参阅:</dt>
-<dd>
-<ul class="tag-list">
-<li><a href="#moveAilment"><code>moveAilment</code></a></li>
-<li><a href="../../../../../../constant-values.html#io.github.lishangbu.avalon.dataset.entity.Move_.MOVE_AILMENT">常量字段值</a></li>
 </ul>
 </dd>
 </dl>
@@ -919,11 +973,47 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="moveCategory">
+<h3>moveCategory</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>, <a href="MoveCategory.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveCategory</a>&gt;</span>&nbsp;<span class="element-name">moveCategory</span></div>
+<div class="block">Static metamodel for attribute <code>Move.moveCategory</code></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="moveAilment">
+<h3>moveAilment</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>, <a href="MoveAilment.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveAilment</a>&gt;</span>&nbsp;<span class="element-name">moveAilment</span></div>
+<div class="block">Static metamodel for attribute <code>Move.moveAilment</code></div>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="minHits">
 <h3>minHits</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">minHits</span></div>
 <div class="block">Static metamodel for attribute <code>Move.minHits</code></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="maxHits">
+<h3>maxHits</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">maxHits</span></div>
+<div class="block">Static metamodel for attribute <code>Move.maxHits</code></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="minTurns">
+<h3>minTurns</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">minTurns</span></div>
+<div class="block">Static metamodel for attribute <code>Move.minTurns</code></div>
 </div>
 </section>
 </li>
@@ -987,24 +1077,6 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">statChance</span></div>
 <div class="block">Static metamodel for attribute <code>Move.statChance</code></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveCategory">
-<h3>moveCategory</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>, <a href="MoveCategory.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveCategory</a>&gt;</span>&nbsp;<span class="element-name">moveCategory</span></div>
-<div class="block">Static metamodel for attribute <code>Move.moveCategory</code></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveAilment">
-<h3>moveAilment</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static volatile</span>&nbsp;<span class="return-type">jakarta.persistence.metamodel.SingularAttribute&lt;<a href="Move.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Move</a>, <a href="MoveAilment.html" title="io.github.lishangbu.avalon.dataset.entity中的类">MoveAilment</a>&gt;</span>&nbsp;<span class="element-name">moveAilment</span></div>
-<div class="block">Static metamodel for attribute <code>Move.moveAilment</code></div>
 </div>
 </section>
 </li>
