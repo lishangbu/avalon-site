@@ -57,6 +57,11 @@ loadScripts(document, 'script');</script>
 <li><a href="#field-summary" tabindex="0">字段概要</a></li>
 <li><a href="#constructor-summary" tabindex="0">构造器概要</a></li>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
+<li><a href="#field-detail" tabindex="0">字段详细资料</a>
+<ol class="toc-list">
+<li><a href="#pokeApiService" tabindex="0">pokeApiService</a></li>
+</ol>
+</li>
 <li><a href="#constructor-detail" tabindex="0">构造器详细资料</a>
 <ol class="toc-list">
 <li><a href="#%3Cinit%3E()" tabindex="0">EvolutionChainDataProvider()</a></li>
@@ -64,7 +69,7 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#convert(io.github.lishangbu.avalon.pokeapi.model.evolution.EvolutionChain)" tabindex="0">convert(EvolutionChain)</a></li>
+<li><a href="#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" tabindex="0">fetch(PokeDataTypeEnum, Class)</a></li>
 </ol>
 </li>
 </ol>
@@ -75,20 +80,19 @@ loadScripts(document, 'script');</script>
 <h1 title="类 EvolutionChainDataProvider" class="title">类 EvolutionChainDataProvider</h1>
 </div>
 <div class="inheritance" title="继承树"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="AbstractPokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">io.github.lishangbu.avalon.pokeapi.dataprovider.AbstractPokeApiDataProvider</a>&lt;<a href="../model/evolution/EvolutionChain.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionChain</a>, <a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;
 <div class="inheritance">io.github.lishangbu.avalon.pokeapi.dataprovider.EvolutionChainDataProvider</div>
-</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>所有已实现的接口:</dt>
-<dd><code><a href="PokeApiDataConverter.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的接口">PokeApiDataConverter</a>&lt;<a href="../model/evolution/EvolutionChain.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionChain</a>, <a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;, <a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的接口">PokeApiDataProvider</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</code></dd>
+<dd><code><a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的接口">PokeApiDataProvider</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="annotations">@Service
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">EvolutionChainDataProvider</span>
-<span class="extends-implements">extends <a href="AbstractPokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">AbstractPokeApiDataProvider</a>&lt;<a href="../model/evolution/EvolutionChain.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionChain</a>, <a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</span></div>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
+implements <a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的接口">PokeApiDataProvider</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</span></div>
 <div class="block">进化链数据提供者</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
@@ -104,9 +108,15 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="field-summary" id="field-summary">
 <h2>字段概要</h2>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-io.github.lishangbu.avalon.pokeapi.dataprovider.AbstractPokeApiDataProvider">从类继承的字段&nbsp;<a href="AbstractPokeApiDataProvider.html#field-summary" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">AbstractPokeApiDataProvider</a></h3>
-<code><a href="AbstractPokeApiDataProvider.html#pokeApiService">pokeApiService</a></code></div>
+<div class="caption"><span>字段</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">字段</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>protected <a href="../component/PokeApiService.html" title="io.github.lishangbu.avalon.pokeapi.component中的接口">PokeApiService</a></code></div>
+<div class="col-second even-row-color"><code><a href="#pokeApiService" class="member-name-link">pokeApiService</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -133,17 +143,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#convert(io.github.lishangbu.avalon.pokeapi.model.evolution.EvolutionChain)" class="member-name-link">convert</a><wbr>(<a href="../model/evolution/EvolutionChain.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionChain</a>&nbsp;evolutionChain)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" class="member-name-link">fetch</a><wbr>(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;typeEnum,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Applies this function to the given argument.</div>
+<div class="block">按 PokeAPI 类型枚举获取数据列表</div>
 </div>
 </div>
 </div>
 </div>
-<div class="inherited-list">
-<h3 id="methods-inherited-from-class-io.github.lishangbu.avalon.pokeapi.dataprovider.AbstractPokeApiDataProvider">从类继承的方法&nbsp;<a href="AbstractPokeApiDataProvider.html#method-summary" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">AbstractPokeApiDataProvider</a></h3>
-<code><a href="AbstractPokeApiDataProvider.html#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" title="fetch(PokeDataTypeEnum, Class)">fetch</a>, <a href="AbstractPokeApiDataProvider.html#resolveLocalizedDescription(java.util.List)" title="resolveLocalizedDescription(List)">resolveLocalizedDescription</a>, <a href="AbstractPokeApiDataProvider.html#resolveLocalizedEffect(java.util.List)" title="resolveLocalizedEffect(List)">resolveLocalizedEffect</a>, <a href="AbstractPokeApiDataProvider.html#resolveLocalizedName(java.util.List,java.lang.String)" title="resolveLocalizedName(List, String)">resolveLocalizedName</a>, <a href="AbstractPokeApiDataProvider.html#resolveLocalizedVerboseEffect(java.util.List)" title="resolveLocalizedVerboseEffect(List)">resolveLocalizedVerboseEffect</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">从类继承的方法&nbsp;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#method-summary" title="java.lang中的类或接口" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="java.lang中的类或接口" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="java.lang中的类或接口" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#finalize()" title="java.lang中的类或接口" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#getClass()" title="java.lang中的类或接口" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()" title="java.lang中的类或接口" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notify()" title="java.lang中的类或接口" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notifyAll()" title="java.lang中的类或接口" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#toString()" title="java.lang中的类或接口" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait()" title="java.lang中的类或接口" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long)" title="java.lang中的类或接口" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="java.lang中的类或接口" class="external-link">wait</a></code></div>
@@ -153,6 +161,23 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>字段详细资料</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="pokeApiService">
+<h3>pokeApiService</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="annotations">@Autowired
+</span><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="../component/PokeApiService.html" title="io.github.lishangbu.avalon.pokeapi.component中的接口">PokeApiService</a></span>&nbsp;<span class="element-name">pokeApiService</span></div>
+</div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
@@ -175,17 +200,21 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="convert(io.github.lishangbu.avalon.pokeapi.model.evolution.EvolutionChain)">
-<h3>convert</h3>
+<section class="detail" id="fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)">
+<h3>fetch</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a></span>&nbsp;<span class="element-name">convert</span><wbr><span class="parameters">(<a href="../model/evolution/EvolutionChain.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionChain</a>&nbsp;evolutionChain)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="PokeApiDataConverter.html#convert(T)">PokeApiDataConverter</a></code></span></div>
-<div class="block">Applies this function to the given argument.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</span>&nbsp;<span class="element-name">fetch</span><wbr><span class="parameters">(<a href="../enumeration/PokeDataTypeEnum.html" title="io.github.lishangbu.avalon.pokeapi.enumeration 中的枚举类">PokeDataTypeEnum</a>&nbsp;typeEnum,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html" title="java.lang中的类或接口" class="external-link">Class</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;&nbsp;type)</span></div>
+<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="PokeApiDataProvider.html#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)">PokeApiDataProvider</a></code></span></div>
+<div class="block">按 PokeAPI 类型枚举获取数据列表</div>
 <dl class="notes">
+<dt>指定者:</dt>
+<dd><code><a href="PokeApiDataProvider.html#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)">fetch</a></code>&nbsp;在接口中&nbsp;<code><a href="PokeApiDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的接口">PokeApiDataProvider</a>&lt;<a href="../model/EvolutionChainExcelDTO.html" title="io.github.lishangbu.avalon.pokeapi.model中的类">EvolutionChainExcelDTO</a>&gt;</code></dd>
 <dt>参数:</dt>
-<dd><code>evolutionChain</code> - the function argument</dd>
+<dd><code>typeEnum</code> - 数据类型枚举</dd>
+<dd><code>type</code> - 目标类型 Class</dd>
 <dt>返回:</dt>
-<dd>the function result</dd>
+<dd>数据列表</dd>
 </dl>
 </div>
 </section>

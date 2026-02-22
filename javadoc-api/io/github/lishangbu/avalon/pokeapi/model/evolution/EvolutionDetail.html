@@ -58,7 +58,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
 <li><a href="#constructor-detail" tabindex="0">构造器详细资料</a>
 <ol class="toc-list">
-<li><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean)" tabindex="0">EvolutionDetail(NamedApiResource, NamedApiResource, Integer, NamedApiResource, NamedApiResource, NamedApiResource, NamedApiResource, Integer, Integer, Integer, Integer, Boolean, NamedApiResource, NamedApiResource, Integer, String, NamedApiResource, Boolean)</a></li>
+<li><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer)" tabindex="0">EvolutionDetail(NamedApiResource, NamedApiResource, Integer, NamedApiResource, NamedApiResource, NamedApiResource, NamedApiResource, Integer, Integer, Integer, Integer, Boolean, Boolean, NamedApiResource, NamedApiResource, Integer, String, NamedApiResource, Boolean, NamedApiResource, NamedApiResource, NamedApiResource, Integer, Integer, Integer)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#minHappiness()" tabindex="0">minHappiness()</a></li>
 <li><a href="#minBeauty()" tabindex="0">minBeauty()</a></li>
 <li><a href="#minAffection()" tabindex="0">minAffection()</a></li>
+<li><a href="#needsMultiplayer()" tabindex="0">needsMultiplayer()</a></li>
 <li><a href="#needsOverworldRain()" tabindex="0">needsOverworldRain()</a></li>
 <li><a href="#partySpecies()" tabindex="0">partySpecies()</a></li>
 <li><a href="#partyType()" tabindex="0">partyType()</a></li>
@@ -84,6 +85,12 @@ loadScripts(document, 'script');</script>
 <li><a href="#timeOfDay()" tabindex="0">timeOfDay()</a></li>
 <li><a href="#tradeSpecies()" tabindex="0">tradeSpecies()</a></li>
 <li><a href="#turnUpsideDown()" tabindex="0">turnUpsideDown()</a></li>
+<li><a href="#region()" tabindex="0">region()</a></li>
+<li><a href="#baseForm()" tabindex="0">baseForm()</a></li>
+<li><a href="#usedMove()" tabindex="0">usedMove()</a></li>
+<li><a href="#minMoveCount()" tabindex="0">minMoveCount()</a></li>
+<li><a href="#minSteps()" tabindex="0">minSteps()</a></li>
+<li><a href="#minDamageTaken()" tabindex="0">minDamageTaken()</a></li>
 </ol>
 </li>
 </ol>
@@ -101,28 +108,35 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>记录组件：</dt>
-<dd><code><span id="param-item">item</span></code> - 进化所需的道具引用</dd>
-<dd><code><span id="param-trigger">trigger</span></code> - 触发进化的事件类型引用</dd>
-<dd><code><span id="param-gender">gender</span></code> - 必需的性别 ID</dd>
-<dd><code><span id="param-heldItem">heldItem</span></code> - 在触发进化事件期间必须持有的道具引用</dd>
-<dd><code><span id="param-knownMove">knownMove</span></code> - 必须知道的招式引用</dd>
-<dd><code><span id="param-knownMoveType">knownMoveType</span></code> - 必须知道的招式类型引用</dd>
-<dd><code><span id="param-location">location</span></code> - 必须触发进化的地点引用</dd>
-<dd><code><span id="param-minLevel">minLevel</span></code> - 所需的最低等级</dd>
-<dd><code><span id="param-minHappiness">minHappiness</span></code> - 所需的最低幸福度</dd>
-<dd><code><span id="param-minBeauty">minBeauty</span></code> - 所需的最低美丽度</dd>
-<dd><code><span id="param-minAffection">minAffection</span></code> - 所需的最低亲密度</dd>
-<dd><code><span id="param-needsOverworldRain">needsOverworldRain</span></code> - 是否需要在主世界下雨</dd>
-<dd><code><span id="param-partySpecies">partySpecies</span></code> - 队伍中必须存在的宝可梦物种引用</dd>
-<dd><code><span id="param-partyType">partyType</span></code> - 队伍中必须存在的宝可梦类型引用</dd>
-<dd><code><span id="param-relativePhysicalStats">relativePhysicalStats</span></code> - 攻击与防御之间的相对关系（1/0/-1）</dd>
-<dd><code><span id="param-timeOfDay">timeOfDay</span></code> - 所需的一天中的时间（如 day/night）</dd>
-<dd><code><span id="param-tradeSpecies">tradeSpecies</span></code> - 必须交换的宝可梦物种引用</dd>
-<dd><code><span id="param-turnUpsideDown">turnUpsideDown</span></code> - 是否需要翻转设备</dd>
+<dd><code><span id="param-item">item</span></code> - 使宝可梦进化所需的道具</dd>
+<dd><code><span id="param-trigger">trigger</span></code> - 触发进化到此宝可梦物种的事件类型</dd>
+<dd><code><span id="param-gender">gender</span></code> - 进化中的宝可梦物种的性别ID，必须为此值才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-heldItem">heldItem</span></code> - 进化中的宝可梦物种在进化触发事件期间必须持有的道具，才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-knownMove">knownMove</span></code> - 进化中的宝可梦物种在进化触发事件期间必须知道的招式，才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-knownMoveType">knownMoveType</span></code> - 进化中的宝可梦物种在进化触发事件期间必须知道此类型的招式，才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-location">location</span></code> - 进化必须触发的位置</dd>
+<dd><code><span id="param-minLevel">minLevel</span></code> - 进化中的宝可梦物种进化到此宝可梦物种所需的最低等级</dd>
+<dd><code><span id="param-minHappiness">minHappiness</span></code> - 进化中的宝可梦物种进化到此宝可梦物种所需的最低幸福度</dd>
+<dd><code><span id="param-minBeauty">minBeauty</span></code> - 进化中的宝可梦物种进化到此宝可梦物种所需的最低美丽度</dd>
+<dd><code><span id="param-minAffection">minAffection</span></code> - 进化中的宝可梦物种进化到此宝可梦物种所需的最低亲密度</dd>
+<dd><code><span id="param-needsMultiplayer">needsMultiplayer</span></code> - 是否需要多人联机游戏才能进化到此宝可梦物种（例如联合圈）</dd>
+<dd><code><span id="param-needsOverworldRain">needsOverworldRain</span></code> - 是否必须在户外下雨才能使此宝可梦物种进化</dd>
+<dd><code><span id="param-partySpecies">partySpecies</span></code> - 玩家队伍中必须存在的宝可梦物种，以便进化中的宝可梦物种进化到此宝可梦物种</dd>
+<dd><code><span id="param-partyType">partyType</span></code> - 玩家在进化触发事件期间必须在队伍中有此类型的宝可梦，以便进化中的宝可梦物种进化到此宝可梦物种</dd>
+<dd><code><span id="param-relativePhysicalStats">relativePhysicalStats</span></code> - 宝可梦攻击和防御属性之间的必需关系。1表示攻击 &gt; 防御。0表示攻击 = 防御。-1表示攻击 &lt; 防御</dd>
+<dd><code><span id="param-timeOfDay">timeOfDay</span></code> - 必需的一天中的时间。白天或夜晚</dd>
+<dd><code><span id="param-tradeSpecies">tradeSpecies</span></code> - 必须为此物种交易的宝可梦物种</dd>
+<dd><code><span id="param-turnUpsideDown">turnUpsideDown</span></code> - 是否需要在宝可梦升级时将3DS上下颠倒</dd>
+<dd><code><span id="param-region">region</span></code> - 此进化可以发生的必需地区</dd>
+<dd><code><span id="param-baseForm">baseForm</span></code> - 此进化可以发生的必需形态</dd>
+<dd><code><span id="param-usedMove">usedMove</span></code> - 进化中的宝可梦物种在进化触发事件期间必须使用的招式，才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-minMoveCount">minMoveCount</span></code> - 招式必须使用的最少次数才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-minSteps">minSteps</span></code> - 必须行走的最少步数才能进化到此宝可梦物种</dd>
+<dd><code><span id="param-minDamageTaken">minDamageTaken</span></code> - 在进化触发事件期间必须承受的最少伤害量，才能进化到此宝可梦物种</dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">EvolutionDetail</span>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;item, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="EvolutionTrigger.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionTrigger</a>&gt;&nbsp;trigger, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;gender, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;heldItem, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;knownMove, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;knownMoveType, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;location, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minHappiness, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minBeauty, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minAffection, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsOverworldRain, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;partySpecies, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;partyType, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;relativePhysicalStats, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;timeOfDay, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;tradeSpecies, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">EvolutionDetail</span>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;item, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="EvolutionTrigger.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionTrigger</a>&gt;&nbsp;trigger, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;gender, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;heldItem, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;knownMove, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;knownMoveType, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;&nbsp;location, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minHappiness, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minBeauty, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minAffection, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsMultiplayer, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsOverworldRain, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;partySpecies, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;partyType, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;relativePhysicalStats, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;timeOfDay, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;tradeSpecies, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Region.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Region</a>&gt;&nbsp;region, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;baseForm, <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;&nbsp;usedMove, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minMoveCount, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minSteps, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minDamageTaken)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="java.lang中的类或接口" class="external-link">Record</a></span></div>
 <div class="block">宝可梦进化的详细条件信息</div>
 <dl class="notes">
@@ -151,24 +165,31 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">构造器</div>
 <div class="table-header col-last">说明</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean)" class="member-name-link">EvolutionDetail</a><wbr>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;item,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer)" class="member-name-link">EvolutionDetail</a><wbr>(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;item,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="EvolutionTrigger.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionTrigger</a>&gt;&nbsp;trigger,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;gender,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;heldItem,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;knownMove,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;knownMoveType,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;location,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;&nbsp;location,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minHappiness,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minBeauty,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minAffection,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsMultiplayer,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsOverworldRain,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;partySpecies,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;partySpecies,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;partyType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;relativePhysicalStats,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;timeOfDay,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;tradeSpecies,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown)</code></div>
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;tradeSpecies,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Region.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Region</a>&gt;&nbsp;region,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;baseForm,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;&nbsp;usedMove,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minMoveCount,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minSteps,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minDamageTaken)</code></div>
 <div class="col-last even-row-color">
 <div class="block">创建 <code>EvolutionDetail</code> 记录类的实例。</div>
 </div>
@@ -186,55 +207,65 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;o)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#baseForm()" class="member-name-link">baseForm</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-baseForm"><code>baseForm</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;o)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">指示某个其他对象是否“等于”此对象。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#gender()" class="member-name-link">gender</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#gender()" class="member-name-link">gender</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-gender"><code>gender</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回此对象的哈希代码值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#heldItem()" class="member-name-link">heldItem</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#heldItem()" class="member-name-link">heldItem</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-heldItem"><code>heldItem</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item()" class="member-name-link">item</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item()" class="member-name-link">item</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-item"><code>item</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#knownMove()" class="member-name-link">knownMove</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#knownMove()" class="member-name-link">knownMove</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-knownMove"><code>knownMove</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#knownMoveType()" class="member-name-link">knownMoveType</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#knownMoveType()" class="member-name-link">knownMoveType</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-knownMoveType"><code>knownMoveType</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#location()" class="member-name-link">location</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../location/Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#location()" class="member-name-link">location</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-location"><code>location</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minAffection()" class="member-name-link">minAffection</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minAffection()" class="member-name-link">minAffection</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-minAffection"><code>minAffection</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minBeauty()" class="member-name-link">minBeauty</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minBeauty()" class="member-name-link">minBeauty</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-minBeauty"><code>minBeauty</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minDamageTaken()" class="member-name-link">minDamageTaken</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-minDamageTaken"><code>minDamageTaken</code></a> 记录组件的值。</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minHappiness()" class="member-name-link">minHappiness</a>()</code></div>
@@ -246,20 +277,40 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-minLevel"><code>minLevel</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#needsOverworldRain()" class="member-name-link">needsOverworldRain</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minMoveCount()" class="member-name-link">minMoveCount</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-minMoveCount"><code>minMoveCount</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minSteps()" class="member-name-link">minSteps</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-minSteps"><code>minSteps</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#needsMultiplayer()" class="member-name-link">needsMultiplayer</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-needsMultiplayer"><code>needsMultiplayer</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#needsOverworldRain()" class="member-name-link">needsOverworldRain</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-needsOverworldRain"><code>needsOverworldRain</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#partySpecies()" class="member-name-link">partySpecies</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#partySpecies()" class="member-name-link">partySpecies</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-partySpecies"><code>partySpecies</code></a> 记录组件的值。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#partyType()" class="member-name-link">partyType</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#partyType()" class="member-name-link">partyType</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-partyType"><code>partyType</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../location/Region.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Region</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#region()" class="member-name-link">region</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-region"><code>region</code></a> 记录组件的值。</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#relativePhysicalStats()" class="member-name-link">relativePhysicalStats</a>()</code></div>
@@ -276,7 +327,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回此记录类的字符串表示形式。</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;?&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tradeSpecies()" class="member-name-link">tradeSpecies</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-tradeSpecies"><code>tradeSpecies</code></a> 记录组件的值。</div>
@@ -290,6 +341,11 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#turnUpsideDown()" class="member-name-link">turnUpsideDown</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">返回 <a href="#param-turnUpsideDown"><code>turnUpsideDown</code></a> 记录组件的值。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a><wbr>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#usedMove()" class="member-name-link">usedMove</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">返回 <a href="#param-usedMove"><code>usedMove</code></a> 记录组件的值。</div>
 </div>
 </div>
 </div>
@@ -309,7 +365,7 @@ loadScripts(document, 'script');</script>
 <h2>构造器详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean)">
+<section class="detail" id="&lt;init&gt;(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Boolean,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.String,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Boolean,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource,java.lang.Integer,java.lang.Integer,java.lang.Integer)">
 <h3>EvolutionDetail</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">EvolutionDetail</span><wbr><span class="parameters">(<a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;item,
@@ -318,18 +374,25 @@ loadScripts(document, 'script');</script>
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../item/Item.html" title="io.github.lishangbu.avalon.pokeapi.model.item中的类">Item</a>&gt;&nbsp;heldItem,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;knownMove,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;knownMoveType,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;location,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;&nbsp;location,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minLevel,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minHappiness,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minBeauty,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minAffection,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsMultiplayer,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;needsOverworldRain,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;partySpecies,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;partySpecies,
  <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/Type.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">Type</a>&gt;&nbsp;partyType,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;relativePhysicalStats,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;timeOfDay,
- <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;&nbsp;tradeSpecies,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown)</span></div>
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;tradeSpecies,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a>&nbsp;turnUpsideDown,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Region.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Region</a>&gt;&nbsp;region,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;&nbsp;baseForm,
+ <a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;&nbsp;usedMove,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minMoveCount,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minSteps,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a>&nbsp;minDamageTaken)</span></div>
 <div class="block">创建 <code>EvolutionDetail</code> 记录类的实例。</div>
 <dl class="notes">
 <dt>参数:</dt>
@@ -344,6 +407,7 @@ loadScripts(document, 'script');</script>
 <dd><code>minHappiness</code> - <a href="#param-minHappiness"><code>minHappiness</code></a> 记录组件的值</dd>
 <dd><code>minBeauty</code> - <a href="#param-minBeauty"><code>minBeauty</code></a> 记录组件的值</dd>
 <dd><code>minAffection</code> - <a href="#param-minAffection"><code>minAffection</code></a> 记录组件的值</dd>
+<dd><code>needsMultiplayer</code> - <a href="#param-needsMultiplayer"><code>needsMultiplayer</code></a> 记录组件的值</dd>
 <dd><code>needsOverworldRain</code> - <a href="#param-needsOverworldRain"><code>needsOverworldRain</code></a> 记录组件的值</dd>
 <dd><code>partySpecies</code> - <a href="#param-partySpecies"><code>partySpecies</code></a> 记录组件的值</dd>
 <dd><code>partyType</code> - <a href="#param-partyType"><code>partyType</code></a> 记录组件的值</dd>
@@ -351,6 +415,12 @@ loadScripts(document, 'script');</script>
 <dd><code>timeOfDay</code> - <a href="#param-timeOfDay"><code>timeOfDay</code></a> 记录组件的值</dd>
 <dd><code>tradeSpecies</code> - <a href="#param-tradeSpecies"><code>tradeSpecies</code></a> 记录组件的值</dd>
 <dd><code>turnUpsideDown</code> - <a href="#param-turnUpsideDown"><code>turnUpsideDown</code></a> 记录组件的值</dd>
+<dd><code>region</code> - <a href="#param-region"><code>region</code></a> 记录组件的值</dd>
+<dd><code>baseForm</code> - <a href="#param-baseForm"><code>baseForm</code></a> 记录组件的值</dd>
+<dd><code>usedMove</code> - <a href="#param-usedMove"><code>usedMove</code></a> 记录组件的值</dd>
+<dd><code>minMoveCount</code> - <a href="#param-minMoveCount"><code>minMoveCount</code></a> 记录组件的值</dd>
+<dd><code>minSteps</code> - <a href="#param-minSteps"><code>minSteps</code></a> 记录组件的值</dd>
+<dd><code>minDamageTaken</code> - <a href="#param-minDamageTaken"><code>minDamageTaken</code></a> 记录组件的值</dd>
 </dl>
 </div>
 </section>
@@ -492,7 +562,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="location()">
 <h3>location</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;</span>&nbsp;<span class="element-name">location</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Location.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Location</a>&gt;</span>&nbsp;<span class="element-name">location</span>()</div>
 <div class="block">返回 <a href="#param-location"><code>location</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>
@@ -554,6 +624,19 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="needsMultiplayer()">
+<h3>needsMultiplayer</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="java.lang中的类或接口" class="external-link">Boolean</a></span>&nbsp;<span class="element-name">needsMultiplayer</span>()</div>
+<div class="block">返回 <a href="#param-needsMultiplayer"><code>needsMultiplayer</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-needsMultiplayer"><code>needsMultiplayer</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="needsOverworldRain()">
 <h3>needsOverworldRain</h3>
 <div class="horizontal-scroll">
@@ -570,7 +653,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="partySpecies()">
 <h3>partySpecies</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;</span>&nbsp;<span class="element-name">partySpecies</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</span>&nbsp;<span class="element-name">partySpecies</span>()</div>
 <div class="block">返回 <a href="#param-partySpecies"><code>partySpecies</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>
@@ -622,7 +705,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="tradeSpecies()">
 <h3>tradeSpecies</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;?&gt;</span>&nbsp;<span class="element-name">tradeSpecies</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</span>&nbsp;<span class="element-name">tradeSpecies</span>()</div>
 <div class="block">返回 <a href="#param-tradeSpecies"><code>tradeSpecies</code></a> 记录组件的值。</div>
 <dl class="notes">
 <dt>返回:</dt>
@@ -640,6 +723,84 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>返回:</dt>
 <dd><a href="#param-turnUpsideDown"><code>turnUpsideDown</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="region()">
+<h3>region</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../location/Region.html" title="io.github.lishangbu.avalon.pokeapi.model.location中的类">Region</a>&gt;</span>&nbsp;<span class="element-name">region</span>()</div>
+<div class="block">返回 <a href="#param-region"><code>region</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-region"><code>region</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="baseForm()">
+<h3>baseForm</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../pokemon/PokemonSpecies.html" title="io.github.lishangbu.avalon.pokeapi.model.pokemon中的类">PokemonSpecies</a>&gt;</span>&nbsp;<span class="element-name">baseForm</span>()</div>
+<div class="block">返回 <a href="#param-baseForm"><code>baseForm</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-baseForm"><code>baseForm</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="usedMove()">
+<h3>usedMove</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../common/NamedApiResource.html" title="io.github.lishangbu.avalon.pokeapi.model.common中的类">NamedApiResource</a>&lt;<a href="../move/Move.html" title="io.github.lishangbu.avalon.pokeapi.model.move中的类">Move</a>&gt;</span>&nbsp;<span class="element-name">usedMove</span>()</div>
+<div class="block">返回 <a href="#param-usedMove"><code>usedMove</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-usedMove"><code>usedMove</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="minMoveCount()">
+<h3>minMoveCount</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></span>&nbsp;<span class="element-name">minMoveCount</span>()</div>
+<div class="block">返回 <a href="#param-minMoveCount"><code>minMoveCount</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-minMoveCount"><code>minMoveCount</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="minSteps()">
+<h3>minSteps</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></span>&nbsp;<span class="element-name">minSteps</span>()</div>
+<div class="block">返回 <a href="#param-minSteps"><code>minSteps</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-minSteps"><code>minSteps</code></a> 记录组件的值</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="minDamageTaken()">
+<h3>minDamageTaken</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="java.lang中的类或接口" class="external-link">Integer</a></span>&nbsp;<span class="element-name">minDamageTaken</span>()</div>
+<div class="block">返回 <a href="#param-minDamageTaken"><code>minDamageTaken</code></a> 记录组件的值。</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd><a href="#param-minDamageTaken"><code>minDamageTaken</code></a> 记录组件的值</dd>
 </dl>
 </div>
 </section>
