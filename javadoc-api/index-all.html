@@ -144,6 +144,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">特性(Ability)数据访问层</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">抽象的成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">AbstractGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/hibernate/AbstractIdentifierGenerator.html" class="type-name-link" title="io.github.lishangbu.avalon.hibernate中的类">AbstractIdentifierGenerator</a> - <a href="io/github/lishangbu/avalon/hibernate/package-summary.html">io.github.lishangbu.avalon.hibernate</a>中的类</dt>
 <dd>
 <div class="block">主键生成器抽象基类</div>
@@ -777,9 +783,16 @@ Token Response</code></div>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
-<dt><a href="io/github/lishangbu/avalon/dataset/service/GrowthRateService.html#calculateGrowthRate(java.lang.Long,int)" class="member-name-link">calculateGrowthRate(Long, int)</a> - 接口中的方法 io.github.lishangbu.avalon.dataset.service.<a href="io/github/lishangbu/avalon/dataset/service/GrowthRateService.html" title="io.github.lishangbu.avalon.dataset.service中的接口">GrowthRateService</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/impl/GrowthRateServiceImpl.html#calculateGrowthRate(java.lang.Long,int)" class="member-name-link">calculateGrowthRate(Long, int)</a> - 类中的方法 io.github.lishangbu.avalon.dataset.service.impl.<a href="io/github/lishangbu/avalon/dataset/service/impl/GrowthRateServiceImpl.html" title="io.github.lishangbu.avalon.dataset.service.impl中的类">GrowthRateServiceImpl</a></dt>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#calculateGrowthRate(int)" class="member-name-link">calculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">慢组：
+EXP = 1.25 * Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html#calculateGrowthRate(int)" class="member-name-link">calculateGrowthRate(int)</a> - 接口中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></dt>
+<dd>
+<div class="block">当计算结果为小数时，无条件向下取整。</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html#calculateGrowthRate(java.lang.String,int)" class="member-name-link">calculateGrowthRate(String, int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">GrowthRateCalculatorFactory</a></dt>
 <dd>
 <div class="block"><pre>
 Lv：代表宝可梦升级后的等级
@@ -2649,6 +2662,18 @@ generated copy events.</div>
 <dd>
 <div class="block">构建一个失败的 API 返回结果</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">快组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">FastGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">最慢组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">FastThenVerySlowGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/dataprovider/EvolutionChainDataProvider.html#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" class="member-name-link">fetch(PokeDataTypeEnum, Class)</a> - 类中的方法 io.github.lishangbu.avalon.pokeapi.dataprovider.<a href="io/github/lishangbu/avalon/pokeapi/dataprovider/EvolutionChainDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">EvolutionChainDataProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/dataprovider/ItemAttributeRelationDataProvider.html#fetch(io.github.lishangbu.avalon.pokeapi.enumeration.PokeDataTypeEnum,java.lang.Class)" class="member-name-link">fetch(PokeDataTypeEnum, Class)</a> - 类中的方法 io.github.lishangbu.avalon.pokeapi.dataprovider.<a href="io/github/lishangbu/avalon/pokeapi/dataprovider/ItemAttributeRelationDataProvider.html" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">ItemAttributeRelationDataProvider</a></dt>
@@ -2917,6 +2942,12 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dl class="index">
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Stat_.html#GAME_INDEX" class="member-name-link">GAME_INDEX</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Stat_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat_</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/GameCalculatorAutoConfiguration.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator中的类">GameCalculatorAutoConfiguration</a> - <a href="io/github/lishangbu/avalon/game/calculator/package-summary.html">io.github.lishangbu.avalon.game.calculator</a>中的类</dt>
+<dd>
+<div class="block">游戏计算器自动装配</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/GameCalculatorAutoConfiguration.html#%3Cinit%3E()" class="member-name-link">GameCalculatorAutoConfiguration()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.<a href="io/github/lishangbu/avalon/game/calculator/GameCalculatorAutoConfiguration.html" title="io.github.lishangbu.avalon.game.calculator中的类">GameCalculatorAutoConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Stat_.html#gameIndex" class="member-name-link">gameIndex</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Stat_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat_</a></dt>
 <dd>
 <div class="block">Static metamodel for attribute <code>Stat.gameIndex</code></div>
@@ -3133,6 +3164,32 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">通过指定的 URI 和参数获取指定类型的数据实体</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取快组成长速率的内部名称</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取最慢组成长速率的内部名称</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取较快组成长速率的内部名称</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取较慢组成长速率的内部名称</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取慢组成长速率的内部名称</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">获取最快组成长速率的内部名称</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/util/ApiResourceUtils.html#getId(io.github.lishangbu.avalon.pokeapi.model.common.APIResource)" class="member-name-link">getId(APIResource)</a> - 类中的静态方法 io.github.lishangbu.avalon.pokeapi.util.<a href="io/github/lishangbu/avalon/pokeapi/util/ApiResourceUtils.html" title="io.github.lishangbu.avalon.pokeapi.util中的类">ApiResourceUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/util/NamedApiResourceUtils.html#getId(io.github.lishangbu.avalon.pokeapi.model.common.NamedApiResource)" class="member-name-link">getId(NamedApiResource)</a> - 类中的静态方法 io.github.lishangbu.avalon.pokeapi.util.<a href="io/github/lishangbu/avalon/pokeapi/util/NamedApiResourceUtils.html" title="io.github.lishangbu.avalon.pokeapi.util中的类">NamedApiResourceUtils</a></dt>
@@ -3335,6 +3392,16 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 </dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/GrowthRate_.html#%3Cinit%3E()" class="member-name-link">GrowthRate_()</a> - 类的构造器 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/GrowthRate_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">GrowthRate_</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的接口</dt>
+<dd>
+<div class="block">成长速率(GrowthRate)业务层</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">GrowthRateCalculatorFactory</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">成长速率(GrowthRate)业务层实现类</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html#%3Cinit%3E()" class="member-name-link">GrowthRateCalculatorFactory()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">GrowthRateCalculatorFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/dataprovider/GrowthRateDataProvider.html" class="type-name-link" title="io.github.lishangbu.avalon.pokeapi.dataprovider中的类">GrowthRateDataProvider</a> - <a href="io/github/lishangbu/avalon/pokeapi/dataprovider/package-summary.html">io.github.lishangbu.avalon.pokeapi.dataprovider</a>中的类</dt>
 <dd>
 <div class="block">成长速率数据提供者</div>
@@ -3359,16 +3426,6 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">成长速率(GrowthRate)数据访问层</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/GrowthRateService.html" class="type-name-link" title="io.github.lishangbu.avalon.dataset.service中的接口">GrowthRateService</a> - <a href="io/github/lishangbu/avalon/dataset/service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a>中的接口</dt>
-<dd>
-<div class="block">成长速率(GrowthRate)业务层</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/impl/GrowthRateServiceImpl.html" class="type-name-link" title="io.github.lishangbu.avalon.dataset.service.impl中的类">GrowthRateServiceImpl</a> - <a href="io/github/lishangbu/avalon/dataset/service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a>中的类</dt>
-<dd>
-<div class="block">成长速率(GrowthRate)业务层实现类</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/impl/GrowthRateServiceImpl.html#%3Cinit%3E()" class="member-name-link">GrowthRateServiceImpl()</a> - 类的构造器 io.github.lishangbu.avalon.dataset.service.impl.<a href="io/github/lishangbu/avalon/dataset/service/impl/GrowthRateServiceImpl.html" title="io.github.lishangbu.avalon.dataset.service.impl中的类">GrowthRateServiceImpl</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html#growthTime" class="member-name-link">growthTime</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry_</a></dt>
 <dd>
 <div class="block">Static metamodel for attribute <code>Berry.growthTime</code></div>
@@ -4479,6 +4536,45 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/pokemon/Nature.html#param-increasedStat"><code>increasedStat</code></a> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">快组：
+EXP = 0.8 * Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">最慢组：
+分段函数
+Lv≤15：EXP = 0.02 * Lv^3 * ⌊ (Lv+73) / 3 ⌋
+16≤Lv≤36：EXP = 0.02 * Lv4 +0.28* Lv^3
+37≤Lv≤100：EXP = 0.02 * Lv^3 * ⌊ (Lv + 64) / 2 ⌋</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">较快组：
+EXP = Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">较慢组：
+EXP = 1.2 * Lv^3 - 15 * Lv^2 + 100 * Lv - 140</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">慢组：
+EXP = 1.25 * Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">最快组：
+分段函数
+Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
+51≤Lv≤68：EXP = -0.01 * Lv4 + 1.5 * Lv^3
+69≤Lv≤98：EXP = 0.002 * Lv^3 * ⌊ (1911 - 10 * Lv) / 3 ⌋
+99≤Lv≤100：EXP = -0.01 * Lv4 + 1.6 * Lv^3</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Ability_.html#INTERNAL_NAME" class="member-name-link">INTERNAL_NAME</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Ability_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Ability_</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html#INTERNAL_NAME" class="member-name-link">INTERNAL_NAME</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry_</a></dt>
@@ -4713,9 +4809,9 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">基础数据集用Spring Data JDBC实现的数据访问层</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a> - 程序包 io.github.lishangbu.avalon.dataset.service</dt>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/package-summary.html">io.github.lishangbu.avalon.game.calculator</a> - 程序包 io.github.lishangbu.avalon.game.calculator</dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/dataset/service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a> - 程序包 io.github.lishangbu.avalon.dataset.service.impl</dt>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a> - 程序包 io.github.lishangbu.avalon.game.calculator.growthrate</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/hibernate/package-summary.html">io.github.lishangbu.avalon.hibernate</a> - 程序包 io.github.lishangbu.avalon.hibernate</dt>
 <dd>&nbsp;</dd>
@@ -5756,6 +5852,18 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/ip2location/core/IpResult.html#param-mcc"><code>mcc</code></a> 记录组件的值。</div>
 </dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">较快组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">MediumGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">较慢组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">MediumSlowGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/entity/Menu.html" class="type-name-link" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a> - <a href="io/github/lishangbu/avalon/authorization/entity/package-summary.html">io.github.lishangbu.avalon.authorization.entity</a>中的类</dt>
 <dd>
 <div class="block">菜单实体</div>
@@ -8634,6 +8742,18 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/PokemonType_.html#SLOT" class="member-name-link">SLOT</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/PokemonType_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonType_</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">慢组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">SlowGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" class="type-name-link" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a> - <a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a>中的类</dt>
+<dd>
+<div class="block">最快组成长速率计算器</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html#%3Cinit%3E()" class="member-name-link">SlowThenVeryFastGrowthRateCalculator()</a> - 类的构造器 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html#smoothness" class="member-name-link">smoothness</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry_</a></dt>
 <dd>
 <div class="block">Static metamodel for attribute <code>Berry.smoothness</code></div>
@@ -8809,6 +8929,12 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/contest/SuperContestEffect.html#%3Cinit%3E(java.lang.Integer,java.lang.Integer,java.util.List,java.util.List)" class="member-name-link">SuperContestEffect(Integer, Integer, List, List)</a> - 记录类的构造器 io.github.lishangbu.avalon.pokeapi.model.contest.<a href="io/github/lishangbu/avalon/pokeapi/model/contest/SuperContestEffect.html" title="io.github.lishangbu.avalon.pokeapi.model.contest中的类">SuperContestEffect</a></dt>
 <dd>
 <div class="block">创建 <code>SuperContestEffect</code> 记录类的实例。</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#support(java.lang.String)" class="member-name-link">support(String)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html#support(java.lang.String)" class="member-name-link">support(String)</a> - 接口中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></dt>
+<dd>
+<div class="block">判断是否支持计算指定成长速率类型</div>
 </dd>
 <dt><a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html#supports(java.lang.Class)" class="member-name-link">supports(Class)</a> - 类中的方法 org.springframework.security.oauth2.server.authorization.authentication.<a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">OAuth2PasswordAuthenticationProvider</a></dt>
 <dd>&nbsp;</dd>
