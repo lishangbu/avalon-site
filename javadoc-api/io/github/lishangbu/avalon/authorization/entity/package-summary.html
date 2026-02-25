@@ -63,6 +63,21 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="horizontal-scroll">
 <div class="package-signature">package <span class="element-name">io.github.lishangbu.avalon.authorization.entity</span></div>
+<section class="package-description" id="package-description">
+<div class="block"><p>授权模块实体包包含授权模块的 JPA 实体类，用于持久化授权相关数据（例如角色、权限、用户、客户端等）</p>
+<p>说明与注意事项</p>
+<ul>
+<li>实体应仅包含持久化相关字段与映射注解；业务逻辑与 DTO 请放在其他包中</li>
+<li>避免在实体中放置大量非持久化方法；必要的转换可通过 Mapper/Converter 实现</li>
+</ul>
+</div>
+<dl class="notes">
+<dt>从以下版本开始:</dt>
+<dd>2026/2/25</dd>
+<dt>作者:</dt>
+<dd>lishangbu</dd>
+</dl>
+</section>
 </div>
 <section class="summary">
 <ul class="summary-list">

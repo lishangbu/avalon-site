@@ -64,7 +64,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
 <li><a href="#getGrowthRateInternalName()" tabindex="0">getGrowthRateInternalName()</a></li>
-<li><a href="#innerCalculateGrowthRate(int)" tabindex="0">innerCalculateGrowthRate(int)</a></li>
+<li><a href="#tryCalculateGrowthRate(int)" tabindex="0">tryCalculateGrowthRate(int)</a></li>
 </ol>
 </li>
 </ol>
@@ -130,7 +130,7 @@ loadScripts(document, 'script');</script>
 <div class="block">获取最快组成长速率的内部名称</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">最快组：
 分段函数
@@ -184,15 +184,17 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="AbstractGrowthRateCalculator.html#getGrowthRateInternalName()">getGrowthRateInternalName</a></code>&nbsp;在类中&nbsp;<code><a href="AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></code></dd>
+<dt>返回:</dt>
+<dd>成长速率的内部标识名，通常为小写单词或短语，用于唯一标识一种成长曲线</dd>
 </dl>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="innerCalculateGrowthRate(int)">
-<h3>innerCalculateGrowthRate</h3>
+<section class="detail" id="tryCalculateGrowthRate(int)">
+<h3>tryCalculateGrowthRate</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">innerCalculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">tryCalculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
 <div class="block">最快组：
 分段函数
 Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
@@ -201,7 +203,11 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 99≤Lv≤100：EXP = -0.01 * Lv4 + 1.6 * Lv^3</div>
 <dl class="notes">
 <dt>指定者:</dt>
-<dd><code><a href="AbstractGrowthRateCalculator.html#innerCalculateGrowthRate(int)">innerCalculateGrowthRate</a></code>&nbsp;在类中&nbsp;<code><a href="AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></code></dd>
+<dd><code><a href="AbstractGrowthRateCalculator.html#tryCalculateGrowthRate(int)">tryCalculateGrowthRate</a></code>&nbsp;在类中&nbsp;<code><a href="AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></code></dd>
+<dt>参数:</dt>
+<dd><code>level</code> - 等级，子类可假定为大于或等于 2 的正整数</dd>
+<dt>返回:</dt>
+<dd>给定等级对应的成长值，由子类根据具体成长曲线返回</dd>
 </dl>
 </div>
 </section>

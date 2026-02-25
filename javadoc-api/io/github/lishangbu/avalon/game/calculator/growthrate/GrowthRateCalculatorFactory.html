@@ -121,11 +121,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#calculateGrowthRate(java.lang.String,int)" class="member-name-link">calculateGrowthRate</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;internalName,
  int&nbsp;level)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"><pre>
-Lv：代表宝可梦升级后的等级
-EXP：代表累积经验值
-当计算结果为小数时，无条件向下取整。
-</div>
+<div class="block">当计算结果为小数时，无条件向下取整。</div>
 </div>
 </div>
 </div>
@@ -166,32 +162,7 @@ EXP：代表累积经验值
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">calculateGrowthRate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;internalName,
  int&nbsp;level)</span></div>
-<div class="block"><pre>
-Lv：代表宝可梦升级后的等级
-EXP：代表累积经验值
-当计算结果为小数时，无条件向下取整。⌊ ⌋表示运算中的向下取整。在等级很低（低于3级）时，此公式可能不适用。
-
-最快组：
-分段函数
-Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
-51≤Lv≤68：EXP = -0.01 * Lv4 + 1.5 * Lv^3
-69≤Lv≤98：EXP = 0.002 * Lv^3 * ⌊ (1911 - 10 * Lv) / 3 ⌋
-99≤Lv≤100：EXP = -0.01 * Lv4 + 1.6 * Lv^3
-快组：
-EXP = 0.8 * Lv^3
-较快组：
-EXP = Lv^3
-较慢组：
-EXP = 1.2 * Lv^3 - 15 * Lv2 + 100 * Lv - 140
-慢组：
-EXP = 1.25 * Lv^3
-最慢组：
-分段函数
-Lv≤15：EXP = 0.02 * Lv^3 * ⌊ (Lv+73) / 3 ⌋
-16≤Lv≤36：EXP = 0.02 * Lv4 +0.28* Lv^3
-37≤Lv≤100：EXP = 0.02 * Lv^3 * ⌊ (Lv + 64) / 2 ⌋
-</pre>
-</div>
+<div class="block">当计算结果为小数时，无条件向下取整。⌊ ⌋表示运算中的向下取整。在等级很低（低于3级）时，此公式可能不适用。</div>
 <dl class="notes">
 <dt>参数:</dt>
 <dd><code>internalName</code> - 成长速率内部名称</dd>

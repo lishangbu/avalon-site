@@ -65,7 +65,7 @@ loadScripts(document, 'script');</script>
 <ol class="toc-list">
 <li><a href="#support(java.lang.String)" tabindex="0">support(String)</a></li>
 <li><a href="#calculateGrowthRate(int)" tabindex="0">calculateGrowthRate(int)</a></li>
-<li><a href="#innerCalculateGrowthRate(int)" tabindex="0">innerCalculateGrowthRate(int)</a></li>
+<li><a href="#tryCalculateGrowthRate(int)" tabindex="0">tryCalculateGrowthRate(int)</a></li>
 <li><a href="#getGrowthRateInternalName()" tabindex="0">getGrowthRateInternalName()</a></li>
 </ol>
 </li>
@@ -93,10 +93,21 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractGrowthRateCalculator</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>
 implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></span></div>
-<div class="block">抽象的成长速率计算器</div>
+<div class="block"><p>抽象的成长速率计算器</p>
+<p>提供 <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口"><code>GrowthRateCalculator</code></a> 的通用边界处理与名称匹配逻辑，子类需实现具体的成长曲线计算与内部名称</p>
+<ul>
+<li>本类负责处理常见的边界情况（<code>level &lt;= 0</code> 或 <code>level == 1</code>）并返回默认值</li>
+<li>实际的成长值计算由子类在 <a href="#tryCalculateGrowthRate(int)"><code>tryCalculateGrowthRate(int)</code></a> 中实现</li>
+</ul>
+<p>设计要点：</p>
+<ul>
+<li>名称匹配使用不区分大小写的比较，调用方可通过 <a href="#support(java.lang.String)"><code>support(String)</code></a> 快速判断是否支持某种成长速率</li>
+<li>子类必须提供唯一的内部标识名（通过 <a href="#getGrowthRateInternalName()"><code>getGrowthRateInternalName()</code></a>）用于匹配</li>
+</ul>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
-<dd>2026/2/25</dd>
+<dd>2026-02-25</dd>
 <dt>作者:</dt>
 <dd>lishangbu</dd>
 </dl>
@@ -131,19 +142,22 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#calculateGrowthRate(int)" class="member-name-link">calculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">慢组：
-EXP = 1.25 * Lv^3</div>
+<div class="block">计算指定等级的成长值</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#support(java.lang.String)" class="member-name-link">support</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;growthRateInternalName)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">子类必须提供的内部名称，用于 <a href="#support(java.lang.String)"><code>support(String)</code></a> 的匹配</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#support(java.lang.String)" class="member-name-link">support</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;growthRateInternalName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">判断是否支持计算指定成长速率类型</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">子类实现：尝试计算指定等级的成长值</div>
 </div>
 </div>
 </div>
@@ -192,6 +206,8 @@ EXP = 1.25 * Lv^3</div>
 <dd><code>growthRateInternalName</code> - 成长速率类型的内部名称，例如&quot;slow&quot;、&quot;medium_fast&quot;等</dd>
 <dt>返回:</dt>
 <dd>如果支持计算该成长速率类型，返回true；否则返回false</dd>
+<dt>抛出:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/NullPointerException.html" title="java.lang中的类或接口" class="external-link">NullPointerException</a></code> - 当 <code>growthRateInternalName</code> 为 <code>null</code> 时会抛出该异常</dd>
 </dl>
 </div>
 </section>
@@ -201,24 +217,36 @@ EXP = 1.25 * Lv^3</div>
 <h3>calculateGrowthRate</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">calculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
-<div class="block">慢组：
-EXP = 1.25 * Lv^3</div>
+<div class="block"><p>计算指定等级的成长值</p>
+<p>本实现负责边界处理：当 <code>level &lt;= 0</code> 返回 <code>0</code>；当 <code>level == 1</code> 返回 <code>0</code>；
+其余情况委托给 <a href="#tryCalculateGrowthRate(int)"><code>tryCalculateGrowthRate(int)</code></a> 由子类完成具体计算</p>
+</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="GrowthRateCalculator.html#calculateGrowthRate(int)">calculateGrowthRate</a></code>&nbsp;在接口中&nbsp;<code><a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></code></dd>
 <dt>参数:</dt>
-<dd><code>level</code> - 代表宝可梦升级后的等级</dd>
+<dd><code>level</code> - 等级，预期为正整数</dd>
 <dt>返回:</dt>
-<dd>累积经验值</dd>
+<dd>给定等级对应的成长值，边界情况（非正等级或等级为 1）返回 <code>0</code></dd>
 </dl>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="innerCalculateGrowthRate(int)">
-<h3>innerCalculateGrowthRate</h3>
+<section class="detail" id="tryCalculateGrowthRate(int)">
+<h3>tryCalculateGrowthRate</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">innerCalculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
+<div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">tryCalculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
+<div class="block"><p>子类实现：尝试计算指定等级的成长值</p>
+<p>子类实现应假定传入的 <code>level</code> 已通过 <a href="#calculateGrowthRate(int)"><code>calculateGrowthRate(int)</code></a> 做过基本边界处理，
+因此通常从 <code>level &gt;= 2</code> 开始计算具体的成长曲线</p>
+</div>
+<dl class="notes">
+<dt>参数:</dt>
+<dd><code>level</code> - 等级，子类可假定为大于或等于 2 的正整数</dd>
+<dt>返回:</dt>
+<dd>给定等级对应的成长值，由子类根据具体成长曲线返回</dd>
+</dl>
 </div>
 </section>
 </li>
@@ -227,6 +255,11 @@ EXP = 1.25 * Lv^3</div>
 <h3>getGrowthRateInternalName</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a></span>&nbsp;<span class="element-name">getGrowthRateInternalName</span>()</div>
+<div class="block">子类必须提供的内部名称，用于 <a href="#support(java.lang.String)"><code>support(String)</code></a> 的匹配</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd>成长速率的内部标识名，通常为小写单词或短语，用于唯一标识一种成长曲线</dd>
+</dl>
 </div>
 </section>
 </li>

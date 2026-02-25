@@ -785,8 +785,7 @@ Token Response</code></div>
 <dl class="index">
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#calculateGrowthRate(int)" class="member-name-link">calculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
 <dd>
-<div class="block">慢组：
-EXP = 1.25 * Lv^3</div>
+<div class="block">计算指定等级的成长值</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html#calculateGrowthRate(int)" class="member-name-link">calculateGrowthRate(int)</a> - 接口中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></dt>
 <dd>
@@ -794,11 +793,7 @@ EXP = 1.25 * Lv^3</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html#calculateGrowthRate(java.lang.String,int)" class="member-name-link">calculateGrowthRate(String, int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/GrowthRateCalculatorFactory.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">GrowthRateCalculatorFactory</a></dt>
 <dd>
-<div class="block"><pre>
-Lv：代表宝可梦升级后的等级
-EXP：代表累积经验值
-当计算结果为小数时，无条件向下取整。
-</div>
+<div class="block">当计算结果为小数时，无条件向下取整。</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/PokemonSpecies_.html#CAPTURE_RATE" class="member-name-link">CAPTURE_RATE</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/PokemonSpecies_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">PokemonSpecies_</a></dt>
 <dd>&nbsp;</dd>
@@ -3165,7 +3160,9 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <div class="block">通过指定的 URI 和参数获取指定类型的数据实体</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">子类必须提供的内部名称，用于 <a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#support(java.lang.String)"><code>AbstractGrowthRateCalculator.support(String)</code></a> 的匹配</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#getGrowthRateInternalName()" class="member-name-link">getGrowthRateInternalName()</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
 <dd>
 <div class="block">获取快组成长速率的内部名称</div>
@@ -4536,45 +4533,6 @@ state、authorizationCode、accessToken、refreshToken、idToken、userCode、de
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/pokemon/Nature.html#param-increasedStat"><code>increasedStat</code></a> 记录组件的值。</div>
 </dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">快组：
-EXP = 0.8 * Lv^3</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">最慢组：
-分段函数
-Lv≤15：EXP = 0.02 * Lv^3 * ⌊ (Lv+73) / 3 ⌋
-16≤Lv≤36：EXP = 0.02 * Lv4 +0.28* Lv^3
-37≤Lv≤100：EXP = 0.02 * Lv^3 * ⌊ (Lv + 64) / 2 ⌋</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">较快组：
-EXP = Lv^3</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">较慢组：
-EXP = 1.2 * Lv^3 - 15 * Lv^2 + 100 * Lv - 140</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">慢组：
-EXP = 1.25 * Lv^3</div>
-</dd>
-<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html#innerCalculateGrowthRate(int)" class="member-name-link">innerCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a></dt>
-<dd>
-<div class="block">最快组：
-分段函数
-Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
-51≤Lv≤68：EXP = -0.01 * Lv4 + 1.5 * Lv^3
-69≤Lv≤98：EXP = 0.002 * Lv^3 * ⌊ (1911 - 10 * Lv) / 3 ⌋
-99≤Lv≤100：EXP = -0.01 * Lv4 + 1.6 * Lv^3</div>
-</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Ability_.html#INTERNAL_NAME" class="member-name-link">INTERNAL_NAME</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Ability_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Ability_</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html#INTERNAL_NAME" class="member-name-link">INTERNAL_NAME</a> - 类中的静态变量 io.github.lishangbu.avalon.dataset.entity.<a href="io/github/lishangbu/avalon/dataset/entity/Berry_.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Berry_</a></dt>
@@ -4786,33 +4744,49 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 <dt><a href="io/github/lishangbu/avalon/admin/service/dataset/impl/package-summary.html">io.github.lishangbu.avalon.admin.service.dataset.impl</a> - 程序包 io.github.lishangbu.avalon.admin.service.dataset.impl</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/controller/package-summary.html">io.github.lishangbu.avalon.authorization.controller</a> - 程序包 io.github.lishangbu.avalon.authorization.controller</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块的控制器层，负责处理授权相关的 HTTP 请求与响应</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/converter/package-summary.html">io.github.lishangbu.avalon.authorization.converter</a> - 程序包 io.github.lishangbu.avalon.authorization.converter</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块的对象属性转换器（实现自定义对象的数据库存储和读取）</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/entity/package-summary.html">io.github.lishangbu.avalon.authorization.entity</a> - 程序包 io.github.lishangbu.avalon.authorization.entity</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块实体包包含授权模块的 JPA 实体类，用于持久化授权相关数据（例如角色、权限、用户、客户端等）</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/model/package-summary.html">io.github.lishangbu.avalon.authorization.model</a> - 程序包 io.github.lishangbu.avalon.authorization.model</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块模型包主要包含与授权相关的传输/展示模型，例如客户端请求/响应 DTO、视图对象（VO）、以及与授权流程相关的非持久化数据结构</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/repository/package-summary.html">io.github.lishangbu.avalon.authorization.repository</a> - 程序包 io.github.lishangbu.avalon.authorization.repository</dt>
 <dd>
 <div class="block">数据库访问层</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/package-summary.html">io.github.lishangbu.avalon.authorization.service</a> - 程序包 io.github.lishangbu.avalon.authorization.service</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块的服务接口包，仅包含接口定义，无具体实现</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/authorization/service/impl/package-summary.html">io.github.lishangbu.avalon.authorization.service.impl</a> - 程序包 io.github.lishangbu.avalon.authorization.service.impl</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">授权模块的服务实现包，包含授权模块的 Service 接口具体实现</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/entity/package-summary.html">io.github.lishangbu.avalon.dataset.entity</a> - 程序包 io.github.lishangbu.avalon.dataset.entity</dt>
 <dd>
 <div class="block">基础数据集的数据库实体模块</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/dataset/repository/package-summary.html">io.github.lishangbu.avalon.dataset.repository</a> - 程序包 io.github.lishangbu.avalon.dataset.repository</dt>
 <dd>
-<div class="block">基础数据集用Spring Data JDBC实现的数据访问层</div>
+<div class="block">基础数据集用Spring Data JPA实现的数据访问层</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/package-summary.html">io.github.lishangbu.avalon.game.calculator</a> - 程序包 io.github.lishangbu.avalon.game.calculator</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">游戏计算器相关接口与工具，负责成长率、经验等计算</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/package-summary.html">io.github.lishangbu.avalon.game.calculator.growthrate</a> - 程序包 io.github.lishangbu.avalon.game.calculator.growthrate</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">并发与线程安全：</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/hibernate/package-summary.html">io.github.lishangbu.avalon.hibernate</a> - 程序包 io.github.lishangbu.avalon.hibernate</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/ip2location/package-summary.html">io.github.lishangbu.avalon.ip2location</a> - 程序包 io.github.lishangbu.avalon.ip2location</dt>
@@ -4866,31 +4840,51 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 <dt><a href="io/github/lishangbu/avalon/oauth2/resourceserver/autoconfiguration/package-summary.html">io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration</a> - 程序包 io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/package-summary.html">io.github.lishangbu.avalon.pokeapi</a> - 程序包 io.github.lishangbu.avalon.pokeapi</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">PokeAPI 核心模块包，暴露数据模型与客户端服务</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/autoconfiguration/package-summary.html">io.github.lishangbu.avalon.pokeapi.autoconfiguration</a> - 程序包 io.github.lishangbu.avalon.pokeapi.autoconfiguration</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">自动配置相关类，负责将 PokeAPI 客户端与组件注册到 Spring 容器</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/component/package-summary.html">io.github.lishangbu.avalon.pokeapi.component</a> - 程序包 io.github.lishangbu.avalon.pokeapi.component</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">PokeAPI 客户端与服务接口的声明与实现</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/dataprovider/package-summary.html">io.github.lishangbu.avalon.pokeapi.dataprovider</a> - 程序包 io.github.lishangbu.avalon.pokeapi.dataprovider</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/enumeration/package-summary.html">io.github.lishangbu.avalon.pokeapi.enumeration</a> - 程序包 io.github.lishangbu.avalon.pokeapi.enumeration</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">模块使用的枚举类型</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/package-summary.html">io.github.lishangbu.avalon.pokeapi.model</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">PokeAPI 数据模型包，包含所有资源的 POJO 定义</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/berry/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.berry</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.berry</dt>
 <dd>
 <div class="block">POKE API 关于树果相关的实体描述</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/common/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.common</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.common</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">通用模型包，包含名称、描述与版本等复用类型</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/contest/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.contest</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.contest</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Contest 相关模型，包含竞赛影响和类别等</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/encounter/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.encounter</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.encounter</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">遭遇相关模型，定义地区与遭遇方法的数据结构</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/evolution/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.evolution</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.evolution</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">进化链相关模型，包含进化细节与链路定义</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/game/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.game</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.game</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">游戏数据模型，包含世代、版本与图鉴条目等</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/item/package-summary.html">io.github.lishangbu.avalon.pokeapi.model.item</a> - 程序包 io.github.lishangbu.avalon.pokeapi.model.item</dt>
 <dd>
 <div class="block">Poke API 关于道具的数据模型描述</div>
@@ -4920,15 +4914,25 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 <div class="block">当调用 PokeAPI 的端点且未指定资源 ID 或名称时返回的分页或命名资源列表模型</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/properties/package-summary.html">io.github.lishangbu.avalon.pokeapi.properties</a> - 程序包 io.github.lishangbu.avalon.pokeapi.properties</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">模块配置属性，封装 PokeAPI 地址与客户端参数</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/util/package-summary.html">io.github.lishangbu.avalon.pokeapi.util</a> - 程序包 io.github.lishangbu.avalon.pokeapi.util</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">工具类集合，提供模型解析和本地化等通用方法</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/s3/autoconfiguration/package-summary.html">io.github.lishangbu.avalon.s3.autoconfiguration</a> - 程序包 io.github.lishangbu.avalon.s3.autoconfiguration</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">S3 自动配置相关类，负责客户端和属性的自动装配</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/s3/properties/package-summary.html">io.github.lishangbu.avalon.s3.properties</a> - 程序包 io.github.lishangbu.avalon.s3.properties</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">S3 属性配置类，封装客户端所需的配置项</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/s3/template/package-summary.html">io.github.lishangbu.avalon.s3.template</a> - 程序包 io.github.lishangbu.avalon.s3.template</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">S3 模板相关类，提供生成 S3 请求/响应模板的工具</div>
+</dd>
 <dt><a href="io/github/lishangbu/avalon/standalone/package-summary.html">io.github.lishangbu.avalon.standalone</a> - 程序包 io.github.lishangbu.avalon.standalone</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/lishangbu/avalon/web/exception/package-summary.html">io.github.lishangbu.avalon.web.exception</a> - 程序包 io.github.lishangbu.avalon.web.exception</dt>
@@ -9504,6 +9508,47 @@ Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html#trigger()" class="member-name-link">trigger()</a> - 记录类中的方法 io.github.lishangbu.avalon.pokeapi.model.evolution.<a href="io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionDetail</a></dt>
 <dd>
 <div class="block">返回 <a href="./io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html#param-trigger"><code>trigger</code></a> 记录组件的值。</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/AbstractGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">AbstractGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">子类实现：尝试计算指定等级的成长值</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">快组：
+EXP = 0.8 * Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/FastThenVerySlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">FastThenVerySlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">最慢组：
+分段函数
+Lv≤15：EXP = 0.02 * Lv^3 * ⌊ (Lv+73) / 3 ⌋
+16≤Lv≤36：EXP = 0.02 * Lv4 +0.28* Lv^3
+37≤Lv≤100：EXP = 0.02 * Lv^3 * ⌊ (Lv + 64) / 2 ⌋</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">较快组：
+EXP = Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/MediumSlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">MediumSlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">较慢组：
+EXP = 1.2 * Lv^3 - 15 * Lv^2 + 100 * Lv - 140</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">慢组：
+EXP = 1.25 * Lv^3</div>
+</dd>
+<dt><a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate(int)</a> - 类中的方法 io.github.lishangbu.avalon.game.calculator.growthrate.<a href="io/github/lishangbu/avalon/game/calculator/growthrate/SlowThenVeryFastGrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的类">SlowThenVeryFastGrowthRateCalculator</a></dt>
+<dd>
+<div class="block">最快组：
+分段函数
+Lv≤50：EXP = -0.02 * Lv4 + 2 * Lv^3
+51≤Lv≤68：EXP = -0.01 * Lv4 + 1.5 * Lv^3
+69≤Lv≤98：EXP = 0.002 * Lv^3 * ⌊ (1911 - 10 * Lv) / 3 ⌋
+99≤Lv≤100：EXP = -0.01 * Lv4 + 1.6 * Lv^3</div>
 </dd>
 <dt><a href="io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html#turnUpsideDown()" class="member-name-link">turnUpsideDown()</a> - 记录类中的方法 io.github.lishangbu.avalon.pokeapi.model.evolution.<a href="io/github/lishangbu/avalon/pokeapi/model/evolution/EvolutionDetail.html" title="io.github.lishangbu.avalon.pokeapi.model.evolution中的类">EvolutionDetail</a></dt>
 <dd>
