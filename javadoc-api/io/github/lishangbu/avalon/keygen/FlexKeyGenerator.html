@@ -57,9 +57,9 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-summary" tabindex="0">方法概要</a></li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#generate()" tabindex="0">generate()</a></li>
 <li><a href="#getInstance()" tabindex="0">getInstance()</a></li>
 <li><a href="#getInstance(long)" tabindex="0">getInstance(long)</a></li>
+<li><a href="#generate()" tabindex="0">generate()</a></li>
 </ol>
 </li>
 </ol>
@@ -77,6 +77,19 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">FlexKeyGenerator</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
+<div class="block"><p>基于 Mybatis Flex 的 FlexID 算法的简化实现，用于生成分布式唯一 ID</p>
+<p>特点：
+1.保证 id 生成的顺序为时间顺序，越往后生成的 ID 值越大；</p>
+<p>2.运行时，单台机器并发量在每秒钟 10w 以内；</p>
+<p>3.运行时，无视时间回拨；</p>
+<p>4.最大支持 99 台机器；</p>
+<p>5.够用大概 300 年左右的时间；</p>
+<p>缺点：</p>
+<p>1.每台机器允许最大的并发量为 10w/s。</p>
+<p>2.出现时间回拨，重启机器时，在时间回拨未恢复的情况下，可能出现 id 重复。</p>
+<p>参考实现：
+<a href="https://github.com/mybatis-flex/mybatis-flex/blob/main/mybatis-flex-core/src/main/java/com/mybatisflex/core/keygen/impl/FlexIDKeyGenerator.java">Mybatis Flex 的 FlexID算法</a></p>
+</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/4/2</dd>
@@ -131,19 +144,6 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="generate()">
-<h3>generate</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a></span>&nbsp;<span class="element-name">generate</span>()</div>
-<div class="block">生成一个新的 Flex ID（线程安全）</div>
-<dl class="notes">
-<dt>返回:</dt>
-<dd>新生成的 ID</dd>
-</dl>
-</div>
-</section>
-</li>
-<li>
 <section class="detail" id="getInstance()">
 <h3>getInstance</h3>
 <div class="horizontal-scroll">
@@ -167,6 +167,19 @@ loadScripts(document, 'script');</script>
 <dd><code>workId</code> - 机器 ID（范围 0-99）</dd>
 <dt>返回:</dt>
 <dd>对应的 <a href="FlexKeyGenerator.html" title="io.github.lishangbu.avalon.keygen中的类"><code>FlexKeyGenerator</code></a> 实例</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="generate()">
+<h3>generate</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a></span>&nbsp;<span class="element-name">generate</span>()</div>
+<div class="block">生成一个新的 Flex ID（线程安全）</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd>新生成的 ID</dd>
 </dl>
 </div>
 </section>
