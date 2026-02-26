@@ -77,19 +77,6 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">FlexKeyGenerator</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a></span></div>
-<div class="block"><p>基于 Mybatis Flex 的 FlexID 算法的简化实现，用于生成分布式唯一 ID</p>
-<p>特点：
-1.保证 id 生成的顺序为时间顺序，越往后生成的 ID 值越大；</p>
-<p>2.运行时，单台机器并发量在每秒钟 10w 以内；</p>
-<p>3.运行时，无视时间回拨；</p>
-<p>4.最大支持 99 台机器；</p>
-<p>5.够用大概 300 年左右的时间；</p>
-<p>缺点：</p>
-<p>1.每台机器允许最大的并发量为 10w/s。</p>
-<p>2.出现时间回拨，重启机器时，在时间回拨未恢复的情况下，可能出现 id 重复。</p>
-<p>参考实现：
-<a href="https://github.com/mybatis-flex/mybatis-flex/blob/main/mybatis-flex-core/src/main/java/com/mybatisflex/core/keygen/impl/FlexIDKeyGenerator.java">Mybatis Flex 的 FlexID算法</a></p>
-</div>
 <dl class="notes">
 <dt>从以下版本开始:</dt>
 <dd>2025/4/2</dd>
