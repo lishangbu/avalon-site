@@ -152,7 +152,7 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#support(java.lang.String)" class="member-name-link">support</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;growthRateInternalName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">判断是否支持计算指定成长速率类型</div>
+<div class="block">判断是否支持指定的成长速率内部名称</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#tryCalculateGrowthRate(int)" class="member-name-link">tryCalculateGrowthRate</a><wbr>(int&nbsp;level)</code></div>
@@ -197,17 +197,14 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <h3>support</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">support</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;growthRateInternalName)</span></div>
-<div class="block"><span class="description-from-type-label">从接口复制的说明:&nbsp;<code><a href="GrowthRateCalculator.html#support(java.lang.String)">GrowthRateCalculator</a></code></span></div>
-<div class="block">判断是否支持计算指定成长速率类型</div>
+<div class="block">判断是否支持指定的成长速率内部名称</div>
 <dl class="notes">
 <dt>指定者:</dt>
 <dd><code><a href="GrowthRateCalculator.html#support(java.lang.String)">support</a></code>&nbsp;在接口中&nbsp;<code><a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon.game.calculator.growthrate中的接口">GrowthRateCalculator</a></code></dd>
 <dt>参数:</dt>
-<dd><code>growthRateInternalName</code> - 成长速率类型的内部名称，例如&quot;slow&quot;、&quot;medium_fast&quot;等</dd>
+<dd><code>growthRateInternalName</code> - 成长速率的内部名称</dd>
 <dt>返回:</dt>
-<dd>如果支持计算该成长速率类型，返回true；否则返回false</dd>
-<dt>抛出:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/NullPointerException.html" title="java.lang中的类或接口" class="external-link">NullPointerException</a></code> - 当 <code>growthRateInternalName</code> 为 <code>null</code> 时会抛出该异常</dd>
+<dd>如果 <code>growthRateInternalName</code> 与当前实现的内部名称不区分大小写相等则返回 <code>true</code>，否则返回 <code>false</code></dd>
 </dl>
 </div>
 </section>
@@ -218,7 +215,7 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">calculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
 <div class="block"><p>计算指定等级的成长值</p>
-<p>本实现负责边界处理：当 <code>level &lt;= 0</code> 返回 <code>0</code>；当 <code>level == 1</code> 返回 <code>0</code>；
+<p>本实现负责边界处理：当 <code>level &lt;= 0</code> 返回 <code>0</code>；当 <code>level == 1</code> 返回<code>0</code>；
 其余情况委托给 <a href="#tryCalculateGrowthRate(int)"><code>tryCalculateGrowthRate(int)</code></a> 由子类完成具体计算</p>
 </div>
 <dl class="notes">
@@ -227,7 +224,7 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <dt>参数:</dt>
 <dd><code>level</code> - 等级，预期为正整数</dd>
 <dt>返回:</dt>
-<dd>给定等级对应的成长值，边界情况（非正等级或等级为 1）返回 <code>0</code></dd>
+<dd>给定等级对应的成长值，边界情况（非正等级或等级为 1）返回 <code>0</code>，其他情况由子类计算返回</dd>
 </dl>
 </div>
 </section>
@@ -238,7 +235,7 @@ implements <a href="GrowthRateCalculator.html" title="io.github.lishangbu.avalon
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">tryCalculateGrowthRate</span><wbr><span class="parameters">(int&nbsp;level)</span></div>
 <div class="block"><p>子类实现：尝试计算指定等级的成长值</p>
-<p>子类实现应假定传入的 <code>level</code> 已通过 <a href="#calculateGrowthRate(int)"><code>calculateGrowthRate(int)</code></a> 做过基本边界处理，
+<p>子类实现应假定传入的 <code>level</code>已通过 <a href="#calculateGrowthRate(int)"><code>calculateGrowthRate(int)</code></a> 做过基本边界处理，
 因此通常从 <code>level &gt;= 2</code> 开始计算具体的成长曲线</p>
 </div>
 <dl class="notes">
