@@ -60,6 +60,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.oauth2.authorizationserver.login">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
@@ -71,9 +75,59 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">修饰符和类型</div>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color"><code>org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">AuthorizationServerSettingsAutoConfiguration.</span><code><a href="../../../authorizationserver/autoconfiguration/AuthorizationServerSettingsAutoConfiguration.html#authorizationServerSettings(io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties)" class="member-name-link">authorizationServerSettings</a><wbr>(<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;properties)</code></div>
+<div class="col-first even-row-color"><code>org.springframework.security.web.SecurityFilterChain</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">AuthorizationServerAutoConfiguration.</span><code><a href="../../../authorizationserver/autoconfiguration/AuthorizationServerAutoConfiguration.html#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">authorizationServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
+ <a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties,
+ <a href="../../../authorizationserver/web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a>&nbsp;accessTokenResponseAuthenticationSuccessHandler,
+ <a href="../../../authorizationserver/web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a>&nbsp;oauth2ErrorApiResultAuthenticationFailureHandler,
+ <a href="../../../authorizationserver/login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">AuthorizationServerSettingsAutoConfiguration.</span><code><a href="../../../authorizationserver/autoconfiguration/AuthorizationServerSettingsAutoConfiguration.html#authorizationServerSettings(io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties)" class="member-name-link">authorizationServerSettings</a><wbr>(<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;properties)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+</div>
+<div class="caption"><span>类型变量类型为<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>的<a href="../../../authorizationserver/autoconfiguration/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a>中的方法参数</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code><a href="../../../authorizationserver/login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">AuthenticationHandlerAutoConfiguration.</span><code><a href="../../../authorizationserver/autoconfiguration/AuthenticationHandlerAutoConfiguration.html#loginFailureTracker(org.springframework.beans.factory.ObjectProvider)" class="member-name-link">loginFailureTracker</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.oauth2.authorizationserver.login">
+<h2><a href="../../../authorizationserver/login/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a>中<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>的使用</h2>
+<div class="caption"><span>参数类型为<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>的<a href="../../../authorizationserver/login/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a>中的构造器</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符</div>
+<div class="table-header col-second">构造器</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../../authorizationserver/login/InMemoryLoginFailureTracker.html#%3Cinit%3E(io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties)" class="member-name-link">InMemoryLoginFailureTracker</a><wbr>(<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;properties)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication">
+<h2><a href="../../../authorizationserver/web/authentication/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a>中<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>的使用</h2>
+<div class="caption"><span>参数类型为<a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>的<a href="../../../authorizationserver/web/authentication/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a>中的构造器</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符</div>
+<div class="table-header col-second">构造器</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../../authorizationserver/web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html#%3Cinit%3E(io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecorder,org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties)" class="member-name-link">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a><wbr>(<a href="../../log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&nbsp;authenticationLogRecorder,
+ org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&nbsp;authorizationService,
+ <a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../../authorizationserver/web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html#%3Cinit%3E(io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecorder,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties)" class="member-name-link">OAuth2ErrorApiResultAuthenticationFailureHandler</a><wbr>(<a href="../../log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&nbsp;authenticationLogRecorder,
+ <a href="../Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
