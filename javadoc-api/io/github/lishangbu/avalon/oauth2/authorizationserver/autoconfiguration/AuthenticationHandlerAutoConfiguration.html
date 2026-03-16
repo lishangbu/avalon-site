@@ -64,8 +64,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
 <li><a href="#loginFailureTracker(org.springframework.beans.factory.ObjectProvider)" tabindex="0">loginFailureTracker(ObjectProvider)</a></li>
-<li><a href="#accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)" tabindex="0">accessTokenResponseAuthenticationSuccessHandler(ObjectProvider, ObjectProvider, ObjectProvider)</a></li>
-<li><a href="#oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)" tabindex="0">oauth2ErrorApiResultAuthenticationFailureHandler(ObjectProvider, ObjectProvider)</a></li>
+<li><a href="#accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)" tabindex="0">accessTokenResponseAuthenticationSuccessHandler(ObjectProvider, ObjectProvider, ObjectProvider, JsonMapper)</a></li>
+<li><a href="#oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)" tabindex="0">oauth2ErrorApiResultAuthenticationFailureHandler(ObjectProvider, ObjectProvider, JsonMapper)</a></li>
 </ol>
 </li>
 </ol>
@@ -113,16 +113,18 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)" class="member-name-link">accessTokenResponseAuthenticationSuccessHandler</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)" class="member-name-link">accessTokenResponseAuthenticationSuccessHandler</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
  org.springframework.beans.factory.ObjectProvider&lt;org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&gt;&nbsp;authorizationServiceProvider,
- org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</code></div>
+ org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loginFailureTracker(org.springframework.beans.factory.ObjectProvider)" class="member-name-link">loginFailureTracker</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)" class="member-name-link">oauth2ErrorApiResultAuthenticationFailureHandler</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
- org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)" class="member-name-link">oauth2ErrorApiResultAuthenticationFailureHandler</a><wbr>(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
+ org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -168,25 +170,27 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)">
+<section class="detail" id="accessTokenResponseAuthenticationSuccessHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)">
 <h3>accessTokenResponseAuthenticationSuccessHandler</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
 @ConditionalOnMissingBean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a></span>&nbsp;<span class="element-name">accessTokenResponseAuthenticationSuccessHandler</span><wbr><span class="parameters">(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
  org.springframework.beans.factory.ObjectProvider&lt;org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&gt;&nbsp;authorizationServiceProvider,
- org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</span></div>
+ org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</span></div>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider)">
+<section class="detail" id="oauth2ErrorApiResultAuthenticationFailureHandler(org.springframework.beans.factory.ObjectProvider,org.springframework.beans.factory.ObjectProvider,tools.jackson.databind.json.JsonMapper)">
 <h3>oauth2ErrorApiResultAuthenticationFailureHandler</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
 @ConditionalOnMissingBean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a></span>&nbsp;<span class="element-name">oauth2ErrorApiResultAuthenticationFailureHandler</span><wbr><span class="parameters">(org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/log/AuthenticationLogRecorder.html" title="io.github.lishangbu.avalon.oauth2.common.log中的接口">AuthenticationLogRecorder</a>&gt;&nbsp;logRecorderProvider,
- org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider)</span></div>
+ org.springframework.beans.factory.ObjectProvider&lt;<a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&gt;&nbsp;oauth2PropertiesProvider,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</span></div>
 </div>
 </section>
 </li>

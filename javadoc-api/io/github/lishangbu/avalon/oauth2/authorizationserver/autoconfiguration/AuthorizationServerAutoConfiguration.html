@@ -63,7 +63,7 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" tabindex="0">authorizationServerSecurityFilterChain(HttpSecurity, Oauth2Properties, OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler, OAuth2ErrorApiResultAuthenticationFailureHandler, LoginFailureTracker)</a></li>
+<li><a href="#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker,tools.jackson.databind.json.JsonMapper)" tabindex="0">authorizationServerSecurityFilterChain(HttpSecurity, Oauth2Properties, OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler, OAuth2ErrorApiResultAuthenticationFailureHandler, LoginFailureTracker, JsonMapper)</a></li>
 </ol>
 </li>
 </ol>
@@ -123,12 +123,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.web.SecurityFilterChain</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">authorizationServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker,tools.jackson.databind.json.JsonMapper)" class="member-name-link">authorizationServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
  <a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties,
  <a href="../web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a>&nbsp;accessTokenResponseAuthenticationSuccessHandler,
  <a href="../web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a>&nbsp;oauth2ErrorApiResultAuthenticationFailureHandler,
- <a href="../login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+ <a href="../login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">授权服务器的 SecurityFilterChain Bean</div>
+</div>
 </div>
 </div>
 </div>
@@ -163,7 +166,7 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)">
+<section class="detail" id="authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker,tools.jackson.databind.json.JsonMapper)">
 <h3>authorizationServerSecurityFilterChain</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
@@ -173,8 +176,12 @@ loadScripts(document, 'script');</script>
  <a href="../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties,
  <a href="../web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a>&nbsp;accessTokenResponseAuthenticationSuccessHandler,
  <a href="../web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a>&nbsp;oauth2ErrorApiResultAuthenticationFailureHandler,
- <a href="../login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</span>
+ <a href="../login/LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</span>
                                                                                             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a></span></div>
+<div class="block"><p>授权服务器的 SecurityFilterChain Bean</p>
+<p>负责注册 OAuth2/OIDC 端点及扩展授权类型（密码、短信、邮箱）对应的转换器与认证提供者</p>
+</div>
 <dl class="notes">
 <dt>抛出:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a></code></dd>

@@ -102,7 +102,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a><wbr>&lt;<a href="../model/UserWithRoles.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserWithRoles</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;username)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">根据用户名查询用户详情，包含基本信息、角色信息及个人资料</div>
+<div class="block">根据用户名/手机号/邮箱查询用户详情，包含基本信息、角色信息及个人资料</div>
 </div>
 </div>
 </div>
@@ -123,10 +123,10 @@ loadScripts(document, 'script');</script>
 <h3>getUserByUsername</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="java.util中的类或接口" class="external-link">Optional</a>&lt;<a href="../model/UserWithRoles.html" title="io.github.lishangbu.avalon.authorization.model中的类">UserWithRoles</a>&gt;</span>&nbsp;<span class="element-name">getUserByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&nbsp;username)</span></div>
-<div class="block">根据用户名查询用户详情，包含基本信息、角色信息及个人资料</div>
+<div class="block">根据用户名/手机号/邮箱查询用户详情，包含基本信息、角色信息及个人资料</div>
 <dl class="notes">
 <dt>参数:</dt>
-<dd><code>username</code> - 用户名</dd>
+<dd><code>username</code> - 登录账号</dd>
 <dt>返回:</dt>
 <dd>查询到的用户详情，未找到时返回 Optional.empty()</dd>
 </dl>

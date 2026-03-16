@@ -63,9 +63,9 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,java.lang.Object)" tabindex="0">writeSuccessResponse(HttpServletResponse, Object)</a></li>
-<li><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse)" tabindex="0">writeSuccessResponse(HttpServletResponse)</a></li>
-<li><a href="#writeFailedResponse(jakarta.servlet.http.HttpServletResponse,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)" tabindex="0">writeFailedResponse(HttpServletResponse, HttpStatus, ErrorResultCode, String...)</a></li>
+<li><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,java.lang.Object)" tabindex="0">writeSuccessResponse(HttpServletResponse, JsonMapper, Object)</a></li>
+<li><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper)" tabindex="0">writeSuccessResponse(HttpServletResponse, JsonMapper)</a></li>
+<li><a href="#writeFailedResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)" tabindex="0">writeFailedResponse(HttpServletResponse, JsonMapper, HttpStatus, ErrorResultCode, String...)</a></li>
 </ol>
 </li>
 </ol>
@@ -121,16 +121,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeFailedResponse(jakarta.servlet.http.HttpServletResponse,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)" class="member-name-link">writeFailedResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeFailedResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)" class="member-name-link">writeFailedResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper,
  org.springframework.http.HttpStatus&nbsp;httpStatus,
  <a href="../result/ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a>&nbsp;errorResultCode,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>...&nbsp;errorMessages)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse)" class="member-name-link">writeSuccessResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper)" class="member-name-link">writeSuccessResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,java.lang.Object)" class="member-name-link">writeSuccessResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,java.lang.Object)" class="member-name-link">writeSuccessResponse</a><wbr>(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;data)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
@@ -167,27 +170,30 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,java.lang.Object)">
+<section class="detail" id="writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,java.lang.Object)">
 <h3>writeSuccessResponse</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">writeSuccessResponse</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a>&nbsp;data)</span></div>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="writeSuccessResponse(jakarta.servlet.http.HttpServletResponse)">
+<section class="detail" id="writeSuccessResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper)">
 <h3>writeSuccessResponse</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">writeSuccessResponse</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletResponse&nbsp;response)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">writeSuccessResponse</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</span></div>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="writeFailedResponse(jakarta.servlet.http.HttpServletResponse,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)">
+<section class="detail" id="writeFailedResponse(jakarta.servlet.http.HttpServletResponse,tools.jackson.databind.json.JsonMapper,org.springframework.http.HttpStatus,io.github.lishangbu.avalon.web.result.ErrorResultCode,java.lang.String...)">
 <h3>writeFailedResponse</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">writeFailedResponse</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletResponse&nbsp;response,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper,
  org.springframework.http.HttpStatus&nbsp;httpStatus,
  <a href="../result/ErrorResultCode.html" title="io.github.lishangbu.avalon.web.result中的接口">ErrorResultCode</a>&nbsp;errorResultCode,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>...&nbsp;errorMessages)</span></div>

@@ -63,7 +63,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.oauth2.authorizationserver.login">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><a href="#org.springframework.security.oauth2.server.authorization.authentication">org.springframework.security.oauth2.server.authorization.authentication</a></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">扩展的认证模块支持</div>
+</div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
@@ -85,12 +87,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><code>org.springframework.security.web.SecurityFilterChain</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">AuthorizationServerAutoConfiguration.</span><code><a href="../../autoconfiguration/AuthorizationServerAutoConfiguration.html#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">authorizationServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
+<div class="col-second even-row-color"><span class="type-name-label">AuthorizationServerAutoConfiguration.</span><code><a href="../../autoconfiguration/AuthorizationServerAutoConfiguration.html#authorizationServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker,tools.jackson.databind.json.JsonMapper)" class="member-name-link">authorizationServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
  <a href="../../../common/properties/Oauth2Properties.html" title="io.github.lishangbu.avalon.oauth2.common.properties中的类">Oauth2Properties</a>&nbsp;oauth2Properties,
  <a href="../../web/authentication/OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</a>&nbsp;accessTokenResponseAuthenticationSuccessHandler,
  <a href="../../web/authentication/OAuth2ErrorApiResultAuthenticationFailureHandler.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication中的类">OAuth2ErrorApiResultAuthenticationFailureHandler</a>&nbsp;oauth2ErrorApiResultAuthenticationFailureHandler,
- <a href="../LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+ <a href="../LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
+<div class="col-last even-row-color">
+<div class="block">授权服务器的 SecurityFilterChain Bean</div>
+</div>
 </div>
 </section>
 </li>
@@ -119,7 +124,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">构造器</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../../../../../../../org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html#%3Cinit%3E(org.springframework.security.authentication.AuthenticationManager,org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService,org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">OAuth2PasswordAuthenticationProvider</a><wbr>(org.springframework.security.authentication.AuthenticationManager&nbsp;authenticationManager,
+<div class="col-second even-row-color"><code><a href="../../../../../../../../org/springframework/security/oauth2/server/authorization/authentication/OAuth2EmailAuthenticationProvider.html#%3Cinit%3E(org.springframework.security.authentication.AuthenticationManager,org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService,org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">OAuth2EmailAuthenticationProvider</a><wbr>(org.springframework.security.authentication.AuthenticationManager&nbsp;authenticationManager,
+ org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&nbsp;authorizationService,
+ org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator&lt;? extends org.springframework.security.oauth2.core.OAuth2Token&gt;&nbsp;tokenGenerator,
+ <a href="../LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../../../../../../../org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthenticationProvider.html#%3Cinit%3E(org.springframework.security.authentication.AuthenticationManager,org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService,org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">OAuth2PasswordAuthenticationProvider</a><wbr>(org.springframework.security.authentication.AuthenticationManager&nbsp;authenticationManager,
+ org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&nbsp;authorizationService,
+ org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator&lt;? extends org.springframework.security.oauth2.core.OAuth2Token&gt;&nbsp;tokenGenerator,
+ <a href="../LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../../../../../../../org/springframework/security/oauth2/server/authorization/authentication/OAuth2SmsAuthenticationProvider.html#%3Cinit%3E(org.springframework.security.authentication.AuthenticationManager,org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService,org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator,io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker)" class="member-name-link">OAuth2SmsAuthenticationProvider</a><wbr>(org.springframework.security.authentication.AuthenticationManager&nbsp;authenticationManager,
  org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService&nbsp;authorizationService,
  org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator&lt;? extends org.springframework.security.oauth2.core.OAuth2Token&gt;&nbsp;tokenGenerator,
  <a href="../LoginFailureTracker.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.login中的接口">LoginFailureTracker</a>&nbsp;loginFailureTracker)</code></div>

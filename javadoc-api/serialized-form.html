@@ -646,6 +646,11 @@ loadScripts(document, 'script');</script>
 <h4>序列化字段</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>email</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> email</pre>
+<div class="block">邮箱</div>
+</li>
+<li class="block-list">
 <h5>hashedPassword</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> hashedPassword</pre>
 <div class="block">密码（写入-only，不会在 toString 中显示）</div>
@@ -654,6 +659,11 @@ loadScripts(document, 'script');</script>
 <h5>id</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html" title="java.lang中的类或接口" class="external-link">Long</a> id</pre>
 <div class="block">主键</div>
+</li>
+<li class="block-list">
+<h5>phone</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> phone</pre>
+<div class="block">手机号</div>
 </li>
 <li class="block-list">
 <h5>roles</h5>
@@ -2489,6 +2499,25 @@ loadScripts(document, 'script');</script>
 </li>
 <li>
 <section class="serialized-package-container">
+<h2 title="程序包">程序包&nbsp;<a href="io/github/lishangbu/avalon/oauth2/authorizationserver/authentication/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.authentication</a></h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.oauth2.authorizationserver.authentication.EmailAuthenticationToken">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/oauth2/authorizationserver/authentication/EmailAuthenticationToken.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.authentication中的类">io.github.lishangbu.avalon.oauth2.authorizationserver.authentication.EmailAuthenticationToken</a></h3>
+<div class="type-signature">class EmailAuthenticationToken extends org.springframework.security.authentication.UsernamePasswordAuthenticationToken implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="io.github.lishangbu.avalon.oauth2.authorizationserver.authentication.SmsAuthenticationToken">
+<h3>类&nbsp;<a href="io/github/lishangbu/avalon/oauth2/authorizationserver/authentication/SmsAuthenticationToken.html" title="io.github.lishangbu.avalon.oauth2.authorizationserver.authentication中的类">io.github.lishangbu.avalon.oauth2.authorizationserver.authentication.SmsAuthenticationToken</a></h3>
+<div class="type-signature">class SmsAuthenticationToken extends org.springframework.security.authentication.UsernamePasswordAuthenticationToken implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-package-container">
 <h2 title="程序包">程序包&nbsp;<a href="io/github/lishangbu/avalon/oauth2/authorizationserver/exception/package-summary.html">io.github.lishangbu.avalon.oauth2.authorizationserver.exception</a></h2>
 <ul class="block-list">
 <li>
@@ -2510,7 +2539,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature">class AuthorizationGrantTypeSupport extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="java.lang中的类或接口" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
 <dl class="name-value">
 <dt>serialVersionUID:</dt>
-<dd>620L</dd>
+<dd>1L</dd>
 </dl>
 </section>
 </li>
@@ -3012,6 +3041,36 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="org.springframework.security.oauth2.server.authorization.authentication.OAuth2EmailAuthorizationGrantAuthenticationToken">
+<h3>类&nbsp;<a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2EmailAuthorizationGrantAuthenticationToken.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">org.springframework.security.oauth2.server.authorization.authentication.OAuth2EmailAuthorizationGrantAuthenticationToken</a></h3>
+<div class="type-signature">class OAuth2EmailAuthorizationGrantAuthenticationToken extends org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>email</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> email</pre>
+<div class="block">邮箱</div>
+</li>
+<li class="block-list">
+<h5>emailCode</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> emailCode</pre>
+<div class="block">邮箱验证码</div>
+</li>
+<li class="block-list">
+<h5>scopes</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="java.util中的类或接口" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt; scopes</pre>
+<div class="block">授权范围（scopes）</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="org.springframework.security.oauth2.server.authorization.authentication.OAuth2PasswordAuthorizationGrantAuthenticationToken">
 <h3>类&nbsp;<a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2PasswordAuthorizationGrantAuthenticationToken.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">org.springframework.security.oauth2.server.authorization.authentication.OAuth2PasswordAuthorizationGrantAuthenticationToken</a></h3>
 <div class="type-signature">class OAuth2PasswordAuthorizationGrantAuthenticationToken extends org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
@@ -3084,6 +3143,36 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>scopes</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="java.util中的类或接口" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt; scopes</pre>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.springframework.security.oauth2.server.authorization.authentication.OAuth2SmsAuthorizationGrantAuthenticationToken">
+<h3>类&nbsp;<a href="org/springframework/security/oauth2/server/authorization/authentication/OAuth2SmsAuthorizationGrantAuthenticationToken.html" title="org.springframework.security.oauth2.server.authorization.authentication中的类">org.springframework.security.oauth2.server.authorization.authentication.OAuth2SmsAuthorizationGrantAuthenticationToken</a></h3>
+<div class="type-signature">class OAuth2SmsAuthorizationGrantAuthenticationToken extends org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken implements <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="java.io中的类或接口" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>序列化字段</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>phoneNumber</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> phoneNumber</pre>
+<div class="block">手机号</div>
+</li>
+<li class="block-list">
+<h5>scopes</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="java.util中的类或接口" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt; scopes</pre>
+<div class="block">授权范围（scopes）</div>
+</li>
+<li class="block-list">
+<h5>smsCode</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a> smsCode</pre>
+<div class="block">短信验证码</div>
 </li>
 </ul>
 </section>

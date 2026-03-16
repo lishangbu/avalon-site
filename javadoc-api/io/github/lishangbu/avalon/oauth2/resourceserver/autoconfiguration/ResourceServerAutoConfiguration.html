@@ -63,7 +63,7 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
-<li><a href="#resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)" tabindex="0">resourceServerSecurityFilterChain(HttpSecurity)</a></li>
+<li><a href="#resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,tools.jackson.databind.json.JsonMapper)" tabindex="0">resourceServerSecurityFilterChain(HttpSecurity, JsonMapper)</a></li>
 </ol>
 </li>
 </ol>
@@ -137,7 +137,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.web.SecurityFilterChain</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)" class="member-name-link">resourceServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,tools.jackson.databind.json.JsonMapper)" class="member-name-link">resourceServerSecurityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">资源服务器的安全过滤链</div>
 </div>
@@ -175,13 +176,14 @@ loadScripts(document, 'script');</script>
 <h2>方法详细资料</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)">
+<section class="detail" id="resourceServerSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,tools.jackson.databind.json.JsonMapper)">
 <h3>resourceServerSecurityFilterChain</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
 @ConditionalOnMissingBean(name="resourceServerSecurityFilterChain")
 @Order(2)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.web.SecurityFilterChain</span>&nbsp;<span class="element-name">resourceServerSecurityFilterChain</span><wbr><span class="parameters">(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http)</span>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.web.SecurityFilterChain</span>&nbsp;<span class="element-name">resourceServerSecurityFilterChain</span><wbr><span class="parameters">(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
+ tools.jackson.databind.json.JsonMapper&nbsp;jsonMapper)</span>
                                                                                        throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Exception.html" title="java.lang中的类或接口" class="external-link">Exception</a></span></div>
 <div class="block"><p>资源服务器的安全过滤链</p>
 <p>配置说明：</p>
