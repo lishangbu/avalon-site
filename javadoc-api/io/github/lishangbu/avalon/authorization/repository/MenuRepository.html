@@ -59,6 +59,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">方法详细资料</a>
 <ol class="toc-list">
 <li><a href="#findAllByRoleCodes(java.util.List)" tabindex="0">findAllByRoleCodes(List)</a></li>
+<li><a href="#findAllByOrderBySortingOrderAscIdAsc()" tabindex="0">findAllByOrderBySortingOrderAscIdAsc()</a></li>
 </ol>
 </li>
 </ol>
@@ -112,8 +113,13 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <div class="table-header col-second">方法</div>
 <div class="table-header col-last">说明</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../entity/Menu.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findAllByRoleCodes(java.util.List)" class="member-name-link">findAllByRoleCodes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;&nbsp;roleCodes)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findAllByOrderBySortingOrderAscIdAsc()" class="member-name-link">findAllByOrderBySortingOrderAscIdAsc</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">查询全量菜单并按 sortingOrder、id 升序排序</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../entity/Menu.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findAllByRoleCodes(java.util.List)" class="member-name-link">findAllByRoleCodes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="java.lang中的类或接口" class="external-link">String</a>&gt;&nbsp;roleCodes)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">根据角色代码列表查询对应的菜单集合</div>
 </div>
 </div>
@@ -164,6 +170,19 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <dd><code>roleCodes</code> - 角色代码列表</dd>
 <dt>返回:</dt>
 <dd>匹配的菜单列表</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="findAllByOrderBySortingOrderAscIdAsc()">
+<h3>findAllByOrderBySortingOrderAscIdAsc</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a>&lt;<a href="../entity/Menu.html" title="io.github.lishangbu.avalon.authorization.entity中的类">Menu</a>&gt;</span>&nbsp;<span class="element-name">findAllByOrderBySortingOrderAscIdAsc</span>()</div>
+<div class="block">查询全量菜单并按 sortingOrder、id 升序排序</div>
+<dl class="notes">
+<dt>返回:</dt>
+<dd>排序后的菜单列表</dd>
 </dl>
 </div>
 </section>

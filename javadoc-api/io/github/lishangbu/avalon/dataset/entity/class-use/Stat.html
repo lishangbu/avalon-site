@@ -58,17 +58,92 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">程序包</div>
 <div class="table-header col-last">说明</div>
-<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.dataset.entity">io.github.lishangbu.avalon.dataset.entity</a></div>
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.dataset.controller">io.github.lishangbu.avalon.dataset.controller</a></div>
 <div class="col-last even-row-color">
+<div class="block">数据集控制器包</div>
+</div>
+<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.dataset.entity">io.github.lishangbu.avalon.dataset.entity</a></div>
+<div class="col-last odd-row-color">
 <div class="block">基础数据集的数据库实体模块</div>
 </div>
-<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.dataset.repository">io.github.lishangbu.avalon.dataset.repository</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.dataset.repository">io.github.lishangbu.avalon.dataset.repository</a></div>
+<div class="col-last even-row-color">
 <div class="block">基础数据集用Spring Data JPA实现的数据访问层</div>
 </div>
+<div class="col-first odd-row-color"><a href="#io.github.lishangbu.avalon.dataset.service">io.github.lishangbu.avalon.dataset.service</a></div>
+<div class="col-last odd-row-color">
+<div class="block">数据集服务接口包。</div>
+</div>
+<div class="col-first even-row-color"><a href="#io.github.lishangbu.avalon.dataset.service.impl">io.github.lishangbu.avalon.dataset.service.impl</a></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.dataset.controller">
+<h2><a href="../../controller/package-summary.html">io.github.lishangbu.avalon.dataset.controller</a>中<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的使用</h2>
+<div class="caption"><span>返回<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../controller/package-summary.html">io.github.lishangbu.avalon.dataset.controller</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">新增能力</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">更新能力</div>
+</div>
+</div>
+<div class="caption"><span>返回变量类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的类型的<a href="../../controller/package-summary.html">io.github.lishangbu.avalon.dataset.controller</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#getStatPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">getStatPage</a><wbr>(org.springframework.data.domain.Pageable&nbsp;pageable,
+ <a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">分页条件查询能力</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#listStats(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listStats</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">条件查询能力列表</div>
+</div>
+</div>
+<div class="caption"><span>参数类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../controller/package-summary.html">io.github.lishangbu.avalon.dataset.controller</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#getStatPage(org.springframework.data.domain.Pageable,io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">getStatPage</a><wbr>(org.springframework.data.domain.Pageable&nbsp;pageable,
+ <a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">分页条件查询能力</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#listStats(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listStats</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">条件查询能力列表</div>
+</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">新增能力</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatController.</span><code><a href="../../controller/StatController.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">更新能力</div>
+</div>
+</div>
+</section>
+</li>
 <li>
 <section class="detail" id="io.github.lishangbu.avalon.dataset.entity">
 <h2><a href="../package-summary.html">io.github.lishangbu.avalon.dataset.entity</a>中<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的使用</h2>
@@ -141,13 +216,127 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../../repository/StatRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.dataset.repository中的接口">StatRepository</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">属性(Stat)数据访问层</div>
+<div class="block">能力(Stat)数据访问层</div>
 </div>
 <div class="col-first odd-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../repository/StatRepository.html" class="type-name-link" title="io.github.lishangbu.avalon.dataset.repository中的接口">StatRepository</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">属性(Stat)数据访问层</div>
+<div class="block">能力(Stat)数据访问层</div>
 </div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.dataset.service">
+<h2><a href="../../service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a>中<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的使用</h2>
+<div class="caption"><span>返回<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">新增能力。</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">更新能力。</div>
+</div>
+</div>
+<div class="caption"><span>返回变量类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的类型的<a href="../../service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Stat,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
+<div class="col-last even-row-color">
+<div class="block">根据条件分页查询能力。</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#listByCondition(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">根据条件查询能力列表。</div>
+</div>
+</div>
+<div class="caption"><span>参数类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../service/package-summary.html">io.github.lishangbu.avalon.dataset.service</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Stat,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
+<div class="col-last even-row-color">
+<div class="block">根据条件分页查询能力。</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#listByCondition(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">根据条件查询能力列表。</div>
+</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">
+<div class="block">新增能力。</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatService.</span><code><a href="../../service/StatService.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">更新能力。</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="io.github.lishangbu.avalon.dataset.service.impl">
+<h2><a href="../../service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a>中<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的使用</h2>
+<div class="caption"><span>返回<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+</div>
+<div class="caption"><span>返回变量类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的类型的<a href="../../service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Stat,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#listByCondition(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+</div>
+<div class="caption"><span>参数类型为<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>的<a href="../../service/impl/package-summary.html">io.github.lishangbu.avalon.dataset.service.impl</a>中的方法</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">修饰符和类型</div>
+<div class="table-header col-second">方法</div>
+<div class="table-header col-last">说明</div>
+<div class="col-first even-row-color"><code>org.springframework.data.domain.Page<wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#getPageByCondition(io.github.lishangbu.avalon.dataset.entity.Stat,org.springframework.data.domain.Pageable)" class="member-name-link">getPageByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat,
+ org.springframework.data.domain.Pageable&nbsp;pageable)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="java.util中的类或接口" class="external-link">List</a><wbr>&lt;<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#listByCondition(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">listByCondition</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#save(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">save</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">StatServiceImpl.</span><code><a href="../../service/impl/StatServiceImpl.html#update(io.github.lishangbu.avalon.dataset.entity.Stat)" class="member-name-link">update</a><wbr>(<a href="../Stat.html" title="io.github.lishangbu.avalon.dataset.entity中的类">Stat</a>&nbsp;stat)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
