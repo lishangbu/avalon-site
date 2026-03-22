@@ -1,0 +1,487 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>OauthRegisteredClientProps</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-authorization/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-authorization/main" data-filter=":avalon-modules:avalon-authorization/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-authorization::io.github.lishangbu.avalon.authorization.entity/OauthRegisteredClientProps///PointingToDeclaration//1712555002">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-authorization</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.authorization.entity</a><span class="delimiter">/</span><span class="current">OauthRegisteredClientProps</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Oauth</span><wbr><span>Registered</span><wbr><span>Client</span><wbr><span><span>Props</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.internal/GeneratedBy///PointingToDeclaration/"><span class="token annotation builtin">GeneratedBy</span></span><span class="token punctuation">(</span><span>type<span class="token operator"> = </span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient::class</a></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="index.html">OauthRegisteredClientProps</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="688966378%2FProperties%2F1712555002" anchor-label="ACCESS_TOKEN_FORMAT" id="688966378%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-c-c-e-s-s_-t-o-k-e-n_-f-o-r-m-a-t.html"><span>ACCESS_</span><wbr><span>TOKEN_</span><wbr><span>FORMAT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="688966378%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-c-c-e-s-s_-t-o-k-e-n_-f-o-r-m-a-t.html">ACCESS_TOKEN_FORMAT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="194760963%2FProperties%2F1712555002" anchor-label="ACCESS_TOKEN_TIME_TO_LIVE" id="194760963%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-c-c-e-s-s_-t-o-k-e-n_-t-i-m-e_-t-o_-l-i-v-e.html"><span>ACCESS_</span><wbr><span>TOKEN_</span><wbr><span>TIME_</span><wbr><span>TO_</span><wbr><span>LIVE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="194760963%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-c-c-e-s-s_-t-o-k-e-n_-t-i-m-e_-t-o_-l-i-v-e.html">ACCESS_TOKEN_TIME_TO_LIVE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2127778904%2FProperties%2F1712555002" anchor-label="AUTHORIZATION_CODE_TIME_TO_LIVE" id="2127778904%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-u-t-h-o-r-i-z-a-t-i-o-n_-c-o-d-e_-t-i-m-e_-t-o_-l-i-v-e.html"><span>AUTHORIZATION_</span><wbr><span>CODE_</span><wbr><span>TIME_</span><wbr><span>TO_</span><wbr><span>LIVE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2127778904%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-u-t-h-o-r-i-z-a-t-i-o-n_-c-o-d-e_-t-i-m-e_-t-o_-l-i-v-e.html">AUTHORIZATION_CODE_TIME_TO_LIVE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1971425746%2FProperties%2F1712555002" anchor-label="AUTHORIZATION_GRANT_TYPES" id="1971425746%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-u-t-h-o-r-i-z-a-t-i-o-n_-g-r-a-n-t_-t-y-p-e-s.html"><span>AUTHORIZATION_</span><wbr><span>GRANT_</span><wbr><span>TYPES</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1971425746%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-u-t-h-o-r-i-z-a-t-i-o-n_-g-r-a-n-t_-t-y-p-e-s.html">AUTHORIZATION_GRANT_TYPES</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-195684637%2FProperties%2F1712555002" anchor-label="CLIENT_AUTHENTICATION_METHODS" id="-195684637%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-a-u-t-h-e-n-t-i-c-a-t-i-o-n_-m-e-t-h-o-d-s.html"><span>CLIENT_</span><wbr><span>AUTHENTICATION_</span><wbr><span>METHODS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-195684637%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-a-u-t-h-e-n-t-i-c-a-t-i-o-n_-m-e-t-h-o-d-s.html">CLIENT_AUTHENTICATION_METHODS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-67008749%2FProperties%2F1712555002" anchor-label="CLIENT_ID" id="-67008749%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-i-d.html"><span>CLIENT_</span><wbr><span>ID</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-67008749%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-i-d.html">CLIENT_ID</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="414074827%2FProperties%2F1712555002" anchor-label="CLIENT_ID_ISSUED_AT" id="414074827%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-i-d_-i-s-s-u-e-d_-a-t.html"><span>CLIENT_</span><wbr><span>ID_</span><wbr><span>ISSUED_</span><wbr><span>AT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="414074827%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-i-d_-i-s-s-u-e-d_-a-t.html">CLIENT_ID_ISSUED_AT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html">Instant</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-769139869%2FProperties%2F1712555002" anchor-label="CLIENT_NAME" id="-769139869%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-n-a-m-e.html"><span>CLIENT_</span><wbr><span>NAME</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-769139869%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-n-a-m-e.html">CLIENT_NAME</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="366894750%2FProperties%2F1712555002" anchor-label="CLIENT_SECRET" id="366894750%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-s-e-c-r-e-t.html"><span>CLIENT_</span><wbr><span>SECRET</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="366894750%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-s-e-c-r-e-t.html">CLIENT_SECRET</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1211318785%2FProperties%2F1712555002" anchor-label="CLIENT_SECRET_EXPIRES_AT" id="-1211318785%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-i-e-n-t_-s-e-c-r-e-t_-e-x-p-i-r-e-s_-a-t.html"><span>CLIENT_</span><wbr><span>SECRET_</span><wbr><span>EXPIRES_</span><wbr><span>AT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1211318785%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-i-e-n-t_-s-e-c-r-e-t_-e-x-p-i-r-e-s_-a-t.html">CLIENT_SECRET_EXPIRES_AT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html">Instant</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2093301841%2FProperties%2F1712555002" anchor-label="DEVICE_CODE_TIME_TO_LIVE" id="2093301841%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-v-i-c-e_-c-o-d-e_-t-i-m-e_-t-o_-l-i-v-e.html"><span>DEVICE_</span><wbr><span>CODE_</span><wbr><span>TIME_</span><wbr><span>TO_</span><wbr><span>LIVE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2093301841%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-v-i-c-e_-c-o-d-e_-t-i-m-e_-t-o_-l-i-v-e.html">DEVICE_CODE_TIME_TO_LIVE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1552521187%2FProperties%2F1712555002" anchor-label="ID" id="-1552521187%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-d.html"><span><span>ID</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1552521187%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-d.html">ID</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1866346234%2FProperties%2F1712555002" anchor-label="ID_TOKEN_SIGNATURE_ALGORITHM" id="1866346234%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-d_-t-o-k-e-n_-s-i-g-n-a-t-u-r-e_-a-l-g-o-r-i-t-h-m.html"><span>ID_</span><wbr><span>TOKEN_</span><wbr><span>SIGNATURE_</span><wbr><span>ALGORITHM</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1866346234%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-d_-t-o-k-e-n_-s-i-g-n-a-t-u-r-e_-a-l-g-o-r-i-t-h-m.html">ID_TOKEN_SIGNATURE_ALGORITHM</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-815349519%2FProperties%2F1712555002" anchor-label="JWK_SET_URL" id="-815349519%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-j-w-k_-s-e-t_-u-r-l.html"><span>JWK_</span><wbr><span>SET_</span><wbr><span>URL</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-815349519%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-j-w-k_-s-e-t_-u-r-l.html">JWK_SET_URL</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="391350126%2FProperties%2F1712555002" anchor-label="POST_LOGOUT_REDIRECT_URIS" id="391350126%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-o-s-t_-l-o-g-o-u-t_-r-e-d-i-r-e-c-t_-u-r-i-s.html"><span>POST_</span><wbr><span>LOGOUT_</span><wbr><span>REDIRECT_</span><wbr><span>URIS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="391350126%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-o-s-t_-l-o-g-o-u-t_-r-e-d-i-r-e-c-t_-u-r-i-s.html">POST_LOGOUT_REDIRECT_URIS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="928313336%2FProperties%2F1712555002" anchor-label="REDIRECT_URIS" id="928313336%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-d-i-r-e-c-t_-u-r-i-s.html"><span>REDIRECT_</span><wbr><span>URIS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="928313336%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-d-i-r-e-c-t_-u-r-i-s.html">REDIRECT_URIS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1571610480%2FProperties%2F1712555002" anchor-label="REFRESH_TOKEN_TIME_TO_LIVE" id="1571610480%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-f-r-e-s-h_-t-o-k-e-n_-t-i-m-e_-t-o_-l-i-v-e.html"><span>REFRESH_</span><wbr><span>TOKEN_</span><wbr><span>TIME_</span><wbr><span>TO_</span><wbr><span>LIVE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1571610480%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-f-r-e-s-h_-t-o-k-e-n_-t-i-m-e_-t-o_-l-i-v-e.html">REFRESH_TOKEN_TIME_TO_LIVE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2062992488%2FProperties%2F1712555002" anchor-label="REQUIRE_AUTHORIZATION_CONSENT" id="2062992488%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-q-u-i-r-e_-a-u-t-h-o-r-i-z-a-t-i-o-n_-c-o-n-s-e-n-t.html"><span>REQUIRE_</span><wbr><span>AUTHORIZATION_</span><wbr><span>CONSENT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2062992488%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-q-u-i-r-e_-a-u-t-h-o-r-i-z-a-t-i-o-n_-c-o-n-s-e-n-t.html">REQUIRE_AUTHORIZATION_CONSENT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-367919528%2FProperties%2F1712555002" anchor-label="REQUIRE_PROOF_KEY" id="-367919528%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-q-u-i-r-e_-p-r-o-o-f_-k-e-y.html"><span>REQUIRE_</span><wbr><span>PROOF_</span><wbr><span>KEY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367919528%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-q-u-i-r-e_-p-r-o-o-f_-k-e-y.html">REQUIRE_PROOF_KEY</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="330176335%2FProperties%2F1712555002" anchor-label="REUSE_REFRESH_TOKENS" id="330176335%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-u-s-e_-r-e-f-r-e-s-h_-t-o-k-e-n-s.html"><span>REUSE_</span><wbr><span>REFRESH_</span><wbr><span>TOKENS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="330176335%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-u-s-e_-r-e-f-r-e-s-h_-t-o-k-e-n-s.html">REUSE_REFRESH_TOKENS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1366402969%2FProperties%2F1712555002" anchor-label="SCOPES" id="1366402969%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-c-o-p-e-s.html"><span><span>SCOPES</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1366402969%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-c-o-p-e-s.html">SCOPES</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="51458256%2FProperties%2F1712555002" anchor-label="TOKEN_ENDPOINT_AUTHENTICATION_SIGNING_ALGORITHM" id="51458256%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-k-e-n_-e-n-d-p-o-i-n-t_-a-u-t-h-e-n-t-i-c-a-t-i-o-n_-s-i-g-n-i-n-g_-a-l-g-o-r-i-t-h-m.html"><span>TOKEN_</span><wbr><span>ENDPOINT_</span><wbr><span>AUTHENTICATION_</span><wbr><span>SIGNING_</span><wbr><span>ALGORITHM</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="51458256%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-t-o-k-e-n_-e-n-d-p-o-i-n-t_-a-u-t-h-e-n-t-i-c-a-t-i-o-n_-s-i-g-n-i-n-g_-a-l-g-o-r-i-t-h-m.html">TOKEN_ENDPOINT_AUTHENTICATION_SIGNING_ALGORITHM</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1298578651%2FProperties%2F1712555002" anchor-label="X509_CERTIFICATE_BOUND_ACCESS_TOKENS" id="-1298578651%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-x509_-c-e-r-t-i-f-i-c-a-t-e_-b-o-u-n-d_-a-c-c-e-s-s_-t-o-k-e-n-s.html"><span>X509_</span><wbr><span>CERTIFICATE_</span><wbr><span>BOUND_</span><wbr><span>ACCESS_</span><wbr><span>TOKENS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1298578651%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-x509_-c-e-r-t-i-f-i-c-a-t-e_-b-o-u-n-d_-a-c-c-e-s-s_-t-o-k-e-n-s.html">X509_CERTIFICATE_BOUND_ACCESS_TOKENS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-347372124%2FProperties%2F1712555002" anchor-label="X509_CERTIFICATE_SUBJECT_DN" id="-347372124%2FProperties%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-x509_-c-e-r-t-i-f-i-c-a-t-e_-s-u-b-j-e-c-t_-d-n.html"><span>X509_</span><wbr><span>CERTIFICATE_</span><wbr><span>SUBJECT_</span><wbr><span>DN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-347372124%2FProperties%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-x509_-c-e-r-t-i-f-i-c-a-t-e_-s-u-b-j-e-c-t_-d-n.html">X509_CERTIFICATE_SUBJECT_DN</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

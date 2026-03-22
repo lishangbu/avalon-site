@@ -1,0 +1,341 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Oauth2AuthorizationRepositoryImpl</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-authorization/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-authorization/main" data-filter=":avalon-modules:avalon-authorization/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-authorization::io.github.lishangbu.avalon.authorization.repository/Oauth2AuthorizationRepositoryImpl///PointingToDeclaration//1712555002">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-authorization</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.authorization.repository</a><span class="delimiter">/</span><span class="current">Oauth2AuthorizationRepositoryImpl</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Oauth2Authorization</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="index.html">Oauth2AuthorizationRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="../-oauth2-authorization-repository/index.html">Oauth2AuthorizationRepository</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1612784776%2FConstructors%2F1712555002" anchor-label="Oauth2AuthorizationRepositoryImpl" id="1612784776%2FConstructors%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-oauth2-authorization-repository-impl.html"><span>Oauth2Authorization</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1612784776%2FConstructors%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1535256514%2FFunctions%2F1712555002" anchor-label="deleteById" id="1535256514%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-by-id.html"><span>delete</span><wbr><span>By</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1535256514%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="delete-by-id.html"><span class="token function">deleteById</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="897400561%2FFunctions%2F1712555002" anchor-label="findByAccessTokenValue" id="897400561%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-access-token-value.html"><span>find</span><wbr><span>By</span><wbr><span>Access</span><wbr><span>Token</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="897400561%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-access-token-value.html"><span class="token function">findByAccessTokenValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accessToken<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据访问令牌查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-865709888%2FFunctions%2F1712555002" anchor-label="findByAuthorizationCodeValue" id="-865709888%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-authorization-code-value.html"><span>find</span><wbr><span>By</span><wbr><span>Authorization</span><wbr><span>Code</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865709888%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-authorization-code-value.html"><span class="token function">findByAuthorizationCodeValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authorizationCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据授权码查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1697698279%2FFunctions%2F1712555002" anchor-label="findByDeviceCodeValue" id="1697698279%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-device-code-value.html"><span>find</span><wbr><span>By</span><wbr><span>Device</span><wbr><span>Code</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1697698279%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-device-code-value.html"><span class="token function">findByDeviceCodeValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">deviceCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据设备码查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1305005520%2FFunctions%2F1712555002" anchor-label="findById" id="1305005520%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-id.html"><span>find</span><wbr><span>By</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1305005520%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-id.html"><span class="token function">findById</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-96768927%2FFunctions%2F1712555002" anchor-label="findByOidcIdTokenValue" id="-96768927%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-oidc-id-token-value.html"><span>find</span><wbr><span>By</span><wbr><span>Oidc</span><wbr><span>Id</span><wbr><span>Token</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-96768927%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-oidc-id-token-value.html"><span class="token function">findByOidcIdTokenValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idToken<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据 OIDC ID Token 查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="708889612%2FFunctions%2F1712555002" anchor-label="findByRefreshTokenValue" id="708889612%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-refresh-token-value.html"><span>find</span><wbr><span>By</span><wbr><span>Refresh</span><wbr><span>Token</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="708889612%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-refresh-token-value.html"><span class="token function">findByRefreshTokenValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">refreshToken<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据刷新令牌查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="592691434%2FFunctions%2F1712555002" anchor-label="findByState" id="592691434%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-state.html"><span>find</span><wbr><span>By</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="592691434%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-state.html"><span class="token function">findByState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据 state 查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="14115371%2FFunctions%2F1712555002" anchor-label="findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue" id="14115371%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-state-or-authorization-code-value-or-access-token-value-or-refresh-token-value-or-oidc-id-token-value-or-user-code-value-or-device-code-value.html"><span>find</span><wbr><span>By</span><wbr><span>State</span><wbr><span>Or</span><wbr><span>Authorization</span><wbr><span>Code</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span>Access</span><wbr><span>Token</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span>Refresh</span><wbr><span>Token</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span>Oidc</span><wbr><span>Id</span><wbr><span>Token</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span>User</span><wbr><span>Code</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span>Device</span><wbr><span>Code</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="14115371%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-state-or-authorization-code-value-or-access-token-value-or-refresh-token-value-or-oidc-id-token-value-or-user-code-value-or-device-code-value.html"><span class="token function">findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">token<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据多种 token 字段联合查询认证信息，支持 state、authorizationCode、accessToken、refreshToken、idToken、userCode、deviceCode 任意一种 token。 查询语句为多行文本块，便于维护和阅读。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1780202414%2FFunctions%2F1712555002" anchor-label="findByUserCodeValue" id="-1780202414%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-user-code-value.html"><span>find</span><wbr><span>By</span><wbr><span>User</span><wbr><span>Code</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1780202414%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-by-user-code-value.html"><span class="token function">findByUserCodeValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">userCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">根据用户码查询认证信息</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1413639607%2FFunctions%2F1712555002" anchor-label="flush" id="1413639607%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flush.html"><span><span>flush</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1413639607%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="flush.html"><span class="token function">flush</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="551251619%2FFunctions%2F1712555002" anchor-label="save" id="551251619%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save.html"><span><span>save</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="551251619%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="save.html"><span class="token function">save</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authorization<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1568190986%2FFunctions%2F1712555002" anchor-label="saveAndFlush" id="-1568190986%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save-and-flush.html"><span>save</span><wbr><span>And</span><wbr><span><span>Flush</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1568190986%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="save-and-flush.html"><span class="token function">saveAndFlush</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authorization<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.authorization.entity/-oauth-authorization/index.html">OauthAuthorization</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

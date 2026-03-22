@@ -1,0 +1,517 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>MoveProps</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset:avalon-dataset-model/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filter=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-dataset-model::io.github.lishangbu.avalon.dataset.entity/MoveProps///PointingToDeclaration//2140655893">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-dataset-model</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.dataset.entity</a><span class="delimiter">/</span><span class="current">MoveProps</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Move</span><wbr><span><span>Props</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.internal/GeneratedBy///PointingToDeclaration/"><span class="token annotation builtin">GeneratedBy</span></span><span class="token punctuation">(</span><span>type<span class="token operator"> = </span><a href="../-move/index.html">Move::class</a></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="index.html">MoveProps</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-171268201%2FProperties%2F2140655893" anchor-label="ACCURACY" id="-171268201%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-c-c-u-r-a-c-y.html"><span><span>ACCURACY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-171268201%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-c-c-u-r-a-c-y.html">ACCURACY</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2105025471%2FProperties%2F2140655893" anchor-label="AILMENT_CHANCE" id="2105025471%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-i-l-m-e-n-t_-c-h-a-n-c-e.html"><span>AILMENT_</span><wbr><span>CHANCE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2105025471%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-i-l-m-e-n-t_-c-h-a-n-c-e.html">AILMENT_CHANCE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1999616283%2FProperties%2F2140655893" anchor-label="CRIT_RATE" id="-1999616283%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-r-i-t_-r-a-t-e.html"><span>CRIT_</span><wbr><span>RATE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1999616283%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-r-i-t_-r-a-t-e.html">CRIT_RATE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1682258158%2FProperties%2F2140655893" anchor-label="DRAIN" id="-1682258158%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-r-a-i-n.html"><span><span>DRAIN</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1682258158%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-r-a-i-n.html">DRAIN</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1589080385%2FProperties%2F2140655893" anchor-label="EFFECT" id="-1589080385%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-f-f-e-c-t.html"><span><span>EFFECT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1589080385%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-e-f-f-e-c-t.html">EFFECT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-125623928%2FProperties%2F2140655893" anchor-label="EFFECT_CHANCE" id="-125623928%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-f-f-e-c-t_-c-h-a-n-c-e.html"><span>EFFECT_</span><wbr><span>CHANCE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125623928%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-e-f-f-e-c-t_-c-h-a-n-c-e.html">EFFECT_CHANCE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-469480953%2FProperties%2F2140655893" anchor-label="FLINCH_CHANCE" id="-469480953%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-l-i-n-c-h_-c-h-a-n-c-e.html"><span>FLINCH_</span><wbr><span>CHANCE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-469480953%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-f-l-i-n-c-h_-c-h-a-n-c-e.html">FLINCH_CHANCE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2109617392%2FProperties%2F2140655893" anchor-label="HEALING" id="-2109617392%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-e-a-l-i-n-g.html"><span><span>HEALING</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2109617392%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-h-e-a-l-i-n-g.html">HEALING</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1644106741%2FProperties%2F2140655893" anchor-label="ID" id="1644106741%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-d.html"><span><span>ID</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1644106741%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-d.html">ID</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="167130813%2FProperties%2F2140655893" anchor-label="INTERNAL_NAME" id="167130813%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-t-e-r-n-a-l_-n-a-m-e.html"><span>INTERNAL_</span><wbr><span>NAME</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="167130813%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-n-t-e-r-n-a-l_-n-a-m-e.html">INTERNAL_NAME</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="907121013%2FProperties%2F2140655893" anchor-label="MAX_HITS" id="907121013%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-x_-h-i-t-s.html"><span>MAX_</span><wbr><span>HITS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="907121013%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-a-x_-h-i-t-s.html">MAX_HITS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1510949105%2FProperties%2F2140655893" anchor-label="MAX_TURNS" id="-1510949105%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-x_-t-u-r-n-s.html"><span>MAX_</span><wbr><span>TURNS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1510949105%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-a-x_-t-u-r-n-s.html">MAX_TURNS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1501839901%2FProperties%2F2140655893" anchor-label="MIN_HITS" id="-1501839901%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-i-n_-h-i-t-s.html"><span>MIN_</span><wbr><span>HITS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1501839901%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-i-n_-h-i-t-s.html">MIN_HITS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1120673889%2FProperties%2F2140655893" anchor-label="MIN_TURNS" id="1120673889%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-i-n_-t-u-r-n-s.html"><span>MIN_</span><wbr><span>TURNS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1120673889%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-i-n_-t-u-r-n-s.html">MIN_TURNS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1770344796%2FProperties%2F2140655893" anchor-label="MOVE_AILMENT" id="1770344796%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-v-e_-a-i-l-m-e-n-t.html"><span>MOVE_</span><wbr><span>AILMENT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1770344796%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-o-v-e_-a-i-l-m-e-n-t.html">MOVE_AILMENT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Reference///PointingToDeclaration/">TypedProp.Reference</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="../-move-ailment/index.html">MoveAilment</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="558537918%2FProperties%2F2140655893" anchor-label="MOVE_CATEGORY" id="558537918%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-v-e_-c-a-t-e-g-o-r-y.html"><span>MOVE_</span><wbr><span>CATEGORY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="558537918%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-o-v-e_-c-a-t-e-g-o-r-y.html">MOVE_CATEGORY</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Reference///PointingToDeclaration/">TypedProp.Reference</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="../-move-category/index.html">MoveCategory</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1662106868%2FProperties%2F2140655893" anchor-label="MOVE_DAMAGE_CLASS" id="1662106868%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-v-e_-d-a-m-a-g-e_-c-l-a-s-s.html"><span>MOVE_</span><wbr><span>DAMAGE_</span><wbr><span>CLASS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1662106868%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-o-v-e_-d-a-m-a-g-e_-c-l-a-s-s.html">MOVE_DAMAGE_CLASS</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Reference///PointingToDeclaration/">TypedProp.Reference</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="../-move-damage-class/index.html">MoveDamageClass</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2062048437%2FProperties%2F2140655893" anchor-label="MOVE_TARGET" id="-2062048437%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-v-e_-t-a-r-g-e-t.html"><span>MOVE_</span><wbr><span>TARGET</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2062048437%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-o-v-e_-t-a-r-g-e-t.html">MOVE_TARGET</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Reference///PointingToDeclaration/">TypedProp.Reference</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="../-move-target/index.html">MoveTarget</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1359628347%2FProperties%2F2140655893" anchor-label="NAME" id="-1359628347%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-a-m-e.html"><span><span>NAME</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1359628347%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-a-m-e.html">NAME</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-67448667%2FProperties%2F2140655893" anchor-label="POWER" id="-67448667%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-o-w-e-r.html"><span><span>POWER</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-67448667%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-o-w-e-r.html">POWER</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="157707952%2FProperties%2F2140655893" anchor-label="PP" id="157707952%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-p.html"><span><span>PP</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="157707952%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-p.html">PP</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="513109324%2FProperties%2F2140655893" anchor-label="PRIORITY" id="513109324%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-i-o-r-i-t-y.html"><span><span>PRIORITY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="513109324%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-r-i-o-r-i-t-y.html">PRIORITY</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1703822180%2FProperties%2F2140655893" anchor-label="SHORT_EFFECT" id="-1703822180%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-o-r-t_-e-f-f-e-c-t.html"><span>SHORT_</span><wbr><span>EFFECT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703822180%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-h-o-r-t_-e-f-f-e-c-t.html">SHORT_EFFECT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2027549301%2FProperties%2F2140655893" anchor-label="STAT_CHANCE" id="-2027549301%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-a-t_-c-h-a-n-c-e.html"><span>STAT_</span><wbr><span>CHANCE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2027549301%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-t-a-t_-c-h-a-n-c-e.html">STAT_CHANCE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-61814941%2FProperties%2F2140655893" anchor-label="TEXT" id="-61814941%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-e-x-t.html"><span><span>TEXT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-61814941%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-t-e-x-t.html">TEXT</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Scalar///PointingToDeclaration/">TypedProp.Scalar</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-429853194%2FProperties%2F2140655893" anchor-label="TYPE" id="-429853194%2FProperties%2F2140655893" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-model/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-model/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-y-p-e.html"><span><span>TYPE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-429853194%2FProperties%2F2140655893"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-model/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-t-y-p-e.html">TYPE</a><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.meta/TypedProp.Reference///PointingToDeclaration/">TypedProp.Reference</span><span class="token operator">&lt;</span><a href="../-move/index.html">Move</a><span class="token punctuation">, </span><a href="../-type/index.html">Type</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

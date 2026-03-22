@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ResourceServerAutoConfiguration</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main" data-filter=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-oauth2-resource-server::io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration/ResourceServerAutoConfiguration///PointingToDeclaration//-1750112970">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-oauth2-resource-server</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration</a><span class="delimiter">/</span><span class="current">ResourceServerAutoConfiguration</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Resource</span><wbr><span>Server</span><wbr><span>Auto</span><wbr><span><span>Configuration</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.security.config.annotation.web.configuration/EnableWebSecurity///PointingToDeclaration/"><span class="token annotation builtin">EnableWebSecurity</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure/AutoConfiguration///PointingToDeclaration/"><span class="token annotation builtin">AutoConfiguration</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.security.config.annotation.method.configuration/EnableMethodSecurity///PointingToDeclaration/"><span class="token annotation builtin">EnableMethodSecurity</span></span><span class="token punctuation">(</span><span>jsr250Enabled<span class="token operator"> = </span><span class="breakable-word"><span class="token boolean">true</span></span><span class="token punctuation">, </span></span><wbr><span>securedEnabled<span class="token operator"> = </span><span class="breakable-word"><span class="token boolean">true</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">ResourceServerAutoConfiguration</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">oauth2Properties<span class="token operator">: </span><a href="../../../../../avalon-support/avalon-oauth2-support/avalon-oauth2-common/io.github.lishangbu.avalon.oauth2.common.properties/-oauth2-properties/index.html">Oauth2Properties</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">资源服务器自动配置类 为资源服务器提供默认的 Spring Security <code class="lang-kotlin">SecurityFilterChain</code> 配置 核心职责：</p><ul><li><p class="paragraph">配置受保护资源的请求匹配规则与认证要求</p></li><li><p class="paragraph">禁用不必要的默认功能（如 csrf、formLogin、sessionManagement 等）以支持无状态的 API 场景</p></li><li><p class="paragraph">为资源服务器设置统一的认证入口点和访问拒绝处理器，确保认证/鉴权失败时返回统一的 JSON 响应格式</p></li><li><p class="paragraph">集成透明令牌（opaque token）验证逻辑，并确保当令牌无效时触发统一的异常处理 配置要点：</p></li><li><p class="paragraph">使用 <code class="lang-kotlin">@Order</code> 指定该 <code class="lang-kotlin">SecurityFilterChain</code> 的优先级，避免与认证服务器链冲突</p></li><li><p class="paragraph">优先调用 <code class="lang-kotlin">oauth2ResourceServer(...)</code> 并在其内部显式设置 <code class="lang-kotlin">authenticationEntryPoint</code>，以防资源服务器默认行为覆盖自定义的入口点</p></li><li><p class="paragraph">通过 <code class="lang-kotlin">http.exceptionHandling(...)</code> 提供全局的兜底处理器 注意：本配置在缺省情况下会被自动装配，若项目中存在同名 bean（<code class="lang-kotlin">resourceServerSecurityFilterChain</code>）则不会覆盖</p></li></ul><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">构建完成的 SecurityFilterChain</p></span><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">lishangbu</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2025/8/17 OAuth2 相关配置属性 主要用于获取需要忽略认证的 URL 列表（例如静态资源、开放接口等） 资源服务器的安全过滤链 配置说明：</p><ol><li><p class="paragraph">放行 <code class="lang-kotlin">oauth2Properties.ignoreUrls</code> 中配置的 URL；其余请求都要求认证</p></li><li><p class="paragraph">禁用 CSRF、CORS、表单登录、会话管理和记住我功能，以支持无状态 REST API 场景</p></li><li><p class="paragraph">先配置 <code class="lang-kotlin">oauth2ResourceServer(...)</code> 并显式设置 <code class="lang-kotlin">opaqueToken</code> 与     <code class="lang-kotlin">authenticationEntryPoint</code>，避免内置默认覆盖自定义入口点</p></li><li><p class="paragraph">随后配置全局 <code class="lang-kotlin">exceptionHandling</code>，设置统一的 <code class="lang-kotlin">AuthenticationEntryPoint</code> 和     <code class="lang-kotlin">AccessDeniedHandler</code>，用于处理未认证或无权限访问的情况并返回统一 JSON 响应格式</p></li></ol></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>http</span></span></u></div></span></div><div><div class="title"><p class="paragraph">HttpSecurity 构造器，用于构建 SecurityFilterChain</p></div></div></div></div></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-exception/index.html"><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">当构建 SecurityFilterChain 失败时抛出 放行静态资源和不需要认证的url 禁用csrf和cors 禁用表单登录和会话管理 注意： <code class="lang-kotlin">oauth2ResourceServer(...)</code> 可能会在其应用后安装自己的异常处理（包括 AuthenticationEntryPoint） 为避免覆盖我们自定义的 AuthenticationEntryPoint，请先配置资源服务器，然后再设置 exceptionHandling 这样可以保证使用我们配置的统一入口点来处理认证失败或令牌无效的情况 确保资源服务器在 token 校验失败时也使用我们的统一 entry point 在 oauth2ResourceServer 之后配置异常处理，确保我们的处理器不会被资源服务器的默认实现覆盖 // 放行静态资源和不需要认证的url // 禁用csrf和cors // 禁用表单登录和会话管理 // 注意： // <code class="lang-kotlin">oauth2ResourceServer(...)</code> 可能会在其应用后安装自己的异常处理（包括 AuthenticationEntryPoint） // 为避免覆盖我们自定义的 AuthenticationEntryPoint，请先配置资源服务器，然后再设置 exceptionHandling // 这样可以保证使用我们配置的统一入口点来处理认证失败或令牌无效的情况 // 确保资源服务器在 token 校验失败时也使用我们的统一 entry point // 在 oauth2ResourceServer 之后配置异常处理，确保我们的处理器不会被资源服务器的默认实现覆盖</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="969172715%2FConstructors%2F-1750112970" anchor-label="ResourceServerAutoConfiguration" id="969172715%2FConstructors%2F-1750112970" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-resource-server-auto-configuration.html"><span>Resource</span><wbr><span>Server</span><wbr><span>Auto</span><wbr><span><span>Configuration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="969172715%2FConstructors%2F-1750112970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">oauth2Properties<span class="token operator">: </span><a href="../../../../../avalon-support/avalon-oauth2-support/avalon-oauth2-common/io.github.lishangbu.avalon.oauth2.common.properties/-oauth2-properties/index.html">Oauth2Properties</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1978381334%2FFunctions%2F-1750112970" anchor-label="resourceServerSecurityFilterChain" id="-1978381334%2FFunctions%2F-1750112970" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main" data-filterable-set=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resource-server-security-filter-chain.html"><span>resource</span><wbr><span>Server</span><wbr><span>Security</span><wbr><span>Filter</span><wbr><span><span>Chain</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1978381334%2FFunctions%2F-1750112970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-resource-server/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="token punctuation">[</span><span><span class="breakable-word"><span class="token string">"resourceServerSecurityFilterChain"</span></span></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.core.annotation/Order///PointingToDeclaration/"><span class="token annotation builtin">Order</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token constant">2</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="resource-server-security-filter-chain.html"><span class="token function">resourceServerSecurityFilterChain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">http<span class="token operator">: </span><span data-unresolved-link="org.springframework.security.config.annotation.web.builders/HttpSecurity///PointingToDeclaration/">HttpSecurity</span><span class="token punctuation">, </span></span><span class="parameter ">jsonMapper<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.json/JsonMapper///PointingToDeclaration/">JsonMapper</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="org.springframework.security.web/SecurityFilterChain///PointingToDeclaration/">SecurityFilterChain</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
