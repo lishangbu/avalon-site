@@ -94,7 +94,7 @@
   <div class="breadcrumbs"><a href="../../index.html">avalon-oauth2-common</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.oauth2.common.properties</a><span class="delimiter">/</span><span class="current">Oauth2Properties</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Oauth2Properties</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure/AutoConfiguration///PointingToDeclaration/"><span class="token annotation builtin">AutoConfiguration</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.context.properties/ConfigurationProperties///PointingToDeclaration/"><span class="token annotation builtin">ConfigurationProperties</span></span><span class="token punctuation">(</span><span>prefix<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"oauth2"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">Oauth2Properties</a></div><p class="paragraph">OAuth2 安全配置属性类 封装 OAuth2 授权服务器的核心配置参数，支持通过 application.yml 或 application.properties 进行配置 前缀为 <code class="lang-kotlin">oauth2</code>，包含认证路径控制、JWT 密钥管理、Token 签发等关键设置</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">lishangbu</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2025/8/17 配置属性前缀，用于绑定 application.yml 中的 oauth2 配置段 免认证路径列表，匹配的请求路径将跳过 OAuth2 安全验证，支持 Ant 模式 用户名参数名称，用于密码授权模式中的用户名字段 密码参数名称，用于密码授权模式中的密码字段 手机号参数名称，用于短信授权模式中的手机号字段 短信验证码参数名称，用于短信授权模式中的验证码字段 邮箱参数名称，用于邮箱授权模式中的邮箱字段 邮箱验证码参数名称，用于邮箱授权模式中的验证码字段 短信验证码长度 短信验证码有效期 短信验证码发送频率限制 邮箱验证码长度 邮箱验证码有效期 邮箱验证码发送频率限制 登录失败允许的最大尝试次数，&lt;=0 则禁用 登录失败后的封禁时长，&lt;=0 则禁用 JWT Token 签发者地址，用于标识 Token 的颁发机构 JWT 公钥文件位置，用于 Token 签名验证 JWT 私钥文件位置，用于 Token 签名生成</p></span></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure/AutoConfiguration///PointingToDeclaration/"><span class="token annotation builtin">AutoConfiguration</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.context.properties/ConfigurationProperties///PointingToDeclaration/"><span class="token annotation builtin">ConfigurationProperties</span></span><span class="token punctuation">(</span><span>prefix<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"oauth2"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">Oauth2Properties</a></div><p class="paragraph">OAuth2 配置属性</p><p class="paragraph">定义认证参数名、验证码策略、登录失败限制和 JWT 密钥位置等配置</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -149,7 +149,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-code-length.html">emailCodeLength</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-code-length.html">emailCodeLength</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">邮箱验证码长度</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -164,7 +164,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-code-parameter-name.html">emailCodeParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-code-parameter-name.html">emailCodeParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">邮箱验证码参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-parameter-name.html">emailParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="email-parameter-name.html">emailParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">邮箱参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -194,7 +194,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="ignore-urls.html">ignoreUrls</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="ignore-urls.html">ignoreUrls</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">忽略认证的 URL 列表</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="issuer-url.html">issuerUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="issuer-url.html">issuerUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">签发者 URL</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -224,7 +224,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="jwt-private-key-location.html">jwtPrivateKeyLocation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="jwt-private-key-location.html">jwtPrivateKeyLocation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">JWT 私钥文件位置</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -239,7 +239,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="jwt-public-key-location.html">jwtPublicKeyLocation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="jwt-public-key-location.html">jwtPublicKeyLocation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">JWT 公钥文件位置</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -254,7 +254,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="max-login-failures.html">maxLoginFailures</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="max-login-failures.html">maxLoginFailures</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">最大登录失败次数</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -269,7 +269,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="password-parameter-name.html">passwordParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="password-parameter-name.html">passwordParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">密码参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -284,7 +284,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="phone-parameter-name.html">phoneParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="phone-parameter-name.html">phoneParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">手机号参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -299,7 +299,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="sms-code-length.html">smsCodeLength</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="sms-code-length.html">smsCodeLength</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">短信验证码长度</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -314,7 +314,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="sms-code-parameter-name.html">smsCodeParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="sms-code-parameter-name.html">smsCodeParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">短信验证码参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -329,7 +329,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="username-parameter-name.html">usernameParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="username-parameter-name.html">usernameParameterName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">用户名参数名</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -348,7 +348,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-email-code-resend-interval-duration.html"><span class="token function">getEmailCodeResendIntervalDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-email-code-resend-interval-duration.html"><span class="token function">getEmailCodeResendIntervalDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div><div class="brief "><p class="paragraph">获取邮箱验证码重发间隔</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -363,7 +363,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-email-code-time-to-live-duration.html"><span class="token function">getEmailCodeTimeToLiveDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-email-code-time-to-live-duration.html"><span class="token function">getEmailCodeTimeToLiveDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div><div class="brief "><p class="paragraph">获取邮箱验证码有效期</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -378,7 +378,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-login-lock-duration.html"><span class="token function">getLoginLockDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-login-lock-duration.html"><span class="token function">getLoginLockDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">获取登录锁定时长</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -393,7 +393,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-sms-code-resend-interval-duration.html"><span class="token function">getSmsCodeResendIntervalDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-sms-code-resend-interval-duration.html"><span class="token function">getSmsCodeResendIntervalDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div><div class="brief "><p class="paragraph">获取短信验证码重发间隔</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -408,7 +408,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-sms-code-time-to-live-duration.html"><span class="token function">getSmsCodeTimeToLiveDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-sms-code-time-to-live-duration.html"><span class="token function">getSmsCodeTimeToLiveDuration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Duration.html">Duration</a></div><div class="brief "><p class="paragraph">获取短信验证码有效期</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -423,7 +423,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-login-lock-duration.html"><span class="token function">setLoginLockDuration</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">loginLockDuration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-support:avalon-oauth2-support:avalon-oauth2-common/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-login-lock-duration.html"><span class="token function">setLoginLockDuration</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">loginLockDuration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">设置登录锁定时长</p></div></div></div>
                 </div>
               </div>
             </div>
