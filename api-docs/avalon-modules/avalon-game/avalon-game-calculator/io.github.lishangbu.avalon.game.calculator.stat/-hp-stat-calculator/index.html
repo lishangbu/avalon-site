@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>StatCalculator</title>
+    <title>HpStatCalculator</title>
 <link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
     <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -90,43 +90,62 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-game-calculator::io.github.lishangbu.avalon.game.calculator.stat/StatCalculator///PointingToDeclaration//-1773659784">
-  <div class="breadcrumbs"><a href="../../index.html">avalon-game-calculator</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.calculator.stat</a><span class="delimiter">/</span><span class="current">StatCalculator</span></div>
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-game-calculator::io.github.lishangbu.avalon.game.calculator.stat/HpStatCalculator///PointingToDeclaration//-1773659784">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-game-calculator</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.calculator.stat</a><span class="delimiter">/</span><span class="current">HpStatCalculator</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>Stat</span><wbr><span><span>Calculator</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">StatCalculator</a></div><p class="paragraph">能力值计算器</p><p class="paragraph">采用第三世代及之后的常规能力值公式：</p><p class="paragraph"><code class="lang-kotlin">HP = floor((2 * base + IV + floor(EV / 4)) * level / 100) + level + 10</code></p><p class="paragraph"><code class="lang-kotlin">Other = floor((floor((2 * base + IV + floor(EV / 4)) * level / 100) + 5) * nature / 100)</code></p><p class="paragraph">其中 <code class="lang-kotlin">nature</code> 以百分比传入，提升为 <code class="lang-kotlin">110</code>，不修正为 <code class="lang-kotlin">100</code>，下降为 <code class="lang-kotlin">90</code>。</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">lishangbu</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2026/2/26</p></span><h4 class="tableheader">Inheritors</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-abstract-stat-calculator/index.html">AbstractStatCalculator</a></div></span></div><div></div></div></div></div></div></div>
+    <h1 class="cover"><span>Hp</span><wbr><span>Stat</span><wbr><span><span>Calculator</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Service///PointingToDeclaration/"><span class="token annotation builtin">Service</span></span></div></div><span class="token keyword">class </span><a href="index.html">HpStatCalculator</a> : <a href="../-abstract-stat-calculator/index.html">AbstractStatCalculator</a></div><p class="paragraph">HP 能力值计算器</p><p class="paragraph">公式：</p><p class="paragraph"><code class="lang-kotlin">HP = floor((2 * base + IV + floor(EV / 4)) * level / 100) + level + 10</code></p><p class="paragraph">特例：</p><p class="paragraph">脱壳忍者的 HP 固定为 <code class="lang-kotlin">1</code>。</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
-      <div data-togglable="FUNCTION">
-        <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="1296067656%2FFunctions%2F-1773659784" anchor-label="calculateStat" id="1296067656%2FFunctions%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="416760768%2FConstructors%2F-1773659784" anchor-label="HpStatCalculator" id="416760768%2FConstructors%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="calculate-stat.html"><span>calculate</span><wbr><span><span>Stat</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1296067656%2FFunctions%2F-1773659784"></span>
+                  <div><a href="-hp-stat-calculator.html"><span>Hp</span><wbr><span>Stat</span><wbr><span><span>Calculator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="416760768%2FConstructors%2F-1773659784"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="calculate-stat.html"><span class="token function">calculateStat</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">base<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">dv<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">stateExp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">level<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nature<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">按第三世代及之后的常规公式计算给定等级的能力值</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="185327055%2FFunctions%2F-1773659784" anchor-label="support" id="185327055%2FFunctions%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="32138912%2FFunctions%2F-1773659784" anchor-label="calculateStat" id="32138912%2FFunctions%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="support.html"><span><span>support</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="185327055%2FFunctions%2F-1773659784"></span>
+                  <div><a href="calculate-stat.html"><span>calculate</span><wbr><span><span>Stat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="32138912%2FFunctions%2F-1773659784"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="support.html"><span class="token function">support</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stateInternalName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">判断是否支持计算指定属性</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="calculate-stat.html"><span class="token function">calculateStat</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">base<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">dv<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">stateExp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">level<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nature<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">按第三世代及之后的常规公式计算给定等级的能力值</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1737039599%2FFunctions%2F-1773659784" anchor-label="support" id="-1737039599%2FFunctions%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-abstract-stat-calculator/support.html"><span><span>support</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1737039599%2FFunctions%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-abstract-stat-calculator/support.html"><span class="token function">support</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stateInternalName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">判断是否支持指定能力项</p></div></div></div>
                 </div>
               </div>
             </div>
