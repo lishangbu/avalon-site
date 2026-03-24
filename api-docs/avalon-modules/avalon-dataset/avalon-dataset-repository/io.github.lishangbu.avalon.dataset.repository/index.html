@@ -1,0 +1,771 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.lishangbu.avalon.dataset.repository</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filter=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="avalon-dataset-repository::io.github.lishangbu.avalon.dataset.repository////PointingToDeclaration//-809379508">
+  <div class="breadcrumbs"><a href="../index.html">avalon-dataset-repository</a><span class="delimiter">/</span><span class="current">io.github.lishangbu.avalon.dataset.repository</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-2034171565%2FClasslikes%2F-809379508" anchor-label="AbilityRepository" id="-2034171565%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ability-repository/index.html"><span>Ability</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2034171565%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-ability-repository/index.html">AbilityRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-ability/index.html">Ability</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">特性仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1995401106%2FClasslikes%2F-809379508" anchor-label="BerryFirmnessRepository" id="1995401106%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-firmness-repository/index.html"><span>Berry</span><wbr><span>Firmness</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1995401106%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-firmness-repository/index.html">BerryFirmnessRepository</a></div><div class="brief "><p class="paragraph">树果硬度仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1924890414%2FClasslikes%2F-809379508" anchor-label="BerryFirmnessRepositoryImpl" id="-1924890414%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-firmness-repository-impl/index.html"><span>Berry</span><wbr><span>Firmness</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1924890414%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-berry-firmness-repository-impl/index.html">BerryFirmnessRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-berry-firmness-repository/index.html">BerryFirmnessRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="186821097%2FClasslikes%2F-809379508" anchor-label="BerryFlavorRepository" id="186821097%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-flavor-repository/index.html"><span>Berry</span><wbr><span>Flavor</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="186821097%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-flavor-repository/index.html">BerryFlavorRepository</a></div><div class="brief "><p class="paragraph">树果风味仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1993392041%2FClasslikes%2F-809379508" anchor-label="BerryFlavorRepositoryImpl" id="1993392041%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-flavor-repository-impl/index.html"><span>Berry</span><wbr><span>Flavor</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1993392041%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-berry-flavor-repository-impl/index.html">BerryFlavorRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-berry-flavor-repository/index.html">BerryFlavorRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-576282265%2FClasslikes%2F-809379508" anchor-label="BerryRepository" id="-576282265%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-repository/index.html"><span>Berry</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-576282265%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-repository/index.html">BerryRepository</a></div><div class="brief "><p class="paragraph">树果仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-277821401%2FClasslikes%2F-809379508" anchor-label="BerryRepositoryImpl" id="-277821401%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-repository-impl/index.html"><span>Berry</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-277821401%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-berry-repository-impl/index.html">BerryRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-berry-repository/index.html">BerryRepository</a></div><div class="brief "><p class="paragraph">树果仓储实现</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="729176151%2FClasslikes%2F-809379508" anchor-label="EggGroupRepository" id="729176151%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-egg-group-repository/index.html"><span>Egg</span><wbr><span>Group</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="729176151%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-egg-group-repository/index.html">EggGroupRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-egg-group/index.html">EggGroup</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">蛋组仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-6344343%2FClasslikes%2F-809379508" anchor-label="EncounterConditionRepository" id="-6344343%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition-repository/index.html"><span>Encounter</span><wbr><span>Condition</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-6344343%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-condition-repository/index.html">EncounterConditionRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-encounter-condition/index.html">EncounterCondition</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">遭遇条件仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="472876276%2FClasslikes%2F-809379508" anchor-label="EncounterConditionValueRepository" id="472876276%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition-value-repository/index.html"><span>Encounter</span><wbr><span>Condition</span><wbr><span>Value</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472876276%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-condition-value-repository/index.html">EncounterConditionValueRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-encounter-condition-value/index.html">EncounterConditionValue</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">遭遇条件值仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="962668617%2FClasslikes%2F-809379508" anchor-label="EncounterMethodRepository" id="962668617%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-method-repository/index.html"><span>Encounter</span><wbr><span>Method</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962668617%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-method-repository/index.html">EncounterMethodRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-encounter-method/index.html">EncounterMethod</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">遭遇方法仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1103447349%2FClasslikes%2F-809379508" anchor-label="EvolutionChainRepository" id="-1103447349%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-chain-repository/index.html"><span>Evolution</span><wbr><span>Chain</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1103447349%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-evolution-chain-repository/index.html">EvolutionChainRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-evolution-chain/index.html">EvolutionChain</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">进化链仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1078766388%2FClasslikes%2F-809379508" anchor-label="EvolutionTriggerRepository" id="1078766388%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-trigger-repository/index.html"><span>Evolution</span><wbr><span>Trigger</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1078766388%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-evolution-trigger-repository/index.html">EvolutionTriggerRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-evolution-trigger/index.html">EvolutionTrigger</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">进化触发器仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1946623024%2FClasslikes%2F-809379508" anchor-label="GenderRepository" id="1946623024%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gender-repository/index.html"><span>Gender</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1946623024%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-gender-repository/index.html">GenderRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-gender/index.html">Gender</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">性别仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1107929878%2FClasslikes%2F-809379508" anchor-label="GrowthRateRepository" id="-1107929878%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-growth-rate-repository/index.html"><span>Growth</span><wbr><span>Rate</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1107929878%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-growth-rate-repository/index.html">GrowthRateRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-growth-rate/index.html">GrowthRate</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">成长速率仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1638491348%2FClasslikes%2F-809379508" anchor-label="ItemAttributeRepository" id="1638491348%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-attribute-repository/index.html"><span>Item</span><wbr><span>Attribute</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1638491348%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-item-attribute-repository/index.html">ItemAttributeRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-item-attribute/index.html">ItemAttribute</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">道具属性仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908398656%2FClasslikes%2F-809379508" anchor-label="ItemCategoryRepository" id="908398656%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-category-repository/index.html"><span>Item</span><wbr><span>Category</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908398656%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-item-category-repository/index.html">ItemCategoryRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-item-category/index.html">ItemCategory</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">道具类别仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-911884925%2FClasslikes%2F-809379508" anchor-label="ItemFlingEffectRepository" id="-911884925%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-fling-effect-repository/index.html"><span>Item</span><wbr><span>Fling</span><wbr><span>Effect</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-911884925%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-item-fling-effect-repository/index.html">ItemFlingEffectRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-item-fling-effect/index.html">ItemFlingEffect</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">道具投掷效果仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1526513048%2FClasslikes%2F-809379508" anchor-label="ItemPocketRepository" id="-1526513048%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-pocket-repository/index.html"><span>Item</span><wbr><span>Pocket</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1526513048%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-item-pocket-repository/index.html">ItemPocketRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-item-pocket/index.html">ItemPocket</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">道具口袋仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1571668706%2FClasslikes%2F-809379508" anchor-label="ItemRepository" id="-1571668706%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-repository/index.html"><span>Item</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1571668706%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-item-repository/index.html">ItemRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-item/index.html">Item</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">道具仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1723304682%2FClasslikes%2F-809379508" anchor-label="MachineRepository" id="-1723304682%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-machine-repository/index.html"><span>Machine</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1723304682%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-machine-repository/index.html">MachineRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-machine/index.html">Machine</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式机仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-619417972%2FClasslikes%2F-809379508" anchor-label="MoveAilmentRepository" id="-619417972%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-ailment-repository/index.html"><span>Move</span><wbr><span>Ailment</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-619417972%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-move-ailment-repository/index.html">MoveAilmentRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-move-ailment/index.html">MoveAilment</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式异常仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1711176510%2FClasslikes%2F-809379508" anchor-label="MoveCategoryRepository" id="-1711176510%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-category-repository/index.html"><span>Move</span><wbr><span>Category</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1711176510%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-move-category-repository/index.html">MoveCategoryRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-move-category/index.html">MoveCategory</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式类别仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1364313339%2FClasslikes%2F-809379508" anchor-label="MoveDamageClassRepository" id="-1364313339%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-damage-class-repository/index.html"><span>Move</span><wbr><span>Damage</span><wbr><span>Class</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1364313339%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-damage-class-repository/index.html">MoveDamageClassRepository</a></div><div class="brief "><p class="paragraph">招式伤害分类仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1505125061%2FClasslikes%2F-809379508" anchor-label="MoveDamageClassRepositoryImpl" id="1505125061%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-damage-class-repository-impl/index.html"><span>Move</span><wbr><span>Damage</span><wbr><span>Class</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1505125061%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-move-damage-class-repository-impl/index.html">MoveDamageClassRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-move-damage-class-repository/index.html">MoveDamageClassRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1692527753%2FClasslikes%2F-809379508" anchor-label="MoveLearnMethodRepository" id="1692527753%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-learn-method-repository/index.html"><span>Move</span><wbr><span>Learn</span><wbr><span>Method</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1692527753%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-move-learn-method-repository/index.html">MoveLearnMethodRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-move-learn-method/index.html">MoveLearnMethod</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式学习方式仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1947970656%2FClasslikes%2F-809379508" anchor-label="MoveRepository" id="-1947970656%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-repository/index.html"><span>Move</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1947970656%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-move-repository/index.html">MoveRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-move/index.html">Move</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-273122929%2FClasslikes%2F-809379508" anchor-label="MoveTargetRepository" id="-273122929%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-target-repository/index.html"><span>Move</span><wbr><span>Target</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-273122929%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-move-target-repository/index.html">MoveTargetRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-move-target/index.html">MoveTarget</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">招式目标仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="885168266%2FClasslikes%2F-809379508" anchor-label="NatureRepository" id="885168266%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nature-repository/index.html"><span>Nature</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="885168266%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-nature-repository/index.html">NatureRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-nature/index.html">Nature</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">性格仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="458616922%2FClasslikes%2F-809379508" anchor-label="PokemonAbilityRepository" id="458616922%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-ability-repository/index.html"><span>Pokemon</span><wbr><span>Ability</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="458616922%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-ability-repository/index.html">PokemonAbilityRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-ability/index.html">PokemonAbility</a><span class="token punctuation">, </span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-ability-id/index.html">PokemonAbilityId</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦特性仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="930057921%2FClasslikes%2F-809379508" anchor-label="PokemonColorRepository" id="930057921%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-color-repository/index.html"><span>Pokemon</span><wbr><span>Color</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930057921%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-color-repository/index.html">PokemonColorRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-color/index.html">PokemonColor</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦颜色仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2038541245%2FClasslikes%2F-809379508" anchor-label="PokemonHabitatRepository" id="2038541245%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-habitat-repository/index.html"><span>Pokemon</span><wbr><span>Habitat</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2038541245%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-habitat-repository/index.html">PokemonHabitatRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-habitat/index.html">PokemonHabitat</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦栖息地仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1834111242%2FClasslikes%2F-809379508" anchor-label="PokemonRepository" id="1834111242%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-repository/index.html"><span>Pokemon</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1834111242%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-repository/index.html">PokemonRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon/index.html">Pokemon</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="674043331%2FClasslikes%2F-809379508" anchor-label="PokemonShapeRepository" id="674043331%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-shape-repository/index.html"><span>Pokemon</span><wbr><span>Shape</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="674043331%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-shape-repository/index.html">PokemonShapeRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-shape/index.html">PokemonShape</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦形状仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="56941320%2FClasslikes%2F-809379508" anchor-label="PokemonSpeciesRepository" id="56941320%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-species-repository/index.html"><span>Pokemon</span><wbr><span>Species</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="56941320%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-species-repository/index.html">PokemonSpeciesRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-species/index.html">PokemonSpecies</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦种类仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="820832406%2FClasslikes%2F-809379508" anchor-label="PokemonStatRepository" id="820832406%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-stat-repository/index.html"><span>Pokemon</span><wbr><span>Stat</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="820832406%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-stat-repository/index.html">PokemonStatRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-stat/index.html">PokemonStat</a><span class="token punctuation">, </span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-stat-id/index.html">PokemonStatId</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦能力值仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="934020592%2FClasslikes%2F-809379508" anchor-label="PokemonTypeRepository" id="934020592%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pokemon-type-repository/index.html"><span>Pokemon</span><wbr><span>Type</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="934020592%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">interface </span><a href="-pokemon-type-repository/index.html">PokemonTypeRepository</a> : <span data-unresolved-link="org.babyfish.jimmer.spring.repository/KRepository///PointingToDeclaration/">KRepository</span><span class="token operator">&lt;</span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-type/index.html">PokemonType</a><span class="token punctuation">, </span><a href="../../../../avalon-modules/avalon-dataset/avalon-dataset-model/io.github.lishangbu.avalon.dataset.entity/-pokemon-type-id/index.html">PokemonTypeId</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">宝可梦属性仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1534534205%2FClasslikes%2F-809379508" anchor-label="StatRepository" id="1534534205%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stat-repository/index.html"><span>Stat</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1534534205%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-stat-repository/index.html">StatRepository</a></div><div class="brief "><p class="paragraph">能力值仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="482930173%2FClasslikes%2F-809379508" anchor-label="StatRepositoryImpl" id="482930173%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stat-repository-impl/index.html"><span>Stat</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="482930173%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-stat-repository-impl/index.html">StatRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-stat-repository/index.html">StatRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-158378740%2FClasslikes%2F-809379508" anchor-label="TypeDamageRelationRepository" id="-158378740%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-damage-relation-repository/index.html"><span>Type</span><wbr><span>Damage</span><wbr><span>Relation</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-158378740%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-type-damage-relation-repository/index.html">TypeDamageRelationRepository</a></div><div class="brief "><p class="paragraph">属性克制关系仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="937238860%2FClasslikes%2F-809379508" anchor-label="TypeDamageRelationRepositoryImpl" id="937238860%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-damage-relation-repository-impl/index.html"><span>Type</span><wbr><span>Damage</span><wbr><span>Relation</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="937238860%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-type-damage-relation-repository-impl/index.html">TypeDamageRelationRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-type-damage-relation-repository/index.html">TypeDamageRelationRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1647722391%2FClasslikes%2F-809379508" anchor-label="TypeRepository" id="1647722391%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-repository/index.html"><span>Type</span><wbr><span><span>Repository</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1647722391%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-type-repository/index.html">TypeRepository</a></div><div class="brief "><p class="paragraph">属性仓储接口</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1235603031%2FClasslikes%2F-809379508" anchor-label="TypeRepositoryImpl" id="1235603031%2FClasslikes%2F-809379508" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset:avalon-dataset-repository/main" data-filterable-set=":avalon-modules:avalon-dataset:avalon-dataset-repository/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-repository-impl/index.html"><span>Type</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1235603031%2FClasslikes%2F-809379508"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset:avalon-dataset-repository/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Repository///PointingToDeclaration/"><span class="token annotation builtin">Repository</span></span></div></div><span class="token keyword">class </span><a href="-type-repository-impl/index.html">TypeRepositoryImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.kt/KSqlClient///PointingToDeclaration/">KSqlClient</span></span></span><span class="token punctuation">)</span> : <a href="-type-repository/index.html">TypeRepository</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

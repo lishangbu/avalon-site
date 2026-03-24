@@ -1,0 +1,536 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>OauthRegisteredClientFetcherDsl</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-authorization/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-authorization/main" data-filter=":avalon-modules:avalon-authorization/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-authorization::io.github.lishangbu.avalon.authorization.entity/OauthRegisteredClientFetcherDsl///PointingToDeclaration//1712555002">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-authorization</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.authorization.entity</a><span class="delimiter">/</span><span class="current">OauthRegisteredClientFetcherDsl</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Oauth</span><wbr><span>Registered</span><wbr><span>Client</span><wbr><span>Fetcher</span><wbr><span><span>Dsl</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.internal/GeneratedBy///PointingToDeclaration/"><span class="token annotation builtin">GeneratedBy</span></span><span class="token punctuation">(</span><span>type<span class="token operator"> = </span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient::class</a></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">OauthRegisteredClientFetcherDsl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fetcher<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.fetcher/Fetcher///PointingToDeclaration/">Fetcher</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyOauthRegisteredClientFetcher</span></span><span class="token punctuation">)</span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1855700569%2FConstructors%2F1712555002" anchor-label="OauthRegisteredClientFetcherDsl" id="1855700569%2FConstructors%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-oauth-registered-client-fetcher-dsl.html"><span>Oauth</span><wbr><span>Registered</span><wbr><span>Client</span><wbr><span>Fetcher</span><wbr><span><span>Dsl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1855700569%2FConstructors%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fetcher<span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.fetcher/Fetcher///PointingToDeclaration/">Fetcher</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyOauthRegisteredClientFetcher</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1513880265%2FFunctions%2F1712555002" anchor-label="accessTokenFormat" id="1513880265%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="access-token-format.html"><span>access</span><wbr><span>Token</span><wbr><span><span>Format</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1513880265%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="access-token-format.html"><span class="token function">accessTokenFormat</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1221487084%2FFunctions%2F1712555002" anchor-label="accessTokenTimeToLive" id="1221487084%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="access-token-time-to-live.html"><span>access</span><wbr><span>Token</span><wbr><span>Time</span><wbr><span>To</span><wbr><span><span>Live</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1221487084%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="access-token-time-to-live.html"><span class="token function">accessTokenTimeToLive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1779231286%2FFunctions%2F1712555002" anchor-label="allScalarFields" id="-1779231286%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="all-scalar-fields.html"><span>all</span><wbr><span>Scalar</span><wbr><span><span>Fields</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1779231286%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="all-scalar-fields.html"><span class="token function">allScalarFields</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1823418116%2FFunctions%2F1712555002" anchor-label="allTableFields" id="1823418116%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="all-table-fields.html"><span>all</span><wbr><span>Table</span><wbr><span><span>Fields</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1823418116%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="all-table-fields.html"><span class="token function">allTableFields</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1661443259%2FFunctions%2F1712555002" anchor-label="authorizationCodeTimeToLive" id="1661443259%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="authorization-code-time-to-live.html"><span>authorization</span><wbr><span>Code</span><wbr><span>Time</span><wbr><span>To</span><wbr><span><span>Live</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1661443259%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="authorization-code-time-to-live.html"><span class="token function">authorizationCodeTimeToLive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1921055359%2FFunctions%2F1712555002" anchor-label="authorizationGrantTypes" id="1921055359%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="authorization-grant-types.html"><span>authorization</span><wbr><span>Grant</span><wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1921055359%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="authorization-grant-types.html"><span class="token function">authorizationGrantTypes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1244089882%2FFunctions%2F1712555002" anchor-label="clientAuthenticationMethods" id="-1244089882%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-authentication-methods.html"><span>client</span><wbr><span>Authentication</span><wbr><span><span>Methods</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1244089882%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-authentication-methods.html"><span class="token function">clientAuthenticationMethods</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1258324617%2FFunctions%2F1712555002" anchor-label="clientId" id="1258324617%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-id.html"><span>client</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1258324617%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-id.html"><span class="token function">clientId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-516432533%2FFunctions%2F1712555002" anchor-label="clientIdIssuedAt" id="-516432533%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-id-issued-at.html"><span>client</span><wbr><span>Id</span><wbr><span>Issued</span><wbr><span><span>At</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-516432533%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-id-issued-at.html"><span class="token function">clientIdIssuedAt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-620630375%2FFunctions%2F1712555002" anchor-label="clientName" id="-620630375%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-name.html"><span>client</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-620630375%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-name.html"><span class="token function">clientName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1047241300%2FFunctions%2F1712555002" anchor-label="clientSecret" id="1047241300%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-secret.html"><span>client</span><wbr><span><span>Secret</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1047241300%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-secret.html"><span class="token function">clientSecret</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1242013143%2FFunctions%2F1712555002" anchor-label="clientSecretExpiresAt" id="-1242013143%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="client-secret-expires-at.html"><span>client</span><wbr><span>Secret</span><wbr><span>Expires</span><wbr><span><span>At</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1242013143%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-secret-expires-at.html"><span class="token function">clientSecretExpiresAt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1161029432%2FFunctions%2F1712555002" anchor-label="deviceCodeTimeToLive" id="1161029432%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="device-code-time-to-live.html"><span>device</span><wbr><span>Code</span><wbr><span>Time</span><wbr><span>To</span><wbr><span><span>Live</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1161029432%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="device-code-time-to-live.html"><span class="token function">deviceCodeTimeToLive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="487725600%2FFunctions%2F1712555002" anchor-label="idTokenSignatureAlgorithm" id="487725600%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id-token-signature-algorithm.html"><span>id</span><wbr><span>Token</span><wbr><span>Signature</span><wbr><span><span>Algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="487725600%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="id-token-signature-algorithm.html"><span class="token function">idTokenSignatureAlgorithm</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-809474737%2FFunctions%2F1712555002" anchor-label="internallyGetFetcher" id="-809474737%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="internally-get-fetcher.html"><span>internally</span><wbr><span>Get</span><wbr><span><span>Fetcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-809474737%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="internally-get-fetcher.html"><span class="token function">internallyGetFetcher</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="org.babyfish.jimmer.sql.fetcher/Fetcher///PointingToDeclaration/">Fetcher</span><span class="token operator">&lt;</span><a href="../-oauth-registered-client/index.html">OauthRegisteredClient</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1364852694%2FFunctions%2F1712555002" anchor-label="jwkSetUrl" id="-1364852694%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="jwk-set-url.html"><span>jwk</span><wbr><span>Set</span><wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1364852694%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="jwk-set-url.html"><span class="token function">jwkSetUrl</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-545140158%2FFunctions%2F1712555002" anchor-label="postLogoutRedirectUris" id="-545140158%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="post-logout-redirect-uris.html"><span>post</span><wbr><span>Logout</span><wbr><span>Redirect</span><wbr><span><span>Uris</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-545140158%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="post-logout-redirect-uris.html"><span class="token function">postLogoutRedirectUris</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-519722708%2FFunctions%2F1712555002" anchor-label="redirectUris" id="-519722708%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="redirect-uris.html"><span>redirect</span><wbr><span><span>Uris</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-519722708%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="redirect-uris.html"><span class="token function">redirectUris</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1059612963%2FFunctions%2F1712555002" anchor-label="refreshTokenTimeToLive" id="-1059612963%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="refresh-token-time-to-live.html"><span>refresh</span><wbr><span>Token</span><wbr><span>Time</span><wbr><span>To</span><wbr><span><span>Live</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1059612963%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="refresh-token-time-to-live.html"><span class="token function">refreshTokenTimeToLive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="440267439%2FFunctions%2F1712555002" anchor-label="requireAuthorizationConsent" id="440267439%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="require-authorization-consent.html"><span>require</span><wbr><span>Authorization</span><wbr><span><span>Consent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="440267439%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="require-authorization-consent.html"><span class="token function">requireAuthorizationConsent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="380552533%2FFunctions%2F1712555002" anchor-label="requireProofKey" id="380552533%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="require-proof-key.html"><span>require</span><wbr><span>Proof</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="380552533%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="require-proof-key.html"><span class="token function">requireProofKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="276901358%2FFunctions%2F1712555002" anchor-label="reuseRefreshTokens" id="276901358%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reuse-refresh-tokens.html"><span>reuse</span><wbr><span>Refresh</span><wbr><span><span>Tokens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="276901358%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reuse-refresh-tokens.html"><span class="token function">reuseRefreshTokens</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-477193904%2FFunctions%2F1712555002" anchor-label="scopes" id="-477193904%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scopes.html"><span><span>scopes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-477193904%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scopes.html"><span class="token function">scopes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1925501445%2FFunctions%2F1712555002" anchor-label="tokenEndpointAuthenticationSigningAlgorithm" id="1925501445%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="token-endpoint-authentication-signing-algorithm.html"><span>token</span><wbr><span>Endpoint</span><wbr><span>Authentication</span><wbr><span>Signing</span><wbr><span><span>Algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925501445%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="token-endpoint-authentication-signing-algorithm.html"><span class="token function">tokenEndpointAuthenticationSigningAlgorithm</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1269614172%2FFunctions%2F1712555002" anchor-label="x509CertificateBoundAccessTokens" id="-1269614172%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="x509-certificate-bound-access-tokens.html"><span>x509Certificate</span><wbr><span>Bound</span><wbr><span>Access</span><wbr><span><span>Tokens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1269614172%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="x509-certificate-bound-access-tokens.html"><span class="token function">x509CertificateBoundAccessTokens</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="183924810%2FFunctions%2F1712555002" anchor-label="x509CertificateSubjectDn" id="183924810%2FFunctions%2F1712555002" data-filterable-set=":avalon-modules:avalon-authorization/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-authorization/main" data-filterable-set=":avalon-modules:avalon-authorization/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="x509-certificate-subject-dn.html"><span>x509Certificate</span><wbr><span>Subject</span><wbr><span><span>Dn</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="183924810%2FFunctions%2F1712555002"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-authorization/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="x509-certificate-subject-dn.html"><span class="token function">x509CertificateSubjectDn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
