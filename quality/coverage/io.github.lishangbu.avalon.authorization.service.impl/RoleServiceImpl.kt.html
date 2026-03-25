@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoleServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.service.impl</a> &gt; <span class="el_source">RoleServiceImpl.kt</span></div><h1>RoleServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.service.impl
+
+import io.github.lishangbu.avalon.authorization.entity.Role
+import io.github.lishangbu.avalon.authorization.entity.addBy
+import io.github.lishangbu.avalon.authorization.entity.dto.RoleSpecification
+import io.github.lishangbu.avalon.authorization.repository.MenuRepository
+import io.github.lishangbu.avalon.authorization.repository.RoleRepository
+import io.github.lishangbu.avalon.authorization.repository.readOrNull
+import io.github.lishangbu.avalon.authorization.service.RoleService
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/**
+ * 角色服务实现
+ *
+ * 负责角色及其菜单关联的查询与维护
+ *
+ * @author lishangbu
+ * @since 2025/8/30
+ */
+<span class="fc" id="L23">@Service</span>
+<span class="fc" id="L24">class RoleServiceImpl(</span>
+    /** 角色仓储 */
+<span class="fc" id="L26">    private val roleRepository: RoleRepository,</span>
+    /** 菜单仓储 */
+<span class="fc" id="L28">    private val menuRepository: MenuRepository,</span>
+) : RoleService {
+    /** 按条件分页查询角色 */
+    override fun getPageByCondition(
+        specification: RoleSpecification,
+        pageable: Pageable,
+<span class="fc" id="L34">    ): Page&lt;Role&gt; = roleRepository.findAllWithMenus(specification, pageable)</span>
+
+    /** 根据条件查询角色列表 */
+<span class="fc" id="L37">    override fun listByCondition(specification: RoleSpecification): List&lt;Role&gt; = roleRepository.findAllWithMenus(specification)</span>
+
+    /** 按 ID 查询角色 */
+<span class="fc" id="L40">    override fun getById(id: Long): Role? = roleRepository.findByIdWithMenus(id)</span>
+
+    /** 保存角色 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun save(role: Role): Role {
+<span class="fc" id="L45">        val prepared = bindMenus(role, false)</span>
+<span class="fc" id="L46">        return roleRepository.save(prepared)</span>
+    }
+
+    /** 更新角色 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun update(role: Role): Role {
+<span class="fc" id="L52">        val prepared = bindMenus(role, true)</span>
+<span class="fc" id="L53">        return roleRepository.save(prepared)</span>
+    }
+
+    /** 按 ID 删除角色 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L59">        roleRepository.deleteById(id)</span>
+<span class="fc" id="L60">    }</span>
+
+    /** 返回绑定菜单列表 */
+    private fun bindMenus(
+        role: Role,
+        preserveWhenNull: Boolean,
+    ): Role {
+<span class="fc" id="L67">        val existing =</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">                role.readOrNull { id }?.let(roleRepository::findByIdWithMenus)</span>
+            } else {
+<span class="fc" id="L71">                null</span>
+            }
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        val currentMenus = role.readOrNull { menus } ?: emptyList()</span>
+<span class="fc" id="L75">        val menuIds = currentMenus.mapNotNull { it.readOrNull { id } }.toCollection(LinkedHashSet())</span>
+<span class="fc" id="L76">        val boundMenus =</span>
+<span class="fc" id="L77">            when {</span>
+<span class="fc bfc" id="L78" title="All 4 branches covered.">                menuIds.isNotEmpty() -&gt; menuRepository.findAllById(menuIds)</span>
+<span class="pc bpc" id="L79" title="3 of 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
+<span class="nc" id="L80">                else -&gt; emptyList()</span>
+            }
+
+<span class="fc" id="L83">        return Role {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            role.readOrNull { id }?.let { id = it }</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">            code = role.readOrNull { code } ?: existing?.readOrNull { code }</span>
+<span class="pc bpc" id="L86" title="1 of 4 branches missed.">            name = role.readOrNull { name } ?: existing?.readOrNull { name }</span>
+<span class="pc bpc" id="L87" title="1 of 4 branches missed.">            enabled = role.readOrNull { enabled } ?: existing?.readOrNull { enabled }</span>
+<span class="fc" id="L88">            boundMenus.forEach { boundMenu -&gt; menus().addBy(boundMenu) }</span>
+<span class="fc" id="L89">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

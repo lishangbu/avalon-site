@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TreeUtils.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.web.util</a> &gt; <span class="el_source">TreeUtils.kt</span></div><h1>TreeUtils.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.web.util
+
+import org.slf4j.LoggerFactory
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
+import java.util.function.BiConsumer
+import java.util.function.Function
+import java.util.function.Predicate
+
+/**
+ * 树结构处理工具
+ *
+ * 提供树的构建、查找、路径获取、扁平化、过滤和遍历等常用操作
+ *
+ * @author lishangbu
+ * @since 2025/08/25
+ */
+object TreeUtils {
+    /** 将列表构建为树结构 */
+    @JvmStatic
+    fun &lt;T : Any, I&gt; buildTree(
+        list: List&lt;T&gt;?,
+        idGetter: Function&lt;T, I&gt;,
+        parentIdGetter: Function&lt;T, I&gt;,
+        childrenSetter: BiConsumer&lt;T, List&lt;T&gt;&gt;,
+    ): List&lt;T&gt; {
+<span class="pc bpc" id="L27" title="3 of 6 branches missed.">        if (list.isNullOrEmpty()) {</span>
+<span class="nc" id="L28">            return emptyList()</span>
+        }
+
+<span class="fc" id="L31">        val nodeMap = list.associateBy { idGetter.apply(it) }</span>
+<span class="fc" id="L32">        val roots = mutableListOf&lt;T&gt;()</span>
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (node in list) {</span>
+<span class="fc" id="L35">            val parentId = parentIdGetter.apply(node)</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (parentId == null) {</span>
+<span class="fc" id="L37">                roots += node</span>
+<span class="fc" id="L38">                continue</span>
+            }
+
+<span class="fc" id="L41">            val parentNode = nodeMap[parentId]</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (parentNode != null) {</span>
+<span class="fc" id="L43">                var children = getChildren(parentNode)</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                if (children == null) {</span>
+<span class="fc" id="L45">                    children = mutableListOf()</span>
+<span class="fc" id="L46">                    childrenSetter.accept(parentNode, children)</span>
+                }
+<span class="fc" id="L48">                children.add(node)</span>
+            } else {
+<span class="nc" id="L50">                roots += node</span>
+            }
+        }
+
+<span class="fc" id="L54">        return roots</span>
+    }
+
+    /** 获取子节点列表 */
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    private fun &lt;T : Any&gt; getChildren(node: T): MutableList&lt;T&gt;? =
+<span class="fc" id="L60">        try {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            node::class.java.getMethod(&quot;getChildren&quot;).invoke(node) as? MutableList&lt;T&gt;</span>
+<span class="nc" id="L62">        } catch (_: Exception) {</span>
+<span class="pc" id="L63">            null</span>
+<span class="fc" id="L64">        }</span>
+
+    /** 查找首个匹配节点 */
+    @JvmStatic
+    fun &lt;T : Any&gt; findNode(
+        tree: List&lt;T&gt;?,
+        predicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): T? {
+<span class="pc bpc" id="L73" title="3 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
+<span class="nc" id="L74">            return null</span>
+        }
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (node in tree) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            if (predicate.test(node)) {</span>
+<span class="fc" id="L79">                return node</span>
+            }
+<span class="fc" id="L81">            val children = childrenGetter.apply(node)</span>
+<span class="pc bpc" id="L82" title="1 of 6 branches missed.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L83">                val found = findNode(children, predicate, childrenGetter)</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">                if (found != null) {</span>
+<span class="fc" id="L85">                    return found</span>
+                }
+            }
+        }
+<span class="fc" id="L89">        return null</span>
+    }
+
+    /** 查找所有匹配节点 */
+    @JvmStatic
+    fun &lt;T : Any&gt; findNodes(
+        tree: List&lt;T&gt;?,
+        predicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): List&lt;T&gt; {
+<span class="fc" id="L99">        val result = mutableListOf&lt;T&gt;()</span>
+<span class="fc" id="L100">        findNodesInternal(tree, predicate, childrenGetter, result)</span>
+<span class="fc" id="L101">        return result</span>
+    }
+
+    /** 递归收集匹配节点 */
+    private fun &lt;T : Any&gt; findNodesInternal(
+        nodes: List&lt;T&gt;?,
+        predicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+        result: MutableList&lt;T&gt;,
+    ) {
+<span class="pc bpc" id="L111" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="nc" id="L112">            return</span>
+        }
+
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        for (node in nodes) {</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">            if (predicate.test(node)) {</span>
+<span class="fc" id="L117">                result += node</span>
+            }
+<span class="fc" id="L119">            val children = childrenGetter.apply(node)</span>
+<span class="pc bpc" id="L120" title="1 of 6 branches missed.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L121">                findNodesInternal(children, predicate, childrenGetter, result)</span>
+            }
+        }
+<span class="fc" id="L124">    }</span>
+
+    /** 获取目标节点路径 */
+    @JvmStatic
+    fun &lt;T : Any&gt; getNodePath(
+        tree: List&lt;T&gt;?,
+        targetPredicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): List&lt;T&gt; {
+<span class="fc" id="L133">        val path = mutableListOf&lt;T&gt;()</span>
+<span class="fc" id="L134">        findPath(tree, targetPredicate, childrenGetter, path)</span>
+<span class="fc" id="L135">        return path</span>
+    }
+
+    /** 递归查找节点路径 */
+    private fun &lt;T : Any&gt; findPath(
+        nodes: List&lt;T&gt;?,
+        targetPredicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+        path: MutableList&lt;T&gt;,
+    ): Boolean {
+<span class="pc bpc" id="L145" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="nc" id="L146">            return false</span>
+        }
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        for (node in nodes) {</span>
+<span class="fc" id="L150">            path += node</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            if (targetPredicate.test(node)) {</span>
+<span class="fc" id="L152">                return true</span>
+            }
+<span class="fc" id="L154">            val children = childrenGetter.apply(node)</span>
+            if (
+<span class="pc bpc" id="L156" title="1 of 6 branches missed.">                !children.isNullOrEmpty() &amp;&amp;</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                findPath(children, targetPredicate, childrenGetter, path)</span>
+            ) {
+<span class="fc" id="L159">                return true</span>
+            }
+<span class="fc" id="L161">            path.removeAt(path.lastIndex)</span>
+        }
+<span class="fc" id="L163">        return false</span>
+    }
+
+    /** 将树结构扁平化为列表 */
+    @JvmStatic
+    fun &lt;T : Any&gt; flattenTree(
+        tree: List&lt;T&gt;?,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): List&lt;T&gt; {
+<span class="fc" id="L172">        val result = mutableListOf&lt;T&gt;()</span>
+<span class="fc" id="L173">        flattenTreeInternal(tree, childrenGetter, result)</span>
+<span class="fc" id="L174">        return result</span>
+    }
+
+    /** 按条件过滤树结构 */
+    @JvmStatic
+    fun &lt;T : Any&gt; filterTree(
+        tree: List&lt;T&gt;?,
+        predicate: Predicate&lt;T&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+        childrenSetter: BiConsumer&lt;T, List&lt;T&gt;?&gt;,
+    ): List&lt;T&gt; {
+<span class="pc bpc" id="L185" title="3 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
+<span class="nc" id="L186">            return emptyList()</span>
+        }
+
+<span class="fc" id="L189">        val result = mutableListOf&lt;T&gt;()</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        for (node in tree) {</span>
+<span class="fc" id="L191">            val copyNode = tryCreateCopy(node)</span>
+<span class="fc" id="L192">            val children = childrenGetter.apply(node)</span>
+<span class="fc bfc" id="L193" title="All 6 branches covered.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L194">                val filteredChildren =</span>
+<span class="fc" id="L195">                    filterTree(children, predicate, childrenGetter, childrenSetter)</span>
+<span class="fc" id="L196">                childrenSetter.accept(copyNode, filteredChildren)</span>
+            } else {
+<span class="fc" id="L198">                childrenSetter.accept(</span>
+<span class="fc" id="L199">                    copyNode,</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">                    if (children == null) null else emptyList(),</span>
+                )
+            }
+
+<span class="fc" id="L204">            val copyNodeChildren = childrenGetter.apply(copyNode)</span>
+<span class="pc bpc" id="L205" title="3 of 8 branches missed.">            if (predicate.test(node) || !copyNodeChildren.isNullOrEmpty()) {</span>
+<span class="fc" id="L206">                result += copyNode</span>
+            }
+        }
+<span class="fc" id="L209">        return result</span>
+    }
+
+    /** 尝试创建节点副本 */
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    private fun &lt;T : Any&gt; tryCreateCopy(node: T): T =
+<span class="fc" id="L215">        try {</span>
+<span class="fc" id="L216">            val copyNode = node::class.java.getDeclaredConstructor().newInstance() as T</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">            for (field in getAllFields(node::class.java)) {</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">                if (Modifier.isStatic(field.modifiers)) {</span>
+<span class="nc" id="L219">                    continue</span>
+                }
+<span class="fc" id="L221">                field.isAccessible = true</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">                if (field.name != &quot;children&quot;) {</span>
+<span class="fc" id="L223">                    field.set(copyNode, field.get(node))</span>
+                }
+            }
+<span class="fc" id="L226">            copyNode</span>
+<span class="nc" id="L227">        } catch (ex: Exception) {</span>
+<span class="nc" id="L228">            log.error(&quot;Failed to create or copy node instance: {}&quot;, ex.message)</span>
+<span class="pc" id="L229">            node</span>
+<span class="fc" id="L230">        }</span>
+
+    /** 遍历树结构 */
+    @JvmStatic
+    fun &lt;T : Any&gt; traverseTree(
+        tree: List&lt;T&gt;?,
+        action: BiConsumer&lt;T, Int&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ) {
+<span class="fc" id="L239">        traverseTreeInternal(tree, action, childrenGetter, 0)</span>
+<span class="fc" id="L240">    }</span>
+
+    /** 获取树的最大深度 */
+    @JvmStatic
+    fun &lt;T : Any&gt; getMaxDepth(
+        tree: List&lt;T&gt;?,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): Int {
+<span class="pc bpc" id="L248" title="1 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
+<span class="fc" id="L249">            return 0</span>
+        }
+
+<span class="fc" id="L252">        var maxDepth = 0</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        for (node in tree) {</span>
+<span class="fc" id="L254">            val children = childrenGetter.apply(node)</span>
+<span class="pc bpc" id="L255" title="1 of 6 branches missed.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L256">                maxDepth = maxOf(maxDepth, getMaxDepth(children, childrenGetter))</span>
+            }
+        }
+<span class="fc" id="L259">        return maxDepth + 1</span>
+    }
+
+    /** 根据 ID 查找节点 */
+    @JvmStatic
+    fun &lt;T : Any, I&gt; findNodeById(
+        tree: List&lt;T&gt;?,
+        id: I,
+        idGetter: Function&lt;T, I&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+    ): T? =
+<span class="fc" id="L270">        findNode(</span>
+<span class="fc" id="L271">            tree,</span>
+<span class="fc" id="L272">            Predicate { node -&gt; idGetter.apply(node) == id },</span>
+<span class="fc" id="L273">            childrenGetter,</span>
+<span class="fc" id="L274">        )</span>
+
+    /** 获取类型的全部字段 */
+    private fun getAllFields(clazz: Class&lt;*&gt;): List&lt;Field&gt; {
+<span class="fc" id="L278">        val fields = mutableListOf&lt;Field&gt;()</span>
+<span class="fc" id="L279">        fields += clazz.declaredFields</span>
+<span class="fc" id="L280">        val superClass = clazz.superclass</span>
+<span class="pc bpc" id="L281" title="2 of 4 branches missed.">        if (superClass != null &amp;&amp; superClass != Any::class.java) {</span>
+<span class="nc" id="L282">            fields += getAllFields(superClass)</span>
+        }
+<span class="fc" id="L284">        return fields</span>
+    }
+
+    /** 递归遍历树结构 */
+    private fun &lt;T : Any&gt; traverseTreeInternal(
+        nodes: List&lt;T&gt;?,
+        action: BiConsumer&lt;T, Int&gt;,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+        level: Int,
+    ) {
+<span class="pc bpc" id="L294" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="nc" id="L295">            return</span>
+        }
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        for (node in nodes) {</span>
+<span class="fc" id="L298">            action.accept(node, level)</span>
+<span class="fc" id="L299">            val children = childrenGetter.apply(node)</span>
+<span class="pc bpc" id="L300" title="1 of 6 branches missed.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L301">                traverseTreeInternal(children, action, childrenGetter, level + 1)</span>
+            }
+        }
+<span class="fc" id="L304">    }</span>
+
+    /** 递归扁平化树结构 */
+    private fun &lt;T : Any&gt; flattenTreeInternal(
+        nodes: List&lt;T&gt;?,
+        childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
+        result: MutableList&lt;T&gt;,
+    ) {
+<span class="pc bpc" id="L312" title="1 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="fc" id="L313">            return</span>
+        }
+<span class="fc bfc" id="L315" title="All 2 branches covered.">        for (node in nodes) {</span>
+<span class="fc" id="L316">            result += node</span>
+<span class="fc" id="L317">            val children = childrenGetter.apply(node)</span>
+<span class="pc bpc" id="L318" title="1 of 6 branches missed.">            if (!children.isNullOrEmpty()) {</span>
+<span class="fc" id="L319">                flattenTreeInternal(children, childrenGetter, result)</span>
+            }
+        }
+<span class="fc" id="L322">    }</span>
+
+    /** 日志记录器 */
+<span class="fc" id="L325">    private val log = LoggerFactory.getLogger(TreeUtils::class.java)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

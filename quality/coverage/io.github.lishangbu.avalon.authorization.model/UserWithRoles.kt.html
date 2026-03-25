@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserWithRoles.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.model</a> &gt; <span class="el_source">UserWithRoles.kt</span></div><h1>UserWithRoles.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.model
+
+import io.github.lishangbu.avalon.authorization.entity.Role
+import io.github.lishangbu.avalon.authorization.entity.User
+
+/**
+ * 用户及角色信息
+ *
+ * @author lishangbu
+ * @since 2025/9/19
+ */
+<span class="fc" id="L12">data class UserWithRoles(</span>
+    /** ID */
+<span class="fc" id="L14">    val id: Long?,</span>
+    /** 用户名 */
+<span class="fc" id="L16">    val username: String?,</span>
+    /** 头像 */
+<span class="pc" id="L18">    val avatar: String?,</span>
+    /** 角色列表 */
+<span class="fc" id="L20">    val roles: Set&lt;PlainRole&gt;,</span>
+) {
+    constructor(
+        user: User,
+<span class="fc" id="L24">    ) : this(</span>
+<span class="fc" id="L25">        user.id,</span>
+<span class="fc" id="L26">        user.username,</span>
+<span class="fc" id="L27">        user.avatar,</span>
+<span class="fc" id="L28">        user.roles.map(::PlainRole).toSet(),</span>
+<span class="fc" id="L29">    )</span>
+
+<span class="pc" id="L31">    data class PlainRole(</span>
+        /** ID */
+<span class="pc" id="L33">        var id: Long? = null,</span>
+        /** 状态码 */
+<span class="pc" id="L35">        var code: String? = null,</span>
+        /** 名称 */
+<span class="pc" id="L37">        var name: String? = null,</span>
+        /** 启用状态 */
+<span class="pc" id="L39">        var enabled: Boolean? = null,</span>
+<span class="nc" id="L40">    ) {</span>
+<span class="fc" id="L41">        constructor(role: Role) : this(role.id, role.code, role.name, role.enabled)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

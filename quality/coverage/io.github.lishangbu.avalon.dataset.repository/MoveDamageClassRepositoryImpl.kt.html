@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoveDamageClassRepositoryImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">MoveDamageClassRepositoryImpl.kt</span></div><h1>MoveDamageClassRepositoryImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.ast.expression.ilike
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Repository
+
+<span class="fc" id="L12">@Repository</span>
+<span class="fc" id="L13">class MoveDamageClassRepositoryImpl(</span>
+    /** Jimmer SQL 客户端 */
+<span class="fc" id="L15">    private val sql: KSqlClient,</span>
+) : MoveDamageClassRepository {
+    /** 按条件查询招式伤害分类列表 */
+    override fun findAll(example: Example&lt;MoveDamageClass&gt;?): List&lt;MoveDamageClass&gt; {
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        val probe = example?.probe</span>
+<span class="fc" id="L20">        return sql</span>
+<span class="fc" id="L21">            .createQuery(MoveDamageClass::class) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">                probe.readOrNull { id }?.let { where(table.id eq it) }</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                probe.readOrNull { name }.takeFilter()?.let { where(table.name ilike &quot;%$it%&quot;) }</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">                probe.readOrNull { internalName }.takeFilter()?.let { where(table.internalName ilike &quot;%$it%&quot;) }</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">                probe.readOrNull { description }.takeFilter()?.let { where(table.description ilike &quot;%$it%&quot;) }</span>
+<span class="fc" id="L26">                select(table)</span>
+<span class="fc" id="L27">            }.execute()</span>
+    }
+
+    /** 按条件分页查询招式伤害分类 */
+    override fun findAll(
+        example: Example&lt;MoveDamageClass&gt;?,
+        pageable: Pageable,
+    ): Page&lt;MoveDamageClass&gt; {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        val probe = example?.probe</span>
+<span class="fc" id="L36">        return sql</span>
+<span class="fc" id="L37">            .createQuery(MoveDamageClass::class) {</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                probe.readOrNull { id }?.let { where(table.id eq it) }</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                probe.readOrNull { name }.takeFilter()?.let { where(table.name ilike &quot;%$it%&quot;) }</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                probe.readOrNull { internalName }.takeFilter()?.let { where(table.internalName ilike &quot;%$it%&quot;) }</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                probe.readOrNull { description }.takeFilter()?.let { where(table.description ilike &quot;%$it%&quot;) }</span>
+<span class="fc" id="L42">                select(table)</span>
+<span class="fc" id="L43">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+    }
+
+    /** 保存招式伤害分类 */
+<span class="fc" id="L47">    override fun save(moveDamageClass: MoveDamageClass): MoveDamageClass = sql.save(moveDamageClass).modifiedEntity</span>
+
+    /** 按 ID 删除招式伤害分类 */
+    override fun deleteById(id: Long) {
+<span class="fc" id="L51">        sql</span>
+<span class="fc" id="L52">            .createDelete(MoveDamageClass::class) {</span>
+<span class="fc" id="L53">                where(table.id eq id)</span>
+<span class="fc" id="L54">                disableDissociation()</span>
+<span class="fc" id="L55">            }.execute()</span>
+<span class="fc" id="L56">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

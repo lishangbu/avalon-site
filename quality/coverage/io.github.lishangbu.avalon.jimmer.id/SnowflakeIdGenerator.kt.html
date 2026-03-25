@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SnowflakeIdGenerator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.jimmer.id</a> &gt; <span class="el_source">SnowflakeIdGenerator.kt</span></div><h1>SnowflakeIdGenerator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.jimmer.id
+
+import org.babyfish.jimmer.sql.meta.UserIdGenerator
+import java.lang.management.ManagementFactory
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.util.concurrent.ThreadLocalRandom
+
+/**
+ * Jimmer 主键生成器
+ *
+ * 雪花算法实现与 MyBatis-Plus Sequence 保持一致
+ */
+<span class="fc" id="L14">class SnowflakeIdGenerator : UserIdGenerator&lt;Long&gt; {</span>
+    /** 生成雪花 ID */
+<span class="fc" id="L16">    override fun generate(entityType: Class&lt;*&gt;): Long = sequence.nextId()</span>
+
+    companion object {
+        /** 序列 */
+<span class="fc" id="L20">        private val sequence = Sequence()</span>
+    }
+
+<span class="fc" id="L23">    private class Sequence(</span>
+<span class="fc" id="L24">        inetAddress: InetAddress? = null,</span>
+<span class="fc" id="L25">    ) {</span>
+        // 与 MyBatis-Plus Sequence 一致的起始时间戳
+<span class="fc" id="L27">        private val twepoch = 1288834974657L</span>
+
+        // 机器与数据中心位宽：5 + 5
+<span class="fc" id="L30">        private val workerIdBits = 5L</span>
+
+        /** 数据中心 ID 位数 */
+<span class="fc" id="L33">        private val datacenterIdBits = 5L</span>
+
+        /** 最大工作节点 ID */
+<span class="fc" id="L36">        private val maxWorkerId = -1L xor (-1L shl workerIdBits.toInt())</span>
+
+        /** 最大数据中心 ID */
+<span class="fc" id="L39">        private val maxDatacenterId = -1L xor (-1L shl datacenterIdBits.toInt())</span>
+
+        // 序列位宽：12
+<span class="fc" id="L42">        private val sequenceBits = 12L</span>
+
+        /** 工作节点 ID 偏移 */
+<span class="fc" id="L45">        private val workerIdShift = sequenceBits</span>
+
+        /** 数据中心 ID 偏移 */
+<span class="fc" id="L48">        private val datacenterIdShift = sequenceBits + workerIdBits</span>
+
+        /** 时间戳左偏移 */
+<span class="fc" id="L51">        private val timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits</span>
+
+        /** 序列掩码 */
+<span class="fc" id="L54">        private val sequenceMask = -1L xor (-1L shl sequenceBits.toInt())</span>
+
+        /** 数据中心 ID */
+        private val datacenterId: Long
+
+        /** 工作节点 ID */
+        private val workerId: Long
+
+        /** 序列 */
+        private var sequence = 0L
+
+        /** 最后时间戳 */
+<span class="fc" id="L66">        private var lastTimestamp = -1L</span>
+
+<span class="fc" id="L68">        init {</span>
+<span class="fc" id="L69">            datacenterId = getDatacenterId(maxDatacenterId, inetAddress)</span>
+<span class="fc" id="L70">            workerId = getMaxWorkerId(datacenterId, maxWorkerId)</span>
+<span class="fc" id="L71">        }</span>
+
+        /** 生成下一个 ID */
+        @Synchronized
+        fun nextId(): Long {
+<span class="fc" id="L76">            var timestamp = timeGen()</span>
+            // 时钟回拨时，按 MP 逻辑：小回拨等待，大回拨直接失败
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            if (timestamp &lt; lastTimestamp) {</span>
+<span class="nc" id="L79">                val offset = lastTimestamp - timestamp</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                if (offset &lt;= 5) {</span>
+<span class="nc" id="L81">                    Thread.sleep(offset shl 1)</span>
+<span class="nc" id="L82">                    timestamp = timeGen()</span>
+<span class="nc bnc" id="L83" title="All 4 branches missed.">                    check(timestamp &gt;= lastTimestamp) {</span>
+<span class="nc" id="L84">                        &quot;Clock moved backwards. Refusing to generate id for $offset milliseconds&quot;</span>
+                    }
+                } else {
+<span class="nc" id="L87">                    error(&quot;Clock moved backwards. Refusing to generate id for $offset milliseconds&quot;)</span>
+                }
+            }
+
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">            if (lastTimestamp == timestamp) {</span>
+                // 同毫秒内自增序列，溢出则等待到下一毫秒
+<span class="nc" id="L93">                sequence = (sequence + 1) and sequenceMask</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                if (sequence == 0L) {</span>
+<span class="nc" id="L95">                    timestamp = tilNextMillis(lastTimestamp)</span>
+                }
+            } else {
+                // 跨毫秒时将序列随机置为 1..2，降低固定尾号聚集
+<span class="fc" id="L99">                sequence = ThreadLocalRandom.current().nextLong(1, 3)</span>
+            }
+
+<span class="fc" id="L102">            lastTimestamp = timestamp</span>
+<span class="fc" id="L103">            return ((timestamp - twepoch) shl timestampLeftShift.toInt()) or</span>
+<span class="fc" id="L104">                (datacenterId shl datacenterIdShift.toInt()) or</span>
+<span class="fc" id="L105">                (workerId shl workerIdShift.toInt()) or</span>
+<span class="fc" id="L106">                sequence</span>
+        }
+
+        /** 获取数据中心 ID */
+        private fun getDatacenterId(
+            maxDatacenterId: Long,
+            inetAddress: InetAddress?,
+        ): Long {
+<span class="fc" id="L114">            return try {</span>
+                // 使用网卡 MAC 推导数据中心 ID
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">                val address = inetAddress ?: InetAddress.getLocalHost()</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                val network = NetworkInterface.getByInetAddress(address) ?: return 1L</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">                val mac = network.hardwareAddress ?: return 0L</span>
+<span class="fc" id="L119">                val id =</span>
+<span class="fc" id="L120">                    (</span>
+<span class="fc" id="L121">                        (0x000000FFL and mac[mac.size - 2].toLong()) or</span>
+<span class="fc" id="L122">                            (0x0000FF00L and (mac[mac.size - 1].toLong() shl 8))</span>
+<span class="fc" id="L123">                    ) shr 6</span>
+<span class="fc" id="L124">                id % (maxDatacenterId + 1)</span>
+<span class="nc" id="L125">            } catch (_: Exception) {</span>
+<span class="pc" id="L126">                0L</span>
+            }
+        }
+
+        /** 获取最大工作节点 ID */
+        private fun getMaxWorkerId(
+            datacenterId: Long,
+            maxWorkerId: Long,
+        ): Long {
+            // 使用 datacenterId + pid 哈希推导 workerId
+<span class="fc" id="L136">            val runtimeName = ManagementFactory.getRuntimeMXBean().name</span>
+<span class="fc" id="L137">            val pid =</span>
+<span class="fc" id="L138">                runtimeName</span>
+<span class="fc" id="L139">                    .substringBefore('@')</span>
+<span class="fc" id="L140">                    .toIntOrNull()</span>
+<span class="pc bpc" id="L141" title="2 of 4 branches missed.">                    ?.let { if (it &lt; 10) ThreadLocalRandom.current().nextInt(10, 4194304) else it }</span>
+<span class="fc" id="L142">            val mpid =</span>
+<span class="fc" id="L143">                buildString {</span>
+<span class="fc" id="L144">                    append(datacenterId)</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                    if (pid != null) {</span>
+<span class="fc" id="L146">                        append(pid)</span>
+                    }
+<span class="fc" id="L148">                }</span>
+<span class="fc" id="L149">            return (mpid.hashCode().toLong() and 0xffff) % (maxWorkerId + 1)</span>
+        }
+
+        /** 等待到下一毫秒 */
+        private fun tilNextMillis(lastTimestamp: Long): Long {
+<span class="nc" id="L154">            var timestamp = timeGen()</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            while (timestamp &lt;= lastTimestamp) {</span>
+<span class="nc" id="L156">                timestamp = timeGen()</span>
+            }
+<span class="nc" id="L158">            return timestamp</span>
+        }
+
+        /** 获取当前时间戳 */
+<span class="fc" id="L162">        private fun timeGen(): Long = System.currentTimeMillis()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

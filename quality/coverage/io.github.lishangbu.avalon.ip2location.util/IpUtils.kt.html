@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IpUtils.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.ip2location.util</a> &gt; <span class="el_source">IpUtils.kt</span></div><h1>IpUtils.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.ip2location.util
+
+import net.renfei.ip2location.IPTools
+import java.math.BigInteger
+import java.net.UnknownHostException
+
+/**
+ * IP 工具类
+ *
+ * 封装 IPTools 提供的地址识别与转换能力
+ */
+object IpUtils {
+    /** IPTools 实例 */
+<span class="fc" id="L14">    private val ipTools: IPTools by lazy { IPTools() }</span>
+
+    /** 判断是否为 IPv4 地址 */
+<span class="fc" id="L17">    fun isIpv4(ipAddress: String): Boolean = ipTools.IsIPv4(ipAddress)</span>
+
+    /** 判断是否为 IPv6 地址 */
+<span class="fc" id="L20">    fun isIpv6(ipAddress: String): Boolean = ipTools.IsIPv6(ipAddress)</span>
+
+    /** 将 IPv4 地址转换为十进制 */
+<span class="fc" id="L23">    fun ipv4ToDecimal(ipAddress: String): BigInteger? = ipTools.IPv4ToDecimal(ipAddress)</span>
+
+    /** 将 IPv6 地址转换为十进制 */
+<span class="fc" id="L26">    fun ipv6ToDecimal(ipAddress: String): BigInteger? = ipTools.IPv6ToDecimal(ipAddress)</span>
+
+    /** 将十进制值转换为 IPv4 地址 */
+    @Throws(UnknownHostException::class)
+<span class="fc" id="L30">    fun decimalToIpv4(ipNumber: BigInteger): String = ipTools.DecimalToIPv4(ipNumber)</span>
+
+    /** 将十进制值转换为 IPv6 地址 */
+    @Throws(UnknownHostException::class)
+<span class="fc" id="L34">    fun decimalToIpv6(ipNumber: BigInteger): String = ipTools.DecimalToIPv6(ipNumber)</span>
+
+    /** 压缩 IPv6 地址 */
+<span class="fc" id="L37">    fun compressIpv6(ipAddress: String): String = ipTools.CompressIPv6(ipAddress)</span>
+
+    /** 展开 IPv6 地址 */
+<span class="fc" id="L40">    fun expandIpv6(ipAddress: String): String = ipTools.ExpandIPv6(ipAddress)</span>
+
+    /** 将 IPv4 地址范围转换为 CIDR 列表 */
+    @Throws(UnknownHostException::class)
+    fun ipv4ToCidr(
+        ipFrom: String,
+        ipTo: String,
+<span class="fc" id="L47">    ): List&lt;String&gt; = ipTools.IPv4ToCIDR(ipFrom, ipTo)</span>
+
+    /** 将 IPv6 地址范围转换为 CIDR 列表 */
+    @Throws(UnknownHostException::class)
+    fun ipv6ToCidr(
+        ipFrom: String,
+        ipTo: String,
+<span class="fc" id="L54">    ): List&lt;String&gt; = ipTools.IPv6ToCIDR(ipFrom, ipTo)</span>
+
+    /** 将 CIDR 转换为 IPv4 地址范围 */
+    @Throws(UnknownHostException::class)
+<span class="fc" id="L58">    fun cidrToIpv4(cidr: String): Array&lt;String&gt; = ipTools.CIDRToIPv4(cidr)</span>
+
+    /** 将 CIDR 转换为 IPv6 地址范围 */
+    @Throws(UnknownHostException::class)
+<span class="fc" id="L62">    fun cidrToIpv6(cidr: String): Array&lt;String&gt; = ipTools.CIDRToIPv6(cidr)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

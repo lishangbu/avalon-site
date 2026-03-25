@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserInfo.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.common.userdetails</a> &gt; <span class="el_source">UserInfo.kt</span></div><h1>UserInfo.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.common.userdetails
+
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal
+
+/**
+ * OAuth2 用户信息对象
+ *
+ * 基于 Spring Security 的 [User] 扩展附加属性，便于在令牌相关接口中返回更多用户信息
+ *
+ * @author lishangbu
+ * @since 2025/8/9
+ */
+@Suppress(&quot;removal&quot;)
+class UserInfo :
+    User,
+    OAuth2AuthenticatedPrincipal {
+    /** 附加属性 */
+<span class="fc" id="L20">    val additionalParameters: MutableMap&lt;String, Any&gt; = HashMap()</span>
+
+    constructor(
+        username: String,
+        password: String?,
+        authorities: Collection&lt;out GrantedAuthority&gt;,
+<span class="fc" id="L26">    ) : super(username, password, authorities)</span>
+
+    constructor(
+        username: String,
+        password: String?,
+        enabled: Boolean,
+        accountNonExpired: Boolean,
+        credentialsNonExpired: Boolean,
+        accountNonLocked: Boolean,
+        authorities: Collection&lt;out GrantedAuthority&gt;,
+<span class="fc" id="L36">    ) : super(</span>
+<span class="fc" id="L37">        username,</span>
+<span class="fc" id="L38">        password,</span>
+<span class="fc" id="L39">        enabled,</span>
+<span class="fc" id="L40">        accountNonExpired,</span>
+<span class="fc" id="L41">        credentialsNonExpired,</span>
+<span class="fc" id="L42">        accountNonLocked,</span>
+<span class="fc" id="L43">        authorities,</span>
+<span class="fc" id="L44">    )</span>
+
+    /** 返回附加属性映射 */
+<span class="fc" id="L47">    override fun getAttributes(): MutableMap&lt;String, Any&gt; = additionalParameters</span>
+
+    /** 返回主体名称 */
+<span class="fc" id="L50">    override fun getName(): String = username</span>
+
+    /** 返回对象的字符串表示 */
+    override fun toString(): String =
+<span class="fc" id="L54">        javaClass.name +</span>
+            &quot; [&quot; +
+            &quot;Username=&quot; +
+<span class="fc" id="L57">            username +</span>
+            &quot;, &quot; +
+            &quot;Enabled=&quot; +
+<span class="fc" id="L60">            isEnabled +</span>
+            &quot;, &quot; +
+            &quot;AdditionalParameters&quot; +
+<span class="fc" id="L63">            additionalParameters +</span>
+            &quot;AccountNonExpired=&quot; +
+<span class="fc" id="L65">            isAccountNonExpired +</span>
+            &quot;, &quot; +
+            &quot;CredentialsNonExpired=&quot; +
+<span class="fc" id="L68">            isCredentialsNonExpired +</span>
+            &quot;, &quot; +
+            &quot;AccountNonLocked=&quot; +
+<span class="fc" id="L71">            isAccountNonLocked +</span>
+            &quot;, &quot; +
+            &quot;Granted Authorities=&quot; +
+<span class="fc" id="L74">            authorities +</span>
+<span class="fc" id="L75">            &quot;]&quot;</span>
+
+    companion object {
+        /** 序列化版本号 */
+        private const val serialVersionUID = 1L
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

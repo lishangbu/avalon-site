@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractGrowthRateCalculator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.calculator.growthrate</a> &gt; <span class="el_source">AbstractGrowthRateCalculator.kt</span></div><h1>AbstractGrowthRateCalculator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.calculator.growthrate
+
+/**
+ * 抽象成长速率计算器
+ *
+ * 提供等级边界处理和内部名称匹配的通用实现
+ */
+<span class="fc" id="L8">abstract class AbstractGrowthRateCalculator : GrowthRateCalculator {</span>
+    /** 判断是否支持指定成长速率 */
+<span class="fc" id="L10">    override fun support(growthRateInternalName: String): Boolean = getGrowthRateInternalName().equals(growthRateInternalName, ignoreCase = true)</span>
+
+    /** 计算指定等级的经验值 */
+    override fun calculateGrowthRate(level: Int): Int {
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (level &lt;= 0) return 0</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        return if (level == 1) {</span>
+<span class="nc" id="L16">            0</span>
+        } else {
+<span class="fc" id="L18">            tryCalculateGrowthRate(level)</span>
+        }
+    }
+
+    /** 计算具体成长曲线在指定等级下的经验值 */
+    protected abstract fun tryCalculateGrowthRate(level: Int): Int
+
+    /** 获取成长速率内部名称 */
+    protected abstract fun getGrowthRateInternalName(): String
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

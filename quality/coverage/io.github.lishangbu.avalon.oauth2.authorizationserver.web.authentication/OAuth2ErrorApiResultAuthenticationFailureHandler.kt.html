@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2ErrorApiResultAuthenticationFailureHandler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a> &gt; <span class="el_source">OAuth2ErrorApiResultAuthenticationFailureHandler.kt</span></div><h1>OAuth2ErrorApiResultAuthenticationFailureHandler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication
+
+import io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecord
+import io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecorder
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import io.github.lishangbu.avalon.web.result.DefaultErrorResultCode
+import io.github.lishangbu.avalon.web.util.JsonResponseWriter
+import jakarta.servlet.ServletException
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
+import org.springframework.http.HttpStatus
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
+import tools.jackson.databind.json.JsonMapper
+import java.io.IOException
+import java.nio.charset.StandardCharsets
+import java.time.Instant
+import java.util.*
+
+/**
+ * OAuth2 认证失败处理器
+ *
+ * 将认证异常转换为统一的 JSON 错误响应并记录认证日志
+ */
+<span class="fc" id="L29">class OAuth2ErrorApiResultAuthenticationFailureHandler</span>
+    @JvmOverloads
+<span class="pc" id="L31">    constructor(</span>
+<span class="nc" id="L32">        authenticationLogRecorder: AuthenticationLogRecorder? = AuthenticationLogRecorder.noop(),</span>
+        /** OAuth2 属性 */
+<span class="pc" id="L34">        private val oauth2Properties: Oauth2Properties? = null,</span>
+        jsonMapper: JsonMapper,
+<span class="nc" id="L36">    ) : AuthenticationFailureHandler {</span>
+        /** 日志记录器 */
+<span class="fc" id="L38">        private val logger: Log = LogFactory.getLog(javaClass)</span>
+
+        /** 认证日志记录器 */
+        private val authenticationLogRecorder: AuthenticationLogRecorder =
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            authenticationLogRecorder ?: AuthenticationLogRecorder.noop()</span>
+
+        /** JSON 映射器 */
+<span class="fc" id="L45">        private val jsonMapper = jsonMapper</span>
+
+        /** 处理认证失败 */
+        @Throws(IOException::class, ServletException::class)
+        override fun onAuthenticationFailure(
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            authenticationException: AuthenticationException,
+        ) {
+<span class="fc" id="L54">            val resolvedError = resolveError(authenticationException)</span>
+<span class="fc" id="L55">            recordAuthenticationFailure(request, resolvedError)</span>
+<span class="fc" id="L56">            writeFailedResponse(</span>
+<span class="fc" id="L57">                response,</span>
+<span class="fc" id="L58">                normalize(resolvedError.code),</span>
+<span class="fc" id="L59">                normalize(resolvedError.description),</span>
+            )
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">            if (authenticationException !is OAuth2AuthenticationException &amp;&amp; logger.isWarnEnabled) {</span>
+<span class="fc" id="L62">                logger.warn(</span>
+<span class="fc" id="L63">                    AuthenticationException::class.java.simpleName +</span>
+                        &quot; must be of type &quot; +
+<span class="fc" id="L65">                        OAuth2AuthenticationException::class.java.name +</span>
+                        &quot; but was &quot; +
+<span class="fc" id="L67">                        authenticationException.javaClass.name,</span>
+                )
+            }
+<span class="fc" id="L70">        }</span>
+
+        /** 解析错误 */
+        private fun resolveError(authenticationException: AuthenticationException?): ResolvedError {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (authenticationException is OAuth2AuthenticationException) {</span>
+<span class="fc" id="L75">                val error = authenticationException.error</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">                val errorCode = error?.errorCode</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                var errorDescription = error?.description</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">                if (normalize(errorDescription) == null) {</span>
+<span class="nc" id="L79">                    val message = normalize(authenticationException.message)</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">                    if (message != null &amp;&amp; !message.equals(normalize(errorCode), ignoreCase = true)) {</span>
+<span class="nc" id="L81">                        errorDescription = message</span>
+                    }
+                }
+<span class="fc" id="L84">                return ResolvedError(errorCode, sanitizeDescription(errorDescription))</span>
+            }
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (authenticationException == null) {</span>
+<span class="fc" id="L87">                return ResolvedError(null, null)</span>
+            }
+<span class="fc" id="L89">            return ResolvedError(</span>
+<span class="fc" id="L90">                authenticationException.javaClass.simpleName,</span>
+<span class="fc" id="L91">                sanitizeDescription(authenticationException.message),</span>
+            )
+        }
+
+        /** 记录认证失败 */
+        private fun recordAuthenticationFailure(
+            request: HttpServletRequest,
+            error: ResolvedError,
+        ) {
+<span class="fc" id="L100">            try {</span>
+<span class="fc" id="L101">                var errorMessage = sanitizeDescription(error.description)</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                if (errorMessage == null) {</span>
+<span class="fc" id="L103">                    val code = normalize(error.code)</span>
+<span class="pc bpc" id="L104" title="2 of 4 branches missed.">                    if (code != null &amp;&amp; OAuth2ErrorCodes.INVALID_GRANT != code) {</span>
+<span class="nc" id="L105">                        errorMessage = code</span>
+                    }
+                }
+<span class="fc" id="L108">                val record =</span>
+<span class="fc" id="L109">                    AuthenticationLogRecord(</span>
+<span class="fc" id="L110">                        normalize(request.getParameter(resolveUsernameParameterName())),</span>
+<span class="fc" id="L111">                        resolveClientId(request),</span>
+<span class="fc" id="L112">                        normalize(request.getParameter(&quot;grant_type&quot;)),</span>
+<span class="fc" id="L113">                        resolveClientIp(request),</span>
+<span class="fc" id="L114">                        normalize(request.getHeader(&quot;User-Agent&quot;)),</span>
+<span class="fc" id="L115">                        false,</span>
+<span class="fc" id="L116">                        errorMessage,</span>
+<span class="fc" id="L117">                        Instant.now(),</span>
+                    )
+<span class="fc" id="L119">                authenticationLogRecorder.record(record)</span>
+<span class="nc" id="L120">            } catch (ex: Exception) {</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                if (logger.isWarnEnabled) {</span>
+<span class="nc" id="L122">                    logger.warn(&quot;Failed to record authentication log&quot;, ex)</span>
+                }
+            }
+<span class="fc" id="L125">        }</span>
+
+        /** 解析用户名参数名 */
+        private fun resolveUsernameParameterName(): String {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            if (oauth2Properties == null) {</span>
+<span class="fc" id="L130">                return &quot;username&quot;</span>
+            }
+<span class="fc" id="L132">            val configured = oauth2Properties.usernameParameterName</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">            return normalize(configured) ?: &quot;username&quot;</span>
+        }
+
+        /** 解析客户端 ID */
+        private fun resolveClientId(request: HttpServletRequest): String? {
+<span class="fc" id="L138">            val clientId = normalize(request.getParameter(&quot;client_id&quot;))</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            if (clientId != null) {</span>
+<span class="fc" id="L140">                return clientId</span>
+            }
+<span class="fc" id="L142">            val authorization = request.getHeader(&quot;Authorization&quot;)</span>
+<span class="pc bpc" id="L143" title="1 of 4 branches missed.">            if (authorization == null || !authorization.startsWith(&quot;Basic &quot;)) {</span>
+<span class="fc" id="L144">                return null</span>
+            }
+<span class="fc" id="L146">            val base64Credentials = authorization.substring(&quot;Basic &quot;.length).trim()</span>
+<span class="fc bfc" id="L147" title="All 4 branches covered.">            if (base64Credentials.isEmpty()) {</span>
+<span class="fc" id="L148">                return null</span>
+            }
+<span class="fc" id="L150">            try {</span>
+<span class="fc" id="L151">                val decoded = Base64.getDecoder().decode(base64Credentials)</span>
+<span class="fc" id="L152">                val credentials = String(decoded, StandardCharsets.UTF_8)</span>
+<span class="fc" id="L153">                val delimiterIndex = credentials.indexOf(':')</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                if (delimiterIndex &gt; 0) {</span>
+<span class="fc" id="L155">                    return normalize(credentials.substring(0, delimiterIndex))</span>
+                }
+<span class="fc" id="L157">            } catch (ex: IllegalArgumentException) {</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">                if (logger.isTraceEnabled) {</span>
+<span class="nc" id="L159">                    logger.trace(&quot;Failed to decode client credentials&quot;, ex)</span>
+                }
+            }
+<span class="fc" id="L162">            return null</span>
+        }
+
+        /** 解析客户端 IP */
+        private fun resolveClientIp(request: HttpServletRequest): String? {
+<span class="fc" id="L167">            val forwardedFor = request.getHeader(&quot;X-Forwarded-For&quot;)</span>
+<span class="pc bpc" id="L168" title="2 of 6 branches missed.">            if (forwardedFor != null &amp;&amp; forwardedFor.isNotBlank()) {</span>
+<span class="fc" id="L169">                return normalize(forwardedFor.substringBefore(','))</span>
+            }
+<span class="fc" id="L171">            val realIp = request.getHeader(&quot;X-Real-IP&quot;)</span>
+<span class="pc bpc" id="L172" title="2 of 6 branches missed.">            if (realIp != null &amp;&amp; realIp.isNotBlank()) {</span>
+<span class="fc" id="L173">                return normalize(realIp)</span>
+            }
+<span class="fc" id="L175">            return normalize(request.remoteAddr)</span>
+        }
+
+        /** 清理字符串值 */
+<span class="fc bfc" id="L179" title="All 8 branches covered.">        private fun normalize(value: String?): String? = value?.trim()?.takeIf { it.isNotEmpty() }</span>
+
+        /** 写入失败响应 */
+        private fun writeFailedResponse(
+            response: HttpServletResponse,
+            errorCode: String?,
+            errorDescription: String?,
+        ) {
+<span class="fc" id="L187">            val code = normalize(errorCode)</span>
+<span class="fc" id="L188">            val description = sanitizeDescription(errorDescription)</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">            if (description != null) {</span>
+<span class="fc" id="L190">                JsonResponseWriter.writeFailedResponse(</span>
+<span class="fc" id="L191">                    response,</span>
+<span class="fc" id="L192">                    jsonMapper,</span>
+<span class="fc" id="L193">                    HttpStatus.BAD_REQUEST,</span>
+<span class="fc" id="L194">                    DefaultErrorResultCode.BAD_REQUEST,</span>
+<span class="fc" id="L195">                    description,</span>
+                )
+<span class="fc" id="L197">                return</span>
+            }
+<span class="pc bpc" id="L199" title="1 of 4 branches missed.">            if (code == null || OAuth2ErrorCodes.INVALID_GRANT == code) {</span>
+<span class="fc" id="L200">                JsonResponseWriter.writeFailedResponse(</span>
+<span class="fc" id="L201">                    response,</span>
+<span class="fc" id="L202">                    jsonMapper,</span>
+<span class="fc" id="L203">                    HttpStatus.BAD_REQUEST,</span>
+<span class="fc" id="L204">                    DefaultErrorResultCode.BAD_REQUEST,</span>
+                )
+<span class="fc" id="L206">                return</span>
+            }
+<span class="fc" id="L208">            JsonResponseWriter.writeFailedResponse(</span>
+<span class="fc" id="L209">                response,</span>
+<span class="fc" id="L210">                jsonMapper,</span>
+<span class="fc" id="L211">                HttpStatus.BAD_REQUEST,</span>
+<span class="fc" id="L212">                DefaultErrorResultCode.BAD_REQUEST,</span>
+<span class="fc" id="L213">                code,</span>
+            )
+<span class="fc" id="L215">        }</span>
+
+        /** 清理错误描述 */
+        private fun sanitizeDescription(description: String?): String? {
+<span class="fc" id="L219">            val normalized = normalize(description)</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">            if (normalized == null) {</span>
+<span class="fc" id="L221">                return null</span>
+            }
+<span class="fc" id="L223">            val lower = normalized.lowercase(Locale.ROOT)</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">            if (OAuth2ErrorCodes.INVALID_GRANT == lower) {</span>
+<span class="fc" id="L225">                return null</span>
+            }
+<span class="fc" id="L227">            val prefix = &quot;[&quot; + OAuth2ErrorCodes.INVALID_GRANT + &quot;]&quot;</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">            if (lower.startsWith(prefix)) {</span>
+<span class="fc" id="L229">                val trimmed = normalize(normalized.substring(prefix.length))</span>
+<span class="fc" id="L230">                return trimmed</span>
+            }
+<span class="fc" id="L232">            val colonPrefix = OAuth2ErrorCodes.INVALID_GRANT + &quot;:&quot;</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">            if (lower.startsWith(colonPrefix)) {</span>
+<span class="fc" id="L234">                val trimmed = normalize(normalized.substring(colonPrefix.length))</span>
+<span class="fc" id="L235">                return trimmed</span>
+            }
+<span class="fc bfc" id="L237" title="All 2 branches covered.">            if (lower.startsWith(OAuth2ErrorCodes.INVALID_GRANT)) {</span>
+<span class="fc" id="L238">                val trimmed = normalize(normalized.substring(OAuth2ErrorCodes.INVALID_GRANT.length))</span>
+<span class="fc" id="L239">                return trimmed</span>
+            }
+<span class="fc" id="L241">            return normalized</span>
+        }
+
+<span class="fc" id="L244">        private data class ResolvedError(</span>
+            /** 状态码 */
+<span class="fc" id="L246">            val code: String?,</span>
+            /** 描述 */
+<span class="fc" id="L248">            val description: String?,</span>
+        )
+    }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

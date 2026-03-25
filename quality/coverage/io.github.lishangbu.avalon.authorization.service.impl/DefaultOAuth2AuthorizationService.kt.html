@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultOAuth2AuthorizationService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.service.impl</a> &gt; <span class="el_source">DefaultOAuth2AuthorizationService.kt</span></div><h1>DefaultOAuth2AuthorizationService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.service.impl
+
+import io.github.lishangbu.avalon.authorization.entity.OauthAuthorization
+import io.github.lishangbu.avalon.authorization.repository.Oauth2AuthorizationRepository
+import org.springframework.dao.DataRetrievalFailureException
+import org.springframework.security.jackson.SecurityJacksonModules
+import org.springframework.security.oauth2.core.*
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
+import org.springframework.security.oauth2.core.oidc.OidcIdToken
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames
+import org.springframework.security.oauth2.server.authorization.OAuth2Authorization
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import tools.jackson.core.type.TypeReference
+import tools.jackson.databind.json.JsonMapper
+import java.time.Instant
+
+/**
+ * OAuth2 授权服务实现
+ *
+ * 负责 OAuth2Authorization 的持久化、查询与删除
+ *
+ * @author lishangbu
+ * @since 2025/11/30
+ */
+<span class="fc" id="L31">@Service</span>
+<span class="fc" id="L32">class DefaultOAuth2AuthorizationService(</span>
+    /** OAuth2 授权仓储 */
+<span class="fc" id="L34">    private val oauth2AuthorizationRepository: Oauth2AuthorizationRepository,</span>
+    /** 注册客户端仓储 */
+<span class="fc" id="L36">    private val registeredClientRepository: RegisteredClientRepository,</span>
+) : OAuth2AuthorizationService {
+    /** 保存默认 OAuth2 授权 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun save(authorization: OAuth2Authorization) {
+<span class="fc" id="L41">        val entity = toEntity(authorization)</span>
+<span class="fc" id="L42">        oauth2AuthorizationRepository.save(entity)</span>
+<span class="fc" id="L43">    }</span>
+
+    /** 删除默认 OAuth2 授权 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun remove(authorization: OAuth2Authorization) {
+<span class="fc" id="L48">        oauth2AuthorizationRepository.deleteById(authorization.id)</span>
+<span class="fc" id="L49">    }</span>
+
+    /** 按 ID 查询默认 OAuth2 授权 */
+    override fun findById(id: String): OAuth2Authorization? {
+<span class="fc bfc" id="L53" title="All 4 branches covered.">        require(id.isNotBlank()) { &quot;id cannot be empty&quot; }</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        return oauth2AuthorizationRepository.findById(id)?.let(::toObject)</span>
+    }
+
+    /** 根据令牌查找默认 OAuth2 授权 */
+    override fun findByToken(
+        token: String,
+        tokenType: OAuth2TokenType?,
+    ): OAuth2Authorization? {
+<span class="pc bpc" id="L62" title="2 of 4 branches missed.">        require(token.isNotBlank()) { &quot;token cannot be empty&quot; }</span>
+
+<span class="fc" id="L64">        val result =</span>
+<span class="pc bpc" id="L65" title="1 of 11 branches missed.">            when (tokenType?.value) {</span>
+                null -&gt; {
+<span class="fc" id="L67">                    oauth2AuthorizationRepository</span>
+<span class="fc" id="L68">                        .findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue(</span>
+<span class="fc" id="L69">                            token,</span>
+                        )
+                }
+
+                OAuth2ParameterNames.STATE -&gt; {
+<span class="fc" id="L74">                    oauth2AuthorizationRepository.findByState(token)</span>
+                }
+
+                OAuth2ParameterNames.CODE -&gt; {
+<span class="fc" id="L78">                    oauth2AuthorizationRepository.findByAuthorizationCodeValue(token)</span>
+                }
+
+                OAuth2ParameterNames.ACCESS_TOKEN -&gt; {
+<span class="fc" id="L82">                    oauth2AuthorizationRepository.findByAccessTokenValue(token)</span>
+                }
+
+                OAuth2ParameterNames.REFRESH_TOKEN -&gt; {
+<span class="fc" id="L86">                    oauth2AuthorizationRepository.findByRefreshTokenValue(token)</span>
+                }
+
+                OidcParameterNames.ID_TOKEN -&gt; {
+<span class="fc" id="L90">                    oauth2AuthorizationRepository.findByOidcIdTokenValue(token)</span>
+                }
+
+                OAuth2ParameterNames.USER_CODE -&gt; {
+<span class="fc" id="L94">                    oauth2AuthorizationRepository.findByUserCodeValue(token)</span>
+                }
+
+                OAuth2ParameterNames.DEVICE_CODE -&gt; {
+<span class="fc" id="L98">                    oauth2AuthorizationRepository.findByDeviceCodeValue(token)</span>
+                }
+
+                else -&gt; {
+<span class="nc" id="L102">                    null</span>
+                }
+            }
+
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        return result?.let(::toObject)</span>
+    }
+
+    /** 返回转换为对象 */
+    private fun toObject(entity: OauthAuthorization): OAuth2Authorization {
+<span class="fc" id="L111">        val registeredClientId =</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            requireNotNull(entity.registeredClientId) { &quot;registeredClientId cannot be null&quot; }</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        val authorizationId = requireNotNull(entity.id) { &quot;id cannot be null&quot; }</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        val principalName = requireNotNull(entity.principalName) { &quot;principalName cannot be null&quot; }</span>
+<span class="fc" id="L115">        val authorizationGrantType =</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            requireNotNull(entity.authorizationGrantType) {</span>
+<span class="nc" id="L117">                &quot;authorizationGrantType cannot be null&quot;</span>
+            }
+
+<span class="fc" id="L120">        val registeredClient: RegisteredClient? =</span>
+<span class="fc" id="L121">            registeredClientRepository.findById(registeredClientId)</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (registeredClient == null) {</span>
+<span class="fc" id="L123">            throw DataRetrievalFailureException(</span>
+                &quot;The RegisteredClient with id '&quot; +
+<span class="fc" id="L125">                    registeredClientId +</span>
+                    &quot;' was not found in the Oauth2RegisteredClientRepository.&quot;,
+            )
+        }
+
+<span class="fc" id="L130">        val builder =</span>
+            OAuth2Authorization
+<span class="fc" id="L132">                .withRegisteredClient(registeredClient)</span>
+<span class="fc" id="L133">                .id(authorizationId)</span>
+<span class="fc" id="L134">                .principalName(principalName)</span>
+<span class="fc" id="L135">                .authorizationGrantType(resolveAuthorizationGrantType(authorizationGrantType))</span>
+<span class="fc" id="L136">                .authorizedScopes(entity.authorizedScopes.toCommaDelimitedSet())</span>
+
+<span class="fc" id="L138">        val attributes = readAttributes(entity.attributes)</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (attributes != null) {</span>
+<span class="fc" id="L140">            builder.attributes { attributesHolder -&gt; attributesHolder.putAll(attributes) }</span>
+        }
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        if (entity.state != null) {</span>
+<span class="fc" id="L143">            builder.attribute(OAuth2ParameterNames.STATE, entity.state)</span>
+        }
+
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        if (entity.authorizationCodeValue != null) {</span>
+<span class="fc" id="L147">            val authorizationCode =</span>
+<span class="fc" id="L148">                OAuth2AuthorizationCode(</span>
+<span class="fc" id="L149">                    entity.authorizationCodeValue,</span>
+<span class="fc" id="L150">                    entity.authorizationCodeIssuedAt,</span>
+<span class="fc" id="L151">                    entity.authorizationCodeExpiresAt,</span>
+                )
+<span class="fc" id="L153">            val authorizationCodeMetadata = readAttributes(entity.authorizationCodeMetadata)</span>
+<span class="fc" id="L154">            builder.token(authorizationCode) { metadata -&gt;</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">                if (authorizationCodeMetadata != null) {</span>
+<span class="fc" id="L156">                    metadata.putAll(authorizationCodeMetadata)</span>
+                }
+<span class="fc" id="L158">            }</span>
+        }
+
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (entity.accessTokenValue != null) {</span>
+<span class="fc" id="L162">            val accessToken =</span>
+<span class="fc" id="L163">                OAuth2AccessToken(</span>
+<span class="fc" id="L164">                    OAuth2AccessToken.TokenType.BEARER,</span>
+<span class="fc" id="L165">                    entity.accessTokenValue,</span>
+<span class="fc" id="L166">                    entity.accessTokenIssuedAt,</span>
+<span class="fc" id="L167">                    entity.accessTokenExpiresAt,</span>
+<span class="fc" id="L168">                    entity.accessTokenScopes.toCommaDelimitedSet(),</span>
+                )
+<span class="fc" id="L170">            val accessTokenMetadata = readAttributes(entity.accessTokenMetadata)</span>
+<span class="fc" id="L171">            builder.token(accessToken) { metadata -&gt;</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                if (accessTokenMetadata != null) {</span>
+<span class="fc" id="L173">                    metadata.putAll(accessTokenMetadata)</span>
+                }
+<span class="fc" id="L175">            }</span>
+        }
+
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        if (entity.refreshTokenValue != null) {</span>
+<span class="fc" id="L179">            val refreshToken =</span>
+<span class="fc" id="L180">                OAuth2RefreshToken(</span>
+<span class="fc" id="L181">                    entity.refreshTokenValue,</span>
+<span class="fc" id="L182">                    entity.refreshTokenIssuedAt,</span>
+<span class="fc" id="L183">                    entity.refreshTokenExpiresAt,</span>
+                )
+<span class="fc" id="L185">            val refreshTokenMetadata = readAttributes(entity.refreshTokenMetadata)</span>
+<span class="fc" id="L186">            builder.token(refreshToken) { metadata -&gt;</span>
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">                if (refreshTokenMetadata != null) {</span>
+<span class="fc" id="L188">                    metadata.putAll(refreshTokenMetadata)</span>
+                }
+<span class="fc" id="L190">            }</span>
+        }
+
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (entity.oidcIdTokenValue != null) {</span>
+<span class="fc" id="L194">            val oidcIdTokenMetadata = readAttributes(entity.oidcIdTokenMetadata)</span>
+<span class="fc" id="L195">            val idToken =</span>
+<span class="fc" id="L196">                OidcIdToken(</span>
+<span class="fc" id="L197">                    entity.oidcIdTokenValue,</span>
+<span class="fc" id="L198">                    entity.oidcIdTokenIssuedAt,</span>
+<span class="fc" id="L199">                    entity.oidcIdTokenExpiresAt,</span>
+<span class="fc" id="L200">                    extractOidcIdTokenClaims(oidcIdTokenMetadata),</span>
+                )
+<span class="fc" id="L202">            builder.token(idToken) { metadata -&gt;</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">                if (oidcIdTokenMetadata != null) {</span>
+<span class="fc" id="L204">                    metadata.putAll(oidcIdTokenMetadata)</span>
+                }
+<span class="fc" id="L206">            }</span>
+        }
+
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">        if (entity.userCodeValue != null) {</span>
+<span class="fc" id="L210">            val userCode =</span>
+<span class="fc" id="L211">                OAuth2UserCode(</span>
+<span class="fc" id="L212">                    entity.userCodeValue,</span>
+<span class="fc" id="L213">                    entity.userCodeIssuedAt,</span>
+<span class="fc" id="L214">                    entity.userCodeExpiresAt,</span>
+                )
+<span class="fc" id="L216">            val userCodeMetadata = readAttributes(entity.userCodeMetadata)</span>
+<span class="fc" id="L217">            builder.token(userCode) { metadata -&gt;</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">                if (userCodeMetadata != null) {</span>
+<span class="fc" id="L219">                    metadata.putAll(userCodeMetadata)</span>
+                }
+<span class="fc" id="L221">            }</span>
+        }
+
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if (entity.deviceCodeValue != null) {</span>
+<span class="fc" id="L225">            val deviceCode =</span>
+<span class="fc" id="L226">                OAuth2DeviceCode(</span>
+<span class="fc" id="L227">                    entity.deviceCodeValue,</span>
+<span class="fc" id="L228">                    entity.deviceCodeIssuedAt,</span>
+<span class="fc" id="L229">                    entity.deviceCodeExpiresAt,</span>
+                )
+<span class="fc" id="L231">            val deviceCodeMetadata = readAttributes(entity.deviceCodeMetadata)</span>
+<span class="fc" id="L232">            builder.token(deviceCode) { metadata -&gt;</span>
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">                if (deviceCodeMetadata != null) {</span>
+<span class="fc" id="L234">                    metadata.putAll(deviceCodeMetadata)</span>
+                }
+<span class="fc" id="L236">            }</span>
+        }
+
+<span class="fc" id="L239">        return builder.build()</span>
+    }
+
+    /** 返回转换为实体 */
+    private fun toEntity(authorization: OAuth2Authorization): OauthAuthorization {
+<span class="fc" id="L244">        val authorizationCodeSnapshot =</span>
+<span class="fc" id="L245">            toTokenSnapshot(authorization.getToken(OAuth2AuthorizationCode::class.java))</span>
+<span class="fc" id="L246">        val accessToken =</span>
+<span class="fc" id="L247">            authorization.getToken(OAuth2AccessToken::class.java)</span>
+<span class="fc" id="L248">        val accessTokenSnapshot = toTokenSnapshot(accessToken)</span>
+<span class="fc" id="L249">        val refreshTokenSnapshot =</span>
+<span class="fc" id="L250">            toTokenSnapshot(authorization.getToken(OAuth2RefreshToken::class.java))</span>
+<span class="fc" id="L251">        val oidcIdTokenSnapshot =</span>
+<span class="fc" id="L252">            toTokenSnapshot(authorization.getToken(OidcIdToken::class.java))</span>
+<span class="fc" id="L253">        val userCodeSnapshot =</span>
+<span class="fc" id="L254">            toTokenSnapshot(authorization.getToken(OAuth2UserCode::class.java))</span>
+<span class="fc" id="L255">        val deviceCodeSnapshot =</span>
+<span class="fc" id="L256">            toTokenSnapshot(authorization.getToken(OAuth2DeviceCode::class.java))</span>
+
+<span class="fc" id="L258">        return OauthAuthorization {</span>
+<span class="fc" id="L259">            id = authorization.id</span>
+<span class="fc" id="L260">            registeredClientId = authorization.registeredClientId</span>
+<span class="fc" id="L261">            principalName = authorization.principalName</span>
+<span class="fc" id="L262">            authorizationGrantType = authorization.authorizationGrantType.value</span>
+<span class="fc" id="L263">            authorizedScopes = authorization.authorizedScopes.joinToCommaDelimitedString()</span>
+<span class="fc" id="L264">            attributes = writeAttributes(authorization.attributes)</span>
+<span class="fc" id="L265">            state = authorization.getAttribute(OAuth2ParameterNames.STATE)</span>
+
+<span class="fc" id="L267">            authorizationCodeValue = authorizationCodeSnapshot.value</span>
+<span class="fc" id="L268">            authorizationCodeIssuedAt = authorizationCodeSnapshot.issuedAt</span>
+<span class="fc" id="L269">            authorizationCodeExpiresAt = authorizationCodeSnapshot.expiresAt</span>
+<span class="fc" id="L270">            authorizationCodeMetadata = writeAttributes(authorizationCodeSnapshot.metadata)</span>
+
+<span class="fc" id="L272">            accessTokenValue = accessTokenSnapshot.value</span>
+<span class="fc" id="L273">            accessTokenIssuedAt = accessTokenSnapshot.issuedAt</span>
+<span class="fc" id="L274">            accessTokenExpiresAt = accessTokenSnapshot.expiresAt</span>
+<span class="fc" id="L275">            accessTokenMetadata = writeAttributes(accessTokenSnapshot.metadata)</span>
+<span class="pc bpc" id="L276" title="3 of 6 branches missed.">            accessTokenScopes = accessToken?.token?.scopes?.joinToCommaDelimitedString()</span>
+<span class="pc bpc" id="L277" title="3 of 6 branches missed.">            accessTokenType = accessToken?.token?.tokenType?.value</span>
+
+<span class="fc" id="L279">            refreshTokenValue = refreshTokenSnapshot.value</span>
+<span class="fc" id="L280">            refreshTokenIssuedAt = refreshTokenSnapshot.issuedAt</span>
+<span class="fc" id="L281">            refreshTokenExpiresAt = refreshTokenSnapshot.expiresAt</span>
+<span class="fc" id="L282">            refreshTokenMetadata = writeAttributes(refreshTokenSnapshot.metadata)</span>
+
+<span class="fc" id="L284">            oidcIdTokenValue = oidcIdTokenSnapshot.value</span>
+<span class="fc" id="L285">            oidcIdTokenIssuedAt = oidcIdTokenSnapshot.issuedAt</span>
+<span class="fc" id="L286">            oidcIdTokenExpiresAt = oidcIdTokenSnapshot.expiresAt</span>
+<span class="fc" id="L287">            oidcIdTokenMetadata = writeAttributes(oidcIdTokenSnapshot.metadata)</span>
+
+<span class="fc" id="L289">            userCodeValue = userCodeSnapshot.value</span>
+<span class="fc" id="L290">            userCodeIssuedAt = userCodeSnapshot.issuedAt</span>
+<span class="fc" id="L291">            userCodeExpiresAt = userCodeSnapshot.expiresAt</span>
+<span class="fc" id="L292">            userCodeMetadata = writeAttributes(userCodeSnapshot.metadata)</span>
+
+<span class="fc" id="L294">            deviceCodeValue = deviceCodeSnapshot.value</span>
+<span class="fc" id="L295">            deviceCodeIssuedAt = deviceCodeSnapshot.issuedAt</span>
+<span class="fc" id="L296">            deviceCodeExpiresAt = deviceCodeSnapshot.expiresAt</span>
+<span class="fc" id="L297">            deviceCodeMetadata = writeAttributes(deviceCodeSnapshot.metadata)</span>
+<span class="fc" id="L298">        }</span>
+    }
+
+    /** 返回转为令牌快照 */
+    private fun toTokenSnapshot(token: OAuth2Authorization.Token&lt;*&gt;?): TokenSnapshot {
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">        if (token == null) {</span>
+<span class="nc" id="L304">            return TokenSnapshot()</span>
+        }
+<span class="fc" id="L306">        val oAuth2Token: OAuth2Token = token.token</span>
+<span class="fc" id="L307">        return TokenSnapshot(</span>
+<span class="fc" id="L308">            value = oAuth2Token.tokenValue,</span>
+<span class="fc" id="L309">            issuedAt = oAuth2Token.issuedAt,</span>
+<span class="fc" id="L310">            expiresAt = oAuth2Token.expiresAt,</span>
+<span class="fc" id="L311">            metadata = token.metadata,</span>
+        )
+    }
+
+    /** 读取属性映射 */
+    private fun readAttributes(json: String?): Map&lt;String, Any&gt;? {
+<span class="pc bpc" id="L317" title="3 of 6 branches missed.">        if (json.isNullOrBlank()) {</span>
+<span class="nc" id="L318">            return null</span>
+        }
+<span class="fc" id="L320">        return mapper.readValue(json, object : TypeReference&lt;Map&lt;String, Any&gt;&gt;() {})</span>
+    }
+
+    /** 写入属性映射 */
+    private fun writeAttributes(attributes: Map&lt;String, Any&gt;?): String? {
+<span class="pc bpc" id="L325" title="3 of 6 branches missed.">        if (attributes.isNullOrEmpty()) {</span>
+<span class="nc" id="L326">            return null</span>
+        }
+<span class="fc" id="L328">        return mapper.writeValueAsString(attributes)</span>
+    }
+
+    /** 提取 OIDC ID Token claims */
+    private fun extractOidcIdTokenClaims(metadata: Map&lt;String, Any&gt;?): Map&lt;String, Any&gt; {
+<span class="pc bpc" id="L333" title="3 of 6 branches missed.">        if (metadata.isNullOrEmpty()) {</span>
+<span class="nc" id="L334">            return emptyMap()</span>
+        }
+<span class="fc" id="L336">        val claims = metadata[OAuth2Authorization.Token.CLAIMS_METADATA_NAME]</span>
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        if (claims is Map&lt;*, *&gt;) {</span>
+<span class="fc" id="L338">            return claims.entries</span>
+<span class="fc" id="L339">                .filter { it.key is String }</span>
+<span class="fc" id="L340">                .associate { it.key as String to it.value as Any }</span>
+        }
+<span class="nc" id="L342">        return metadata</span>
+    }
+
+<span class="pc" id="L345">    private data class TokenSnapshot(</span>
+        /** 值 */
+<span class="pc" id="L347">        val value: String? = null,</span>
+        /** 签发时间 */
+<span class="pc" id="L349">        val issuedAt: Instant? = null,</span>
+        /** 过期时间 */
+<span class="pc" id="L351">        val expiresAt: Instant? = null,</span>
+        /** 元数据 */
+<span class="pc" id="L353">        val metadata: Map&lt;String, Any&gt;? = null,</span>
+<span class="nc" id="L354">    )</span>
+
+    companion object {
+        /** 映射器 */
+        private val mapper: JsonMapper =
+            JsonMapper
+<span class="fc" id="L360">                .builder()</span>
+<span class="fc" id="L361">                .addModules(SecurityJacksonModules.getModules(DefaultOAuth2AuthorizationService::class.java.classLoader))</span>
+<span class="fc" id="L362">                .build()</span>
+
+        /** 解析授权类型 */
+        private fun resolveAuthorizationGrantType(
+            authorizationGrantType: String,
+        ): AuthorizationGrantType =
+<span class="fc" id="L368">            when (authorizationGrantType) {</span>
+<span class="pc bpc" id="L369" title="1 of 2 branches missed.">                AuthorizationGrantType.AUTHORIZATION_CODE.value -&gt; {</span>
+<span class="nc" id="L370">                    AuthorizationGrantType.AUTHORIZATION_CODE</span>
+                }
+
+<span class="pc bpc" id="L373" title="1 of 2 branches missed.">                AuthorizationGrantType.CLIENT_CREDENTIALS.value -&gt; {</span>
+<span class="nc" id="L374">                    AuthorizationGrantType.CLIENT_CREDENTIALS</span>
+                }
+
+<span class="pc bpc" id="L377" title="1 of 2 branches missed.">                AuthorizationGrantType.REFRESH_TOKEN.value -&gt; {</span>
+<span class="nc" id="L378">                    AuthorizationGrantType.REFRESH_TOKEN</span>
+                }
+
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">                AuthorizationGrantType.DEVICE_CODE.value -&gt; {</span>
+<span class="nc" id="L382">                    AuthorizationGrantType.DEVICE_CODE</span>
+                }
+
+                else -&gt; {
+<span class="fc" id="L386">                    AuthorizationGrantType(authorizationGrantType)</span>
+                }
+<span class="fc" id="L388">            }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

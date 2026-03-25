@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2EmailAuthenticationConverter.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">org.springframework.security.oauth2.server.authorization.web.authentication</a> &gt; <span class="el_source">OAuth2EmailAuthenticationConverter.kt</span></div><h1>OAuth2EmailAuthenticationConverter.kt</h1><pre class="source lang-java linenums">package org.springframework.security.oauth2.server.authorization.web.authentication
+
+import io.github.lishangbu.avalon.oauth2.authorizationserver.util.OAuth2EndpointUtils
+import io.github.lishangbu.avalon.oauth2.common.core.AuthorizationGrantTypeSupport
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2EmailAuthorizationGrantAuthenticationToken
+import org.springframework.security.web.authentication.AuthenticationConverter
+
+/**
+ * OAuth2 邮箱授权请求转换器
+ *
+ * 将邮箱验证码授权请求转换为认证令牌
+ */
+private const val EMAIL_REQUEST_ERROR_URI =
+    &quot;https://datatracker.ietf.org/doc/html/rfc6749#section-4.5&quot;
+
+<span class="fc" id="L23">class OAuth2EmailAuthenticationConverter(</span>
+    /** OAuth2 属性 */
+<span class="fc" id="L25">    private val oauth2Properties: Oauth2Properties,</span>
+) : AuthenticationConverter {
+    /** 将请求转换为认证令牌 */
+    override fun convert(request: HttpServletRequest): Authentication? {
+<span class="fc" id="L29">        val parameters = OAuth2EndpointUtils.getFormParameters(request)</span>
+<span class="fc" id="L30">        val grantType = parameters.getFirst(OAuth2ParameterNames.GRANT_TYPE)</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (AuthorizationGrantTypeSupport.EMAIL.value != grantType) {</span>
+<span class="fc" id="L32">            return null</span>
+        }
+
+<span class="fc" id="L35">        val clientPrincipal = SecurityContextHolder.getContext().authentication</span>
+
+<span class="fc" id="L37">        val emailParameterName = oauth2Properties.emailParameterName</span>
+<span class="fc" id="L38">        val email = parameters.requireSingleTextParameter(emailParameterName, EMAIL_REQUEST_ERROR_URI)</span>
+
+<span class="fc" id="L40">        val emailCodeParameterName = oauth2Properties.emailCodeParameterName</span>
+<span class="fc" id="L41">        val emailCode =</span>
+<span class="fc" id="L42">            parameters.requireSingleTextParameter(emailCodeParameterName, EMAIL_REQUEST_ERROR_URI)</span>
+<span class="fc" id="L43">        val requestedScopes = parameters.readRequestedScopes(EMAIL_REQUEST_ERROR_URI)</span>
+<span class="fc" id="L44">        val additionalParameters = LinkedHashMap&lt;String, Any&gt;()</span>
+<span class="fc" id="L45">        parameters.forEach { key, value -&gt;</span>
+            if (
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                key != OAuth2ParameterNames.GRANT_TYPE &amp;&amp;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">                key != OAuth2ParameterNames.SCOPE &amp;&amp;</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">                key != OAuth2ParameterNames.CLIENT_ID &amp;&amp;</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">                key != OAuth2ParameterNames.CLIENT_SECRET &amp;&amp;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                key != emailParameterName &amp;&amp;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                key != emailCodeParameterName</span>
+            ) {
+<span class="fc" id="L54">                additionalParameters[key] =</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                    if (value.size == 1) {</span>
+<span class="fc" id="L56">                        value.first()</span>
+                    } else {
+<span class="fc" id="L58">                        value.toTypedArray()</span>
+                    }
+            }
+<span class="fc" id="L61">        }</span>
+
+<span class="fc" id="L63">        val authenticatedClient =</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">            clientPrincipal ?: throw OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_CLIENT)</span>
+
+<span class="fc" id="L66">        return OAuth2EmailAuthorizationGrantAuthenticationToken(</span>
+<span class="fc" id="L67">            email,</span>
+<span class="fc" id="L68">            emailCode,</span>
+<span class="fc" id="L69">            authenticatedClient,</span>
+<span class="fc" id="L70">            requestedScopes,</span>
+<span class="fc" id="L71">            additionalParameters,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

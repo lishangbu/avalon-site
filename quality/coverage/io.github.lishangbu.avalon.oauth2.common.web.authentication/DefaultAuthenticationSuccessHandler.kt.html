@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultAuthenticationSuccessHandler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.common.web.authentication</a> &gt; <span class="el_source">DefaultAuthenticationSuccessHandler.kt</span></div><h1>DefaultAuthenticationSuccessHandler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.common.web.authentication
+
+import io.github.lishangbu.avalon.web.util.JsonResponseWriter
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.core.Authentication
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import tools.jackson.databind.json.JsonMapper
+
+/**
+ * 认证成功响应处理器
+ *
+ * 在认证成功后写回统一的 JSON 成功结果
+ */
+<span class="fc" id="L15">class DefaultAuthenticationSuccessHandler(</span>
+    jsonMapper: JsonMapper,
+) : AuthenticationSuccessHandler {
+    /** JSON 映射器 */
+<span class="fc" id="L19">    private val jsonMapper = jsonMapper</span>
+
+    /** 将认证成功结果写入响应体 */
+    override fun onAuthenticationSuccess(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication,
+    ) {
+<span class="fc" id="L27">        JsonResponseWriter.writeSuccessResponse(response, jsonMapper)</span>
+<span class="fc" id="L28">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

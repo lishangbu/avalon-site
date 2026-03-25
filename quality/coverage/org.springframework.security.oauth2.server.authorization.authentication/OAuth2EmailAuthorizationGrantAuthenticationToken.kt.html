@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2EmailAuthorizationGrantAuthenticationToken.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">org.springframework.security.oauth2.server.authorization.authentication</a> &gt; <span class="el_source">OAuth2EmailAuthorizationGrantAuthenticationToken.kt</span></div><h1>OAuth2EmailAuthorizationGrantAuthenticationToken.kt</h1><pre class="source lang-java linenums">package org.springframework.security.oauth2.server.authorization.authentication
+
+import io.github.lishangbu.avalon.oauth2.common.core.AuthorizationGrantTypeSupport
+import org.springframework.security.core.Authentication
+
+/**
+ * OAuth2 邮箱授权认证令牌
+ *
+ * 封装邮箱验证码授权请求中的邮箱、验证码和附加参数
+ */
+<span class="fc" id="L11">class OAuth2EmailAuthorizationGrantAuthenticationToken(</span>
+    /** 邮箱 */
+<span class="fc" id="L13">    val email: String,</span>
+    /** 邮箱验证码 */
+<span class="fc" id="L15">    val emailCode: String,</span>
+    clientPrincipal: Authentication,
+    scopes: Set&lt;String&gt;?,
+    additionalParameters: Map&lt;String, Any&gt;,
+) : OAuth2AuthorizationGrantAuthenticationToken(
+<span class="fc" id="L20">        AuthorizationGrantTypeSupport.EMAIL,</span>
+<span class="fc" id="L21">        clientPrincipal,</span>
+<span class="fc" id="L22">        additionalParameters,</span>
+    ) {
+    /** 授权范围 */
+<span class="fc bfc" id="L25" title="All 2 branches covered.">    val scopes: Set&lt;String&gt; = java.util.Set.copyOf(scopes.orEmpty())</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

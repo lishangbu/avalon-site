@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuRepositoryImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">MenuRepositoryImpl.kt</span></div><h1>MenuRepositoryImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
+
+import io.github.lishangbu.avalon.authorization.entity.*
+import io.github.lishangbu.avalon.authorization.entity.dto.MenuSpecification
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Repository
+
+<span class="fc" id="L12">@Repository</span>
+<span class="fc" id="L13">class MenuRepositoryImpl(</span>
+    /** Jimmer SQL 客户端 */
+<span class="fc" id="L15">    private val sql: KSqlClient,</span>
+) : MenuRepository {
+    /** 按条件查询菜单列表 */
+    override fun findAll(specification: MenuSpecification?): List&lt;Menu&gt; =
+<span class="nc" id="L19">        sql</span>
+<span class="nc" id="L20">            .createQuery(Menu::class) {</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L22">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="nc" id="L23">            }.execute()</span>
+
+    /** 按条件排序查询菜单列表 */
+    override fun findAll(
+        specification: MenuSpecification?,
+        sort: Sort,
+    ): List&lt;Menu&gt; =
+<span class="nc" id="L30">        sql</span>
+<span class="nc" id="L31">            .createQuery(Menu::class) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L33">                orderBy(sort)</span>
+<span class="nc" id="L34">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="nc" id="L35">            }.execute()</span>
+
+    /** 按 ID 查询菜单 */
+    override fun findById(id: Long): Menu? =
+<span class="fc" id="L39">        sql</span>
+<span class="fc" id="L40">            .createQuery(Menu::class) {</span>
+<span class="fc" id="L41">                where(table.id eq id)</span>
+<span class="fc" id="L42">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="fc" id="L43">            }.execute()</span>
+<span class="fc" id="L44">            .firstOrNull()</span>
+
+    /** 按 ID 列表查询菜单 */
+<span class="nc" id="L47">    override fun findAllById(ids: Iterable&lt;Long&gt;): List&lt;Menu&gt; = ids.mapNotNull(::findById)</span>
+
+    /** 保存菜单 */
+    override fun save(menu: Menu): Menu =
+<span class="fc" id="L51">        sql</span>
+<span class="fc" id="L52">            .save(menu) {</span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">                val mode = menu.readId()?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L54">                setMode(mode)</span>
+<span class="fc" id="L55">            }.modifiedEntity</span>
+
+    /** 保存菜单并立即刷新 */
+<span class="nc" id="L58">    override fun saveAndFlush(menu: Menu): Menu = save(menu)</span>
+
+    /** 按 ID 删除菜单 */
+    override fun deleteById(id: Long) {
+<span class="fc" id="L62">        sql</span>
+<span class="fc" id="L63">            .createDelete(Menu::class) {</span>
+<span class="fc" id="L64">                where(table.id eq id)</span>
+<span class="fc" id="L65">                disableDissociation()</span>
+<span class="fc" id="L66">            }.execute()</span>
+<span class="fc" id="L67">    }</span>
+
+    /** 刷新持久化上下文 */
+<span class="nc" id="L70">    override fun flush() = Unit</span>
+
+    /** 按排序顺序和 ID 升序查询菜单列表 */
+    override fun findAllByOrderBySortingOrderAscIdAsc(): List&lt;Menu&gt; =
+<span class="nc" id="L74">        sql</span>
+<span class="nc" id="L75">            .createQuery(Menu::class) {</span>
+<span class="nc" id="L76">                orderBy(Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;)))</span>
+<span class="nc" id="L77">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="nc" id="L78">            }.execute()</span>
+
+    /** 按角色编码列表查询菜单 */
+    override fun findAllByRoleCodes(roleCodes: List&lt;String&gt;): List&lt;Menu&gt; {
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (roleCodes.isEmpty()) {</span>
+<span class="nc" id="L83">            return emptyList()</span>
+        }
+<span class="fc" id="L85">        val menus =</span>
+<span class="fc" id="L86">            roleCodes.flatMap { roleCode -&gt;</span>
+<span class="fc" id="L87">                sql</span>
+<span class="fc" id="L88">                    .createQuery(Role::class) {</span>
+<span class="fc" id="L89">                        where(table.code eq roleCode)</span>
+<span class="fc" id="L90">                        select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="fc" id="L91">                    }.execute()</span>
+<span class="fc" id="L92">                    .flatMap { it.menus }</span>
+            }
+<span class="fc" id="L94">        return menus</span>
+<span class="fc" id="L95">            .distinctBy { it.id }</span>
+<span class="fc" id="L96">            .sortedWith(</span>
+<span class="fc" id="L97">                compareByDescending&lt;Menu&gt; { it.sortingOrder ?: Int.MIN_VALUE }</span>
+<span class="fc" id="L98">                    .thenByDescending { it.id },</span>
+            )
+    }
+
+    /** 安全读取主键 */
+<span class="fc" id="L103">    private fun Menu?.readId(): Long? = readOrNull { id }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

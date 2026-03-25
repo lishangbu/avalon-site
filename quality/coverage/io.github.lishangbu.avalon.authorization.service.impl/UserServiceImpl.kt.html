@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.service.impl</a> &gt; <span class="el_source">UserServiceImpl.kt</span></div><h1>UserServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.service.impl
+
+import io.github.lishangbu.avalon.authorization.entity.User
+import io.github.lishangbu.avalon.authorization.entity.addBy
+import io.github.lishangbu.avalon.authorization.entity.dto.UserSpecification
+import io.github.lishangbu.avalon.authorization.model.UserWithRoles
+import io.github.lishangbu.avalon.authorization.repository.RoleRepository
+import io.github.lishangbu.avalon.authorization.repository.UserRepository
+import io.github.lishangbu.avalon.authorization.repository.readOrNull
+import io.github.lishangbu.avalon.authorization.service.UserService
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/**
+ * 用户服务实现
+ *
+ * @author lishangbu
+ * @since 2025/8/30
+ */
+<span class="fc" id="L22">@Service</span>
+<span class="fc" id="L23">class UserServiceImpl(</span>
+    /** 用户仓储 */
+<span class="fc" id="L25">    private val userRepository: UserRepository,</span>
+    /** 角色仓储 */
+<span class="fc" id="L27">    private val roleRepository: RoleRepository,</span>
+) : UserService {
+    /**
+     * 根据用户名/手机号/邮箱查询用户详情，包含基本信息、角色信息及个人资料
+     *
+     * @param username 登录账号
+     * @return 查询到的用户详情，未找到时返回 null
+     */
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">    override fun getUserByUsername(username: String): UserWithRoles? = userRepository.findByAccountWithRoles(username)?.let(::UserWithRoles)</span>
+
+    /** 按条件分页查询用户 */
+    override fun getPageByCondition(
+        specification: UserSpecification,
+        pageable: Pageable,
+<span class="fc" id="L41">    ): Page&lt;User&gt; = userRepository.findAllWithRoles(specification, pageable)</span>
+
+    /** 按条件查询用户列表 */
+<span class="fc" id="L44">    override fun listByCondition(specification: UserSpecification): List&lt;User&gt; = userRepository.findAllWithRoles(specification)</span>
+
+    /** 按 ID 查询用户 */
+<span class="fc" id="L47">    override fun getById(id: Long): User? = userRepository.findByIdWithRoles(id)</span>
+
+    /** 保存用户 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun save(user: User): User {
+<span class="fc" id="L52">        val prepared = bindRoles(user, false)</span>
+<span class="fc" id="L53">        return userRepository.save(prepared)</span>
+    }
+
+    /** 更新用户 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun update(user: User): User {
+<span class="fc" id="L59">        val prepared = bindRoles(user, true)</span>
+<span class="fc" id="L60">        return userRepository.save(prepared)</span>
+    }
+
+    /** 按 ID 删除用户 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L66">        userRepository.deleteById(id)</span>
+<span class="fc" id="L67">    }</span>
+
+    /** 绑定并补全角色信息 */
+    private fun bindRoles(
+        user: User,
+        preserveWhenNull: Boolean,
+    ): User {
+<span class="fc" id="L74">        val existing =</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">                user.readOrNull { id }?.let(userRepository::findByIdWithRoles)</span>
+            } else {
+<span class="fc" id="L78">                null</span>
+            }
+
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        val currentRoles = user.readOrNull { roles } ?: emptyList()</span>
+<span class="fc" id="L82">        val roleIds = currentRoles.mapNotNull { it.readOrNull { id } }.toCollection(LinkedHashSet())</span>
+<span class="fc" id="L83">        val boundRoles =</span>
+<span class="fc" id="L84">            when {</span>
+<span class="fc bfc" id="L85" title="All 4 branches covered.">                roleIds.isNotEmpty() -&gt; roleRepository.findAllById(roleIds)</span>
+<span class="pc bpc" id="L86" title="3 of 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { roles } ?: emptyList()</span>
+<span class="nc" id="L87">                else -&gt; emptyList()</span>
+            }
+
+<span class="fc" id="L90">        val hashedPassword =</span>
+<span class="pc bpc" id="L91" title="1 of 4 branches missed.">            user.readOrNull { hashedPassword } ?: existing?.readOrNull { hashedPassword }</span>
+
+<span class="fc" id="L93">        return User {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            user.readOrNull { id }?.let { id = it }</span>
+<span class="pc bpc" id="L95" title="1 of 4 branches missed.">            username = user.readOrNull { username } ?: existing?.readOrNull { username }</span>
+<span class="pc bpc" id="L96" title="1 of 4 branches missed.">            phone = user.readOrNull { phone } ?: existing?.readOrNull { phone }</span>
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">            email = user.readOrNull { email } ?: existing?.readOrNull { email }</span>
+<span class="pc bpc" id="L98" title="1 of 4 branches missed.">            avatar = user.readOrNull { avatar } ?: existing?.readOrNull { avatar }</span>
+<span class="fc" id="L99">            this.hashedPassword = hashedPassword</span>
+<span class="fc" id="L100">            boundRoles.forEach { boundRole -&gt; roles().addBy(boundRole) }</span>
+<span class="fc" id="L101">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

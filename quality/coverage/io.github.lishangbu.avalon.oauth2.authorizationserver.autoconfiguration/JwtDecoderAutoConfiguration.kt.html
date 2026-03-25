@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtDecoderAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a> &gt; <span class="el_source">JwtDecoderAutoConfiguration.kt</span></div><h1>JwtDecoderAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration
+
+import com.nimbusds.jose.jwk.source.JWKSource
+import com.nimbusds.jose.proc.SecurityContext
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.context.annotation.Bean
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
+import org.springframework.security.oauth2.jwt.JwtDecoder
+
+/**
+ * JWT 解码器自动配置
+ *
+ * 基于 [JWKSource] 创建默认的 [JwtDecoder]
+ */
+<span class="fc" id="L16">@AutoConfiguration</span>
+class JwtDecoderAutoConfiguration {
+    /** 创建 JWT 解码器 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L21">    fun jwtDecoder(jwkSource: JWKSource&lt;SecurityContext&gt;): JwtDecoder = OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

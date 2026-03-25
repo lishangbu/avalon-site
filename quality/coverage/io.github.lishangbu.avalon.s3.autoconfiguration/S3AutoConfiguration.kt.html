@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>S3AutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.autoconfiguration</a> &gt; <span class="el_source">S3AutoConfiguration.kt</span></div><h1>S3AutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.autoconfiguration
+
+import io.github.lishangbu.avalon.s3.properties.S3Properties
+import io.github.lishangbu.avalon.s3.template.S3Template
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+/**
+ * S3 自动配置
+ *
+ * 在启用 S3 配置时提供默认的 [S3Template]
+ */
+<span class="fc" id="L17">@AutoConfiguration</span>
+@Configuration(proxyBeanMethods = false)
+@EnableConfigurationProperties(S3Properties::class)
+class S3AutoConfiguration {
+    /** 创建 S3 操作模板 */
+    @Bean
+    @ConditionalOnMissingBean(S3Template::class)
+    @ConditionalOnProperty(
+        prefix = S3Properties.PREFIX,
+        name = [&quot;enabled&quot;],
+        havingValue = &quot;true&quot;,
+        matchIfMissing = true,
+    )
+<span class="fc" id="L30">    fun s3Template(properties: S3Properties): S3Template = S3Template(properties)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

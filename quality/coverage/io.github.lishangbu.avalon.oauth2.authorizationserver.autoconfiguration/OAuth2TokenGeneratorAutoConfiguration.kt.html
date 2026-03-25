@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2TokenGeneratorAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a> &gt; <span class="el_source">OAuth2TokenGeneratorAutoConfiguration.kt</span></div><h1>OAuth2TokenGeneratorAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration
+
+import io.github.lishangbu.avalon.oauth2.authorizationserver.token.OAuth2RefreshTokenGenerator
+import io.github.lishangbu.avalon.oauth2.authorizationserver.token.ReferenceOAuth2AccessTokenGenerator
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.context.annotation.Bean
+import org.springframework.security.oauth2.jwt.JwtEncoder
+import org.springframework.security.oauth2.server.authorization.token.DelegatingOAuth2TokenGenerator
+import org.springframework.security.oauth2.server.authorization.token.JwtGenerator
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator
+
+/**
+ * OAuth2 令牌生成器自动配置
+ *
+ * 组合访问令牌、刷新令牌和 JWT 生成器
+ */
+<span class="fc" id="L17">@AutoConfiguration</span>
+<span class="fc" id="L18">class OAuth2TokenGeneratorAutoConfiguration(</span>
+    /** JWT 编码器 */
+<span class="fc" id="L20">    private val jwtEncoder: JwtEncoder,</span>
+) {
+    /** 创建令牌生成器 */
+    @Bean
+    fun tokenGenerator(): OAuth2TokenGenerator&lt;*&gt; =
+<span class="fc" id="L25">        DelegatingOAuth2TokenGenerator(</span>
+<span class="fc" id="L26">            ReferenceOAuth2AccessTokenGenerator(),</span>
+<span class="fc" id="L27">            OAuth2RefreshTokenGenerator(),</span>
+<span class="fc" id="L28">            JwtGenerator(jwtEncoder),</span>
+<span class="fc" id="L29">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

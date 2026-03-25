@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiResultResponseAdvice.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.web.response</a> &gt; <span class="el_source">ApiResultResponseAdvice.kt</span></div><h1>ApiResultResponseAdvice.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.web.response
+
+import io.github.lishangbu.avalon.web.result.ApiResult
+import org.springframework.core.MethodParameter
+import org.springframework.http.MediaType
+import org.springframework.http.converter.HttpMessageConverter
+import org.springframework.http.server.ServerHttpRequest
+import org.springframework.http.server.ServerHttpResponse
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
+import tools.jackson.databind.json.JsonMapper
+
+/**
+ * API 响应包装增强器
+ *
+ * 统一将控制器返回值包装为 [ApiResult]
+ *
+ * @author lishangbu
+ * @since 2023/5/1
+ */
+<span class="fc" id="L21">@RestControllerAdvice(basePackages = [&quot;io.github.lishangbu.avalon&quot;])</span>
+<span class="fc" id="L22">class ApiResultResponseAdvice(</span>
+    /** JSON 映射器 */
+<span class="fc" id="L24">    private val jsonMapper: JsonMapper,</span>
+) : ResponseBodyAdvice&lt;Any&gt; {
+    /** 对所有控制器返回值启用统一包装 */
+    override fun supports(
+        returnType: MethodParameter,
+        converterType: Class&lt;out HttpMessageConverter&lt;*&gt;&gt;,
+<span class="nc" id="L30">    ): Boolean = true</span>
+
+    /** 在写入响应体前将返回值转换为统一响应结构 */
+    override fun beforeBodyWrite(
+        body: Any?,
+        returnType: MethodParameter,
+        selectedContentType: MediaType,
+        selectedConverterType: Class&lt;out HttpMessageConverter&lt;*&gt;&gt;,
+        request: ServerHttpRequest,
+        response: ServerHttpResponse,
+<span class="fc" id="L40">    ): Any? = wrapApiResult(body)</span>
+
+    /** 将普通返回值包装为 [ApiResult]，字符串返回值额外序列化为 JSON 文本 */
+    private fun wrapApiResult(body: Any?): Any =
+<span class="fc" id="L44">        when (body) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            is String -&gt; jsonMapper.writeValueAsString(ApiResult.ok(body))</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            is ApiResult&lt;*&gt; -&gt; body</span>
+<span class="fc" id="L47">            else -&gt; ApiResult.ok(body)</span>
+<span class="fc" id="L48">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

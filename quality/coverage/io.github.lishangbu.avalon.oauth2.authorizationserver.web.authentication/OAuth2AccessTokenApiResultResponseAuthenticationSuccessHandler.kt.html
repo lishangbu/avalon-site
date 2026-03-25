@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a> &gt; <span class="el_source">OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.kt</span></div><h1>OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication
+
+import io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecord
+import io.github.lishangbu.avalon.oauth2.common.log.AuthenticationLogRecorder
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import io.github.lishangbu.avalon.web.util.JsonResponseWriter
+import jakarta.servlet.ServletException
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
+import org.springframework.security.core.Authentication
+import org.springframework.security.oauth2.core.*
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationContext
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import tools.jackson.databind.json.JsonMapper
+import java.io.IOException
+import java.security.Principal
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+import java.util.function.Consumer
+
+/**
+ * OAuth2 访问令牌成功响应处理器
+ *
+ * 在认证成功后写回统一的令牌响应，并记录认证日志
+ */
+<span class="fc" id="L33">class OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler</span>
+    @JvmOverloads
+<span class="fc" id="L35">    constructor(</span>
+<span class="fc" id="L36">        authenticationLogRecorder: AuthenticationLogRecorder? = AuthenticationLogRecorder.noop(),</span>
+        /** 授权服务 */
+<span class="fc" id="L38">        private val authorizationService: OAuth2AuthorizationService? = null,</span>
+        /** OAuth2 属性 */
+<span class="fc" id="L40">        private val oauth2Properties: Oauth2Properties? = null,</span>
+        jsonMapper: JsonMapper,
+<span class="fc" id="L42">    ) : AuthenticationSuccessHandler {</span>
+        /** 日志记录器 */
+<span class="fc" id="L44">        private val logger: Log = LogFactory.getLog(javaClass)</span>
+
+        /** 访问令牌响应定制器 */
+        private var accessTokenResponseCustomizer: Consumer&lt;OAuth2AccessTokenAuthenticationContext&gt;? =
+            null
+
+        /** 认证日志记录器 */
+        private val authenticationLogRecorder: AuthenticationLogRecorder =
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            authenticationLogRecorder ?: AuthenticationLogRecorder.noop()</span>
+
+        /** JSON 映射器 */
+        private val jsonMapper: JsonMapper =
+<span class="fc" id="L56">            requireNotNull(jsonMapper) { &quot;jsonMapper cannot be null&quot; }</span>
+
+        /** 将访问令牌响应写入统一 JSON，并记录认证成功日志 */
+        @Throws(IOException::class, ServletException::class)
+        override fun onAuthenticationSuccess(
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            authentication: Authentication,
+        ) {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            if (authentication !is OAuth2AccessTokenAuthenticationToken) {</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                if (logger.isErrorEnabled) {</span>
+<span class="fc" id="L67">                    logger.error(</span>
+<span class="fc" id="L68">                        Authentication::class.java.simpleName +</span>
+                            &quot; must be of type &quot; +
+<span class="fc" id="L70">                            OAuth2AccessTokenAuthenticationToken::class.java.name +</span>
+                            &quot; but was &quot; +
+<span class="fc" id="L72">                            authentication.javaClass.name,</span>
+                    )
+                }
+<span class="fc" id="L75">                val error =</span>
+<span class="fc" id="L76">                    OAuth2Error(</span>
+<span class="fc" id="L77">                        OAuth2ErrorCodes.SERVER_ERROR,</span>
+<span class="fc" id="L78">                        &quot;Unable to process the access token response.&quot;,</span>
+<span class="fc" id="L79">                        null,</span>
+                    )
+<span class="fc" id="L81">                throw OAuth2AuthenticationException(error)</span>
+            }
+
+<span class="fc" id="L84">            val accessToken = authentication.accessToken</span>
+<span class="fc" id="L85">            val refreshToken: OAuth2RefreshToken? = authentication.refreshToken</span>
+<span class="fc" id="L86">            val additionalParameters = authentication.additionalParameters</span>
+
+<span class="fc" id="L88">            val builder =</span>
+                OAuth2AccessTokenResponse
+<span class="fc" id="L90">                    .withToken(accessToken.tokenValue)</span>
+<span class="fc" id="L91">                    .tokenType(accessToken.tokenType)</span>
+<span class="fc" id="L92">                    .scopes(accessToken.scopes)</span>
+<span class="pc bpc" id="L93" title="2 of 4 branches missed.">            if (accessToken.issuedAt != null &amp;&amp; accessToken.expiresAt != null) {</span>
+<span class="fc" id="L94">                builder.expiresIn(</span>
+<span class="fc" id="L95">                    ChronoUnit.SECONDS.between(accessToken.issuedAt, accessToken.expiresAt),</span>
+                )
+            }
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (refreshToken != null) {</span>
+<span class="fc" id="L99">                builder.refreshToken(refreshToken.tokenValue)</span>
+            }
+<span class="fc bfc" id="L101" title="All 4 branches covered.">            if (additionalParameters.isNotEmpty()) {</span>
+<span class="fc" id="L102">                builder.additionalParameters(additionalParameters)</span>
+            }
+
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            if (accessTokenResponseCustomizer != null) {</span>
+                // @formatter:off
+<span class="fc" id="L107">                val accessTokenAuthenticationContext =</span>
+                    OAuth2AccessTokenAuthenticationContext
+<span class="fc" id="L109">                        .with(authentication)</span>
+<span class="fc" id="L110">                        .accessTokenResponse(builder)</span>
+<span class="fc" id="L111">                        .build()</span>
+                // @formatter:on
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">                accessTokenResponseCustomizer?.accept(accessTokenAuthenticationContext)</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">                if (logger.isTraceEnabled) {</span>
+<span class="nc" id="L115">                    logger.trace(&quot;Customized access token response&quot;)</span>
+                }
+            }
+
+<span class="fc" id="L119">            val accessTokenResponse = builder.build()</span>
+<span class="fc" id="L120">            recordAuthenticationSuccess(request, authentication)</span>
+<span class="fc" id="L121">            JsonResponseWriter.writeSuccessResponse(</span>
+<span class="fc" id="L122">                response,</span>
+<span class="fc" id="L123">                jsonMapper,</span>
+<span class="fc" id="L124">                buildTokenResponseBody(accessTokenResponse),</span>
+            )
+<span class="fc" id="L126">        }</span>
+
+        /** 记录本次令牌签发对应的认证日志 */
+        private fun recordAuthenticationSuccess(
+            request: HttpServletRequest,
+            accessTokenAuthentication: OAuth2AccessTokenAuthenticationToken,
+        ) {
+<span class="fc" id="L133">            try {</span>
+<span class="fc" id="L134">                val principal = accessTokenAuthentication.principal</span>
+<span class="fc" id="L135">                val grantType =</span>
+<span class="fc" id="L136">                    resolveGrantType(request, accessTokenAuthentication.additionalParameters)</span>
+<span class="fc" id="L137">                val username = resolveUsername(principal, request, accessTokenAuthentication, grantType)</span>
+<span class="fc" id="L138">                val clientId = resolveClientId(accessTokenAuthentication, principal)</span>
+<span class="fc" id="L139">                val record =</span>
+<span class="fc" id="L140">                    AuthenticationLogRecord(</span>
+<span class="fc" id="L141">                        normalize(username),</span>
+<span class="fc" id="L142">                        normalize(clientId),</span>
+<span class="fc" id="L143">                        normalize(grantType),</span>
+<span class="fc" id="L144">                        resolveClientIp(request),</span>
+<span class="fc" id="L145">                        normalize(request.getHeader(&quot;User-Agent&quot;)),</span>
+<span class="fc" id="L146">                        true,</span>
+<span class="fc" id="L147">                        null,</span>
+<span class="fc" id="L148">                        Instant.now(),</span>
+                    )
+<span class="fc" id="L150">                authenticationLogRecorder.record(record)</span>
+<span class="fc" id="L151">            } catch (ex: Exception) {</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">                if (logger.isWarnEnabled) {</span>
+<span class="fc" id="L153">                    logger.warn(&quot;Failed to record authentication log&quot;, ex)</span>
+                }
+            }
+<span class="fc" id="L156">        }</span>
+
+        /** 按请求参数、授权记录和主体信息的优先级解析用户名 */
+        private fun resolveUsername(
+            principal: Any?,
+            request: HttpServletRequest,
+            accessTokenAuthentication: OAuth2AccessTokenAuthenticationToken,
+            grantType: String?,
+        ): String? {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            if (AuthorizationGrantType.CLIENT_CREDENTIALS.value == grantType) {</span>
+<span class="fc" id="L166">                return null</span>
+            }
+<span class="fc" id="L168">            val requestUsername = normalize(request.getParameter(resolveUsernameParameterName()))</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            if (requestUsername != null) {</span>
+<span class="fc" id="L170">                return requestUsername</span>
+            }
+<span class="fc" id="L172">            val authorizationUsername = resolveAuthorizationUsername(accessTokenAuthentication)</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">            if (authorizationUsername != null) {</span>
+<span class="fc" id="L174">                return authorizationUsername</span>
+            }
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">            if (principal == null) {</span>
+<span class="nc" id="L177">                return null</span>
+            }
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            if (principal is OAuth2ClientAuthenticationToken) {</span>
+<span class="fc" id="L180">                return null</span>
+            }
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">            if (principal is Authentication) {</span>
+<span class="nc" id="L183">                return normalize(principal.name)</span>
+            }
+<span class="fc bfc" id="L185" title="All 2 branches covered.">            if (principal is Principal) {</span>
+<span class="fc" id="L186">                return normalize(principal.name)</span>
+            }
+<span class="fc" id="L188">            return normalize(principal.toString())</span>
+        }
+
+        /** 从已保存授权记录中回查主体名称 */
+        private fun resolveAuthorizationUsername(
+            accessTokenAuthentication: OAuth2AccessTokenAuthenticationToken?,
+        ): String? {
+<span class="pc bpc" id="L195" title="1 of 4 branches missed.">            if (authorizationService == null || accessTokenAuthentication == null) {</span>
+<span class="fc" id="L196">                return null</span>
+            }
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">            val accessToken = accessTokenAuthentication.accessToken ?: return null</span>
+<span class="fc" id="L199">            val authorization =</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                authorizationService.findByToken(accessToken.tokenValue, OAuth2TokenType.ACCESS_TOKEN)</span>
+<span class="nc" id="L201">                    ?: return null</span>
+<span class="fc" id="L202">            return normalize(authorization.principalName)</span>
+        }
+
+        /** 从认证结果或客户端主体中解析客户端 ID */
+        private fun resolveClientId(
+            accessTokenAuthentication: OAuth2AccessTokenAuthenticationToken,
+            principal: Any?,
+        ): String? {
+<span class="fc bfc" id="L210" title="All 2 branches covered.">            if (accessTokenAuthentication.registeredClient != null) {</span>
+<span class="fc" id="L211">                return normalize(accessTokenAuthentication.registeredClient.clientId)</span>
+            }
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">            if (principal is OAuth2ClientAuthenticationToken) {</span>
+<span class="fc" id="L214">                return normalize(principal.name)</span>
+            }
+<span class="nc" id="L216">            return null</span>
+        }
+
+        /** 优先从请求参数解析授权类型，缺失时回退到附加参数 */
+        private fun resolveGrantType(
+            request: HttpServletRequest,
+            additionalParameters: Map&lt;String, Any&gt;?,
+        ): String? {
+<span class="fc" id="L224">            val grantType = normalize(request.getParameter(&quot;grant_type&quot;))</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">            if (grantType != null) {</span>
+<span class="fc" id="L226">                return grantType</span>
+            }
+<span class="pc bpc" id="L228" title="1 of 2 branches missed.">            if (additionalParameters != null) {</span>
+<span class="fc" id="L229">                val value = additionalParameters[&quot;grant_type&quot;]</span>
+<span class="pc bpc" id="L230" title="2 of 6 branches missed.">                if (value is String &amp;&amp; value.isNotBlank()) {</span>
+<span class="fc" id="L231">                    return value</span>
+                }
+            }
+<span class="fc" id="L234">            return null</span>
+        }
+
+        /** 解析用户名请求参数名 */
+        private fun resolveUsernameParameterName(): String {
+<span class="fc bfc" id="L239" title="All 2 branches covered.">            if (oauth2Properties == null) {</span>
+<span class="fc" id="L240">                return &quot;username&quot;</span>
+            }
+<span class="fc" id="L242">            val configured = oauth2Properties.usernameParameterName</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">            return normalize(configured) ?: &quot;username&quot;</span>
+        }
+
+        /** 按代理头优先级解析客户端 IP */
+        private fun resolveClientIp(request: HttpServletRequest): String? {
+<span class="fc" id="L248">            val forwardedFor = request.getHeader(&quot;X-Forwarded-For&quot;)</span>
+<span class="pc bpc" id="L249" title="2 of 6 branches missed.">            if (forwardedFor != null &amp;&amp; forwardedFor.isNotBlank()) {</span>
+<span class="fc" id="L250">                return normalize(forwardedFor.substringBefore(','))</span>
+            }
+<span class="fc" id="L252">            val realIp = request.getHeader(&quot;X-Real-IP&quot;)</span>
+<span class="pc bpc" id="L253" title="2 of 6 branches missed.">            if (realIp != null &amp;&amp; realIp.isNotBlank()) {</span>
+<span class="fc" id="L254">                return normalize(realIp)</span>
+            }
+<span class="fc" id="L256">            return normalize(request.remoteAddr)</span>
+        }
+
+        /** 裁剪并过滤空白字符串 */
+<span class="pc bpc" id="L260" title="2 of 8 branches missed.">        private fun normalize(value: String?): String? = value?.trim()?.takeIf { it.isNotEmpty() }</span>
+
+        /** 构建统一返回的令牌响应体 */
+        private fun buildTokenResponseBody(
+            accessTokenResponse: OAuth2AccessTokenResponse,
+        ): Map&lt;String, Any&gt; {
+<span class="fc" id="L266">            val body: MutableMap&lt;String, Any&gt; = LinkedHashMap()</span>
+<span class="fc" id="L267">            val accessToken = accessTokenResponse.accessToken</span>
+<span class="fc" id="L268">            body[&quot;access_token&quot;] = accessToken.tokenValue</span>
+<span class="fc" id="L269">            body[&quot;token_type&quot;] = accessToken.tokenType.value</span>
+<span class="pc bpc" id="L270" title="2 of 4 branches missed.">            if (accessToken.issuedAt != null &amp;&amp; accessToken.expiresAt != null) {</span>
+<span class="fc" id="L271">                body[&quot;expires_in&quot;] =</span>
+<span class="fc" id="L272">                    ChronoUnit.SECONDS.between(accessToken.issuedAt, accessToken.expiresAt)</span>
+            }
+<span class="fc bfc" id="L274" title="All 2 branches covered.">            accessTokenResponse.refreshToken?.let { refreshToken -&gt;</span>
+<span class="fc" id="L275">                body[&quot;refresh_token&quot;] = refreshToken.tokenValue</span>
+<span class="fc" id="L276">            }</span>
+<span class="fc" id="L277">            val scopes = accessToken.scopes</span>
+<span class="pc bpc" id="L278" title="3 of 6 branches missed.">            if (scopes != null &amp;&amp; scopes.isNotEmpty()) {</span>
+<span class="fc" id="L279">                body[&quot;scope&quot;] = scopes.joinToString(&quot; &quot;)</span>
+            }
+<span class="fc" id="L281">            val additionalParameters = accessTokenResponse.additionalParameters</span>
+<span class="pc bpc" id="L282" title="1 of 6 branches missed.">            if (additionalParameters != null &amp;&amp; additionalParameters.isNotEmpty()) {</span>
+<span class="fc" id="L283">                body.putAll(additionalParameters)</span>
+            }
+<span class="fc" id="L285">            return body</span>
+        }
+    }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

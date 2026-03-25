@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeDamageRelationServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">TypeDamageRelationServiceImpl.kt</span></div><h1>TypeDamageRelationServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
+
+import io.github.lishangbu.avalon.dataset.entity.TypeDamageRelation
+import io.github.lishangbu.avalon.dataset.entity.TypeDamageRelationId
+import io.github.lishangbu.avalon.dataset.repository.TypeDamageRelationRepository
+import io.github.lishangbu.avalon.dataset.service.TypeDamageRelationService
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+
+/** 属性克制关系服务实现*/
+<span class="fc" id="L12">@Service</span>
+<span class="fc" id="L13">class TypeDamageRelationServiceImpl(</span>
+    /** 属性克制关系仓储*/
+<span class="fc" id="L15">    private val typeDamageRelationRepository: TypeDamageRelationRepository,</span>
+) : TypeDamageRelationService {
+    /** 按条件分页查询属性克制关系*/
+    override fun getPageByCondition(
+        attackingTypeId: Long?,
+        defendingTypeId: Long?,
+        multiplier: Float?,
+        pageable: Pageable,
+    ): Page&lt;TypeDamageRelation&gt; =
+<span class="fc" id="L24">        typeDamageRelationRepository.findPage(</span>
+<span class="fc" id="L25">            attackingTypeId = attackingTypeId,</span>
+<span class="fc" id="L26">            defendingTypeId = defendingTypeId,</span>
+<span class="fc" id="L27">            multiplier = multiplier,</span>
+<span class="fc" id="L28">            pageable = pageable,</span>
+<span class="fc" id="L29">        )</span>
+
+    /** 保存属性克制关系*/
+<span class="fc" id="L32">    override fun save(relation: TypeDamageRelation): TypeDamageRelation = typeDamageRelationRepository.save(relation)</span>
+
+    /** 更新属性克制关系*/
+<span class="fc" id="L35">    override fun update(relation: TypeDamageRelation): TypeDamageRelation = typeDamageRelationRepository.save(relation)</span>
+
+    /** 按 ID 删除属性克制关系*/
+    override fun removeById(id: TypeDamageRelationId) {
+<span class="fc" id="L39">        typeDamageRelationRepository.deleteById(id)</span>
+<span class="fc" id="L40">    }</span>
+
+    /** 根据条件查询属性克制关系列表*/
+    override fun listByCondition(
+        attackingTypeId: Long?,
+        defendingTypeId: Long?,
+        multiplier: Float?,
+    ): List&lt;TypeDamageRelation&gt; =
+<span class="fc" id="L48">        typeDamageRelationRepository.findAll(</span>
+<span class="fc" id="L49">            attackingTypeId = attackingTypeId,</span>
+<span class="fc" id="L50">            defendingTypeId = defendingTypeId,</span>
+<span class="fc" id="L51">            multiplier = multiplier,</span>
+<span class="fc" id="L52">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

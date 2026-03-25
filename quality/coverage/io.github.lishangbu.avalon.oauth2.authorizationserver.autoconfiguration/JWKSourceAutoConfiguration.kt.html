@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JWKSourceAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a> &gt; <span class="el_source">JWKSourceAutoConfiguration.kt</span></div><h1>JWKSourceAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration
+
+import com.nimbusds.jose.JOSEException
+import com.nimbusds.jose.JWSAlgorithm
+import com.nimbusds.jose.jwk.JWKSet
+import com.nimbusds.jose.jwk.RSAKey
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet
+import com.nimbusds.jose.jwk.source.JWKSource
+import com.nimbusds.jose.proc.SecurityContext
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.context.annotation.Bean
+import org.springframework.core.io.Resource
+import org.springframework.core.io.ResourceLoader
+import java.io.IOException
+import java.io.InputStream
+import java.nio.charset.StandardCharsets
+import java.security.KeyFactory
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.NoSuchAlgorithmException
+import java.security.interfaces.RSAPrivateKey
+import java.security.interfaces.RSAPublicKey
+import java.security.spec.InvalidKeySpecException
+import java.security.spec.PKCS8EncodedKeySpec
+import java.security.spec.X509EncodedKeySpec
+import java.util.*
+
+/**
+ * JWKSource 自动配置
+ *
+ * 负责加载 RSA 密钥并创建用于 JWT 签名的 [JWKSource]
+ */
+<span class="fc" id="L38">@AutoConfiguration</span>
+<span class="fc" id="L39">class JWKSourceAutoConfiguration(</span>
+    /** OAuth2 属性 */
+<span class="fc" id="L41">    private val oauth2Properties: Oauth2Properties,</span>
+    /** 资源加载器 */
+<span class="fc" id="L43">    private val resourceLoader: ResourceLoader,</span>
+) : InitializingBean {
+    /** 公钥 */
+    private var publicKey: RSAPublicKey? = null
+
+    /** 私钥 */
+    private var privateKey: RSAPrivateKey? = null
+
+    /**
+     * 缓存的 JWK 集合
+     *
+     * 使用 volatile 与 synchronized 保证懒加载线程安全
+     */
+    @Volatile
+    private var jwkSet: JWKSet? = null
+
+    /**
+     * 创建用于签名的 JWKSource
+     *
+     * 会在返回前确保密钥已初始化
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    fun jwkSource(): JWKSource&lt;SecurityContext&gt; {
+<span class="fc" id="L67">        ensureKeysInitialized()</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        return ImmutableJWKSet(requireNotNull(jwkSet) { &quot;jwkSet cannot be null&quot; })</span>
+    }
+
+    /**
+     * 确保密钥与 JWK 集合已初始化
+     */
+    @Synchronized
+    private fun ensureKeysInitialized() {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (jwkSet != null) {</span>
+<span class="fc" id="L77">            return</span>
+        }
+
+        // 如果没有通过配置加载到公私钥，则生成随机密钥对
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (publicKey == null || privateKey == null) {</span>
+<span class="fc" id="L82">            log.warn(&quot;未配置公钥或私钥，使用随机生成的密钥对，重启后之前签发的 token 将无法解析&quot;)</span>
+<span class="fc" id="L83">            val keyPair = generateRsaKey()</span>
+<span class="fc" id="L84">            publicKey = keyPair.public as RSAPublicKey</span>
+<span class="fc" id="L85">            privateKey = keyPair.private as RSAPrivateKey</span>
+        }
+
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        val rsaPublicKey = requireNotNull(publicKey) { &quot;publicKey cannot be null&quot; }</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        val rsaPrivateKey = requireNotNull(privateKey) { &quot;privateKey cannot be null&quot; }</span>
+
+        // 计算 kid：优先使用公钥 thumbprint，计算失败时回退为公钥 modulus（避免依赖 MessageDigest）
+<span class="fc" id="L92">        val kid =</span>
+<span class="fc" id="L93">            try {</span>
+<span class="fc" id="L94">                val computed =</span>
+                    RSAKey
+<span class="fc" id="L96">                        .Builder(rsaPublicKey)</span>
+<span class="fc" id="L97">                        .build()</span>
+<span class="fc" id="L98">                        .computeThumbprint()</span>
+<span class="fc" id="L99">                        .toString()</span>
+<span class="fc" id="L100">                log.debug(&quot;使用公钥 thumbprint 作为 kid: {}&quot;, computed)</span>
+<span class="fc" id="L101">                computed</span>
+<span class="fc" id="L102">            } catch (e: JOSEException) {</span>
+<span class="fc" id="L103">                val fallback = rsaPublicKey.modulus.toString(16)</span>
+<span class="fc" id="L104">                log.warn(&quot;计算公钥 thumbprint 失败，回退为公钥 modulus: {}&quot;, fallback, e)</span>
+<span class="fc" id="L105">                fallback</span>
+            }
+
+        // 使用默认算法 RS256，并标记为签名用途
+<span class="fc" id="L109">        val alg = JWSAlgorithm.RS256</span>
+
+        // 构建 JWK（包含私钥）
+<span class="fc" id="L112">        val rsaKey =</span>
+            RSAKey
+<span class="fc" id="L114">                .Builder(rsaPublicKey)</span>
+<span class="fc" id="L115">                .privateKey(rsaPrivateKey)</span>
+<span class="fc" id="L116">                .keyID(kid)</span>
+<span class="fc" id="L117">                .algorithm(alg)</span>
+<span class="fc" id="L118">                .build()</span>
+
+<span class="fc" id="L120">        this.jwkSet = JWKSet(rsaKey)</span>
+
+<span class="fc" id="L122">        log.info(&quot;JWKSet 初始化完成，kid: {}, 算法: {}&quot;, kid, alg)</span>
+<span class="fc" id="L123">    }</span>
+
+    /**
+     * 生成 RSA 密钥对
+     */
+    private fun generateRsaKey(): KeyPair =
+<span class="fc" id="L129">        try {</span>
+<span class="fc" id="L130">            val keyPairGenerator = KeyPairGenerator.getInstance(&quot;RSA&quot;)</span>
+<span class="fc" id="L131">            keyPairGenerator.initialize(2048)</span>
+<span class="fc" id="L132">            val generated = keyPairGenerator.generateKeyPair()</span>
+<span class="fc" id="L133">            log.debug(&quot;成功生成 2048 位 RSA 密钥对&quot;)</span>
+<span class="fc" id="L134">            generated</span>
+<span class="fc" id="L135">        } catch (ex: Exception) {</span>
+<span class="fc" id="L136">            log.error(&quot;生成 RSA 密钥对失败&quot;, ex)</span>
+<span class="fc" id="L137">            throw IllegalStateException(&quot;无法生成 RSA 密钥对&quot;, ex)</span>
+<span class="fc" id="L138">        }</span>
+
+    /**
+     * 尝试从配置位置加载 RSA 公钥和私钥
+     */
+    override fun afterPropertiesSet() {
+<span class="fc bfc" id="L144" title="All 6 branches covered.">        val jwtPublicKeyLocation = oauth2Properties.jwtPublicKeyLocation?.takeIf { it.isNotBlank() }</span>
+<span class="fc bfc" id="L145" title="All 6 branches covered.">        val jwtPrivateKeyLocation = oauth2Properties.jwtPrivateKeyLocation?.takeIf { it.isNotBlank() }</span>
+        // 密钥缺失或解析失败，标记为未加载状态，将在首次使用时生成随机密钥对
+<span class="fc bfc" id="L147" title="All 4 branches covered.">        if (jwtPublicKeyLocation == null &amp;&amp; jwtPrivateKeyLocation == null) {</span>
+<span class="fc" id="L148">            log.warn(&quot;未配置公钥和私钥路径，将在首次使用时生成随机密钥对&quot;)</span>
+<span class="fc" id="L149">            return</span>
+        }
+
+<span class="fc" id="L152">        var loadedPublic: RSAPublicKey? = null</span>
+<span class="fc" id="L153">        var loadedPrivate: RSAPrivateKey? = null</span>
+
+        // 尝试加载公钥
+<span class="fc bfc" id="L156" title="All 2 branches covered.">        if (jwtPublicKeyLocation != null) {</span>
+<span class="fc" id="L157">            try {</span>
+<span class="fc" id="L158">                val resource: Resource = resourceLoader.getResource(jwtPublicKeyLocation)</span>
+<span class="pc bpc" id="L159" title="1 of 4 branches missed.">                if (resource.exists() &amp;&amp; resource.isReadable) {</span>
+<span class="fc" id="L160">                    resource.inputStream.use { inputStream: InputStream -&gt;</span>
+<span class="fc" id="L161">                        val content = String(inputStream.readAllBytes(), StandardCharsets.UTF_8)</span>
+<span class="fc" id="L162">                        loadedPublic = loadPublicKey(content)</span>
+<span class="fc" id="L163">                        log.debug(&quot;从 [{}] 成功加载公钥&quot;, jwtPublicKeyLocation)</span>
+<span class="fc" id="L164">                    }</span>
+                } else {
+<span class="fc" id="L166">                    log.error(&quot;公钥资源不存在或不可读: {}&quot;, jwtPublicKeyLocation)</span>
+                }
+<span class="fc" id="L168">            } catch (e: IOException) {</span>
+<span class="fc" id="L169">                log.error(&quot;公钥读取失败，无法从 [{}] 检索到有效公钥: {}&quot;, jwtPublicKeyLocation, e.message)</span>
+<span class="nc" id="L170">            } catch (e: NoSuchAlgorithmException) {</span>
+<span class="nc" id="L171">                log.error(&quot;公钥解析失败，无法从 [{}] 解析到有效公钥: {}&quot;, jwtPublicKeyLocation, e.message)</span>
+<span class="nc" id="L172">            } catch (e: InvalidKeySpecException) {</span>
+<span class="nc" id="L173">                log.error(&quot;公钥解析失败，无法从 [{}] 解析到有效公钥: {}&quot;, jwtPublicKeyLocation, e.message)</span>
+<span class="fc" id="L174">            } catch (e: IllegalArgumentException) {</span>
+<span class="fc" id="L175">                log.error(&quot;公钥解析失败，无法从 [{}] 解析到有效公钥: {}&quot;, jwtPublicKeyLocation, e.message)</span>
+            }
+        } else {
+<span class="fc" id="L178">            log.warn(&quot;公钥或私钥加载不完整，将在首次使用时生成随机密钥对&quot;)</span>
+        }
+
+        // 尝试加载私钥
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (jwtPrivateKeyLocation != null) {</span>
+<span class="fc" id="L183">            try {</span>
+<span class="fc" id="L184">                val resource = resourceLoader.getResource(jwtPrivateKeyLocation)</span>
+<span class="pc bpc" id="L185" title="1 of 4 branches missed.">                if (resource.exists() &amp;&amp; resource.isReadable) {</span>
+<span class="fc" id="L186">                    resource.inputStream.use { inputStream: InputStream -&gt;</span>
+<span class="fc" id="L187">                        val content = String(inputStream.readAllBytes(), StandardCharsets.UTF_8)</span>
+<span class="fc" id="L188">                        loadedPrivate = loadPrivateKey(content)</span>
+<span class="fc" id="L189">                        log.debug(&quot;从 [{}] 成功加载私钥&quot;, jwtPrivateKeyLocation)</span>
+<span class="fc" id="L190">                    }</span>
+                } else {
+<span class="fc" id="L192">                    log.error(&quot;私钥资源不存在或不可读: {}&quot;, jwtPrivateKeyLocation)</span>
+                }
+<span class="fc" id="L194">            } catch (e: IOException) {</span>
+<span class="fc" id="L195">                log.error(&quot;私钥读取失败，无法从 [{}] 检索到有效私钥: {}&quot;, jwtPrivateKeyLocation, e.message)</span>
+<span class="nc" id="L196">            } catch (e: NoSuchAlgorithmException) {</span>
+<span class="nc" id="L197">                log.error(&quot;私钥解析失败，无法从 [{}] 解析到有效私钥: {}&quot;, jwtPrivateKeyLocation, e.message)</span>
+<span class="nc" id="L198">            } catch (e: InvalidKeySpecException) {</span>
+<span class="nc" id="L199">                log.error(&quot;私钥解析失败，无法从 [{}] 解析到有效私钥: {}&quot;, jwtPrivateKeyLocation, e.message)</span>
+<span class="fc" id="L200">            } catch (e: IllegalArgumentException) {</span>
+<span class="fc" id="L201">                log.error(&quot;私钥解析失败，无法从 [{}] 解析到有效私钥: {}&quot;, jwtPrivateKeyLocation, e.message)</span>
+            }
+        } else {
+<span class="fc" id="L204">            log.warn(&quot;私钥加载不完整，将在首次使用时生成随机密钥对&quot;)</span>
+        }
+
+        // 若公私钥均已加载则直接使用
+<span class="fc bfc" id="L208" title="All 4 branches covered.">        if (loadedPublic != null &amp;&amp; loadedPrivate != null) {</span>
+<span class="fc" id="L209">            this.publicKey = loadedPublic</span>
+<span class="fc" id="L210">            this.privateKey = loadedPrivate</span>
+<span class="fc" id="L211">            log.debug(&quot;成功从配置加载公私钥对&quot;)</span>
+        }
+<span class="fc" id="L213">    }</span>
+
+    companion object {
+        /** 日志记录器 */
+<span class="fc" id="L217">        private val log: Logger = LoggerFactory.getLogger(JWKSourceAutoConfiguration::class.java)</span>
+
+        /**
+         * 解析 PEM 格式的 RSA 公钥
+         */
+        @Throws(NoSuchAlgorithmException::class, InvalidKeySpecException::class)
+        private fun loadPublicKey(publicKeyContent: String): RSAPublicKey {
+<span class="fc" id="L224">            val normalized =</span>
+<span class="fc" id="L225">                publicKeyContent</span>
+<span class="fc" id="L226">                    .replace(&quot;-----BEGIN PUBLIC KEY-----&quot;, &quot;&quot;)</span>
+<span class="fc" id="L227">                    .replace(&quot;-----END PUBLIC KEY-----&quot;, &quot;&quot;)</span>
+<span class="fc" id="L228">                    .replace(&quot;\\s&quot;.toRegex(), &quot;&quot;)</span>
+<span class="fc" id="L229">            val encoded = Base64.getDecoder().decode(normalized)</span>
+<span class="fc" id="L230">            val keyFactory = KeyFactory.getInstance(&quot;RSA&quot;)</span>
+<span class="fc" id="L231">            return keyFactory.generatePublic(X509EncodedKeySpec(encoded)) as RSAPublicKey</span>
+        }
+
+        /**
+         * 解析 PEM 格式的 RSA 私钥
+         */
+        @Throws(NoSuchAlgorithmException::class, InvalidKeySpecException::class)
+        private fun loadPrivateKey(privateKeyContent: String): RSAPrivateKey {
+<span class="fc" id="L239">            val normalized =</span>
+<span class="fc" id="L240">                privateKeyContent</span>
+<span class="fc" id="L241">                    .replace(&quot;-----BEGIN PRIVATE KEY-----&quot;, &quot;&quot;)</span>
+<span class="fc" id="L242">                    .replace(&quot;-----END PRIVATE KEY-----&quot;, &quot;&quot;)</span>
+<span class="fc" id="L243">                    .replace(&quot;\\s&quot;.toRegex(), &quot;&quot;)</span>
+<span class="fc" id="L244">            val encoded = Base64.getDecoder().decode(normalized)</span>
+<span class="fc" id="L245">            val keyFactory = KeyFactory.getInstance(&quot;RSA&quot;)</span>
+<span class="fc" id="L246">            return keyFactory.generatePrivate(PKCS8EncodedKeySpec(encoded)) as RSAPrivateKey</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

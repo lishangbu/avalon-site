@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoleRepositoryImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">RoleRepositoryImpl.kt</span></div><h1>RoleRepositoryImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
+
+import io.github.lishangbu.avalon.authorization.entity.*
+import io.github.lishangbu.avalon.authorization.entity.dto.RoleSpecification
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Repository
+
+<span class="fc" id="L12">@Repository</span>
+<span class="fc" id="L13">class RoleRepositoryImpl(</span>
+    /** Jimmer SQL 客户端 */
+<span class="fc" id="L15">    private val sql: KSqlClient,</span>
+) : RoleRepository {
+    /** 按条件查询角色列表 */
+    override fun findAll(specification: RoleSpecification?): List&lt;Role&gt; =
+<span class="nc" id="L19">        sql</span>
+<span class="nc" id="L20">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L22">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="nc" id="L23">            }.execute()</span>
+
+    /** 按条件分页查询角色 */
+    override fun findAll(
+        specification: RoleSpecification?,
+        pageable: Pageable,
+    ): Page&lt;Role&gt; =
+<span class="nc" id="L30">        sql</span>
+<span class="nc" id="L31">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L33">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="nc" id="L34">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 按条件查询角色列表，并抓取菜单 */
+    override fun findAllWithMenus(specification: RoleSpecification?): List&lt;Role&gt; =
+<span class="nc" id="L38">        sql</span>
+<span class="nc" id="L39">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L41">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="nc" id="L42">            }.execute()</span>
+
+    /** 按条件分页查询角色，并抓取菜单 */
+    override fun findAllWithMenus(
+        specification: RoleSpecification?,
+        pageable: Pageable,
+    ): Page&lt;Role&gt; =
+<span class="nc" id="L49">        sql</span>
+<span class="nc" id="L50">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L52">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="nc" id="L53">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 按 ID 查询角色 */
+    override fun findById(id: Long): Role? =
+<span class="fc" id="L57">        sql</span>
+<span class="fc" id="L58">            .createQuery(Role::class) {</span>
+<span class="fc" id="L59">                where(table.id eq id)</span>
+<span class="fc" id="L60">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="fc" id="L61">            }.execute()</span>
+<span class="fc" id="L62">            .firstOrNull()</span>
+
+    /** 按 ID 查询角色，并抓取菜单 */
+    override fun findByIdWithMenus(id: Long): Role? =
+<span class="fc" id="L66">        sql</span>
+<span class="fc" id="L67">            .createQuery(Role::class) {</span>
+<span class="fc" id="L68">                where(table.id eq id)</span>
+<span class="fc" id="L69">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="fc" id="L70">            }.execute()</span>
+<span class="fc" id="L71">            .firstOrNull()</span>
+
+    /** 按 ID 列表查询角色 */
+<span class="nc" id="L74">    override fun findAllById(ids: Iterable&lt;Long&gt;): List&lt;Role&gt; = ids.mapNotNull(::findById)</span>
+
+    /** 保存角色 */
+    override fun save(role: Role): Role =
+<span class="fc" id="L78">        sql</span>
+<span class="fc" id="L79">            .save(role) {</span>
+<span class="fc bfc" id="L80" title="All 4 branches covered.">                val mode = role.readId()?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L81">                setMode(mode)</span>
+<span class="fc" id="L82">            }.modifiedEntity</span>
+
+    /** 保存角色并立即刷新 */
+<span class="nc" id="L85">    override fun saveAndFlush(role: Role): Role = save(role)</span>
+
+    /** 按 ID 删除角色 */
+    override fun deleteById(id: Long) {
+<span class="fc" id="L89">        sql</span>
+<span class="fc" id="L90">            .createDelete(Role::class) {</span>
+<span class="fc" id="L91">                where(table.id eq id)</span>
+<span class="fc" id="L92">                disableDissociation()</span>
+<span class="fc" id="L93">            }.execute()</span>
+<span class="fc" id="L94">    }</span>
+
+    /** 刷新持久化上下文 */
+<span class="nc" id="L97">    override fun flush() = Unit</span>
+
+    /** 安全读取主键 */
+<span class="fc" id="L100">    private fun Role?.readId(): Long? = readOrNull { id }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

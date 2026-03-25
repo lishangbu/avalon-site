@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthorizationServerAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration</a> &gt; <span class="el_source">AuthorizationServerAutoConfiguration.kt</span></div><h1>AuthorizationServerAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.autoconfiguration
+
+import io.github.lishangbu.avalon.oauth2.authorizationserver.login.LoginFailureTracker
+import io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.AuthorizationEndpointErrorResponseHandler
+import io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.AuthorizationEndpointResponseHandler
+import io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler
+import io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication.OAuth2ErrorApiResultAuthenticationFailureHandler
+import io.github.lishangbu.avalon.oauth2.common.constant.SecurityBeanDefinitionConstants.AUTHORIZATION_SERVER_SECURITY_FILTER_CHAIN_BEAN_NAME
+import io.github.lishangbu.avalon.oauth2.common.constant.SecurityBeanDefinitionConstants.AUTHORIZATION_SERVER_SECURITY_FILTER_CHAIN_BEAN_ORDER
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import io.github.lishangbu.avalon.oauth2.common.web.authentication.DefaultAuthenticationEntryPoint
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.context.annotation.Bean
+import org.springframework.core.annotation.Order
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.Customizer
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configurers.*
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer
+import org.springframework.security.oauth2.core.OAuth2Token
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2EmailAuthenticationProvider
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2PasswordAuthenticationProvider
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2SmsAuthenticationProvider
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator
+import org.springframework.security.oauth2.server.authorization.web.authentication.*
+import org.springframework.security.web.DefaultSecurityFilterChain
+import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.DelegatingAuthenticationConverter
+import tools.jackson.databind.json.JsonMapper
+
+/**
+ * 授权服务器自动配置
+ *
+ * 提供授权端点、令牌端点和扩展授权类型所需的安全过滤链
+ */
+<span class="fc" id="L40">@EnableWebSecurity</span>
+@AutoConfiguration
+@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
+class AuthorizationServerAutoConfiguration {
+    /**
+     * 创建授权服务器安全过滤链
+     */
+    @Bean
+    @Order(AUTHORIZATION_SERVER_SECURITY_FILTER_CHAIN_BEAN_ORDER)
+    @ConditionalOnMissingBean(name = [AUTHORIZATION_SERVER_SECURITY_FILTER_CHAIN_BEAN_NAME])
+    @Throws(Exception::class)
+    fun authorizationServerSecurityFilterChain(
+        http: HttpSecurity,
+        oauth2Properties: Oauth2Properties,
+        accessTokenResponseAuthenticationSuccessHandler: OAuth2AccessTokenApiResultResponseAuthenticationSuccessHandler,
+        oauth2ErrorApiResultAuthenticationFailureHandler: OAuth2ErrorApiResultAuthenticationFailureHandler,
+        loginFailureTracker: LoginFailureTracker,
+        jsonMapper: JsonMapper,
+    ): SecurityFilterChain {
+<span class="fc" id="L59">        val authorizationServerConfigurer = OAuth2AuthorizationServerConfigurer()</span>
+
+        // 禁用 CSRF 和 CORS
+<span class="fc" id="L62">        http</span>
+<span class="pc" id="L63">            .csrf(CsrfConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L64">            .cors(CorsConfigurer&lt;HttpSecurity&gt;::disable)</span>
+            // 禁用表单登录、会话管理和记住我
+<span class="pc" id="L66">            .formLogin(FormLoginConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L67">            .sessionManagement(SessionManagementConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L68">            .rememberMe(RememberMeConfigurer&lt;HttpSecurity&gt;::disable)</span>
+
+<span class="fc" id="L70">        val securityFilterChain: DefaultSecurityFilterChain =</span>
+<span class="fc" id="L71">            http</span>
+<span class="fc" id="L72">                .securityMatcher(authorizationServerConfigurer.endpointsMatcher)</span>
+<span class="fc" id="L73">                .with(authorizationServerConfigurer) { authorizationServer -&gt;</span>
+                    // 启用 OpenID Connect 1.0
+<span class="fc" id="L75">                    authorizationServer</span>
+<span class="fc" id="L76">                        .authorizationEndpoint { authorizationEndpoint -&gt;</span>
+<span class="fc" id="L77">                            authorizationEndpoint</span>
+<span class="fc" id="L78">                                .authorizationResponseHandler(</span>
+<span class="fc" id="L79">                                    AuthorizationEndpointResponseHandler(),</span>
+<span class="fc" id="L80">                                ).errorResponseHandler(</span>
+<span class="fc" id="L81">                                    AuthorizationEndpointErrorResponseHandler(jsonMapper),</span>
+                                )
+<span class="fc" id="L83">                        }.oidc(Customizer.withDefaults())</span>
+                        // 统一客户端认证失败响应
+<span class="fc" id="L85">                        .clientAuthentication { clientAuthentication -&gt;</span>
+<span class="fc" id="L86">                            clientAuthentication.errorResponseHandler(</span>
+<span class="fc" id="L87">                                oauth2ErrorApiResultAuthenticationFailureHandler,</span>
+                            )
+<span class="fc" id="L89">                        }.tokenEndpoint { tokenEndpoint -&gt;</span>
+<span class="fc" id="L90">                            tokenEndpoint</span>
+                                // 定制成功响应
+<span class="fc" id="L92">                                .accessTokenResponseHandler(</span>
+<span class="fc" id="L93">                                    accessTokenResponseAuthenticationSuccessHandler,</span>
+                                )
+                                // 定制失败响应
+<span class="fc" id="L96">                                .errorResponseHandler(</span>
+<span class="fc" id="L97">                                    oauth2ErrorApiResultAuthenticationFailureHandler,</span>
+                                )
+                                // 注册扩展授权类型转换器
+<span class="fc" id="L100">                                .accessTokenRequestConverter(</span>
+<span class="fc" id="L101">                                    DelegatingAuthenticationConverter(</span>
+<span class="fc" id="L102">                                        listOf(</span>
+<span class="fc" id="L103">                                            OAuth2AuthorizationCodeAuthenticationConverter(),</span>
+<span class="fc" id="L104">                                            OAuth2RefreshTokenAuthenticationConverter(),</span>
+<span class="fc" id="L105">                                            OAuth2ClientCredentialsAuthenticationConverter(),</span>
+<span class="fc" id="L106">                                            OAuth2PasswordAuthenticationConverter(oauth2Properties),</span>
+<span class="fc" id="L107">                                            OAuth2SmsAuthenticationConverter(oauth2Properties),</span>
+<span class="fc" id="L108">                                            OAuth2EmailAuthenticationConverter(oauth2Properties),</span>
+                                        ),
+                                    ),
+                                )
+<span class="fc" id="L112">                        }</span>
+<span class="fc" id="L113">                }.authorizeHttpRequests { authorize -&gt; authorize.anyRequest().authenticated() }</span>
+<span class="fc" id="L114">                .oauth2Login { oauth2Login -&gt;</span>
+<span class="fc" id="L115">                    oauth2Login</span>
+<span class="fc" id="L116">                        .successHandler(AuthorizationEndpointResponseHandler())</span>
+<span class="fc" id="L117">                        .failureHandler(AuthorizationEndpointErrorResponseHandler(jsonMapper))</span>
+<span class="fc" id="L118">                }.exceptionHandling { exceptions -&gt;</span>
+                    // 使用统一的 AuthenticationEntryPoint，避免 MediaTypeRequestMatcher
+                    // 导致的不匹配
+<span class="fc" id="L121">                    exceptions.authenticationEntryPoint(DefaultAuthenticationEntryPoint(jsonMapper))</span>
+<span class="fc" id="L122">                }.build()</span>
+
+<span class="fc" id="L124">        addAdditionalAuthenticationProvider(http, loginFailureTracker)</span>
+<span class="fc" id="L125">        return securityFilterChain</span>
+    }
+
+    /**
+     * 注册扩展授权类型的认证提供者
+     */
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    private fun addAdditionalAuthenticationProvider(
+        http: HttpSecurity,
+        loginFailureTracker: LoginFailureTracker,
+    ) {
+<span class="fc" id="L136">        val authenticationManager = http.getSharedObject(AuthenticationManager::class.java)</span>
+<span class="fc" id="L137">        val authorizationService = http.getSharedObject(OAuth2AuthorizationService::class.java)</span>
+<span class="fc" id="L138">        val tokenGenerator =</span>
+<span class="fc" id="L139">            http.getSharedObject(OAuth2TokenGenerator::class.java)</span>
+                as OAuth2TokenGenerator&lt;out OAuth2Token&gt;
+
+<span class="fc" id="L142">        val resourceOwnerPasswordAuthenticationProvider =</span>
+<span class="fc" id="L143">            OAuth2PasswordAuthenticationProvider(</span>
+<span class="fc" id="L144">                authenticationManager,</span>
+<span class="fc" id="L145">                authorizationService,</span>
+<span class="fc" id="L146">                tokenGenerator,</span>
+<span class="fc" id="L147">                loginFailureTracker,</span>
+            )
+
+<span class="fc" id="L150">        val smsAuthenticationProvider =</span>
+<span class="fc" id="L151">            OAuth2SmsAuthenticationProvider(</span>
+<span class="fc" id="L152">                authenticationManager,</span>
+<span class="fc" id="L153">                authorizationService,</span>
+<span class="fc" id="L154">                tokenGenerator,</span>
+<span class="fc" id="L155">                loginFailureTracker,</span>
+            )
+
+<span class="fc" id="L158">        val emailAuthenticationProvider =</span>
+<span class="fc" id="L159">            OAuth2EmailAuthenticationProvider(</span>
+<span class="fc" id="L160">                authenticationManager,</span>
+<span class="fc" id="L161">                authorizationService,</span>
+<span class="fc" id="L162">                tokenGenerator,</span>
+<span class="fc" id="L163">                loginFailureTracker,</span>
+            )
+
+        // 将扩展认证提供者追加到现有认证链
+<span class="fc" id="L167">        http.authenticationProvider(resourceOwnerPasswordAuthenticationProvider)</span>
+<span class="fc" id="L168">        http.authenticationProvider(smsAuthenticationProvider)</span>
+<span class="fc" id="L169">        http.authenticationProvider(emailAuthenticationProvider)</span>
+<span class="fc" id="L170">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

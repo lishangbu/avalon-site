@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResourceServerAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration</a> &gt; <span class="el_source">ResourceServerAutoConfiguration.kt</span></div><h1>ResourceServerAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.resourceserver.autoconfiguration
+
+import io.github.lishangbu.avalon.oauth2.common.constant.SecurityBeanDefinitionConstants.RESOURCE_SERVER_SECURITY_FILTER_CHAIN_BEAN_NAME
+import io.github.lishangbu.avalon.oauth2.common.constant.SecurityBeanDefinitionConstants.RESOURCE_SERVER_SECURITY_FILTER_CHAIN_BEAN_ORDER
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import io.github.lishangbu.avalon.oauth2.common.web.access.DefaultAccessDeniedHandler
+import io.github.lishangbu.avalon.oauth2.common.web.authentication.DefaultAuthenticationEntryPoint
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.context.annotation.Bean
+import org.springframework.core.annotation.Order
+import org.springframework.security.config.Customizer
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configurers.*
+import org.springframework.security.web.SecurityFilterChain
+import tools.jackson.databind.json.JsonMapper
+
+/**
+ * 资源服务器自动配置
+ *
+ * 提供默认的资源服务器安全过滤链与统一异常响应
+ */
+<span class="fc" id="L25">@EnableWebSecurity</span>
+@AutoConfiguration
+@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
+<span class="fc" id="L28">class ResourceServerAutoConfiguration(</span>
+    /** OAuth2 属性 */
+<span class="fc" id="L30">    private val oauth2Properties: Oauth2Properties,</span>
+) {
+    /** 创建资源服务器安全过滤链 */
+    @Bean
+    @ConditionalOnMissingBean(name = [RESOURCE_SERVER_SECURITY_FILTER_CHAIN_BEAN_NAME])
+    @Order(RESOURCE_SERVER_SECURITY_FILTER_CHAIN_BEAN_ORDER)
+    fun resourceServerSecurityFilterChain(
+        http: HttpSecurity,
+        jsonMapper: JsonMapper,
+    ): SecurityFilterChain {
+<span class="fc" id="L40">        http</span>
+<span class="fc" id="L41">            .authorizeHttpRequests { authorize -&gt;</span>
+<span class="fc" id="L42">                authorize</span>
+<span class="fc" id="L43">                    .requestMatchers(*oauth2Properties.ignoreUrls.toTypedArray())</span>
+<span class="fc" id="L44">                    .permitAll()</span>
+<span class="fc" id="L45">                    .anyRequest()</span>
+<span class="fc" id="L46">                    .authenticated()</span>
+<span class="pc" id="L47">            }.csrf(CsrfConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L48">            .cors(CorsConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L49">            .formLogin(FormLoginConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L50">            .sessionManagement(SessionManagementConfigurer&lt;HttpSecurity&gt;::disable)</span>
+<span class="pc" id="L51">            .rememberMe(RememberMeConfigurer&lt;HttpSecurity&gt;::disable)</span>
+
+<span class="fc" id="L53">        http.oauth2ResourceServer { oauth2ResourceServer -&gt;</span>
+<span class="fc" id="L54">            oauth2ResourceServer.opaqueToken(Customizer.withDefaults())</span>
+<span class="fc" id="L55">            oauth2ResourceServer</span>
+<span class="fc" id="L56">                .authenticationEntryPoint(DefaultAuthenticationEntryPoint(jsonMapper))</span>
+<span class="fc" id="L57">                .accessDeniedHandler(DefaultAccessDeniedHandler(jsonMapper))</span>
+<span class="fc" id="L58">        }</span>
+
+<span class="fc" id="L60">        http.exceptionHandling { exceptions -&gt;</span>
+<span class="fc" id="L61">            exceptions</span>
+<span class="fc" id="L62">                .authenticationEntryPoint(DefaultAuthenticationEntryPoint(jsonMapper))</span>
+<span class="fc" id="L63">                .accessDeniedHandler(DefaultAccessDeniedHandler(jsonMapper))</span>
+<span class="fc" id="L64">        }</span>
+
+<span class="fc" id="L66">        return http.build()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

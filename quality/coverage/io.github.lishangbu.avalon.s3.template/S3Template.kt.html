@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>S3Template.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.template</a> &gt; <span class="el_source">S3Template.kt</span></div><h1>S3Template.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.template
+
+import io.github.lishangbu.avalon.s3.properties.S3Properties
+import org.springframework.beans.factory.InitializingBean
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.core.sync.RequestBody
+import software.amazon.awssdk.core.sync.ResponseTransformer
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.S3Configuration
+import software.amazon.awssdk.services.s3.model.*
+import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest
+import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest
+import java.io.InputStream
+import java.net.URI
+import java.time.Duration
+
+/**
+ * S3 操作模板
+ *
+ * 封装常用的存储桶、对象和预签名 URL 操作
+ */
+<span class="fc" id="L27">class S3Template(</span>
+    /** S3 属性 */
+<span class="fc" id="L29">    private val s3Properties: S3Properties,</span>
+) : InitializingBean {
+    /** S3 客户端 */
+    private lateinit var s3Client: S3Client
+
+    /** S3 预签名器 */
+    private lateinit var s3Presigner: S3Presigner
+
+    /** 创建存储桶 */
+    fun createBucket(bucketName: String) {
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (!headBucket(bucketName)) {</span>
+<span class="fc" id="L40">            val request = CreateBucketRequest.builder().bucket(bucketName).build()</span>
+<span class="fc" id="L41">            s3Client.createBucket(request)</span>
+        }
+<span class="fc" id="L43">    }</span>
+
+    /** 检查存储桶是否存在 */
+    fun headBucket(bucketName: String): Boolean =
+<span class="fc" id="L47">        try {</span>
+<span class="fc" id="L48">            val request = HeadBucketRequest.builder().bucket(bucketName).build()</span>
+<span class="pc" id="L49">            s3Client.headBucket(request)</span>
+<span class="nc" id="L50">            true</span>
+<span class="fc" id="L51">        } catch (_: NoSuchBucketException) {</span>
+<span class="fc" id="L52">            false</span>
+<span class="fc" id="L53">        }</span>
+
+    /** 获取所有存储桶 */
+    fun getAllBuckets(): List&lt;Bucket&gt; {
+<span class="fc" id="L57">        val response: ListBucketsResponse = s3Client.listBuckets()</span>
+<span class="fc" id="L58">        return response.buckets()</span>
+    }
+
+    /** 按名称获取存储桶 */
+<span class="fc" id="L62">    fun getBucket(bucketName: String): Bucket? = getAllBuckets().firstOrNull { it.name() == bucketName }</span>
+
+    /** 删除存储桶 */
+    fun removeBucket(bucketName: String) {
+<span class="fc" id="L66">        val request = DeleteBucketRequest.builder().bucket(bucketName).build()</span>
+<span class="fc" id="L67">        s3Client.deleteBucket(request)</span>
+<span class="fc" id="L68">    }</span>
+
+    /** 按前缀列出对象 */
+    fun getAllObjectsByPrefix(
+        bucketName: String,
+        prefix: String,
+    ): List&lt;S3Object&gt; {
+<span class="nc" id="L75">        val request =</span>
+            ListObjectsV2Request
+<span class="nc" id="L77">                .builder()</span>
+<span class="nc" id="L78">                .bucket(bucketName)</span>
+<span class="nc" id="L79">                .prefix(prefix)</span>
+<span class="nc" id="L80">                .build()</span>
+<span class="nc" id="L81">        val response: ListObjectsV2Response = s3Client.listObjectsV2(request)</span>
+<span class="nc" id="L82">        return response.contents()</span>
+    }
+
+    /** 生成对象下载预签名 URL */
+    fun getObjectURL(
+        bucketName: String,
+        objectName: String,
+        minutes: Int,
+<span class="nc" id="L90">    ): String = getObjectURL(bucketName, objectName, Duration.ofMinutes(minutes.toLong()))</span>
+
+    /** 生成对象下载预签名 URL */
+    fun getObjectURL(
+        bucketName: String,
+        objectName: String,
+        expires: Duration,
+    ): String {
+<span class="nc" id="L98">        val getObjectRequest =</span>
+            GetObjectRequest
+<span class="nc" id="L100">                .builder()</span>
+<span class="nc" id="L101">                .bucket(bucketName)</span>
+<span class="nc" id="L102">                .key(objectName)</span>
+<span class="nc" id="L103">                .build()</span>
+
+<span class="nc" id="L105">        val presignRequest =</span>
+            GetObjectPresignRequest
+<span class="nc" id="L107">                .builder()</span>
+<span class="nc" id="L108">                .signatureDuration(expires)</span>
+<span class="nc" id="L109">                .getObjectRequest(getObjectRequest)</span>
+<span class="nc" id="L110">                .build()</span>
+
+<span class="nc" id="L112">        val presignedRequest: PresignedGetObjectRequest =</span>
+<span class="nc" id="L113">            s3Presigner.presignGetObject(presignRequest)</span>
+<span class="nc" id="L114">        return presignedRequest.url().toString()</span>
+    }
+
+    /** 生成对象上传预签名 URL */
+    fun getPutObjectURL(
+        bucketName: String,
+        objectName: String,
+        minutes: Int,
+<span class="nc" id="L122">    ): String = getPutObjectURL(bucketName, objectName, Duration.ofMinutes(minutes.toLong()))</span>
+
+    /** 生成对象上传预签名 URL */
+    fun getPutObjectURL(
+        bucketName: String,
+        objectName: String,
+        expires: Duration,
+    ): String {
+<span class="nc" id="L130">        val putObjectRequest =</span>
+            PutObjectRequest
+<span class="nc" id="L132">                .builder()</span>
+<span class="nc" id="L133">                .bucket(bucketName)</span>
+<span class="nc" id="L134">                .key(objectName)</span>
+<span class="nc" id="L135">                .build()</span>
+
+<span class="nc" id="L137">        val presignRequest =</span>
+            PutObjectPresignRequest
+<span class="nc" id="L139">                .builder()</span>
+<span class="nc" id="L140">                .signatureDuration(expires)</span>
+<span class="nc" id="L141">                .putObjectRequest(putObjectRequest)</span>
+<span class="nc" id="L142">                .build()</span>
+
+<span class="nc" id="L144">        val presignedRequest: PresignedPutObjectRequest =</span>
+<span class="nc" id="L145">            s3Presigner.presignPutObject(presignRequest)</span>
+<span class="nc" id="L146">        return presignedRequest.url().toString()</span>
+    }
+
+    /** 按 HTTP 方法生成对象预签名 URL */
+    fun getObjectURL(
+        bucketName: String,
+        objectName: String,
+        minutes: Int,
+        httpMethod: String,
+<span class="nc" id="L155">    ) = getObjectURL(bucketName, objectName, Duration.ofMinutes(minutes.toLong()), httpMethod)</span>
+
+    /** 按 HTTP 方法生成对象预签名 URL */
+    fun getObjectURL(
+        bucketName: String,
+        objectName: String,
+        expires: Duration,
+        httpMethod: String,
+    ): String =
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if (httpMethod.equals(&quot;PUT&quot;, ignoreCase = true)) {</span>
+<span class="nc" id="L165">            getPutObjectURL(bucketName, objectName, expires)</span>
+        } else {
+<span class="nc" id="L167">            getObjectURL(bucketName, objectName, expires)</span>
+<span class="nc" id="L168">        }</span>
+
+    /** 拼接对象访问地址 */
+    fun getObjectURL(
+        bucketName: String,
+        objectName: String,
+<span class="nc" id="L174">    ): String = &quot;${requireProperty(s3Properties.endpoint, &quot;s3.endpoint&quot;)}/$bucketName/$objectName&quot;</span>
+
+    /** 读取对象内容 */
+    fun getObject(
+        bucketName: String,
+        objectName: String,
+    ): InputStream {
+<span class="fc" id="L181">        val request =</span>
+            GetObjectRequest
+<span class="fc" id="L183">                .builder()</span>
+<span class="fc" id="L184">                .bucket(bucketName)</span>
+<span class="fc" id="L185">                .key(objectName)</span>
+<span class="fc" id="L186">                .build()</span>
+<span class="fc" id="L187">        return s3Client.getObject(request, ResponseTransformer.toInputStream())</span>
+    }
+
+    /** 上传对象 */
+    fun putObject(
+        bucketName: String,
+        objectName: String,
+        stream: InputStream,
+    ) {
+<span class="fc" id="L196">        putObject(bucketName, objectName, stream.readBytes(), &quot;application/octet-stream&quot;)</span>
+<span class="fc" id="L197">    }</span>
+
+    /** 上传指定内容类型的对象 */
+    fun putObject(
+        bucketName: String,
+        objectName: String,
+        contextType: String,
+        stream: InputStream,
+    ) {
+<span class="nc" id="L206">        putObject(bucketName, objectName, stream.readBytes(), contextType)</span>
+<span class="nc" id="L207">    }</span>
+
+    /** 上传指定长度的对象 */
+    fun putObject(
+        bucketName: String,
+        objectName: String,
+        stream: InputStream,
+        size: Long,
+        contextType: String,
+    ): PutObjectResponse {
+<span class="nc" id="L217">        val request =</span>
+            PutObjectRequest
+<span class="nc" id="L219">                .builder()</span>
+<span class="nc" id="L220">                .bucket(bucketName)</span>
+<span class="nc" id="L221">                .key(objectName)</span>
+<span class="nc" id="L222">                .contentType(contextType)</span>
+<span class="nc" id="L223">                .contentLength(size)</span>
+<span class="nc" id="L224">                .build()</span>
+
+<span class="nc" id="L226">        return s3Client.putObject(request, RequestBody.fromInputStream(stream, size))</span>
+    }
+
+    /** 上传字节数组内容 */
+    private fun putObject(
+        bucketName: String,
+        objectName: String,
+        content: ByteArray,
+        contextType: String,
+    ): PutObjectResponse {
+<span class="fc" id="L236">        val request =</span>
+            PutObjectRequest
+<span class="fc" id="L238">                .builder()</span>
+<span class="fc" id="L239">                .bucket(bucketName)</span>
+<span class="fc" id="L240">                .key(objectName)</span>
+<span class="fc" id="L241">                .contentType(contextType)</span>
+<span class="fc" id="L242">                .contentLength(content.size.toLong())</span>
+<span class="fc" id="L243">                .build()</span>
+
+<span class="fc" id="L245">        return s3Client.putObject(request, RequestBody.fromBytes(content))</span>
+    }
+
+    /** 获取对象元数据 */
+    fun getObjectInfo(
+        bucketName: String,
+        objectName: String,
+    ): HeadObjectResponse {
+<span class="nc" id="L253">        val request =</span>
+            HeadObjectRequest
+<span class="nc" id="L255">                .builder()</span>
+<span class="nc" id="L256">                .bucket(bucketName)</span>
+<span class="nc" id="L257">                .key(objectName)</span>
+<span class="nc" id="L258">                .build()</span>
+<span class="nc" id="L259">        return s3Client.headObject(request)</span>
+    }
+
+    /** 删除对象 */
+    fun removeObject(
+        bucketName: String,
+        objectName: String,
+    ) {
+<span class="fc" id="L267">        val request =</span>
+            DeleteObjectRequest
+<span class="fc" id="L269">                .builder()</span>
+<span class="fc" id="L270">                .bucket(bucketName)</span>
+<span class="fc" id="L271">                .key(objectName)</span>
+<span class="fc" id="L272">                .build()</span>
+<span class="fc" id="L273">        s3Client.deleteObject(request)</span>
+<span class="fc" id="L274">    }</span>
+
+    /** 读取配置并创建 S3 客户端与预签名器 */
+    override fun afterPropertiesSet() {
+<span class="fc" id="L278">        s3Client =</span>
+            S3Client
+<span class="fc" id="L280">                .builder()</span>
+<span class="fc" id="L281">                .endpointOverride(endpointUri())</span>
+<span class="fc" id="L282">                .region(resolveRegion())</span>
+<span class="fc" id="L283">                .credentialsProvider(StaticCredentialsProvider.create(basicCredentials()))</span>
+<span class="fc" id="L284">                .serviceConfiguration(</span>
+                    S3Configuration
+<span class="fc" id="L286">                        .builder()</span>
+<span class="fc" id="L287">                        .pathStyleAccessEnabled(s3Properties.pathStyleAccess)</span>
+<span class="fc" id="L288">                        .chunkedEncodingEnabled(s3Properties.chunkedEncodingEnabled)</span>
+<span class="fc" id="L289">                        .build(),</span>
+<span class="fc" id="L290">                ).build()</span>
+
+<span class="fc" id="L292">        s3Presigner =</span>
+            S3Presigner
+<span class="fc" id="L294">                .builder()</span>
+<span class="fc" id="L295">                .endpointOverride(endpointUri())</span>
+<span class="fc" id="L296">                .region(resolveRegion())</span>
+<span class="fc" id="L297">                .credentialsProvider(StaticCredentialsProvider.create(basicCredentials()))</span>
+<span class="fc" id="L298">                .serviceConfiguration(</span>
+                    S3Configuration
+<span class="fc" id="L300">                        .builder()</span>
+<span class="fc" id="L301">                        .pathStyleAccessEnabled(s3Properties.pathStyleAccess)</span>
+<span class="fc" id="L302">                        .build(),</span>
+<span class="fc" id="L303">                ).build()</span>
+<span class="fc" id="L304">    }</span>
+
+    /** 解析端点 URI */
+<span class="fc" id="L307">    private fun endpointUri(): URI = URI.create(requireProperty(s3Properties.endpoint, &quot;s3.endpoint&quot;))</span>
+
+    /** 解析区域 */
+<span class="pc bpc" id="L310" title="4 of 6 branches missed.">    private fun resolveRegion(): Region = Region.of(s3Properties.region?.ifBlank { null } ?: &quot;us-east-1&quot;)</span>
+
+    /** 创建基础凭证 */
+    private fun basicCredentials(): AwsBasicCredentials =
+<span class="fc" id="L314">        AwsBasicCredentials.create(</span>
+<span class="fc" id="L315">            requireProperty(s3Properties.accessKey, &quot;s3.access-key&quot;),</span>
+<span class="fc" id="L316">            requireProperty(s3Properties.secretKey, &quot;s3.secret-key&quot;),</span>
+<span class="fc" id="L317">        )</span>
+
+    /** 校验并返回配置值 */
+    private fun requireProperty(
+        value: String?,
+        propertyName: String,
+    ): String =
+<span class="pc bpc" id="L324" title="4 of 8 branches missed.">        value?.takeIf { it.isNotBlank() }</span>
+<span class="nc" id="L325">            ?: throw IllegalStateException(</span>
+<span class="nc" id="L326">                &quot;Property '$propertyName' must be configured for S3Template.&quot;,</span>
+<span class="fc" id="L327">            )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

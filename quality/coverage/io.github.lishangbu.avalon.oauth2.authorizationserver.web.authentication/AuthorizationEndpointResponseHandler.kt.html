@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthorizationEndpointResponseHandler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication</a> &gt; <span class="el_source">AuthorizationEndpointResponseHandler.kt</span></div><h1>AuthorizationEndpointResponseHandler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.web.authentication
+
+import jakarta.servlet.ServletException
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
+import org.springframework.http.converter.HttpMessageConverter
+import org.springframework.http.server.ServletServerHttpResponse
+import org.springframework.security.core.Authentication
+import org.springframework.security.oauth2.core.*
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse
+import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationContext
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import java.io.IOException
+import java.time.temporal.ChronoUnit
+import java.util.function.Consumer
+
+/**
+ * 授权端点成功响应处理器
+ *
+ * 将访问令牌认证结果写回标准 OAuth2 访问令牌响应
+ */
+<span class="fc" id="L26">class AuthorizationEndpointResponseHandler : AuthenticationSuccessHandler {</span>
+    /** 日志记录器 */
+<span class="fc" id="L28">    private val logger: Log = LogFactory.getLog(javaClass)</span>
+
+    /** 访问令牌响应转换器 */
+    private val accessTokenResponseConverter: HttpMessageConverter&lt;OAuth2AccessTokenResponse&gt; =
+<span class="fc" id="L32">        OAuth2AccessTokenResponseHttpMessageConverter()</span>
+
+    /** 访问令牌响应定制器 */
+    private var accessTokenResponseCustomizer: Consumer&lt;OAuth2AccessTokenAuthenticationContext&gt;? =
+        null
+
+    /** 处理认证成功 */
+    @Throws(IOException::class, ServletException::class)
+    override fun onAuthenticationSuccess(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication,
+    ) {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (authentication !is OAuth2AccessTokenAuthenticationToken) {</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            if (logger.isErrorEnabled) {</span>
+<span class="fc" id="L47">                logger.error(</span>
+<span class="fc" id="L48">                    Authentication::class.java.simpleName +</span>
+                        &quot; must be of type &quot; +
+<span class="fc" id="L50">                        OAuth2AccessTokenAuthenticationToken::class.java.name +</span>
+                        &quot; but was &quot; +
+<span class="fc" id="L52">                        authentication.javaClass.name,</span>
+                )
+            }
+<span class="fc" id="L55">            val error =</span>
+<span class="fc" id="L56">                OAuth2Error(</span>
+<span class="fc" id="L57">                    OAuth2ErrorCodes.SERVER_ERROR,</span>
+<span class="fc" id="L58">                    &quot;Unable to process the access token response.&quot;,</span>
+<span class="fc" id="L59">                    null,</span>
+                )
+<span class="fc" id="L61">            throw OAuth2AuthenticationException(error)</span>
+        }
+
+<span class="fc" id="L64">        val accessToken: OAuth2AccessToken = authentication.accessToken</span>
+<span class="fc" id="L65">        val refreshToken: OAuth2RefreshToken? = authentication.refreshToken</span>
+<span class="fc" id="L66">        val additionalParameters = authentication.additionalParameters</span>
+
+<span class="fc" id="L68">        val builder =</span>
+            OAuth2AccessTokenResponse
+<span class="fc" id="L70">                .withToken(accessToken.tokenValue)</span>
+<span class="fc" id="L71">                .tokenType(accessToken.tokenType)</span>
+<span class="fc" id="L72">                .scopes(accessToken.scopes)</span>
+<span class="pc bpc" id="L73" title="2 of 4 branches missed.">        if (accessToken.issuedAt != null &amp;&amp; accessToken.expiresAt != null) {</span>
+<span class="fc" id="L74">            builder.expiresIn(</span>
+<span class="fc" id="L75">                ChronoUnit.SECONDS.between(accessToken.issuedAt, accessToken.expiresAt),</span>
+            )
+        }
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (refreshToken != null) {</span>
+<span class="fc" id="L79">            builder.refreshToken(refreshToken.tokenValue)</span>
+        }
+<span class="pc bpc" id="L81" title="3 of 6 branches missed.">        if (!additionalParameters.isNullOrEmpty()) {</span>
+<span class="nc" id="L82">            builder.additionalParameters(additionalParameters)</span>
+        }
+
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        accessTokenResponseCustomizer?.let { customizer -&gt;</span>
+            // @formatter:off
+<span class="fc" id="L87">            val accessTokenAuthenticationContext =</span>
+                OAuth2AccessTokenAuthenticationContext
+<span class="fc" id="L89">                    .with(authentication)</span>
+<span class="fc" id="L90">                    .accessTokenResponse(builder)</span>
+<span class="fc" id="L91">                    .build()</span>
+            // @formatter:on
+<span class="fc" id="L93">            customizer.accept(accessTokenAuthenticationContext)</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            if (logger.isTraceEnabled) {</span>
+<span class="nc" id="L95">                logger.trace(&quot;Customized access token response&quot;)</span>
+            }
+<span class="fc" id="L97">        }</span>
+
+<span class="fc" id="L99">        val accessTokenResponse = builder.build()</span>
+<span class="fc" id="L100">        val httpResponse = ServletServerHttpResponse(response)</span>
+<span class="fc" id="L101">        accessTokenResponseConverter.write(accessTokenResponse, null, httpResponse)</span>
+<span class="fc" id="L102">    }</span>
+
+    /** 设置访问令牌响应定制器 */
+    fun setAccessTokenResponseCustomizer(
+        accessTokenResponseCustomizer: Consumer&lt;OAuth2AccessTokenAuthenticationContext&gt;,
+    ) {
+<span class="fc" id="L108">        this.accessTokenResponseCustomizer = accessTokenResponseCustomizer</span>
+<span class="fc" id="L109">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

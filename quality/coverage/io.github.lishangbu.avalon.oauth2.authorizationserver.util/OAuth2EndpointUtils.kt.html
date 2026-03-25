@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2EndpointUtils.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.util</a> &gt; <span class="el_source">OAuth2EndpointUtils.kt</span></div><h1>OAuth2EndpointUtils.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.util
+
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.security.oauth2.core.AuthorizationGrantType
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException
+import org.springframework.security.oauth2.core.OAuth2Error
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
+import org.springframework.security.oauth2.core.endpoint.PkceParameterNames
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
+
+object OAuth2EndpointUtils {
+    /** 访问令牌请求错误 URI */
+    const val ACCESS_TOKEN_REQUEST_ERROR_URI =
+        &quot;https://datatracker.ietf.org/doc/html/rfc6749#section-5.2&quot;
+
+    /** 获取参数 */
+    @JvmStatic
+    fun getParameters(request: HttpServletRequest): MultiValueMap&lt;String, String&gt; {
+<span class="fc" id="L20">        val parameterMap = request.parameterMap</span>
+<span class="fc" id="L21">        val parameters = LinkedMultiValueMap&lt;String, String&gt;(parameterMap.size)</span>
+<span class="fc" id="L22">        parameterMap.forEach { (key, values) -&gt;</span>
+<span class="fc" id="L23">            values.forEach { value -&gt; parameters.add(key, value) }</span>
+<span class="fc" id="L24">        }</span>
+<span class="fc" id="L25">        return parameters</span>
+    }
+
+    /** 获取表单参数 */
+    @JvmStatic
+<span class="fc" id="L30">    fun getFormParameters(request: HttpServletRequest): MultiValueMap&lt;String, String&gt; = getParameters(request)</span>
+
+    /** 判断是否匹配PKCE 令牌请求 */
+    @JvmStatic
+    fun matchesPkceTokenRequest(request: HttpServletRequest): Boolean =
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        AuthorizationGrantType.AUTHORIZATION_CODE.value ==</span>
+<span class="fc" id="L36">            request.getParameter(OAuth2ParameterNames.GRANT_TYPE) &amp;&amp;</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            request.getParameter(OAuth2ParameterNames.CODE) != null &amp;&amp;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            request.getParameter(PkceParameterNames.CODE_VERIFIER) != null</span>
+
+    /** 抛出错误 */
+    @JvmStatic
+    fun throwError(
+        errorCode: String,
+        parameterName: String,
+        errorUri: String,
+    ): Nothing {
+<span class="fc" id="L47">        val error = OAuth2Error(errorCode, &quot;OAuth 2.0 Parameter: $parameterName&quot;, errorUri)</span>
+<span class="fc" id="L48">        throw OAuth2AuthenticationException(error)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

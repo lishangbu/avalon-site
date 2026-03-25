@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.service.impl</a> &gt; <span class="el_source">MenuServiceImpl.kt</span></div><h1>MenuServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.service.impl
+
+import io.github.lishangbu.avalon.authorization.entity.Menu
+import io.github.lishangbu.avalon.authorization.entity.dto.MenuSpecification
+import io.github.lishangbu.avalon.authorization.model.MenuTreeNode
+import io.github.lishangbu.avalon.authorization.repository.MenuRepository
+import io.github.lishangbu.avalon.authorization.service.MenuService
+import io.github.lishangbu.avalon.web.util.TreeUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/**
+ * 菜单服务实现
+ *
+ * 负责菜单查询与菜单树构建
+ *
+ * @author lishangbu
+ * @since 2025/9/19
+ */
+<span class="fc" id="L23">@Service</span>
+<span class="fc" id="L24">class MenuServiceImpl(</span>
+    /** 菜单仓储 */
+<span class="fc" id="L26">    private val menuRepository: MenuRepository,</span>
+) : MenuService {
+    /** 根据角色编码列表查询菜单树列表 */
+    override fun listMenuTreeByRoleCodes(roleCodes: List&lt;String&gt;): List&lt;MenuTreeNode&gt; {
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (roleCodes.isEmpty()) {</span>
+<span class="fc" id="L31">            return emptyList()</span>
+        }
+<span class="fc" id="L33">        val menus = menuRepository.findAllByRoleCodes(roleCodes)</span>
+<span class="fc" id="L34">        log.debug(&quot;根据角色编码获取到 [{}] 条菜单记录&quot;, menus.size)</span>
+<span class="fc" id="L35">        return buildTreeFromMenus(menus)</span>
+    }
+
+    /** 查询全部菜单树列表 */
+    override fun listAllMenuTree(specification: MenuSpecification): List&lt;MenuTreeNode&gt; {
+<span class="fc" id="L40">        val allMenus = menuRepository.findAllByOrderBySortingOrderAscIdAsc()</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (allMenus.isEmpty()) {</span>
+<span class="fc" id="L42">            return emptyList()</span>
+        }
+<span class="fc" id="L44">        val matchedMenus = menuRepository.findAll(specification, MENU_TREE_SORT)</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (matchedMenus.isEmpty()) {</span>
+<span class="fc" id="L46">            return emptyList()</span>
+        }
+
+<span class="fc" id="L49">        val menuById = allMenus.associateBy { it.id }</span>
+<span class="fc" id="L50">        val childrenByParentId = allMenus.groupBy { it.parentId }</span>
+
+<span class="fc" id="L52">        val includedIds = linkedSetOf&lt;Long&gt;()</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        for (matchedMenu in matchedMenus) {</span>
+<span class="fc" id="L54">            collectAncestors(menuById, matchedMenu.id, includedIds)</span>
+<span class="fc" id="L55">            collectDescendants(matchedMenu.id, childrenByParentId, includedIds)</span>
+        }
+
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if (includedIds.isEmpty()) {</span>
+<span class="nc" id="L59">            return emptyList()</span>
+        }
+
+<span class="fc" id="L62">        val filteredMenus =</span>
+<span class="fc" id="L63">            allMenus.filter { menuItem -&gt; includedIds.contains(menuItem.id) }</span>
+
+<span class="fc" id="L65">        return buildTreeFromMenus(filteredMenus)</span>
+    }
+
+    /** 按 ID 查询菜单 */
+<span class="fc" id="L69">    override fun getById(id: Long): Menu? = menuRepository.findById(id)</span>
+
+    /** 保存菜单 */
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L73">    override fun save(menu: Menu): Menu = menuRepository.save(menu)</span>
+
+    /** 更新菜单 */
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L77">    override fun update(menu: Menu): Menu = menuRepository.save(menu)</span>
+
+    /** 按 ID 删除菜单 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L82">        menuRepository.deleteById(id)</span>
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * 将权限实体列表转换为树节点并构建树结构
+     * - 处理空集合，返回不可变空列表
+     * - 将 Menu 映射为 MenuTreeNode
+     * - 使用通用的 [TreeUtils] 构建树
+     *
+     * @param menus 权限实体列表
+     * @return 树结构的 MenuTreeNode 列表，永远不返回 null
+     * @see TreeUtils#buildTree(List, Function, Function, BiConsumer)
+     */
+    private fun buildTreeFromMenus(menus: List&lt;Menu&gt;): List&lt;MenuTreeNode&gt; {
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (menus.isEmpty()) {</span>
+<span class="nc" id="L97">            return emptyList()</span>
+        }
+
+<span class="fc" id="L100">        val treeNodes = menus.map(::MenuTreeNode)</span>
+
+<span class="fc" id="L102">        return TreeUtils.buildTree(</span>
+<span class="fc" id="L103">            treeNodes,</span>
+<span class="fc" id="L104">            { it.id },</span>
+<span class="fc" id="L105">            { it.parentId },</span>
+<span class="fc" id="L106">            { parent, children -&gt; parent.children = children },</span>
+        )
+    }
+
+    companion object {
+        /** 日志记录器 */
+<span class="fc" id="L112">        private val log: Logger = LoggerFactory.getLogger(MenuServiceImpl::class.java)</span>
+
+        /** 菜单树排序 */
+        private val MENU_TREE_SORT: Sort =
+<span class="fc" id="L116">            Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;))</span>
+
+        /** 返回收集祖先节点 */
+        private fun collectAncestors(
+            menuById: Map&lt;Long, Menu&gt;,
+            startId: Long,
+            includedIds: MutableSet&lt;Long&gt;,
+        ) {
+<span class="fc" id="L124">            var currentId: Long? = startId</span>
+<span class="pc bpc" id="L125" title="1 of 4 branches missed.">            while (currentId != null &amp;&amp; includedIds.add(currentId)) {</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">                val current = menuById[currentId] ?: break</span>
+<span class="fc" id="L127">                currentId = current.parentId</span>
+            }
+<span class="fc" id="L129">        }</span>
+
+        /** 返回收集后代节点 */
+        private fun collectDescendants(
+            startId: Long?,
+            childrenByParentId: Map&lt;Long?, List&lt;Menu&gt;&gt;,
+            includedIds: MutableSet&lt;Long&gt;,
+        ) {
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">            if (startId == null) {</span>
+<span class="nc" id="L138">                return</span>
+            }
+<span class="fc" id="L140">            val deque = ArrayDeque&lt;Long&gt;()</span>
+<span class="fc" id="L141">            val visited = mutableSetOf&lt;Long&gt;()</span>
+<span class="fc" id="L142">            deque.addLast(startId)</span>
+<span class="fc bfc" id="L143" title="All 4 branches covered.">            while (deque.isNotEmpty()) {</span>
+<span class="fc" id="L144">                val currentId = deque.removeLast()</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                if (!visited.add(currentId)) {</span>
+<span class="nc" id="L146">                    continue</span>
+                }
+<span class="fc" id="L148">                includedIds.add(currentId)</span>
+<span class="fc bfc" id="L149" title="All 4 branches covered.">                for (child in childrenByParentId[currentId].orEmpty()) {</span>
+<span class="fc" id="L150">                    deque.addLast(child.id)</span>
+                }
+            }
+<span class="fc" id="L153">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

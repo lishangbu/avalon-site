@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Oauth2Properties.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.common.properties</a> &gt; <span class="el_source">Oauth2Properties.kt</span></div><h1>Oauth2Properties.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.common.properties
+
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.convert.DurationStyle
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+
+/**
+ * OAuth2 配置属性
+ *
+ * 定义认证参数名、验证码策略、登录失败限制和 JWT 密钥位置等配置
+ */
+<span class="fc" id="L14">@AutoConfiguration</span>
+@ConfigurationProperties(prefix = &quot;oauth2&quot;)
+class Oauth2Properties {
+    /** 忽略认证的 URL 列表 */
+<span class="fc" id="L18">    var ignoreUrls: MutableList&lt;String&gt; = mutableListOf()</span>
+
+    /** 用户名参数名 */
+<span class="fc" id="L21">    var usernameParameterName: String = &quot;username&quot;</span>
+
+    /** 密码参数名 */
+<span class="fc" id="L24">    var passwordParameterName: String = &quot;password&quot;</span>
+
+    /** 手机号参数名 */
+<span class="fc" id="L27">    var phoneParameterName: String = &quot;phone&quot;</span>
+
+    /** 短信验证码参数名 */
+<span class="fc" id="L30">    var smsCodeParameterName: String = &quot;sms_code&quot;</span>
+
+    /** 邮箱参数名 */
+<span class="fc" id="L33">    var emailParameterName: String = &quot;email&quot;</span>
+
+    /** 邮箱验证码参数名 */
+<span class="fc" id="L36">    var emailCodeParameterName: String = &quot;email_code&quot;</span>
+
+    /** 短信验证码长度 */
+<span class="fc" id="L39">    var smsCodeLength: Int? = 6</span>
+
+    /** 短信验证码有效期 */
+<span class="fc" id="L42">    private var smsCodeTimeToLive: String? = &quot;5m&quot;</span>
+
+    /** 短信验证码重发间隔 */
+<span class="fc" id="L45">    private var smsCodeResendInterval: String? = &quot;60s&quot;</span>
+
+    /** 邮箱验证码长度 */
+<span class="fc" id="L48">    var emailCodeLength: Int? = 6</span>
+
+    /** 邮箱验证码有效期 */
+<span class="fc" id="L51">    private var emailCodeTimeToLive: String? = &quot;5m&quot;</span>
+
+    /** 邮箱验证码重发间隔 */
+<span class="fc" id="L54">    private var emailCodeResendInterval: String? = &quot;60s&quot;</span>
+
+    /** 最大登录失败次数 */
+<span class="fc" id="L57">    var maxLoginFailures: Int? = 5</span>
+
+    /** 登录锁定时长 */
+<span class="fc" id="L60">    private var loginLockDuration: String? = &quot;15m&quot;</span>
+
+    /** 签发者 URL */
+<span class="fc" id="L63">    var issuerUrl: String? = null</span>
+
+    /** JWT 公钥文件位置 */
+<span class="fc" id="L66">    var jwtPublicKeyLocation: String? = null</span>
+
+    /** JWT 私钥文件位置 */
+<span class="fc" id="L69">    var jwtPrivateKeyLocation: String? = null</span>
+
+    /** 获取登录锁定时长 */
+    fun getLoginLockDuration(): Duration? {
+<span class="fc" id="L73">        val value = loginLockDuration</span>
+<span class="fc bfc" id="L74" title="All 6 branches covered.">        if (value.isNullOrBlank()) {</span>
+<span class="fc" id="L75">            return null</span>
+        }
+<span class="fc" id="L77">        return try {</span>
+<span class="fc" id="L78">            DurationStyle.detectAndParse(value.trim(), ChronoUnit.MINUTES)</span>
+<span class="fc" id="L79">        } catch (_: IllegalArgumentException) {</span>
+<span class="fc" id="L80">            null</span>
+        }
+    }
+
+    /** 设置登录锁定时长 */
+    fun setLoginLockDuration(loginLockDuration: String?) {
+<span class="fc" id="L86">        this.loginLockDuration = loginLockDuration</span>
+<span class="fc" id="L87">    }</span>
+
+    /** 获取短信验证码有效期 */
+<span class="fc" id="L90">    fun getSmsCodeTimeToLiveDuration(): Duration = parseDuration(smsCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
+
+    /** 获取短信验证码重发间隔 */
+<span class="fc" id="L93">    fun getSmsCodeResendIntervalDuration(): Duration = parseDuration(smsCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
+
+    /** 获取邮箱验证码有效期 */
+<span class="fc" id="L96">    fun getEmailCodeTimeToLiveDuration(): Duration = parseDuration(emailCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
+
+    /** 获取邮箱验证码重发间隔 */
+<span class="fc" id="L99">    fun getEmailCodeResendIntervalDuration(): Duration = parseDuration(emailCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
+
+    /** 解析时长配置 */
+    private fun parseDuration(
+        value: String?,
+        fallback: Duration,
+        defaultUnit: ChronoUnit,
+    ): Duration {
+<span class="pc bpc" id="L107" title="3 of 6 branches missed.">        if (value.isNullOrBlank()) {</span>
+<span class="nc" id="L108">            return fallback</span>
+        }
+<span class="fc" id="L110">        return try {</span>
+<span class="fc" id="L111">            DurationStyle.detectAndParse(value.trim(), defaultUnit)</span>
+<span class="nc" id="L112">        } catch (_: IllegalArgumentException) {</span>
+<span class="pc" id="L113">            fallback</span>
+        }
+    }
+
+    companion object {
+        /** 配置前缀 */
+        const val PREFIX = &quot;oauth2&quot;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

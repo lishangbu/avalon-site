@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractUrlIgnoreCache.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.web.util</a> &gt; <span class="el_source">AbstractUrlIgnoreCache.kt</span></div><h1>AbstractUrlIgnoreCache.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.web.util
+
+import org.springframework.util.AntPathMatcher
+import org.springframework.util.ConcurrentLruCache
+
+/**
+ * 忽略 URL 缓存基类
+ *
+ * 使用 LRU 缓存保存 URL 是否命中忽略规则的结果
+ */
+<span class="fc" id="L11">abstract class AbstractUrlIgnoreCache {</span>
+    /** ANT 路径匹配器 */
+<span class="fc" id="L13">    private val antPathMatcher = AntPathMatcher()</span>
+
+    /** 缓存 */
+<span class="fc" id="L16">    private val cache = ConcurrentLruCache&lt;String, Boolean&gt;(1024, this::urlShouldBeIgnored)</span>
+
+    /** 判断 URL 是否需要忽略 */
+<span class="fc" id="L19">    fun shouldIgnore(url: String): Boolean = cache.get(url)</span>
+
+    /** 获取忽略 URL 列表 */
+    protected abstract fun getIgnoreUrls(): List&lt;String&gt;
+
+    /** 执行忽略规则匹配 */
+<span class="fc" id="L25">    private fun urlShouldBeIgnored(url: String): Boolean = getIgnoreUrls().any { pattern -&gt; antPathMatcher.match(pattern, url) }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

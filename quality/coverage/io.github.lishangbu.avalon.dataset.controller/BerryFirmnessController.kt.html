@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerryFirmnessController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.controller</a> &gt; <span class="el_source">BerryFirmnessController.kt</span></div><h1>BerryFirmnessController.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.controller
+
+import io.github.lishangbu.avalon.dataset.entity.BerryFirmness
+import io.github.lishangbu.avalon.dataset.service.BerryFirmnessService
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.web.bind.annotation.*
+
+/** 树果硬度控制器*/
+<span class="fc" id="L10">@RestController</span>
+@RequestMapping(&quot;/berry-firmness&quot;)
+<span class="fc" id="L12">class BerryFirmnessController(</span>
+    /** 树果硬度服务 */
+<span class="fc" id="L14">    private val berryFirmnessService: BerryFirmnessService,</span>
+) {
+    /** 获取树果硬度分页结果 */
+    @GetMapping(&quot;/page&quot;)
+    fun getBerryFirmnessPage(
+        pageable: Pageable,
+        @RequestParam(required = false) id: Long?,
+        @RequestParam(required = false) internalName: String?,
+        @RequestParam(required = false) name: String?,
+    ): Page&lt;BerryFirmness&gt; =
+<span class="fc" id="L24">        berryFirmnessService.getPageByCondition(</span>
+<span class="fc" id="L25">            BerryFirmness {</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                id?.let { this.id = it }</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">                internalName?.let { this.internalName = it }</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                name?.let { this.name = it }</span>
+<span class="fc" id="L29">            },</span>
+<span class="fc" id="L30">            pageable,</span>
+<span class="fc" id="L31">        )</span>
+
+    /** 保存树果硬度 */
+    @PostMapping
+    fun save(
+        @RequestBody berryFirmness: BerryFirmness,
+<span class="fc" id="L37">    ): BerryFirmness = berryFirmnessService.save(berryFirmness)</span>
+
+    /** 更新树果硬度 */
+    @PutMapping
+    fun update(
+        @RequestBody berryFirmness: BerryFirmness,
+<span class="fc" id="L43">    ): BerryFirmness = berryFirmnessService.update(berryFirmness)</span>
+
+    /** 按 ID 删除树果硬度 */
+    @DeleteMapping(&quot;/{id:\\d+}&quot;)
+    fun deleteById(
+        @PathVariable id: Long,
+    ) {
+<span class="fc" id="L50">        berryFirmnessService.removeById(id)</span>
+<span class="fc" id="L51">    }</span>
+
+    /** 查询树果硬度列表 */
+    @GetMapping(&quot;/list&quot;)
+    fun listBerryFirmnesses(
+        @RequestParam(required = false) id: Long?,
+        @RequestParam(required = false) internalName: String?,
+        @RequestParam(required = false) name: String?,
+    ): List&lt;BerryFirmness&gt; =
+<span class="fc" id="L60">        berryFirmnessService.listByCondition(</span>
+<span class="fc" id="L61">            BerryFirmness {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                id?.let { this.id = it }</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                internalName?.let { this.internalName = it }</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                name?.let { this.name = it }</span>
+<span class="fc" id="L65">            },</span>
+<span class="fc" id="L66">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2RefreshTokenGenerator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.token</a> &gt; <span class="el_source">OAuth2RefreshTokenGenerator.kt</span></div><h1>OAuth2RefreshTokenGenerator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.token
+
+import io.github.lishangbu.avalon.oauth2.authorizationserver.keygen.UuidKeyGenerator
+import org.springframework.security.crypto.keygen.StringKeyGenerator
+import org.springframework.security.oauth2.core.OAuth2RefreshToken
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator
+import java.time.Instant
+
+/**
+ * 刷新令牌生成器
+ *
+ * 基于 UUID 生成 refresh token
+ */
+<span class="fc" id="L16">class OAuth2RefreshTokenGenerator : OAuth2TokenGenerator&lt;OAuth2RefreshToken&gt; {</span>
+    /** 刷新令牌生成器 */
+<span class="fc" id="L18">    private val refreshTokenGenerator: StringKeyGenerator = UuidKeyGenerator()</span>
+
+    /** 生成刷新令牌 */
+    override fun generate(context: OAuth2TokenContext): OAuth2RefreshToken? {
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (OAuth2TokenType.REFRESH_TOKEN != context.tokenType) {</span>
+<span class="fc" id="L23">            return null</span>
+        }
+<span class="fc" id="L25">        val issuedAt = Instant.now()</span>
+<span class="fc" id="L26">        val expiresAt = issuedAt.plus(context.registeredClient.tokenSettings.refreshTokenTimeToLive)</span>
+<span class="fc" id="L27">        return OAuth2RefreshToken(refreshTokenGenerator.generateKey(), issuedAt, expiresAt)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

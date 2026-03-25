@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatCalculatorFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.calculator.stat</a> &gt; <span class="el_source">StatCalculatorFactory.kt</span></div><h1>StatCalculatorFactory.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.calculator.stat
+
+import org.springframework.stereotype.Service
+
+/**
+ * 能力值计算工厂
+ *
+ * 根据能力内部名称选择对应的能力值计算器。
+ */
+<span class="fc" id="L10">@Service</span>
+<span class="fc" id="L11">class StatCalculatorFactory(</span>
+    /** 计算器列表 */
+<span class="fc" id="L13">    private val calculators: List&lt;StatCalculator&gt;,</span>
+) {
+    /**
+     * 按第三世代后的公式计算指定能力项的能力值
+     *
+     * @param internalName 能力内部名称，例如 hp、attack、special-attack
+     * @param base 种族值
+     * @param dv 个体值（IV）
+     * @param stateExp 努力值（EV）
+     * @param level 等级
+     * @param nature 性格修正百分比，提升为110，普通为100，下降为90
+     * @return 计算结果；能力项未知或等级无效时返回0
+     */
+    fun calculateStat(
+        internalName: String,
+        base: Int,
+        dv: Int,
+        stateExp: Int,
+        level: Int,
+        nature: Int,
+    ): Int {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (level &lt;= 0) {</span>
+<span class="fc" id="L35">            return 0</span>
+        }
+<span class="fc" id="L37">        return calculators</span>
+<span class="fc" id="L38">            .firstOrNull { calculator -&gt; calculator.support(internalName) }</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            ?.calculateStat(base, dv, stateExp, level, nature) ?: 0</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
