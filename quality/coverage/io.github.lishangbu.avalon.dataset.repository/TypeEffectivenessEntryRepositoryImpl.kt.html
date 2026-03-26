@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeEffectivenessEntryRepositoryImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">TypeEffectivenessEntryRepositoryImpl.kt</span></div><h1>TypeEffectivenessEntryRepositoryImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Repository
+
+<span class="fc" id="L10">@Repository</span>
+<span class="fc" id="L11">class TypeEffectivenessEntryRepositoryImpl(</span>
+    /** Jimmer SQL 客户端 */
+<span class="fc" id="L13">    private val sql: KSqlClient,</span>
+) : TypeEffectivenessEntryRepository {
+    /** 按条件查询属性相克条目列表 */
+    override fun findAll(
+        attackingTypeId: Long?,
+        defendingTypeId: Long?,
+        multiplierPercent: Int?,
+    ): List&lt;TypeEffectivenessEntry&gt; =
+<span class="fc" id="L21">        sql</span>
+<span class="fc" id="L22">            .createQuery(TypeEffectivenessEntry::class) {</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
+<span class="fc" id="L26">                select(table)</span>
+<span class="fc" id="L27">            }.execute()</span>
+
+    /** 按条件分页查询属性相克条目 */
+    override fun findPage(
+        attackingTypeId: Long?,
+        defendingTypeId: Long?,
+        multiplierPercent: Int?,
+        pageable: Pageable,
+    ): Page&lt;TypeEffectivenessEntry&gt; =
+<span class="fc" id="L36">        sql</span>
+<span class="fc" id="L37">            .createQuery(TypeEffectivenessEntry::class) {</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
+<span class="fc" id="L41">                select(table)</span>
+<span class="fc" id="L42">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 保存属性相克条目 */
+<span class="fc" id="L45">    override fun save(typeEffectivenessEntry: TypeEffectivenessEntry): TypeEffectivenessEntry = sql.save(typeEffectivenessEntry).modifiedEntity</span>
+
+    /** 按 ID 删除属性相克条目 */
+    override fun deleteById(id: TypeEffectivenessEntryId) {
+<span class="fc" id="L49">        sql</span>
+<span class="fc" id="L50">            .createDelete(TypeEffectivenessEntry::class) {</span>
+<span class="fc" id="L51">                where(table.id.attackingTypeId eq id.attackingTypeId)</span>
+<span class="fc" id="L52">                where(table.id.defendingTypeId eq id.defendingTypeId)</span>
+<span class="fc" id="L53">                disableDissociation()</span>
+<span class="fc" id="L54">            }.execute()</span>
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
