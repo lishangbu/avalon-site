@@ -2,33 +2,43 @@
 
 import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.StatSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.StatView
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.stereotype.Repository
 
-<span class="fc" id="L9">@Repository</span>
-<span class="fc" id="L10">class StatRepositoryImpl(</span>
+<span class="fc" id="L10">@Repository</span>
+<span class="fc" id="L11">class StatRepositoryImpl(</span>
     /** Jimmer SQL 客户端 */
-<span class="fc" id="L12">    private val sql: KSqlClient,</span>
+<span class="fc" id="L13">    private val sql: KSqlClient,</span>
 ) : StatRepository {
     /** 按条件查询能力值列表 */
-    override fun findAll(specification: StatSpecification?): List&lt;Stat&gt; =
-<span class="fc" id="L16">        sql</span>
-<span class="fc" id="L17">            .createQuery(Stat::class) {</span>
-<span class="pc bpc" id="L18" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="fc" id="L19">                select(table)</span>
-<span class="fc" id="L20">            }.execute()</span>
+    override fun findAll(specification: StatSpecification?): List&lt;StatView&gt; =
+<span class="fc" id="L17">        sql</span>
+<span class="fc" id="L18">            .createQuery(Stat::class) {</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="fc" id="L20">                select(table.fetch(StatView::class))</span>
+<span class="fc" id="L21">            }.execute()</span>
+
+    /** 按 ID 查询能力值 */
+    override fun findById(id: Long): StatView? =
+<span class="fc" id="L25">        sql</span>
+<span class="fc" id="L26">            .createQuery(Stat::class) {</span>
+<span class="fc" id="L27">                where(table.id eq id)</span>
+<span class="fc" id="L28">                select(table.fetch(StatView::class))</span>
+<span class="fc" id="L29">            }.execute()</span>
+<span class="fc" id="L30">            .firstOrNull()</span>
 
     /** 保存能力值 */
-<span class="fc" id="L23">    override fun save(stat: Stat): Stat = sql.save(stat).modifiedEntity</span>
+<span class="fc" id="L33">    override fun save(stat: Stat): Stat = sql.save(stat).modifiedEntity</span>
 
     /** 按 ID 删除能力值 */
     override fun deleteById(id: Long) {
-<span class="fc" id="L27">        sql</span>
-<span class="fc" id="L28">            .createDelete(Stat::class) {</span>
-<span class="fc" id="L29">                where(table.id eq id)</span>
-<span class="fc" id="L30">                disableDissociation()</span>
-<span class="fc" id="L31">            }.execute()</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L37">        sql</span>
+<span class="fc" id="L38">            .createDelete(Stat::class) {</span>
+<span class="fc" id="L39">                where(table.id eq id)</span>
+<span class="fc" id="L40">                disableDissociation()</span>
+<span class="fc" id="L41">            }.execute()</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
