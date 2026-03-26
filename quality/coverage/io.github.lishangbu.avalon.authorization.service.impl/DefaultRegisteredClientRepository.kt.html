@@ -45,7 +45,7 @@ import java.time.temporal.ChronoUnit
      */
     override fun findById(id: String): RegisteredClient? {
 <span class="fc bfc" id="L47" title="All 4 branches covered.">        require(id.isNotBlank()) { &quot;id cannot be empty&quot; }</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        return oauth2RegisteredClientRepository.findById(id)?.let(::toObject)</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        return oauth2RegisteredClientRepository.findById(id)?.let(::toObject)</span>
     }
 
     /**
@@ -58,7 +58,7 @@ import java.time.temporal.ChronoUnit
 <span class="fc bfc" id="L58" title="All 4 branches covered.">        require(clientId.isNotBlank()) { &quot;clientId cannot be empty&quot; }</span>
 <span class="fc" id="L59">        return oauth2RegisteredClientRepository</span>
 <span class="fc" id="L60">            .findByClientId(clientId)</span>
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            ?.let(::toObject)</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            ?.let(::toObject)</span>
     }
 
     /**
@@ -97,12 +97,12 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L97">                .scopes { scopes -&gt; scopes.addAll(clientScopes) }</span>
 
 <span class="fc" id="L99">        val clientSettingsBuilder = ClientSettings.builder()</span>
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        client.requireProofKey?.let { clientSettingsBuilder.requireProofKey(it) }</span>
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        client.requireAuthorizationConsent?.let {</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        client.requireProofKey?.let { clientSettingsBuilder.requireProofKey(it) }</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        client.requireAuthorizationConsent?.let {</span>
 <span class="fc" id="L102">            clientSettingsBuilder.requireAuthorizationConsent(it)</span>
         }
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        client.jwkSetUrl?.let { clientSettingsBuilder.jwkSetUrl(it) }</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (client.tokenEndpointAuthenticationSigningAlgorithm != null) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        client.jwkSetUrl?.let { clientSettingsBuilder.jwkSetUrl(it) }</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (client.tokenEndpointAuthenticationSigningAlgorithm != null) {</span>
 <span class="fc" id="L106">            val signatureAlgorithm =</span>
 <span class="fc" id="L107">                SignatureAlgorithm.from(client.tokenEndpointAuthenticationSigningAlgorithm)</span>
 <span class="fc bfc" id="L108" title="All 2 branches covered.">            if (signatureAlgorithm != null) {</span>
@@ -117,38 +117,38 @@ import java.time.temporal.ChronoUnit
                 }
             }
         }
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        client.x509CertificateSubjectDn?.let { clientSettingsBuilder.x509CertificateSubjectDN(it) }</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        client.x509CertificateSubjectDn?.let { clientSettingsBuilder.x509CertificateSubjectDN(it) }</span>
 <span class="fc" id="L121">        builder.clientSettings(clientSettingsBuilder.build())</span>
 
 <span class="fc" id="L123">        val tokenSettingsBuilder = TokenSettings.builder()</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        client.reuseRefreshTokens?.let { tokenSettingsBuilder.reuseRefreshTokens(it) }</span>
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        client.x509CertificateBoundAccessTokens?.let {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        client.reuseRefreshTokens?.let { tokenSettingsBuilder.reuseRefreshTokens(it) }</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        client.x509CertificateBoundAccessTokens?.let {</span>
 <span class="fc" id="L126">            tokenSettingsBuilder.x509CertificateBoundAccessTokens(it)</span>
         }
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        client.authorizationCodeTimeToLive?.let {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        client.authorizationCodeTimeToLive?.let {</span>
 <span class="fc" id="L129">            tokenSettingsBuilder.authorizationCodeTimeToLive(</span>
 <span class="fc" id="L130">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
 <span class="fc" id="L131">            )</span>
         }
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        client.accessTokenTimeToLive?.let {</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        client.accessTokenTimeToLive?.let {</span>
 <span class="fc" id="L134">            tokenSettingsBuilder.accessTokenTimeToLive(</span>
 <span class="fc" id="L135">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
 <span class="fc" id="L136">            )</span>
         }
-<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        client.accessTokenFormat?.let {</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        client.accessTokenFormat?.let {</span>
 <span class="fc" id="L139">            tokenSettingsBuilder.accessTokenFormat(OAuth2TokenFormat(it))</span>
         }
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        client.deviceCodeTimeToLive?.let {</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        client.deviceCodeTimeToLive?.let {</span>
 <span class="fc" id="L142">            tokenSettingsBuilder.deviceCodeTimeToLive(</span>
 <span class="fc" id="L143">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
 <span class="fc" id="L144">            )</span>
         }
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        client.refreshTokenTimeToLive?.let {</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        client.refreshTokenTimeToLive?.let {</span>
 <span class="fc" id="L147">            tokenSettingsBuilder.refreshTokenTimeToLive(</span>
 <span class="fc" id="L148">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
 <span class="fc" id="L149">            )</span>
         }
-<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        client.idTokenSignatureAlgorithm?.let {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        client.idTokenSignatureAlgorithm?.let {</span>
 <span class="pc bpc" id="L152" title="1 of 2 branches missed.">            SignatureAlgorithm.from(it)?.let { alg -&gt;</span>
 <span class="fc" id="L153">                tokenSettingsBuilder.idTokenSignatureAlgorithm(alg)</span>
 <span class="fc" id="L154">            }</span>
@@ -226,8 +226,8 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L226">                    AuthorizationGrantType.AUTHORIZATION_CODE</span>
                 }
 
-<span class="pc bpc" id="L229" title="1 of 2 branches missed.">                AuthorizationGrantType.CLIENT_CREDENTIALS.value -&gt; {</span>
-<span class="nc" id="L230">                    AuthorizationGrantType.CLIENT_CREDENTIALS</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">                AuthorizationGrantType.CLIENT_CREDENTIALS.value -&gt; {</span>
+<span class="fc" id="L230">                    AuthorizationGrantType.CLIENT_CREDENTIALS</span>
                 }
 
 <span class="fc bfc" id="L233" title="All 2 branches covered.">                AuthorizationGrantType.REFRESH_TOKEN.value -&gt; {</span>
@@ -253,12 +253,12 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L253">                    ClientAuthenticationMethod.CLIENT_SECRET_BASIC</span>
                 }
 
-<span class="pc bpc" id="L256" title="1 of 2 branches missed.">                ClientAuthenticationMethod.CLIENT_SECRET_POST.value -&gt; {</span>
-<span class="nc" id="L257">                    ClientAuthenticationMethod.CLIENT_SECRET_POST</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">                ClientAuthenticationMethod.CLIENT_SECRET_POST.value -&gt; {</span>
+<span class="fc" id="L257">                    ClientAuthenticationMethod.CLIENT_SECRET_POST</span>
                 }
 
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">                ClientAuthenticationMethod.NONE.value -&gt; {</span>
-<span class="nc" id="L261">                    ClientAuthenticationMethod.NONE</span>
+<span class="fc bfc" id="L260" title="All 2 branches covered.">                ClientAuthenticationMethod.NONE.value -&gt; {</span>
+<span class="fc" id="L261">                    ClientAuthenticationMethod.NONE</span>
                 }
 
                 else -&gt; {

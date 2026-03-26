@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">TypeServiceImpl.kt</span></div><h1>TypeServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
 
 import io.github.lishangbu.avalon.dataset.entity.Type
+import io.github.lishangbu.avalon.dataset.entity.dto.TypeSpecification
 import io.github.lishangbu.avalon.dataset.repository.TypeRepository
 import io.github.lishangbu.avalon.dataset.service.TypeService
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /** 属性服务实现*/
-<span class="fc" id="L12">@Service</span>
-<span class="fc" id="L13">class TypeServiceImpl(</span>
+<span class="fc" id="L11">@Service</span>
+<span class="fc" id="L12">class TypeServiceImpl(</span>
     /** 属性仓储*/
-<span class="fc" id="L15">    private val typeRepository: TypeRepository,</span>
+<span class="fc" id="L14">    private val typeRepository: TypeRepository,</span>
 ) : TypeService {
     /** 保存属性*/
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L19">    override fun save(type: Type): Type = typeRepository.save(type)</span>
+<span class="fc" id="L18">    override fun save(type: Type): Type = typeRepository.save(type)</span>
 
     /** 更新属性*/
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L23">    override fun update(type: Type): Type = typeRepository.save(type)</span>
+<span class="fc" id="L22">    override fun update(type: Type): Type = typeRepository.save(type)</span>
 
     /** 按 ID 删除属性*/
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc" id="L28">        typeRepository.deleteById(id)</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L27">        typeRepository.deleteById(id)</span>
+<span class="fc" id="L28">    }</span>
 
     /** 按条件查询属性列表*/
-    override fun listByCondition(type: Type): List&lt;Type&gt; {
-<span class="fc" id="L33">        val matcher =</span>
-            ExampleMatcher
-<span class="fc" id="L35">                .matching()</span>
-<span class="fc" id="L36">                .withIgnoreNullValues()</span>
-<span class="fc" id="L37">                .withMatcher(&quot;name&quot;, ExampleMatcher.GenericPropertyMatchers.contains())</span>
-<span class="fc" id="L38">                .withMatcher(&quot;internalName&quot;, ExampleMatcher.GenericPropertyMatchers.contains())</span>
-<span class="fc" id="L39">        return typeRepository.findAll(Example.of(type, matcher))</span>
-    }
+<span class="fc" id="L31">    override fun listByCondition(specification: TypeSpecification): List&lt;Type&gt; = typeRepository.findAll(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

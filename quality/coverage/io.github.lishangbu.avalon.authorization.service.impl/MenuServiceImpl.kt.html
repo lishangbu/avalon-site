@@ -93,8 +93,8 @@ import org.springframework.transaction.annotation.Transactional
      * @see TreeUtils#buildTree(List, Function, Function, BiConsumer)
      */
     private fun buildTreeFromMenus(menus: List&lt;Menu&gt;): List&lt;MenuTreeNode&gt; {
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (menus.isEmpty()) {</span>
-<span class="nc" id="L97">            return emptyList()</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (menus.isEmpty()) {</span>
+<span class="fc" id="L97">            return emptyList()</span>
         }
 
 <span class="fc" id="L100">        val treeNodes = menus.map(::MenuTreeNode)</span>
@@ -122,8 +122,8 @@ import org.springframework.transaction.annotation.Transactional
             includedIds: MutableSet&lt;Long&gt;,
         ) {
 <span class="fc" id="L124">            var currentId: Long? = startId</span>
-<span class="pc bpc" id="L125" title="1 of 4 branches missed.">            while (currentId != null &amp;&amp; includedIds.add(currentId)) {</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">                val current = menuById[currentId] ?: break</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">            while (currentId != null &amp;&amp; includedIds.add(currentId)) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">                val current = menuById[currentId] ?: break</span>
 <span class="fc" id="L127">                currentId = current.parentId</span>
             }
 <span class="fc" id="L129">        }</span>
@@ -142,8 +142,8 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L142">            deque.addLast(startId)</span>
 <span class="fc bfc" id="L143" title="All 4 branches covered.">            while (deque.isNotEmpty()) {</span>
 <span class="fc" id="L144">                val currentId = deque.removeLast()</span>
-<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                if (!visited.add(currentId)) {</span>
-<span class="nc" id="L146">                    continue</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                if (!visited.add(currentId)) {</span>
+<span class="fc" id="L146">                    continue</span>
                 }
 <span class="fc" id="L148">                includedIds.add(currentId)</span>
 <span class="fc bfc" id="L149" title="All 4 branches covered.">                for (child in childrenByParentId[currentId].orEmpty()) {</span>

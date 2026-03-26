@@ -24,8 +24,8 @@ object TreeUtils {
         parentIdGetter: Function&lt;T, I&gt;,
         childrenSetter: BiConsumer&lt;T, List&lt;T&gt;&gt;,
     ): List&lt;T&gt; {
-<span class="pc bpc" id="L27" title="3 of 6 branches missed.">        if (list.isNullOrEmpty()) {</span>
-<span class="nc" id="L28">            return emptyList()</span>
+<span class="fc bfc" id="L27" title="All 6 branches covered.">        if (list.isNullOrEmpty()) {</span>
+<span class="fc" id="L28">            return emptyList()</span>
         }
 
 <span class="fc" id="L31">        val nodeMap = list.associateBy { idGetter.apply(it) }</span>
@@ -39,7 +39,7 @@ object TreeUtils {
             }
 
 <span class="fc" id="L41">            val parentNode = nodeMap[parentId]</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (parentNode != null) {</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            if (parentNode != null) {</span>
 <span class="fc" id="L43">                var children = getChildren(parentNode)</span>
 <span class="fc bfc" id="L44" title="All 2 branches covered.">                if (children == null) {</span>
 <span class="fc" id="L45">                    children = mutableListOf()</span>
@@ -47,7 +47,7 @@ object TreeUtils {
                 }
 <span class="fc" id="L48">                children.add(node)</span>
             } else {
-<span class="nc" id="L50">                roots += node</span>
+<span class="fc" id="L50">                roots += node</span>
             }
         }
 
@@ -59,8 +59,8 @@ object TreeUtils {
     private fun &lt;T : Any&gt; getChildren(node: T): MutableList&lt;T&gt;? =
 <span class="fc" id="L60">        try {</span>
 <span class="fc bfc" id="L61" title="All 2 branches covered.">            node::class.java.getMethod(&quot;getChildren&quot;).invoke(node) as? MutableList&lt;T&gt;</span>
-<span class="nc" id="L62">        } catch (_: Exception) {</span>
-<span class="pc" id="L63">            null</span>
+<span class="fc" id="L62">        } catch (_: Exception) {</span>
+<span class="fc" id="L63">            null</span>
 <span class="fc" id="L64">        }</span>
 
     /** 查找首个匹配节点 */
@@ -70,8 +70,8 @@ object TreeUtils {
         predicate: Predicate&lt;T&gt;,
         childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
     ): T? {
-<span class="pc bpc" id="L73" title="3 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
-<span class="nc" id="L74">            return null</span>
+<span class="pc bpc" id="L73" title="1 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
+<span class="fc" id="L74">            return null</span>
         }
 
 <span class="fc bfc" id="L77" title="All 2 branches covered.">        for (node in tree) {</span>
@@ -108,8 +108,8 @@ object TreeUtils {
         childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
         result: MutableList&lt;T&gt;,
     ) {
-<span class="pc bpc" id="L111" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
-<span class="nc" id="L112">            return</span>
+<span class="pc bpc" id="L111" title="1 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="fc" id="L112">            return</span>
         }
 
 <span class="fc bfc" id="L115" title="All 2 branches covered.">        for (node in nodes) {</span>
@@ -142,8 +142,8 @@ object TreeUtils {
         childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
         path: MutableList&lt;T&gt;,
     ): Boolean {
-<span class="pc bpc" id="L145" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
-<span class="nc" id="L146">            return false</span>
+<span class="pc bpc" id="L145" title="1 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="fc" id="L146">            return false</span>
         }
 
 <span class="fc bfc" id="L149" title="All 2 branches covered.">        for (node in nodes) {</span>
@@ -182,8 +182,8 @@ object TreeUtils {
         childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
         childrenSetter: BiConsumer&lt;T, List&lt;T&gt;?&gt;,
     ): List&lt;T&gt; {
-<span class="pc bpc" id="L185" title="3 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
-<span class="nc" id="L186">            return emptyList()</span>
+<span class="pc bpc" id="L185" title="1 of 6 branches missed.">        if (tree.isNullOrEmpty()) {</span>
+<span class="fc" id="L186">            return emptyList()</span>
         }
 
 <span class="fc" id="L189">        val result = mutableListOf&lt;T&gt;()</span>
@@ -202,7 +202,7 @@ object TreeUtils {
             }
 
 <span class="fc" id="L204">            val copyNodeChildren = childrenGetter.apply(copyNode)</span>
-<span class="pc bpc" id="L205" title="3 of 8 branches missed.">            if (predicate.test(node) || !copyNodeChildren.isNullOrEmpty()) {</span>
+<span class="pc bpc" id="L205" title="1 of 8 branches missed.">            if (predicate.test(node) || !copyNodeChildren.isNullOrEmpty()) {</span>
 <span class="fc" id="L206">                result += copyNode</span>
             }
         }
@@ -215,8 +215,8 @@ object TreeUtils {
 <span class="fc" id="L215">        try {</span>
 <span class="fc" id="L216">            val copyNode = node::class.java.getDeclaredConstructor().newInstance() as T</span>
 <span class="fc bfc" id="L217" title="All 2 branches covered.">            for (field in getAllFields(node::class.java)) {</span>
-<span class="pc bpc" id="L218" title="1 of 2 branches missed.">                if (Modifier.isStatic(field.modifiers)) {</span>
-<span class="nc" id="L219">                    continue</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">                if (Modifier.isStatic(field.modifiers)) {</span>
+<span class="fc" id="L219">                    continue</span>
                 }
 <span class="fc" id="L221">                field.isAccessible = true</span>
 <span class="fc bfc" id="L222" title="All 2 branches covered.">                if (field.name != &quot;children&quot;) {</span>
@@ -224,9 +224,9 @@ object TreeUtils {
                 }
             }
 <span class="fc" id="L226">            copyNode</span>
-<span class="nc" id="L227">        } catch (ex: Exception) {</span>
-<span class="nc" id="L228">            log.error(&quot;Failed to create or copy node instance: {}&quot;, ex.message)</span>
-<span class="pc" id="L229">            node</span>
+<span class="fc" id="L227">        } catch (ex: Exception) {</span>
+<span class="fc" id="L228">            log.error(&quot;Failed to create or copy node instance: {}&quot;, ex.message)</span>
+<span class="fc" id="L229">            node</span>
 <span class="fc" id="L230">        }</span>
 
     /** 遍历树结构 */
@@ -278,8 +278,8 @@ object TreeUtils {
 <span class="fc" id="L278">        val fields = mutableListOf&lt;Field&gt;()</span>
 <span class="fc" id="L279">        fields += clazz.declaredFields</span>
 <span class="fc" id="L280">        val superClass = clazz.superclass</span>
-<span class="pc bpc" id="L281" title="2 of 4 branches missed.">        if (superClass != null &amp;&amp; superClass != Any::class.java) {</span>
-<span class="nc" id="L282">            fields += getAllFields(superClass)</span>
+<span class="pc bpc" id="L281" title="1 of 4 branches missed.">        if (superClass != null &amp;&amp; superClass != Any::class.java) {</span>
+<span class="fc" id="L282">            fields += getAllFields(superClass)</span>
         }
 <span class="fc" id="L284">        return fields</span>
     }
@@ -291,8 +291,8 @@ object TreeUtils {
         childrenGetter: Function&lt;T, List&lt;T&gt;?&gt;,
         level: Int,
     ) {
-<span class="pc bpc" id="L294" title="3 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
-<span class="nc" id="L295">            return</span>
+<span class="pc bpc" id="L294" title="1 of 6 branches missed.">        if (nodes.isNullOrEmpty()) {</span>
+<span class="fc" id="L295">            return</span>
         }
 <span class="fc bfc" id="L297" title="All 2 branches covered.">        for (node in nodes) {</span>
 <span class="fc" id="L298">            action.accept(node, level)</span>

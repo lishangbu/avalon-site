@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerryFlavorServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">BerryFlavorServiceImpl.kt</span></div><h1>BerryFlavorServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
 
 import io.github.lishangbu.avalon.dataset.entity.BerryFlavor
+import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorSpecification
 import io.github.lishangbu.avalon.dataset.repository.BerryFlavorRepository
 import io.github.lishangbu.avalon.dataset.service.BerryFlavorService
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 
 /** 树果风味服务实现 */
-<span class="fc" id="L11">@Service</span>
-<span class="fc" id="L12">class BerryFlavorServiceImpl(</span>
+<span class="fc" id="L10">@Service</span>
+<span class="fc" id="L11">class BerryFlavorServiceImpl(</span>
     /** 树果风味仓储 */
-<span class="fc" id="L14">    private val berryFlavorRepository: BerryFlavorRepository,</span>
+<span class="fc" id="L13">    private val berryFlavorRepository: BerryFlavorRepository,</span>
 ) : BerryFlavorService {
     /** 保存树果风味 */
-<span class="fc" id="L17">    override fun save(berryFlavor: BerryFlavor): BerryFlavor = berryFlavorRepository.save(berryFlavor)</span>
+<span class="fc" id="L16">    override fun save(berryFlavor: BerryFlavor): BerryFlavor = berryFlavorRepository.save(berryFlavor)</span>
 
     /** 更新树果风味 */
-<span class="fc" id="L20">    override fun update(berryFlavor: BerryFlavor): BerryFlavor = berryFlavorRepository.save(berryFlavor)</span>
+<span class="fc" id="L19">    override fun update(berryFlavor: BerryFlavor): BerryFlavor = berryFlavorRepository.save(berryFlavor)</span>
 
     /** 按 ID 删除树果风味 */
     override fun removeById(id: Long) {
-<span class="fc" id="L24">        berryFlavorRepository.deleteById(id)</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L23">        berryFlavorRepository.deleteById(id)</span>
+<span class="fc" id="L24">    }</span>
 
     /** 按条件查询树果风味列表 */
-    override fun listByCondition(berryFlavor: BerryFlavor): List&lt;BerryFlavor&gt; {
-<span class="fc" id="L29">        val matcher =</span>
-            ExampleMatcher
-<span class="fc" id="L31">                .matching()</span>
-<span class="fc" id="L32">                .withIgnoreNullValues()</span>
-<span class="fc" id="L33">                .withMatcher(&quot;name&quot;, ExampleMatcher.GenericPropertyMatchers.contains())</span>
-<span class="fc" id="L34">                .withMatcher(&quot;internalName&quot;, ExampleMatcher.GenericPropertyMatchers.contains())</span>
-<span class="fc" id="L35">        return berryFlavorRepository.findAll(Example.of(berryFlavor, matcher))</span>
-    }
+<span class="fc" id="L27">    override fun listByCondition(specification: BerryFlavorSpecification): List&lt;BerryFlavor&gt; = berryFlavorRepository.findAll(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

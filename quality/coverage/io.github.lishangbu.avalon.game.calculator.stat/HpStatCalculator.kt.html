@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service
         level: Int,
         nature: Int,
     ): Int {
-<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (level &lt;= 0) {</span>
-<span class="nc" id="L26">            return 0</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (level &lt;= 0) {</span>
+<span class="fc" id="L26">            return 0</span>
         }
         // 计算器目前只接收能力项的内部名，不接收物种信息。
         // 现有资料中只有脱壳忍者的 HP 种族值为 1，因此这里按 base=1 处理固定 HP。

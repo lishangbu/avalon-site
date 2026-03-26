@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerryServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">BerryServiceImpl.kt</span></div><h1>BerryServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
 
 import io.github.lishangbu.avalon.dataset.entity.Berry
+import io.github.lishangbu.avalon.dataset.entity.dto.BerrySpecification
 import io.github.lishangbu.avalon.dataset.repository.BerryRepository
 import io.github.lishangbu.avalon.dataset.service.BerryService
 import org.babyfish.jimmer.Page
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -14,37 +13,26 @@ import org.springframework.stereotype.Service
  *
  * 基于仓储封装树果的分页查询与写入逻辑
  */
-<span class="fc" id="L17">@Service</span>
-<span class="fc" id="L18">class BerryServiceImpl(</span>
+<span class="fc" id="L16">@Service</span>
+<span class="fc" id="L17">class BerryServiceImpl(</span>
     /** 树果仓储 */
-<span class="fc" id="L20">    private val berryRepository: BerryRepository,</span>
+<span class="fc" id="L19">    private val berryRepository: BerryRepository,</span>
 ) : BerryService {
     /** 按筛选条件分页查询树果*/
     override fun getPageByCondition(
-        berry: Berry,
+        specification: BerrySpecification,
         pageable: Pageable,
-    ): Page&lt;Berry&gt; =
-<span class="fc" id="L27">        berryRepository.findAll(</span>
-<span class="fc" id="L28">            Example.of(</span>
-<span class="fc" id="L29">                berry,</span>
-                ExampleMatcher
-<span class="fc" id="L31">                    .matching()</span>
-<span class="fc" id="L32">                    .withIgnoreNullValues()</span>
-<span class="fc" id="L33">                    .withMatcher(&quot;name&quot;, ExampleMatcher.GenericPropertyMatchers.contains())</span>
-<span class="fc" id="L34">                    .withMatcher(&quot;internalName&quot;, ExampleMatcher.GenericPropertyMatchers.contains()),</span>
-            ),
-<span class="fc" id="L36">            pageable,</span>
-<span class="fc" id="L37">        )</span>
+<span class="fc" id="L25">    ): Page&lt;Berry&gt; = berryRepository.findAll(specification, pageable)</span>
 
     /** 创建树果 */
-<span class="fc" id="L40">    override fun save(berry: Berry): Berry = berryRepository.save(berry)</span>
+<span class="fc" id="L28">    override fun save(berry: Berry): Berry = berryRepository.save(berry)</span>
 
     /** 更新树果 */
-<span class="fc" id="L43">    override fun update(berry: Berry): Berry = berryRepository.save(berry)</span>
+<span class="fc" id="L31">    override fun update(berry: Berry): Berry = berryRepository.save(berry)</span>
 
     /** 删除指定 ID 的树果*/
     override fun removeById(id: Long) {
-<span class="fc" id="L47">        berryRepository.deleteById(id)</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L35">        berryRepository.deleteById(id)</span>
+<span class="fc" id="L36">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

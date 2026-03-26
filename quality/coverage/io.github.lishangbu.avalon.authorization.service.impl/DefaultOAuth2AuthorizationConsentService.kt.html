@@ -54,12 +54,12 @@ import org.springframework.stereotype.Service
     /** 返回转换为对象 */
     private fun toObject(oauthAuthorizationConsent: OauthAuthorizationConsent): OAuth2AuthorizationConsent {
 <span class="fc" id="L56">        val registeredClientId =</span>
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            requireNotNull(oauthAuthorizationConsent.id.registeredClientId) {</span>
-<span class="nc" id="L58">                &quot;registeredClientId cannot be null&quot;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            requireNotNull(oauthAuthorizationConsent.id.registeredClientId) {</span>
+<span class="fc" id="L58">                &quot;registeredClientId cannot be null&quot;</span>
             }
 <span class="fc" id="L60">        val principalName =</span>
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            requireNotNull(oauthAuthorizationConsent.id.principalName) {</span>
-<span class="nc" id="L62">                &quot;principalName cannot be null&quot;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            requireNotNull(oauthAuthorizationConsent.id.principalName) {</span>
+<span class="fc" id="L62">                &quot;principalName cannot be null&quot;</span>
             }
 <span class="fc" id="L64">        val registeredClient: RegisteredClient? =</span>
 <span class="fc" id="L65">            registeredClientRepository.findById(registeredClientId)</span>

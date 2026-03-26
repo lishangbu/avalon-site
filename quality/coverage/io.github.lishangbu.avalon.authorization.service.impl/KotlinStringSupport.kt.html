@@ -2,8 +2,8 @@
 
 /** 按逗号拆分为有序集合 */
 internal fun String?.toCommaDelimitedSet(): LinkedHashSet&lt;String&gt; {
-<span class="pc bpc" id="L5" title="1 of 2 branches missed.">    if (this == null) {</span>
-<span class="nc" id="L6">        return linkedSetOf()</span>
+<span class="fc bfc" id="L5" title="All 2 branches covered.">    if (this == null) {</span>
+<span class="fc" id="L6">        return linkedSetOf()</span>
     }
 
 <span class="fc" id="L9">    val values = linkedSetOf&lt;String&gt;()</span>

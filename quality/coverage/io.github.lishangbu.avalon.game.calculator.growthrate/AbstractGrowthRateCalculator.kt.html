@@ -11,9 +11,9 @@
 
     /** 计算指定等级的经验值 */
     override fun calculateGrowthRate(level: Int): Int {
-<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (level &lt;= 0) return 0</span>
-<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        return if (level == 1) {</span>
-<span class="nc" id="L16">            0</span>
+<span class="fc bfc" id="L14" title="All 2 branches covered.">        if (level &lt;= 0) return 0</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        return if (level == 1) {</span>
+<span class="fc" id="L16">            0</span>
         } else {
 <span class="fc" id="L18">            tryCalculateGrowthRate(level)</span>
         }

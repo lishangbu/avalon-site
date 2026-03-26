@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.controller</a> &gt; <span class="el_source">TypeController.kt</span></div><h1>TypeController.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.controller
 
 import io.github.lishangbu.avalon.dataset.entity.Type
+import io.github.lishangbu.avalon.dataset.entity.dto.TypeSpecification
 import io.github.lishangbu.avalon.dataset.service.TypeService
 import org.springframework.web.bind.annotation.*
 
 /** 属性控制器 */
-<span class="fc" id="L8">@RestController</span>
+<span class="fc" id="L9">@RestController</span>
 @RequestMapping(&quot;/type&quot;)
-<span class="fc" id="L10">class TypeController(</span>
+<span class="fc" id="L11">class TypeController(</span>
     /** 属性服务 */
-<span class="fc" id="L12">    private val typeService: TypeService,</span>
+<span class="fc" id="L13">    private val typeService: TypeService,</span>
 ) {
     /** 保存属性 */
     @PostMapping
     fun save(
         @RequestBody type: Type,
-<span class="fc" id="L18">    ): Type = typeService.save(type)</span>
+<span class="fc" id="L19">    ): Type = typeService.save(type)</span>
 
     /** 更新属性 */
     @PutMapping
     fun update(
         @RequestBody type: Type,
-<span class="fc" id="L24">    ): Type = typeService.update(type)</span>
+<span class="fc" id="L25">    ): Type = typeService.update(type)</span>
 
     /** 按 ID 删除属性 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L31">        typeService.removeById(id)</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L32">        typeService.removeById(id)</span>
+<span class="fc" id="L33">    }</span>
 
     /** 查询属性列表 */
     @GetMapping(&quot;/list&quot;)
     fun listTypes(
-        @RequestParam(required = false) id: Long?,
-        @RequestParam(required = false) internalName: String?,
-        @RequestParam(required = false) name: String?,
-    ): List&lt;Type&gt; =
-<span class="fc" id="L41">        typeService.listByCondition(</span>
-<span class="fc" id="L42">            Type {</span>
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                id?.let { this.id = it }</span>
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">                internalName?.let { this.internalName = it }</span>
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                name?.let { this.name = it }</span>
-<span class="fc" id="L46">            },</span>
-<span class="fc" id="L47">        )</span>
+        @ModelAttribute specification: TypeSpecification,
+<span class="fc" id="L39">    ): List&lt;Type&gt; = typeService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
