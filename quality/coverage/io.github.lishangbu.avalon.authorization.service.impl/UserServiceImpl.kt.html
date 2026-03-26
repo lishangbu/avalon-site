@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional
      * @param username 登录账号
      * @return 查询到的用户详情，未找到时返回 null
      */
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">    override fun getUserByUsername(username: String): UserWithRoles? = userRepository.findByAccountWithRoles(username)?.let(::UserWithRoles)</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">    override fun getUserByUsername(username: String): UserWithRoles? = userRepository.findByAccountWithRoles(username)?.let(::UserWithRoles)</span>
 
     /** 按条件分页查询用户 */
     override fun getPageByCondition(
@@ -73,7 +73,7 @@ import org.springframework.transaction.annotation.Transactional
     ): User {
 <span class="fc" id="L74">        val existing =</span>
 <span class="fc bfc" id="L75" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">                user.readOrNull { id }?.let(userRepository::findByIdWithRoles)</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">                user.readOrNull { id }?.let(userRepository::findByIdWithRoles)</span>
             } else {
 <span class="fc" id="L78">                null</span>
             }
@@ -83,19 +83,19 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L83">        val boundRoles =</span>
 <span class="fc" id="L84">            when {</span>
 <span class="fc bfc" id="L85" title="All 4 branches covered.">                roleIds.isNotEmpty() -&gt; roleRepository.findAllById(roleIds)</span>
-<span class="pc bpc" id="L86" title="3 of 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { roles } ?: emptyList()</span>
-<span class="nc" id="L87">                else -&gt; emptyList()</span>
+<span class="fc bfc" id="L86" title="All 6 branches covered.">                preserveWhenNull -&gt; existing?.readOrNull { roles } ?: emptyList()</span>
+<span class="fc" id="L87">                else -&gt; emptyList()</span>
             }
 
 <span class="fc" id="L90">        val hashedPassword =</span>
-<span class="pc bpc" id="L91" title="1 of 4 branches missed.">            user.readOrNull { hashedPassword } ?: existing?.readOrNull { hashedPassword }</span>
+<span class="fc bfc" id="L91" title="All 4 branches covered.">            user.readOrNull { hashedPassword } ?: existing?.readOrNull { hashedPassword }</span>
 
 <span class="fc" id="L93">        return User {</span>
 <span class="fc bfc" id="L94" title="All 2 branches covered.">            user.readOrNull { id }?.let { id = it }</span>
-<span class="pc bpc" id="L95" title="1 of 4 branches missed.">            username = user.readOrNull { username } ?: existing?.readOrNull { username }</span>
-<span class="pc bpc" id="L96" title="1 of 4 branches missed.">            phone = user.readOrNull { phone } ?: existing?.readOrNull { phone }</span>
-<span class="pc bpc" id="L97" title="1 of 4 branches missed.">            email = user.readOrNull { email } ?: existing?.readOrNull { email }</span>
-<span class="pc bpc" id="L98" title="1 of 4 branches missed.">            avatar = user.readOrNull { avatar } ?: existing?.readOrNull { avatar }</span>
+<span class="fc bfc" id="L95" title="All 4 branches covered.">            username = user.readOrNull { username } ?: existing?.readOrNull { username }</span>
+<span class="fc bfc" id="L96" title="All 4 branches covered.">            phone = user.readOrNull { phone } ?: existing?.readOrNull { phone }</span>
+<span class="fc bfc" id="L97" title="All 4 branches covered.">            email = user.readOrNull { email } ?: existing?.readOrNull { email }</span>
+<span class="fc bfc" id="L98" title="All 4 branches covered.">            avatar = user.readOrNull { avatar } ?: existing?.readOrNull { avatar }</span>
 <span class="fc" id="L99">            this.hashedPassword = hashedPassword</span>
 <span class="fc" id="L100">            boundRoles.forEach { boundRole -&gt; roles().addBy(boundRole) }</span>
 <span class="fc" id="L101">        }</span>

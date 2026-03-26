@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - returnsServerErrorResponsesForGenericExceptions()</title>
+<title>Test results - fallsBackToEmptyStringsWhenExceptionMessagesAreMissing()</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
@@ -13,7 +13,7 @@
 <div class="breadcrumbs">
 <a class="breadcrumb" href="../index.html">all</a> &gt; 
 <a class="breadcrumb" href="index.html">io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest</a> &gt; 
-<span class="breadcrumb">returnsServerErrorResponsesForGenericExceptions()</span>
+<span class="breadcrumb">fallsBackToEmptyStringsWhenExceptionMessagesAreMissing()</span>
 </div>
 <div class="tab-container">
 <ul class="tabLinks">
@@ -23,7 +23,7 @@
 </ul>
 <div class="tab">
 <h2>Gradle Test Run :avalon-support:avalon-web-support:test</h2>
-<h1>returnsServerErrorResponsesForGenericExceptions()</h1>
+<h1>fallsBackToEmptyStringsWhenExceptionMessagesAreMissing()</h1>
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
@@ -63,7 +63,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">0.075s</div>
+<div class="counter">0.556s</div>
 <p>duration</p>
 </div>
 </td>
@@ -85,9 +85,9 @@
 <div class="tab">
 <h2>standard output</h2>
 <span class="code">
-<pre id="root-3-test-stdout-returnsServerErrorResponsesForGenericExceptions()">06:06:43.858 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 全局异常信息:[boom]
-java.lang.Exception: boom
-	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.returnsServerErrorResponsesForGenericExceptions(GlobalExceptionHandlerTest.kt:23)
+<pre id="root-3-test-stdout-fallsBackToEmptyStringsWhenExceptionMessagesAreMissing()">06:06:43.315 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 全局异常信息:[null]
+java.lang.Exception
+	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.fallsBackToEmptyStringsWhenExceptionMessagesAreMissing(GlobalExceptionHandlerTest.kt:72)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701)
@@ -179,9 +179,9 @@ java.lang.Exception: boom
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-06:06:43.883 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 运行时异常信息:[runtime]
-java.lang.RuntimeException: runtime
-	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.returnsServerErrorResponsesForGenericExceptions(GlobalExceptionHandlerTest.kt:24)
+06:06:43.795 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 运行时异常信息:[null]
+java.lang.RuntimeException
+	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.fallsBackToEmptyStringsWhenExceptionMessagesAreMissing(GlobalExceptionHandlerTest.kt:73)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701)
@@ -273,9 +273,9 @@ java.lang.RuntimeException: runtime
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-06:06:43.913 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- HttpMessageNotWritableException:[write]
-org.springframework.http.converter.HttpMessageNotWritableException: write
-	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.returnsServerErrorResponsesForGenericExceptions(GlobalExceptionHandlerTest.kt:25)
+06:06:43.818 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- HttpMessageNotWritableException:[null]
+io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest$fallsBackToEmptyStringsWhenExceptionMessagesAreMissing$writableWithoutMessage$1
+	at io.github.lishangbu.avalon.web.exception.GlobalExceptionHandlerTest.fallsBackToEmptyStringsWhenExceptionMessagesAreMissing(GlobalExceptionHandlerTest.kt:68)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701)
@@ -367,8 +367,11 @@ org.springframework.http.converter.HttpMessageNotWritableException: write
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+06:06:43.844 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 非法参数:[null]
+06:06:43.845 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 非法状态:[null]
+06:06:43.845 [Test worker] ERROR io.github.lishangbu.avalon.web.exception.GlobalExceptionHandler -- 不支持的操作类型:[null]
 </pre>
-<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-3-test-stdout-returnsServerErrorResponsesForGenericExceptions()">Copy</button>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-3-test-stdout-fallsBackToEmptyStringsWhenExceptionMessagesAreMissing()">Copy</button>
 </span>
 </div>
 </div>

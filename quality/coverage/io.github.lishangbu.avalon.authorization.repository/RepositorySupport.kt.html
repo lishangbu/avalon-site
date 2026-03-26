@@ -3,7 +3,7 @@
 import org.babyfish.jimmer.UnloadedException
 
 /** 去除空白后返回非空字符串 */
-<span class="nc bnc" id="L6" title="All 8 branches missed.">internal fun String?.takeFilter(): String? = this?.trim()?.takeIf { it.isNotEmpty() }</span>
+<span class="fc bfc" id="L6" title="All 8 branches covered.">internal fun String?.takeFilter(): String? = this?.trim()?.takeIf { it.isNotEmpty() }</span>
 
 /** 安全读取未加载属性 */
 internal inline fun &lt;T, R&gt; T?.readOrNull(block: T.() -&gt; R): R? =

@@ -112,7 +112,7 @@ import java.time.temporal.ChronoUnit
             } else {
 <span class="fc" id="L113">                val macAlgorithm =</span>
 <span class="fc" id="L114">                    MacAlgorithm.from(client.tokenEndpointAuthenticationSigningAlgorithm)</span>
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                if (macAlgorithm != null) {</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                if (macAlgorithm != null) {</span>
 <span class="fc" id="L116">                    clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(macAlgorithm)</span>
                 }
             }
@@ -149,7 +149,7 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L149">            )</span>
         }
 <span class="fc bfc" id="L151" title="All 2 branches covered.">        client.idTokenSignatureAlgorithm?.let {</span>
-<span class="pc bpc" id="L152" title="1 of 2 branches missed.">            SignatureAlgorithm.from(it)?.let { alg -&gt;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">            SignatureAlgorithm.from(it)?.let { alg -&gt;</span>
 <span class="fc" id="L153">                tokenSettingsBuilder.idTokenSignatureAlgorithm(alg)</span>
 <span class="fc" id="L154">            }</span>
         }
@@ -191,7 +191,7 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L191">            requireAuthorizationConsent =</span>
 <span class="pc bpc" id="L192" title="1 of 2 branches missed.">                registeredClientSettings?.isRequireAuthorizationConsent</span>
 <span class="fc" id="L193">            tokenEndpointAuthenticationSigningAlgorithm =</span>
-<span class="pc bpc" id="L194" title="2 of 4 branches missed.">                registeredClientSettings?.tokenEndpointAuthenticationSigningAlgorithm?.name</span>
+<span class="fc bfc" id="L194" title="All 4 branches covered.">                registeredClientSettings?.tokenEndpointAuthenticationSigningAlgorithm?.name</span>
 <span class="pc bpc" id="L195" title="1 of 2 branches missed.">            jwkSetUrl = registeredClientSettings?.jwkSetUrl</span>
 <span class="pc bpc" id="L196" title="1 of 2 branches missed.">            x509CertificateSubjectDn = registeredClientSettings?.x509CertificateSubjectDN</span>
 

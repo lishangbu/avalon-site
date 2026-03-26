@@ -66,7 +66,7 @@ import org.springframework.transaction.annotation.Transactional
     ): Role {
 <span class="fc" id="L67">        val existing =</span>
 <span class="fc bfc" id="L68" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">                role.readOrNull { id }?.let(roleRepository::findByIdWithMenus)</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                role.readOrNull { id }?.let(roleRepository::findByIdWithMenus)</span>
             } else {
 <span class="fc" id="L71">                null</span>
             }
@@ -76,15 +76,15 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L76">        val boundMenus =</span>
 <span class="fc" id="L77">            when {</span>
 <span class="fc bfc" id="L78" title="All 4 branches covered.">                menuIds.isNotEmpty() -&gt; menuRepository.findAllById(menuIds)</span>
-<span class="pc bpc" id="L79" title="3 of 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
-<span class="nc" id="L80">                else -&gt; emptyList()</span>
+<span class="fc bfc" id="L79" title="All 6 branches covered.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
+<span class="fc" id="L80">                else -&gt; emptyList()</span>
             }
 
 <span class="fc" id="L83">        return Role {</span>
 <span class="fc bfc" id="L84" title="All 2 branches covered.">            role.readOrNull { id }?.let { id = it }</span>
-<span class="pc bpc" id="L85" title="1 of 4 branches missed.">            code = role.readOrNull { code } ?: existing?.readOrNull { code }</span>
-<span class="pc bpc" id="L86" title="1 of 4 branches missed.">            name = role.readOrNull { name } ?: existing?.readOrNull { name }</span>
-<span class="pc bpc" id="L87" title="1 of 4 branches missed.">            enabled = role.readOrNull { enabled } ?: existing?.readOrNull { enabled }</span>
+<span class="fc bfc" id="L85" title="All 4 branches covered.">            code = role.readOrNull { code } ?: existing?.readOrNull { code }</span>
+<span class="fc bfc" id="L86" title="All 4 branches covered.">            name = role.readOrNull { name } ?: existing?.readOrNull { name }</span>
+<span class="fc bfc" id="L87" title="All 4 branches covered.">            enabled = role.readOrNull { enabled } ?: existing?.readOrNull { enabled }</span>
 <span class="fc" id="L88">            boundMenus.forEach { boundMenu -&gt; menus().addBy(boundMenu) }</span>
 <span class="fc" id="L89">        }</span>
     }

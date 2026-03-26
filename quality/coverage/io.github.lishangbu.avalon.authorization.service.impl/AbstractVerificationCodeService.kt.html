@@ -76,8 +76,8 @@ import java.util.concurrent.ThreadLocalRandom
         target: String,
         resendInterval: Duration?,
     ) {
-<span class="pc bpc" id="L79" title="3 of 6 branches missed.">        if (resendInterval == null || resendInterval.isZero || resendInterval.isNegative) {</span>
-<span class="nc" id="L80">            return</span>
+<span class="fc bfc" id="L79" title="All 6 branches covered.">        if (resendInterval == null || resendInterval.isZero || resendInterval.isNegative) {</span>
+<span class="fc" id="L80">            return</span>
         }
 <span class="fc" id="L82">        val key = buildRateLimitKey(type, target)</span>
 <span class="fc" id="L83">        val allowed = stringRedisTemplate.opsForValue().setIfAbsent(key, &quot;1&quot;, resendInterval)</span>
@@ -98,7 +98,7 @@ import java.util.concurrent.ThreadLocalRandom
                 ),
             )
         }
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (AuthorizationGrantTypeSupport.EMAIL.value == type) {</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (AuthorizationGrantTypeSupport.EMAIL.value == type) {</span>
 <span class="fc" id="L102">            return VerificationCodeConfig(</span>
 <span class="fc" id="L103">                sanitizeLength(oauth2Properties.emailCodeLength, DEFAULT_CODE_LENGTH),</span>
 <span class="fc" id="L104">                resolveDuration(</span>
@@ -111,7 +111,7 @@ import java.util.concurrent.ThreadLocalRandom
                 ),
             )
         }
-<span class="nc" id="L114">        throw InvalidCaptchaException(&quot;不支持的验证码类型&quot;)</span>
+<span class="fc" id="L114">        throw InvalidCaptchaException(&quot;不支持的验证码类型&quot;)</span>
     }
 
     /** 规范化属性 */
@@ -172,8 +172,8 @@ import java.util.concurrent.ThreadLocalRandom
         length: Int?,
         defaultLength: Int,
     ): Int {
-<span class="pc bpc" id="L175" title="2 of 4 branches missed.">        if (length == null || length &lt;= 0) {</span>
-<span class="nc" id="L176">            return defaultLength</span>
+<span class="pc bpc" id="L175" title="1 of 4 branches missed.">        if (length == null || length &lt;= 0) {</span>
+<span class="fc" id="L176">            return defaultLength</span>
         }
 <span class="fc" id="L178">        return length</span>
     }
@@ -183,8 +183,8 @@ import java.util.concurrent.ThreadLocalRandom
         configured: Duration?,
         fallback: Duration,
     ): Duration {
-<span class="pc bpc" id="L186" title="3 of 6 branches missed.">        if (configured == null || configured.isNegative || configured.isZero) {</span>
-<span class="nc" id="L187">            return fallback</span>
+<span class="pc bpc" id="L186" title="1 of 6 branches missed.">        if (configured == null || configured.isNegative || configured.isZero) {</span>
+<span class="fc" id="L187">            return fallback</span>
         }
 <span class="fc" id="L189">        return configured</span>
     }

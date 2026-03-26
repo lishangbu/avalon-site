@@ -90,7 +90,7 @@ import java.util.function.Consumer
 <span class="fc" id="L90">                    .withToken(accessToken.tokenValue)</span>
 <span class="fc" id="L91">                    .tokenType(accessToken.tokenType)</span>
 <span class="fc" id="L92">                    .scopes(accessToken.scopes)</span>
-<span class="pc bpc" id="L93" title="2 of 4 branches missed.">            if (accessToken.issuedAt != null &amp;&amp; accessToken.expiresAt != null) {</span>
+<span class="pc bpc" id="L93" title="1 of 4 branches missed.">            if (accessToken.issuedAt != null &amp;&amp; accessToken.expiresAt != null) {</span>
 <span class="fc" id="L94">                builder.expiresIn(</span>
 <span class="fc" id="L95">                    ChronoUnit.SECONDS.between(accessToken.issuedAt, accessToken.expiresAt),</span>
                 )
@@ -173,14 +173,14 @@ import java.util.function.Consumer
 <span class="fc bfc" id="L173" title="All 2 branches covered.">            if (authorizationUsername != null) {</span>
 <span class="fc" id="L174">                return authorizationUsername</span>
             }
-<span class="pc bpc" id="L176" title="1 of 2 branches missed.">            if (principal == null) {</span>
-<span class="nc" id="L177">                return null</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">            if (principal == null) {</span>
+<span class="fc" id="L177">                return null</span>
             }
 <span class="fc bfc" id="L179" title="All 2 branches covered.">            if (principal is OAuth2ClientAuthenticationToken) {</span>
 <span class="fc" id="L180">                return null</span>
             }
-<span class="pc bpc" id="L182" title="1 of 2 branches missed.">            if (principal is Authentication) {</span>
-<span class="nc" id="L183">                return normalize(principal.name)</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">            if (principal is Authentication) {</span>
+<span class="fc" id="L183">                return normalize(principal.name)</span>
             }
 <span class="fc bfc" id="L185" title="All 2 branches covered.">            if (principal is Principal) {</span>
 <span class="fc" id="L186">                return normalize(principal.name)</span>
@@ -192,13 +192,13 @@ import java.util.function.Consumer
         private fun resolveAuthorizationUsername(
             accessTokenAuthentication: OAuth2AccessTokenAuthenticationToken?,
         ): String? {
-<span class="pc bpc" id="L195" title="1 of 4 branches missed.">            if (authorizationService == null || accessTokenAuthentication == null) {</span>
+<span class="fc bfc" id="L195" title="All 4 branches covered.">            if (authorizationService == null || accessTokenAuthentication == null) {</span>
 <span class="fc" id="L196">                return null</span>
             }
-<span class="pc bpc" id="L198" title="1 of 2 branches missed.">            val accessToken = accessTokenAuthentication.accessToken ?: return null</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">            val accessToken = accessTokenAuthentication.accessToken ?: return null</span>
 <span class="fc" id="L199">            val authorization =</span>
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                authorizationService.findByToken(accessToken.tokenValue, OAuth2TokenType.ACCESS_TOKEN)</span>
-<span class="nc" id="L201">                    ?: return null</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">                authorizationService.findByToken(accessToken.tokenValue, OAuth2TokenType.ACCESS_TOKEN)</span>
+<span class="fc" id="L201">                    ?: return null</span>
 <span class="fc" id="L202">            return normalize(authorization.principalName)</span>
         }
 
@@ -210,10 +210,10 @@ import java.util.function.Consumer
 <span class="fc bfc" id="L210" title="All 2 branches covered.">            if (accessTokenAuthentication.registeredClient != null) {</span>
 <span class="fc" id="L211">                return normalize(accessTokenAuthentication.registeredClient.clientId)</span>
             }
-<span class="pc bpc" id="L213" title="1 of 2 branches missed.">            if (principal is OAuth2ClientAuthenticationToken) {</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">            if (principal is OAuth2ClientAuthenticationToken) {</span>
 <span class="fc" id="L214">                return normalize(principal.name)</span>
             }
-<span class="nc" id="L216">            return null</span>
+<span class="fc" id="L216">            return null</span>
         }
 
         /** 优先从请求参数解析授权类型，缺失时回退到附加参数 */
@@ -246,18 +246,18 @@ import java.util.function.Consumer
         /** 按代理头优先级解析客户端 IP */
         private fun resolveClientIp(request: HttpServletRequest): String? {
 <span class="fc" id="L248">            val forwardedFor = request.getHeader(&quot;X-Forwarded-For&quot;)</span>
-<span class="pc bpc" id="L249" title="2 of 6 branches missed.">            if (forwardedFor != null &amp;&amp; forwardedFor.isNotBlank()) {</span>
+<span class="fc bfc" id="L249" title="All 6 branches covered.">            if (forwardedFor != null &amp;&amp; forwardedFor.isNotBlank()) {</span>
 <span class="fc" id="L250">                return normalize(forwardedFor.substringBefore(','))</span>
             }
 <span class="fc" id="L252">            val realIp = request.getHeader(&quot;X-Real-IP&quot;)</span>
-<span class="pc bpc" id="L253" title="2 of 6 branches missed.">            if (realIp != null &amp;&amp; realIp.isNotBlank()) {</span>
+<span class="fc bfc" id="L253" title="All 6 branches covered.">            if (realIp != null &amp;&amp; realIp.isNotBlank()) {</span>
 <span class="fc" id="L254">                return normalize(realIp)</span>
             }
 <span class="fc" id="L256">            return normalize(request.remoteAddr)</span>
         }
 
         /** 裁剪并过滤空白字符串 */
-<span class="pc bpc" id="L260" title="2 of 8 branches missed.">        private fun normalize(value: String?): String? = value?.trim()?.takeIf { it.isNotEmpty() }</span>
+<span class="fc bfc" id="L260" title="All 8 branches covered.">        private fun normalize(value: String?): String? = value?.trim()?.takeIf { it.isNotEmpty() }</span>
 
         /** 构建统一返回的令牌响应体 */
         private fun buildTokenResponseBody(
@@ -275,7 +275,7 @@ import java.util.function.Consumer
 <span class="fc" id="L275">                body[&quot;refresh_token&quot;] = refreshToken.tokenValue</span>
 <span class="fc" id="L276">            }</span>
 <span class="fc" id="L277">            val scopes = accessToken.scopes</span>
-<span class="pc bpc" id="L278" title="3 of 6 branches missed.">            if (scopes != null &amp;&amp; scopes.isNotEmpty()) {</span>
+<span class="pc bpc" id="L278" title="1 of 6 branches missed.">            if (scopes != null &amp;&amp; scopes.isNotEmpty()) {</span>
 <span class="fc" id="L279">                body[&quot;scope&quot;] = scopes.joinToString(&quot; &quot;)</span>
             }
 <span class="fc" id="L281">            val additionalParameters = accessTokenResponse.additionalParameters</span>
