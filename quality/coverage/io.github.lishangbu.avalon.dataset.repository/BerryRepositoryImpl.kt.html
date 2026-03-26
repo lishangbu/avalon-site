@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository
 <span class="fc" id="L23">        sql</span>
 <span class="fc" id="L24">            .createQuery(Berry::class) {</span>
 <span class="pc bpc" id="L25" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="fc" id="L26">                select(table)</span>
+<span class="fc" id="L26">                select(table.fetch(DatasetFetchers.BERRY_WITH_ASSOCIATIONS))</span>
 <span class="fc" id="L27">            }.execute()</span>
 
     /** 按条件分页查询树果 */
@@ -34,28 +34,34 @@ import org.springframework.stereotype.Repository
 <span class="fc" id="L34">        sql</span>
 <span class="fc" id="L35">            .createQuery(Berry::class) {</span>
 <span class="pc bpc" id="L36" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="fc" id="L37">                select(table)</span>
+<span class="fc" id="L37">                select(table.fetch(DatasetFetchers.BERRY_WITH_ASSOCIATIONS))</span>
 <span class="fc" id="L38">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按 ID 查询单个树果 */
-<span class="fc" id="L41">    override fun findById(id: Long): Berry? = sql.findById(Berry::class, id)</span>
+    override fun findById(id: Long): Berry? =
+<span class="fc" id="L42">        sql</span>
+<span class="fc" id="L43">            .createQuery(Berry::class) {</span>
+<span class="fc" id="L44">                where(table.id eq id)</span>
+<span class="fc" id="L45">                select(table.fetch(DatasetFetchers.BERRY_WITH_ASSOCIATIONS))</span>
+<span class="fc" id="L46">            }.execute()</span>
+<span class="fc" id="L47">            .firstOrNull()</span>
 
     /** 保存树果 */
-<span class="fc" id="L44">    override fun save(berry: Berry): Berry = sql.save(berry).modifiedEntity</span>
+<span class="fc" id="L50">    override fun save(berry: Berry): Berry = sql.save(berry).modifiedEntity</span>
 
     /** 保存树果并立即刷新 */
-<span class="fc" id="L47">    override fun saveAndFlush(berry: Berry): Berry = save(berry)</span>
+<span class="fc" id="L53">    override fun saveAndFlush(berry: Berry): Berry = save(berry)</span>
 
     /** 删除指定 ID 的树果 */
     override fun deleteById(id: Long) {
-<span class="fc" id="L51">        sql</span>
-<span class="fc" id="L52">            .createDelete(Berry::class) {</span>
-<span class="fc" id="L53">                where(table.id eq id)</span>
-<span class="fc" id="L54">                disableDissociation()</span>
-<span class="fc" id="L55">            }.execute()</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L57">        sql</span>
+<span class="fc" id="L58">            .createDelete(Berry::class) {</span>
+<span class="fc" id="L59">                where(table.id eq id)</span>
+<span class="fc" id="L60">                disableDissociation()</span>
+<span class="fc" id="L61">            }.execute()</span>
+<span class="fc" id="L62">    }</span>
 
     /** 保留与 Spring Data 风格一致的刷新方法 */
-<span class="fc" id="L59">    override fun flush() = Unit</span>
+<span class="fc" id="L65">    override fun flush() = Unit</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

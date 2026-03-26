@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DatasetFetchers.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">DatasetFetchers.kt</span></div><h1>DatasetFetchers.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
+
+/** 数据集模块常用对象抓取器 */
+internal object DatasetFetchers {
+    /** 树果及其关联基础信息抓取器 */
+<span class="fc" id="L9">    val BERRY_WITH_ASSOCIATIONS =</span>
+<span class="fc" id="L10">        newFetcher(Berry::class).`by` {</span>
+<span class="fc" id="L11">            allScalarFields()</span>
+<span class="fc" id="L12">            berryFirmness {</span>
+<span class="fc" id="L13">                internalName()</span>
+<span class="fc" id="L14">                name()</span>
+<span class="fc" id="L15">            }</span>
+<span class="fc" id="L16">            naturalGiftType {</span>
+<span class="fc" id="L17">                internalName()</span>
+<span class="fc" id="L18">                name()</span>
+<span class="fc" id="L19">            }</span>
+<span class="fc" id="L20">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

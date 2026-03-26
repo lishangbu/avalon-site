@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerryFlavorController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.controller</a> &gt; <span class="el_source">BerryFlavorController.kt</span></div><h1>BerryFlavorController.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.controller
 
-import io.github.lishangbu.avalon.dataset.entity.BerryFlavor
 import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryFlavorInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryFlavorInput
 import io.github.lishangbu.avalon.dataset.service.BerryFlavorService
 import org.springframework.web.bind.annotation.*
 
 /** 树果风味控制器*/
-<span class="fc" id="L9">@RestController</span>
+<span class="fc" id="L11">@RestController</span>
 @RequestMapping(&quot;/berry-flavor&quot;)
-<span class="fc" id="L11">class BerryFlavorController(</span>
+<span class="fc" id="L13">class BerryFlavorController(</span>
     /** 树果风味服务 */
-<span class="fc" id="L13">    private val berryFlavorService: BerryFlavorService,</span>
+<span class="fc" id="L15">    private val berryFlavorService: BerryFlavorService,</span>
 ) {
     /** 查询树果风味列表 */
     @GetMapping(&quot;/list&quot;)
     fun listBerryFlavors(
         @ModelAttribute specification: BerryFlavorSpecification,
-<span class="fc" id="L19">    ): List&lt;BerryFlavor&gt; = berryFlavorService.listByCondition(specification)</span>
+<span class="fc" id="L21">    ): List&lt;BerryFlavorView&gt; = berryFlavorService.listByCondition(specification)</span>
 
     /** 保存树果风味 */
     @PostMapping
     fun save(
-        @RequestBody berryFlavor: BerryFlavor,
-<span class="fc" id="L25">    ): BerryFlavor = berryFlavorService.save(berryFlavor)</span>
+        @RequestBody command: SaveBerryFlavorInput,
+<span class="fc" id="L27">    ): BerryFlavorView = berryFlavorService.save(command)</span>
 
     /** 更新树果风味 */
     @PutMapping
     fun update(
-        @RequestBody berryFlavor: BerryFlavor,
-<span class="fc" id="L31">    ): BerryFlavor = berryFlavorService.update(berryFlavor)</span>
+        @RequestBody command: UpdateBerryFlavorInput,
+<span class="fc" id="L33">    ): BerryFlavorView = berryFlavorService.update(command)</span>
 
     /** 按 ID 删除树果风味 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L38">        berryFlavorService.removeById(id)</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L40">        berryFlavorService.removeById(id)</span>
+<span class="fc" id="L41">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

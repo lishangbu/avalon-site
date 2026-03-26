@@ -2,6 +2,9 @@
 
 import io.github.lishangbu.avalon.dataset.entity.Berry
 import io.github.lishangbu.avalon.dataset.entity.dto.BerrySpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.BerryView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryInput
 import io.github.lishangbu.avalon.dataset.repository.BerryRepository
 import io.github.lishangbu.avalon.dataset.service.BerryService
 import org.babyfish.jimmer.Page
@@ -13,26 +16,28 @@ import org.springframework.stereotype.Service
  *
  * 基于仓储封装树果的分页查询与写入逻辑
  */
-<span class="fc" id="L16">@Service</span>
-<span class="fc" id="L17">class BerryServiceImpl(</span>
+<span class="fc" id="L19">@Service</span>
+<span class="fc" id="L20">class BerryServiceImpl(</span>
     /** 树果仓储 */
-<span class="fc" id="L19">    private val berryRepository: BerryRepository,</span>
+<span class="fc" id="L22">    private val berryRepository: BerryRepository,</span>
 ) : BerryService {
     /** 按筛选条件分页查询树果*/
     override fun getPageByCondition(
         specification: BerrySpecification,
         pageable: Pageable,
-<span class="fc" id="L25">    ): Page&lt;Berry&gt; = berryRepository.findAll(specification, pageable)</span>
+<span class="fc" id="L28">    ): Page&lt;BerryView&gt; = berryRepository.findAll(specification, pageable).mapRows(::BerryView)</span>
 
     /** 创建树果 */
-<span class="fc" id="L28">    override fun save(berry: Berry): Berry = berryRepository.save(berry)</span>
+<span class="fc" id="L31">    override fun save(command: SaveBerryInput): BerryView = berryRepository.save(command.toEntity()).let(::reloadView)</span>
 
     /** 更新树果 */
-<span class="fc" id="L31">    override fun update(berry: Berry): Berry = berryRepository.save(berry)</span>
+<span class="fc" id="L34">    override fun update(command: UpdateBerryInput): BerryView = berryRepository.save(command.toEntity()).let(::reloadView)</span>
 
     /** 删除指定 ID 的树果*/
     override fun removeById(id: Long) {
-<span class="fc" id="L35">        berryRepository.deleteById(id)</span>
-<span class="fc" id="L36">    }</span>
+<span class="fc" id="L38">        berryRepository.deleteById(id)</span>
+<span class="fc" id="L39">    }</span>
+
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">    private fun reloadView(berry: Berry): BerryView = BerryView(requireNotNull(berryRepository.findById(berry.id)) { &quot;未找到 ID=${berry.id} 对应的树果&quot; })</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
