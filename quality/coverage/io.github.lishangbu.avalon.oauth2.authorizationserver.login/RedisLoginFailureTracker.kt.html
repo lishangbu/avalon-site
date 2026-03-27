@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RedisLoginFailureTracker.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a> &gt; <span class="el_source">RedisLoginFailureTracker.kt</span></div><h1>RedisLoginFailureTracker.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.login
+
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.core.script.DefaultRedisScript
+import java.time.Clock
+import java.time.Duration
+
+/**
+ * Redis-backed login failure tracker.
+ */
+<span class="fc" id="L12">class RedisLoginFailureTracker(</span>
+    properties: Oauth2Properties?,
+<span class="fc" id="L14">    private val stringRedisTemplate: StringRedisTemplate,</span>
+<span class="fc" id="L15">    clock: Clock = Clock.systemUTC(),</span>
+<span class="fc" id="L16">) : AbstractLoginFailureTracker(properties, clock) {</span>
+    private val keyPrefix =
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        properties</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">            ?.loginFailureTrackerKeyPrefix</span>
+<span class="pc bpc" id="L20" title="3 of 6 branches missed.">            ?.takeIf { it.isNotBlank() }</span>
+<span class="nc" id="L21">            ?: DEFAULT_KEY_PREFIX</span>
+
+    private val failureScript =
+<span class="fc" id="L24">        DefaultRedisScript&lt;Long&gt;().apply {</span>
+<span class="fc" id="L25">            setScriptText(FAILURE_SCRIPT)</span>
+<span class="fc" id="L26">            setResultType(Long::class.java)</span>
+<span class="fc" id="L27">        }</span>
+
+    private val remainingLockScript =
+<span class="fc" id="L30">        DefaultRedisScript&lt;Long&gt;().apply {</span>
+<span class="fc" id="L31">            setScriptText(REMAINING_LOCK_SCRIPT)</span>
+<span class="fc" id="L32">            setResultType(Long::class.java)</span>
+<span class="fc" id="L33">        }</span>
+
+    override fun getRemainingLock(username: String?): Duration? {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (!isEnabled()) {</span>
+<span class="nc" id="L37">            return null</span>
+        }
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        val key = normalize(username)?.let(::buildStorageKey) ?: return null</span>
+<span class="nc" id="L40">        val remaining =</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            stringRedisTemplate.execute(</span>
+<span class="nc" id="L42">                remainingLockScript,</span>
+<span class="nc" id="L43">                listOf(key),</span>
+<span class="nc" id="L44">                now().toEpochMilli().toString(),</span>
+<span class="nc" id="L45">            ) ?: 0L</span>
+
+<span class="nc bnc" id="L47" title="All 6 branches missed.">        return remaining.takeIf { it &gt; 0 }?.let(Duration::ofMillis)</span>
+    }
+
+    override fun onFailure(username: String?) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (!isEnabled()) {</span>
+<span class="nc" id="L52">            return</span>
+        }
+<span class="nc bnc" id="L54" title="All 4 branches missed.">        val key = normalize(username)?.let(::buildStorageKey) ?: return</span>
+<span class="nc" id="L55">        stringRedisTemplate.execute(</span>
+<span class="nc" id="L56">            failureScript,</span>
+<span class="nc" id="L57">            listOf(key),</span>
+<span class="nc" id="L58">            now().toEpochMilli().toString(),</span>
+<span class="nc" id="L59">            maxFailures.toString(),</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            checkNotNull(lockDuration).toMillis().toString(),</span>
+        )
+<span class="nc" id="L62">    }</span>
+
+    override fun onSuccess(username: String?) {
+<span class="nc bnc" id="L65" title="All 4 branches missed.">        val key = normalize(username)?.let(::buildStorageKey) ?: return</span>
+<span class="nc" id="L66">        stringRedisTemplate.delete(key)</span>
+<span class="nc" id="L67">    }</span>
+
+<span class="nc" id="L69">    private fun buildStorageKey(username: String): String = &quot;$keyPrefix:$username&quot;</span>
+
+    companion object {
+        const val DEFAULT_KEY_PREFIX: String = &quot;oauth2:login-failure&quot;
+
+        private const val FAILURE_SCRIPT: String =
+            &quot;&quot;&quot;
+            local currentLockUntil = redis.call('HGET', KEYS[1], 'lockUntil')
+            local nowMillis = tonumber(ARGV[1])
+            local maxFailures = tonumber(ARGV[2])
+            local lockDurationMillis = tonumber(ARGV[3])
+
+            if currentLockUntil then
+              local lockUntilMillis = tonumber(currentLockUntil)
+              if lockUntilMillis and lockUntilMillis &gt; nowMillis then
+                return lockUntilMillis - nowMillis
+              end
+              redis.call('DEL', KEYS[1])
+            end
+
+            local failures = redis.call('HINCRBY', KEYS[1], 'failures', 1)
+            if failures &gt;= maxFailures then
+              local lockUntilMillis = nowMillis + lockDurationMillis
+              redis.call('HSET', KEYS[1], 'failures', 0, 'lockUntil', lockUntilMillis)
+              redis.call('PEXPIRE', KEYS[1], lockDurationMillis)
+              return lockDurationMillis
+            end
+
+            redis.call('HDEL', KEYS[1], 'lockUntil')
+            redis.call('PERSIST', KEYS[1])
+            return 0
+            &quot;&quot;&quot;
+
+        private const val REMAINING_LOCK_SCRIPT: String =
+            &quot;&quot;&quot;
+            local currentLockUntil = redis.call('HGET', KEYS[1], 'lockUntil')
+            if not currentLockUntil then
+              return 0
+            end
+
+            local remaining = tonumber(currentLockUntil) - tonumber(ARGV[1])
+            if remaining &lt;= 0 then
+              redis.call('DEL', KEYS[1])
+              return 0
+            end
+            return remaining
+            &quot;&quot;&quot;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

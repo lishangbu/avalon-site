@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpelIdempotentKeyResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.idempotent.key</a> &gt; <span class="el_source">SpelIdempotentKeyResolver.kt</span></div><h1>SpelIdempotentKeyResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.idempotent.key
+
+import io.github.lishangbu.avalon.idempotent.annotation.Idempotent
+import io.github.lishangbu.avalon.idempotent.properties.IdempotentProperties
+import org.aspectj.lang.ProceedingJoinPoint
+import org.springframework.context.expression.MethodBasedEvaluationContext
+import org.springframework.core.DefaultParameterNameDiscoverer
+import org.springframework.expression.spel.standard.SpelExpressionParser
+import org.springframework.expression.spel.support.StandardEvaluationContext
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
+import java.lang.reflect.Method
+
+/**
+ * Resolves idempotent keys from SpEL expressions.
+ */
+<span class="fc" id="L17">class SpelIdempotentKeyResolver(</span>
+<span class="fc" id="L18">    private val properties: IdempotentProperties,</span>
+) : IdempotentKeyResolver {
+<span class="fc" id="L20">    private val parser = SpelExpressionParser()</span>
+<span class="fc" id="L21">    private val parameterNameDiscoverer = DefaultParameterNameDiscoverer()</span>
+
+    override fun resolve(
+        joinPoint: ProceedingJoinPoint,
+        method: Method,
+        annotation: Idempotent,
+    ): String {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (annotation.key.isBlank()) {</span>
+<span class="fc" id="L29">            return resolveFromRequestHeader(method)</span>
+        }
+
+<span class="fc" id="L32">        val context =</span>
+<span class="fc" id="L33">            MethodBasedEvaluationContext(</span>
+<span class="fc" id="L34">                joinPoint.target,</span>
+<span class="fc" id="L35">                method,</span>
+<span class="fc" id="L36">                joinPoint.args,</span>
+<span class="fc" id="L37">                parameterNameDiscoverer,</span>
+<span class="fc" id="L38">            ).apply {</span>
+<span class="fc" id="L39">                setVariable(&quot;method&quot;, method)</span>
+<span class="fc" id="L40">                setVariable(&quot;target&quot;, joinPoint.target)</span>
+<span class="fc" id="L41">            }</span>
+<span class="fc" id="L42">        val value = parser.parseExpression(annotation.key).getValue(context as StandardEvaluationContext)</span>
+<span class="pc bpc" id="L43" title="6 of 12 branches missed.">        return value?.toString()?.trim()?.takeIf { it.isNotEmpty() }</span>
+<span class="nc" id="L44">            ?: error(&quot;Resolved idempotent key is blank for method ${method.declaringClass.name}.${method.name}.&quot;)</span>
+    }
+
+    private fun resolveFromRequestHeader(method: Method): String {
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        val requestAttributes = RequestContextHolder.getRequestAttributes() as? ServletRequestAttributes</span>
+<span class="fc" id="L49">        val headerValue =</span>
+<span class="fc" id="L50">            requestAttributes</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">                ?.request</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                ?.getHeader(properties.headerName)</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                ?.trim()</span>
+<span class="pc bpc" id="L54" title="3 of 6 branches missed.">                ?.takeIf { it.isNotEmpty() }</span>
+
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        return headerValue</span>
+<span class="nc" id="L57">            ?: error(</span>
+<span class="nc" id="L58">                &quot;No idempotent key expression was configured for ${method.declaringClass.name}.${method.name}, and request header '${properties.headerName}' is missing.&quot;,</span>
+            )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

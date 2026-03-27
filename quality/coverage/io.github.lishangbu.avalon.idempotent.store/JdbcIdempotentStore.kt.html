@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcIdempotentStore.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.idempotent.store</a> &gt; <span class="el_source">JdbcIdempotentStore.kt</span></div><h1>JdbcIdempotentStore.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.idempotent.store
+
+import org.springframework.dao.DuplicateKeyException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.RowMapper
+import java.sql.ResultSet
+import java.sql.Timestamp
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
+
+/**
+ * JDBC implementation of [IdempotentStore].
+ */
+<span class="fc" id="L15">class JdbcIdempotentStore(</span>
+<span class="fc" id="L16">    private val jdbcTemplate: JdbcTemplate,</span>
+    tableName: String,
+<span class="fc" id="L18">    private val clock: Clock = Clock.systemUTC(),</span>
+<span class="fc" id="L19">) : IdempotentStore {</span>
+<span class="fc" id="L20">    private val tableName = validateTableName(tableName)</span>
+    private val recordRowMapper =
+<span class="fc" id="L22">        RowMapper { resultSet: ResultSet, _: Int -&gt;</span>
+<span class="fc" id="L23">            Record(</span>
+<span class="fc" id="L24">                status = resultSet.getString(&quot;status&quot;),</span>
+<span class="fc" id="L25">                token = resultSet.getString(&quot;token&quot;),</span>
+<span class="fc" id="L26">                cachedValue = resultSet.getString(&quot;cached_value&quot;),</span>
+<span class="fc" id="L27">                expiresAt = resultSet.getTimestamp(&quot;expires_at&quot;).toInstant(),</span>
+<span class="fc" id="L28">            )</span>
+        }
+
+    override fun acquire(
+        key: String,
+        token: String,
+        processingTtl: Duration,
+    ): IdempotentStore.AcquireResult {
+<span class="fc" id="L36">        val now = Instant.now(clock)</span>
+<span class="fc" id="L37">        val expiresAt = now.plus(processingTtl)</span>
+<span class="fc" id="L38">        try {</span>
+<span class="fc" id="L39">            jdbcTemplate.update(</span>
+                &quot;&quot;&quot;
+<span class="fc" id="L41">                insert into $tableName (</span>
+                    idempotency_key,
+                    status,
+                    token,
+                    cached_value,
+                    expires_at,
+                    created_at,
+                    updated_at
+                ) values (?, ?, ?, ?, ?, ?, ?)
+<span class="fc" id="L50">                &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L51">                key,</span>
+<span class="fc" id="L52">                STATUS_PROCESSING,</span>
+<span class="fc" id="L53">                token,</span>
+<span class="fc" id="L54">                null,</span>
+<span class="fc" id="L55">                Timestamp.from(expiresAt),</span>
+<span class="fc" id="L56">                Timestamp.from(now),</span>
+<span class="fc" id="L57">                Timestamp.from(now),</span>
+            )
+<span class="fc" id="L59">            return IdempotentStore.AcquireResult.Acquired</span>
+<span class="fc" id="L60">        } catch (_: DuplicateKeyException) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            repeat(2) {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                val record = findRecord(key) ?: return IdempotentStore.AcquireResult.Acquired</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                if (record.expiresAt &lt;= now) {</span>
+<span class="fc" id="L64">                    val updated =</span>
+<span class="fc" id="L65">                        jdbcTemplate.update(</span>
+                            &quot;&quot;&quot;
+<span class="fc" id="L67">                            update $tableName</span>
+                            set status = ?, token = ?, cached_value = ?, expires_at = ?, updated_at = ?
+                            where idempotency_key = ? and expires_at &lt;= ?
+<span class="fc" id="L70">                            &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L71">                            STATUS_PROCESSING,</span>
+<span class="fc" id="L72">                            token,</span>
+<span class="fc" id="L73">                            null,</span>
+<span class="fc" id="L74">                            Timestamp.from(expiresAt),</span>
+<span class="fc" id="L75">                            Timestamp.from(now),</span>
+<span class="fc" id="L76">                            key,</span>
+<span class="fc" id="L77">                            Timestamp.from(now),</span>
+                        )
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">                    if (updated == 1) {</span>
+<span class="fc" id="L80">                        return IdempotentStore.AcquireResult.Acquired</span>
+                    }
+                } else {
+<span class="fc" id="L83">                    return when (record.status) {</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">                        STATUS_PROCESSING -&gt; IdempotentStore.AcquireResult.Processing</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                        STATUS_SUCCEEDED -&gt; IdempotentStore.AcquireResult.Completed(record.cachedValue)</span>
+<span class="nc" id="L86">                        else -&gt; IdempotentStore.AcquireResult.Processing</span>
+                    }
+                }
+<span class="nc" id="L89">            }</span>
+        }
+<span class="nc" id="L91">        return IdempotentStore.AcquireResult.Processing</span>
+    }
+
+    override fun complete(
+        key: String,
+        token: String,
+        cachedValue: String?,
+        ttl: Duration,
+    ): Boolean {
+<span class="fc" id="L100">        val now = Instant.now(clock)</span>
+<span class="fc" id="L101">        val expiresAt = now.plus(ttl)</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        return jdbcTemplate.update(</span>
+            &quot;&quot;&quot;
+<span class="fc" id="L104">            update $tableName</span>
+            set status = ?, cached_value = ?, expires_at = ?, updated_at = ?
+            where idempotency_key = ? and status = ? and token = ?
+<span class="fc" id="L107">            &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L108">            STATUS_SUCCEEDED,</span>
+<span class="fc" id="L109">            cachedValue,</span>
+<span class="fc" id="L110">            Timestamp.from(expiresAt),</span>
+<span class="fc" id="L111">            Timestamp.from(now),</span>
+<span class="fc" id="L112">            key,</span>
+<span class="fc" id="L113">            STATUS_PROCESSING,</span>
+<span class="fc" id="L114">            token,</span>
+<span class="fc" id="L115">        ) == 1</span>
+    }
+
+    override fun release(
+        key: String,
+        token: String,
+    ): Boolean =
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        jdbcTemplate.update(</span>
+<span class="fc" id="L123">            &quot;delete from $tableName where idempotency_key = ? and status = ? and token = ?&quot;,</span>
+<span class="fc" id="L124">            key,</span>
+<span class="fc" id="L125">            STATUS_PROCESSING,</span>
+<span class="fc" id="L126">            token,</span>
+<span class="fc" id="L127">        ) == 1</span>
+
+    override fun renew(
+        key: String,
+        token: String,
+        processingTtl: Duration,
+    ): Boolean {
+<span class="fc" id="L134">        val now = Instant.now(clock)</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        return jdbcTemplate.update(</span>
+            &quot;&quot;&quot;
+<span class="fc" id="L137">            update $tableName</span>
+            set expires_at = ?, updated_at = ?
+            where idempotency_key = ? and status = ? and token = ?
+<span class="fc" id="L140">            &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L141">            Timestamp.from(now.plus(processingTtl)),</span>
+<span class="fc" id="L142">            Timestamp.from(now),</span>
+<span class="fc" id="L143">            key,</span>
+<span class="fc" id="L144">            STATUS_PROCESSING,</span>
+<span class="fc" id="L145">            token,</span>
+<span class="fc" id="L146">        ) == 1</span>
+    }
+
+    private fun findRecord(key: String): Record? =
+<span class="fc" id="L150">        jdbcTemplate</span>
+<span class="fc" id="L151">            .query(</span>
+                &quot;&quot;&quot;
+                select status, token, cached_value, expires_at
+<span class="fc" id="L154">                from $tableName</span>
+                where idempotency_key = ?
+<span class="fc" id="L156">                &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L157">                recordRowMapper,</span>
+<span class="fc" id="L158">                key,</span>
+<span class="fc" id="L159">            ).firstOrNull()</span>
+
+    private fun validateTableName(tableName: String): String {
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        require(TABLE_NAME_PATTERN.matches(tableName)) {</span>
+<span class="nc" id="L163">            &quot;Invalid JDBC idempotent table name: $tableName&quot;</span>
+        }
+<span class="fc" id="L165">        return tableName</span>
+    }
+
+<span class="fc" id="L168">    private data class Record(</span>
+<span class="fc" id="L169">        val status: String,</span>
+<span class="pc" id="L170">        val token: String,</span>
+<span class="fc" id="L171">        val cachedValue: String?,</span>
+<span class="fc" id="L172">        val expiresAt: Instant,</span>
+    )
+
+    companion object {
+        const val STATUS_PROCESSING: String = &quot;PROCESSING&quot;
+        const val STATUS_SUCCEEDED: String = &quot;SUCCEEDED&quot;
+
+<span class="pc" id="L179">        val TABLE_NAME_PATTERN: Regex = Regex(&quot;[A-Za-z0-9_]+&quot;)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

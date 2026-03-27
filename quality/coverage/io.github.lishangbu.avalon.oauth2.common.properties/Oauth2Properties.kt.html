@@ -59,44 +59,53 @@ class Oauth2Properties {
     /** 登录锁定时长 */
 <span class="fc" id="L60">    private var loginLockDuration: String? = &quot;15m&quot;</span>
 
+    /** 登录失败跟踪存储类型 */
+<span class="fc" id="L63">    var loginFailureTrackerStoreType: LoginFailureTrackerStoreType = LoginFailureTrackerStoreType.MEMORY</span>
+
+    /** 登录失败跟踪 Redis Key 前缀 */
+<span class="fc" id="L66">    var loginFailureTrackerKeyPrefix: String = &quot;oauth2:login-failure&quot;</span>
+
+    /** 登录失败跟踪 JDBC 表名 */
+<span class="fc" id="L69">    var loginFailureTrackerJdbcTableName: String = &quot;oauth2_login_failure&quot;</span>
+
     /** 签发者 URL */
-<span class="fc" id="L63">    var issuerUrl: String? = null</span>
+<span class="fc" id="L72">    var issuerUrl: String? = null</span>
 
     /** JWT 公钥文件位置 */
-<span class="fc" id="L66">    var jwtPublicKeyLocation: String? = null</span>
+<span class="fc" id="L75">    var jwtPublicKeyLocation: String? = null</span>
 
     /** JWT 私钥文件位置 */
-<span class="fc" id="L69">    var jwtPrivateKeyLocation: String? = null</span>
+<span class="fc" id="L78">    var jwtPrivateKeyLocation: String? = null</span>
 
     /** 获取登录锁定时长 */
     fun getLoginLockDuration(): Duration? {
-<span class="fc" id="L73">        val value = loginLockDuration</span>
-<span class="fc bfc" id="L74" title="All 6 branches covered.">        if (value.isNullOrBlank()) {</span>
-<span class="fc" id="L75">            return null</span>
+<span class="fc" id="L82">        val value = loginLockDuration</span>
+<span class="fc bfc" id="L83" title="All 6 branches covered.">        if (value.isNullOrBlank()) {</span>
+<span class="fc" id="L84">            return null</span>
         }
-<span class="fc" id="L77">        return try {</span>
-<span class="fc" id="L78">            DurationStyle.detectAndParse(value.trim(), ChronoUnit.MINUTES)</span>
-<span class="fc" id="L79">        } catch (_: IllegalArgumentException) {</span>
-<span class="fc" id="L80">            null</span>
+<span class="fc" id="L86">        return try {</span>
+<span class="fc" id="L87">            DurationStyle.detectAndParse(value.trim(), ChronoUnit.MINUTES)</span>
+<span class="fc" id="L88">        } catch (_: IllegalArgumentException) {</span>
+<span class="fc" id="L89">            null</span>
         }
     }
 
     /** 设置登录锁定时长 */
     fun setLoginLockDuration(loginLockDuration: String?) {
-<span class="fc" id="L86">        this.loginLockDuration = loginLockDuration</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L95">        this.loginLockDuration = loginLockDuration</span>
+<span class="fc" id="L96">    }</span>
 
     /** 获取短信验证码有效期 */
-<span class="fc" id="L90">    fun getSmsCodeTimeToLiveDuration(): Duration = parseDuration(smsCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
+<span class="fc" id="L99">    fun getSmsCodeTimeToLiveDuration(): Duration = parseDuration(smsCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
 
     /** 获取短信验证码重发间隔 */
-<span class="fc" id="L93">    fun getSmsCodeResendIntervalDuration(): Duration = parseDuration(smsCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
+<span class="fc" id="L102">    fun getSmsCodeResendIntervalDuration(): Duration = parseDuration(smsCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
 
     /** 获取邮箱验证码有效期 */
-<span class="fc" id="L96">    fun getEmailCodeTimeToLiveDuration(): Duration = parseDuration(emailCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
+<span class="fc" id="L105">    fun getEmailCodeTimeToLiveDuration(): Duration = parseDuration(emailCodeTimeToLive, Duration.ofMinutes(5), ChronoUnit.MINUTES)</span>
 
     /** 获取邮箱验证码重发间隔 */
-<span class="fc" id="L99">    fun getEmailCodeResendIntervalDuration(): Duration = parseDuration(emailCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
+<span class="fc" id="L108">    fun getEmailCodeResendIntervalDuration(): Duration = parseDuration(emailCodeResendInterval, Duration.ofSeconds(60), ChronoUnit.SECONDS)</span>
 
     /** 解析时长配置 */
     private fun parseDuration(
@@ -104,13 +113,13 @@ class Oauth2Properties {
         fallback: Duration,
         defaultUnit: ChronoUnit,
     ): Duration {
-<span class="pc bpc" id="L107" title="3 of 6 branches missed.">        if (value.isNullOrBlank()) {</span>
-<span class="nc" id="L108">            return fallback</span>
+<span class="pc bpc" id="L116" title="3 of 6 branches missed.">        if (value.isNullOrBlank()) {</span>
+<span class="nc" id="L117">            return fallback</span>
         }
-<span class="fc" id="L110">        return try {</span>
-<span class="fc" id="L111">            DurationStyle.detectAndParse(value.trim(), defaultUnit)</span>
-<span class="nc" id="L112">        } catch (_: IllegalArgumentException) {</span>
-<span class="pc" id="L113">            fallback</span>
+<span class="fc" id="L119">        return try {</span>
+<span class="fc" id="L120">            DurationStyle.detectAndParse(value.trim(), defaultUnit)</span>
+<span class="nc" id="L121">        } catch (_: IllegalArgumentException) {</span>
+<span class="pc" id="L122">            fallback</span>
         }
     }
 

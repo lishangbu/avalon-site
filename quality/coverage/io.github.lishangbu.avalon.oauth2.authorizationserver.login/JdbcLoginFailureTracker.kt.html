@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcLoginFailureTracker.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a> &gt; <span class="el_source">JdbcLoginFailureTracker.kt</span></div><h1>JdbcLoginFailureTracker.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.login
+
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import org.springframework.dao.DuplicateKeyException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.RowMapper
+import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.support.TransactionTemplate
+import java.sql.ResultSet
+import java.sql.Timestamp
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
+
+/**
+ * JDBC-backed login failure tracker.
+ */
+<span class="fc" id="L18">class JdbcLoginFailureTracker(</span>
+    properties: Oauth2Properties?,
+<span class="fc" id="L20">    private val jdbcTemplate: JdbcTemplate,</span>
+    transactionManager: PlatformTransactionManager,
+<span class="fc" id="L22">    clock: Clock = Clock.systemUTC(),</span>
+<span class="fc" id="L23">) : AbstractLoginFailureTracker(properties, clock) {</span>
+<span class="pc bpc" id="L24" title="2 of 4 branches missed.">    private val tableName = validateTableName(properties?.loginFailureTrackerJdbcTableName ?: DEFAULT_TABLE_NAME)</span>
+<span class="fc" id="L25">    private val transactionTemplate = TransactionTemplate(transactionManager)</span>
+    private val rowMapper =
+<span class="fc" id="L27">        RowMapper { resultSet: ResultSet, _: Int -&gt;</span>
+<span class="fc" id="L28">            LoginFailureState(</span>
+<span class="fc" id="L29">                failures = resultSet.getInt(&quot;failure_count&quot;),</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">                lockUntil = resultSet.getTimestamp(&quot;lock_until&quot;)?.toInstant(),</span>
+<span class="fc" id="L31">            )</span>
+        }
+
+    override fun getRemainingLock(username: String?): Duration? {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (!isEnabled()) {</span>
+<span class="fc" id="L36">            return null</span>
+        }
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        val key = normalize(username) ?: return null</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        val state = findState(key) ?: return null</span>
+<span class="fc" id="L40">        val currentTime = now()</span>
+<span class="fc" id="L41">        val remainingLock = getRemainingLock(state, currentTime)</span>
+<span class="fc bfc" id="L42" title="All 4 branches covered.">        if (remainingLock == null &amp;&amp; state.lockUntil != null) {</span>
+<span class="fc" id="L43">            jdbcTemplate.update(</span>
+<span class="fc" id="L44">                &quot;delete from $tableName where username = ? and lock_until &lt;= ?&quot;,</span>
+<span class="fc" id="L45">                key,</span>
+<span class="fc" id="L46">                Timestamp.from(currentTime),</span>
+            )
+        }
+<span class="fc" id="L49">        return remainingLock</span>
+    }
+
+    override fun onFailure(username: String?) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!isEnabled()) {</span>
+<span class="fc" id="L54">            return</span>
+        }
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        val key = normalize(username) ?: return</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        repeat(2) { attempt -&gt;</span>
+<span class="fc" id="L58">            try {</span>
+<span class="fc" id="L59">                transactionTemplate.executeWithoutResult {</span>
+<span class="fc" id="L60">                    val currentTime = now()</span>
+<span class="fc" id="L61">                    val state = findStateForUpdate(key)</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                    if (state == null) {</span>
+<span class="fc" id="L63">                        insertState(key, nextState(null, currentTime), currentTime)</span>
+<span class="fc" id="L64">                        return@executeWithoutResult</span>
+                    }
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                    if (getRemainingLock(state, currentTime) != null) {</span>
+<span class="nc" id="L67">                        return@executeWithoutResult</span>
+                    }
+<span class="fc" id="L69">                    updateState(key, nextState(state, currentTime), currentTime)</span>
+<span class="fc" id="L70">                }</span>
+<span class="fc" id="L71">                return</span>
+<span class="nc" id="L72">            } catch (ex: DuplicateKeyException) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                if (attempt == 1) {</span>
+<span class="nc" id="L74">                    throw ex</span>
+                }
+            }
+<span class="nc" id="L77">        }</span>
+<span class="nc" id="L78">    }</span>
+
+    override fun onSuccess(username: String?) {
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        val key = normalize(username) ?: return</span>
+<span class="fc" id="L82">        jdbcTemplate.update(&quot;delete from $tableName where username = ?&quot;, key)</span>
+<span class="fc" id="L83">    }</span>
+
+    private fun findState(username: String): LoginFailureState? =
+<span class="fc" id="L86">        jdbcTemplate</span>
+<span class="fc" id="L87">            .query(</span>
+                &quot;&quot;&quot;
+                select failure_count, lock_until
+<span class="fc" id="L90">                from $tableName</span>
+                where username = ?
+<span class="fc" id="L92">                &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L93">                rowMapper,</span>
+<span class="fc" id="L94">                username,</span>
+<span class="fc" id="L95">            ).firstOrNull()</span>
+
+    private fun findStateForUpdate(username: String): LoginFailureState? =
+<span class="fc" id="L98">        jdbcTemplate</span>
+<span class="fc" id="L99">            .query(</span>
+                &quot;&quot;&quot;
+                select failure_count, lock_until
+<span class="fc" id="L102">                from $tableName</span>
+                where username = ?
+                for update
+<span class="fc" id="L105">                &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L106">                rowMapper,</span>
+<span class="fc" id="L107">                username,</span>
+<span class="fc" id="L108">            ).firstOrNull()</span>
+
+    private fun insertState(
+        username: String,
+        state: LoginFailureState,
+        currentTime: Instant,
+    ) {
+<span class="fc" id="L115">        jdbcTemplate.update(</span>
+            &quot;&quot;&quot;
+<span class="fc" id="L117">            insert into $tableName (</span>
+                username,
+                failure_count,
+                lock_until,
+                created_at,
+                updated_at
+            ) values (?, ?, ?, ?, ?)
+<span class="fc" id="L124">            &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L125">            username,</span>
+<span class="fc" id="L126">            state.failures,</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            state.lockUntil?.let(Timestamp::from),</span>
+<span class="fc" id="L128">            Timestamp.from(currentTime),</span>
+<span class="fc" id="L129">            Timestamp.from(currentTime),</span>
+        )
+<span class="fc" id="L131">    }</span>
+
+    private fun updateState(
+        username: String,
+        state: LoginFailureState,
+        currentTime: Instant,
+    ) {
+<span class="fc" id="L138">        jdbcTemplate.update(</span>
+            &quot;&quot;&quot;
+<span class="fc" id="L140">            update $tableName</span>
+            set failure_count = ?, lock_until = ?, updated_at = ?
+            where username = ?
+<span class="fc" id="L143">            &quot;&quot;&quot;.trimIndent(),</span>
+<span class="fc" id="L144">            state.failures,</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">            state.lockUntil?.let(Timestamp::from),</span>
+<span class="fc" id="L146">            Timestamp.from(currentTime),</span>
+<span class="fc" id="L147">            username,</span>
+        )
+<span class="fc" id="L149">    }</span>
+
+    private fun validateTableName(tableName: String): String {
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        require(TABLE_NAME_PATTERN.matches(tableName)) {</span>
+<span class="fc" id="L153">            &quot;Invalid JDBC login failure tracker table name: $tableName&quot;</span>
+        }
+<span class="fc" id="L155">        return tableName</span>
+    }
+
+    companion object {
+        const val DEFAULT_TABLE_NAME: String = &quot;oauth2_login_failure&quot;
+
+<span class="pc" id="L161">        val TABLE_NAME_PATTERN: Regex = Regex(&quot;[A-Za-z0-9_]+&quot;)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

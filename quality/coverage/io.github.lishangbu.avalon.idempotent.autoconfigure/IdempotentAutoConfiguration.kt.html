@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IdempotentAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.idempotent.autoconfigure</a> &gt; <span class="el_source">IdempotentAutoConfiguration.kt</span></div><h1>IdempotentAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.idempotent.autoconfigure
+
+import io.github.lishangbu.avalon.idempotent.aspect.IdempotentAspect
+import io.github.lishangbu.avalon.idempotent.key.IdempotentKeyResolver
+import io.github.lishangbu.avalon.idempotent.key.SpelIdempotentKeyResolver
+import io.github.lishangbu.avalon.idempotent.lease.DefaultIdempotentLeaseManager
+import io.github.lishangbu.avalon.idempotent.lease.IdempotentLeaseManager
+import io.github.lishangbu.avalon.idempotent.properties.IdempotentProperties
+import io.github.lishangbu.avalon.idempotent.store.IdempotentStore
+import io.github.lishangbu.avalon.idempotent.store.JdbcIdempotentStore
+import io.github.lishangbu.avalon.idempotent.store.RedisIdempotentStore
+import org.aspectj.lang.ProceedingJoinPoint
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.jdbc.core.JdbcTemplate
+import tools.jackson.databind.json.JsonMapper
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+
+/**
+ * Auto-configures Redis-backed idempotent execution support.
+ */
+<span class="fc" id="L30">@AutoConfiguration</span>
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnClass(ProceedingJoinPoint::class)
+@ConditionalOnProperty(
+    prefix = IdempotentProperties.PREFIX,
+    name = [&quot;enabled&quot;],
+    havingValue = &quot;true&quot;,
+    matchIfMissing = true,
+)
+@EnableConfigurationProperties(IdempotentProperties::class)
+class IdempotentAutoConfiguration {
+    @Bean
+    @ConditionalOnMissingBean(JsonMapper::class)
+<span class="fc" id="L43">    fun idempotentJsonMapper(): JsonMapper = JsonMapper.builder().findAndAddModules().build()</span>
+
+    @Bean
+    @ConditionalOnMissingBean(IdempotentKeyResolver::class)
+<span class="fc" id="L47">    fun idempotentKeyResolver(properties: IdempotentProperties): IdempotentKeyResolver = SpelIdempotentKeyResolver(properties)</span>
+
+    @Bean
+    @ConditionalOnBean(StringRedisTemplate::class)
+    @ConditionalOnMissingBean(IdempotentStore::class)
+    @ConditionalOnProperty(
+        prefix = IdempotentProperties.PREFIX,
+        name = [&quot;store-type&quot;],
+        havingValue = &quot;REDIS&quot;,
+        matchIfMissing = true,
+    )
+    fun idempotentStore(
+        stringRedisTemplate: StringRedisTemplate,
+        jsonMapper: JsonMapper,
+<span class="fc" id="L61">    ): IdempotentStore = RedisIdempotentStore(stringRedisTemplate, jsonMapper)</span>
+
+    @Bean
+    @ConditionalOnBean(JdbcTemplate::class)
+    @ConditionalOnMissingBean(IdempotentStore::class)
+    @ConditionalOnProperty(
+        prefix = IdempotentProperties.PREFIX,
+        name = [&quot;store-type&quot;],
+        havingValue = &quot;JDBC&quot;,
+    )
+    fun jdbcIdempotentStore(
+        properties: IdempotentProperties,
+        jdbcTemplate: JdbcTemplate,
+<span class="fc" id="L74">    ): IdempotentStore = JdbcIdempotentStore(jdbcTemplate, properties.jdbcTableName)</span>
+
+    @Bean(destroyMethod = &quot;shutdown&quot;)
+    @ConditionalOnBean(IdempotentStore::class)
+    @ConditionalOnMissingBean(name = [&quot;idempotentLeaseExecutor&quot;])
+    fun idempotentLeaseExecutor(): ScheduledExecutorService =
+<span class="fc" id="L80">        Executors.newSingleThreadScheduledExecutor { runnable -&gt;</span>
+<span class="fc" id="L81">            Thread(runnable, &quot;idempotent-renewal&quot;).apply {</span>
+<span class="fc" id="L82">                isDaemon = true</span>
+<span class="fc" id="L83">            }</span>
+<span class="fc" id="L84">        }</span>
+
+    @Bean
+    @ConditionalOnBean(IdempotentStore::class)
+    @ConditionalOnMissingBean(IdempotentLeaseManager::class)
+    fun idempotentLeaseManager(
+        properties: IdempotentProperties,
+        idempotentStore: IdempotentStore,
+        idempotentLeaseExecutor: ScheduledExecutorService,
+<span class="fc" id="L93">    ): IdempotentLeaseManager = DefaultIdempotentLeaseManager(properties, idempotentStore, idempotentLeaseExecutor)</span>
+
+    @Bean
+    @ConditionalOnBean(IdempotentStore::class)
+    @ConditionalOnMissingBean
+    fun idempotentAspect(
+        properties: IdempotentProperties,
+        keyResolver: IdempotentKeyResolver,
+        idempotentLeaseManager: IdempotentLeaseManager,
+        idempotentStore: IdempotentStore,
+        jsonMapper: JsonMapper,
+<span class="fc" id="L104">    ): IdempotentAspect = IdempotentAspect(properties, keyResolver, idempotentLeaseManager, idempotentStore, jsonMapper)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

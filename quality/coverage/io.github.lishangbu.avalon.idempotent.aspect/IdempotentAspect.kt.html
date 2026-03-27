@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IdempotentAspect.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.idempotent.aspect</a> &gt; <span class="el_source">IdempotentAspect.kt</span></div><h1>IdempotentAspect.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.idempotent.aspect
+
+import io.github.lishangbu.avalon.idempotent.annotation.Idempotent
+import io.github.lishangbu.avalon.idempotent.exception.IdempotentConflictException
+import io.github.lishangbu.avalon.idempotent.exception.IdempotentConflictState
+import io.github.lishangbu.avalon.idempotent.key.IdempotentKeyResolver
+import io.github.lishangbu.avalon.idempotent.lease.IdempotentLeaseManager
+import io.github.lishangbu.avalon.idempotent.properties.IdempotentProperties
+import io.github.lishangbu.avalon.idempotent.store.IdempotentStore
+import io.github.lishangbu.avalon.idempotent.support.DuplicateStrategy
+import org.aspectj.lang.ProceedingJoinPoint
+import org.aspectj.lang.annotation.Around
+import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.reflect.MethodSignature
+import org.springframework.aop.support.AopUtils
+import org.springframework.transaction.support.TransactionSynchronization
+import org.springframework.transaction.support.TransactionSynchronizationManager
+import tools.jackson.databind.json.JsonMapper
+import java.lang.reflect.Method
+import java.util.UUID
+
+/**
+ * Intercepts methods annotated with [Idempotent].
+ */
+<span class="fc" id="L25">@Aspect</span>
+<span class="fc" id="L26">class IdempotentAspect(</span>
+<span class="fc" id="L27">    private val properties: IdempotentProperties,</span>
+<span class="fc" id="L28">    private val keyResolver: IdempotentKeyResolver,</span>
+<span class="fc" id="L29">    private val idempotentLeaseManager: IdempotentLeaseManager,</span>
+<span class="fc" id="L30">    private val idempotentStore: IdempotentStore,</span>
+<span class="fc" id="L31">    private val jsonMapper: JsonMapper,</span>
+) {
+    @Around(&quot;@annotation(annotation)&quot;)
+    fun around(
+        joinPoint: ProceedingJoinPoint,
+        annotation: Idempotent,
+    ): Any? {
+<span class="fc" id="L38">        val method = resolveMethod(joinPoint)</span>
+<span class="fc" id="L39">        val storageKey = buildStorageKey(annotation, keyResolver.resolve(joinPoint, method, annotation))</span>
+<span class="fc" id="L40">        val token = UUID.randomUUID().toString()</span>
+
+<span class="fc" id="L42">        return when (</span>
+<span class="fc" id="L43">            val acquireResult =</span>
+<span class="fc" id="L44">                idempotentStore.acquire(</span>
+<span class="fc" id="L45">                    key = storageKey,</span>
+<span class="fc" id="L46">                    token = token,</span>
+<span class="fc" id="L47">                    processingTtl = properties.processingTtl,</span>
+                )
+        ) {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            is IdempotentStore.AcquireResult.Acquired -&gt; {</span>
+<span class="fc" id="L51">                val leaseHandle = idempotentLeaseManager.start(storageKey, token)</span>
+<span class="fc" id="L52">                invokeAndFinalize(joinPoint, method, storageKey, token, leaseHandle)</span>
+            }
+
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            is IdempotentStore.AcquireResult.Completed -&gt; {</span>
+<span class="fc" id="L56">                handleCompletedRequest(</span>
+<span class="fc" id="L57">                    annotation = annotation,</span>
+<span class="fc" id="L58">                    key = storageKey,</span>
+<span class="fc" id="L59">                    method = method,</span>
+<span class="fc" id="L60">                    cachedValue = acquireResult.cachedValue,</span>
+                )
+            }
+
+<span class="nc" id="L64">            is IdempotentStore.AcquireResult.Processing -&gt; {</span>
+<span class="nc" id="L65">                throw IdempotentConflictException(</span>
+<span class="nc" id="L66">                    state = IdempotentConflictState.PROCESSING,</span>
+<span class="nc" id="L67">                    key = storageKey,</span>
+                )
+            }
+        }
+    }
+
+    private fun invokeAndFinalize(
+        joinPoint: ProceedingJoinPoint,
+        method: Method,
+        key: String,
+        token: String,
+        leaseHandle: IdempotentLeaseManager.LeaseHandle,
+    ): Any? =
+<span class="fc" id="L80">        try {</span>
+<span class="fc" id="L81">            val result = joinPoint.proceed()</span>
+<span class="fc" id="L82">            val cachedValue = serializeResult(method, result)</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">            if (TransactionSynchronizationManager.isSynchronizationActive()) {</span>
+<span class="nc" id="L84">                TransactionSynchronizationManager.registerSynchronization(</span>
+<span class="nc" id="L85">                    object : TransactionSynchronization {</span>
+                        override fun afterCommit() {
+<span class="nc" id="L87">                            idempotentStore.complete(</span>
+<span class="nc" id="L88">                                key = key,</span>
+<span class="nc" id="L89">                                token = token,</span>
+<span class="nc" id="L90">                                cachedValue = cachedValue,</span>
+<span class="nc" id="L91">                                ttl = properties.ttl,</span>
+                            )
+<span class="nc" id="L93">                        }</span>
+
+                        override fun afterCompletion(status: Int) {
+<span class="nc" id="L96">                            leaseHandle.stop()</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">                            if (status != TransactionSynchronization.STATUS_COMMITTED) {</span>
+<span class="nc" id="L98">                                idempotentStore.release(key = key, token = token)</span>
+                            }
+<span class="nc" id="L100">                        }</span>
+                    },
+                )
+            } else {
+<span class="fc" id="L104">                idempotentStore.complete(</span>
+<span class="fc" id="L105">                    key = key,</span>
+<span class="fc" id="L106">                    token = token,</span>
+<span class="fc" id="L107">                    cachedValue = cachedValue,</span>
+<span class="fc" id="L108">                    ttl = properties.ttl,</span>
+                )
+<span class="fc" id="L110">                leaseHandle.stop()</span>
+            }
+<span class="fc" id="L112">            result</span>
+<span class="fc" id="L113">        } catch (ex: Throwable) {</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">            if (TransactionSynchronizationManager.isSynchronizationActive()) {</span>
+<span class="nc" id="L115">                TransactionSynchronizationManager.registerSynchronization(</span>
+<span class="nc" id="L116">                    object : TransactionSynchronization {</span>
+                        override fun afterCompletion(status: Int) {
+<span class="nc" id="L118">                            leaseHandle.stop()</span>
+<span class="nc" id="L119">                            idempotentStore.release(key = key, token = token)</span>
+<span class="nc" id="L120">                        }</span>
+                    },
+                )
+            } else {
+<span class="fc" id="L124">                idempotentStore.release(key = key, token = token)</span>
+<span class="fc" id="L125">                leaseHandle.stop()</span>
+            }
+<span class="fc" id="L127">            throw ex</span>
+<span class="fc" id="L128">        }</span>
+
+    private fun handleCompletedRequest(
+        annotation: Idempotent,
+        key: String,
+        method: Method,
+        cachedValue: String?,
+    ): Any? =
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        when (annotation.duplicateStrategy) {</span>
+<span class="fc" id="L137">            DuplicateStrategy.REJECT -&gt; throw IdempotentConflictException(</span>
+<span class="fc" id="L138">                state = IdempotentConflictState.COMPLETED,</span>
+<span class="fc" id="L139">                key = key,</span>
+            )
+
+<span class="fc" id="L142">            DuplicateStrategy.RETURN_CACHED -&gt; deserializeResult(method, cachedValue)</span>
+<span class="fc" id="L143">        }</span>
+
+    private fun serializeResult(
+        method: Method,
+        result: Any?,
+    ): String? {
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        if (method.returnType == Void.TYPE) {</span>
+<span class="nc" id="L150">            return null</span>
+        }
+<span class="fc" id="L152">        return jsonMapper.writeValueAsString(result)</span>
+    }
+
+    private fun deserializeResult(
+        method: Method,
+        cachedValue: String?,
+    ): Any? {
+<span class="pc bpc" id="L159" title="2 of 4 branches missed.">        if (method.returnType == Void.TYPE || cachedValue == null) {</span>
+<span class="nc" id="L160">            return null</span>
+        }
+<span class="fc" id="L162">        return jsonMapper.readValue(cachedValue, jsonMapper.typeFactory.constructType(method.genericReturnType))</span>
+    }
+
+    private fun resolveMethod(joinPoint: ProceedingJoinPoint): Method {
+<span class="fc" id="L166">        val signature = joinPoint.signature as MethodSignature</span>
+<span class="fc" id="L167">        return AopUtils.getMostSpecificMethod(signature.method, joinPoint.target.javaClass)</span>
+    }
+
+    private fun buildStorageKey(
+        annotation: Idempotent,
+        key: String,
+    ): String =
+<span class="fc" id="L174">        buildString {</span>
+<span class="fc" id="L175">            append(properties.keyPrefix)</span>
+<span class="pc bpc" id="L176" title="2 of 4 branches missed.">            if (annotation.prefix.isNotBlank()) {</span>
+<span class="fc" id="L177">                append(':')</span>
+<span class="fc" id="L178">                append(annotation.prefix)</span>
+            }
+<span class="fc" id="L180">            append(':')</span>
+<span class="fc" id="L181">            append(key)</span>
+<span class="fc" id="L182">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

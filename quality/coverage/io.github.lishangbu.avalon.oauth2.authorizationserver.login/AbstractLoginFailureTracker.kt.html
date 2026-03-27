@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractLoginFailureTracker.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.oauth2.authorizationserver.login</a> &gt; <span class="el_source">AbstractLoginFailureTracker.kt</span></div><h1>AbstractLoginFailureTracker.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.oauth2.authorizationserver.login
+
+import io.github.lishangbu.avalon.oauth2.common.properties.Oauth2Properties
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
+
+<span class="fc" id="L8">data class LoginFailureState(</span>
+<span class="fc" id="L9">    val failures: Int,</span>
+<span class="fc" id="L10">    val lockUntil: Instant? = null,</span>
+<span class="fc" id="L11">)</span>
+
+/**
+ * Shared login failure tracker configuration and state transition helpers.
+ */
+<span class="pc" id="L16">abstract class AbstractLoginFailureTracker(</span>
+    properties: Oauth2Properties?,
+<span class="pc" id="L18">    private val clock: Clock = Clock.systemUTC(),</span>
+<span class="nc" id="L19">) : LoginFailureTracker {</span>
+<span class="pc bfc" id="L20" title="All 4 branches covered.">    protected val maxFailures: Int = (properties?.maxLoginFailures ?: 0).coerceAtLeast(0)</span>
+<span class="nc" id="L21">    protected val lockDuration: Duration? =</span>
+<span class="fc" id="L22">        properties</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">            ?.getLoginLockDuration()</span>
+<span class="fc bfc" id="L24" title="All 8 branches covered.">            ?.takeIf { !it.isZero &amp;&amp; !it.isNegative }</span>
+
+<span class="fc bfc" id="L26" title="All 4 branches covered.">    override fun isEnabled(): Boolean = maxFailures &gt; 0 &amp;&amp; lockDuration != null</span>
+
+<span class="fc bfc" id="L28" title="All 8 branches covered.">    protected fun normalize(username: String?): String? = username?.trim()?.takeIf { it.isNotEmpty() }</span>
+
+<span class="fc" id="L30">    protected fun now(): Instant = Instant.now(clock)</span>
+
+<span class="nc" id="L32">    protected fun getRemainingLock(</span>
+        state: LoginFailureState?,
+<span class="nc" id="L34">        now: Instant = now(),</span>
+    ): Duration? {
+<span class="fc bfc" id="L36" title="All 4 branches covered.">        val lockUntil = state?.lockUntil ?: return null</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (!lockUntil.isAfter(now)) {</span>
+<span class="fc" id="L38">            return null</span>
+        }
+<span class="fc" id="L40">        return Duration.between(now, lockUntil)</span>
+    }
+
+<span class="nc" id="L43">    protected fun nextState(</span>
+        current: LoginFailureState?,
+<span class="nc" id="L45">        now: Instant = now(),</span>
+    ): LoginFailureState {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (getRemainingLock(current, now) != null) {</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            return checkNotNull(current)</span>
+        }
+
+<span class="fc" id="L51">        val nextFailures =</span>
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">            if (current?.lockUntil != null) {</span>
+<span class="nc" id="L53">                1</span>
+            } else {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                (current?.failures ?: 0) + 1</span>
+            }
+
+<span class="fc" id="L58">        val effectiveLockDuration =</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            checkNotNull(lockDuration) {</span>
+<span class="nc" id="L60">                &quot;Login failure tracking is disabled.&quot;</span>
+            }
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (nextFailures &gt;= maxFailures) {</span>
+<span class="fc" id="L64">            return LoginFailureState(</span>
+<span class="fc" id="L65">                failures = 0,</span>
+<span class="fc" id="L66">                lockUntil = now.plus(effectiveLockDuration),</span>
+            )
+        }
+<span class="fc" id="L69">        return LoginFailureState(failures = nextFailures)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
