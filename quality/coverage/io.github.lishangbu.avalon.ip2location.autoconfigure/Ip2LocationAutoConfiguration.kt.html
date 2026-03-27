@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ip2LocationAutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.ip2location.autoconfigure</a> &gt; <span class="el_source">Ip2LocationAutoConfiguration.kt</span></div><h1>Ip2LocationAutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.ip2location.autoconfigure
+
+import com.ip2location.IP2Location
+import io.github.lishangbu.avalon.ip2location.properties.IpToLocationProperties
+import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.core.io.ResourceLoader
+import org.springframework.util.StreamUtils
+
+/**
+ * IP2Location 自动配置
+ *
+ * 负责加载本地 BIN 数据库并注册官方 [IP2Location] Bean
+ */
+<span class="fc" id="L19">@AutoConfiguration</span>
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnClass(IP2Location::class)
+@EnableConfigurationProperties(IpToLocationProperties::class)
+class Ip2LocationAutoConfiguration {
+    /** 创建并预热官方 IP2Location 查询器 */
+    @Bean(destroyMethod = &quot;close&quot;)
+    @ConditionalOnMissingBean(IP2Location::class)
+    fun ip2Location(
+        properties: IpToLocationProperties,
+        resourceLoader: ResourceLoader,
+    ): IP2Location {
+<span class="fc" id="L31">        val resource = resourceLoader.getResource(properties.dbFileLocation)</span>
+<span class="fc" id="L32">        return IP2Location().apply {</span>
+<span class="pc" id="L33">            resource.inputStream.use { inputStream -&gt;</span>
+<span class="fc" id="L34">                open(StreamUtils.copyToByteArray(inputStream))</span>
+<span class="fc" id="L35">            }</span>
+<span class="fc" id="L36">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
