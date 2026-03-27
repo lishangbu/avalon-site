@@ -17,11 +17,11 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a class="successGroup" href="#">Gradle Test Run :avalon-extensions:avalon-s3-spring-boot-starter:test</a>
+<a class="successGroup" href="#">Gradle Test Run :avalon-platform:avalon-s3-spring-boot-starter:test</a>
 </li>
 </ul>
 <div class="tab">
-<h2>Gradle Test Run :avalon-extensions:avalon-s3-spring-boot-starter:test</h2>
+<h2>Gradle Test Run :avalon-platform:avalon-s3-spring-boot-starter:test</h2>
 <h1>S3TemplateIntegrationTest</h1>
 <div class="tab-container">
 <ul class="tabLinks">
@@ -62,7 +62,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">19.664s</div>
+<div class="counter">21.778s</div>
 <p>duration</p>
 </div>
 </td>
@@ -97,7 +97,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>2.989s</td>
+<td>3.499s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -106,7 +106,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.366s</td>
+<td>0.600s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -115,7 +115,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.072s</td>
+<td>0.146s</td>
 <td class="success">100%</td>
 </tr>
 </table>
@@ -124,59 +124,59 @@
 <div class="tab">
 <h2>standard output</h2>
 <span class="code">
-<pre id="root-1-test-stdout-io.github.lishangbu.avalon.s3.template.S3TemplateIntegrationTest">21:58:27.408 [Test worker] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.4
-21:58:30.836 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-21:58:30.875 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-21:58:30.931 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+<pre id="root-2-test-stdout-io.github.lishangbu.avalon.s3.template.S3TemplateIntegrationTest">05:07:42.889 [Test worker] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.4
+05:07:46.814 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+05:07:46.866 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+05:07:46.933 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
   Server Version: 28.0.4
   API Version: 1.48
   Operating System: Ubuntu 24.04.3 LTS
-  Total Memory: 15994 MB
-21:58:31.103 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
-21:58:31.579 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Starting to pull image
-21:58:31.706 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-21:58:31.743 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (3 KB/? MB)
-21:58:31.763 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  1 pending,  1 downloaded,  1 extracted, (232 KB/? MB)
-21:58:31.779 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (2 MB/2 MB)
-21:58:31.885 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
-21:58:31.899 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Image testcontainers/ryuk:0.14.0 pull took PT0.790570646S
-21:58:32.026 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
-21:58:32.358 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 61a8d458e53e31470422718caec91919eab99912cca59b0afb861eea78307bf9
-21:58:33.203 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT1.177662865S
-21:58:33.224 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-21:58:33.225 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-21:58:33.226 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-21:58:33.239 [Test worker] INFO tc.minio/minio:latest -- Pulling docker image: minio/minio:latest. Please be patient; this may take some time but only needs to be done once.
-21:58:33.485 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Starting to pull image
-21:58:33.491 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-21:58:33.641 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  8 pending,  1 downloaded,  0 extracted, (16 KB/? MB)
-21:58:33.660 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  7 pending,  2 downloaded,  0 extracted, (208 KB/? MB)
-21:58:33.778 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  6 pending,  3 downloaded,  0 extracted, (706 KB/? MB)
-21:58:33.901 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  5 pending,  4 downloaded,  0 extracted, (23 MB/? MB)
-21:58:33.994 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  4 pending,  5 downloaded,  0 extracted, (41 MB/? MB)
-21:58:33.995 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  3 pending,  6 downloaded,  0 extracted, (41 MB/? MB)
-21:58:34.017 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  2 pending,  7 downloaded,  0 extracted, (44 MB/? MB)
-21:58:34.040 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  1 pending,  8 downloaded,  0 extracted, (44 MB/? MB)
-21:58:34.048 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  0 extracted, (44 MB/59 MB)
-21:58:34.166 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  1 extracted, (46 MB/59 MB)
-21:58:34.318 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  2 extracted, (48 MB/59 MB)
-21:58:34.336 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  3 extracted, (48 MB/59 MB)
-21:58:35.154 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  4 extracted, (53 MB/59 MB)
-21:58:35.477 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  5 extracted, (59 MB/59 MB)
-21:58:35.569 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  6 extracted, (59 MB/59 MB)
-21:58:35.601 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  7 extracted, (59 MB/59 MB)
-21:58:35.628 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  8 extracted, (59 MB/59 MB)
-21:58:35.646 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  9 extracted, (59 MB/59 MB)
-21:58:35.654 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pull complete. 9 layers, pulled in 2s (downloaded 59 MB at 29 MB/s)
-21:58:35.658 [Test worker] INFO tc.minio/minio:latest -- Image minio/minio:latest pull took PT2.419501622S
-21:58:35.674 [Test worker] INFO tc.minio/minio:latest -- Creating container for image: minio/minio:latest
-21:58:35.680 [Test worker] WARN tc.minio/minio:latest -- Reuse was requested but the environment does not support the reuse of containers
+  Total Memory: 15990 MB
+05:07:47.139 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
+05:07:47.777 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Starting to pull image
+05:07:47.908 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+05:07:47.998 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (24 KB/? MB)
+05:07:48.000 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  2 downloaded,  0 extracted, (24 KB/2 MB)
+05:07:48.014 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (232 KB/2 MB)
+05:07:48.050 [docker-java-stream-379213951] INFO tc.testcontainers/ryuk:0.14.0 -- Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
+05:07:48.065 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Image testcontainers/ryuk:0.14.0 pull took PT0.920306463S
+05:07:48.240 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+05:07:48.585 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 65664600bf14bbfbadae8079c0d486356e0964341eaa71a112f3c3a4e9be7594
+05:07:49.400 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT1.159589008S
+05:07:49.423 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+05:07:49.423 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+05:07:49.424 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+05:07:49.435 [Test worker] INFO tc.minio/minio:latest -- Pulling docker image: minio/minio:latest. Please be patient; this may take some time but only needs to be done once.
+05:07:49.841 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Starting to pull image
+05:07:49.848 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+05:07:50.090 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  8 pending,  1 downloaded,  0 extracted, (90 KB/? MB)
+05:07:50.109 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  7 pending,  2 downloaded,  0 extracted, (92 KB/? MB)
+05:07:50.130 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  6 pending,  3 downloaded,  0 extracted, (92 KB/? MB)
+05:07:50.315 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  5 pending,  4 downloaded,  0 extracted, (2 MB/? MB)
+05:07:50.357 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  4 pending,  5 downloaded,  0 extracted, (2 MB/? MB)
+05:07:50.385 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  3 pending,  6 downloaded,  0 extracted, (23 MB/? MB)
+05:07:50.389 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  2 pending,  7 downloaded,  0 extracted, (23 MB/? MB)
+05:07:50.400 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  1 pending,  8 downloaded,  0 extracted, (23 MB/? MB)
+05:07:50.501 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  0 extracted, (24 MB/59 MB)
+05:07:50.508 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  1 extracted, (25 MB/59 MB)
+05:07:50.651 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  2 extracted, (27 MB/59 MB)
+05:07:50.690 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  3 extracted, (27 MB/59 MB)
+05:07:51.487 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  4 extracted, (46 MB/59 MB)
+05:07:51.751 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  5 extracted, (56 MB/59 MB)
+05:07:51.813 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  6 extracted, (59 MB/59 MB)
+05:07:51.844 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  7 extracted, (59 MB/59 MB)
+05:07:51.862 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  8 extracted, (59 MB/59 MB)
+05:07:51.879 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pulling image layers:  0 pending,  9 downloaded,  9 extracted, (59 MB/59 MB)
+05:07:51.893 [Test worker] INFO tc.minio/minio:latest -- Image minio/minio:latest pull took PT2.456669546S
+05:07:51.893 [docker-java-stream--632062946] INFO tc.minio/minio:latest -- Pull complete. 9 layers, pulled in 2s (downloaded 59 MB at 29 MB/s)
+05:07:51.909 [Test worker] INFO tc.minio/minio:latest -- Creating container for image: minio/minio:latest
+05:07:51.910 [Test worker] WARN tc.minio/minio:latest -- Reuse was requested but the environment does not support the reuse of containers
 To enable reuse of containers, you must set 'testcontainers.reuse.enable=true' in a file located at /home/runner/.testcontainers.properties
-21:58:35.722 [Test worker] INFO tc.minio/minio:latest -- Container minio/minio:latest is starting: d1b92d76f37bb520660a2b22ebb4318f432df202076aa4c0e6cfce172a2bd9c2
-21:58:36.242 [Test worker] INFO org.testcontainers.containers.wait.strategy.HttpWaitStrategy -- /unruffled_wu: Waiting for 60 seconds for URL: http://localhost:32769/minio/health/live (where port 32769 maps to container port 9000)
-21:58:37.279 [Test worker] INFO tc.minio/minio:latest -- Container minio/minio:latest started in PT1.604588662S
+05:07:51.945 [Test worker] INFO tc.minio/minio:latest -- Container minio/minio:latest is starting: bd8dd253e0b5d27d639792f92989e93fb14245b17ce40d8ef1b86195ec779f90
+05:07:52.404 [Test worker] INFO org.testcontainers.containers.wait.strategy.HttpWaitStrategy -- /brave_cohen: Waiting for 60 seconds for URL: http://localhost:32769/minio/health/live (where port 32769 maps to container port 9000)
+05:07:53.467 [Test worker] INFO tc.minio/minio:latest -- Container minio/minio:latest started in PT1.558694917S
 </pre>
-<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-1-test-stdout-io.github.lishangbu.avalon.s3.template.S3TemplateIntegrationTest">Copy</button>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-2-test-stdout-io.github.lishangbu.avalon.s3.template.S3TemplateIntegrationTest">Copy</button>
 </span>
 </div>
 </div>
@@ -189,7 +189,7 @@ To enable reuse of containers, you must set 'testcontainers.reuse.enable=true' i
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.4.1</a> at Mar 26, 2026, 10:00:22 PM</p>
+<a href="https://www.gradle.org">Gradle 9.4.1</a> at Mar 27, 2026, 5:09:44 AM</p>
 </div>
 </div>
 </body>
