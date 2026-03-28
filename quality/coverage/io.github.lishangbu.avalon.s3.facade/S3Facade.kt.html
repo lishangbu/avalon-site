@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>S3Facade.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.facade</a> &gt; <span class="el_source">S3Facade.kt</span></div><h1>S3Facade.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.facade
+
+import io.github.lishangbu.avalon.s3.properties.S3Provider
+import software.amazon.awssdk.services.s3.S3AsyncClient
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import software.amazon.awssdk.services.s3.waiters.S3Waiter
+import software.amazon.awssdk.services.s3control.S3ControlAsyncClient
+import software.amazon.awssdk.services.s3control.S3ControlClient
+import software.amazon.awssdk.transfer.s3.S3TransferManager
+
+/**
+ * 一个命名 S3 client 的能力聚合视图。
+ *
+ * 所有 AWS 原生能力都可以通过原生 client 访问，常用数据面操作通过 facade 访问。
+ */
+<span class="fc" id="L17">class S3Facade(</span>
+<span class="fc" id="L18">    val clientName: String,</span>
+<span class="pc" id="L19">    val provider: S3Provider,</span>
+<span class="fc" id="L20">    private val bucketAliases: Map&lt;String, String&gt;,</span>
+<span class="fc" id="L21">    val s3Client: S3Client,</span>
+<span class="fc" id="L22">    val s3AsyncClient: S3AsyncClient,</span>
+<span class="fc" id="L23">    val s3Waiter: S3Waiter,</span>
+<span class="fc" id="L24">    val s3Presigner: S3Presigner,</span>
+<span class="fc" id="L25">    val s3ControlClient: S3ControlClient,</span>
+<span class="fc" id="L26">    val s3ControlAsyncClient: S3ControlAsyncClient,</span>
+<span class="fc" id="L27">    val s3TransferManager: S3TransferManager,</span>
+) {
+    /** 存储桶相关操作。 */
+<span class="fc" id="L30">    val buckets: BucketOperations = BucketOperations(s3Client, s3Waiter, ::resolveBucketName)</span>
+
+    /** 对象相关操作。 */
+<span class="fc" id="L33">    val objects: ObjectOperations = ObjectOperations(s3Client, ::resolveBucketName)</span>
+
+    /** Multipart 相关操作。 */
+<span class="fc" id="L36">    val multipart: MultipartOperations = MultipartOperations(s3Client, ::resolveBucketName)</span>
+
+    /** 预签名相关操作。 */
+<span class="fc" id="L39">    val presign: PresignOperations = PresignOperations(s3Presigner, ::resolveBucketName)</span>
+
+    /** Transfer Manager 相关操作。 */
+<span class="fc" id="L42">    val transfer: TransferOperations = TransferOperations(s3TransferManager, ::resolveBucketName)</span>
+
+    /** 将桶别名解析成真实桶名。 */
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    fun resolveBucketName(bucketNameOrAlias: String): String = bucketAliases[bucketNameOrAlias] ?: bucketNameOrAlias</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

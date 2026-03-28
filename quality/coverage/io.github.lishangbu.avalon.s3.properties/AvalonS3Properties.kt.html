@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AvalonS3Properties.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.properties</a> &gt; <span class="el_source">AvalonS3Properties.kt</span></div><h1>AvalonS3Properties.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.properties
+
+import org.springframework.boot.context.properties.ConfigurationProperties
+import java.time.Duration
+import java.util.LinkedHashMap
+
+/**
+ * Avalon S3 统一配置。
+ *
+ * 基于命名 client 暴露原生 AWS SDK client 与能力 facade。
+ */
+<span class="fc" id="L12">@ConfigurationProperties(prefix = AvalonS3Properties.PREFIX)</span>
+class AvalonS3Properties {
+    /** 是否启用自动配置。 */
+<span class="pc" id="L15">    var enabled: Boolean = false</span>
+
+    /** 默认 client 名称。 */
+<span class="fc" id="L18">    var defaultClientName: String = DEFAULT_CLIENT_NAME</span>
+
+    /** 命名 client 配置。 */
+<span class="fc" id="L21">    var clients: MutableMap&lt;String, S3ClientProperties&gt; =</span>
+<span class="fc" id="L22">        linkedMapOf(</span>
+<span class="fc" id="L23">            DEFAULT_CLIENT_NAME to S3ClientProperties(),</span>
+        )
+
+    companion object {
+        const val PREFIX: String = &quot;avalon.s3&quot;
+
+        const val DEFAULT_CLIENT_NAME: String = &quot;default&quot;
+    }
+}
+
+/** 单个命名 S3 client 的配置。 */
+<span class="fc" id="L34">class S3ClientProperties {</span>
+    /** 是否启用当前 client。 */
+<span class="pc" id="L36">    var enabled: Boolean = true</span>
+
+    /** 提供方类型。 */
+<span class="fc" id="L39">    var provider: S3Provider = S3Provider.AWS</span>
+
+    /** AWS 区域。 */
+<span class="fc" id="L42">    var region: String? = null</span>
+
+    /** 自定义 S3 端点。 */
+<span class="fc" id="L45">    var endpoint: String? = null</span>
+
+    /** Access point / ARN 是否允许跨区域访问。 */
+<span class="pc" id="L48">    var useArnRegionEnabled: Boolean = true</span>
+
+    /** 是否启用双栈。 */
+<span class="pc" id="L51">    var dualstackEnabled: Boolean = false</span>
+
+    /** 是否启用 S3 accelerate。 */
+<span class="pc" id="L54">    var accelerateModeEnabled: Boolean = false</span>
+
+    /** 是否启用路径风格访问。 */
+<span class="fc" id="L57">    var pathStyleAccess: Boolean? = null</span>
+
+    /** 是否启用 chunked encoding。 */
+<span class="pc" id="L60">    var chunkedEncodingEnabled: Boolean? = null</span>
+
+    /** 对象校验和验证。 */
+<span class="pc" id="L63">    var checksumValidationEnabled: Boolean? = null</span>
+
+    /** 默认桶别名。 */
+<span class="fc" id="L66">    var bucketAliases: MutableMap&lt;String, String&gt; = LinkedHashMap()</span>
+
+    /** 凭证配置。 */
+<span class="fc" id="L69">    var credentials: S3CredentialsProperties = S3CredentialsProperties()</span>
+
+    /** 重试与超时配置。 */
+<span class="pc" id="L72">    var overrides: S3ClientOverrideProperties = S3ClientOverrideProperties()</span>
+
+    /** HTTP 客户端配置。 */
+<span class="pc" id="L75">    var http: S3HttpClientProperties = S3HttpClientProperties()</span>
+
+    /** 传输配置。 */
+<span class="pc" id="L78">    var transfer: S3TransferProperties = S3TransferProperties()</span>
+}
+
+/** 静态凭证配置。 */
+<span class="fc" id="L82">class S3CredentialsProperties {</span>
+    /** Access key id。 */
+<span class="fc" id="L84">    var accessKeyId: String? = null</span>
+
+    /** Secret access key。 */
+<span class="fc" id="L87">    var secretAccessKey: String? = null</span>
+
+    /** Session token。 */
+<span class="pc" id="L90">    var sessionToken: String? = null</span>
+}
+
+/** 覆盖配置。 */
+<span class="fc" id="L94">class S3ClientOverrideProperties {</span>
+    /** API 调用总超时。 */
+<span class="pc" id="L96">    var apiCallTimeout: Duration? = null</span>
+
+    /** 单次重试超时。 */
+<span class="pc" id="L99">    var apiCallAttemptTimeout: Duration? = null</span>
+}
+
+/** HTTP 传输配置。 */
+<span class="fc" id="L103">class S3HttpClientProperties {</span>
+    /** 连接超时。 */
+<span class="pc" id="L105">    var connectionTimeout: Duration? = null</span>
+
+    /** 同步 socket 超时。 */
+<span class="pc" id="L108">    var socketTimeout: Duration? = null</span>
+
+    /** 异步读取超时。 */
+<span class="pc" id="L111">    var readTimeout: Duration? = null</span>
+
+    /** 异步写入超时。 */
+<span class="pc" id="L114">    var writeTimeout: Duration? = null</span>
+
+    /** 同步客户端连接池大小。 */
+<span class="pc" id="L117">    var maxConnections: Int? = null</span>
+
+    /** 异步客户端并发数。 */
+<span class="pc" id="L120">    var maxConcurrency: Int? = null</span>
+}
+
+/** Transfer Manager 配置。 */
+<span class="fc" id="L124">class S3TransferProperties {</span>
+    /** 是否启用标准异步 multipart 支持。 */
+<span class="pc" id="L126">    var multipartEnabled: Boolean = true</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

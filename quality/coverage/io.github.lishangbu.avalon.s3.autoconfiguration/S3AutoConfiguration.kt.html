@@ -1,32 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>S3AutoConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.autoconfiguration</a> &gt; <span class="el_source">S3AutoConfiguration.kt</span></div><h1>S3AutoConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.autoconfiguration
 
-import io.github.lishangbu.avalon.s3.properties.S3Properties
-import io.github.lishangbu.avalon.s3.template.S3Template
+import io.github.lishangbu.avalon.s3.client.AvalonS3ClientFactory
+import io.github.lishangbu.avalon.s3.client.AvalonS3ClientRegistry
+import io.github.lishangbu.avalon.s3.customizer.S3AsyncClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ControlAsyncClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ControlClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3PresignerBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3TransferManagerBuilderCustomizer
+import io.github.lishangbu.avalon.s3.facade.BucketOperations
+import io.github.lishangbu.avalon.s3.facade.MultipartOperations
+import io.github.lishangbu.avalon.s3.facade.ObjectOperations
+import io.github.lishangbu.avalon.s3.facade.PresignOperations
+import io.github.lishangbu.avalon.s3.facade.S3Facade
+import io.github.lishangbu.avalon.s3.facade.TransferOperations
+import io.github.lishangbu.avalon.s3.properties.AvalonS3Properties
 import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import software.amazon.awssdk.services.s3.S3AsyncClient
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import software.amazon.awssdk.services.s3.waiters.S3Waiter
+import software.amazon.awssdk.services.s3control.S3ControlAsyncClient
+import software.amazon.awssdk.services.s3control.S3ControlClient
+import software.amazon.awssdk.transfer.s3.S3TransferManager
 
-/**
- * S3 自动配置
- *
- * 在启用 S3 配置时提供默认的 [S3Template]
- */
-<span class="fc" id="L17">@AutoConfiguration</span>
+<span class="fc" id="L33">@AutoConfiguration</span>
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties(S3Properties::class)
+@ConditionalOnClass(S3Client::class)
+@ConditionalOnProperty(prefix = AvalonS3Properties.PREFIX, name = [&quot;enabled&quot;], havingValue = &quot;true&quot;)
+@EnableConfigurationProperties(AvalonS3Properties::class)
 class S3AutoConfiguration {
-    /** 创建 S3 操作模板 */
+    /** 创建 registry。 */
+    @Bean(destroyMethod = &quot;close&quot;)
+    @ConditionalOnMissingBean(AvalonS3ClientRegistry::class)
+    fun avalonS3ClientRegistry(
+        properties: AvalonS3Properties,
+        s3ClientBuilderCustomizers: List&lt;S3ClientBuilderCustomizer&gt;,
+        s3AsyncClientBuilderCustomizers: List&lt;S3AsyncClientBuilderCustomizer&gt;,
+        s3PresignerBuilderCustomizers: List&lt;S3PresignerBuilderCustomizer&gt;,
+        s3ControlClientBuilderCustomizers: List&lt;S3ControlClientBuilderCustomizer&gt;,
+        s3ControlAsyncClientBuilderCustomizers: List&lt;S3ControlAsyncClientBuilderCustomizer&gt;,
+        s3TransferManagerBuilderCustomizers: List&lt;S3TransferManagerBuilderCustomizer&gt;,
+    ): AvalonS3ClientRegistry {
+<span class="fc" id="L51">        val factory =</span>
+<span class="fc" id="L52">            AvalonS3ClientFactory(</span>
+<span class="fc" id="L53">                s3ClientBuilderCustomizers = s3ClientBuilderCustomizers,</span>
+<span class="fc" id="L54">                s3AsyncClientBuilderCustomizers = s3AsyncClientBuilderCustomizers,</span>
+<span class="fc" id="L55">                s3PresignerBuilderCustomizers = s3PresignerBuilderCustomizers,</span>
+<span class="fc" id="L56">                s3ControlClientBuilderCustomizers = s3ControlClientBuilderCustomizers,</span>
+<span class="fc" id="L57">                s3ControlAsyncClientBuilderCustomizers = s3ControlAsyncClientBuilderCustomizers,</span>
+<span class="fc" id="L58">                s3TransferManagerBuilderCustomizers = s3TransferManagerBuilderCustomizers,</span>
+            )
+
+<span class="fc" id="L61">        val enabledClients =</span>
+<span class="fc" id="L62">            properties.clients</span>
+<span class="fc" id="L63">                .filterValues { it.enabled }</span>
+<span class="fc" id="L64">                .mapValues { (clientName, clientProperties) -&gt;</span>
+<span class="fc" id="L65">                    factory.create(clientName, clientProperties)</span>
+                }
+
+<span class="fc" id="L68">        return AvalonS3ClientRegistry(properties.defaultClientName, enabledClients)</span>
+    }
+
+    /** 默认 facade。 */
     @Bean
-    @ConditionalOnMissingBean(S3Template::class)
-    @ConditionalOnProperty(
-        prefix = S3Properties.PREFIX,
-        name = [&quot;enabled&quot;],
-        havingValue = &quot;true&quot;,
-        matchIfMissing = true,
-    )
-<span class="fc" id="L30">    fun s3Template(properties: S3Properties): S3Template = S3Template(properties)</span>
+    @ConditionalOnMissingBean
+<span class="fc" id="L74">    fun s3Facade(registry: AvalonS3ClientRegistry): S3Facade = registry.defaultFacade()</span>
+
+    /** 默认同步 client。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3Client::class)
+<span class="fc" id="L79">    fun s3Client(s3Facade: S3Facade): S3Client = s3Facade.s3Client</span>
+
+    /** 默认异步 client。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3AsyncClient::class)
+<span class="fc" id="L84">    fun s3AsyncClient(s3Facade: S3Facade): S3AsyncClient = s3Facade.s3AsyncClient</span>
+
+    /** 默认 waiter。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3Waiter::class)
+<span class="fc" id="L89">    fun s3Waiter(s3Facade: S3Facade): S3Waiter = s3Facade.s3Waiter</span>
+
+    /** 默认 presigner。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3Presigner::class)
+<span class="fc" id="L94">    fun s3Presigner(s3Facade: S3Facade): S3Presigner = s3Facade.s3Presigner</span>
+
+    /** 默认同步 S3 Control client。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3ControlClient::class)
+<span class="fc" id="L99">    fun s3ControlClient(s3Facade: S3Facade): S3ControlClient = s3Facade.s3ControlClient</span>
+
+    /** 默认异步 S3 Control client。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3ControlAsyncClient::class)
+<span class="fc" id="L104">    fun s3ControlAsyncClient(s3Facade: S3Facade): S3ControlAsyncClient = s3Facade.s3ControlAsyncClient</span>
+
+    /** 默认 Transfer Manager。 */
+    @Bean(destroyMethod = &quot;&quot;)
+    @ConditionalOnMissingBean(S3TransferManager::class)
+<span class="fc" id="L109">    fun s3TransferManager(s3Facade: S3Facade): S3TransferManager = s3Facade.s3TransferManager</span>
+
+    /** 默认桶操作 facade。 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L114">    fun bucketOperations(s3Facade: S3Facade): BucketOperations = s3Facade.buckets</span>
+
+    /** 默认对象操作 facade。 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L119">    fun objectOperations(s3Facade: S3Facade): ObjectOperations = s3Facade.objects</span>
+
+    /** 默认 multipart facade。 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L124">    fun multipartOperations(s3Facade: S3Facade): MultipartOperations = s3Facade.multipart</span>
+
+    /** 默认 presign facade。 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L129">    fun presignOperations(s3Facade: S3Facade): PresignOperations = s3Facade.presign</span>
+
+    /** 默认 transfer facade。 */
+    @Bean
+    @ConditionalOnMissingBean
+<span class="fc" id="L134">    fun transferOperations(s3Facade: S3Facade): TransferOperations = s3Facade.transfer</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

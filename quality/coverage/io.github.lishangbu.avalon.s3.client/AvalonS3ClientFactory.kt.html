@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AvalonS3ClientFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.client</a> &gt; <span class="el_source">AvalonS3ClientFactory.kt</span></div><h1>AvalonS3ClientFactory.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.client
+
+import io.github.lishangbu.avalon.s3.customizer.S3AsyncClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ControlAsyncClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3ControlClientBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3PresignerBuilderCustomizer
+import io.github.lishangbu.avalon.s3.customizer.S3TransferManagerBuilderCustomizer
+import io.github.lishangbu.avalon.s3.properties.S3ClientOverrideProperties
+import io.github.lishangbu.avalon.s3.properties.S3ClientProperties
+import io.github.lishangbu.avalon.s3.properties.S3CredentialsProperties
+import io.github.lishangbu.avalon.s3.properties.S3HttpClientProperties
+import io.github.lishangbu.avalon.s3.properties.S3Provider
+import org.springframework.util.StringUtils
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
+import software.amazon.awssdk.auth.credentials.AwsSessionCredentials
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration
+import software.amazon.awssdk.http.SdkHttpClient
+import software.amazon.awssdk.http.apache.ApacheHttpClient
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3AsyncClient
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.S3Configuration
+import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import software.amazon.awssdk.services.s3control.S3ControlAsyncClient
+import software.amazon.awssdk.services.s3control.S3ControlClient
+import software.amazon.awssdk.transfer.s3.S3TransferManager
+import java.net.URI
+
+/** 负责根据配置实例化命名 S3 client。 */
+<span class="fc" id="L36">class AvalonS3ClientFactory(</span>
+<span class="fc" id="L37">    private val s3ClientBuilderCustomizers: List&lt;S3ClientBuilderCustomizer&gt;,</span>
+<span class="fc" id="L38">    private val s3AsyncClientBuilderCustomizers: List&lt;S3AsyncClientBuilderCustomizer&gt;,</span>
+<span class="fc" id="L39">    private val s3PresignerBuilderCustomizers: List&lt;S3PresignerBuilderCustomizer&gt;,</span>
+<span class="fc" id="L40">    private val s3ControlClientBuilderCustomizers: List&lt;S3ControlClientBuilderCustomizer&gt;,</span>
+<span class="fc" id="L41">    private val s3ControlAsyncClientBuilderCustomizers: List&lt;S3ControlAsyncClientBuilderCustomizer&gt;,</span>
+<span class="fc" id="L42">    private val s3TransferManagerBuilderCustomizers: List&lt;S3TransferManagerBuilderCustomizer&gt;,</span>
+) {
+    /** 创建一个命名 bundle。 */
+    fun create(
+        clientName: String,
+        properties: S3ClientProperties,
+    ): AvalonS3ClientBundle {
+<span class="fc" id="L49">        validateProperties(clientName, properties)</span>
+
+<span class="fc" id="L51">        val credentialsProvider = credentialsProvider(properties.credentials)</span>
+<span class="fc" id="L52">        val region = resolveRegion(properties)</span>
+<span class="pc bpc" id="L53" title="3 of 6 branches missed.">        val endpoint = properties.endpoint?.takeIf(StringUtils::hasText)?.let(URI::create)</span>
+
+<span class="fc" id="L55">        val s3ClientBuilder =</span>
+            S3Client
+<span class="fc" id="L57">                .builder()</span>
+<span class="fc" id="L58">                .credentialsProvider(credentialsProvider)</span>
+<span class="fc" id="L59">                .serviceConfiguration(serviceConfiguration(properties))</span>
+<span class="fc" id="L60">                .overrideConfiguration(overrideConfiguration(properties.overrides))</span>
+<span class="fc" id="L61">                .httpClient(syncHttpClient(properties.http))</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (region != null) {</span>
+<span class="fc" id="L63">            s3ClientBuilder.region(region)</span>
+        }
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (endpoint != null) {</span>
+<span class="fc" id="L66">            s3ClientBuilder.endpointOverride(endpoint)</span>
+        }
+<span class="pc" id="L68">        s3ClientBuilderCustomizers.forEach { it.customize(clientName, properties, s3ClientBuilder) }</span>
+<span class="fc" id="L69">        val s3Client = s3ClientBuilder.build()</span>
+
+<span class="fc" id="L71">        val s3AsyncClientBuilder =</span>
+            S3AsyncClient
+<span class="fc" id="L73">                .builder()</span>
+<span class="fc" id="L74">                .credentialsProvider(credentialsProvider)</span>
+<span class="fc" id="L75">                .serviceConfiguration(serviceConfiguration(properties))</span>
+<span class="fc" id="L76">                .overrideConfiguration(overrideConfiguration(properties.overrides))</span>
+<span class="fc" id="L77">                .multipartEnabled(properties.transfer.multipartEnabled)</span>
+<span class="fc" id="L78">                .httpClient(asyncHttpClient(properties.http))</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (region != null) {</span>
+<span class="fc" id="L80">            s3AsyncClientBuilder.region(region)</span>
+        }
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (endpoint != null) {</span>
+<span class="fc" id="L83">            s3AsyncClientBuilder.endpointOverride(endpoint)</span>
+        }
+<span class="pc" id="L85">        s3AsyncClientBuilderCustomizers.forEach { it.customize(clientName, properties, s3AsyncClientBuilder) }</span>
+<span class="fc" id="L86">        val s3AsyncClient = s3AsyncClientBuilder.build()</span>
+
+<span class="fc" id="L88">        val s3PresignerBuilder =</span>
+            S3Presigner
+<span class="fc" id="L90">                .builder()</span>
+<span class="fc" id="L91">                .credentialsProvider(credentialsProvider)</span>
+<span class="fc" id="L92">                .serviceConfiguration(serviceConfiguration(properties))</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (region != null) {</span>
+<span class="fc" id="L94">            s3PresignerBuilder.region(region)</span>
+        }
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (endpoint != null) {</span>
+<span class="fc" id="L97">            s3PresignerBuilder.endpointOverride(endpoint)</span>
+        }
+<span class="pc" id="L99">        s3PresignerBuilderCustomizers.forEach { it.customize(clientName, properties, s3PresignerBuilder) }</span>
+<span class="fc" id="L100">        val s3Presigner = s3PresignerBuilder.build()</span>
+
+<span class="fc" id="L102">        val s3ControlClientBuilder =</span>
+            S3ControlClient
+<span class="fc" id="L104">                .builder()</span>
+<span class="fc" id="L105">                .credentialsProvider(credentialsProvider)</span>
+<span class="fc" id="L106">                .overrideConfiguration(overrideConfiguration(properties.overrides))</span>
+<span class="fc" id="L107">                .httpClient(syncHttpClient(properties.http))</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (region != null) {</span>
+<span class="fc" id="L109">            s3ControlClientBuilder.region(region)</span>
+        }
+<span class="pc bpc" id="L111" title="2 of 4 branches missed.">        if (endpoint != null &amp;&amp; properties.provider != S3Provider.AWS) {</span>
+<span class="fc" id="L112">            s3ControlClientBuilder.endpointOverride(endpoint)</span>
+        }
+<span class="pc" id="L114">        s3ControlClientBuilderCustomizers.forEach { it.customize(clientName, properties, s3ControlClientBuilder) }</span>
+<span class="fc" id="L115">        val s3ControlClient = s3ControlClientBuilder.build()</span>
+
+<span class="fc" id="L117">        val s3ControlAsyncClientBuilder =</span>
+            S3ControlAsyncClient
+<span class="fc" id="L119">                .builder()</span>
+<span class="fc" id="L120">                .credentialsProvider(credentialsProvider)</span>
+<span class="fc" id="L121">                .overrideConfiguration(overrideConfiguration(properties.overrides))</span>
+<span class="fc" id="L122">                .httpClient(asyncHttpClient(properties.http))</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if (region != null) {</span>
+<span class="fc" id="L124">            s3ControlAsyncClientBuilder.region(region)</span>
+        }
+<span class="pc bpc" id="L126" title="2 of 4 branches missed.">        if (endpoint != null &amp;&amp; properties.provider != S3Provider.AWS) {</span>
+<span class="fc" id="L127">            s3ControlAsyncClientBuilder.endpointOverride(endpoint)</span>
+        }
+<span class="pc" id="L129">        s3ControlAsyncClientBuilderCustomizers.forEach { it.customize(clientName, properties, s3ControlAsyncClientBuilder) }</span>
+<span class="fc" id="L130">        val s3ControlAsyncClient = s3ControlAsyncClientBuilder.build()</span>
+
+<span class="fc" id="L132">        val s3TransferManagerBuilder = S3TransferManager.builder().s3Client(s3AsyncClient)</span>
+<span class="pc" id="L133">        s3TransferManagerBuilderCustomizers.forEach { it.customize(clientName, properties, s3TransferManagerBuilder) }</span>
+<span class="fc" id="L134">        val s3TransferManager = s3TransferManagerBuilder.build()</span>
+
+<span class="fc" id="L136">        return AvalonS3ClientBundle(</span>
+<span class="fc" id="L137">            name = clientName,</span>
+<span class="fc" id="L138">            provider = properties.provider,</span>
+<span class="fc" id="L139">            bucketAliases = properties.bucketAliases.toMap(),</span>
+<span class="fc" id="L140">            s3Client = s3Client,</span>
+<span class="fc" id="L141">            s3AsyncClient = s3AsyncClient,</span>
+<span class="fc" id="L142">            s3Waiter = s3Client.waiter(),</span>
+<span class="fc" id="L143">            s3Presigner = s3Presigner,</span>
+<span class="fc" id="L144">            s3ControlClient = s3ControlClient,</span>
+<span class="fc" id="L145">            s3ControlAsyncClient = s3ControlAsyncClient,</span>
+<span class="fc" id="L146">            s3TransferManager = s3TransferManager,</span>
+        )
+    }
+
+    private fun syncHttpClient(properties: S3HttpClientProperties): SdkHttpClient {
+<span class="fc" id="L151">        val builder = ApacheHttpClient.builder()</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        properties.connectionTimeout?.let(builder::connectionTimeout)</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        properties.socketTimeout?.let(builder::socketTimeout)</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        properties.maxConnections?.let(builder::maxConnections)</span>
+<span class="fc" id="L155">        return builder.build()</span>
+    }
+
+    private fun asyncHttpClient(properties: S3HttpClientProperties): SdkAsyncHttpClient {
+<span class="fc" id="L159">        val builder = NettyNioAsyncHttpClient.builder()</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        properties.connectionTimeout?.let(builder::connectionTimeout)</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        properties.readTimeout?.let(builder::readTimeout)</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        properties.writeTimeout?.let(builder::writeTimeout)</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        properties.maxConcurrency?.let(builder::maxConcurrency)</span>
+<span class="fc" id="L164">        return builder.build()</span>
+    }
+
+    @Suppress(&quot;DEPRECATION&quot;)
+    private fun serviceConfiguration(properties: S3ClientProperties): S3Configuration {
+<span class="fc" id="L169">        val builder = S3Configuration.builder()</span>
+<span class="fc" id="L170">        builder.pathStyleAccessEnabled(resolvePathStyleAccess(properties))</span>
+<span class="fc" id="L171">        builder.useArnRegionEnabled(properties.useArnRegionEnabled)</span>
+<span class="fc" id="L172">        builder.dualstackEnabled(properties.dualstackEnabled)</span>
+<span class="fc" id="L173">        builder.accelerateModeEnabled(properties.accelerateModeEnabled)</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        properties.chunkedEncodingEnabled?.let(builder::chunkedEncodingEnabled)</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        properties.checksumValidationEnabled?.let(builder::checksumValidationEnabled)</span>
+<span class="fc" id="L176">        return builder.build()</span>
+    }
+
+    private fun resolvePathStyleAccess(properties: S3ClientProperties): Boolean =
+<span class="pc bpc" id="L180" title="1 of 5 branches missed.">        properties.pathStyleAccess ?: when (properties.provider) {</span>
+<span class="nc" id="L181">            S3Provider.AWS -&gt; false</span>
+<span class="fc" id="L182">            S3Provider.MINIO, S3Provider.RUSTFS, S3Provider.GENERIC_S3 -&gt; true</span>
+<span class="fc" id="L183">            S3Provider.ALIYUN_OSS, S3Provider.QINIU_KODO -&gt; false</span>
+<span class="fc" id="L184">        }</span>
+
+    private fun overrideConfiguration(properties: S3ClientOverrideProperties): ClientOverrideConfiguration {
+<span class="fc" id="L187">        val builder = ClientOverrideConfiguration.builder()</span>
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">        properties.apiCallTimeout?.let(builder::apiCallTimeout)</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        properties.apiCallAttemptTimeout?.let(builder::apiCallAttemptTimeout)</span>
+<span class="fc" id="L190">        return builder.build()</span>
+    }
+
+    private fun resolveRegion(properties: S3ClientProperties): Region? {
+<span class="pc bpc" id="L194" title="1 of 4 branches missed.">        val configured = properties.region?.takeIf(StringUtils::hasText)</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (configured != null) {</span>
+<span class="fc" id="L196">            return Region.of(configured)</span>
+        }
+<span class="pc bpc" id="L198" title="2 of 3 branches missed.">        return when (properties.provider) {</span>
+<span class="nc" id="L199">            S3Provider.AWS -&gt; null</span>
+<span class="fc" id="L200">            S3Provider.MINIO, S3Provider.RUSTFS, S3Provider.GENERIC_S3 -&gt; Region.US_EAST_1</span>
+<span class="nc" id="L201">            S3Provider.ALIYUN_OSS, S3Provider.QINIU_KODO -&gt; null</span>
+        }
+    }
+
+    private fun validateProperties(
+        clientName: String,
+        properties: S3ClientProperties,
+    ) {
+<span class="fc" id="L209">        val endpointRequired =</span>
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">            when (properties.provider) {</span>
+<span class="nc" id="L211">                S3Provider.AWS -&gt; false</span>
+
+                S3Provider.MINIO,
+                S3Provider.RUSTFS,
+                S3Provider.ALIYUN_OSS,
+                S3Provider.QINIU_KODO,
+                S3Provider.GENERIC_S3,
+<span class="fc" id="L218">                -&gt; true</span>
+            }
+<span class="pc bpc" id="L220" title="1 of 4 branches missed.">        if (endpointRequired &amp;&amp; !StringUtils.hasText(properties.endpoint)) {</span>
+<span class="fc" id="L221">            throw IllegalStateException(</span>
+<span class="fc" id="L222">                &quot;S3 client '$clientName' requires 'endpoint' when provider is ${properties.provider}.&quot;,</span>
+            )
+        }
+
+<span class="fc" id="L226">        val regionRequired =</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">            when (properties.provider) {</span>
+<span class="fc" id="L228">                S3Provider.ALIYUN_OSS, S3Provider.QINIU_KODO -&gt; true</span>
+<span class="fc" id="L229">                S3Provider.AWS, S3Provider.MINIO, S3Provider.RUSTFS, S3Provider.GENERIC_S3 -&gt; false</span>
+            }
+<span class="fc bfc" id="L231" title="All 4 branches covered.">        if (regionRequired &amp;&amp; !StringUtils.hasText(properties.region)) {</span>
+<span class="fc" id="L232">            throw IllegalStateException(</span>
+<span class="fc" id="L233">                &quot;S3 client '$clientName' requires 'region' when provider is ${properties.provider}.&quot;,</span>
+            )
+        }
+<span class="fc" id="L236">    }</span>
+
+    private fun credentialsProvider(credentials: S3CredentialsProperties): AwsCredentialsProvider {
+<span class="pc bpc" id="L239" title="2 of 4 branches missed.">        val accessKeyId = credentials.accessKeyId?.takeIf(StringUtils::hasText)</span>
+<span class="pc bpc" id="L240" title="2 of 4 branches missed.">        val secretAccessKey = credentials.secretAccessKey?.takeIf(StringUtils::hasText)</span>
+<span class="pc bpc" id="L241" title="3 of 4 branches missed.">        val sessionToken = credentials.sessionToken?.takeIf(StringUtils::hasText)</span>
+
+<span class="fc" id="L243">        return when {</span>
+<span class="pc bpc" id="L244" title="3 of 6 branches missed.">            accessKeyId != null &amp;&amp; secretAccessKey != null &amp;&amp; sessionToken != null -&gt; {</span>
+<span class="nc" id="L245">                StaticCredentialsProvider.create(</span>
+<span class="nc" id="L246">                    AwsSessionCredentials.create(accessKeyId, secretAccessKey, sessionToken),</span>
+                )
+            }
+
+<span class="pc bpc" id="L250" title="2 of 4 branches missed.">            accessKeyId != null &amp;&amp; secretAccessKey != null -&gt; {</span>
+<span class="fc" id="L251">                StaticCredentialsProvider.create(</span>
+<span class="fc" id="L252">                    AwsBasicCredentials.create(accessKeyId, secretAccessKey),</span>
+                )
+            }
+
+<span class="nc" id="L256">            else -&gt; {</span>
+<span class="nc" id="L257">                DefaultCredentialsProvider.builder().build()</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

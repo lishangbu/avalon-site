@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AvalonS3ClientRegistry.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.client</a> &gt; <span class="el_source">AvalonS3ClientRegistry.kt</span></div><h1>AvalonS3ClientRegistry.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.client
+
+import io.github.lishangbu.avalon.s3.facade.S3Facade
+import java.util.LinkedHashSet
+
+/** 命名 S3 client 注册表。 */
+<span class="fc" id="L7">class AvalonS3ClientRegistry(</span>
+<span class="fc" id="L8">    private val defaultClientName: String,</span>
+<span class="fc" id="L9">    private val bundles: Map&lt;String, AvalonS3ClientBundle&gt;,</span>
+) : AutoCloseable {
+<span class="fc" id="L11">    init {</span>
+<span class="pc bpc" id="L12" title="2 of 4 branches missed.">        require(bundles.isNotEmpty()) {</span>
+<span class="nc" id="L13">            &quot;At least one enabled S3 client must be configured.&quot;</span>
+        }
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        require(bundles.containsKey(defaultClientName)) {</span>
+<span class="nc" id="L16">            &quot;Default S3 client '$defaultClientName' is not defined. Available clients: ${bundles.keys}.&quot;</span>
+        }
+<span class="fc" id="L18">    }</span>
+
+    /** 获取默认 facade。 */
+<span class="fc" id="L21">    fun defaultFacade(): S3Facade = facade(defaultClientName)</span>
+
+    /** 获取命名 facade。 */
+<span class="fc" id="L24">    fun facade(clientName: String): S3Facade = bundle(clientName).facade</span>
+
+    /** 获取命名 bundle。 */
+    fun bundle(clientName: String): AvalonS3ClientBundle =
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        bundles[clientName]</span>
+<span class="pc" id="L29">            ?: throw IllegalArgumentException(&quot;Unknown S3 client '$clientName'. Available clients: ${bundles.keys}.&quot;)</span>
+
+    /** 获取所有已注册名称。 */
+<span class="fc" id="L32">    fun clientNames(): Set&lt;String&gt; = bundles.keys</span>
+
+    /** 获取所有 facade。 */
+<span class="nc" id="L35">    fun facades(): Map&lt;String, S3Facade&gt; = bundles.mapValues { (_, bundle) -&gt; bundle.facade }</span>
+
+    override fun close() {
+<span class="fc" id="L38">        val closeables = LinkedHashSet&lt;AutoCloseable&gt;()</span>
+<span class="fc" id="L39">        bundles.values.forEach { bundle -&gt;</span>
+<span class="fc" id="L40">            closeables += bundle.s3TransferManager</span>
+<span class="fc" id="L41">            closeables += bundle.s3Presigner</span>
+<span class="fc" id="L42">            closeables += bundle.s3ControlAsyncClient</span>
+<span class="fc" id="L43">            closeables += bundle.s3ControlClient</span>
+<span class="fc" id="L44">            closeables += bundle.s3AsyncClient</span>
+<span class="fc" id="L45">            closeables += bundle.s3Client</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        closeables.forEach(AutoCloseable::close)</span>
+<span class="fc" id="L48">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

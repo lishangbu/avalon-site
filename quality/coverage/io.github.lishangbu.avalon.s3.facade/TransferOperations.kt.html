@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransferOperations.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.facade</a> &gt; <span class="el_source">TransferOperations.kt</span></div><h1>TransferOperations.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.facade
+
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest
+import software.amazon.awssdk.services.s3.model.GetObjectRequest
+import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import software.amazon.awssdk.transfer.s3.S3TransferManager
+import software.amazon.awssdk.transfer.s3.model.CompletedCopy
+import software.amazon.awssdk.transfer.s3.model.CompletedDirectoryDownload
+import software.amazon.awssdk.transfer.s3.model.CompletedDirectoryUpload
+import software.amazon.awssdk.transfer.s3.model.CompletedFileDownload
+import software.amazon.awssdk.transfer.s3.model.CompletedFileUpload
+import software.amazon.awssdk.transfer.s3.model.CopyRequest
+import software.amazon.awssdk.transfer.s3.model.DirectoryDownload
+import software.amazon.awssdk.transfer.s3.model.DirectoryUpload
+import software.amazon.awssdk.transfer.s3.model.DownloadDirectoryRequest
+import software.amazon.awssdk.transfer.s3.model.DownloadFileRequest
+import software.amazon.awssdk.transfer.s3.model.FileDownload
+import software.amazon.awssdk.transfer.s3.model.FileUpload
+import software.amazon.awssdk.transfer.s3.model.UploadDirectoryRequest
+import software.amazon.awssdk.transfer.s3.model.UploadFileRequest
+import java.nio.file.Path
+import java.util.concurrent.CompletableFuture
+
+/** Transfer Manager facade。 */
+<span class="fc" id="L25">class TransferOperations(</span>
+<span class="fc" id="L26">    private val transferManager: S3TransferManager,</span>
+<span class="fc" id="L27">    private val bucketNameResolver: (String) -&gt; String,</span>
+) {
+    /** 上传单文件。 */
+<span class="nc" id="L30">    fun uploadFile(request: UploadFileRequest): FileUpload = transferManager.uploadFile(request)</span>
+
+    /** 基于桶和 key 上传单文件。 */
+<span class="nc" id="L33">    fun uploadFile(</span>
+        bucketName: String,
+        key: String,
+        source: Path,
+<span class="nc" id="L37">        contentType: String? = null,</span>
+    ): FileUpload =
+<span class="nc" id="L39">        uploadFile(</span>
+            UploadFileRequest
+<span class="nc" id="L41">                .builder()</span>
+<span class="nc" id="L42">                .putObjectRequest(</span>
+                    PutObjectRequest
+<span class="nc" id="L44">                        .builder()</span>
+<span class="nc" id="L45">                        .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L46">                        .key(key)</span>
+<span class="nc" id="L47">                        .contentType(contentType)</span>
+<span class="nc" id="L48">                        .build(),</span>
+<span class="nc" id="L49">                ).source(source)</span>
+<span class="nc" id="L50">                .build(),</span>
+<span class="nc" id="L51">        )</span>
+
+    /** 下载单文件。 */
+<span class="nc" id="L54">    fun downloadFile(request: DownloadFileRequest): FileDownload = transferManager.downloadFile(request)</span>
+
+    /** 基于桶和 key 下载单文件。 */
+    fun downloadFile(
+        bucketName: String,
+        key: String,
+        destination: Path,
+    ): FileDownload =
+<span class="nc" id="L62">        downloadFile(</span>
+            DownloadFileRequest
+<span class="nc" id="L64">                .builder()</span>
+<span class="nc" id="L65">                .getObjectRequest(</span>
+                    GetObjectRequest
+<span class="nc" id="L67">                        .builder()</span>
+<span class="nc" id="L68">                        .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L69">                        .key(key)</span>
+<span class="nc" id="L70">                        .build(),</span>
+<span class="nc" id="L71">                ).destination(destination)</span>
+<span class="nc" id="L72">                .build(),</span>
+<span class="nc" id="L73">        )</span>
+
+    /** 上传目录。 */
+<span class="nc" id="L76">    fun uploadDirectory(request: UploadDirectoryRequest): DirectoryUpload = transferManager.uploadDirectory(request)</span>
+
+    /** 基于桶上传目录。 */
+<span class="nc" id="L79">    fun uploadDirectory(</span>
+        bucketName: String,
+        source: Path,
+<span class="nc" id="L82">        prefix: String = &quot;&quot;,</span>
+    ): DirectoryUpload =
+<span class="nc" id="L84">        uploadDirectory(</span>
+            UploadDirectoryRequest
+<span class="nc" id="L86">                .builder()</span>
+<span class="nc" id="L87">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L88">                .source(source)</span>
+<span class="nc" id="L89">                .s3Prefix(prefix)</span>
+<span class="nc" id="L90">                .build(),</span>
+<span class="nc" id="L91">        )</span>
+
+    /** 下载目录。 */
+<span class="nc" id="L94">    fun downloadDirectory(request: DownloadDirectoryRequest): DirectoryDownload = transferManager.downloadDirectory(request)</span>
+
+    /** 基于桶下载目录。 */
+<span class="nc" id="L97">    fun downloadDirectory(</span>
+        bucketName: String,
+<span class="nc" id="L99">        prefix: String = &quot;&quot;,</span>
+        destination: Path,
+    ): DirectoryDownload =
+<span class="nc" id="L102">        downloadDirectory(</span>
+            DownloadDirectoryRequest
+<span class="nc" id="L104">                .builder()</span>
+<span class="nc" id="L105">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L106">                .listObjectsV2RequestTransformer { request -&gt;</span>
+<span class="nc" id="L107">                    request.prefix(prefix)</span>
+<span class="nc" id="L108">                }.destination(destination)</span>
+<span class="nc" id="L109">                .build(),</span>
+<span class="nc" id="L110">        )</span>
+
+    /** 复制对象。 */
+<span class="nc" id="L113">    fun copy(request: CopyRequest): CompletableFuture&lt;CompletedCopy&gt; = transferManager.copy(request).completionFuture()</span>
+
+    /** 基于桶和 key 复制对象。 */
+    fun copy(
+        sourceBucketName: String,
+        sourceKey: String,
+        destinationBucketName: String,
+        destinationKey: String,
+    ): CompletableFuture&lt;CompletedCopy&gt; =
+<span class="nc" id="L122">        copy(</span>
+            CopyRequest
+<span class="nc" id="L124">                .builder()</span>
+<span class="nc" id="L125">                .copyObjectRequest(</span>
+                    CopyObjectRequest
+<span class="nc" id="L127">                        .builder()</span>
+<span class="nc" id="L128">                        .sourceBucket(resolveBucket(sourceBucketName))</span>
+<span class="nc" id="L129">                        .sourceKey(sourceKey)</span>
+<span class="nc" id="L130">                        .destinationBucket(resolveBucket(destinationBucketName))</span>
+<span class="nc" id="L131">                        .destinationKey(destinationKey)</span>
+<span class="nc" id="L132">                        .build(),</span>
+<span class="nc" id="L133">                ).build(),</span>
+<span class="nc" id="L134">        )</span>
+
+    /** 等待单文件上传完成。 */
+<span class="nc" id="L137">    fun await(upload: FileUpload): CompletedFileUpload = upload.completionFuture().join()</span>
+
+    /** 等待单文件下载完成。 */
+<span class="nc" id="L140">    fun await(download: FileDownload): CompletedFileDownload = download.completionFuture().join()</span>
+
+    /** 等待目录上传完成。 */
+<span class="nc" id="L143">    fun await(upload: DirectoryUpload): CompletedDirectoryUpload = upload.completionFuture().join()</span>
+
+    /** 等待目录下载完成。 */
+<span class="nc" id="L146">    fun await(download: DirectoryDownload): CompletedDirectoryDownload = download.completionFuture().join()</span>
+
+<span class="nc" id="L148">    private fun resolveBucket(bucketName: String): String = bucketNameResolver(bucketName)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

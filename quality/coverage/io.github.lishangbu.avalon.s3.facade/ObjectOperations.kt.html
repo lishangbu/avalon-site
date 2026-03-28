@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectOperations.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.facade</a> &gt; <span class="el_source">ObjectOperations.kt</span></div><h1>ObjectOperations.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.facade
+
+import software.amazon.awssdk.core.ResponseBytes
+import software.amazon.awssdk.core.ResponseInputStream
+import software.amazon.awssdk.core.sync.RequestBody
+import software.amazon.awssdk.core.sync.ResponseTransformer
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest
+import software.amazon.awssdk.services.s3.model.CopyObjectResponse
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest
+import software.amazon.awssdk.services.s3.model.DeleteObjectResponse
+import software.amazon.awssdk.services.s3.model.GetObjectRequest
+import software.amazon.awssdk.services.s3.model.GetObjectResponse
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest
+import software.amazon.awssdk.services.s3.model.HeadObjectResponse
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response
+import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import software.amazon.awssdk.services.s3.model.PutObjectResponse
+import java.io.InputStream
+
+/** 对象操作 facade。 */
+<span class="fc" id="L23">class ObjectOperations(</span>
+<span class="fc" id="L24">    private val s3Client: S3Client,</span>
+<span class="fc" id="L25">    private val bucketNameResolver: (String) -&gt; String,</span>
+) {
+    /** 透传原生 putObject。 */
+    fun put(
+        request: PutObjectRequest,
+        requestBody: RequestBody,
+<span class="fc" id="L31">    ): PutObjectResponse = s3Client.putObject(request, requestBody)</span>
+
+    /** 上传字节数组对象。 */
+<span class="nc" id="L34">    fun put(</span>
+        bucketName: String,
+        key: String,
+        content: ByteArray,
+<span class="nc" id="L38">        contentType: String = &quot;application/octet-stream&quot;,</span>
+    ): PutObjectResponse =
+<span class="fc" id="L40">        put(</span>
+            PutObjectRequest
+<span class="fc" id="L42">                .builder()</span>
+<span class="fc" id="L43">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L44">                .key(key)</span>
+<span class="fc" id="L45">                .contentType(contentType)</span>
+<span class="fc" id="L46">                .contentLength(content.size.toLong())</span>
+<span class="fc" id="L47">                .build(),</span>
+<span class="fc" id="L48">            RequestBody.fromBytes(content),</span>
+<span class="fc" id="L49">        )</span>
+
+    /** 上传输入流对象。 */
+<span class="nc" id="L52">    fun put(</span>
+        bucketName: String,
+        key: String,
+        stream: InputStream,
+        contentLength: Long,
+<span class="nc" id="L57">        contentType: String = &quot;application/octet-stream&quot;,</span>
+    ): PutObjectResponse =
+<span class="nc" id="L59">        put(</span>
+            PutObjectRequest
+<span class="nc" id="L61">                .builder()</span>
+<span class="nc" id="L62">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L63">                .key(key)</span>
+<span class="nc" id="L64">                .contentType(contentType)</span>
+<span class="nc" id="L65">                .contentLength(contentLength)</span>
+<span class="nc" id="L66">                .build(),</span>
+<span class="nc" id="L67">            RequestBody.fromInputStream(stream, contentLength),</span>
+<span class="nc" id="L68">        )</span>
+
+    /** 透传原生 getObject 输入流。 */
+<span class="nc" id="L71">    fun get(request: GetObjectRequest): ResponseInputStream&lt;GetObjectResponse&gt; = s3Client.getObject(request, ResponseTransformer.toInputStream())</span>
+
+    /** 下载为输入流。 */
+    fun get(
+        bucketName: String,
+        key: String,
+    ): ResponseInputStream&lt;GetObjectResponse&gt; =
+<span class="nc" id="L78">        get(</span>
+            GetObjectRequest
+<span class="nc" id="L80">                .builder()</span>
+<span class="nc" id="L81">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L82">                .key(key)</span>
+<span class="nc" id="L83">                .build(),</span>
+<span class="nc" id="L84">        )</span>
+
+    /** 下载为字节数组。 */
+    fun getBytes(
+        bucketName: String,
+        key: String,
+    ): ResponseBytes&lt;GetObjectResponse&gt; =
+<span class="fc" id="L91">        s3Client.getObjectAsBytes(</span>
+            GetObjectRequest
+<span class="fc" id="L93">                .builder()</span>
+<span class="fc" id="L94">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L95">                .key(key)</span>
+<span class="fc" id="L96">                .build(),</span>
+<span class="fc" id="L97">        )</span>
+
+    /** 查询对象元数据。 */
+<span class="nc" id="L100">    fun head(request: HeadObjectRequest): HeadObjectResponse = s3Client.headObject(request)</span>
+
+    /** 查询对象元数据。 */
+    fun head(
+        bucketName: String,
+        key: String,
+    ): HeadObjectResponse =
+<span class="nc" id="L107">        head(</span>
+            HeadObjectRequest
+<span class="nc" id="L109">                .builder()</span>
+<span class="nc" id="L110">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L111">                .key(key)</span>
+<span class="nc" id="L112">                .build(),</span>
+<span class="nc" id="L113">        )</span>
+
+    /** 删除对象。 */
+<span class="fc" id="L116">    fun delete(request: DeleteObjectRequest): DeleteObjectResponse = s3Client.deleteObject(request)</span>
+
+    /** 删除对象。 */
+    fun delete(
+        bucketName: String,
+        key: String,
+    ): DeleteObjectResponse =
+<span class="fc" id="L123">        delete(</span>
+            DeleteObjectRequest
+<span class="fc" id="L125">                .builder()</span>
+<span class="fc" id="L126">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L127">                .key(key)</span>
+<span class="fc" id="L128">                .build(),</span>
+<span class="fc" id="L129">        )</span>
+
+    /** 列举对象。 */
+<span class="nc" id="L132">    fun list(request: ListObjectsV2Request): ListObjectsV2Response = s3Client.listObjectsV2(request)</span>
+
+    /** 按前缀列举对象。 */
+<span class="nc" id="L135">    fun list(</span>
+        bucketName: String,
+<span class="nc" id="L137">        prefix: String? = null,</span>
+    ): ListObjectsV2Response =
+<span class="nc" id="L139">        list(</span>
+            ListObjectsV2Request
+<span class="nc" id="L141">                .builder()</span>
+<span class="nc" id="L142">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L143">                .prefix(prefix)</span>
+<span class="nc" id="L144">                .build(),</span>
+<span class="nc" id="L145">        )</span>
+
+    /** 复制对象。 */
+<span class="nc" id="L148">    fun copy(request: CopyObjectRequest): CopyObjectResponse = s3Client.copyObject(request)</span>
+
+    /** 按桶和 key 复制对象。 */
+    fun copy(
+        sourceBucketName: String,
+        sourceKey: String,
+        destinationBucketName: String,
+        destinationKey: String,
+    ): CopyObjectResponse =
+<span class="nc" id="L157">        copy(</span>
+            CopyObjectRequest
+<span class="nc" id="L159">                .builder()</span>
+<span class="nc" id="L160">                .sourceBucket(resolveBucket(sourceBucketName))</span>
+<span class="nc" id="L161">                .sourceKey(sourceKey)</span>
+<span class="nc" id="L162">                .destinationBucket(resolveBucket(destinationBucketName))</span>
+<span class="nc" id="L163">                .destinationKey(destinationKey)</span>
+<span class="nc" id="L164">                .build(),</span>
+<span class="nc" id="L165">        )</span>
+
+<span class="fc" id="L167">    private fun resolveBucket(bucketName: String): String = bucketNameResolver(bucketName)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

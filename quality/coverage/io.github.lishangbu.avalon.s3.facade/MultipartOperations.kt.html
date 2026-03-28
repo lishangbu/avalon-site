@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultipartOperations.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.s3.facade</a> &gt; <span class="el_source">MultipartOperations.kt</span></div><h1>MultipartOperations.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.s3.facade
+
+import software.amazon.awssdk.core.sync.RequestBody
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest
+import software.amazon.awssdk.services.s3.model.AbortMultipartUploadResponse
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadResponse
+import software.amazon.awssdk.services.s3.model.CompletedPart
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse
+import software.amazon.awssdk.services.s3.model.ListPartsRequest
+import software.amazon.awssdk.services.s3.model.ListPartsResponse
+import software.amazon.awssdk.services.s3.model.UploadPartRequest
+import software.amazon.awssdk.services.s3.model.UploadPartResponse
+
+/** Multipart 上传 facade。 */
+<span class="fc" id="L18">class MultipartOperations(</span>
+<span class="fc" id="L19">    private val s3Client: S3Client,</span>
+<span class="fc" id="L20">    private val bucketNameResolver: (String) -&gt; String,</span>
+) {
+    /** 创建 multipart 上传。 */
+<span class="fc" id="L23">    fun create(request: CreateMultipartUploadRequest): CreateMultipartUploadResponse = s3Client.createMultipartUpload(request)</span>
+
+    /** 基于桶和 key 创建 multipart 上传。 */
+<span class="nc" id="L26">    fun create(</span>
+        bucketName: String,
+        key: String,
+<span class="nc" id="L29">        contentType: String? = null,</span>
+    ): CreateMultipartUploadResponse =
+<span class="fc" id="L31">        create(</span>
+            CreateMultipartUploadRequest
+<span class="fc" id="L33">                .builder()</span>
+<span class="fc" id="L34">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L35">                .key(key)</span>
+<span class="fc" id="L36">                .contentType(contentType)</span>
+<span class="fc" id="L37">                .build(),</span>
+<span class="fc" id="L38">        )</span>
+
+    /** 上传 part。 */
+    fun uploadPart(
+        request: UploadPartRequest,
+        requestBody: RequestBody,
+<span class="fc" id="L44">    ): UploadPartResponse = s3Client.uploadPart(request, requestBody)</span>
+
+    /** 基于桶和 key 上传 part。 */
+    fun uploadPart(
+        bucketName: String,
+        key: String,
+        uploadId: String,
+        partNumber: Int,
+        content: ByteArray,
+    ): UploadPartResponse =
+<span class="fc" id="L54">        uploadPart(</span>
+            UploadPartRequest
+<span class="fc" id="L56">                .builder()</span>
+<span class="fc" id="L57">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L58">                .key(key)</span>
+<span class="fc" id="L59">                .uploadId(uploadId)</span>
+<span class="fc" id="L60">                .partNumber(partNumber)</span>
+<span class="fc" id="L61">                .contentLength(content.size.toLong())</span>
+<span class="fc" id="L62">                .build(),</span>
+<span class="fc" id="L63">            RequestBody.fromBytes(content),</span>
+<span class="fc" id="L64">        )</span>
+
+    /** 列出已上传 part。 */
+<span class="nc" id="L67">    fun listParts(request: ListPartsRequest): ListPartsResponse = s3Client.listParts(request)</span>
+
+    /** 列出已上传 part。 */
+    fun listParts(
+        bucketName: String,
+        key: String,
+        uploadId: String,
+    ): ListPartsResponse =
+<span class="nc" id="L75">        listParts(</span>
+            ListPartsRequest
+<span class="nc" id="L77">                .builder()</span>
+<span class="nc" id="L78">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L79">                .key(key)</span>
+<span class="nc" id="L80">                .uploadId(uploadId)</span>
+<span class="nc" id="L81">                .build(),</span>
+<span class="nc" id="L82">        )</span>
+
+    /** 完成 multipart 上传。 */
+<span class="fc" id="L85">    fun complete(request: CompleteMultipartUploadRequest): CompleteMultipartUploadResponse = s3Client.completeMultipartUpload(request)</span>
+
+    /** 基于桶和 key 完成 multipart 上传。 */
+    fun complete(
+        bucketName: String,
+        key: String,
+        uploadId: String,
+        completedParts: List&lt;CompletedPart&gt;,
+    ): CompleteMultipartUploadResponse =
+<span class="fc" id="L94">        complete(</span>
+            CompleteMultipartUploadRequest
+<span class="fc" id="L96">                .builder()</span>
+<span class="fc" id="L97">                .bucket(resolveBucket(bucketName))</span>
+<span class="fc" id="L98">                .key(key)</span>
+<span class="fc" id="L99">                .uploadId(uploadId)</span>
+<span class="fc" id="L100">                .multipartUpload { upload -&gt; upload.parts(completedParts) }</span>
+<span class="fc" id="L101">                .build(),</span>
+<span class="fc" id="L102">        )</span>
+
+    /** 中止 multipart 上传。 */
+<span class="nc" id="L105">    fun abort(request: AbortMultipartUploadRequest): AbortMultipartUploadResponse = s3Client.abortMultipartUpload(request)</span>
+
+    /** 基于桶和 key 中止 multipart 上传。 */
+    fun abort(
+        bucketName: String,
+        key: String,
+        uploadId: String,
+    ): AbortMultipartUploadResponse =
+<span class="nc" id="L113">        abort(</span>
+            AbortMultipartUploadRequest
+<span class="nc" id="L115">                .builder()</span>
+<span class="nc" id="L116">                .bucket(resolveBucket(bucketName))</span>
+<span class="nc" id="L117">                .key(key)</span>
+<span class="nc" id="L118">                .uploadId(uploadId)</span>
+<span class="nc" id="L119">                .build(),</span>
+<span class="nc" id="L120">        )</span>
+
+<span class="fc" id="L122">    private fun resolveBucket(bucketName: String): String = bucketNameResolver(bucketName)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
