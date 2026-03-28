@@ -62,7 +62,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">24.523s</div>
+<div class="counter">25.235s</div>
 <p>duration</p>
 </div>
 </td>
@@ -99,7 +99,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.537s</td>
+<td>0.499s</td>
 <td class="success">100%</td>
 </tr>
 </table>
@@ -108,207 +108,200 @@
 <div class="tab">
 <h2>standard output</h2>
 <span class="code">
-<pre id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">2026-03-27T23:34:27.654Z  INFO 2714 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Starting AuthenticationLogRepositoryTest using Java 25.0.2 with PID 2714 (started by runner in /home/runner/work/avalon/avalon/avalon-modules/avalon-authorization)
-2026-03-27T23:34:27.664Z  INFO 2714 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2026-03-27T23:34:29.390Z  INFO 2714 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2026-03-27T23:34:29.394Z  INFO 2714 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-03-27T23:34:29.618Z  INFO 2714 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 199 ms. Found 0 Redis repository interfaces.
-2026-03-27T23:34:30.418Z  INFO 2714 --- [    Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
-2026-03-27T23:34:30.421Z  INFO 2714 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-2026-03-27T23:34:30.445Z  INFO 2714 --- [    Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.4
-2026-03-27T23:34:31.069Z  INFO 2714 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
-2026-03-27T23:34:31.763Z  INFO 2714 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-2026-03-27T23:34:31.765Z  INFO 2714 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
-2026-03-27T23:34:31.787Z  INFO 2714 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+<pre id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">2026-03-28T00:04:25.879Z  INFO 2630 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Starting AuthenticationLogRepositoryTest using Java 25.0.2 with PID 2630 (started by runner in /home/runner/work/avalon/avalon/avalon-modules/avalon-authorization)
+2026-03-28T00:04:25.900Z  INFO 2630 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-03-28T00:04:28.009Z  INFO 2630 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-28T00:04:28.015Z  INFO 2630 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-03-28T00:04:28.458Z  INFO 2630 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 358 ms. Found 0 Redis repository interfaces.
+2026-03-28T00:04:29.167Z  INFO 2630 --- [    Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-03-28T00:04:29.170Z  INFO 2630 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-03-28T00:04:29.208Z  INFO 2630 --- [    Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.4
+2026-03-28T00:04:30.166Z  INFO 2630 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-03-28T00:04:30.793Z  INFO 2630 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-03-28T00:04:30.795Z  INFO 2630 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-03-28T00:04:30.819Z  INFO 2630 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
   Server Version: 28.0.4
   API Version: 1.48
   Operating System: Ubuntu 24.04.4 LTS
-  Total Memory: 15993 MB
-2026-03-27T23:34:31.840Z  INFO 2714 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
-2026-03-27T23:34:32.382Z  INFO 2714 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 1004b311084cd260887d94509b67c48aa1341c4280188b2e742b2bc5b9a2bb52
-2026-03-27T23:34:32.736Z  INFO 2714 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.895953838S
-2026-03-27T23:34:32.746Z  INFO 2714 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-2026-03-27T23:34:32.746Z  INFO 2714 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
-2026-03-27T23:34:32.747Z  INFO 2714 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
-2026-03-27T23:34:32.761Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Pulling docker image: postgres:latest. Please be patient; this may take some time but only needs to be done once.
-2026-03-27T23:34:32.916Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Starting to pull image
-2026-03-27T23:34:32.939Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2026-03-27T23:34:32.942Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 12 pending,  1 downloaded,  0 extracted, (0 bytes/? MB)
-2026-03-27T23:34:32.943Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 11 pending,  2 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.944Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 10 pending,  3 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.944Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  9 pending,  4 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.945Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.945Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  7 pending,  6 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.946Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  6 pending,  7 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:32.947Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  0 extracted, (96 KB/? MB)
-2026-03-27T23:34:33.168Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  1 extracted, (7 MB/? MB)
-2026-03-27T23:34:33.255Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  2 extracted, (9 MB/? MB)
-2026-03-27T23:34:33.266Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  3 extracted, (9 MB/? MB)
-2026-03-27T23:34:33.281Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  4 extracted, (9 MB/? MB)
-2026-03-27T23:34:36.226Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  5 extracted, (119 MB/? MB)
-2026-03-27T23:34:36.240Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  6 extracted, (119 MB/? MB)
-2026-03-27T23:34:36.252Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  7 extracted, (119 MB/? MB)
-2026-03-27T23:34:36.263Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  8 extracted, (119 MB/? MB)
-2026-03-27T23:34:36.276Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  9 extracted, (119 MB/? MB)
-2026-03-27T23:34:36.283Z  INFO 2714 --- [ream-1288415510] tc.postgres:latest                       : Pull complete. 13 layers, pulled in 3s (downloaded 119 MB at 39 MB/s)
-2026-03-27T23:34:36.283Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Image postgres:latest pull took PT3.521549192S
-2026-03-27T23:34:36.289Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
-2026-03-27T23:34:36.309Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 49de906a8dacde1b4f4bf31e38c8e0f879a88e65891b79ab53328770e08a79e8
-2026-03-27T23:34:37.557Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.268191751S
-2026-03-27T23:34:37.558Z  INFO 2714 --- [    Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:32771/test?loggerLevel=OFF)
-2026-03-27T23:34:38.062Z  WARN 2714 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥和私钥路径，将在首次使用时生成随机密钥对
-2026-03-27T23:34:38.063Z  WARN 2714 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥或私钥，使用随机生成的密钥对，重启后之前签发的 token 将无法解析
-2026-03-27T23:34:38.539Z  INFO 2714 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : JWKSet 初始化完成，kid: 7oA76bYw6fdBoYf9LVY7qjSKkBIzuY-s4pyQefJ1ZxY, 算法: RS256
-2026-03-27T23:34:40.825Z  INFO 2714 --- [    Test worker] liquibase.database                       : Set default schema name to public
-2026-03-27T23:34:41.851Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/versions/0.0.1/0.0.1.yaml
-2026-03-27T23:34:42.471Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
-2026-03-27T23:34:42.522Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
-2026-03-27T23:34:42.565Z  INFO 2714 --- [    Test worker] liquibase.snapshot                       : Creating snapshot
-2026-03-27T23:34:43.003Z  INFO 2714 --- [    Test worker] liquibase.lockservice                    : Successfully acquired change log lock
-2026-03-27T23:34:43.005Z  INFO 2714 --- [    Test worker] liquibase.command                        : Using deploymentId: 4654480016
-2026-03-27T23:34:43.008Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
-2026-03-27T23:34:43.594Z  INFO 2714 --- [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu
-2026-03-27T23:34:43.615Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table ability created
-2026-03-27T23:34:43.633Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table authentication_log created
-2026-03-27T23:34:43.653Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table berry created
-2026-03-27T23:34:43.660Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table berry_firmness created
-2026-03-27T23:34:43.683Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table berry_flavor created
-2026-03-27T23:34:43.692Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table egg_group created
-2026-03-27T23:34:43.703Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table encounter_condition created
-2026-03-27T23:34:43.710Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table encounter_condition_value created
-2026-03-27T23:34:43.718Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table encounter_method created
-2026-03-27T23:34:43.723Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table evolution_chain created
-2026-03-27T23:34:43.732Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table evolution_trigger created
-2026-03-27T23:34:43.743Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table gender created
-2026-03-27T23:34:43.753Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table growth_rate created
-2026-03-27T23:34:43.769Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item created
-2026-03-27T23:34:43.777Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item_attribute created
-2026-03-27T23:34:43.782Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item_attribute_relation created
-2026-03-27T23:34:43.794Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item_category created
-2026-03-27T23:34:43.809Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item_fling_effect created
-2026-03-27T23:34:43.818Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table item_pocket created
-2026-03-27T23:34:43.824Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table machine created
-2026-03-27T23:34:43.842Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table menu created
-2026-03-27T23:34:43.869Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move created
-2026-03-27T23:34:43.875Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move_ailment created
-2026-03-27T23:34:43.882Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move_category created
-2026-03-27T23:34:43.892Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move_damage_class created
-2026-03-27T23:34:43.904Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move_learn_method created
-2026-03-27T23:34:43.914Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table move_target created
-2026-03-27T23:34:43.928Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table nature created
-2026-03-27T23:34:43.986Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization created
-2026-03-27T23:34:43.997Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization_consent created
-2026-03-27T23:34:44.040Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table oauth_registered_client created
-2026-03-27T23:34:44.057Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon created
-2026-03-27T23:34:44.067Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_ability created
-2026-03-27T23:34:44.075Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_color created
-2026-03-27T23:34:44.087Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_habitat created
-2026-03-27T23:34:44.095Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_shape created
-2026-03-27T23:34:44.127Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_species created
-2026-03-27T23:34:44.137Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_stat created
-2026-03-27T23:34:44.144Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table pokemon_type created
-2026-03-27T23:34:44.152Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table role created
-2026-03-27T23:34:44.160Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table role_menu_relation created
-2026-03-27T23:34:44.173Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table stat created
-2026-03-27T23:34:44.182Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table type created
-2026-03-27T23:34:44.188Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table type_effectiveness_entry created
-2026-03-27T23:34:44.192Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table user_role_relation created
-2026-03-27T23:34:44.207Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Table users created
-2026-03-27T23:34:44.211Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__state created
-2026-03-27T23:34:44.213Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__authorization_code_value created
-2026-03-27T23:34:44.216Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__access_token_value created
-2026-03-27T23:34:44.217Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__refresh_token_value created
-2026-03-27T23:34:44.219Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__oidc_id_token_value created
-2026-03-27T23:34:44.221Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__user_code_value created
-2026-03-27T23:34:44.228Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__device_code_value created
-2026-03-27T23:34:44.232Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (natural_gift_type_id)
-2026-03-27T23:34:44.234Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (berry_firmness_id)
-2026-03-27T23:34:44.235Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to encounter_condition_value (encounter_condition_id)
-2026-03-27T23:34:44.240Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item (item_fling_effect_id)
-2026-03-27T23:34:44.242Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_attribute_relation (item_attribute_id)
-2026-03-27T23:34:44.245Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_attribute_relation (item_id)
-2026-03-27T23:34:44.246Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_category (item_pocket_id)
-2026-03-27T23:34:44.250Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_ailment_id)
-2026-03-27T23:34:44.251Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_target_id)
-2026-03-27T23:34:44.254Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (type_id)
-2026-03-27T23:34:44.257Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_damage_class_id)
-2026-03-27T23:34:44.260Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_category_id)
-2026-03-27T23:34:44.266Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (decreased_stat_id)
-2026-03-27T23:34:44.268Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (hates_berry_flavor_id)
-2026-03-27T23:34:44.269Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (increased_stat_id)
-2026-03-27T23:34:44.272Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (likes_berry_flavor_id)
-2026-03-27T23:34:44.275Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon (pokemon_species_id)
-2026-03-27T23:34:44.278Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_ability (ability_id)
-2026-03-27T23:34:44.279Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_ability (pokemon_id)
-2026-03-27T23:34:44.283Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_habitat_id)
-2026-03-27T23:34:44.285Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (growth_rate_id)
-2026-03-27T23:34:44.287Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_color_id)
-2026-03-27T23:34:44.288Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_shape_id)
-2026-03-27T23:34:44.292Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_stat (pokemon_id)
-2026-03-27T23:34:44.294Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_stat (stat_id)
-2026-03-27T23:34:44.295Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_type (pokemon_id)
-2026-03-27T23:34:44.296Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_type (type_id)
-2026-03-27T23:34:44.298Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to role_menu_relation (menu_id)
-2026-03-27T23:34:44.299Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to role_menu_relation (role_id)
-2026-03-27T23:34:44.301Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to stat (move_damage_class_id)
-2026-03-27T23:34:44.302Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to type_effectiveness_entry (attacking_type_id)
-2026-03-27T23:34:44.304Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to type_effectiveness_entry (defending_type_id)
-2026-03-27T23:34:44.305Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (role_id)
-2026-03-27T23:34:44.307Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (user_id)
-2026-03-27T23:34:44.739Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/ability.csv' into table 'ability'
-2026-03-27T23:34:44.780Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_firmness.csv' into table 'berry_firmness'
-2026-03-27T23:34:44.816Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_flavor.csv' into table 'berry_flavor'
-2026-03-27T23:34:44.862Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition.csv' into table 'encounter_condition'
-2026-03-27T23:34:44.930Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition_value.csv' into table 'encounter_condition_value'
-2026-03-27T23:34:44.992Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_method.csv' into table 'encounter_method'
-2026-03-27T23:34:45.036Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_trigger.csv' into table 'evolution_trigger'
-2026-03-27T23:34:45.063Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/gender.csv' into table 'gender'
-2026-03-27T23:34:45.093Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/growth_rate.csv' into table 'growth_rate'
-2026-03-27T23:34:45.116Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute.csv' into table 'item_attribute'
-2026-03-27T23:34:45.134Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_pocket.csv' into table 'item_pocket'
-2026-03-27T23:34:45.175Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_category.csv' into table 'item_category'
-2026-03-27T23:34:45.195Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_fling_effect.csv' into table 'item_fling_effect'
-2026-03-27T23:34:46.028Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item.csv' into table 'item'
-2026-03-27T23:34:46.162Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute_relation.csv' into table 'item_attribute_relation'
-2026-03-27T23:34:46.193Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_ailment.csv' into table 'move_ailment'
-2026-03-27T23:34:46.222Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_category.csv' into table 'move_category'
-2026-03-27T23:34:46.239Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_damage_class.csv' into table 'move_damage_class'
-2026-03-27T23:34:46.256Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_learn_method.csv' into table 'move_learn_method'
-2026-03-27T23:34:46.273Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_target.csv' into table 'move_target'
-2026-03-27T23:34:46.315Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/stat.csv' into table 'stat'
-2026-03-27T23:34:46.346Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/nature.csv' into table 'nature'
-2026-03-27T23:34:46.374Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_color.csv' into table 'pokemon_color'
-2026-03-27T23:34:46.410Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_shape.csv' into table 'pokemon_shape'
-2026-03-27T23:34:46.447Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_habitat.csv' into table 'pokemon_habitat'
-2026-03-27T23:34:47.101Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_species.csv' into table 'pokemon_species'
-2026-03-27T23:34:47.390Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon.csv' into table 'pokemon'
-2026-03-27T23:34:47.432Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type.csv' into table 'type'
-2026-03-27T23:34:47.612Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_type.csv' into table 'pokemon_type'
-2026-03-27T23:34:48.458Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_stat.csv' into table 'pokemon_stat'
-2026-03-27T23:34:48.782Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_ability.csv' into table 'pokemon_ability'
-2026-03-27T23:34:49.346Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move.csv' into table 'move'
-2026-03-27T23:34:49.387Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry.csv' into table 'berry'
-2026-03-27T23:34:49.438Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type_effectiveness_entry.csv' into table 'type_effectiveness_entry'
-2026-03-27T23:34:49.466Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/egg_group.csv' into table 'egg_group'
-2026-03-27T23:34:49.497Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/menu.csv' into table 'menu'
-2026-03-27T23:34:49.514Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/oauth_registered_client.csv' into table 'oauth_registered_client'
-2026-03-27T23:34:49.528Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role.csv' into table 'role'
-2026-03-27T23:34:49.543Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role_menu_relation.csv' into table 'role_menu_relation'
-2026-03-27T23:34:49.558Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/users.csv' into table 'users'
-2026-03-27T23:34:49.572Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/user_role_relation.csv' into table 'user_role_relation'
-2026-03-27T23:34:49.577Z  INFO 2714 --- [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu ran successfully in 5977ms
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : UPDATE SUMMARY
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : Run:                          1
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : Previously run:               0
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : Filtered out:                 0
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : -------------------------------
-2026-03-27T23:34:49.605Z  INFO 2714 --- [    Test worker] liquibase.util                           : Total change sets:            1
-2026-03-27T23:34:49.607Z  INFO 2714 --- [    Test worker] liquibase.util                           : Update summary generated
-2026-03-27T23:34:49.610Z  INFO 2714 --- [    Test worker] liquibase.command                        : Update command completed successfully.
-2026-03-27T23:34:49.611Z  INFO 2714 --- [    Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 20450
-2026-03-27T23:34:49.613Z  INFO 2714 --- [    Test worker] liquibase.lockservice                    : Successfully released change log lock
-2026-03-27T23:34:49.615Z  INFO 2714 --- [    Test worker] liquibase.command                        : Command execution complete
-2026-03-27T23:34:49.724Z  INFO 2714 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Started AuthenticationLogRepositoryTest in 23.104 seconds (process running for 34.31)
+  Total Memory: 15988 MB
+2026-03-28T00:04:30.855Z  INFO 2630 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-03-28T00:04:31.068Z  INFO 2630 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 0c409e183695766146da022cab7ff9478a756df031517173e17175fa2f93260e
+2026-03-28T00:04:31.484Z  INFO 2630 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.628397798S
+2026-03-28T00:04:31.490Z  INFO 2630 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-03-28T00:04:31.490Z  INFO 2630 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-03-28T00:04:31.491Z  INFO 2630 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-03-28T00:04:31.504Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Pulling docker image: postgres:latest. Please be patient; this may take some time but only needs to be done once.
+2026-03-28T00:04:31.767Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Starting to pull image
+2026-03-28T00:04:31.793Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-03-28T00:04:31.796Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 12 pending,  1 downloaded,  0 extracted, (0 bytes/? MB)
+2026-03-28T00:04:31.798Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 11 pending,  2 downloaded,  0 extracted, (105 MB/? MB)
+2026-03-28T00:04:31.798Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 10 pending,  3 downloaded,  0 extracted, (105 MB/? MB)
+2026-03-28T00:04:31.799Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  9 pending,  4 downloaded,  0 extracted, (105 MB/? MB)
+2026-03-28T00:04:31.924Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  0 extracted, (106 MB/? MB)
+2026-03-28T00:04:34.675Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  1 extracted, (109 MB/? MB)
+2026-03-28T00:04:34.692Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  2 extracted, (109 MB/? MB)
+2026-03-28T00:04:34.702Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  3 extracted, (109 MB/? MB)
+2026-03-28T00:04:34.711Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  4 extracted, (109 MB/? MB)
+2026-03-28T00:04:34.721Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  5 extracted, (109 MB/? MB)
+2026-03-28T00:04:34.728Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Image postgres:latest pull took PT3.22298679S
+2026-03-28T00:04:34.728Z  INFO 2630 --- [ream-1288415510] tc.postgres:latest                       : Pull complete. 13 layers, pulled in 2s (downloaded 109 MB at 54 MB/s)
+2026-03-28T00:04:34.735Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-03-28T00:04:34.753Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 735ef47554f74aff85b00690c66dc92e7f087c6d7a3ce643ae0538fc242b0b2e
+2026-03-28T00:04:35.871Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.136245941S
+2026-03-28T00:04:35.872Z  INFO 2630 --- [    Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:32770/test?loggerLevel=OFF)
+2026-03-28T00:04:36.313Z  WARN 2630 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥和私钥路径，将在首次使用时生成随机密钥对
+2026-03-28T00:04:36.314Z  WARN 2630 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥或私钥，使用随机生成的密钥对，重启后之前签发的 token 将无法解析
+2026-03-28T00:04:37.263Z  INFO 2630 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : JWKSet 初始化完成，kid: PtLtZ3Vbms9rEV7DhKLBbrFMCl16nkykHp5AQsc_oXg, 算法: RS256
+2026-03-28T00:04:39.489Z  INFO 2630 --- [    Test worker] liquibase.database                       : Set default schema name to public
+2026-03-28T00:04:40.552Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/versions/0.0.1/0.0.1.yaml
+2026-03-28T00:04:41.112Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-03-28T00:04:41.194Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-03-28T00:04:41.221Z  INFO 2630 --- [    Test worker] liquibase.snapshot                       : Creating snapshot
+2026-03-28T00:04:41.803Z  INFO 2630 --- [    Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-03-28T00:04:41.807Z  INFO 2630 --- [    Test worker] liquibase.command                        : Using deploymentId: 4656278846
+2026-03-28T00:04:41.815Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-03-28T00:04:42.545Z  INFO 2630 --- [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu
+2026-03-28T00:04:42.576Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table ability created
+2026-03-28T00:04:42.604Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table authentication_log created
+2026-03-28T00:04:42.630Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table berry created
+2026-03-28T00:04:42.639Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table berry_firmness created
+2026-03-28T00:04:42.649Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table berry_flavor created
+2026-03-28T00:04:42.659Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table egg_group created
+2026-03-28T00:04:42.667Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table encounter_condition created
+2026-03-28T00:04:42.674Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table encounter_condition_value created
+2026-03-28T00:04:42.682Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table encounter_method created
+2026-03-28T00:04:42.693Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table evolution_chain created
+2026-03-28T00:04:42.705Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table evolution_trigger created
+2026-03-28T00:04:42.715Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table gender created
+2026-03-28T00:04:42.731Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table growth_rate created
+2026-03-28T00:04:42.747Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item created
+2026-03-28T00:04:42.759Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item_attribute created
+2026-03-28T00:04:42.765Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item_attribute_relation created
+2026-03-28T00:04:42.781Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item_category created
+2026-03-28T00:04:42.788Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item_fling_effect created
+2026-03-28T00:04:42.797Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table item_pocket created
+2026-03-28T00:04:42.808Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table machine created
+2026-03-28T00:04:42.837Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table menu created
+2026-03-28T00:04:42.868Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move created
+2026-03-28T00:04:42.874Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move_ailment created
+2026-03-28T00:04:42.881Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move_category created
+2026-03-28T00:04:42.888Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move_damage_class created
+2026-03-28T00:04:42.895Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move_learn_method created
+2026-03-28T00:04:42.905Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table move_target created
+2026-03-28T00:04:42.926Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table nature created
+2026-03-28T00:04:42.999Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization created
+2026-03-28T00:04:43.009Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization_consent created
+2026-03-28T00:04:43.048Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table oauth_registered_client created
+2026-03-28T00:04:43.066Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon created
+2026-03-28T00:04:43.076Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_ability created
+2026-03-28T00:04:43.087Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_color created
+2026-03-28T00:04:43.101Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_habitat created
+2026-03-28T00:04:43.108Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_shape created
+2026-03-28T00:04:43.124Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_species created
+2026-03-28T00:04:43.131Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_stat created
+2026-03-28T00:04:43.139Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table pokemon_type created
+2026-03-28T00:04:43.149Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table role created
+2026-03-28T00:04:43.155Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table role_menu_relation created
+2026-03-28T00:04:43.169Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table stat created
+2026-03-28T00:04:43.177Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table type created
+2026-03-28T00:04:43.187Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table type_effectiveness_entry created
+2026-03-28T00:04:43.196Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table user_role_relation created
+2026-03-28T00:04:43.217Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Table users created
+2026-03-28T00:04:43.219Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__state created
+2026-03-28T00:04:43.223Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__authorization_code_value created
+2026-03-28T00:04:43.226Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__access_token_value created
+2026-03-28T00:04:43.231Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__refresh_token_value created
+2026-03-28T00:04:43.232Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__oidc_id_token_value created
+2026-03-28T00:04:43.237Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__user_code_value created
+2026-03-28T00:04:43.238Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__device_code_value created
+2026-03-28T00:04:43.245Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (natural_gift_type_id)
+2026-03-28T00:04:43.247Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (berry_firmness_id)
+2026-03-28T00:04:43.252Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to encounter_condition_value (encounter_condition_id)
+2026-03-28T00:04:43.254Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item (item_fling_effect_id)
+2026-03-28T00:04:43.256Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_attribute_relation (item_attribute_id)
+2026-03-28T00:04:43.258Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_attribute_relation (item_id)
+2026-03-28T00:04:43.261Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_category (item_pocket_id)
+2026-03-28T00:04:43.263Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_ailment_id)
+2026-03-28T00:04:43.267Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_target_id)
+2026-03-28T00:04:43.268Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (type_id)
+2026-03-28T00:04:43.272Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_damage_class_id)
+2026-03-28T00:04:43.274Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_category_id)
+2026-03-28T00:04:43.276Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (decreased_stat_id)
+2026-03-28T00:04:43.282Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (hates_berry_flavor_id)
+2026-03-28T00:04:43.284Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (increased_stat_id)
+2026-03-28T00:04:43.285Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (likes_berry_flavor_id)
+2026-03-28T00:04:43.287Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon (pokemon_species_id)
+2026-03-28T00:04:43.291Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_ability (ability_id)
+2026-03-28T00:04:43.293Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_ability (pokemon_id)
+2026-03-28T00:04:43.296Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_habitat_id)
+2026-03-28T00:04:43.299Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (growth_rate_id)
+2026-03-28T00:04:43.302Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_color_id)
+2026-03-28T00:04:43.306Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_species (pokemon_shape_id)
+2026-03-28T00:04:43.310Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_stat (pokemon_id)
+2026-03-28T00:04:43.312Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_stat (stat_id)
+2026-03-28T00:04:43.313Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_type (pokemon_id)
+2026-03-28T00:04:43.315Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to pokemon_type (type_id)
+2026-03-28T00:04:43.320Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to role_menu_relation (menu_id)
+2026-03-28T00:04:43.322Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to role_menu_relation (role_id)
+2026-03-28T00:04:43.323Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to stat (move_damage_class_id)
+2026-03-28T00:04:43.329Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to type_effectiveness_entry (attacking_type_id)
+2026-03-28T00:04:43.331Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to type_effectiveness_entry (defending_type_id)
+2026-03-28T00:04:43.336Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (role_id)
+2026-03-28T00:04:43.338Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (user_id)
+2026-03-28T00:04:43.626Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/ability.csv' into table 'ability'
+2026-03-28T00:04:43.650Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_firmness.csv' into table 'berry_firmness'
+2026-03-28T00:04:43.707Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_flavor.csv' into table 'berry_flavor'
+2026-03-28T00:04:43.746Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition.csv' into table 'encounter_condition'
+2026-03-28T00:04:43.794Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition_value.csv' into table 'encounter_condition_value'
+2026-03-28T00:04:43.818Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_method.csv' into table 'encounter_method'
+2026-03-28T00:04:43.838Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_trigger.csv' into table 'evolution_trigger'
+2026-03-28T00:04:43.856Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/gender.csv' into table 'gender'
+2026-03-28T00:04:43.875Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/growth_rate.csv' into table 'growth_rate'
+2026-03-28T00:04:43.897Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute.csv' into table 'item_attribute'
+2026-03-28T00:04:43.917Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_pocket.csv' into table 'item_pocket'
+2026-03-28T00:04:43.955Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_category.csv' into table 'item_category'
+2026-03-28T00:04:44.002Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_fling_effect.csv' into table 'item_fling_effect'
+2026-03-28T00:04:44.819Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item.csv' into table 'item'
+2026-03-28T00:04:44.886Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute_relation.csv' into table 'item_attribute_relation'
+2026-03-28T00:04:44.905Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_ailment.csv' into table 'move_ailment'
+2026-03-28T00:04:44.925Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_category.csv' into table 'move_category'
+2026-03-28T00:04:44.992Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_damage_class.csv' into table 'move_damage_class'
+2026-03-28T00:04:45.028Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_learn_method.csv' into table 'move_learn_method'
+2026-03-28T00:04:45.059Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_target.csv' into table 'move_target'
+2026-03-28T00:04:45.091Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/stat.csv' into table 'stat'
+2026-03-28T00:04:45.128Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/nature.csv' into table 'nature'
+2026-03-28T00:04:45.146Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_color.csv' into table 'pokemon_color'
+2026-03-28T00:04:45.173Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_shape.csv' into table 'pokemon_shape'
+2026-03-28T00:04:45.203Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_habitat.csv' into table 'pokemon_habitat'
+2026-03-28T00:04:45.812Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_species.csv' into table 'pokemon_species'
+2026-03-28T00:04:46.034Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon.csv' into table 'pokemon'
+2026-03-28T00:04:46.076Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type.csv' into table 'type'
+2026-03-28T00:04:46.342Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_type.csv' into table 'pokemon_type'
+2026-03-28T00:04:47.135Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_stat.csv' into table 'pokemon_stat'
+2026-03-28T00:04:47.530Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/pokemon_ability.csv' into table 'pokemon_ability'
+2026-03-28T00:04:47.971Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move.csv' into table 'move'
+2026-03-28T00:04:47.991Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry.csv' into table 'berry'
+2026-03-28T00:04:48.024Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type_effectiveness_entry.csv' into table 'type_effectiveness_entry'
+2026-03-28T00:04:48.040Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/egg_group.csv' into table 'egg_group'
+2026-03-28T00:04:48.070Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/menu.csv' into table 'menu'
+2026-03-28T00:04:48.091Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/oauth_registered_client.csv' into table 'oauth_registered_client'
+2026-03-28T00:04:48.106Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role.csv' into table 'role'
+2026-03-28T00:04:48.123Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role_menu_relation.csv' into table 'role_menu_relation'
+2026-03-28T00:04:48.138Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/users.csv' into table 'users'
+2026-03-28T00:04:48.154Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/user_role_relation.csv' into table 'user_role_relation'
+2026-03-28T00:04:48.162Z  INFO 2630 --- [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu ran successfully in 5613ms
+2026-03-28T00:04:48.218Z  INFO 2630 --- [    Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-03-28T00:04:48.219Z  INFO 2630 --- [    Test worker] liquibase.util                           : Run:                          1
+2026-03-28T00:04:48.219Z  INFO 2630 --- [    Test worker] liquibase.util                           : Previously run:               0
+2026-03-28T00:04:48.219Z  INFO 2630 --- [    Test worker] liquibase.util                           : Filtered out:                 0
+2026-03-28T00:04:48.219Z  INFO 2630 --- [    Test worker] liquibase.util                           : -------------------------------
+2026-03-28T00:04:48.219Z  INFO 2630 --- [    Test worker] liquibase.util                           : Total change sets:            1
+2026-03-28T00:04:48.242Z  INFO 2630 --- [    Test worker] liquibase.util                           : Update summary generated
+2026-03-28T00:04:48.248Z  INFO 2630 --- [    Test worker] liquibase.command                        : Update command completed successfully.
+2026-03-28T00:04:48.248Z  INFO 2630 --- [    Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 20450
+2026-03-28T00:04:48.252Z  INFO 2630 --- [    Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-03-28T00:04:48.254Z  INFO 2630 --- [    Test worker] liquibase.command                        : Command execution complete
+2026-03-28T00:04:48.407Z  INFO 2630 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Started AuthenticationLogRepositoryTest in 23.534 seconds (process running for 35.549)
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">Copy</button>
 </span>
@@ -323,7 +316,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.4.1</a> at Mar 27, 2026, 11:34:53 PM</p>
+<a href="https://www.gradle.org">Gradle 9.4.1</a> at Mar 28, 2026, 12:04:51 AM</p>
 </div>
 </div>
 </body>
