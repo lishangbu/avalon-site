@@ -2,6 +2,7 @@
 
 import io.github.lishangbu.avalon.authorization.entity.*
 import io.github.lishangbu.avalon.authorization.entity.dto.UserSpecification
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
 import org.babyfish.jimmer.Page
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.kt.KSqlClient
@@ -9,145 +10,142 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
-<span class="fc" id="L12">@Repository</span>
-<span class="fc" id="L13">class UserRepositoryImpl(</span>
+<span class="fc" id="L13">@Repository</span>
+<span class="fc" id="L14">class UserRepositoryImpl(</span>
     /** Jimmer SQL 客户端 */
-<span class="fc" id="L15">    private val sql: KSqlClient,</span>
+<span class="fc" id="L16">    private val sql: KSqlClient,</span>
 ) : UserRepository {
     /** 按条件查询用户列表 */
     override fun findAll(specification: UserSpecification?): List&lt;User&gt; =
-<span class="nc" id="L19">        sql</span>
-<span class="nc" id="L20">            .createQuery(User::class) {</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L22">                select(table.fetch(AuthorizationFetchers.USER))</span>
-<span class="nc" id="L23">            }.execute()</span>
+<span class="nc" id="L20">        sql</span>
+<span class="nc" id="L21">            .createQuery(User::class) {</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L23">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="nc" id="L24">            }.execute()</span>
 
     /** 按条件分页查询用户 */
     override fun findAll(
         specification: UserSpecification?,
         pageable: Pageable,
     ): Page&lt;User&gt; =
-<span class="nc" id="L30">        sql</span>
-<span class="nc" id="L31">            .createQuery(User::class) {</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L33">                select(table.fetch(AuthorizationFetchers.USER))</span>
-<span class="nc" id="L34">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="nc" id="L31">        sql</span>
+<span class="nc" id="L32">            .createQuery(User::class) {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L34">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="nc" id="L35">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按条件查询用户列表，并抓取角色 */
     override fun findAllWithRoles(specification: UserSpecification?): List&lt;User&gt; =
-<span class="nc" id="L38">        sql</span>
-<span class="nc" id="L39">            .createQuery(User::class) {</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L41">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="nc" id="L42">            }.execute()</span>
+<span class="nc" id="L39">        sql</span>
+<span class="nc" id="L40">            .createQuery(User::class) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L42">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="nc" id="L43">            }.execute()</span>
 
     /** 按条件分页查询用户，并抓取角色 */
     override fun findAllWithRoles(
         specification: UserSpecification?,
         pageable: Pageable,
     ): Page&lt;User&gt; =
-<span class="nc" id="L49">        sql</span>
-<span class="nc" id="L50">            .createQuery(User::class) {</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L52">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="nc" id="L53">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="nc" id="L50">        sql</span>
+<span class="nc" id="L51">            .createQuery(User::class) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L53">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="nc" id="L54">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按 ID 查询用户 */
     override fun findById(id: Long): User? =
-<span class="fc" id="L57">        sql</span>
-<span class="fc" id="L58">            .createQuery(User::class) {</span>
-<span class="fc" id="L59">                where(table.id eq id)</span>
-<span class="fc" id="L60">                select(table.fetch(AuthorizationFetchers.USER))</span>
-<span class="fc" id="L61">            }.execute()</span>
-<span class="fc" id="L62">            .firstOrNull()</span>
+<span class="fc" id="L58">        sql</span>
+<span class="fc" id="L59">            .createQuery(User::class) {</span>
+<span class="fc" id="L60">                where(table.id eq id)</span>
+<span class="fc" id="L61">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="fc" id="L62">            }.execute()</span>
+<span class="fc" id="L63">            .firstOrNull()</span>
 
     /** 按 ID 查询用户，并抓取角色 */
     override fun findByIdWithRoles(id: Long): User? =
-<span class="fc" id="L66">        sql</span>
-<span class="fc" id="L67">            .createQuery(User::class) {</span>
-<span class="fc" id="L68">                where(table.id eq id)</span>
-<span class="fc" id="L69">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L70">            }.execute()</span>
-<span class="fc" id="L71">            .firstOrNull()</span>
+<span class="fc" id="L67">        sql</span>
+<span class="fc" id="L68">            .createQuery(User::class) {</span>
+<span class="fc" id="L69">                where(table.id eq id)</span>
+<span class="fc" id="L70">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L71">            }.execute()</span>
+<span class="fc" id="L72">            .firstOrNull()</span>
 
     /** 保存用户 */
     override fun save(user: User): User =
-<span class="fc" id="L75">        sql</span>
-<span class="fc" id="L76">            .save(user) {</span>
-<span class="pc bpc" id="L77" title="2 of 4 branches missed.">                val mode = user.readId()?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
-<span class="fc" id="L78">                setMode(mode)</span>
-<span class="fc" id="L79">            }.modifiedEntity</span>
+<span class="fc" id="L76">        sql</span>
+<span class="fc" id="L77">            .save(user) {</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">                val mode = user.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L79">                setMode(mode)</span>
+<span class="fc" id="L80">            }.modifiedEntity</span>
 
     /** 保存用户并立即刷新 */
-<span class="fc" id="L82">    override fun saveAndFlush(user: User): User = save(user)</span>
+<span class="fc" id="L83">    override fun saveAndFlush(user: User): User = save(user)</span>
 
     /** 按 ID 删除用户 */
     override fun deleteById(id: Long) {
-<span class="nc" id="L86">        sql</span>
-<span class="nc" id="L87">            .createDelete(User::class) {</span>
-<span class="nc" id="L88">                where(table.id eq id)</span>
-<span class="nc" id="L89">                disableDissociation()</span>
-<span class="nc" id="L90">            }.execute()</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L87">        sql</span>
+<span class="nc" id="L88">            .createDelete(User::class) {</span>
+<span class="nc" id="L89">                where(table.id eq id)</span>
+<span class="nc" id="L90">                disableDissociation()</span>
+<span class="nc" id="L91">            }.execute()</span>
+<span class="nc" id="L92">    }</span>
 
     /** 刷新持久化上下文 */
-<span class="nc" id="L94">    override fun flush() = Unit</span>
+<span class="nc" id="L95">    override fun flush() = Unit</span>
 
     /** 根据账号查找用户及角色列表 */
     override fun findByAccountWithRoles(account: String): User? {
-<span class="fc" id="L98">        val found =</span>
-<span class="pc bpc" id="L99" title="3 of 6 branches missed.">            findByUsername(account)</span>
-<span class="fc" id="L100">                ?: findByPhone(account)</span>
-<span class="nc" id="L101">                ?: findByEmail(account)</span>
-<span class="nc" id="L102">                ?: return null</span>
+<span class="fc" id="L99">        val found =</span>
+<span class="pc bpc" id="L100" title="3 of 6 branches missed.">            findByUsername(account)</span>
+<span class="fc" id="L101">                ?: findByPhone(account)</span>
+<span class="nc" id="L102">                ?: findByEmail(account)</span>
+<span class="nc" id="L103">                ?: return null</span>
 
-<span class="fc" id="L104">        val enabledRoles = found.roles.filter { it.enabled == true }</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (enabledRoles.isEmpty()) {</span>
-<span class="nc" id="L106">            return null</span>
+<span class="fc" id="L105">        val enabledRoles = found.roles.filter { it.enabled == true }</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (enabledRoles.isEmpty()) {</span>
+<span class="nc" id="L107">            return null</span>
         }
-<span class="fc" id="L108">        val userWithEnabledRoles =</span>
-<span class="fc" id="L109">            User(found) {</span>
-<span class="fc" id="L110">                roles().clear()</span>
-<span class="fc" id="L111">                enabledRoles.forEach { role -&gt;</span>
-<span class="fc" id="L112">                    roles().addBy {</span>
-<span class="fc" id="L113">                        id = role.id</span>
-<span class="fc" id="L114">                        code = role.code</span>
-<span class="fc" id="L115">                        name = role.name</span>
-<span class="fc" id="L116">                        enabled = role.enabled</span>
-<span class="fc" id="L117">                    }</span>
-<span class="fc" id="L118">                }</span>
-<span class="fc" id="L119">            }</span>
-<span class="fc" id="L120">        return userWithEnabledRoles</span>
+<span class="fc" id="L109">        val userWithEnabledRoles =</span>
+<span class="fc" id="L110">            User(found) {</span>
+<span class="fc" id="L111">                roles().clear()</span>
+<span class="fc" id="L112">                enabledRoles.forEach { role -&gt;</span>
+<span class="fc" id="L113">                    roles().addBy {</span>
+<span class="fc" id="L114">                        id = role.id</span>
+<span class="fc" id="L115">                        code = role.code</span>
+<span class="fc" id="L116">                        name = role.name</span>
+<span class="fc" id="L117">                        enabled = role.enabled</span>
+<span class="fc" id="L118">                    }</span>
+<span class="fc" id="L119">                }</span>
+<span class="fc" id="L120">            }</span>
+<span class="fc" id="L121">        return userWithEnabledRoles</span>
     }
 
     /** 根据用户名查找用户 */
     private fun findByUsername(account: String): User? =
-<span class="fc" id="L125">        sql</span>
-<span class="fc" id="L126">            .createQuery(User::class) {</span>
-<span class="fc" id="L127">                where(table.username eq account)</span>
-<span class="fc" id="L128">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L129">            }.execute()</span>
-<span class="fc" id="L130">            .firstOrNull()</span>
+<span class="fc" id="L126">        sql</span>
+<span class="fc" id="L127">            .createQuery(User::class) {</span>
+<span class="fc" id="L128">                where(table.username eq account)</span>
+<span class="fc" id="L129">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L130">            }.execute()</span>
+<span class="fc" id="L131">            .firstOrNull()</span>
 
     /** 根据手机查找用户 */
     private fun findByPhone(account: String): User? =
-<span class="fc" id="L134">        sql</span>
-<span class="fc" id="L135">            .createQuery(User::class) {</span>
-<span class="fc" id="L136">                where(table.phone eq account)</span>
-<span class="fc" id="L137">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L138">            }.execute()</span>
-<span class="fc" id="L139">            .firstOrNull()</span>
+<span class="fc" id="L135">        sql</span>
+<span class="fc" id="L136">            .createQuery(User::class) {</span>
+<span class="fc" id="L137">                where(table.phone eq account)</span>
+<span class="fc" id="L138">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L139">            }.execute()</span>
+<span class="fc" id="L140">            .firstOrNull()</span>
 
     /** 根据邮箱查找用户 */
     private fun findByEmail(account: String): User? =
-<span class="nc" id="L143">        sql</span>
-<span class="nc" id="L144">            .createQuery(User::class) {</span>
-<span class="nc" id="L145">                where(table.email eq account)</span>
-<span class="nc" id="L146">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="nc" id="L147">            }.execute()</span>
-<span class="nc" id="L148">            .firstOrNull()</span>
-
-    /** 安全读取主键 */
-<span class="pc" id="L151">    private fun User?.readId(): Long? = readOrNull { id }</span>
+<span class="nc" id="L144">        sql</span>
+<span class="nc" id="L145">            .createQuery(User::class) {</span>
+<span class="nc" id="L146">                where(table.email eq account)</span>
+<span class="nc" id="L147">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="nc" id="L148">            }.execute()</span>
+<span class="nc" id="L149">            .firstOrNull()</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

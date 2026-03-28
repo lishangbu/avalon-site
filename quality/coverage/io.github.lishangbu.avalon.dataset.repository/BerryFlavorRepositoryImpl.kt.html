@@ -3,55 +3,56 @@
 import io.github.lishangbu.avalon.dataset.entity.BerryFlavor
 import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorSpecification
 import io.github.lishangbu.avalon.dataset.entity.id
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.stereotype.Repository
 
-<span class="fc" id="L11">@Repository</span>
-<span class="fc" id="L12">class BerryFlavorRepositoryImpl(</span>
+<span class="fc" id="L12">@Repository</span>
+<span class="fc" id="L13">class BerryFlavorRepositoryImpl(</span>
     /** Jimmer SQL 客户端 */
-<span class="fc" id="L14">    private val sql: KSqlClient,</span>
+<span class="fc" id="L15">    private val sql: KSqlClient,</span>
 ) : BerryFlavorRepository {
     /** 查询全部树果风味列表 */
     override fun findAll(): List&lt;BerryFlavor&gt; =
-<span class="fc" id="L18">        sql</span>
-<span class="fc" id="L19">            .createQuery(BerryFlavor::class) {</span>
-<span class="fc" id="L20">                select(table)</span>
-<span class="fc" id="L21">            }.execute()</span>
+<span class="fc" id="L19">        sql</span>
+<span class="fc" id="L20">            .createQuery(BerryFlavor::class) {</span>
+<span class="fc" id="L21">                select(table)</span>
+<span class="fc" id="L22">            }.execute()</span>
 
     /** 按条件查询树果风味列表 */
     override fun findAll(specification: BerryFlavorSpecification?): List&lt;BerryFlavor&gt; =
-<span class="fc" id="L25">        sql</span>
-<span class="fc" id="L26">            .createQuery(BerryFlavor::class) {</span>
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="fc" id="L28">                select(table)</span>
-<span class="fc" id="L29">            }.execute()</span>
+<span class="fc" id="L26">        sql</span>
+<span class="fc" id="L27">            .createQuery(BerryFlavor::class) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="fc" id="L29">                select(table)</span>
+<span class="fc" id="L30">            }.execute()</span>
 
     /** 按 ID 查询树果风味 */
-<span class="fc" id="L32">    override fun findById(id: Long): BerryFlavor? = sql.findById(BerryFlavor::class, id)</span>
+<span class="fc" id="L33">    override fun findById(id: Long): BerryFlavor? = sql.findById(BerryFlavor::class, id)</span>
 
     /** 保存树果风味 */
     override fun save(berryFlavor: BerryFlavor): BerryFlavor =
-<span class="fc" id="L36">        sql</span>
-<span class="fc" id="L37">            .save(berryFlavor) {</span>
-<span class="fc bfc" id="L38" title="All 4 branches covered.">                val mode = berryFlavor.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
-<span class="fc" id="L39">                setMode(mode)</span>
-<span class="fc" id="L40">            }.modifiedEntity</span>
+<span class="fc" id="L37">        sql</span>
+<span class="fc" id="L38">            .save(berryFlavor) {</span>
+<span class="fc bfc" id="L39" title="All 4 branches covered.">                val mode = berryFlavor.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L40">                setMode(mode)</span>
+<span class="fc" id="L41">            }.modifiedEntity</span>
 
     /** 保存树果风味并立即刷新 */
-<span class="fc" id="L43">    override fun saveAndFlush(berryFlavor: BerryFlavor): BerryFlavor = save(berryFlavor)</span>
+<span class="fc" id="L44">    override fun saveAndFlush(berryFlavor: BerryFlavor): BerryFlavor = save(berryFlavor)</span>
 
     /** 按 ID 删除树果风味 */
     override fun deleteById(id: Long) {
-<span class="fc" id="L47">        sql</span>
-<span class="fc" id="L48">            .createDelete(BerryFlavor::class) {</span>
-<span class="fc" id="L49">                where(table.id eq id)</span>
-<span class="fc" id="L50">                disableDissociation()</span>
-<span class="fc" id="L51">            }.execute()</span>
-<span class="fc" id="L52">    }</span>
+<span class="fc" id="L48">        sql</span>
+<span class="fc" id="L49">            .createDelete(BerryFlavor::class) {</span>
+<span class="fc" id="L50">                where(table.id eq id)</span>
+<span class="fc" id="L51">                disableDissociation()</span>
+<span class="fc" id="L52">            }.execute()</span>
+<span class="fc" id="L53">    }</span>
 
     /** 刷新持久化上下文 */
-<span class="fc" id="L55">    override fun flush() = Unit</span>
+<span class="fc" id="L56">    override fun flush() = Unit</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

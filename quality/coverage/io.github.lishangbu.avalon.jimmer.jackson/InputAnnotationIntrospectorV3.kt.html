@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InputAnnotationIntrospectorV3.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.jimmer.jackson</a> &gt; <span class="el_source">InputAnnotationIntrospectorV3.kt</span></div><h1>InputAnnotationIntrospectorV3.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.jimmer.jackson
+
+import org.babyfish.jimmer.Input
+import tools.jackson.core.Version
+import tools.jackson.databind.AnnotationIntrospector
+import tools.jackson.databind.annotation.JsonPOJOBuilder
+import tools.jackson.databind.cfg.MapperConfig
+import tools.jackson.databind.introspect.AnnotatedClass
+
+/**
+ * 为 Jimmer KSP 生成的 Input DTO 补充 Jackson 3 的 Builder 发现能力。
+ *
+ * 这些 DTO 仍然生成了 `com.fasterxml.jackson.*` 注解，运行在 `tools.jackson.*`
+ * 时无法自动识别，因此这里按 Jimmer Input 的约定补齐 Builder 元数据。
+ */
+<span class="fc" id="L16">class InputAnnotationIntrospectorV3 : AnnotationIntrospector() {</span>
+    override fun version(): Version =
+<span class="nc" id="L18">        Version(</span>
+<span class="nc" id="L19">            1,</span>
+<span class="nc" id="L20">            0,</span>
+<span class="nc" id="L21">            0,</span>
+<span class="nc" id="L22">            null,</span>
+<span class="nc" id="L23">            &quot;io.github.lishangbu.avalon&quot;,</span>
+<span class="nc" id="L24">            &quot;avalon-jimmer&quot;,</span>
+<span class="nc" id="L25">        )</span>
+
+    override fun findPOJOBuilder(
+        config: MapperConfig&lt;*&gt;?,
+        ac: AnnotatedClass,
+    ): Class&lt;*&gt;? {
+<span class="fc" id="L31">        val inputType = ac.annotated</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (!Input::class.java.isAssignableFrom(inputType)) {</span>
+<span class="fc" id="L33">            return super.findPOJOBuilder(config, ac)</span>
+        }
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        return inputType.declaredClasses.firstOrNull { it.simpleName == &quot;Builder&quot; }</span>
+<span class="nc" id="L36">            ?: super.findPOJOBuilder(config, ac)</span>
+    }
+
+    override fun findPOJOBuilderConfig(
+        config: MapperConfig&lt;*&gt;?,
+        ac: AnnotatedClass,
+    ): JsonPOJOBuilder.Value? {
+<span class="fc" id="L43">        val declaringType = ac.annotated.declaringClass</span>
+<span class="pc bpc" id="L44" title="2 of 4 branches missed.">        if (declaringType != null &amp;&amp; Input::class.java.isAssignableFrom(declaringType)) {</span>
+<span class="fc" id="L45">            return JsonPOJOBuilder.Value(&quot;build&quot;, &quot;&quot;)</span>
+        }
+<span class="nc" id="L47">        return super.findPOJOBuilderConfig(config, ac)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

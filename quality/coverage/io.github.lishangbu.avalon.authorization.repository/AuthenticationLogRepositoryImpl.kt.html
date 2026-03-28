@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthenticationLogRepositoryImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">AuthenticationLogRepositoryImpl.kt</span></div><h1>AuthenticationLogRepositoryImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
 
 import io.github.lishangbu.avalon.authorization.entity.AuthenticationLog
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.springframework.stereotype.Repository
 
-<span class="fc" id="L8">@Repository</span>
-<span class="fc" id="L9">class AuthenticationLogRepositoryImpl(</span>
+<span class="fc" id="L9">@Repository</span>
+<span class="fc" id="L10">class AuthenticationLogRepositoryImpl(</span>
     /** Jimmer SQL 客户端 */
-<span class="fc" id="L11">    private val sql: KSqlClient,</span>
+<span class="fc" id="L12">    private val sql: KSqlClient,</span>
 ) : AuthenticationLogRepository {
     /** 保存认证日志 */
     override fun save(authenticationLog: AuthenticationLog): AuthenticationLog =
-<span class="fc" id="L15">        sql</span>
-<span class="fc" id="L16">            .save(authenticationLog) {</span>
-<span class="pc bpc" id="L17" title="2 of 4 branches missed.">                val mode = authenticationLog.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
-<span class="fc" id="L18">                setMode(mode)</span>
-<span class="fc" id="L19">            }.modifiedEntity</span>
+<span class="fc" id="L16">        sql</span>
+<span class="fc" id="L17">            .save(authenticationLog) {</span>
+<span class="pc bpc" id="L18" title="2 of 4 branches missed.">                val mode = authenticationLog.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L19">                setMode(mode)</span>
+<span class="fc" id="L20">            }.modifiedEntity</span>
 
     /** 保存认证日志并立即刷新 */
-<span class="fc" id="L22">    override fun saveAndFlush(authenticationLog: AuthenticationLog): AuthenticationLog = save(authenticationLog)</span>
+<span class="fc" id="L23">    override fun saveAndFlush(authenticationLog: AuthenticationLog): AuthenticationLog = save(authenticationLog)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

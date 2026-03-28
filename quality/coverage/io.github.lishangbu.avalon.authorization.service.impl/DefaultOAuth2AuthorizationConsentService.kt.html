@@ -72,31 +72,29 @@ import org.springframework.stereotype.Service
         }
 
 <span class="fc" id="L74">        val builder = OAuth2AuthorizationConsent.withId(registeredClientId, principalName)</span>
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (oauthAuthorizationConsent.authorities != null) {</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">            for (authority in oauthAuthorizationConsent.authorities.toCommaDelimitedSet()) {</span>
-<span class="fc" id="L77">                builder.authority(SimpleGrantedAuthority(authority))</span>
-            }
-        }
+<span class="fc" id="L75">        oauthAuthorizationConsent.authorities</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">            ?.splitToSequence(',')</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            ?.forEach { authority -&gt; builder.authority(SimpleGrantedAuthority(authority)) }</span>
 
-<span class="fc" id="L81">        return builder.build()</span>
+<span class="fc" id="L79">        return builder.build()</span>
     }
 
     /** 返回转换为实体 */
     private fun toEntity(authorizationConsent: OAuth2AuthorizationConsent): OauthAuthorizationConsent {
-<span class="fc" id="L86">        val authorities: MutableSet&lt;String&gt; = linkedSetOf()</span>
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (authority: GrantedAuthority in authorizationConsent.authorities) {</span>
-<span class="fc" id="L88">            val authorityValue = authority.authority</span>
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">            if (authorityValue != null) {</span>
-<span class="fc" id="L90">                authorities.add(authorityValue)</span>
+<span class="fc" id="L84">        val authorities: MutableSet&lt;String&gt; = linkedSetOf()</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (authority: GrantedAuthority in authorizationConsent.authorities) {</span>
+<span class="fc" id="L86">            val authorityValue = authority.authority</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (authorityValue != null) {</span>
+<span class="fc" id="L88">                authorities.add(authorityValue)</span>
             }
         }
-<span class="fc" id="L93">        return OauthAuthorizationConsent {</span>
-<span class="fc" id="L94">            id {</span>
-<span class="fc" id="L95">                registeredClientId = authorizationConsent.registeredClientId</span>
-<span class="fc" id="L96">                principalName = authorizationConsent.principalName</span>
-<span class="fc" id="L97">            }</span>
-<span class="fc" id="L98">            this.authorities = authorities.joinToCommaDelimitedString()</span>
-<span class="fc" id="L99">        }</span>
+<span class="fc" id="L91">        return OauthAuthorizationConsent {</span>
+<span class="fc" id="L92">            id {</span>
+<span class="fc" id="L93">                registeredClientId = authorizationConsent.registeredClientId</span>
+<span class="fc" id="L94">                principalName = authorizationConsent.principalName</span>
+<span class="fc" id="L95">            }</span>
+<span class="fc" id="L96">            this.authorities = authorities.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L97">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

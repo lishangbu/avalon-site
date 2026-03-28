@@ -68,11 +68,11 @@ import java.time.temporal.ChronoUnit
      * @return 对象
      */
     private fun toObject(client: OauthRegisteredClient): RegisteredClient {
-<span class="fc" id="L71">        val clientAuthenticationMethods = client.clientAuthenticationMethods.toCommaDelimitedSet()</span>
-<span class="fc" id="L72">        val authorizationGrantTypes = client.authorizationGrantTypes.toCommaDelimitedSet()</span>
-<span class="fc" id="L73">        val redirectUris = client.redirectUris.toCommaDelimitedSet()</span>
-<span class="fc" id="L74">        val postLogoutRedirectUris = client.postLogoutRedirectUris.toCommaDelimitedSet()</span>
-<span class="fc" id="L75">        val clientScopes = client.scopes.toCommaDelimitedSet()</span>
+<span class="fc" id="L71">        val clientAuthenticationMethods = readCommaDelimitedSet(client.clientAuthenticationMethods)</span>
+<span class="fc" id="L72">        val authorizationGrantTypes = readCommaDelimitedSet(client.authorizationGrantTypes)</span>
+<span class="fc" id="L73">        val redirectUris = readCommaDelimitedSet(client.redirectUris)</span>
+<span class="fc" id="L74">        val postLogoutRedirectUris = readCommaDelimitedSet(client.postLogoutRedirectUris)</span>
+<span class="fc" id="L75">        val clientScopes = readCommaDelimitedSet(client.scopes)</span>
 
 <span class="fc" id="L77">        val builder =</span>
             RegisteredClient
@@ -179,37 +179,37 @@ import java.time.temporal.ChronoUnit
 <span class="fc" id="L179">            clientSecret = registeredClient.clientSecret</span>
 <span class="fc" id="L180">            clientSecretExpiresAt = registeredClient.clientSecretExpiresAt</span>
 <span class="fc" id="L181">            clientName = registeredClient.clientName</span>
-<span class="fc" id="L182">            this.clientAuthenticationMethods =</span>
-<span class="fc" id="L183">                clientAuthenticationMethodValues.joinToCommaDelimitedString()</span>
-<span class="fc" id="L184">            this.authorizationGrantTypes = authorizationGrantTypeValues.joinToCommaDelimitedString()</span>
-<span class="fc" id="L185">            redirectUris = registeredClient.redirectUris.joinToCommaDelimitedString()</span>
-<span class="fc" id="L186">            postLogoutRedirectUris =</span>
-<span class="fc" id="L187">                registeredClient.postLogoutRedirectUris.joinToCommaDelimitedString()</span>
-<span class="fc" id="L188">            scopes = registeredClient.scopes.joinToCommaDelimitedString()</span>
+<span class="fc" id="L182">            this.clientAuthenticationMethods = clientAuthenticationMethodValues.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L183">            this.authorizationGrantTypes = authorizationGrantTypeValues.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L184">            redirectUris = registeredClient.redirectUris.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L185">            postLogoutRedirectUris = registeredClient.postLogoutRedirectUris.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L186">            scopes = registeredClient.scopes.joinToString(&quot;,&quot;)</span>
 
-<span class="pc bpc" id="L190" title="1 of 2 branches missed.">            requireProofKey = registeredClientSettings?.isRequireProofKey</span>
-<span class="fc" id="L191">            requireAuthorizationConsent =</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">                registeredClientSettings?.isRequireAuthorizationConsent</span>
-<span class="fc" id="L193">            tokenEndpointAuthenticationSigningAlgorithm =</span>
-<span class="fc bfc" id="L194" title="All 4 branches covered.">                registeredClientSettings?.tokenEndpointAuthenticationSigningAlgorithm?.name</span>
-<span class="pc bpc" id="L195" title="1 of 2 branches missed.">            jwkSetUrl = registeredClientSettings?.jwkSetUrl</span>
-<span class="pc bpc" id="L196" title="1 of 2 branches missed.">            x509CertificateSubjectDn = registeredClientSettings?.x509CertificateSubjectDN</span>
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">            requireProofKey = registeredClientSettings?.isRequireProofKey</span>
+<span class="fc" id="L189">            requireAuthorizationConsent =</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">                registeredClientSettings?.isRequireAuthorizationConsent</span>
+<span class="fc" id="L191">            tokenEndpointAuthenticationSigningAlgorithm =</span>
+<span class="fc bfc" id="L192" title="All 4 branches covered.">                registeredClientSettings?.tokenEndpointAuthenticationSigningAlgorithm?.name</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">            jwkSetUrl = registeredClientSettings?.jwkSetUrl</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">            x509CertificateSubjectDn = registeredClientSettings?.x509CertificateSubjectDN</span>
 
-<span class="pc bpc" id="L198" title="1 of 2 branches missed.">            reuseRefreshTokens = registeredClientTokenSettings?.isReuseRefreshTokens</span>
-<span class="fc" id="L199">            x509CertificateBoundAccessTokens =</span>
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                registeredClientTokenSettings?.isX509CertificateBoundAccessTokens</span>
-<span class="fc" id="L201">            authorizationCodeTimeToLive =</span>
-<span class="pc bpc" id="L202" title="2 of 4 branches missed.">                registeredClientTokenSettings?.authorizationCodeTimeToLive?.toString()</span>
-<span class="fc" id="L203">            accessTokenTimeToLive =</span>
-<span class="pc bpc" id="L204" title="2 of 4 branches missed.">                registeredClientTokenSettings?.accessTokenTimeToLive?.toString()</span>
-<span class="pc bpc" id="L205" title="2 of 4 branches missed.">            accessTokenFormat = registeredClientTokenSettings?.accessTokenFormat?.value</span>
-<span class="pc bpc" id="L206" title="2 of 4 branches missed.">            deviceCodeTimeToLive = registeredClientTokenSettings?.deviceCodeTimeToLive?.toString()</span>
-<span class="fc" id="L207">            refreshTokenTimeToLive =</span>
-<span class="pc bpc" id="L208" title="2 of 4 branches missed.">                registeredClientTokenSettings?.refreshTokenTimeToLive?.toString()</span>
-<span class="fc" id="L209">            idTokenSignatureAlgorithm =</span>
-<span class="pc bpc" id="L210" title="2 of 4 branches missed.">                registeredClientTokenSettings?.idTokenSignatureAlgorithm?.name</span>
-<span class="fc" id="L211">        }</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">            reuseRefreshTokens = registeredClientTokenSettings?.isReuseRefreshTokens</span>
+<span class="fc" id="L197">            x509CertificateBoundAccessTokens =</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">                registeredClientTokenSettings?.isX509CertificateBoundAccessTokens</span>
+<span class="fc" id="L199">            authorizationCodeTimeToLive =</span>
+<span class="pc bpc" id="L200" title="2 of 4 branches missed.">                registeredClientTokenSettings?.authorizationCodeTimeToLive?.toString()</span>
+<span class="fc" id="L201">            accessTokenTimeToLive =</span>
+<span class="pc bpc" id="L202" title="2 of 4 branches missed.">                registeredClientTokenSettings?.accessTokenTimeToLive?.toString()</span>
+<span class="pc bpc" id="L203" title="2 of 4 branches missed.">            accessTokenFormat = registeredClientTokenSettings?.accessTokenFormat?.value</span>
+<span class="pc bpc" id="L204" title="2 of 4 branches missed.">            deviceCodeTimeToLive = registeredClientTokenSettings?.deviceCodeTimeToLive?.toString()</span>
+<span class="fc" id="L205">            refreshTokenTimeToLive =</span>
+<span class="pc bpc" id="L206" title="2 of 4 branches missed.">                registeredClientTokenSettings?.refreshTokenTimeToLive?.toString()</span>
+<span class="fc" id="L207">            idTokenSignatureAlgorithm =</span>
+<span class="pc bpc" id="L208" title="2 of 4 branches missed.">                registeredClientTokenSettings?.idTokenSignatureAlgorithm?.name</span>
+<span class="fc" id="L209">        }</span>
     }
+
+<span class="fc bfc" id="L212" title="All 6 branches covered.">    private fun readCommaDelimitedSet(value: String?): LinkedHashSet&lt;String&gt; = value?.splitToSequence(',')?.toCollection(linkedSetOf()) ?: linkedSetOf()</span>
 
     companion object {
         /**

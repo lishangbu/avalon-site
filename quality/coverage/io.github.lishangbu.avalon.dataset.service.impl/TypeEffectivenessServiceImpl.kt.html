@@ -48,12 +48,12 @@ import java.util.Locale
 <span class="fc" id="L48">                    TypeEffectivenessMatchup(</span>
 <span class="fc" id="L49">                        defendingType = evaluation.defending.apiView,</span>
 <span class="fc" id="L50">                        multiplier = TypeEffectivenessMultiplierCodec.decode(evaluation.multiplierPercent),</span>
-<span class="fc" id="L51">                        status = evaluation.multiplierPercent.toCellStatus(),</span>
+<span class="fc" id="L51">                        status = cellStatusOf(evaluation.multiplierPercent),</span>
 <span class="fc" id="L52">                    )</span>
                 },
 <span class="fc" id="L54">            finalMultiplier = TypeEffectivenessMultiplierCodec.decode(finalMultiplierPercent),</span>
 <span class="fc bfc" id="L55" title="All 2 branches covered.">            status = if (finalMultiplierPercent == null) STATUS_INCOMPLETE else STATUS_COMPLETE,</span>
-<span class="fc" id="L56">            effectiveness = finalMultiplierPercent.toEffectiveness(),</span>
+<span class="fc" id="L56">            effectiveness = effectivenessOf(finalMultiplierPercent),</span>
         )
     }
 
@@ -100,7 +100,7 @@ import java.util.Locale
 <span class="fc" id="L100">                            TypeEffectivenessCell(</span>
 <span class="fc" id="L101">                                defendingType = defending.apiView,</span>
 <span class="fc" id="L102">                                multiplier = TypeEffectivenessMultiplierCodec.decode(multiplierPercent),</span>
-<span class="fc" id="L103">                                status = multiplierPercent.toCellStatus(),</span>
+<span class="fc" id="L103">                                status = cellStatusOf(multiplierPercent),</span>
 <span class="fc" id="L104">                            )</span>
                         },
 <span class="fc" id="L106">                )</span>
@@ -192,45 +192,50 @@ import java.util.Locale
         )
     }
 
-<span class="fc bfc" id="L195" title="All 2 branches covered.">    private fun Int?.toCellStatus(): String = if (this == null) STATUS_MISSING else STATUS_CONFIGURED</span>
+    private fun cellStatusOf(multiplierPercent: Int?): String =
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        if (multiplierPercent == null) {</span>
+<span class="fc" id="L197">            STATUS_MISSING</span>
+        } else {
+<span class="fc" id="L199">            STATUS_CONFIGURED</span>
+<span class="fc" id="L200">        }</span>
 
-    private fun Int?.toEffectiveness(): String =
-<span class="fc" id="L198">        when {</span>
-<span class="fc bfc" id="L199" title="All 2 branches covered.">            this == null -&gt; EFFECTIVENESS_INCOMPLETE</span>
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">            this == 0 -&gt; EFFECTIVENESS_IMMUNE</span>
-<span class="fc bfc" id="L201" title="All 2 branches covered.">            this &lt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_NOT_VERY_EFFECTIVE</span>
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">            this &gt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_SUPER_EFFECTIVE</span>
-<span class="nc" id="L203">            else -&gt; EFFECTIVENESS_NORMAL_EFFECTIVE</span>
-<span class="fc" id="L204">        }</span>
+    private fun effectivenessOf(multiplierPercent: Int?): String =
+<span class="fc" id="L203">        when {</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">            multiplierPercent == null -&gt; EFFECTIVENESS_INCOMPLETE</span>
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">            multiplierPercent == 0 -&gt; EFFECTIVENESS_IMMUNE</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">            multiplierPercent &lt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_NOT_VERY_EFFECTIVE</span>
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">            multiplierPercent &gt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_SUPER_EFFECTIVE</span>
+<span class="nc" id="L208">            else -&gt; EFFECTIVENESS_NORMAL_EFFECTIVE</span>
+<span class="fc" id="L209">        }</span>
 
-<span class="fc" id="L206">    private data class MatchupEvaluation(</span>
-<span class="fc" id="L207">        val defending: SupportedTypeView,</span>
-<span class="fc" id="L208">        val multiplierPercent: Int?,</span>
+<span class="fc" id="L211">    private data class MatchupEvaluation(</span>
+<span class="fc" id="L212">        val defending: SupportedTypeView,</span>
+<span class="fc" id="L213">        val multiplierPercent: Int?,</span>
     )
 
-<span class="fc" id="L211">    private data class SupportedTypeView(</span>
-<span class="fc" id="L212">        val id: Long,</span>
-<span class="fc" id="L213">        val apiView: TypeEffectivenessTypeView,</span>
+<span class="fc" id="L216">    private data class SupportedTypeView(</span>
+<span class="fc" id="L217">        val id: Long,</span>
+<span class="fc" id="L218">        val apiView: TypeEffectivenessTypeView,</span>
     ) {
         val internalName: String
-<span class="fc" id="L216">            get() = apiView.internalName</span>
+<span class="fc" id="L221">            get() = apiView.internalName</span>
     }
 
-<span class="fc" id="L219">    private data class TypeEffectivenessContext(</span>
-<span class="fc" id="L220">        val supportedTypes: List&lt;SupportedTypeView&gt;,</span>
-<span class="pc" id="L221">        val typesByInternalName: Map&lt;String, SupportedTypeView&gt;,</span>
-<span class="fc" id="L222">        val storedMultipliers: Map&lt;Pair&lt;String, String&gt;, Int?&gt;,</span>
+<span class="fc" id="L224">    private data class TypeEffectivenessContext(</span>
+<span class="fc" id="L225">        val supportedTypes: List&lt;SupportedTypeView&gt;,</span>
+<span class="pc" id="L226">        val typesByInternalName: Map&lt;String, SupportedTypeView&gt;,</span>
+<span class="fc" id="L227">        val storedMultipliers: Map&lt;Pair&lt;String, String&gt;, Int?&gt;,</span>
     ) {
         fun requireType(
             internalName: String,
             fieldName: String,
-<span class="pc bpc" id="L227" title="1 of 2 branches missed.">        ): SupportedTypeView = requireNotNull(typesByInternalName[internalName]) { &quot;Unsupported $fieldName: $internalName&quot; }</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">        ): SupportedTypeView = requireNotNull(typesByInternalName[internalName]) { &quot;Unsupported $fieldName: $internalName&quot; }</span>
     }
 
-<span class="fc" id="L230">    private data class NormalizedMatrixCell(</span>
-<span class="fc" id="L231">        val attackingType: String,</span>
-<span class="fc" id="L232">        val defendingType: String,</span>
-<span class="fc" id="L233">        val multiplierPercent: Int?,</span>
+<span class="fc" id="L235">    private data class NormalizedMatrixCell(</span>
+<span class="fc" id="L236">        val attackingType: String,</span>
+<span class="fc" id="L237">        val defendingType: String,</span>
+<span class="fc" id="L238">        val multiplierPercent: Int?,</span>
     )
 
     private companion object {

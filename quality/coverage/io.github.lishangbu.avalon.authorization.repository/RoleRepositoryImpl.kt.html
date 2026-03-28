@@ -2,6 +2,7 @@
 
 import io.github.lishangbu.avalon.authorization.entity.*
 import io.github.lishangbu.avalon.authorization.entity.dto.RoleSpecification
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
 import org.babyfish.jimmer.Page
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.kt.KSqlClient
@@ -9,94 +10,91 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
-<span class="fc" id="L12">@Repository</span>
-<span class="fc" id="L13">class RoleRepositoryImpl(</span>
+<span class="fc" id="L13">@Repository</span>
+<span class="fc" id="L14">class RoleRepositoryImpl(</span>
     /** Jimmer SQL 客户端 */
-<span class="fc" id="L15">    private val sql: KSqlClient,</span>
+<span class="fc" id="L16">    private val sql: KSqlClient,</span>
 ) : RoleRepository {
     /** 按条件查询角色列表 */
     override fun findAll(specification: RoleSpecification?): List&lt;Role&gt; =
-<span class="nc" id="L19">        sql</span>
-<span class="nc" id="L20">            .createQuery(Role::class) {</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L22">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
-<span class="nc" id="L23">            }.execute()</span>
+<span class="nc" id="L20">        sql</span>
+<span class="nc" id="L21">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L23">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="nc" id="L24">            }.execute()</span>
 
     /** 按条件分页查询角色 */
     override fun findAll(
         specification: RoleSpecification?,
         pageable: Pageable,
     ): Page&lt;Role&gt; =
-<span class="nc" id="L30">        sql</span>
-<span class="nc" id="L31">            .createQuery(Role::class) {</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L33">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
-<span class="nc" id="L34">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="nc" id="L31">        sql</span>
+<span class="nc" id="L32">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L34">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="nc" id="L35">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按条件查询角色列表，并抓取菜单 */
     override fun findAllWithMenus(specification: RoleSpecification?): List&lt;Role&gt; =
-<span class="nc" id="L38">        sql</span>
-<span class="nc" id="L39">            .createQuery(Role::class) {</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L41">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
-<span class="nc" id="L42">            }.execute()</span>
+<span class="nc" id="L39">        sql</span>
+<span class="nc" id="L40">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L42">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="nc" id="L43">            }.execute()</span>
 
     /** 按条件分页查询角色，并抓取菜单 */
     override fun findAllWithMenus(
         specification: RoleSpecification?,
         pageable: Pageable,
     ): Page&lt;Role&gt; =
-<span class="nc" id="L49">        sql</span>
-<span class="nc" id="L50">            .createQuery(Role::class) {</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">                specification?.let { where(it) }</span>
-<span class="nc" id="L52">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
-<span class="nc" id="L53">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="nc" id="L50">        sql</span>
+<span class="nc" id="L51">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                specification?.let { where(it) }</span>
+<span class="nc" id="L53">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="nc" id="L54">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按 ID 查询角色 */
     override fun findById(id: Long): Role? =
-<span class="fc" id="L57">        sql</span>
-<span class="fc" id="L58">            .createQuery(Role::class) {</span>
-<span class="fc" id="L59">                where(table.id eq id)</span>
-<span class="fc" id="L60">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
-<span class="fc" id="L61">            }.execute()</span>
-<span class="fc" id="L62">            .firstOrNull()</span>
+<span class="fc" id="L58">        sql</span>
+<span class="fc" id="L59">            .createQuery(Role::class) {</span>
+<span class="fc" id="L60">                where(table.id eq id)</span>
+<span class="fc" id="L61">                select(table.fetch(AuthorizationFetchers.ROLE))</span>
+<span class="fc" id="L62">            }.execute()</span>
+<span class="fc" id="L63">            .firstOrNull()</span>
 
     /** 按 ID 查询角色，并抓取菜单 */
     override fun findByIdWithMenus(id: Long): Role? =
-<span class="fc" id="L66">        sql</span>
-<span class="fc" id="L67">            .createQuery(Role::class) {</span>
-<span class="fc" id="L68">                where(table.id eq id)</span>
-<span class="fc" id="L69">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
-<span class="fc" id="L70">            }.execute()</span>
-<span class="fc" id="L71">            .firstOrNull()</span>
+<span class="fc" id="L67">        sql</span>
+<span class="fc" id="L68">            .createQuery(Role::class) {</span>
+<span class="fc" id="L69">                where(table.id eq id)</span>
+<span class="fc" id="L70">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="fc" id="L71">            }.execute()</span>
+<span class="fc" id="L72">            .firstOrNull()</span>
 
     /** 按 ID 列表查询角色 */
-<span class="nc" id="L74">    override fun findAllById(ids: Iterable&lt;Long&gt;): List&lt;Role&gt; = ids.mapNotNull(::findById)</span>
+<span class="nc" id="L75">    override fun findAllById(ids: Iterable&lt;Long&gt;): List&lt;Role&gt; = ids.mapNotNull(::findById)</span>
 
     /** 保存角色 */
     override fun save(role: Role): Role =
-<span class="fc" id="L78">        sql</span>
-<span class="fc" id="L79">            .save(role) {</span>
-<span class="fc bfc" id="L80" title="All 4 branches covered.">                val mode = role.readId()?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
-<span class="fc" id="L81">                setMode(mode)</span>
-<span class="fc" id="L82">            }.modifiedEntity</span>
+<span class="fc" id="L79">        sql</span>
+<span class="fc" id="L80">            .save(role) {</span>
+<span class="fc bfc" id="L81" title="All 4 branches covered.">                val mode = role.readOrNull { id }?.let { SaveMode.UPSERT } ?: SaveMode.INSERT_ONLY</span>
+<span class="fc" id="L82">                setMode(mode)</span>
+<span class="fc" id="L83">            }.modifiedEntity</span>
 
     /** 保存角色并立即刷新 */
-<span class="nc" id="L85">    override fun saveAndFlush(role: Role): Role = save(role)</span>
+<span class="nc" id="L86">    override fun saveAndFlush(role: Role): Role = save(role)</span>
 
     /** 按 ID 删除角色 */
     override fun deleteById(id: Long) {
-<span class="fc" id="L89">        sql</span>
-<span class="fc" id="L90">            .createDelete(Role::class) {</span>
-<span class="fc" id="L91">                where(table.id eq id)</span>
-<span class="fc" id="L92">                disableDissociation()</span>
-<span class="fc" id="L93">            }.execute()</span>
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L90">        sql</span>
+<span class="fc" id="L91">            .createDelete(Role::class) {</span>
+<span class="fc" id="L92">                where(table.id eq id)</span>
+<span class="fc" id="L93">                disableDissociation()</span>
+<span class="fc" id="L94">            }.execute()</span>
+<span class="fc" id="L95">    }</span>
 
     /** 刷新持久化上下文 */
-<span class="nc" id="L97">    override fun flush() = Unit</span>
-
-    /** 安全读取主键 */
-<span class="fc" id="L100">    private fun Role?.readId(): Long? = readOrNull { id }</span>
+<span class="nc" id="L98">    override fun flush() = Unit</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
