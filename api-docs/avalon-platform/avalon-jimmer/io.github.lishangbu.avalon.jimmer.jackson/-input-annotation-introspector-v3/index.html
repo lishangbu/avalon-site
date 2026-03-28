@@ -1,0 +1,1210 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>InputAnnotationIntrospectorV3</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-platform:avalon-jimmer/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-platform:avalon-jimmer/main" data-filter=":avalon-platform:avalon-jimmer/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-jimmer::io.github.lishangbu.avalon.jimmer.jackson/InputAnnotationIntrospectorV3///PointingToDeclaration//2124191567">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-jimmer</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.jimmer.jackson</a><span class="delimiter">/</span><span class="current">InputAnnotationIntrospectorV3</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Input</span><wbr><span>Annotation</span><wbr><span>Introspector</span><wbr><span><span>V3</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">InputAnnotationIntrospectorV3</a> : <span data-unresolved-link="tools.jackson.databind/AnnotationIntrospector///PointingToDeclaration/">AnnotationIntrospector</span></div><p class="paragraph">为 Jimmer KSP 生成的 Input DTO 补充 Jackson 3 的 Builder 发现能力。</p><p class="paragraph">这些 DTO 仍然生成了 <code class="lang-kotlin">com.fasterxml.jackson.*</code> 注解，运行在 <code class="lang-kotlin">tools.jackson.*</code> 时无法自动识别，因此这里按 Jimmer Input 的约定补齐 Builder 元数据。</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1065226651%2FConstructors%2F2124191567" anchor-label="InputAnnotationIntrospectorV3" id="-1065226651%2FConstructors%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-input-annotation-introspector-v3.html"><span>Input</span><wbr><span>Annotation</span><wbr><span>Introspector</span><wbr><span><span>V3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1065226651%2FConstructors%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-24058476%2FFunctions%2F2124191567" anchor-label="allIntrospectors" id="-24058476%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-245651419%2FFunctions%2F2124191567"><span>all</span><wbr><span><span>Introspectors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-24058476%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-245651419%2FFunctions%2F2124191567"><span class="token function">allIntrospectors</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind/AnnotationIntrospector///PointingToDeclaration/">AnnotationIntrospector</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-554713989%2FFunctions%2F2124191567"><span class="token function">allIntrospectors</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind/AnnotationIntrospector///PointingToDeclaration/">AnnotationIntrospector</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind/AnnotationIntrospector///PointingToDeclaration/">AnnotationIntrospector</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2121660143%2FFunctions%2F2124191567" anchor-label="findAndAddVirtualProperties" id="2121660143%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2121660143%2FFunctions%2F2124191567"><span>find</span><wbr><span>And</span><wbr><span>Add</span><wbr><span>Virtual</span><wbr><span><span>Properties</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2121660143%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2121660143%2FFunctions%2F2124191567"><span class="token function">findAndAddVirtualProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">properties<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind.ser/BeanPropertyWriter///PointingToDeclaration/">BeanPropertyWriter</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1357187645%2FFunctions%2F2124191567" anchor-label="findAutoDetectVisibility" id="1357187645%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1357187645%2FFunctions%2F2124191567"><span>find</span><wbr><span>Auto</span><wbr><span>Detect</span><wbr><span><span>Visibility</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1357187645%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1357187645%2FFunctions%2F2124191567"><span class="token function">findAutoDetectVisibility</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">checker<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/VisibilityChecker///PointingToDeclaration/">VisibilityChecker</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/VisibilityChecker///PointingToDeclaration/">VisibilityChecker</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1653789440%2FFunctions%2F2124191567" anchor-label="findBuilderPrefix" id="1653789440%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1653789440%2FFunctions%2F2124191567"><span>find</span><wbr><span>Builder</span><wbr><span><span>Prefix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1653789440%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1653789440%2FFunctions%2F2124191567"><span class="token function">findBuilderPrefix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">valueClass<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-260700331%2FFunctions%2F2124191567" anchor-label="findClassDescription" id="-260700331%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-260700331%2FFunctions%2F2124191567"><span>find</span><wbr><span>Class</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-260700331%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-260700331%2FFunctions%2F2124191567"><span class="token function">findClassDescription</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1060619925%2FFunctions%2F2124191567" anchor-label="findContentDeserializer" id="-1060619925%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1060619925%2FFunctions%2F2124191567"><span>find</span><wbr><span>Content</span><wbr><span><span>Deserializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1060619925%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1060619925%2FFunctions%2F2124191567"><span class="token function">findContentDeserializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-396436404%2FFunctions%2F2124191567" anchor-label="findContentSerializer" id="-396436404%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-396436404%2FFunctions%2F2124191567"><span>find</span><wbr><span>Content</span><wbr><span><span>Serializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-396436404%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-396436404%2FFunctions%2F2124191567"><span class="token function">findContentSerializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1891251012%2FFunctions%2F2124191567" anchor-label="findCreatorAnnotation" id="-1891251012%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1891251012%2FFunctions%2F2124191567"><span>find</span><wbr><span>Creator</span><wbr><span><span>Annotation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1891251012%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1891251012%2FFunctions%2F2124191567"><span class="token function">findCreatorAnnotation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonCreator.Mode///PointingToDeclaration/">JsonCreator.Mode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1427085743%2FFunctions%2F2124191567" anchor-label="findDefaultEnumValue" id="-1427085743%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1427085743%2FFunctions%2F2124191567"><span>find</span><wbr><span>Default</span><wbr><span>Enum</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1427085743%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1427085743%2FFunctions%2F2124191567"><span class="token function">findDefaultEnumValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">enumValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1578813113%2FFunctions%2F2124191567" anchor-label="findDeserializationContentConverter" id="-1578813113%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1578813113%2FFunctions%2F2124191567"><span>find</span><wbr><span>Deserialization</span><wbr><span>Content</span><wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1578813113%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1578813113%2FFunctions%2F2124191567"><span class="token function">findDeserializationContentConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1127036008%2FFunctions%2F2124191567" anchor-label="findDeserializationConverter" id="1127036008%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1127036008%2FFunctions%2F2124191567"><span>find</span><wbr><span>Deserialization</span><wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1127036008%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1127036008%2FFunctions%2F2124191567"><span class="token function">findDeserializationConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1514080730%2FFunctions%2F2124191567" anchor-label="findDeserializer" id="-1514080730%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1514080730%2FFunctions%2F2124191567"><span>find</span><wbr><span><span>Deserializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1514080730%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1514080730%2FFunctions%2F2124191567"><span class="token function">findDeserializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1310335642%2FFunctions%2F2124191567" anchor-label="findEnumAliases" id="-1310335642%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1310335642%2FFunctions%2F2124191567"><span>find</span><wbr><span>Enum</span><wbr><span><span>Aliases</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1310335642%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1310335642%2FFunctions%2F2124191567"><span class="token function">findEnumAliases</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">annotatedClass<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">enumValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">aliases<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1914073171%2FFunctions%2F2124191567" anchor-label="findEnumNamingStrategy" id="-1914073171%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1914073171%2FFunctions%2F2124191567"><span>find</span><wbr><span>Enum</span><wbr><span>Naming</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1914073171%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1914073171%2FFunctions%2F2124191567"><span class="token function">findEnumNamingStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-319123342%2FFunctions%2F2124191567" anchor-label="findEnumValues" id="-319123342%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-319123342%2FFunctions%2F2124191567"><span>find</span><wbr><span>Enum</span><wbr><span><span>Values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-319123342%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-319123342%2FFunctions%2F2124191567"><span class="token function">findEnumValues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">annotatedClass<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">enumValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="132888774%2FFunctions%2F2124191567" anchor-label="findFilterId" id="132888774%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#132888774%2FFunctions%2F2124191567"><span>find</span><wbr><span>Filter</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="132888774%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#132888774%2FFunctions%2F2124191567"><span class="token function">findFilterId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1555763390%2FFunctions%2F2124191567" anchor-label="findFormat" id="-1555763390%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1555763390%2FFunctions%2F2124191567"><span>find</span><wbr><span><span>Format</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1555763390%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1555763390%2FFunctions%2F2124191567"><span class="token function">findFormat</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">memberOrClass<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonFormat.Value///PointingToDeclaration/">JsonFormat.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1713640198%2FFunctions%2F2124191567" anchor-label="findImplicitPropertyName" id="-1713640198%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1713640198%2FFunctions%2F2124191567"><span>find</span><wbr><span>Implicit</span><wbr><span>Property</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1713640198%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1713640198%2FFunctions%2F2124191567"><span class="token function">findImplicitPropertyName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1602991145%2FFunctions%2F2124191567" anchor-label="findInjectableValue" id="-1602991145%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1602991145%2FFunctions%2F2124191567"><span>find</span><wbr><span>Injectable</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1602991145%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1602991145%2FFunctions%2F2124191567"><span class="token function">findInjectableValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JacksonInject.Value///PointingToDeclaration/">JacksonInject.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1598687045%2FFunctions%2F2124191567" anchor-label="findKeyDeserializer" id="1598687045%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1598687045%2FFunctions%2F2124191567"><span>find</span><wbr><span>Key</span><wbr><span><span>Deserializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1598687045%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1598687045%2FFunctions%2F2124191567"><span class="token function">findKeyDeserializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-456238938%2FFunctions%2F2124191567" anchor-label="findKeySerializer" id="-456238938%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-456238938%2FFunctions%2F2124191567"><span>find</span><wbr><span>Key</span><wbr><span><span>Serializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-456238938%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-456238938%2FFunctions%2F2124191567"><span class="token function">findKeySerializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-10008623%2FFunctions%2F2124191567" anchor-label="findMergeInfo" id="-10008623%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-10008623%2FFunctions%2F2124191567"><span>find</span><wbr><span>Merge</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-10008623%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-10008623%2FFunctions%2F2124191567"><span class="token function">findMergeInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2032789256%2FFunctions%2F2124191567" anchor-label="findNameForDeserialization" id="2032789256%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2032789256%2FFunctions%2F2124191567"><span>find</span><wbr><span>Name</span><wbr><span>For</span><wbr><span><span>Deserialization</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2032789256%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2032789256%2FFunctions%2F2124191567"><span class="token function">findNameForDeserialization</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="445204935%2FFunctions%2F2124191567" anchor-label="findNameForSerialization" id="445204935%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#445204935%2FFunctions%2F2124191567"><span>find</span><wbr><span>Name</span><wbr><span>For</span><wbr><span><span>Serialization</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="445204935%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#445204935%2FFunctions%2F2124191567"><span class="token function">findNameForSerialization</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2047834700%2FFunctions%2F2124191567" anchor-label="findNamingStrategy" id="2047834700%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2047834700%2FFunctions%2F2124191567"><span>find</span><wbr><span>Naming</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2047834700%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2047834700%2FFunctions%2F2124191567"><span class="token function">findNamingStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1867894656%2FFunctions%2F2124191567" anchor-label="findNullSerializer" id="1867894656%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1867894656%2FFunctions%2F2124191567"><span>find</span><wbr><span>Null</span><wbr><span><span>Serializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1867894656%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1867894656%2FFunctions%2F2124191567"><span class="token function">findNullSerializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="44859857%2FFunctions%2F2124191567" anchor-label="findObjectIdInfo" id="44859857%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#44859857%2FFunctions%2F2124191567"><span>find</span><wbr><span>Object</span><wbr><span>Id</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="44859857%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#44859857%2FFunctions%2F2124191567"><span class="token function">findObjectIdInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/ObjectIdInfo///PointingToDeclaration/">ObjectIdInfo</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1376110258%2FFunctions%2F2124191567" anchor-label="findObjectReferenceInfo" id="1376110258%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1376110258%2FFunctions%2F2124191567"><span>find</span><wbr><span>Object</span><wbr><span>Reference</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376110258%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1376110258%2FFunctions%2F2124191567"><span class="token function">findObjectReferenceInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">objectIdInfo<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/ObjectIdInfo///PointingToDeclaration/">ObjectIdInfo</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/ObjectIdInfo///PointingToDeclaration/">ObjectIdInfo</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="910323417%2FFunctions%2F2124191567" anchor-label="findPOJOBuilder" id="910323417%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-p-o-j-o-builder.html"><span>find</span><wbr><span><span>POJOBuilder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="910323417%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-p-o-j-o-builder.html"><span class="token function">findPOJOBuilder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1982278839%2FFunctions%2F2124191567" anchor-label="findPOJOBuilderConfig" id="1982278839%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-p-o-j-o-builder-config.html"><span>find</span><wbr><span>POJOBuilder</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1982278839%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="find-p-o-j-o-builder-config.html"><span class="token function">findPOJOBuilderConfig</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.annotation/JsonPOJOBuilder.Value///PointingToDeclaration/">JsonPOJOBuilder.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="876120857%2FFunctions%2F2124191567" anchor-label="findPolymorphicTypeInfo" id="876120857%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#876120857%2FFunctions%2F2124191567"><span>find</span><wbr><span>Polymorphic</span><wbr><span>Type</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="876120857%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#876120857%2FFunctions%2F2124191567"><span class="token function">findPolymorphicTypeInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonTypeInfo.Value///PointingToDeclaration/">JsonTypeInfo.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2022151529%2FFunctions%2F2124191567" anchor-label="findPreferredCreator" id="-2022151529%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2022151529%2FFunctions%2F2124191567"><span>find</span><wbr><span>Preferred</span><wbr><span><span>Creator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2022151529%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-2022151529%2FFunctions%2F2124191567"><span class="token function">findPreferredCreator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">valueClass<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">declaredConstructors<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind.introspect/PotentialCreator///PointingToDeclaration/">PotentialCreator</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">declaredFactories<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind.introspect/PotentialCreator///PointingToDeclaration/">PotentialCreator</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">zeroParamsConstructor<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind.introspect/PotentialCreator///PointingToDeclaration/">PotentialCreator</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/PotentialCreator///PointingToDeclaration/">PotentialCreator</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-788530592%2FFunctions%2F2124191567" anchor-label="findPropertyAccess" id="-788530592%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-788530592%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span><span>Access</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-788530592%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-788530592%2FFunctions%2F2124191567"><span class="token function">findPropertyAccess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonProperty.Access///PointingToDeclaration/">JsonProperty.Access</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2031299534%2FFunctions%2F2124191567" anchor-label="findPropertyAliases" id="2031299534%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2031299534%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span><span>Aliases</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031299534%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2031299534%2FFunctions%2F2124191567"><span class="token function">findPropertyAliases</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="253357460%2FFunctions%2F2124191567" anchor-label="findPropertyDefaultValue" id="253357460%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#253357460%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span>Default</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="253357460%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#253357460%2FFunctions%2F2124191567"><span class="token function">findPropertyDefaultValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="930607376%2FFunctions%2F2124191567" anchor-label="findPropertyDescription" id="930607376%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#930607376%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930607376%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#930607376%2FFunctions%2F2124191567"><span class="token function">findPropertyDescription</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1535548916%2FFunctions%2F2124191567" anchor-label="findPropertyIgnoralByName" id="-1535548916%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1535548916%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span>Ignoral</span><wbr><span>By</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1535548916%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1535548916%2FFunctions%2F2124191567"><span class="token function">findPropertyIgnoralByName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonIgnoreProperties.Value///PointingToDeclaration/">JsonIgnoreProperties.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1386725136%2FFunctions%2F2124191567" anchor-label="findPropertyInclusion" id="-1386725136%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1386725136%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span><span>Inclusion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1386725136%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1386725136%2FFunctions%2F2124191567"><span class="token function">findPropertyInclusion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonInclude.Value///PointingToDeclaration/">JsonInclude.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="87058190%2FFunctions%2F2124191567" anchor-label="findPropertyInclusionByName" id="87058190%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#87058190%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span>Inclusion</span><wbr><span>By</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="87058190%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#87058190%2FFunctions%2F2124191567"><span class="token function">findPropertyInclusionByName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonIncludeProperties.Value///PointingToDeclaration/">JsonIncludeProperties.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1261127802%2FFunctions%2F2124191567" anchor-label="findPropertyIndex" id="1261127802%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1261127802%2FFunctions%2F2124191567"><span>find</span><wbr><span>Property</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1261127802%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1261127802%2FFunctions%2F2124191567"><span class="token function">findPropertyIndex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1472620952%2FFunctions%2F2124191567" anchor-label="findReferenceType" id="1472620952%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1472620952%2FFunctions%2F2124191567"><span>find</span><wbr><span>Reference</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1472620952%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1472620952%2FFunctions%2F2124191567"><span class="token function">findReferenceType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/AnnotationIntrospector.ReferenceProperty///PointingToDeclaration/">AnnotationIntrospector.ReferenceProperty</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1826877920%2FFunctions%2F2124191567" anchor-label="findRenameByField" id="-1826877920%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1826877920%2FFunctions%2F2124191567"><span>find</span><wbr><span>Rename</span><wbr><span>By</span><wbr><span><span>Field</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1826877920%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1826877920%2FFunctions%2F2124191567"><span class="token function">findRenameByField</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">f<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedField///PointingToDeclaration/">AnnotatedField</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">implName<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="411489022%2FFunctions%2F2124191567" anchor-label="findRootName" id="411489022%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#411489022%2FFunctions%2F2124191567"><span>find</span><wbr><span>Root</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="411489022%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#411489022%2FFunctions%2F2124191567"><span class="token function">findRootName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1592756934%2FFunctions%2F2124191567" anchor-label="findSerializationContentConverter" id="1592756934%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1592756934%2FFunctions%2F2124191567"><span>find</span><wbr><span>Serialization</span><wbr><span>Content</span><wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1592756934%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1592756934%2FFunctions%2F2124191567"><span class="token function">findSerializationContentConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1726046345%2FFunctions%2F2124191567" anchor-label="findSerializationConverter" id="1726046345%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1726046345%2FFunctions%2F2124191567"><span>find</span><wbr><span>Serialization</span><wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1726046345%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1726046345%2FFunctions%2F2124191567"><span class="token function">findSerializationConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1995698458%2FFunctions%2F2124191567" anchor-label="findSerializationPropertyOrder" id="1995698458%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1995698458%2FFunctions%2F2124191567"><span>find</span><wbr><span>Serialization</span><wbr><span>Property</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1995698458%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1995698458%2FFunctions%2F2124191567"><span class="token function">findSerializationPropertyOrder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="673880932%2FFunctions%2F2124191567" anchor-label="findSerializationSortAlphabetically" id="673880932%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#673880932%2FFunctions%2F2124191567"><span>find</span><wbr><span>Serialization</span><wbr><span>Sort</span><wbr><span><span>Alphabetically</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="673880932%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#673880932%2FFunctions%2F2124191567"><span class="token function">findSerializationSortAlphabetically</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1009468816%2FFunctions%2F2124191567" anchor-label="findSerializationTyping" id="-1009468816%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1009468816%2FFunctions%2F2124191567"><span>find</span><wbr><span>Serialization</span><wbr><span><span>Typing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1009468816%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1009468816%2FFunctions%2F2124191567"><span class="token function">findSerializationTyping</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.annotation/JsonSerialize.Typing///PointingToDeclaration/">JsonSerialize.Typing</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="742755271%2FFunctions%2F2124191567" anchor-label="findSerializer" id="742755271%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#742755271%2FFunctions%2F2124191567"><span>find</span><wbr><span><span>Serializer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="742755271%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#742755271%2FFunctions%2F2124191567"><span class="token function">findSerializer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">am<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1998088660%2FFunctions%2F2124191567" anchor-label="findSetterInfo" id="-1998088660%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1998088660%2FFunctions%2F2124191567"><span>find</span><wbr><span>Setter</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1998088660%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1998088660%2FFunctions%2F2124191567"><span class="token function">findSetterInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.fasterxml.jackson.annotation/JsonSetter.Value///PointingToDeclaration/">JsonSetter.Value</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-3172224%2FFunctions%2F2124191567" anchor-label="findSubtypes" id="-3172224%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-3172224%2FFunctions%2F2124191567"><span>find</span><wbr><span><span>Subtypes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-3172224%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-3172224%2FFunctions%2F2124191567"><span class="token function">findSubtypes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="tools.jackson.databind.jsontype/NamedType///PointingToDeclaration/">NamedType</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1439163234%2FFunctions%2F2124191567" anchor-label="findTypeIdResolver" id="-1439163234%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1439163234%2FFunctions%2F2124191567"><span>find</span><wbr><span>Type</span><wbr><span>Id</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1439163234%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1439163234%2FFunctions%2F2124191567"><span class="token function">findTypeIdResolver</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="982137174%2FFunctions%2F2124191567" anchor-label="findTypeName" id="982137174%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#982137174%2FFunctions%2F2124191567"><span>find</span><wbr><span>Type</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="982137174%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#982137174%2FFunctions%2F2124191567"><span class="token function">findTypeName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="90010460%2FFunctions%2F2124191567" anchor-label="findTypeResolverBuilder" id="90010460%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#90010460%2FFunctions%2F2124191567"><span>find</span><wbr><span>Type</span><wbr><span>Resolver</span><wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="90010460%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#90010460%2FFunctions%2F2124191567"><span class="token function">findTypeResolverBuilder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1840650684%2FFunctions%2F2124191567" anchor-label="findUnwrappingNameTransformer" id="-1840650684%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1840650684%2FFunctions%2F2124191567"><span>find</span><wbr><span>Unwrapping</span><wbr><span>Name</span><wbr><span><span>Transformer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1840650684%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1840650684%2FFunctions%2F2124191567"><span class="token function">findUnwrappingNameTransformer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.util/NameTransformer///PointingToDeclaration/">NameTransformer</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="498349954%2FFunctions%2F2124191567" anchor-label="findValueInstantiator" id="498349954%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#498349954%2FFunctions%2F2124191567"><span>find</span><wbr><span>Value</span><wbr><span><span>Instantiator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="498349954%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#498349954%2FFunctions%2F2124191567"><span class="token function">findValueInstantiator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="377422057%2FFunctions%2F2124191567" anchor-label="findViews" id="377422057%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#377422057%2FFunctions%2F2124191567"><span>find</span><wbr><span><span>Views</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="377422057%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#377422057%2FFunctions%2F2124191567"><span class="token function">findViews</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-311209895%2FFunctions%2F2124191567" anchor-label="findWrapperName" id="-311209895%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-311209895%2FFunctions%2F2124191567"><span>find</span><wbr><span>Wrapper</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-311209895%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-311209895%2FFunctions%2F2124191567"><span class="token function">findWrapperName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/PropertyName///PointingToDeclaration/">PropertyName</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="882622357%2FFunctions%2F2124191567" anchor-label="hasAnyGetter" id="882622357%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#882622357%2FFunctions%2F2124191567"><span>has</span><wbr><span>Any</span><wbr><span><span>Getter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="882622357%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#882622357%2FFunctions%2F2124191567"><span class="token function">hasAnyGetter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-859459167%2FFunctions%2F2124191567" anchor-label="hasAnySetter" id="-859459167%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-859459167%2FFunctions%2F2124191567"><span>has</span><wbr><span>Any</span><wbr><span><span>Setter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-859459167%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-859459167%2FFunctions%2F2124191567"><span class="token function">hasAnySetter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ann<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1468575775%2FFunctions%2F2124191567" anchor-label="hasAsKey" id="1468575775%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1468575775%2FFunctions%2F2124191567"><span>has</span><wbr><span>As</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1468575775%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1468575775%2FFunctions%2F2124191567"><span class="token function">hasAsKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="535558477%2FFunctions%2F2124191567" anchor-label="hasAsValue" id="535558477%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#535558477%2FFunctions%2F2124191567"><span>has</span><wbr><span>As</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="535558477%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#535558477%2FFunctions%2F2124191567"><span class="token function">hasAsValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-361264418%2FFunctions%2F2124191567" anchor-label="hasIgnoreMarker" id="-361264418%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-361264418%2FFunctions%2F2124191567"><span>has</span><wbr><span>Ignore</span><wbr><span><span>Marker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-361264418%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-361264418%2FFunctions%2F2124191567"><span class="token function">hasIgnoreMarker</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-571405839%2FFunctions%2F2124191567" anchor-label="hasRequiredMarker" id="-571405839%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-571405839%2FFunctions%2F2124191567"><span>has</span><wbr><span>Required</span><wbr><span><span>Marker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-571405839%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-571405839%2FFunctions%2F2124191567"><span class="token function">hasRequiredMarker</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1504913210%2FFunctions%2F2124191567" anchor-label="isAnnotationBundle" id="1504913210%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1504913210%2FFunctions%2F2124191567"><span>is</span><wbr><span>Annotation</span><wbr><span><span>Bundle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1504913210%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1504913210%2FFunctions%2F2124191567"><span class="token function">isAnnotationBundle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ann<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="290143945%2FFunctions%2F2124191567" anchor-label="isIgnorableType" id="290143945%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#290143945%2FFunctions%2F2124191567"><span>is</span><wbr><span>Ignorable</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="290143945%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#290143945%2FFunctions%2F2124191567"><span class="token function">isIgnorableType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">ac<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedClass///PointingToDeclaration/">AnnotatedClass</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-596529223%2FFunctions%2F2124191567" anchor-label="isTypeId" id="-596529223%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-596529223%2FFunctions%2F2124191567"><span>is</span><wbr><span>Type</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-596529223%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-596529223%2FFunctions%2F2124191567"><span class="token function">isTypeId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">member<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMember///PointingToDeclaration/">AnnotatedMember</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1087213648%2FFunctions%2F2124191567" anchor-label="refineDeserializationType" id="-1087213648%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1087213648%2FFunctions%2F2124191567"><span>refine</span><wbr><span>Deserialization</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1087213648%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1087213648%2FFunctions%2F2124191567"><span class="token function">refineDeserializationType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">baseType<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/JavaType///PointingToDeclaration/">JavaType</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/JavaType///PointingToDeclaration/">JavaType</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1725451281%2FFunctions%2F2124191567" anchor-label="refineSerializationType" id="-1725451281%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1725451281%2FFunctions%2F2124191567"><span>refine</span><wbr><span>Serialization</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1725451281%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1725451281%2FFunctions%2F2124191567"><span class="token function">refineSerializationType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">a<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/Annotated///PointingToDeclaration/">Annotated</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">baseType<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/JavaType///PointingToDeclaration/">JavaType</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind/JavaType///PointingToDeclaration/">JavaType</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1995269806%2FFunctions%2F2124191567" anchor-label="resolveSetterConflict" id="-1995269806%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1995269806%2FFunctions%2F2124191567"><span>resolve</span><wbr><span>Setter</span><wbr><span><span>Conflict</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1995269806%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1995269806%2FFunctions%2F2124191567"><span class="token function">resolveSetterConflict</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.cfg/MapperConfig///PointingToDeclaration/">MapperConfig</span><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">setter1<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMethod///PointingToDeclaration/">AnnotatedMethod</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">setter2<span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMethod///PointingToDeclaration/">AnnotatedMethod</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.databind.introspect/AnnotatedMethod///PointingToDeclaration/">AnnotatedMethod</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-751378029%2FFunctions%2F2124191567" anchor-label="version" id="-751378029%2FFunctions%2F2124191567" data-filterable-set=":avalon-platform:avalon-jimmer/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-platform:avalon-jimmer/main" data-filterable-set=":avalon-platform:avalon-jimmer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="version.html"><span><span>version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-751378029%2FFunctions%2F2124191567"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-platform:avalon-jimmer/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="version.html"><span class="token function">version</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="tools.jackson.core/Version///PointingToDeclaration/">Version</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
