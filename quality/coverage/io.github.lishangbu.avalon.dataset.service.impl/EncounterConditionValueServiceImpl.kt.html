@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EncounterConditionValueServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">EncounterConditionValueServiceImpl.kt</span></div><h1>EncounterConditionValueServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
+
+import io.github.lishangbu.avalon.dataset.entity.EncounterConditionValue
+import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveEncounterConditionValueInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEncounterConditionValueInput
+import io.github.lishangbu.avalon.dataset.repository.EncounterConditionValueRepository
+import io.github.lishangbu.avalon.dataset.service.EncounterConditionValueService
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/** 遭遇条件值服务实现 */
+<span class="fc" id="L15">@Service</span>
+<span class="fc" id="L16">class EncounterConditionValueServiceImpl(</span>
+<span class="fc" id="L17">    private val encounterConditionValueRepository: EncounterConditionValueRepository,</span>
+) : EncounterConditionValueService {
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L20">    override fun save(command: SaveEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L23">    override fun update(command: UpdateEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L27">        encounterConditionValueRepository.deleteById(id)</span>
+<span class="fc" id="L28">    }</span>
+
+<span class="fc" id="L30">    override fun listByCondition(specification: EncounterConditionValueSpecification): List&lt;EncounterConditionValueView&gt; = encounterConditionValueRepository.listViews(specification)</span>
+
+    private fun reloadView(encounterConditionValue: EncounterConditionValue): EncounterConditionValueView =
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        requireNotNull(encounterConditionValueRepository.loadViewById(encounterConditionValue.id)) {</span>
+<span class="nc" id="L34">            &quot;未找到 ID=${encounterConditionValue.id} 对应的遭遇条件值&quot;</span>
+<span class="fc" id="L35">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

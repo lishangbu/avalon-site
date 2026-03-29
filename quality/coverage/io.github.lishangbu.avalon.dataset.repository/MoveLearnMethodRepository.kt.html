@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoveLearnMethodRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">MoveLearnMethodRepository.kt</span></div><h1>MoveLearnMethodRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveLearnMethodSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveLearnMethodView
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.stereotype.Repository
+
+/** 招式学习方式仓储接口 */
+@Repository
+interface MoveLearnMethodRepository : KRepository&lt;MoveLearnMethod, Long&gt; {
+    fun listViews(specification: MoveLearnMethodSpecification?): List&lt;MoveLearnMethodView&gt; =
+<span class="fc" id="L14">        sql</span>
+<span class="fc" id="L15">            .createQuery(MoveLearnMethod::class) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L17">                select(table.fetch(MoveLearnMethodView::class))</span>
+<span class="fc" id="L18">            }.execute()</span>
+
+    fun loadViewById(id: Long): MoveLearnMethodView? =
+<span class="fc" id="L21">        sql</span>
+<span class="fc" id="L22">            .createQuery(MoveLearnMethod::class) {</span>
+<span class="fc" id="L23">                where(table.id eq id)</span>
+<span class="fc" id="L24">                select(table.fetch(MoveLearnMethodView::class))</span>
+<span class="fc" id="L25">            }.execute()</span>
+<span class="fc" id="L26">            .firstOrNull()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

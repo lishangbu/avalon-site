@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EncounterConditionValueRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">EncounterConditionValueRepository.kt</span></div><h1>EncounterConditionValueRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueView
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.stereotype.Repository
+
+/** 遭遇条件值仓储接口 */
+@Repository
+interface EncounterConditionValueRepository : KRepository&lt;EncounterConditionValue, Long&gt; {
+    /** 按条件查询遭遇条件值视图 */
+    fun listViews(specification: EncounterConditionValueSpecification?): List&lt;EncounterConditionValueView&gt; =
+<span class="fc" id="L15">        sql</span>
+<span class="fc" id="L16">            .createQuery(EncounterConditionValue::class) {</span>
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L18">                select(table.fetch(EncounterConditionValueView::class))</span>
+<span class="fc" id="L19">            }.execute()</span>
+
+    /** 按 ID 查询遭遇条件值视图 */
+    fun loadViewById(id: Long): EncounterConditionValueView? =
+<span class="fc" id="L23">        sql</span>
+<span class="fc" id="L24">            .createQuery(EncounterConditionValue::class) {</span>
+<span class="fc" id="L25">                where(table.id eq id)</span>
+<span class="fc" id="L26">                select(table.fetch(EncounterConditionValueView::class))</span>
+<span class="fc" id="L27">            }.execute()</span>
+<span class="fc" id="L28">            .firstOrNull()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
