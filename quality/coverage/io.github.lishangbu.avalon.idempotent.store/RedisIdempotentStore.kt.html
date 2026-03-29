@@ -33,32 +33,32 @@ import java.time.Duration
         token: String,
         processingTtl: Duration,
     ): IdempotentStore.AcquireResult {
-<span class="nc" id="L36">        val pendingValue = serialize(StoredValue.processing(token))</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (stringRedisTemplate.opsForValue().setIfAbsent(key, pendingValue, processingTtl) == true) {</span>
-<span class="nc" id="L38">            return IdempotentStore.AcquireResult.Acquired</span>
+<span class="fc" id="L36">        val pendingValue = serialize(StoredValue.processing(token))</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (stringRedisTemplate.opsForValue().setIfAbsent(key, pendingValue, processingTtl) == true) {</span>
+<span class="fc" id="L38">            return IdempotentStore.AcquireResult.Acquired</span>
         }
 
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        repeat(2) {</span>
-<span class="nc" id="L42">            val existingValue = stringRedisTemplate.opsForValue().get(key)</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (existingValue != null) {</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">                return when (deserialize(existingValue).status) {</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        repeat(2) {</span>
+<span class="fc" id="L42">            val existingValue = stringRedisTemplate.opsForValue().get(key)</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (existingValue != null) {</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                return when (deserialize(existingValue).status) {</span>
                     StoredStatus.PROCESSING -&gt; {
-<span class="nc" id="L46">                        IdempotentStore.AcquireResult.Processing</span>
+<span class="fc" id="L46">                        IdempotentStore.AcquireResult.Processing</span>
                     }
 
                     StoredStatus.SUCCEEDED -&gt; {
-<span class="nc" id="L50">                        IdempotentStore.AcquireResult.Completed(</span>
-<span class="nc" id="L51">                            cachedValue = deserialize(existingValue).cachedValue,</span>
+<span class="fc" id="L50">                        IdempotentStore.AcquireResult.Completed(</span>
+<span class="fc" id="L51">                            cachedValue = deserialize(existingValue).cachedValue,</span>
                         )
                     }
                 }
             }
-<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (stringRedisTemplate.opsForValue().setIfAbsent(key, pendingValue, processingTtl) == true) {</span>
-<span class="nc" id="L57">                return IdempotentStore.AcquireResult.Acquired</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (stringRedisTemplate.opsForValue().setIfAbsent(key, pendingValue, processingTtl) == true) {</span>
+<span class="fc" id="L57">                return IdempotentStore.AcquireResult.Acquired</span>
             }
-<span class="nc" id="L59">        }</span>
+<span class="fc" id="L59">        }</span>
 
-<span class="nc" id="L61">        return IdempotentStore.AcquireResult.Processing</span>
+<span class="fc" id="L61">        return IdempotentStore.AcquireResult.Processing</span>
     }
 
     override fun complete(
@@ -67,53 +67,53 @@ import java.time.Duration
         cachedValue: String?,
         ttl: Duration,
     ): Boolean =
-<span class="nc bnc" id="L70" title="All 4 branches missed.">        stringRedisTemplate.execute(</span>
-<span class="nc" id="L71">            completeScript,</span>
-<span class="nc" id="L72">            listOf(key),</span>
-<span class="nc" id="L73">            token,</span>
-<span class="nc" id="L74">            serialize(StoredValue.succeeded(token, cachedValue)),</span>
-<span class="nc" id="L75">            ttl.toMillis().toString(),</span>
-<span class="nc" id="L76">        ) == 1L</span>
+<span class="pc bpc" id="L70" title="1 of 4 branches missed.">        stringRedisTemplate.execute(</span>
+<span class="fc" id="L71">            completeScript,</span>
+<span class="fc" id="L72">            listOf(key),</span>
+<span class="fc" id="L73">            token,</span>
+<span class="fc" id="L74">            serialize(StoredValue.succeeded(token, cachedValue)),</span>
+<span class="fc" id="L75">            ttl.toMillis().toString(),</span>
+<span class="fc" id="L76">        ) == 1L</span>
 
     override fun release(
         key: String,
         token: String,
-<span class="nc bnc" id="L81" title="All 4 branches missed.">    ): Boolean = stringRedisTemplate.execute(releaseScript, listOf(key), token) == 1L</span>
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">    ): Boolean = stringRedisTemplate.execute(releaseScript, listOf(key), token) == 1L</span>
 
     override fun renew(
         key: String,
         token: String,
         processingTtl: Duration,
     ): Boolean =
-<span class="nc bnc" id="L88" title="All 4 branches missed.">        stringRedisTemplate.execute(</span>
-<span class="nc" id="L89">            renewScript,</span>
-<span class="nc" id="L90">            listOf(key),</span>
-<span class="nc" id="L91">            token,</span>
-<span class="nc" id="L92">            processingTtl.toMillis().toString(),</span>
-<span class="nc" id="L93">        ) == 1L</span>
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        stringRedisTemplate.execute(</span>
+<span class="fc" id="L89">            renewScript,</span>
+<span class="fc" id="L90">            listOf(key),</span>
+<span class="fc" id="L91">            token,</span>
+<span class="fc" id="L92">            processingTtl.toMillis().toString(),</span>
+<span class="fc" id="L93">        ) == 1L</span>
 
-<span class="nc" id="L95">    private fun serialize(value: StoredValue): String = jsonMapper.writeValueAsString(value)</span>
+<span class="fc" id="L95">    private fun serialize(value: StoredValue): String = jsonMapper.writeValueAsString(value)</span>
 
-<span class="nc" id="L97">    private fun deserialize(value: String): StoredValue = jsonMapper.readValue(value, StoredValue::class.java)</span>
+<span class="fc" id="L97">    private fun deserialize(value: String): StoredValue = jsonMapper.readValue(value, StoredValue::class.java)</span>
 
-<span class="nc" id="L99">    private data class StoredValue(</span>
-<span class="nc" id="L100">        val status: StoredStatus,</span>
-<span class="nc" id="L101">        val token: String,</span>
-<span class="nc" id="L102">        val cachedValue: String? = null,</span>
-<span class="nc" id="L103">    ) {</span>
+<span class="fc" id="L99">    private data class StoredValue(</span>
+<span class="fc" id="L100">        val status: StoredStatus,</span>
+<span class="fc" id="L101">        val token: String,</span>
+<span class="fc" id="L102">        val cachedValue: String? = null,</span>
+<span class="fc" id="L103">    ) {</span>
         companion object {
-<span class="nc" id="L105">            fun processing(token: String): StoredValue = StoredValue(status = StoredStatus.PROCESSING, token = token)</span>
+<span class="fc" id="L105">            fun processing(token: String): StoredValue = StoredValue(status = StoredStatus.PROCESSING, token = token)</span>
 
             fun succeeded(
                 token: String,
                 cachedValue: String?,
-<span class="nc" id="L110">            ): StoredValue = StoredValue(status = StoredStatus.SUCCEEDED, token = token, cachedValue = cachedValue)</span>
+<span class="fc" id="L110">            ): StoredValue = StoredValue(status = StoredStatus.SUCCEEDED, token = token, cachedValue = cachedValue)</span>
         }
     }
 
     private enum class StoredStatus {
-<span class="nc" id="L115">        PROCESSING,</span>
-<span class="nc" id="L116">        SUCCEEDED,</span>
+<span class="fc" id="L115">        PROCESSING,</span>
+<span class="fc" id="L116">        SUCCEEDED,</span>
     }
 
     companion object {

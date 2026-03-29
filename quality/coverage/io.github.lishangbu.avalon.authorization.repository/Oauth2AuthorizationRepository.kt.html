@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Oauth2AuthorizationRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">Oauth2AuthorizationRepository.kt</span></div><h1>Oauth2AuthorizationRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
+
+import io.github.lishangbu.avalon.authorization.entity.OauthAuthorization
+import org.babyfish.jimmer.spring.repository.KRepository
+
+/**
+ * OAuth2 授权仓储接口
+ *
+ * 定义OAuth2 授权数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2025/9/14
+ */
+interface Oauth2AuthorizationRepository : KRepository&lt;OauthAuthorization, String&gt; {
+    /**
+     * 根据 state 查询认证信息
+     *
+     * @param state 状态码
+     * @return 匹配的认证信息
+     */
+    fun findByState(state: String): OauthAuthorization?
+
+    /**
+     * 根据授权码查询认证信息
+     *
+     * @param authorizationCode 授权码
+     * @return 匹配的认证信息
+     */
+    fun findByAuthorizationCodeValue(authorizationCode: String): OauthAuthorization?
+
+    /**
+     * 根据访问令牌查询认证信息
+     *
+     * @param accessToken 访问令牌
+     * @return 匹配的认证信息
+     */
+    fun findByAccessTokenValue(accessToken: String): OauthAuthorization?
+
+    /**
+     * 根据刷新令牌查询认证信息
+     *
+     * @param refreshToken 刷新令牌
+     * @return 匹配的认证信息
+     */
+    fun findByRefreshTokenValue(refreshToken: String): OauthAuthorization?
+
+    /**
+     * 根据 OIDC ID Token 查询认证信息
+     *
+     * @param idToken OIDC ID Token
+     * @return 匹配的认证信息
+     */
+    fun findByOidcIdTokenValue(idToken: String): OauthAuthorization?
+
+    /**
+     * 根据用户码查询认证信息
+     *
+     * @param userCode 用户码
+     * @return 匹配的认证信息
+     */
+    fun findByUserCodeValue(userCode: String): OauthAuthorization?
+
+    /**
+     * 根据设备码查询认证信息
+     *
+     * @param deviceCode 设备码
+     * @return 匹配的认证信息
+     */
+    fun findByDeviceCodeValue(deviceCode: String): OauthAuthorization?
+
+    /**
+     * 根据多种 token 字段联合查询认证信息，支持
+     * state、authorizationCode、accessToken、refreshToken、idToken、userCode、deviceCode 任意一种 token。
+     * 查询语句为多行文本块，便于维护和阅读。
+     *
+     * @param token token 值，可为上述任意一种 token
+     * @return 匹配的认证信息
+     */
+    fun loadByTokenValue(
+        token: String,
+    ): OauthAuthorization? =
+<span class="pc bpc" id="L82" title="3 of 12 branches missed.">        findByState(token)</span>
+<span class="fc" id="L83">            ?: findByAuthorizationCodeValue(token)</span>
+<span class="fc" id="L84">            ?: findByAccessTokenValue(token)</span>
+<span class="fc" id="L85">            ?: findByRefreshTokenValue(token)</span>
+<span class="fc" id="L86">            ?: findByOidcIdTokenValue(token)</span>
+<span class="fc" id="L87">            ?: findByUserCodeValue(token)</span>
+<span class="fc" id="L88">            ?: findByDeviceCodeValue(token)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

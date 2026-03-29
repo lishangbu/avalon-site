@@ -4,11 +4,13 @@ import io.github.lishangbu.avalon.authorization.entity.Menu
 import io.github.lishangbu.avalon.authorization.entity.Role
 import io.github.lishangbu.avalon.authorization.entity.dto.MenuSpecification
 import io.github.lishangbu.avalon.authorization.model.MenuTreeNode
+import io.github.lishangbu.avalon.authorization.repository.AuthorizationFetchers
 import io.github.lishangbu.avalon.authorization.repository.MenuRepository
 import io.github.lishangbu.avalon.authorization.repository.RoleRepository
 import io.github.lishangbu.avalon.authorization.service.MenuService
 import io.github.lishangbu.avalon.jimmer.support.readOrNull
 import io.github.lishangbu.avalon.web.util.TreeUtils
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
@@ -23,134 +25,134 @@ import org.springframework.transaction.annotation.Transactional
  * @author lishangbu
  * @since 2025/9/19
  */
-<span class="fc" id="L26">@Service</span>
-<span class="fc" id="L27">class MenuServiceImpl(</span>
+<span class="fc" id="L28">@Service</span>
+<span class="fc" id="L29">class MenuServiceImpl(</span>
     /** 菜单仓储 */
-<span class="fc" id="L29">    private val menuRepository: MenuRepository,</span>
+<span class="fc" id="L31">    private val menuRepository: MenuRepository,</span>
     /** 角色仓储 */
-<span class="fc" id="L31">    private val roleRepository: RoleRepository,</span>
+<span class="fc" id="L33">    private val roleRepository: RoleRepository,</span>
 ) : MenuService {
     /** 根据角色编码列表查询菜单树列表 */
     override fun listMenuTreeByRoleCodes(roleCodes: List&lt;String&gt;): List&lt;MenuTreeNode&gt; {
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (roleCodes.isEmpty()) {</span>
-<span class="fc" id="L36">            return emptyList()</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (roleCodes.isEmpty()) {</span>
+<span class="fc" id="L38">            return emptyList()</span>
         }
-<span class="fc" id="L38">        val menus = menuRepository.findAllByRoleCodes(roleCodes)</span>
-<span class="fc" id="L39">        log.debug(&quot;根据角色编码获取到 [{}] 条菜单记录&quot;, menus.size)</span>
-<span class="fc" id="L40">        return buildTreeFromMenus(menus)</span>
+<span class="fc" id="L40">        val menus = menuRepository.listByRoleCodes(roleCodes)</span>
+<span class="fc" id="L41">        log.debug(&quot;根据角色编码获取到 [{}] 条菜单记录&quot;, menus.size)</span>
+<span class="fc" id="L42">        return buildTreeFromMenus(menus)</span>
     }
 
     /** 查询全部菜单树列表 */
     override fun listAllMenuTree(specification: MenuSpecification): List&lt;MenuTreeNode&gt; {
-<span class="fc" id="L45">        val allMenus = menuRepository.findAllByOrderBySortingOrderAscIdAsc()</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (allMenus.isEmpty()) {</span>
-<span class="fc" id="L47">            return emptyList()</span>
+<span class="fc" id="L47">        val allMenus = menuRepository.findAllByOrderBySortingOrderAscIdAsc()</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (allMenus.isEmpty()) {</span>
+<span class="fc" id="L49">            return emptyList()</span>
         }
-<span class="fc" id="L49">        val matchedMenus = menuRepository.findAll(specification, MENU_TREE_SORT)</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (matchedMenus.isEmpty()) {</span>
-<span class="fc" id="L51">            return emptyList()</span>
-        }
-
-<span class="fc" id="L54">        val menuById = allMenus.associateBy { it.id }</span>
-<span class="fc" id="L55">        val childrenByParentId = allMenus.groupBy { it.parentId }</span>
-
-<span class="fc" id="L57">        val includedIds = linkedSetOf&lt;Long&gt;()</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">        for (matchedMenu in matchedMenus) {</span>
-<span class="fc" id="L59">            collectAncestors(menuById, matchedMenu.id, includedIds)</span>
-<span class="fc" id="L60">            collectDescendants(matchedMenu.id, childrenByParentId, includedIds)</span>
+<span class="fc" id="L51">        val matchedMenus = menuRepository.findAll(specification, MENU_TREE_SORT)</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (matchedMenus.isEmpty()) {</span>
+<span class="fc" id="L53">            return emptyList()</span>
         }
 
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (includedIds.isEmpty()) {</span>
-<span class="nc" id="L64">            return emptyList()</span>
+<span class="fc" id="L56">        val menuById = allMenus.associateBy { it.id }</span>
+<span class="fc" id="L57">        val childrenByParentId = allMenus.groupBy { it.parentId }</span>
+
+<span class="fc" id="L59">        val includedIds = linkedSetOf&lt;Long&gt;()</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (matchedMenu in matchedMenus) {</span>
+<span class="fc" id="L61">            collectAncestors(menuById, matchedMenu.id, includedIds)</span>
+<span class="fc" id="L62">            collectDescendants(matchedMenu.id, childrenByParentId, includedIds)</span>
         }
 
-<span class="fc" id="L67">        val filteredMenus =</span>
-<span class="fc" id="L68">            allMenus.filter { menuItem -&gt; includedIds.contains(menuItem.id) }</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (includedIds.isEmpty()) {</span>
+<span class="nc" id="L66">            return emptyList()</span>
+        }
 
-<span class="fc" id="L70">        return buildTreeFromMenus(filteredMenus)</span>
+<span class="fc" id="L69">        val filteredMenus =</span>
+<span class="fc" id="L70">            allMenus.filter { menuItem -&gt; includedIds.contains(menuItem.id) }</span>
+
+<span class="fc" id="L72">        return buildTreeFromMenus(filteredMenus)</span>
     }
 
     /** 按 ID 查询菜单 */
-<span class="fc" id="L74">    override fun getById(id: Long): Menu? = menuRepository.findById(id)</span>
+<span class="fc" id="L76">    override fun getById(id: Long): Menu? = menuRepository.findNullable(id, AuthorizationFetchers.MENU)</span>
 
     /** 保存菜单 */
     @Transactional(rollbackFor = [Exception::class])
     override fun save(menu: Menu): Menu {
-<span class="fc" id="L79">        validateParent(menu)</span>
-<span class="fc" id="L80">        return menuRepository.save(menu)</span>
+<span class="fc" id="L81">        validateParent(menu)</span>
+<span class="fc" id="L82">        return menuRepository.save(menu, SaveMode.INSERT_ONLY)</span>
     }
 
     /** 更新菜单 */
     @Transactional(rollbackFor = [Exception::class])
     override fun update(menu: Menu): Menu {
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        requireNotNull(menu.readOrNull { id }) { &quot;更新菜单时必须提供菜单 ID&quot; }</span>
-<span class="fc" id="L87">        validateParent(menu)</span>
-<span class="fc" id="L88">        return menuRepository.save(menu)</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        requireNotNull(menu.readOrNull { id }) { &quot;更新菜单时必须提供菜单 ID&quot; }</span>
+<span class="fc" id="L89">        validateParent(menu)</span>
+<span class="fc" id="L90">        return menuRepository.save(menu)</span>
     }
 
     /** 按 ID 删除菜单 */
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc bfc" id="L94" title="All 4 branches covered.">        if (menuRepository.findAll(MenuSpecification(parentId = id)).isNotEmpty()) {</span>
-<span class="fc" id="L95">            throw IllegalStateException(&quot;请先删除子菜单后再删除当前菜单&quot;)</span>
+<span class="fc bfc" id="L96" title="All 4 branches covered.">        if (menuRepository.findAll(MenuSpecification(parentId = id)).isNotEmpty()) {</span>
+<span class="fc" id="L97">            throw IllegalStateException(&quot;请先删除子菜单后再删除当前菜单&quot;)</span>
         }
-<span class="fc" id="L97">        detachMenuFromRoles(id)</span>
-<span class="fc" id="L98">        menuRepository.deleteById(id)</span>
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L99">        detachMenuFromRoles(id)</span>
+<span class="fc" id="L100">        menuRepository.deleteById(id)</span>
+<span class="fc" id="L101">    }</span>
 
     private fun validateParent(menu: Menu) {
-<span class="fc" id="L102">        val menuId = menu.readOrNull { id }</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        val parentId = menu.parentId ?: return</span>
+<span class="fc" id="L104">        val menuId = menu.readOrNull { id }</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        val parentId = menu.parentId ?: return</span>
 
-<span class="pc bpc" id="L105" title="2 of 4 branches missed.">        if (menuId != null &amp;&amp; parentId == menuId) {</span>
-<span class="nc" id="L106">            throw IllegalArgumentException(&quot;父菜单不能选择自身&quot;)</span>
+<span class="pc bpc" id="L107" title="2 of 4 branches missed.">        if (menuId != null &amp;&amp; parentId == menuId) {</span>
+<span class="nc" id="L108">            throw IllegalArgumentException(&quot;父菜单不能选择自身&quot;)</span>
         }
 
-<span class="fc" id="L109">        val parent =</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">            menuRepository.findById(parentId)</span>
-<span class="fc" id="L111">                ?: throw IllegalArgumentException(&quot;父菜单不存在&quot;)</span>
+<span class="fc" id="L111">        val parent =</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            menuRepository.findNullable(parentId, AuthorizationFetchers.MENU)</span>
+<span class="fc" id="L113">                ?: throw IllegalArgumentException(&quot;父菜单不存在&quot;)</span>
 
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (menuId != null) {</span>
-<span class="nc" id="L114">            validateNoCircularReference(menuId, parent)</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (menuId != null) {</span>
+<span class="nc" id="L116">            validateNoCircularReference(menuId, parent)</span>
         }
-<span class="nc" id="L116">    }</span>
+<span class="nc" id="L118">    }</span>
 
     private fun validateNoCircularReference(
         menuId: Long,
         parent: Menu,
     ) {
-<span class="fc" id="L122">        var current: Menu? = parent</span>
-<span class="fc" id="L123">        val visited = mutableSetOf&lt;Long&gt;()</span>
+<span class="fc" id="L124">        var current: Menu? = parent</span>
+<span class="fc" id="L125">        val visited = mutableSetOf&lt;Long&gt;()</span>
 
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        while (current != null) {</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">            if (!visited.add(current.id)) {</span>
-<span class="nc" id="L127">                throw IllegalStateException(&quot;菜单层级存在循环引用&quot;)</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        while (current != null) {</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">            if (!visited.add(current.id)) {</span>
+<span class="nc" id="L129">                throw IllegalStateException(&quot;菜单层级存在循环引用&quot;)</span>
             }
-<span class="fc bfc" id="L129" title="All 2 branches covered.">            if (current.id == menuId) {</span>
-<span class="fc" id="L130">                throw IllegalStateException(&quot;父菜单不能选择当前菜单或其子菜单&quot;)</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (current.id == menuId) {</span>
+<span class="fc" id="L132">                throw IllegalStateException(&quot;父菜单不能选择当前菜单或其子菜单&quot;)</span>
             }
-<span class="fc" id="L132">            current =</span>
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">                current.parentId?.let { parentId -&gt;</span>
-<span class="fc" id="L134">                    menuRepository.findById(parentId)</span>
+<span class="fc" id="L134">            current =</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">                current.parentId?.let { parentId -&gt;</span>
+<span class="fc" id="L136">                    menuRepository.findNullable(parentId, AuthorizationFetchers.MENU)</span>
                 }
         }
-<span class="nc" id="L137">    }</span>
+<span class="nc" id="L139">    }</span>
 
     private fun detachMenuFromRoles(menuId: Long) {
-<span class="fc" id="L140">        val roles =</span>
-<span class="fc" id="L141">            roleRepository</span>
-<span class="fc" id="L142">                .findAllWithMenus(null)</span>
-<span class="fc bfc" id="L143" title="All 2 branches covered.">                .filter { role -&gt; role.menus.any { menu -&gt; menu.id == menuId } }</span>
+<span class="fc" id="L142">        val roles =</span>
+<span class="fc" id="L143">            roleRepository</span>
+<span class="fc" id="L144">                .listWithMenus(null)</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                .filter { role -&gt; role.menus.any { menu -&gt; menu.id == menuId } }</span>
 
-<span class="fc" id="L145">        roles.forEach { role -&gt;</span>
-<span class="fc bfc" id="L146" title="All 2 branches covered.">            val remainedMenus = role.menus.filterNot { menu -&gt; menu.id == menuId }</span>
-<span class="fc" id="L147">            roleRepository.save(</span>
-<span class="fc" id="L148">                Role(role) {</span>
-<span class="fc" id="L149">                    menus = remainedMenus</span>
-<span class="fc" id="L150">                },</span>
+<span class="fc" id="L147">        roles.forEach { role -&gt;</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">            val remainedMenus = role.menus.filterNot { menu -&gt; menu.id == menuId }</span>
+<span class="fc" id="L149">            roleRepository.save(</span>
+<span class="fc" id="L150">                Role(role) {</span>
+<span class="fc" id="L151">                    menus = remainedMenus</span>
+<span class="fc" id="L152">                },</span>
             )
-<span class="fc" id="L152">        }</span>
-<span class="fc" id="L153">    }</span>
+<span class="fc" id="L154">        }</span>
+<span class="fc" id="L155">    }</span>
 
     /**
      * 将权限实体列表转换为树节点并构建树结构
@@ -163,27 +165,27 @@ import org.springframework.transaction.annotation.Transactional
      * @see TreeUtils#buildTree(List, Function, Function, BiConsumer)
      */
     private fun buildTreeFromMenus(menus: List&lt;Menu&gt;): List&lt;MenuTreeNode&gt; {
-<span class="fc bfc" id="L166" title="All 2 branches covered.">        if (menus.isEmpty()) {</span>
-<span class="fc" id="L167">            return emptyList()</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (menus.isEmpty()) {</span>
+<span class="fc" id="L169">            return emptyList()</span>
         }
 
-<span class="fc" id="L170">        val treeNodes = menus.map(::MenuTreeNode)</span>
+<span class="fc" id="L172">        val treeNodes = menus.map(::MenuTreeNode)</span>
 
-<span class="fc" id="L172">        return TreeUtils.buildTree(</span>
-<span class="fc" id="L173">            treeNodes,</span>
-<span class="fc" id="L174">            { it.id },</span>
-<span class="fc" id="L175">            { it.parentId },</span>
-<span class="fc" id="L176">            { parent, children -&gt; parent.children = children },</span>
+<span class="fc" id="L174">        return TreeUtils.buildTree(</span>
+<span class="fc" id="L175">            treeNodes,</span>
+<span class="fc" id="L176">            { it.id },</span>
+<span class="fc" id="L177">            { it.parentId },</span>
+<span class="fc" id="L178">            { parent, children -&gt; parent.children = children },</span>
         )
     }
 
     companion object {
         /** 日志记录器 */
-<span class="fc" id="L182">        private val log: Logger = LoggerFactory.getLogger(MenuServiceImpl::class.java)</span>
+<span class="fc" id="L184">        private val log: Logger = LoggerFactory.getLogger(MenuServiceImpl::class.java)</span>
 
         /** 菜单树排序 */
         private val MENU_TREE_SORT: Sort =
-<span class="fc" id="L186">            Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;))</span>
+<span class="fc" id="L188">            Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;))</span>
 
         /** 返回收集祖先节点 */
         private fun collectAncestors(
@@ -191,12 +193,12 @@ import org.springframework.transaction.annotation.Transactional
             startId: Long,
             includedIds: MutableSet&lt;Long&gt;,
         ) {
-<span class="fc" id="L194">            var currentId: Long? = startId</span>
-<span class="fc bfc" id="L195" title="All 4 branches covered.">            while (currentId != null &amp;&amp; includedIds.add(currentId)) {</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">                val current = menuById[currentId] ?: break</span>
-<span class="fc" id="L197">                currentId = current.parentId</span>
+<span class="fc" id="L196">            var currentId: Long? = startId</span>
+<span class="fc bfc" id="L197" title="All 4 branches covered.">            while (currentId != null &amp;&amp; includedIds.add(currentId)) {</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">                val current = menuById[currentId] ?: break</span>
+<span class="fc" id="L199">                currentId = current.parentId</span>
             }
-<span class="fc" id="L199">        }</span>
+<span class="fc" id="L201">        }</span>
 
         /** 返回收集后代节点 */
         private fun collectDescendants(
@@ -204,23 +206,23 @@ import org.springframework.transaction.annotation.Transactional
             childrenByParentId: Map&lt;Long?, List&lt;Menu&gt;&gt;,
             includedIds: MutableSet&lt;Long&gt;,
         ) {
-<span class="pc bpc" id="L207" title="1 of 2 branches missed.">            if (startId == null) {</span>
-<span class="nc" id="L208">                return</span>
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">            if (startId == null) {</span>
+<span class="nc" id="L210">                return</span>
             }
-<span class="fc" id="L210">            val deque = ArrayDeque&lt;Long&gt;()</span>
-<span class="fc" id="L211">            val visited = mutableSetOf&lt;Long&gt;()</span>
-<span class="fc" id="L212">            deque.addLast(startId)</span>
-<span class="fc bfc" id="L213" title="All 4 branches covered.">            while (deque.isNotEmpty()) {</span>
-<span class="fc" id="L214">                val currentId = deque.removeLast()</span>
-<span class="fc bfc" id="L215" title="All 2 branches covered.">                if (!visited.add(currentId)) {</span>
-<span class="fc" id="L216">                    continue</span>
+<span class="fc" id="L212">            val deque = ArrayDeque&lt;Long&gt;()</span>
+<span class="fc" id="L213">            val visited = mutableSetOf&lt;Long&gt;()</span>
+<span class="fc" id="L214">            deque.addLast(startId)</span>
+<span class="fc bfc" id="L215" title="All 4 branches covered.">            while (deque.isNotEmpty()) {</span>
+<span class="fc" id="L216">                val currentId = deque.removeLast()</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">                if (!visited.add(currentId)) {</span>
+<span class="fc" id="L218">                    continue</span>
                 }
-<span class="fc" id="L218">                includedIds.add(currentId)</span>
-<span class="fc bfc" id="L219" title="All 4 branches covered.">                for (child in childrenByParentId[currentId].orEmpty()) {</span>
-<span class="fc" id="L220">                    deque.addLast(child.id)</span>
+<span class="fc" id="L220">                includedIds.add(currentId)</span>
+<span class="fc bfc" id="L221" title="All 4 branches covered.">                for (child in childrenByParentId[currentId].orEmpty()) {</span>
+<span class="fc" id="L222">                    deque.addLast(child.id)</span>
                 }
             }
-<span class="fc" id="L223">        }</span>
+<span class="fc" id="L225">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

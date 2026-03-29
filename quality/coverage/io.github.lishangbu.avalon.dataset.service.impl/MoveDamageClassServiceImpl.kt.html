@@ -7,37 +7,38 @@ import io.github.lishangbu.avalon.dataset.entity.dto.UpdateMoveDamageClassInput
 import io.github.lishangbu.avalon.dataset.repository.MoveDamageClassRepository
 import io.github.lishangbu.avalon.dataset.service.MoveDamageClassService
 import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 /** 招式伤害分类服务实现 */
-<span class="fc" id="L14">@Service</span>
-<span class="fc" id="L15">class MoveDamageClassServiceImpl(</span>
+<span class="fc" id="L15">@Service</span>
+<span class="fc" id="L16">class MoveDamageClassServiceImpl(</span>
     /** 招式伤害分类仓储 */
-<span class="fc" id="L17">    private val moveDamageClassRepository: MoveDamageClassRepository,</span>
+<span class="fc" id="L18">    private val moveDamageClassRepository: MoveDamageClassRepository,</span>
 ) : MoveDamageClassService {
     /** 按条件分页查询招式伤害分类*/
     override fun getPageByCondition(
         specification: MoveDamageClassSpecification,
         pageable: Pageable,
-<span class="fc" id="L23">    ): Page&lt;MoveDamageClassView&gt; = moveDamageClassRepository.findAll(specification, pageable).mapRows(::MoveDamageClassView)</span>
+<span class="fc" id="L24">    ): Page&lt;MoveDamageClassView&gt; = moveDamageClassRepository.pageViews(specification, pageable)</span>
 
     /** 根据条件查询招式伤害分类列表 */
     override fun listByCondition(
         specification: MoveDamageClassSpecification,
-<span class="fc" id="L28">    ): List&lt;MoveDamageClassView&gt; = moveDamageClassRepository.findAll(specification).map(::MoveDamageClassView)</span>
+<span class="fc" id="L29">    ): List&lt;MoveDamageClassView&gt; = moveDamageClassRepository.listViews(specification)</span>
 
     /** 保存招式伤害分类 */
-<span class="fc" id="L31">    override fun save(command: SaveMoveDamageClassInput): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity()))</span>
+<span class="fc" id="L32">    override fun save(command: SaveMoveDamageClassInput): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     /** 更新招式伤害分类 */
     override fun update(
         command: UpdateMoveDamageClassInput,
-<span class="fc" id="L36">    ): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity()))</span>
+<span class="fc" id="L37">    ): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
 
     /** 按 ID 删除招式伤害分类 */
     override fun removeById(id: Long) {
-<span class="fc" id="L40">        moveDamageClassRepository.deleteById(id)</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L41">        moveDamageClassRepository.deleteById(id)</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

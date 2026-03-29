@@ -45,7 +45,7 @@ import java.time.temporal.ChronoUnit
      */
     override fun findById(id: String): RegisteredClient? {
 <span class="fc bfc" id="L47" title="All 4 branches covered.">        require(id.isNotBlank()) { &quot;id cannot be empty&quot; }</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        return oauth2RegisteredClientRepository.findById(id)?.let(::toObject)</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        return oauth2RegisteredClientRepository.findNullable(id)?.let(::toObject)</span>
     }
 
     /**

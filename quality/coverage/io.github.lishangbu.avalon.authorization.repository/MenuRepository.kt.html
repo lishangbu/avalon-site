@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">MenuRepository.kt</span></div><h1>MenuRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
+
+import io.github.lishangbu.avalon.authorization.entity.*
+import org.babyfish.jimmer.Specification
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
+
+/**
+ * 菜单仓储接口
+ *
+ * 定义菜单数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2025/08/20
+ */
+interface MenuRepository : KRepository&lt;Menu, Long&gt; {
+    /** 按条件查询菜单列表 */
+    fun findAll(specification: Specification&lt;Menu&gt;?): List&lt;Menu&gt; =
+<span class="fc" id="L21">        sql</span>
+<span class="fc" id="L22">            .createQuery(Menu::class) {</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L24">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="fc" id="L25">            }.execute()</span>
+
+    /** 按条件排序查询菜单列表 */
+    fun findAll(
+        specification: Specification&lt;Menu&gt;?,
+        sort: Sort,
+    ): List&lt;Menu&gt; =
+<span class="fc" id="L32">        sql</span>
+<span class="fc" id="L33">            .createQuery(Menu::class) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L35">                orderBy(sort)</span>
+<span class="fc" id="L36">                select(table.fetch(AuthorizationFetchers.MENU))</span>
+<span class="fc" id="L37">            }.execute()</span>
+
+    /** 按排序顺序和 ID 升序查询菜单列表 */
+    fun findAllByOrderBySortingOrderAscIdAsc(): List&lt;Menu&gt;
+
+    /** 按角色编码列表查询菜单 */
+    fun listByRoleCodes(roleCodes: List&lt;String&gt;): List&lt;Menu&gt; {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (roleCodes.isEmpty()) {</span>
+<span class="fc" id="L45">            return emptyList()</span>
+        }
+<span class="fc" id="L47">        val menus =</span>
+<span class="fc" id="L48">            roleCodes.flatMap { roleCode -&gt;</span>
+<span class="fc" id="L49">                sql</span>
+<span class="fc" id="L50">                    .createQuery(Role::class) {</span>
+<span class="fc" id="L51">                        where(table.code eq roleCode)</span>
+<span class="fc" id="L52">                        select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="fc" id="L53">                    }.execute()</span>
+<span class="fc" id="L54">                    .flatMap { it.menus }</span>
+            }
+<span class="fc" id="L56">        return menus</span>
+<span class="fc" id="L57">            .distinctBy { it.id }</span>
+<span class="fc" id="L58">            .sortedWith(compareBy&lt;Menu&gt; { it.sortingOrder ?: Int.MAX_VALUE }.thenBy { it.id })</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

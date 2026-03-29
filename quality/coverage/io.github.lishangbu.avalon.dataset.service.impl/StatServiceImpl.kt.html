@@ -7,28 +7,29 @@ import io.github.lishangbu.avalon.dataset.entity.dto.StatView
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateStatInput
 import io.github.lishangbu.avalon.dataset.repository.StatRepository
 import io.github.lishangbu.avalon.dataset.service.StatService
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.stereotype.Service
 
 /** 能力值服务实现*/
-<span class="fc" id="L13">@Service</span>
-<span class="fc" id="L14">class StatServiceImpl(</span>
+<span class="fc" id="L14">@Service</span>
+<span class="fc" id="L15">class StatServiceImpl(</span>
     /** 能力值仓储*/
-<span class="fc" id="L16">    private val statRepository: StatRepository,</span>
+<span class="fc" id="L17">    private val statRepository: StatRepository,</span>
 ) : StatService {
     /** 根据条件查询能力值列表*/
-<span class="fc" id="L19">    override fun listByCondition(specification: StatSpecification): List&lt;StatView&gt; = statRepository.findAll(specification)</span>
+<span class="fc" id="L20">    override fun listByCondition(specification: StatSpecification): List&lt;StatView&gt; = statRepository.listViews(specification)</span>
 
     /** 保存能力值*/
-<span class="fc" id="L22">    override fun save(command: SaveStatInput): StatView = statRepository.save(command.toEntity()).let(::reloadView)</span>
+<span class="fc" id="L23">    override fun save(command: SaveStatInput): StatView = statRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     /** 更新能力值*/
-<span class="fc" id="L25">    override fun update(command: UpdateStatInput): StatView = statRepository.save(command.toEntity()).let(::reloadView)</span>
+<span class="fc" id="L26">    override fun update(command: UpdateStatInput): StatView = statRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
 
     /** 按 ID 删除能力值*/
     override fun removeById(id: Long) {
-<span class="fc" id="L29">        statRepository.deleteById(id)</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L30">        statRepository.deleteById(id)</span>
+<span class="fc" id="L31">    }</span>
 
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.findById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.loadViewById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

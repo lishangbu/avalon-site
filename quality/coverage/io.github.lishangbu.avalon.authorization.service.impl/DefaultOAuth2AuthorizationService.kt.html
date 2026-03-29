@@ -51,7 +51,7 @@ import java.time.Instant
     /** 按 ID 查询默认 OAuth2 授权 */
     override fun findById(id: String): OAuth2Authorization? {
 <span class="fc bfc" id="L53" title="All 4 branches covered.">        require(id.isNotBlank()) { &quot;id cannot be empty&quot; }</span>
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        return oauth2AuthorizationRepository.findById(id)?.let(::toObject)</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        return oauth2AuthorizationRepository.findNullable(id)?.let(::toObject)</span>
     }
 
     /** 根据令牌查找默认 OAuth2 授权 */
@@ -65,7 +65,7 @@ import java.time.Instant
 <span class="fc bfc" id="L65" title="All 11 branches covered.">            when (tokenType?.value) {</span>
                 null -&gt; {
 <span class="fc" id="L67">                    oauth2AuthorizationRepository</span>
-<span class="fc" id="L68">                        .findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue(</span>
+<span class="fc" id="L68">                        .loadByTokenValue(</span>
 <span class="fc" id="L69">                            token,</span>
                         )
                 }

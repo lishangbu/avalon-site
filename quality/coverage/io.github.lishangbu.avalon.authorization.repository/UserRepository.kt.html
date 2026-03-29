@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.authorization.repository</a> &gt; <span class="el_source">UserRepository.kt</span></div><h1>UserRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.authorization.repository
+
+import io.github.lishangbu.avalon.authorization.entity.*
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.Specification
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+
+/**
+ * 用户仓储接口
+ *
+ * 定义用户数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2025/08/19
+ */
+interface UserRepository : KRepository&lt;User, Long&gt; {
+    /** 按条件查询用户列表 */
+    fun findAll(specification: Specification&lt;User&gt;?): List&lt;User&gt; =
+<span class="fc" id="L21">        sql</span>
+<span class="fc" id="L22">            .createQuery(User::class) {</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L24">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="fc" id="L25">            }.execute()</span>
+
+    /** 按条件分页查询用户 */
+    fun findAll(
+        specification: Specification&lt;User&gt;?,
+        pageable: Pageable,
+    ): Page&lt;User&gt; =
+<span class="fc" id="L32">        sql</span>
+<span class="fc" id="L33">            .createQuery(User::class) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L35">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="fc" id="L36">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 按条件查询用户列表，并抓取角色 */
+    fun listWithRoles(specification: Specification&lt;User&gt;?): List&lt;User&gt; =
+<span class="fc" id="L40">        sql</span>
+<span class="fc" id="L41">            .createQuery(User::class) {</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L43">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L44">            }.execute()</span>
+
+    /** 按条件分页查询用户，并抓取角色 */
+    fun pageWithRoles(
+        specification: Specification&lt;User&gt;?,
+        pageable: Pageable,
+    ): Page&lt;User&gt; =
+<span class="fc" id="L51">        sql</span>
+<span class="fc" id="L52">            .createQuery(User::class) {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L54">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L55">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 根据账号查找用户及角色列表 */
+    fun loadByAccountWithRoles(account: String): User? {
+<span class="fc" id="L59">        val found =</span>
+<span class="fc bfc" id="L60" title="All 6 branches covered.">            loadByUsername(account)</span>
+<span class="fc" id="L61">                ?: loadByPhone(account)</span>
+<span class="fc" id="L62">                ?: loadByEmail(account)</span>
+<span class="fc" id="L63">                ?: return null</span>
+
+<span class="fc" id="L65">        val enabledRoles = found.roles.filter { it.enabled == true }</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if (enabledRoles.isEmpty()) {</span>
+<span class="nc" id="L67">            return null</span>
+        }
+<span class="fc" id="L69">        return User(found) {</span>
+<span class="fc" id="L70">            roles().clear()</span>
+<span class="fc" id="L71">            enabledRoles.forEach { role -&gt;</span>
+<span class="fc" id="L72">                roles().addBy {</span>
+<span class="fc" id="L73">                    id = role.id</span>
+<span class="fc" id="L74">                    code = role.code</span>
+<span class="fc" id="L75">                    name = role.name</span>
+<span class="fc" id="L76">                    enabled = role.enabled</span>
+<span class="fc" id="L77">                }</span>
+<span class="fc" id="L78">            }</span>
+<span class="fc" id="L79">        }</span>
+    }
+
+    private fun loadByUsername(account: String): User? =
+<span class="fc" id="L83">        sql</span>
+<span class="fc" id="L84">            .createQuery(User::class) {</span>
+<span class="fc" id="L85">                where(table.username eq account)</span>
+<span class="fc" id="L86">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L87">            }.execute()</span>
+<span class="fc" id="L88">            .firstOrNull()</span>
+
+    private fun loadByPhone(account: String): User? =
+<span class="fc" id="L91">        sql</span>
+<span class="fc" id="L92">            .createQuery(User::class) {</span>
+<span class="fc" id="L93">                where(table.phone eq account)</span>
+<span class="fc" id="L94">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L95">            }.execute()</span>
+<span class="fc" id="L96">            .firstOrNull()</span>
+
+    private fun loadByEmail(account: String): User? =
+<span class="fc" id="L99">        sql</span>
+<span class="fc" id="L100">            .createQuery(User::class) {</span>
+<span class="fc" id="L101">                where(table.email eq account)</span>
+<span class="fc" id="L102">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L103">            }.execute()</span>
+<span class="fc" id="L104">            .firstOrNull()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

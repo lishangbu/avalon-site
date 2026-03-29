@@ -6,28 +6,29 @@ import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryFlavorInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryFlavorInput
 import io.github.lishangbu.avalon.dataset.repository.BerryFlavorRepository
 import io.github.lishangbu.avalon.dataset.service.BerryFlavorService
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.stereotype.Service
 
 /** 树果风味服务实现 */
-<span class="fc" id="L12">@Service</span>
-<span class="fc" id="L13">class BerryFlavorServiceImpl(</span>
+<span class="fc" id="L13">@Service</span>
+<span class="fc" id="L14">class BerryFlavorServiceImpl(</span>
     /** 树果风味仓储 */
-<span class="fc" id="L15">    private val berryFlavorRepository: BerryFlavorRepository,</span>
+<span class="fc" id="L16">    private val berryFlavorRepository: BerryFlavorRepository,</span>
 ) : BerryFlavorService {
     /** 保存树果风味 */
-<span class="fc" id="L18">    override fun save(command: SaveBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity()))</span>
+<span class="fc" id="L19">    override fun save(command: SaveBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     /** 更新树果风味 */
-<span class="fc" id="L21">    override fun update(command: UpdateBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity()))</span>
+<span class="fc" id="L22">    override fun update(command: UpdateBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
 
     /** 按 ID 删除树果风味 */
     override fun removeById(id: Long) {
-<span class="fc" id="L25">        berryFlavorRepository.deleteById(id)</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L26">        berryFlavorRepository.deleteById(id)</span>
+<span class="fc" id="L27">    }</span>
 
     /** 按条件查询树果风味列表 */
     override fun listByCondition(
         specification: BerryFlavorSpecification,
-<span class="fc" id="L31">    ): List&lt;BerryFlavorView&gt; = berryFlavorRepository.findAll(specification).map(::BerryFlavorView)</span>
+<span class="fc" id="L32">    ): List&lt;BerryFlavorView&gt; = berryFlavorRepository.listViews(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

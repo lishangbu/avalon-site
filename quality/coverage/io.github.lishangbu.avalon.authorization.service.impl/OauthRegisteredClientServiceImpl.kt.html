@@ -35,7 +35,7 @@ import java.util.*
 <span class="fc" id="L35">    override fun listByCondition(specification: OauthRegisteredClientSpecification): List&lt;OauthRegisteredClient&gt; = oauth2RegisteredClientRepository.findAll(specification)</span>
 
     /** 按 ID 查询 OAuth2 注册客户端 */
-<span class="fc" id="L38">    override fun getById(id: String): OauthRegisteredClient? = oauth2RegisteredClientRepository.findById(id)</span>
+<span class="fc" id="L38">    override fun getById(id: String): OauthRegisteredClient? = oauth2RegisteredClientRepository.findNullable(id)</span>
 
     /** 保存 OAuth2 注册客户端 */
     @Transactional(rollbackFor = [Exception::class])
