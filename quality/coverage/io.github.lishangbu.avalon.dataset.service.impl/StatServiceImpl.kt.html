@@ -23,13 +23,27 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L23">    override fun save(command: SaveStatInput): StatView = statRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     /** 更新能力值*/
-<span class="fc" id="L26">    override fun update(command: UpdateStatInput): StatView = statRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+    override fun update(command: UpdateStatInput): StatView {
+<span class="fc" id="L27">        requireStatEditable(command.id.toLong(), &quot;能力值已设为只读，禁止修改&quot;)</span>
+<span class="fc" id="L28">        return statRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+    }
 
     /** 按 ID 删除能力值*/
     override fun removeById(id: Long) {
-<span class="fc" id="L30">        statRepository.deleteById(id)</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L33">        requireStatEditable(id, &quot;能力值已设为只读，禁止删除&quot;)</span>
+<span class="fc" id="L34">        statRepository.deleteById(id)</span>
+<span class="fc" id="L35">    }</span>
 
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.loadViewById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.loadViewById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
+
+    private fun requireStatEditable(
+        id: Long,
+        errorMessage: String,
+    ) {
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        val stat = requireNotNull(statRepository.findNullable(id)) { &quot;未找到 ID=$id 对应的能力值&quot; }</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (stat.readonly) {</span>
+<span class="fc" id="L45">            throw IllegalStateException(errorMessage)</span>
+        }
+<span class="fc" id="L47">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
