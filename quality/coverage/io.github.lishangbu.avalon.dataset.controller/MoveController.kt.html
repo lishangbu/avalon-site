@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.MoveView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveMoveInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateMoveInput
 import io.github.lishangbu.avalon.dataset.service.MoveService
+import jakarta.validation.Valid
 import org.babyfish.jimmer.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,36 +19,38 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 招式管理控制器 */
-<span class="fc" id="L21">@RestController</span>
+<span class="fc" id="L22">@RestController</span>
 @RequestMapping(&quot;/move&quot;)
-<span class="fc" id="L23">class MoveController(</span>
-<span class="fc" id="L24">    private val moveService: MoveService,</span>
+<span class="fc" id="L24">class MoveController(</span>
+<span class="fc" id="L25">    private val moveService: MoveService,</span>
 ) {
     /** 按筛选条件分页查询招式 */
     @GetMapping(&quot;/page&quot;)
     fun getMovePage(
         pageable: Pageable,
         @ModelAttribute specification: MoveSpecification,
-<span class="fc" id="L31">    ): Page&lt;MoveView&gt; = moveService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L32">    ): Page&lt;MoveView&gt; = moveService.getPageByCondition(specification, pageable)</span>
 
     /** 创建招式 */
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveMoveInput,
-<span class="fc" id="L37">    ): MoveView = moveService.save(command)</span>
+<span class="fc" id="L39">    ): MoveView = moveService.save(command)</span>
 
     /** 更新招式 */
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateMoveInput,
-<span class="fc" id="L43">    ): MoveView = moveService.update(command)</span>
+<span class="fc" id="L46">    ): MoveView = moveService.update(command)</span>
 
     /** 删除指定 ID 的招式 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L50">        moveService.removeById(id)</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L53">        moveService.removeById(id)</span>
+<span class="fc" id="L54">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

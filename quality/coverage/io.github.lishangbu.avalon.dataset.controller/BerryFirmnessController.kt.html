@@ -5,48 +5,51 @@ import io.github.lishangbu.avalon.dataset.entity.dto.BerryFirmnessView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryFirmnessInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryFirmnessInput
 import io.github.lishangbu.avalon.dataset.service.BerryFirmnessService
+import jakarta.validation.Valid
 import org.babyfish.jimmer.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
 /** 树果硬度控制器*/
-<span class="fc" id="L13">@RestController</span>
+<span class="fc" id="L14">@RestController</span>
 @RequestMapping(&quot;/berry-firmness&quot;)
-<span class="fc" id="L15">class BerryFirmnessController(</span>
+<span class="fc" id="L16">class BerryFirmnessController(</span>
     /** 树果硬度服务 */
-<span class="fc" id="L17">    private val berryFirmnessService: BerryFirmnessService,</span>
+<span class="fc" id="L18">    private val berryFirmnessService: BerryFirmnessService,</span>
 ) {
     /** 获取树果硬度分页结果 */
     @GetMapping(&quot;/page&quot;)
     fun getBerryFirmnessPage(
         pageable: Pageable,
         @ModelAttribute specification: BerryFirmnessSpecification,
-<span class="fc" id="L24">    ): Page&lt;BerryFirmnessView&gt; = berryFirmnessService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L25">    ): Page&lt;BerryFirmnessView&gt; = berryFirmnessService.getPageByCondition(specification, pageable)</span>
 
     /** 保存树果硬度 */
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveBerryFirmnessInput,
-<span class="fc" id="L30">    ): BerryFirmnessView = berryFirmnessService.save(command)</span>
+<span class="fc" id="L32">    ): BerryFirmnessView = berryFirmnessService.save(command)</span>
 
     /** 更新树果硬度 */
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateBerryFirmnessInput,
-<span class="fc" id="L36">    ): BerryFirmnessView = berryFirmnessService.update(command)</span>
+<span class="fc" id="L39">    ): BerryFirmnessView = berryFirmnessService.update(command)</span>
 
     /** 按 ID 删除树果硬度 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L43">        berryFirmnessService.removeById(id)</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L46">        berryFirmnessService.removeById(id)</span>
+<span class="fc" id="L47">    }</span>
 
     /** 查询树果硬度列表 */
     @GetMapping(&quot;/list&quot;)
     fun listBerryFirmnesses(
         @ModelAttribute specification: BerryFirmnessSpecification,
-<span class="fc" id="L50">    ): List&lt;BerryFirmnessView&gt; = berryFirmnessService.listByCondition(specification)</span>
+<span class="fc" id="L53">    ): List&lt;BerryFirmnessView&gt; = berryFirmnessService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

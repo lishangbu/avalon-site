@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.BerryView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryInput
 import io.github.lishangbu.avalon.dataset.service.BerryService
+import jakarta.validation.Valid
 import org.babyfish.jimmer.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
@@ -13,37 +14,39 @@ import org.springframework.web.bind.annotation.*
  * 树果管理控制器
  * 提供树果的分页查询、新增、更新和删除接口
  */
-<span class="fc" id="L16">@RestController</span>
+<span class="fc" id="L17">@RestController</span>
 @RequestMapping(&quot;/berry&quot;)
-<span class="fc" id="L18">class BerryController(</span>
+<span class="fc" id="L19">class BerryController(</span>
     /** 树果应用服务 */
-<span class="fc" id="L20">    private val berryService: BerryService,</span>
+<span class="fc" id="L21">    private val berryService: BerryService,</span>
 ) {
     /** 按筛选条件分页查询树果*/
     @GetMapping(&quot;/page&quot;)
     fun getBerryPage(
         pageable: Pageable,
         @ModelAttribute specification: BerrySpecification,
-<span class="fc" id="L27">    ): Page&lt;BerryView&gt; = berryService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L28">    ): Page&lt;BerryView&gt; = berryService.getPageByCondition(specification, pageable)</span>
 
     /** 创建树果 */
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveBerryInput,
-<span class="fc" id="L33">    ): BerryView = berryService.save(command)</span>
+<span class="fc" id="L35">    ): BerryView = berryService.save(command)</span>
 
     /** 更新树果 */
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateBerryInput,
-<span class="fc" id="L39">    ): BerryView = berryService.update(command)</span>
+<span class="fc" id="L42">    ): BerryView = berryService.update(command)</span>
 
     /** 删除指定 ID 的树果*/
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L46">        berryService.removeById(id)</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L49">        berryService.removeById(id)</span>
+<span class="fc" id="L50">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.GenderView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveGenderInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateGenderInput
 import io.github.lishangbu.avalon.dataset.service.GenderService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -16,36 +17,38 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 性别控制器 */
-<span class="fc" id="L19">@RestController</span>
+<span class="fc" id="L20">@RestController</span>
 @RequestMapping(&quot;/gender&quot;)
-<span class="fc" id="L21">class GenderController(</span>
+<span class="fc" id="L22">class GenderController(</span>
     /** 性别服务 */
-<span class="fc" id="L23">    private val genderService: GenderService,</span>
+<span class="fc" id="L24">    private val genderService: GenderService,</span>
 ) {
     /** 保存性别 */
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveGenderInput,
-<span class="fc" id="L29">    ): GenderView = genderService.save(command)</span>
+<span class="fc" id="L31">    ): GenderView = genderService.save(command)</span>
 
     /** 更新性别 */
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateGenderInput,
-<span class="fc" id="L35">    ): GenderView = genderService.update(command)</span>
+<span class="fc" id="L38">    ): GenderView = genderService.update(command)</span>
 
     /** 按 ID 删除性别 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L42">        genderService.removeById(id)</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L45">        genderService.removeById(id)</span>
+<span class="fc" id="L46">    }</span>
 
     /** 查询性别列表 */
     @GetMapping(&quot;/list&quot;)
     fun listGenders(
         @ModelAttribute specification: GenderSpecification,
-<span class="fc" id="L49">    ): List&lt;GenderView&gt; = genderService.listByCondition(specification)</span>
+<span class="fc" id="L52">    ): List&lt;GenderView&gt; = genderService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

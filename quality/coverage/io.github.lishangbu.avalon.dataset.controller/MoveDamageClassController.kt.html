@@ -5,48 +5,51 @@ import io.github.lishangbu.avalon.dataset.entity.dto.MoveDamageClassView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveMoveDamageClassInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateMoveDamageClassInput
 import io.github.lishangbu.avalon.dataset.service.MoveDamageClassService
+import jakarta.validation.Valid
 import org.babyfish.jimmer.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
 /** 招式伤害分类控制器*/
-<span class="fc" id="L13">@RestController</span>
+<span class="fc" id="L14">@RestController</span>
 @RequestMapping(&quot;/move-damage-class&quot;)
-<span class="fc" id="L15">class MoveDamageClassController(</span>
+<span class="fc" id="L16">class MoveDamageClassController(</span>
     /** 招式伤害分类服务 */
-<span class="fc" id="L17">    private val moveDamageClassService: MoveDamageClassService,</span>
+<span class="fc" id="L18">    private val moveDamageClassService: MoveDamageClassService,</span>
 ) {
     /** 获取招式伤害分类分页结果 */
     @GetMapping(&quot;/page&quot;)
     fun getMoveDamageClassPage(
         pageable: Pageable,
         @ModelAttribute specification: MoveDamageClassSpecification,
-<span class="fc" id="L24">    ): Page&lt;MoveDamageClassView&gt; = moveDamageClassService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L25">    ): Page&lt;MoveDamageClassView&gt; = moveDamageClassService.getPageByCondition(specification, pageable)</span>
 
     /** 保存招式伤害分类 */
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveMoveDamageClassInput,
-<span class="fc" id="L30">    ): MoveDamageClassView = moveDamageClassService.save(command)</span>
+<span class="fc" id="L32">    ): MoveDamageClassView = moveDamageClassService.save(command)</span>
 
     /** 更新招式伤害分类 */
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateMoveDamageClassInput,
-<span class="fc" id="L36">    ): MoveDamageClassView = moveDamageClassService.update(command)</span>
+<span class="fc" id="L39">    ): MoveDamageClassView = moveDamageClassService.update(command)</span>
 
     /** 按 ID 删除招式伤害分类 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L43">        moveDamageClassService.removeById(id)</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L46">        moveDamageClassService.removeById(id)</span>
+<span class="fc" id="L47">    }</span>
 
     /** 查询招式伤害分类列表 */
     @GetMapping(&quot;/list&quot;)
     fun listMoveDamageClasses(
         @ModelAttribute specification: MoveDamageClassSpecification,
-<span class="fc" id="L50">    ): List&lt;MoveDamageClassView&gt; = moveDamageClassService.listByCondition(specification)</span>
+<span class="fc" id="L53">    ): List&lt;MoveDamageClassView&gt; = moveDamageClassService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

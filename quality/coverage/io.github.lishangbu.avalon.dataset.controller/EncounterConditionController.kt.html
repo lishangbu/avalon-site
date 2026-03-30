@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveEncounterConditionInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEncounterConditionInput
 import io.github.lishangbu.avalon.dataset.service.EncounterConditionService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -16,31 +17,33 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 遭遇条件控制器 */
-<span class="fc" id="L19">@RestController</span>
+<span class="fc" id="L20">@RestController</span>
 @RequestMapping(&quot;/encounter-condition&quot;)
-<span class="fc" id="L21">class EncounterConditionController(</span>
-<span class="fc" id="L22">    private val encounterConditionService: EncounterConditionService,</span>
+<span class="fc" id="L22">class EncounterConditionController(</span>
+<span class="fc" id="L23">    private val encounterConditionService: EncounterConditionService,</span>
 ) {
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SaveEncounterConditionInput,
-<span class="fc" id="L27">    ): EncounterConditionView = encounterConditionService.save(command)</span>
+<span class="fc" id="L29">    ): EncounterConditionView = encounterConditionService.save(command)</span>
 
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdateEncounterConditionInput,
-<span class="fc" id="L32">    ): EncounterConditionView = encounterConditionService.update(command)</span>
+<span class="fc" id="L35">    ): EncounterConditionView = encounterConditionService.update(command)</span>
 
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L38">        encounterConditionService.removeById(id)</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L41">        encounterConditionService.removeById(id)</span>
+<span class="fc" id="L42">    }</span>
 
     @GetMapping(&quot;/list&quot;)
     fun listEncounterConditions(
         @ModelAttribute specification: EncounterConditionSpecification,
-<span class="fc" id="L44">    ): List&lt;EncounterConditionView&gt; = encounterConditionService.listByCondition(specification)</span>
+<span class="fc" id="L47">    ): List&lt;EncounterConditionView&gt; = encounterConditionService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.PokemonShapeView
 import io.github.lishangbu.avalon.dataset.entity.dto.SavePokemonShapeInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdatePokemonShapeInput
 import io.github.lishangbu.avalon.dataset.service.PokemonShapeService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -16,31 +17,33 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 宝可梦形状控制器 */
-<span class="fc" id="L19">@RestController</span>
+<span class="fc" id="L20">@RestController</span>
 @RequestMapping(&quot;/pokemon-shape&quot;)
-<span class="fc" id="L21">class PokemonShapeController(</span>
-<span class="fc" id="L22">    private val pokemonShapeService: PokemonShapeService,</span>
+<span class="fc" id="L22">class PokemonShapeController(</span>
+<span class="fc" id="L23">    private val pokemonShapeService: PokemonShapeService,</span>
 ) {
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SavePokemonShapeInput,
-<span class="fc" id="L27">    ): PokemonShapeView = pokemonShapeService.save(command)</span>
+<span class="fc" id="L29">    ): PokemonShapeView = pokemonShapeService.save(command)</span>
 
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdatePokemonShapeInput,
-<span class="fc" id="L32">    ): PokemonShapeView = pokemonShapeService.update(command)</span>
+<span class="fc" id="L35">    ): PokemonShapeView = pokemonShapeService.update(command)</span>
 
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L38">        pokemonShapeService.removeById(id)</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L41">        pokemonShapeService.removeById(id)</span>
+<span class="fc" id="L42">    }</span>
 
     @GetMapping(&quot;/list&quot;)
     fun listPokemonShapes(
         @ModelAttribute specification: PokemonShapeSpecification,
-<span class="fc" id="L44">    ): List&lt;PokemonShapeView&gt; = pokemonShapeService.listByCondition(specification)</span>
+<span class="fc" id="L47">    ): List&lt;PokemonShapeView&gt; = pokemonShapeService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

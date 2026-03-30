@@ -5,6 +5,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.PokemonHabitatView
 import io.github.lishangbu.avalon.dataset.entity.dto.SavePokemonHabitatInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdatePokemonHabitatInput
 import io.github.lishangbu.avalon.dataset.service.PokemonHabitatService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -16,31 +17,33 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 宝可梦栖息地控制器 */
-<span class="fc" id="L19">@RestController</span>
+<span class="fc" id="L20">@RestController</span>
 @RequestMapping(&quot;/pokemon-habitat&quot;)
-<span class="fc" id="L21">class PokemonHabitatController(</span>
-<span class="fc" id="L22">    private val pokemonHabitatService: PokemonHabitatService,</span>
+<span class="fc" id="L22">class PokemonHabitatController(</span>
+<span class="fc" id="L23">    private val pokemonHabitatService: PokemonHabitatService,</span>
 ) {
     @PostMapping
     fun save(
+        @Valid
         @RequestBody command: SavePokemonHabitatInput,
-<span class="fc" id="L27">    ): PokemonHabitatView = pokemonHabitatService.save(command)</span>
+<span class="fc" id="L29">    ): PokemonHabitatView = pokemonHabitatService.save(command)</span>
 
     @PutMapping
     fun update(
+        @Valid
         @RequestBody command: UpdatePokemonHabitatInput,
-<span class="fc" id="L32">    ): PokemonHabitatView = pokemonHabitatService.update(command)</span>
+<span class="fc" id="L35">    ): PokemonHabitatView = pokemonHabitatService.update(command)</span>
 
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L38">        pokemonHabitatService.removeById(id)</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L41">        pokemonHabitatService.removeById(id)</span>
+<span class="fc" id="L42">    }</span>
 
     @GetMapping(&quot;/list&quot;)
     fun listPokemonHabitats(
         @ModelAttribute specification: PokemonHabitatSpecification,
-<span class="fc" id="L44">    ): List&lt;PokemonHabitatView&gt; = pokemonHabitatService.listByCondition(specification)</span>
+<span class="fc" id="L47">    ): List&lt;PokemonHabitatView&gt; = pokemonHabitatService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
