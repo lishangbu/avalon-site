@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CaptureContext</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-game:avalon-game-calculator/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filter=":avalon-modules:avalon-game:avalon-game-calculator/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-game-calculator::io.github.lishangbu.avalon.game.calculator.capture/CaptureContext///PointingToDeclaration//-1773659784">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-game-calculator</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.calculator.capture</a><span class="delimiter">/</span><span class="current">CaptureContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Capture</span><wbr><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">CaptureContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>alreadyCaught<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isFishingEncounter<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isSurfEncounter<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isNight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isCave<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isUltraBeast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>targetLevel<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>targetWeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>targetTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptySet()</span></span><span class="token punctuation">)</span></div><p class="paragraph">捕捉率计算所需的额外上下文。</p><p class="paragraph">这些字段全部是纯数值/纯标志输入，调用方可以在 battle 层或 service 层准备好后再传进来， 计算器本身不关心这些值是来自数据库、快照还是前端请求。</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1851873552%2FConstructors%2F-1773659784" anchor-label="CaptureContext" id="-1851873552%2FConstructors%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-capture-context.html"><span>Capture</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1851873552%2FConstructors%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">alreadyCaught<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">isFishingEncounter<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">isSurfEncounter<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">isNight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">isCave<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">isUltraBeast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">targetLevel<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">targetWeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">targetTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptySet()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="2017369757%2FProperties%2F-1773659784" anchor-label="alreadyCaught" id="2017369757%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="already-caught.html"><span>already</span><wbr><span><span>Caught</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2017369757%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="already-caught.html">alreadyCaught</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">目标物种是否已经被玩家捕获过，用于 <code class="lang-kotlin">repeat-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-474060046%2FProperties%2F-1773659784" anchor-label="isCave" id="-474060046%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-cave.html"><span>is</span><wbr><span><span>Cave</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-474060046%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-cave.html">isCave</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">是否为洞窟环境，用于 <code class="lang-kotlin">dusk-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-411493066%2FProperties%2F-1773659784" anchor-label="isFishingEncounter" id="-411493066%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-fishing-encounter.html"><span>is</span><wbr><span>Fishing</span><wbr><span><span>Encounter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-411493066%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-fishing-encounter.html">isFishingEncounter</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">是否为钓鱼遭遇，用于 <code class="lang-kotlin">dive-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-723405629%2FProperties%2F-1773659784" anchor-label="isNight" id="-723405629%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-night.html"><span>is</span><wbr><span><span>Night</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-723405629%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-night.html">isNight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">是否为夜晚环境，用于 <code class="lang-kotlin">dusk-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1720326334%2FProperties%2F-1773659784" anchor-label="isSurfEncounter" id="1720326334%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-surf-encounter.html"><span>is</span><wbr><span>Surf</span><wbr><span><span>Encounter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1720326334%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-surf-encounter.html">isSurfEncounter</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">是否为冲浪遭遇，用于 <code class="lang-kotlin">dive-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1336631468%2FProperties%2F-1773659784" anchor-label="isUltraBeast" id="1336631468%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-ultra-beast.html"><span>is</span><wbr><span>Ultra</span><wbr><span><span>Beast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1336631468%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-ultra-beast.html">isUltraBeast</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">目标是否被视为究极异兽，用于 <code class="lang-kotlin">beast-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="287251198%2FProperties%2F-1773659784" anchor-label="targetLevel" id="287251198%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target-level.html"><span>target</span><wbr><span><span>Level</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="287251198%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="target-level.html">targetLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">目标等级，用于 <code class="lang-kotlin">nest-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1194497111%2FProperties%2F-1773659784" anchor-label="targetTypes" id="-1194497111%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target-types.html"><span>target</span><wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1194497111%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="target-types.html">targetTypes</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">目标属性集合，用于 <code class="lang-kotlin">net-ball</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="994609824%2FProperties%2F-1773659784" anchor-label="targetWeight" id="994609824%2FProperties%2F-1773659784" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-calculator/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-calculator/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target-weight.html"><span>target</span><wbr><span><span>Weight</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="994609824%2FProperties%2F-1773659784"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-calculator/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="target-weight.html">targetWeight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">目标体重。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

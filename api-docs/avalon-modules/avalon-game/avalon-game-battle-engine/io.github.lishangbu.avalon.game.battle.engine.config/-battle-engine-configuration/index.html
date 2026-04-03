@@ -1,0 +1,1015 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BattleEngineConfiguration</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-game-battle-engine::io.github.lishangbu.avalon.game.battle.engine.config/BattleEngineConfiguration///PointingToDeclaration//-1879947025">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-game-battle-engine</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.battle.engine.config</a><span class="delimiter">/</span><span class="current">BattleEngineConfiguration</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Battle</span><wbr><span>Engine</span><wbr><span><span>Configuration</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Configuration///PointingToDeclaration/"><span class="token annotation builtin">Configuration</span></span><span class="token punctuation">(</span><span>proxyBeanMethods<span class="token operator"> = </span><span class="breakable-word"><span class="token boolean">false</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">BattleEngineConfiguration</a></div><p class="paragraph"><code class="lang-kotlin">avalon-game-battle-engine</code> 默认装配。</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1153272488%2FConstructors%2F-1879947025" anchor-label="BattleEngineConfiguration" id="1153272488%2FConstructors%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-engine-configuration.html"><span>Battle</span><wbr><span>Engine</span><wbr><span><span>Configuration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1153272488%2FConstructors%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1825389072%2FFunctions%2F-1879947025" anchor-label="actionExecutorRegistry" id="1825389072%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="action-executor-registry.html"><span>action</span><wbr><span>Executor</span><wbr><span><span>Registry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1825389072%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="action-executor-registry.html"><span class="token function">actionExecutorRegistry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.registry/-action-executor-registry/index.html">ActionExecutorRegistry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1468465391%2FFunctions%2F-1879947025" anchor-label="addVolatileBattleMutationInterceptor" id="1468465391%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-volatile-battle-mutation-interceptor.html"><span>add</span><wbr><span>Volatile</span><wbr><span>Battle</span><wbr><span>Mutation</span><wbr><span><span>Interceptor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1468465391%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-add-volatile-battle-mutation-interceptor/index.html">AddVolatileBattleMutationInterceptor::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="add-volatile-battle-mutation-interceptor.html"><span class="token function">addVolatileBattleMutationInterceptor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-add-volatile-battle-mutation-interceptor/index.html">AddVolatileBattleMutationInterceptor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1341066517%2FFunctions%2F-1879947025" anchor-label="battleFlowEngine" id="-1341066517%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-flow-engine.html"><span>battle</span><wbr><span>Flow</span><wbr><span><span>Engine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1341066517%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-engine/index.html">BattleFlowEngine::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-flow-engine.html"><span class="token function">battleFlowEngine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectDefinitionRepository<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a><span class="token punctuation">, </span></span><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a><span class="token punctuation">, </span></span><span class="parameter ">battleMoveResolutionPipeline<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-resolution-pipeline/index.html">BattleMoveResolutionPipeline</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-engine/index.html">BattleFlowEngine</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1626841588%2FFunctions%2F-1879947025" anchor-label="battleFlowPhaseProcessor" id="1626841588%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-flow-phase-processor.html"><span>battle</span><wbr><span>Flow</span><wbr><span>Phase</span><wbr><span><span>Processor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1626841588%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-flow-phase-processor.html"><span class="token function">battleFlowPhaseProcessor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectDefinitionRepository<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a><span class="token punctuation">, </span></span><span class="parameter ">hookRuleProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime/-hook-rule-processor/index.html">HookRuleProcessor</a><span class="token punctuation">, </span></span><span class="parameter ">mutationApplier<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.apply/-mutation-applier/index.html">MutationApplier</a><span class="token punctuation">, </span></span><span class="parameter ">battleMutationInterceptorChain<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-mutation-interceptor-chain/index.html">BattleMutationInterceptorChain</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-755086261%2FFunctions%2F-1879947025" anchor-label="battleHitResolutionPolicy" id="-755086261%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-hit-resolution-policy.html"><span>battle</span><wbr><span>Hit</span><wbr><span>Resolution</span><wbr><span><span>Policy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-755086261%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-hit-resolution-policy/index.html">BattleHitResolutionPolicy::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-hit-resolution-policy.html"><span class="token function">battleHitResolutionPolicy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-hit-resolution-policy/index.html">BattleHitResolutionPolicy</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-253916766%2FFunctions%2F-1879947025" anchor-label="battleMoveAccuracyEvasionPhaseStep" id="-253916766%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-accuracy-evasion-phase-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>Accuracy</span><wbr><span>Evasion</span><wbr><span>Phase</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-253916766%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-accuracy-evasion-phase-step/index.html">BattleMoveAccuracyEvasionPhaseStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-accuracy-evasion-phase-step.html"><span class="token function">battleMoveAccuracyEvasionPhaseStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-accuracy-evasion-phase-step/index.html">BattleMoveAccuracyEvasionPhaseStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1723746753%2FFunctions%2F-1879947025" anchor-label="battleMoveAfterMovePhaseStep" id="1723746753%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-after-move-phase-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>After</span><wbr><span>Move</span><wbr><span>Phase</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1723746753%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-after-move-phase-step/index.html">BattleMoveAfterMovePhaseStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-after-move-phase-step.html"><span class="token function">battleMoveAfterMovePhaseStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-after-move-phase-step/index.html">BattleMoveAfterMovePhaseStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1723266961%2FFunctions%2F-1879947025" anchor-label="battleMoveHitHooksPhaseStep" id="1723266961%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-hit-hooks-phase-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>Hit</span><wbr><span>Hooks</span><wbr><span>Phase</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1723266961%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-hit-hooks-phase-step/index.html">BattleMoveHitHooksPhaseStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-hit-hooks-phase-step.html"><span class="token function">battleMoveHitHooksPhaseStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-hit-hooks-phase-step/index.html">BattleMoveHitHooksPhaseStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="679784634%2FFunctions%2F-1879947025" anchor-label="battleMoveHitResolutionStep" id="679784634%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-hit-resolution-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>Hit</span><wbr><span>Resolution</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="679784634%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-hit-resolution-step/index.html">BattleMoveHitResolutionStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-hit-resolution-step.html"><span class="token function">battleMoveHitResolutionStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleHitResolutionPolicy<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-hit-resolution-policy/index.html">BattleHitResolutionPolicy</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-hit-resolution-step/index.html">BattleMoveHitResolutionStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="676795162%2FFunctions%2F-1879947025" anchor-label="battleMovePowerDamagePhaseStep" id="676795162%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-power-damage-phase-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>Power</span><wbr><span>Damage</span><wbr><span>Phase</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="676795162%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-power-damage-phase-step/index.html">BattleMovePowerDamagePhaseStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-power-damage-phase-step.html"><span class="token function">battleMovePowerDamagePhaseStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-power-damage-phase-step/index.html">BattleMovePowerDamagePhaseStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2052759714%2FFunctions%2F-1879947025" anchor-label="battleMovePreHitPhaseStep" id="-2052759714%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-pre-hit-phase-step.html"><span>battle</span><wbr><span>Move</span><wbr><span>Pre</span><wbr><span>Hit</span><wbr><span>Phase</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2052759714%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-pre-hit-phase-step/index.html">BattleMovePreHitPhaseStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-pre-hit-phase-step.html"><span class="token function">battleMovePreHitPhaseStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-pre-hit-phase-step/index.html">BattleMovePreHitPhaseStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="251800381%2FFunctions%2F-1879947025" anchor-label="battleMoveResolutionPipeline" id="251800381%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-move-resolution-pipeline.html"><span>battle</span><wbr><span>Move</span><wbr><span>Resolution</span><wbr><span><span>Pipeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="251800381%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-resolution-pipeline/index.html">BattleMoveResolutionPipeline::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-move-resolution-pipeline.html"><span class="token function">battleMoveResolutionPipeline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">steps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-resolution-step/index.html">BattleMoveResolutionStep</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-move-resolution-pipeline/index.html">BattleMoveResolutionPipeline</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-535984522%2FFunctions%2F-1879947025" anchor-label="battleMutationInterceptorChain" id="-535984522%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-mutation-interceptor-chain.html"><span>battle</span><wbr><span>Mutation</span><wbr><span>Interceptor</span><wbr><span><span>Chain</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-535984522%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-mutation-interceptor-chain/index.html">BattleMutationInterceptorChain::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-mutation-interceptor-chain.html"><span class="token function">battleMutationInterceptorChain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">interceptors<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-mutation-interceptor/index.html">BattleMutationInterceptor</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-mutation-interceptor-chain/index.html">BattleMutationInterceptorChain</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-89354663%2FFunctions%2F-1879947025" anchor-label="battleSessionActionExecutionSupport" id="-89354663%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-action-execution-support.html"><span>battle</span><wbr><span>Session</span><wbr><span>Action</span><wbr><span>Execution</span><wbr><span><span>Support</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-89354663%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="battle-session-action-execution-support.html"><span class="token function">battleSessionActionExecutionSupport</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1239692640%2FFunctions%2F-1879947025" anchor-label="battleSessionActionHandlerRegistry" id="1239692640%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-action-handler-registry.html"><span>battle</span><wbr><span>Session</span><wbr><span>Action</span><wbr><span>Handler</span><wbr><span><span>Registry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1239692640%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-handler-registry/index.html">BattleSessionActionHandlerRegistry::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-action-handler-registry.html"><span class="token function">battleSessionActionHandlerRegistry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">handlers<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-handler/index.html">BattleSessionActionHandler</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-handler-registry/index.html">BattleSessionActionHandlerRegistry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="811182035%2FFunctions%2F-1879947025" anchor-label="battleSessionActionSortingStrategy" id="811182035%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-action-sorting-strategy.html"><span>battle</span><wbr><span>Session</span><wbr><span>Action</span><wbr><span>Sorting</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="811182035%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-action-sorting-strategy.html"><span class="token function">battleSessionActionSortingStrategy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="506608404%2FFunctions%2F-1879947025" anchor-label="battleSessionAvailableTargetResolver" id="506608404%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-available-target-resolver.html"><span>battle</span><wbr><span>Session</span><wbr><span>Available</span><wbr><span>Target</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="506608404%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-available-target-resolver/index.html">BattleSessionAvailableTargetResolver::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-available-target-resolver.html"><span class="token function">battleSessionAvailableTargetResolver</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-available-target-resolver/index.html">BattleSessionAvailableTargetResolver</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1842379914%2FFunctions%2F-1879947025" anchor-label="battleSessionBattleLogProjector" id="-1842379914%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-battle-log-projector.html"><span>battle</span><wbr><span>Session</span><wbr><span>Battle</span><wbr><span>Log</span><wbr><span><span>Projector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1842379914%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-battle-log-projector/index.html">BattleSessionBattleLogProjector::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-battle-log-projector.html"><span class="token function">battleSessionBattleLogProjector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-battle-log-projector/index.html">BattleSessionBattleLogProjector</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="819323160%2FFunctions%2F-1879947025" anchor-label="battleSessionCaptureActionHandler" id="819323160%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-capture-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Capture</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="819323160%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-capture-action-handler/index.html">BattleSessionCaptureActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-capture-action-handler.html"><span class="token function">battleSessionCaptureActionHandler</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-capture-action-handler/index.html">BattleSessionCaptureActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-977520717%2FFunctions%2F-1879947025" anchor-label="battleSessionCaptureChoiceHandler" id="-977520717%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-capture-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Capture</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-977520717%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-capture-choice-handler/index.html">BattleSessionCaptureChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-capture-choice-handler.html"><span class="token function">battleSessionCaptureChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-capture-choice-handler/index.html">BattleSessionCaptureChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="687980778%2FFunctions%2F-1879947025" anchor-label="battleSessionCaptureChoiceSpecification" id="687980778%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-capture-choice-specification.html"><span>battle</span><wbr><span>Session</span><wbr><span>Capture</span><wbr><span>Choice</span><wbr><span><span>Specification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="687980778%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-capture-choice-specification/index.html">BattleSessionCaptureChoiceSpecification::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-capture-choice-specification.html"><span class="token function">battleSessionCaptureChoiceSpecification</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-capture-choice-specification/index.html">BattleSessionCaptureChoiceSpecification</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="662219457%2FFunctions%2F-1879947025" anchor-label="battleSessionChoiceHandlerRegistry" id="662219457%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-choice-handler-registry.html"><span>battle</span><wbr><span>Session</span><wbr><span>Choice</span><wbr><span>Handler</span><wbr><span><span>Registry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="662219457%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-choice-handler-registry/index.html">BattleSessionChoiceHandlerRegistry::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-choice-handler-registry.html"><span class="token function">battleSessionChoiceHandlerRegistry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a><span class="token punctuation">, </span></span><span class="parameter ">handlers<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-choice-handler/index.html">BattleSessionChoiceHandler</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-choice-handler-registry/index.html">BattleSessionChoiceHandlerRegistry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="361582663%2FFunctions%2F-1879947025" anchor-label="battleSessionCommandFactory" id="361582663%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-command-factory.html"><span>battle</span><wbr><span>Session</span><wbr><span>Command</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="361582663%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-command-factory.html"><span class="token function">battleSessionCommandFactory</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-574616217%2FFunctions%2F-1879947025" anchor-label="battleSessionEventPublisher" id="-574616217%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-event-publisher.html"><span>battle</span><wbr><span>Session</span><wbr><span>Event</span><wbr><span><span>Publisher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-574616217%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-event-publisher/index.html">BattleSessionEventPublisher::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-event-publisher.html"><span class="token function">battleSessionEventPublisher</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">projectors<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-projector/index.html">BattleSessionProjector</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-event-publisher/index.html">BattleSessionEventPublisher</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-492859581%2FFunctions%2F-1879947025" anchor-label="battleSessionFactory" id="-492859581%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-factory.html"><span>battle</span><wbr><span>Session</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-492859581%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="battle-session-factory.html"><span class="token function">battleSessionFactory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectDefinitionRepository<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a><span class="token punctuation">, </span></span><span class="parameter ">battleFlowEngine<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-engine/index.html">BattleFlowEngine</a><span class="token punctuation">, </span></span><span class="parameter ">captureActionResolver<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-capture-action-resolver/index.html">CaptureActionResolver</a><span class="token punctuation">, </span></span><span class="parameter ">mutationApplier<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.apply/-mutation-applier/index.html">MutationApplier</a><span class="token punctuation">, </span></span><span class="parameter ">replacementStrategy<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-replacement-strategy/index.html">ReplacementStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionActionExecutionSupport<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionChoiceHandlerRegistry<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-choice-handler-registry/index.html">BattleSessionChoiceHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionActionHandlerRegistry<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-handler-registry/index.html">BattleSessionActionHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionTurnPipeline<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionTurnReadySpecification<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-turn-ready-specification/index.html">BattleSessionTurnReadySpecification</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionUnitChoiceSpecification<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-unit-choice-specification/index.html">BattleSessionUnitChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionRunChoiceSpecification<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-run-choice-specification/index.html">BattleSessionRunChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionTargetChoiceSpecification<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-target-choice-specification/index.html">BattleSessionTargetChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionCaptureChoiceSpecification<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-capture-choice-specification/index.html">BattleSessionCaptureChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionTargetQueryService<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionActionSortingStrategy<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionEventPublisher<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-event-publisher/index.html">BattleSessionEventPublisher</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-factory/index.html">BattleSessionFactory</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-791201451%2FFunctions%2F-1879947025" anchor-label="battleSessionItemActionHandler" id="-791201451%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-item-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Item</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-791201451%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-item-action-handler/index.html">BattleSessionItemActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-item-action-handler.html"><span class="token function">battleSessionItemActionHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionActionExecutionSupport<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-item-action-handler/index.html">BattleSessionItemActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1314910536%2FFunctions%2F-1879947025" anchor-label="battleSessionItemChoiceHandler" id="-1314910536%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-item-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Item</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1314910536%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-item-choice-handler/index.html">BattleSessionItemChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-item-choice-handler.html"><span class="token function">battleSessionItemChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-item-choice-handler/index.html">BattleSessionItemChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1449216215%2FFunctions%2F-1879947025" anchor-label="battleSessionMoveActionHandler" id="1449216215%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-move-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Move</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1449216215%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-move-action-handler/index.html">BattleSessionMoveActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-move-action-handler.html"><span class="token function">battleSessionMoveActionHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionActionExecutionSupport<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-move-action-handler/index.html">BattleSessionMoveActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1168818234%2FFunctions%2F-1879947025" anchor-label="battleSessionMoveChoiceHandler" id="1168818234%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-move-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Move</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1168818234%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-move-choice-handler/index.html">BattleSessionMoveChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-move-choice-handler.html"><span class="token function">battleSessionMoveChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-move-choice-handler/index.html">BattleSessionMoveChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1722712729%2FFunctions%2F-1879947025" anchor-label="battleSessionQueuedActionExecutionStep" id="1722712729%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-queued-action-execution-step.html"><span>battle</span><wbr><span>Session</span><wbr><span>Queued</span><wbr><span>Action</span><wbr><span>Execution</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1722712729%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-queued-action-execution-step/index.html">BattleSessionQueuedActionExecutionStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-queued-action-execution-step.html"><span class="token function">battleSessionQueuedActionExecutionStep</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-queued-action-execution-step/index.html">BattleSessionQueuedActionExecutionStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="553269551%2FFunctions%2F-1879947025" anchor-label="battleSessionResourceLedgerProjector" id="553269551%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-resource-ledger-projector.html"><span>battle</span><wbr><span>Session</span><wbr><span>Resource</span><wbr><span>Ledger</span><wbr><span><span>Projector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="553269551%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-resource-ledger-projector/index.html">BattleSessionResourceLedgerProjector::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-resource-ledger-projector.html"><span class="token function">battleSessionResourceLedgerProjector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-resource-ledger-projector/index.html">BattleSessionResourceLedgerProjector</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1361171733%2FFunctions%2F-1879947025" anchor-label="battleSessionRunActionHandler" id="-1361171733%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-run-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Run</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1361171733%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-run-action-handler/index.html">BattleSessionRunActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-run-action-handler.html"><span class="token function">battleSessionRunActionHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionActionExecutionSupport<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-run-action-handler/index.html">BattleSessionRunActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-211487154%2FFunctions%2F-1879947025" anchor-label="battleSessionRunChoiceHandler" id="-211487154%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-run-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Run</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-211487154%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-run-choice-handler/index.html">BattleSessionRunChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-run-choice-handler.html"><span class="token function">battleSessionRunChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-run-choice-handler/index.html">BattleSessionRunChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="339918127%2FFunctions%2F-1879947025" anchor-label="battleSessionRunChoiceSpecification" id="339918127%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-run-choice-specification.html"><span>battle</span><wbr><span>Session</span><wbr><span>Run</span><wbr><span>Choice</span><wbr><span><span>Specification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="339918127%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-run-choice-specification/index.html">BattleSessionRunChoiceSpecification::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-run-choice-specification.html"><span class="token function">battleSessionRunChoiceSpecification</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-run-choice-specification/index.html">BattleSessionRunChoiceSpecification</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1942988663%2FFunctions%2F-1879947025" anchor-label="battleSessionService" id="-1942988663%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-service.html"><span>battle</span><wbr><span>Session</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942988663%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="battle-session-service.html"><span class="token function">battleSessionService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sessionFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-factory/index.html">BattleSessionFactory</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionStore<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-store/index.html">BattleSessionStore</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-service/index.html">BattleSessionService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-477452845%2FFunctions%2F-1879947025" anchor-label="battleSessionStructuredEventProjector" id="-477452845%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-structured-event-projector.html"><span>battle</span><wbr><span>Session</span><wbr><span>Structured</span><wbr><span>Event</span><wbr><span><span>Projector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-477452845%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-structured-event-projector/index.html">BattleSessionStructuredEventProjector::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-structured-event-projector.html"><span class="token function">battleSessionStructuredEventProjector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-structured-event-projector/index.html">BattleSessionStructuredEventProjector</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1347858732%2FFunctions%2F-1879947025" anchor-label="battleSessionSwitchActionHandler" id="-1347858732%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-switch-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Switch</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1347858732%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-switch-action-handler/index.html">BattleSessionSwitchActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-switch-action-handler.html"><span class="token function">battleSessionSwitchActionHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionActionExecutionSupport<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-switch-action-handler/index.html">BattleSessionSwitchActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1010625737%2FFunctions%2F-1879947025" anchor-label="battleSessionSwitchChoiceHandler" id="-1010625737%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-switch-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Switch</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1010625737%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-switch-choice-handler/index.html">BattleSessionSwitchChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-switch-choice-handler.html"><span class="token function">battleSessionSwitchChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-switch-choice-handler/index.html">BattleSessionSwitchChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1768100749%2FFunctions%2F-1879947025" anchor-label="battleSessionTargetChoiceSpecification" id="-1768100749%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-target-choice-specification.html"><span>battle</span><wbr><span>Session</span><wbr><span>Target</span><wbr><span>Choice</span><wbr><span><span>Specification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1768100749%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-target-choice-specification/index.html">BattleSessionTargetChoiceSpecification::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-target-choice-specification.html"><span class="token function">battleSessionTargetChoiceSpecification</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionTargetQueryService<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-target-choice-specification/index.html">BattleSessionTargetChoiceSpecification</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1167635075%2FFunctions%2F-1879947025" anchor-label="battleSessionTargetModeResolver" id="-1167635075%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-target-mode-resolver.html"><span>battle</span><wbr><span>Session</span><wbr><span>Target</span><wbr><span>Mode</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1167635075%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-mode-resolver/index.html">BattleSessionTargetModeResolver::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-target-mode-resolver.html"><span class="token function">battleSessionTargetModeResolver</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectDefinitionRepository<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-mode-resolver/index.html">BattleSessionTargetModeResolver</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1429129073%2FFunctions%2F-1879947025" anchor-label="battleSessionTargetQueryService" id="1429129073%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-target-query-service.html"><span>battle</span><wbr><span>Session</span><wbr><span>Target</span><wbr><span>Query</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1429129073%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-target-query-service.html"><span class="token function">battleSessionTargetQueryService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionTargetModeResolver<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-mode-resolver/index.html">BattleSessionTargetModeResolver</a><span class="token punctuation">, </span></span><span class="parameter ">battleSessionAvailableTargetResolver<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-available-target-resolver/index.html">BattleSessionAvailableTargetResolver</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="901159267%2FFunctions%2F-1879947025" anchor-label="battleSessionTurnAdvanceStep" id="901159267%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-turn-advance-step.html"><span>battle</span><wbr><span>Session</span><wbr><span>Turn</span><wbr><span>Advance</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="901159267%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-advance-step/index.html">BattleSessionTurnAdvanceStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-turn-advance-step.html"><span class="token function">battleSessionTurnAdvanceStep</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-advance-step/index.html">BattleSessionTurnAdvanceStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1497415721%2FFunctions%2F-1879947025" anchor-label="battleSessionTurnPipeline" id="1497415721%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-turn-pipeline.html"><span>battle</span><wbr><span>Session</span><wbr><span>Turn</span><wbr><span><span>Pipeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1497415721%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-turn-pipeline.html"><span class="token function">battleSessionTurnPipeline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">steps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-step/index.html">BattleSessionTurnStep</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-804513591%2FFunctions%2F-1879947025" anchor-label="battleSessionTurnReadySpecification" id="-804513591%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-turn-ready-specification.html"><span>battle</span><wbr><span>Session</span><wbr><span>Turn</span><wbr><span>Ready</span><wbr><span><span>Specification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-804513591%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-turn-ready-specification/index.html">BattleSessionTurnReadySpecification::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-turn-ready-specification.html"><span class="token function">battleSessionTurnReadySpecification</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-turn-ready-specification/index.html">BattleSessionTurnReadySpecification</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1321140132%2FFunctions%2F-1879947025" anchor-label="battleSessionTurnValidationStep" id="1321140132%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-turn-validation-step.html"><span>battle</span><wbr><span>Session</span><wbr><span>Turn</span><wbr><span>Validation</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1321140132%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-validation-step/index.html">BattleSessionTurnValidationStep::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-turn-validation-step.html"><span class="token function">battleSessionTurnValidationStep</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-turn-validation-step/index.html">BattleSessionTurnValidationStep</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-339563530%2FFunctions%2F-1879947025" anchor-label="battleSessionUnitChoiceSpecification" id="-339563530%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-unit-choice-specification.html"><span>battle</span><wbr><span>Session</span><wbr><span>Unit</span><wbr><span>Choice</span><wbr><span><span>Specification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-339563530%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-unit-choice-specification/index.html">BattleSessionUnitChoiceSpecification::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-unit-choice-specification.html"><span class="token function">battleSessionUnitChoiceSpecification</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-unit-choice-specification/index.html">BattleSessionUnitChoiceSpecification</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1881194411%2FFunctions%2F-1879947025" anchor-label="battleSessionWaitActionHandler" id="-1881194411%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-wait-action-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Wait</span><wbr><span>Action</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1881194411%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-wait-action-handler/index.html">BattleSessionWaitActionHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-wait-action-handler.html"><span class="token function">battleSessionWaitActionHandler</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-wait-action-handler/index.html">BattleSessionWaitActionHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-126156266%2FFunctions%2F-1879947025" anchor-label="battleSessionWaitChoiceHandler" id="-126156266%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-session-wait-choice-handler.html"><span>battle</span><wbr><span>Session</span><wbr><span>Wait</span><wbr><span>Choice</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-126156266%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-wait-choice-handler/index.html">BattleSessionWaitChoiceHandler::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="battle-session-wait-choice-handler.html"><span class="token function">battleSessionWaitChoiceHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">battleSessionCommandFactory<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-command-factory/index.html">BattleSessionCommandFactory</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-battle-session-wait-choice-handler/index.html">BattleSessionWaitChoiceHandler</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1744072913%2FFunctions%2F-1879947025" anchor-label="captureActionResolver" id="1744072913%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capture-action-resolver.html"><span>capture</span><wbr><span>Action</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1744072913%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-capture-action-resolver/index.html">CaptureActionResolver::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="capture-action-resolver.html"><span class="token function">captureActionResolver</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">captureFormulaInputResolver<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-capture-formula-input-resolver/index.html">CaptureFormulaInputResolver</a><span class="token punctuation">, </span></span><span class="parameter ">captureFormulaService<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.capture/-capture-formula-service/index.html">CaptureFormulaService</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-capture-action-resolver/index.html">CaptureActionResolver</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="10307704%2FFunctions%2F-1879947025" anchor-label="captureFormulaService" id="10307704%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capture-formula-service.html"><span>capture</span><wbr><span>Formula</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="10307704%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="capture-formula-service.html"><span class="token function">captureFormulaService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">captureRandomSource<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.capture/-capture-random-source/index.html">CaptureRandomSource</a><span class="token punctuation">, </span></span><span class="parameter ">captureRateCalculator<span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-calculator/io.github.lishangbu.avalon.game.calculator.capture/-capture-rate-calculator/index.html">CaptureRateCalculator</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.capture/-capture-formula-service/index.html">CaptureFormulaService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1389256288%2FFunctions%2F-1879947025" anchor-label="captureRandomSource" id="-1389256288%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capture-random-source.html"><span>capture</span><wbr><span>Random</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1389256288%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="capture-random-source.html"><span class="token function">captureRandomSource</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.capture/-capture-random-source/index.html">CaptureRandomSource</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-127336292%2FFunctions%2F-1879947025" anchor-label="captureRateCalculator" id="-127336292%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capture-rate-calculator.html"><span>capture</span><wbr><span>Rate</span><wbr><span><span>Calculator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-127336292%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="capture-rate-calculator.html"><span class="token function">captureRateCalculator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-calculator/io.github.lishangbu.avalon.game.calculator.capture/-capture-rate-calculator/index.html">CaptureRateCalculator</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2125232934%2FFunctions%2F-1879947025" anchor-label="conditionInterpreterRegistry" id="-2125232934%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="condition-interpreter-registry.html"><span>condition</span><wbr><span>Interpreter</span><wbr><span><span>Registry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2125232934%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="condition-interpreter-registry.html"><span class="token function">conditionInterpreterRegistry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.registry/-condition-interpreter-registry/index.html">ConditionInterpreterRegistry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="763084418%2FFunctions%2F-1879947025" anchor-label="hookRuleProcessor" id="763084418%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hook-rule-processor.html"><span>hook</span><wbr><span>Rule</span><wbr><span><span>Processor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="763084418%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="hook-rule-processor.html"><span class="token function">hookRuleProcessor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">conditionInterpreterRegistry<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.registry/-condition-interpreter-registry/index.html">ConditionInterpreterRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">actionExecutorRegistry<span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.registry/-action-executor-registry/index.html">ActionExecutorRegistry</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime/-hook-rule-processor/index.html">HookRuleProcessor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="106854797%2FFunctions%2F-1879947025" anchor-label="inMemoryBattleSessionStore" id="106854797%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="in-memory-battle-session-store.html"><span>in</span><wbr><span>Memory</span><wbr><span>Battle</span><wbr><span>Session</span><wbr><span><span>Store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="106854797%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-store/index.html">BattleSessionStore::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="in-memory-battle-session-store.html"><span class="token function">inMemoryBattleSessionStore</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.service/-battle-session-store/index.html">BattleSessionStore</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-661778846%2FFunctions%2F-1879947025" anchor-label="mutationApplier" id="-661778846%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mutation-applier.html"><span>mutation</span><wbr><span><span>Applier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-661778846%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="mutation-applier.html"><span class="token function">mutationApplier</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.apply/-mutation-applier/index.html">MutationApplier</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2078220737%2FFunctions%2F-1879947025" anchor-label="replacementStrategy" id="-2078220737%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="replacement-strategy.html"><span>replacement</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2078220737%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span></div></div><span class="token keyword">fun </span><a href="replacement-strategy.html"><span class="token function">replacementStrategy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.session/-replacement-strategy/index.html">ReplacementStrategy</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1630728954%2FFunctions%2F-1879947025" anchor-label="setStatusBattleMutationInterceptor" id="-1630728954%2FFunctions%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-status-battle-mutation-interceptor.html"><span>set</span><wbr><span>Status</span><wbr><span>Battle</span><wbr><span>Mutation</span><wbr><span><span>Interceptor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1630728954%2FFunctions%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.context.annotation/Bean///PointingToDeclaration/"><span class="token annotation builtin">Bean</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.boot.autoconfigure.condition/ConditionalOnMissingBean///PointingToDeclaration/"><span class="token annotation builtin">ConditionalOnMissingBean</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-set-status-battle-mutation-interceptor/index.html">SetStatusBattleMutationInterceptor::class</a></span><wbr><span class="token punctuation">]</span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="set-status-battle-mutation-interceptor.html"><span class="token function">setStatusBattleMutationInterceptor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-set-status-battle-mutation-interceptor/index.html">SetStatusBattleMutationInterceptor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

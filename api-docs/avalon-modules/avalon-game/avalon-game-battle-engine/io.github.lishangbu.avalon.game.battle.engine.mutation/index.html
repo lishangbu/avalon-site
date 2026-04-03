@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.lishangbu.avalon.game.battle.engine.mutation</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="avalon-game-battle-engine::io.github.lishangbu.avalon.game.battle.engine.mutation////PointingToDeclaration//-1879947025">
+  <div class="breadcrumbs"><a href="../index.html">avalon-game-battle-engine</a><span class="delimiter">/</span><span class="current">io.github.lishangbu.avalon.game.battle.engine.mutation</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1190953384%2FClasslikes%2F-1879947025" anchor-label="AddVolatileMutation" id="-1190953384%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-add-volatile-mutation/index.html"><span>Add</span><wbr><span>Volatile</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1190953384%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-add-volatile-mutation/index.html">AddVolatileMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>volatileId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">添加挥发状态变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1085919186%2FClasslikes%2F-1879947025" anchor-label="ApplyConditionMutation" id="-1085919186%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-apply-condition-mutation/index.html"><span>Apply</span><wbr><span>Condition</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1085919186%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-apply-condition-mutation/index.html">ApplyConditionMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>conditionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">挂载 condition / effect 的变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1521270493%2FClasslikes%2F-1879947025" anchor-label="BattleMutation" id="-1521270493%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-mutation/index.html"><span>Battle</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1521270493%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">动作执行后产生的结构化战斗变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="269193874%2FClasslikes%2F-1879947025" anchor-label="BoostMutation" id="269193874%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-boost-mutation/index.html"><span>Boost</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="269193874%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-boost-mutation/index.html">BoostMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>boosts<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">Boost 变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1092713583%2FClasslikes%2F-1879947025" anchor-label="ChangeTypeMutation" id="-1092713583%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-change-type-mutation/index.html"><span>Change</span><wbr><span>Type</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1092713583%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-change-type-mutation/index.html">ChangeTypeMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>values<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">修改属性列表变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1885834792%2FClasslikes%2F-1879947025" anchor-label="ClearBoostsMutation" id="-1885834792%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-boosts-mutation/index.html"><span>Clear</span><wbr><span>Boosts</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1885834792%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-clear-boosts-mutation/index.html">ClearBoostsMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">清空 boosts 变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1719917340%2FClasslikes%2F-1879947025" anchor-label="ClearFlagMutation" id="1719917340%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-flag-mutation/index.html"><span>Clear</span><wbr><span>Flag</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1719917340%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-clear-flag-mutation/index.html">ClearFlagMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">清除轻量标记变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1585643149%2FClasslikes%2F-1879947025" anchor-label="ClearTerrainMutation" id="-1585643149%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-terrain-mutation/index.html"><span>Clear</span><wbr><span>Terrain</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1585643149%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-terrain-mutation/index.html">ClearTerrainMutation</a> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">清除地形变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-561991532%2FClasslikes%2F-1879947025" anchor-label="ClearWeatherMutation" id="-561991532%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-weather-mutation/index.html"><span>Clear</span><wbr><span>Weather</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-561991532%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-weather-mutation/index.html">ClearWeatherMutation</a> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">清除天气变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1952177350%2FClasslikes%2F-1879947025" anchor-label="ConsumeItemMutation" id="1952177350%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-consume-item-mutation/index.html"><span>Consume</span><wbr><span>Item</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952177350%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-consume-item-mutation/index.html">ConsumeItemMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">消耗道具变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="181500236%2FClasslikes%2F-1879947025" anchor-label="DamageMutation" id="181500236%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-damage-mutation/index.html"><span>Damage</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="181500236%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-damage-mutation/index.html">DamageMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>mode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">伤害变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2110508554%2FClasslikes%2F-1879947025" anchor-label="ForceSwitchMutation" id="-2110508554%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-force-switch-mutation/index.html"><span>Force</span><wbr><span>Switch</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110508554%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-force-switch-mutation/index.html">ForceSwitchMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">强制替换变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2136924851%2FClasslikes%2F-1879947025" anchor-label="HealMutation" id="2136924851%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-heal-mutation/index.html"><span>Heal</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136924851%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-heal-mutation/index.html">HealMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>mode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">回复变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1716718462%2FClasslikes%2F-1879947025" anchor-label="RemoveConditionMutation" id="1716718462%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-condition-mutation/index.html"><span>Remove</span><wbr><span>Condition</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1716718462%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-remove-condition-mutation/index.html">RemoveConditionMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>conditionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">移除 condition / effect 的变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-529835579%2FClasslikes%2F-1879947025" anchor-label="RemoveStatusMutation" id="-529835579%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-status-mutation/index.html"><span>Remove</span><wbr><span>Status</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-529835579%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-remove-status-mutation/index.html">RemoveStatusMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">清除主状态变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-686569061%2FClasslikes%2F-1879947025" anchor-label="RemoveVolatileMutation" id="-686569061%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-volatile-mutation/index.html"><span>Remove</span><wbr><span>Volatile</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-686569061%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-remove-volatile-mutation/index.html">RemoveVolatileMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>volatileId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">移除挥发状态变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="212169703%2FClasslikes%2F-1879947025" anchor-label="RestorePpMutation" id="212169703%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-restore-pp-mutation/index.html"><span>Restore</span><wbr><span>Pp</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212169703%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-restore-pp-mutation/index.html">RestorePpMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>moveId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">回复 PP 变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1350894233%2FClasslikes%2F-1879947025" anchor-label="SetFlagMutation" id="-1350894233%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-flag-mutation/index.html"><span>Set</span><wbr><span>Flag</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1350894233%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-set-flag-mutation/index.html">SetFlagMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">设置轻量标记变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2129137377%2FClasslikes%2F-1879947025" anchor-label="SetStatusMutation" id="2129137377%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-status-mutation/index.html"><span>Set</span><wbr><span>Status</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2129137377%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-set-status-mutation/index.html">SetStatusMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-target-selector-id/index.html">TargetSelectorId</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>statusId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">设置主状态变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1329809592%2FClasslikes%2F-1879947025" anchor-label="SetTerrainMutation" id="-1329809592%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-terrain-mutation/index.html"><span>Set</span><wbr><span>Terrain</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1329809592%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-set-terrain-mutation/index.html">SetTerrainMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>terrainId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">设置地形变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-306157975%2FClasslikes%2F-1879947025" anchor-label="SetWeatherMutation" id="-306157975%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-weather-mutation/index.html"><span>Set</span><wbr><span>Weather</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-306157975%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-set-weather-mutation/index.html">SetWeatherMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>weatherId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">设置天气变更。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1588457191%2FClasslikes%2F-1879947025" anchor-label="TriggerEventMutation" id="-1588457191%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-trigger-event-mutation/index.html"><span>Trigger</span><wbr><span>Event</span><wbr><span><span>Mutation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1588457191%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-trigger-event-mutation/index.html">TriggerEventMutation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>hookName<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.type/-hook-name/index.html">HookName</a></span></span><span class="token punctuation">)</span> : <a href="-battle-mutation/index.html">BattleMutation</a></div><div class="brief "><p class="paragraph">主动触发 Hook 的变更请求。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
