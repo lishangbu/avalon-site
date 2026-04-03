@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CaptureRateModels.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.calculator.capture</a> &gt; <span class="el_source">CaptureRateModels.kt</span></div><h1>CaptureRateModels.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.calculator.capture
+
+/**
+ * 捕捉率计算所需的额外上下文。
+ *
+ * 这些字段全部是纯数值/纯标志输入，调用方可以在 battle 层或 service 层准备好后再传进来，
+ * 计算器本身不关心这些值是来自数据库、快照还是前端请求。
+ */
+<span class="fc" id="L9">data class CaptureContext(</span>
+    /** 目标物种是否已经被玩家捕获过，用于 `repeat-ball`。 */
+<span class="fc" id="L11">    val alreadyCaught: Boolean = false,</span>
+    /** 是否为钓鱼遭遇，用于 `dive-ball`。 */
+<span class="fc" id="L13">    val isFishingEncounter: Boolean = false,</span>
+    /** 是否为冲浪遭遇，用于 `dive-ball`。 */
+<span class="fc" id="L15">    val isSurfEncounter: Boolean = false,</span>
+    /** 是否为夜晚环境，用于 `dusk-ball`。 */
+<span class="fc" id="L17">    val isNight: Boolean = false,</span>
+    /** 是否为洞窟环境，用于 `dusk-ball`。 */
+<span class="pc" id="L19">    val isCave: Boolean = false,</span>
+    /** 目标是否被视为究极异兽，用于 `beast-ball`。 */
+<span class="pc" id="L21">    val isUltraBeast: Boolean = false,</span>
+    /** 目标等级，用于 `nest-ball`。 */
+<span class="fc" id="L23">    val targetLevel: Int? = null,</span>
+    /**
+     * 目标体重。
+     *
+     * 当前按项目内部既有约定直接使用数值，不在计算器里做单位换算。
+     * 后续 battle 模块只需要保证传入的单位与球策略一致即可。
+     */
+<span class="fc" id="L30">    val targetWeight: Int? = null,</span>
+    /** 目标属性集合，用于 `net-ball`。 */
+<span class="fc" id="L32">    val targetTypes: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L33">)</span>
+
+/**
+ * 球策略解析结果。
+ *
+ * 某些球是倍率修正，某些球是平坦捕获率修正，例如 `heavy-ball`。
+ * `master-ball` 这类直接成功的球则通过 [directSuccess] 表达。
+ */
+<span class="fc" id="L41">data class BallResolution(</span>
+    /** 球本身是否绕过后续公式，直接成功。 */
+<span class="fc" id="L43">    val directSuccess: Boolean = false,</span>
+    /** 球的倍率修正。 */
+<span class="fc" id="L45">    val multiplier: Double = 1.0,</span>
+    /** 球提供的平坦捕获率修正。 */
+<span class="fc" id="L47">    val flatCaptureRateBonus: Int = 0,</span>
+    /** 解析备注，方便调用方记录来源。 */
+<span class="fc" id="L49">    val note: String? = null,</span>
+<span class="fc" id="L50">)</span>
+
+/**
+ * 捕捉率计算输入。
+ *
+ * 公式结构参考常见主系列“四摇”计算思路：
+ *
+ * `a = effectiveCaptureRate * hpFactor * ballMultiplier * statusMultiplier`
+ *
+ * 其中：
+ *
+ * - `effectiveCaptureRate = max(1, captureRate + flatBonus)`
+ * - `hpFactor = ((3 * maxHp) - (2 * currentHp)) / (3 * maxHp)`
+ */
+<span class="fc" id="L64">data class CaptureRateInput(</span>
+    /** 当前 HP。允许为 0，便于上层在特殊规则下自行决定是否传入濒死目标。 */
+<span class="fc" id="L66">    val currentHp: Int,</span>
+    /** 最大 HP。必须大于 0。 */
+<span class="fc" id="L68">    val maxHp: Int,</span>
+    /** 基础捕获率。 */
+<span class="fc" id="L70">    val captureRate: Int,</span>
+    /**
+     * 状态内部名称。
+     *
+     * 当前默认支持：
+     *
+     * - 睡眠/冰冻：`slp`、`sleep`、`frz`、`freeze`
+     * - 麻痹/灼伤/中毒：`par`、`paralysis`、`brn`、`burn`、`psn`、`poison`、`tox`
+     */
+<span class="fc" id="L79">    val statusId: String? = null,</span>
+    /** 球的内部名称，例如 `poke-ball`、`great-ball`。 */
+<span class="fc" id="L81">    val ballItemInternalName: String,</span>
+    /** 当前回合数，从 1 开始。 */
+<span class="fc" id="L83">    val turn: Int = 1,</span>
+    /** 球策略所需的额外环境上下文。 */
+<span class="fc" id="L85">    val captureContext: CaptureContext = CaptureContext(),</span>
+<span class="fc" id="L86">)</span>
+
+/**
+ * 捕捉率计算输出。
+ *
+ * 这里同时返回“中间值”和“最终概率”，目的是后续 battle 模块既可以：
+ *
+ * - 直接展示理论捕捉率
+ * - 也可以复用 `shakeCheckThreshold` 做实际随机摇晃判定
+ */
+<span class="fc" id="L96">data class CaptureRateResult(</span>
+    /** 是否因为球本身规则而直接成功，例如 `master-ball`。 */
+<span class="fc" id="L98">    val directSuccess: Boolean,</span>
+    /** 是否已经达到必定捕获条件。 */
+<span class="fc" id="L100">    val guaranteedSuccess: Boolean,</span>
+    /** 平坦修正后的有效捕获率。 */
+<span class="fc" id="L102">    val effectiveCaptureRate: Int,</span>
+    /** 球的倍率修正。 */
+<span class="fc" id="L104">    val ballMultiplier: Double,</span>
+    /** 球的平坦捕获率修正。 */
+<span class="fc" id="L106">    val flatCaptureRateBonus: Int,</span>
+    /** 状态修正倍率。 */
+<span class="fc" id="L108">    val statusMultiplier: Double,</span>
+    /** HP 因子。HP 越低，该值越大。 */
+<span class="fc" id="L110">    val hpFactor: Double,</span>
+    /** 公式中常见的捕捉值 `a`。 */
+<span class="fc" id="L112">    val captureValue: Double,</span>
+    /**
+     * 按 `a / 255` 归一化后的百分比。
+     *
+     * 这是对中间值 `a` 的线性归一化，不等于实际四摇成功率；
+     * 之所以保留，是为了方便对齐旧公式文档和调试日志。
+     */
+<span class="fc" id="L119">    val normalizedCaptureValueRate: Double,</span>
+    /**
+     * 单次摇晃判定阈值。
+     *
+     * 若结果为 `null`，表示当前输入已经绕过摇晃判定直接成功。
+     */
+<span class="fc" id="L125">    val shakeCheckThreshold: Double?,</span>
+    /**
+     * 单次摇晃成功概率，取值范围为 `0.0 .. 1.0`。
+     *
+     * 当前按离散整数随机源精确计算，而不是简单做连续值除法：
+     * battle 中的 shake roll 是 `0..65535` 的整数。
+     */
+<span class="fc" id="L132">    val singleShakeSuccessProbability: Double,</span>
+    /**
+     * 四摇全部通过的整体成功概率，取值范围为 `0.0 .. 1.0`。
+     */
+<span class="fc" id="L136">    val overallCaptureSuccessProbability: Double,</span>
+    /**
+     * 整体成功率百分比，等于 [overallCaptureSuccessProbability] * 100。
+     */
+<span class="fc" id="L140">    val overallCaptureSuccessRate: Double,</span>
+    /** 结果备注，便于调用方记录判定来源。 */
+<span class="fc" id="L142">    val note: String,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

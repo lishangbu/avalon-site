@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HookName.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.type</a> &gt; <span class="el_source">HookName.kt</span></div><h1>HookName.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.type
+
+/**
+ * Hook 的稳定标识。
+ *
+ * 设计意图：
+ * - 用显式类型替代裸字符串，避免把 Hook 名称散落在运行时逻辑中。
+ * - 作为 [io.github.lishangbu.avalon.game.battle.engine.event.HookSpec] 与 registry 的统一键。
+ *
+ * 该类型只负责标识，不负责校验其是否已经注册。
+ *
+ * @property value Hook 的字符串名称，例如 `on_hit`。
+ */
+@JvmInline
+value class HookName(
+    val value: String,
+) {
+    init {
+<span class="pc bpc" id="L19" title="2 of 4 branches missed.">        require(value.isNotBlank()) { &quot;Hook name must not be blank.&quot; }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

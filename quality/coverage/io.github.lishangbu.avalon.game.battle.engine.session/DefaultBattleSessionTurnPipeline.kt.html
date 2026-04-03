@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleSessionTurnPipeline.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">DefaultBattleSessionTurnPipeline.kt</span></div><h1>DefaultBattleSessionTurnPipeline.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+/**
+ * 默认 battle 回合推进 pipeline。
+ *
+ * @property steps 按顺序执行的回合步骤集合。
+ */
+<span class="fc" id="L8">class DefaultBattleSessionTurnPipeline(</span>
+    steps: List&lt;BattleSessionTurnStep&gt;,
+) : BattleSessionTurnPipeline {
+<span class="fc" id="L11">    private val steps: List&lt;BattleSessionTurnStep&gt; = steps.sortedBy(BattleSessionTurnStep::order)</span>
+
+    /**
+     * 按既定顺序推进一次完整回合。
+     */
+    override fun resolve(session: BattleSession): BattleSessionTurnResult {
+<span class="fc" id="L17">        val context = BattleSessionTurnContext(session)</span>
+<span class="fc" id="L18">        steps.forEach { step -&gt; step.execute(context) }</span>
+<span class="fc" id="L19">        session.recordLog(&quot;Resolved turn with ${context.actionResults.size} action(s).&quot;)</span>
+<span class="fc" id="L20">        session.recordEvent(</span>
+<span class="fc" id="L21">            BattleSessionTurnResolvedPayload(actionCount = context.actionResults.size),</span>
+        )
+<span class="fc" id="L23">        return BattleSessionTurnResult(</span>
+<span class="fc" id="L24">            actionResults = context.actionResults,</span>
+<span class="fc" id="L25">            snapshot = context.snapshot,</span>
+        )
+    }
+
+    companion object {
+        /**
+         * 创建 battle-engine 内置的默认回合推进 pipeline。
+         *
+         * @return 包含标准回合步骤的默认 pipeline。
+         */
+        fun createDefault(): DefaultBattleSessionTurnPipeline =
+<span class="fc" id="L36">            DefaultBattleSessionTurnPipeline(</span>
+                steps =
+<span class="fc" id="L38">                    listOf(</span>
+<span class="fc" id="L39">                        BattleSessionTurnValidationStep(),</span>
+<span class="fc" id="L40">                        BattleSessionQueuedActionExecutionStep(),</span>
+<span class="fc" id="L41">                        BattleSessionTurnAdvanceStep(),</span>
+                    ),
+<span class="fc" id="L43">            )</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -4,25 +4,33 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.MoveCategorySpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.MoveCategoryView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 
 /** 招式类别仓储接口 */
 @Repository
 interface MoveCategoryRepository : KRepository&lt;MoveCategory, Long&gt; {
     fun listViews(specification: MoveCategorySpecification?): List&lt;MoveCategoryView&gt; =
-<span class="fc" id="L14">        sql</span>
-<span class="fc" id="L15">            .createQuery(MoveCategory::class) {</span>
-<span class="fc bfc" id="L16" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L17">                select(table.fetch(MoveCategoryView::class))</span>
-<span class="fc" id="L18">            }.execute()</span>
+<span class="fc" id="L16">        sql</span>
+<span class="fc" id="L17">            .createQuery(MoveCategory::class) {</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L19">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L20">                select(table.fetch(MoveCategoryView::class))</span>
+<span class="fc" id="L21">            }.execute()</span>
 
     fun loadViewById(id: Long): MoveCategoryView? =
-<span class="fc" id="L21">        sql</span>
-<span class="fc" id="L22">            .createQuery(MoveCategory::class) {</span>
-<span class="fc" id="L23">                where(table.id eq id)</span>
-<span class="fc" id="L24">                select(table.fetch(MoveCategoryView::class))</span>
-<span class="fc" id="L25">            }.execute()</span>
-<span class="fc" id="L26">            .firstOrNull()</span>
+<span class="fc" id="L24">        sql</span>
+<span class="fc" id="L25">            .createQuery(MoveCategory::class) {</span>
+<span class="fc" id="L26">                where(table.id eq id)</span>
+<span class="fc" id="L27">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L28">                select(table.fetch(MoveCategoryView::class))</span>
+<span class="fc" id="L29">            }.execute()</span>
+<span class="fc" id="L30">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L33">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

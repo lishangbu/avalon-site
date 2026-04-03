@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionQuery.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionQuery.kt</span></div><h1>BattleSessionQuery.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * BattleSession 对外查询结果。
+ *
+ * 设计意图：
+ * - 把 session 当前对外可见的状态收拢成稳定 DTO。
+ * - 避免调用方直接分别拉取 snapshot、pending actions、replacement requests、logs。
+ *
+ * @property snapshot 当前 battle 快照。
+ * @property pendingActions 当前待执行行动列表。
+ * @property choiceStatuses 当前回合各 side 的输入状态。
+ * @property replacementRequests 当前待处理替补请求。
+ * @property resourceLedger 当前全部资源账本条目。
+ * @property battleLogs 人类可读 battle log。
+ * @property eventLogs 结构化事件日志。
+ */
+<span class="fc" id="L20">data class BattleSessionQuery(</span>
+<span class="fc" id="L21">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L22">    val pendingActions: List&lt;BattleSessionAction&gt;,</span>
+<span class="fc" id="L23">    val choiceStatuses: List&lt;BattleSessionChoiceStatus&gt;,</span>
+<span class="fc" id="L24">    val replacementRequests: List&lt;BattleSessionReplacementRequest&gt;,</span>
+<span class="fc" id="L25">    val resourceLedger: List&lt;BattleSessionResourceUsage&gt;,</span>
+<span class="fc" id="L26">    val battleLogs: List&lt;String&gt;,</span>
+<span class="fc" id="L27">    val eventLogs: List&lt;BattleSessionEvent&gt;,</span>
+) {
+    /**
+     * 结构化事件的强类型 payload 视图。
+     *
+     * 设计意图：
+     * - 让调用方不必再通过 `event.type + event.attributes` 手工恢复事件语义。
+     * - 保持 `eventLogs` 作为完整事件壳的同时，提供更贴近业务的 typed 访问入口。
+     */
+    val eventPayloads: List&lt;BattleSessionEventPayload&gt;
+<span class="fc" id="L37">        get() = eventLogs.map(BattleSessionEvent::payload)</span>
+
+    /**
+     * 已入队动作事件的强类型视图。
+     */
+    val queuedActionEvents: List&lt;BattleSessionQueuedActionPayload&gt;
+<span class="fc" id="L43">        get() = eventPayloads.filterIsInstance&lt;BattleSessionQueuedActionPayload&gt;()</span>
+
+    /**
+     * 已执行动作事件的强类型视图。
+     */
+    val executedActionEvents: List&lt;BattleSessionExecutedActionPayload&gt;
+<span class="fc" id="L49">        get() = eventPayloads.filterIsInstance&lt;BattleSessionExecutedActionPayload&gt;()</span>
+
+    /**
+     * 捕捉资源账本的强类型视图。
+     *
+     * 设计意图：
+     * - 让结算与投影逻辑可以直接消费捕捉账本，而不是再从泛型账本列表中手动筛选。
+     */
+    val captureResourceLedger: List&lt;BattleSessionCaptureResourceUsage&gt;
+<span class="fc" id="L58">        get() = resourceLedger.filterIsInstance&lt;BattleSessionCaptureResourceUsage&gt;()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultCaptureBallPolicy.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.calculator.capture</a> &gt; <span class="el_source">DefaultCaptureBallPolicy.kt</span></div><h1>DefaultCaptureBallPolicy.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.calculator.capture
+
+/**
+ * 默认捕捉球策略。
+ *
+ * 这里保持与当前项目 battle capture 设计一致：
+ *
+ * - 常见球使用倍率修正
+ * - `heavy-ball` 使用平坦捕获率修正
+ * - `master-ball` 直接成功
+ *
+ * 这使得 battle 模块后续接入时可以直接复用这一层，而无需再次硬编码球规则。
+ */
+<span class="fc" id="L14">class DefaultCaptureBallPolicy : CaptureBallPolicy {</span>
+    override fun resolve(input: CaptureRateInput): BallResolution =
+<span class="pc bpc" id="L16" title="1 of 14 branches missed.">        when (input.ballItemInternalName.trim().lowercase()) {</span>
+            &quot;master-ball&quot; -&gt; {
+<span class="fc" id="L18">                BallResolution(directSuccess = true, note = &quot;master-ball&quot;)</span>
+            }
+
+            &quot;ultra-ball&quot; -&gt; {
+<span class="fc" id="L22">                BallResolution(multiplier = 2.0)</span>
+            }
+
+            &quot;great-ball&quot; -&gt; {
+<span class="fc" id="L26">                BallResolution(multiplier = 1.5)</span>
+            }
+
+            &quot;poke-ball&quot; -&gt; {
+<span class="fc" id="L30">                BallResolution(multiplier = 1.0)</span>
+            }
+
+            &quot;repeat-ball&quot; -&gt; {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                BallResolution(multiplier = if (input.captureContext.alreadyCaught) 3.5 else 1.0)</span>
+            }
+
+            &quot;timer-ball&quot; -&gt; {
+<span class="fc" id="L38">                BallResolution(multiplier = (1.0 + 0.3 * (input.turn - 1)).coerceAtMost(4.0))</span>
+            }
+
+            &quot;beast-ball&quot; -&gt; {
+<span class="nc bnc" id="L42" title="All 2 branches missed.">                BallResolution(multiplier = if (input.captureContext.isUltraBeast) 5.0 else 0.1)</span>
+            }
+
+            &quot;quick-ball&quot; -&gt; {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                BallResolution(multiplier = if (input.turn == 1) 5.0 else 1.0)</span>
+            }
+
+            &quot;dusk-ball&quot; -&gt; {
+<span class="pc bpc" id="L50" title="3 of 4 branches missed.">                BallResolution(multiplier = if (input.captureContext.isNight || input.captureContext.isCave) 3.0 else 1.0)</span>
+            }
+
+            &quot;net-ball&quot; -&gt; {
+<span class="pc bpc" id="L54" title="3 of 4 branches missed.">                BallResolution(multiplier = if (hasType(input.captureContext, &quot;water&quot;) || hasType(input.captureContext, &quot;bug&quot;)) 3.5 else 1.0)</span>
+            }
+
+            &quot;dive-ball&quot; -&gt; {
+<span class="fc" id="L58">                BallResolution(</span>
+                    multiplier =
+<span class="pc bpc" id="L60" title="2 of 4 branches missed.">                        if (input.captureContext.isFishingEncounter || input.captureContext.isSurfEncounter) {</span>
+<span class="fc" id="L61">                            3.5</span>
+                        } else {
+<span class="nc" id="L63">                            1.0</span>
+                        },
+                )
+            }
+
+            &quot;nest-ball&quot; -&gt; {
+<span class="fc" id="L69">                BallResolution(multiplier = nestBallMultiplier(input.captureContext.targetLevel))</span>
+            }
+
+            &quot;heavy-ball&quot; -&gt; {
+<span class="fc" id="L73">                BallResolution(flatCaptureRateBonus = heavyBallFlatBonus(input.captureContext.targetWeight))</span>
+            }
+
+            else -&gt; {
+<span class="fc" id="L77">                throw IllegalArgumentException(&quot;Unsupported capture ball '${input.ballItemInternalName}'.&quot;)</span>
+            }
+<span class="fc" id="L79">        }</span>
+
+    /**
+     * `nest-ball` 在目标等级低于 30 时有更高倍率。
+     *
+     * 这里直接沿用项目现有策略：
+     * `max(10, 41 - level) / 10`
+     */
+    private fun nestBallMultiplier(targetLevel: Int?): Double {
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if (targetLevel == null || targetLevel &gt;= 30) {</span>
+<span class="fc" id="L89">            return 1.0</span>
+        }
+<span class="fc" id="L91">        return ((41 - targetLevel).coerceAtLeast(10)) / 10.0</span>
+    }
+
+    /**
+     * `heavy-ball` 使用平坦捕获率修正，而不是倍率修正。
+     *
+     * 体重区间逻辑保持与 battle capture 文档一致。
+     */
+    private fun heavyBallFlatBonus(targetWeight: Int?): Int =
+<span class="fc" id="L100">        when {</span>
+<span class="pc bpc" id="L101" title="2 of 4 branches missed.">            targetWeight == null || targetWeight &lt;= 0 -&gt; 0</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">            targetWeight &lt; 1024 -&gt; -20</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">            targetWeight &lt; 2048 -&gt; 0</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">            targetWeight &lt; 3072 -&gt; 20</span>
+<span class="fc" id="L105">            else -&gt; 30</span>
+<span class="fc" id="L106">        }</span>
+
+    private fun hasType(
+        context: CaptureContext,
+        typeInternalName: String,
+<span class="fc" id="L111">    ): Boolean = context.targetTypes.any { type -&gt; type.equals(typeInternalName, ignoreCase = true) }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

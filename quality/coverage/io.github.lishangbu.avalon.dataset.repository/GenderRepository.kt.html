@@ -4,7 +4,9 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.GenderSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.GenderView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 
 /**
  * 性别仓储接口
@@ -17,19 +19,25 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
 interface GenderRepository : KRepository&lt;Gender, Long&gt; {
     /** 按条件查询性别视图列表 */
     fun listViews(specification: GenderSpecification?): List&lt;GenderView&gt; =
-<span class="fc" id="L20">        sql</span>
-<span class="fc" id="L21">            .createQuery(Gender::class) {</span>
-<span class="fc bfc" id="L22" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L23">                select(table.fetch(GenderView::class))</span>
-<span class="fc" id="L24">            }.execute()</span>
+<span class="fc" id="L22">        sql</span>
+<span class="fc" id="L23">            .createQuery(Gender::class) {</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L25">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L26">                select(table.fetch(GenderView::class))</span>
+<span class="fc" id="L27">            }.execute()</span>
 
     /** 按 ID 查询性别视图 */
     fun loadViewById(id: Long): GenderView? =
-<span class="fc" id="L28">        sql</span>
-<span class="fc" id="L29">            .createQuery(Gender::class) {</span>
-<span class="fc" id="L30">                where(table.id eq id)</span>
-<span class="fc" id="L31">                select(table.fetch(GenderView::class))</span>
-<span class="fc" id="L32">            }.execute()</span>
-<span class="fc" id="L33">            .firstOrNull()</span>
+<span class="fc" id="L31">        sql</span>
+<span class="fc" id="L32">            .createQuery(Gender::class) {</span>
+<span class="fc" id="L33">                where(table.id eq id)</span>
+<span class="fc" id="L34">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L35">                select(table.fetch(GenderView::class))</span>
+<span class="fc" id="L36">            }.execute()</span>
+<span class="fc" id="L37">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L40">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

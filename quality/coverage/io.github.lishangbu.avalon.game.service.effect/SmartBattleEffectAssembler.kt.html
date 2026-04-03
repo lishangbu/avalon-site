@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleEffectAssembler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.effect</a> &gt; <span class="el_source">SmartBattleEffectAssembler.kt</span></div><h1>SmartBattleEffectAssembler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.effect
+
+import io.github.lishangbu.avalon.game.battle.engine.dsl.ActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.ConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.dsl.HookRule
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.AddStatusActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.AddVolatileActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.ApplyConditionActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.BoostActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.ConsumeItemActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.action.HealActionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.AllConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.ChanceConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.HasItemConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.HpRatioConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.TargetRelationConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.type.ActorId
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardEffectKindIds
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
+import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
+
+<span class="fc" id="L24">internal data class MoveImportRecord(</span>
+<span class="fc" id="L25">    val internalName: String,</span>
+<span class="fc" id="L26">    val name: String,</span>
+<span class="fc" id="L27">    val typeInternalName: String?,</span>
+<span class="fc" id="L28">    val damageClassInternalName: String?,</span>
+<span class="fc" id="L29">    val targetInternalName: String?,</span>
+<span class="fc" id="L30">    val accuracy: Int?,</span>
+<span class="fc" id="L31">    val effectChance: Int?,</span>
+<span class="fc" id="L32">    val pp: Int?,</span>
+<span class="fc" id="L33">    val priority: Int?,</span>
+<span class="fc" id="L34">    val power: Int?,</span>
+<span class="fc" id="L35">    val shortEffect: String?,</span>
+<span class="fc" id="L36">    val effect: String?,</span>
+<span class="fc" id="L37">    val ailmentInternalName: String?,</span>
+<span class="fc" id="L38">    val ailmentChance: Int?,</span>
+<span class="fc" id="L39">    val healing: Int?,</span>
+<span class="fc" id="L40">    val drain: Int?,</span>
+)
+
+<span class="fc" id="L43">internal data class AbilityImportRecord(</span>
+<span class="fc" id="L44">    val internalName: String,</span>
+<span class="fc" id="L45">    val name: String,</span>
+<span class="fc" id="L46">    val effect: String?,</span>
+<span class="fc" id="L47">    val introduction: String?,</span>
+)
+
+<span class="fc" id="L50">internal data class ItemImportRecord(</span>
+<span class="fc" id="L51">    val internalName: String,</span>
+<span class="fc" id="L52">    val name: String,</span>
+<span class="fc" id="L53">    val shortEffect: String?,</span>
+<span class="fc" id="L54">    val effect: String?,</span>
+<span class="fc" id="L55">    val text: String?,</span>
+<span class="fc" id="L56">    val attributeInternalNames: Set&lt;String&gt;,</span>
+<span class="fc" id="L57">    val flingEffectInternalName: String?,</span>
+)
+
+internal object SmartBattleEffectAssembler {
+    fun fromMove(record: MoveImportRecord): EffectDefinition {
+<span class="fc" id="L62">        val hooks = linkedMapOf&lt;io.github.lishangbu.avalon.game.battle.engine.type.HookName, MutableList&lt;HookRule&gt;&gt;()</span>
+<span class="fc" id="L63">        val secondaryEffectAction = moveSecondaryEffectAction(record)</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        val secondaryEffectChance = record.ailmentChance ?: record.effectChance</span>
+
+<span class="pc bpc" id="L66" title="3 of 4 branches missed.">        if (record.healing != null &amp;&amp; record.healing &gt; 0) {</span>
+<span class="nc" id="L67">            hooks.getOrPut(StandardHookNames.ON_HIT, ::mutableListOf) +=</span>
+<span class="nc" id="L68">                HookRule(</span>
+                    thenActions =
+<span class="nc" id="L70">                        listOf(</span>
+<span class="nc" id="L71">                            HealActionNode(</span>
+<span class="nc" id="L72">                                target = StandardTargetSelectorIds.SELF,</span>
+<span class="nc" id="L73">                                mode = &quot;max_hp_ratio&quot;,</span>
+<span class="nc" id="L74">                                value = record.healing / 100.0,</span>
+                            ),
+                        ),
+                )
+        }
+
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (secondaryEffectAction != null) {</span>
+<span class="fc" id="L81">            hooks.getOrPut(StandardHookNames.ON_HIT, ::mutableListOf) +=</span>
+<span class="fc" id="L82">                HookRule(</span>
+<span class="fc" id="L83">                    condition = chanceCondition(secondaryEffectChance, guaranteedSecondaryEffect(record)),</span>
+<span class="fc" id="L84">                    thenActions = listOf(secondaryEffectAction),</span>
+                )
+        }
+
+<span class="fc" id="L88">        return EffectDefinition(</span>
+<span class="fc" id="L89">            id = record.internalName,</span>
+<span class="fc" id="L90">            kind = StandardEffectKindIds.MOVE,</span>
+<span class="fc" id="L91">            name = record.name,</span>
+            tags =
+<span class="fc" id="L93">                buildSet {</span>
+<span class="pc bpc" id="L94" title="2 of 4 branches missed.">                    add(if ((record.power ?: 0) &gt; 0) &quot;damaging&quot; else &quot;status&quot;)</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">                    record.damageClassInternalName?.let(::add)</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">                    record.typeInternalName?.let(::add)</span>
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">                    if ((record.healing ?: 0) &gt; 0) {</span>
+<span class="nc" id="L98">                        add(&quot;recovery&quot;)</span>
+                    }
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">                    normalizedAilmentTag(record.ailmentInternalName)?.let(::add)</span>
+<span class="fc" id="L101">                },</span>
+            data =
+<span class="fc" id="L103">                buildMap {</span>
+<span class="fc" id="L104">                    put(&quot;source&quot;, &quot;dataset&quot;)</span>
+<span class="fc" id="L105">                    put(&quot;entity&quot;, &quot;move&quot;)</span>
+<span class="fc" id="L106">                    put(&quot;target&quot;, record.targetInternalName)</span>
+<span class="fc" id="L107">                    put(&quot;type&quot;, record.typeInternalName)</span>
+<span class="fc" id="L108">                    put(&quot;damageClass&quot;, record.damageClassInternalName)</span>
+<span class="fc" id="L109">                    put(&quot;accuracy&quot;, record.accuracy)</span>
+<span class="fc" id="L110">                    put(&quot;effectChance&quot;, record.effectChance)</span>
+<span class="fc" id="L111">                    put(&quot;pp&quot;, record.pp)</span>
+<span class="fc" id="L112">                    put(&quot;priority&quot;, record.priority)</span>
+<span class="fc" id="L113">                    put(&quot;basePower&quot;, record.power)</span>
+<span class="fc" id="L114">                    put(&quot;shortEffect&quot;, record.shortEffect)</span>
+<span class="fc" id="L115">                    put(&quot;effect&quot;, record.effect)</span>
+<span class="fc" id="L116">                    put(&quot;healing&quot;, record.healing)</span>
+<span class="fc" id="L117">                    put(&quot;drain&quot;, record.drain)</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                }.filterValues { it != null },</span>
+<span class="fc" id="L119">            hooks = hooks.mapValues { (_, rules) -&gt; rules.toList() },</span>
+        )
+    }
+
+    fun fromAbility(record: AbilityImportRecord): EffectDefinition {
+<span class="fc" id="L124">        val hooks =</span>
+<span class="fc" id="L125">            when (record.internalName) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">                &quot;static&quot; -&gt; {</span>
+<span class="fc" id="L127">                    mapOf(</span>
+<span class="fc" id="L128">                        StandardHookNames.ON_HIT to</span>
+<span class="fc" id="L129">                            listOf(</span>
+<span class="fc" id="L130">                                HookRule(</span>
+                                    condition =
+<span class="fc" id="L132">                                        AllConditionNode(</span>
+                                            conditions =
+<span class="fc" id="L134">                                                listOf(</span>
+<span class="fc" id="L135">                                                    ChanceConditionNode(30),</span>
+<span class="fc" id="L136">                                                    TargetRelationConditionNode(&quot;foe&quot;),</span>
+                                                ),
+                                        ),
+                                    thenActions =
+<span class="fc" id="L140">                                        listOf(</span>
+<span class="fc" id="L141">                                            AddStatusActionNode(</span>
+<span class="fc" id="L142">                                                target = StandardTargetSelectorIds.SOURCE,</span>
+<span class="fc" id="L143">                                                value = &quot;par&quot;,</span>
+                                            ),
+                                        ),
+                                ),
+                            ),
+                    )
+                }
+
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">                &quot;speed-boost&quot; -&gt; {</span>
+<span class="fc" id="L152">                    mapOf(</span>
+<span class="fc" id="L153">                        StandardHookNames.ON_RESIDUAL to</span>
+<span class="fc" id="L154">                            listOf(</span>
+<span class="fc" id="L155">                                HookRule(</span>
+                                    thenActions =
+<span class="fc" id="L157">                                        listOf(</span>
+<span class="fc" id="L158">                                            BoostActionNode(</span>
+<span class="fc" id="L159">                                                target = StandardTargetSelectorIds.SELF,</span>
+<span class="fc" id="L160">                                                stats = mapOf(&quot;speed&quot; to 1),</span>
+                                            ),
+                                        ),
+                                ),
+                            ),
+                    )
+                }
+
+                else -&gt; {
+<span class="nc" id="L169">                    emptyMap()</span>
+                }
+            }
+
+<span class="fc" id="L173">        return EffectDefinition(</span>
+<span class="fc" id="L174">            id = record.internalName,</span>
+<span class="fc" id="L175">            kind = StandardEffectKindIds.ABILITY,</span>
+<span class="fc" id="L176">            name = record.name,</span>
+<span class="fc" id="L177">            tags = inferTextTags(record.internalName, record.effect, record.introduction),</span>
+            data =
+<span class="fc" id="L179">                buildMap {</span>
+<span class="fc" id="L180">                    put(&quot;source&quot;, &quot;dataset&quot;)</span>
+<span class="fc" id="L181">                    put(&quot;entity&quot;, &quot;ability&quot;)</span>
+<span class="fc" id="L182">                    put(&quot;effect&quot;, record.effect)</span>
+<span class="fc" id="L183">                    put(&quot;introduction&quot;, record.introduction)</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">                }.filterValues { it != null },</span>
+<span class="fc" id="L185">            hooks = hooks,</span>
+        )
+    }
+
+    fun fromItem(record: ItemImportRecord): EffectDefinition {
+<span class="fc" id="L190">        val hooks =</span>
+<span class="fc" id="L191">            healingItemHook(record)</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">                ?.let { rule -&gt;</span>
+<span class="fc" id="L193">                    mapOf(StandardHookNames.ON_RESIDUAL to listOf(rule))</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">                }.orEmpty()</span>
+
+<span class="fc" id="L196">        return EffectDefinition(</span>
+<span class="fc" id="L197">            id = record.internalName,</span>
+<span class="fc" id="L198">            kind = StandardEffectKindIds.ITEM,</span>
+<span class="fc" id="L199">            name = record.name,</span>
+            tags =
+<span class="fc" id="L201">                buildSet {</span>
+<span class="fc" id="L202">                    addAll(record.attributeInternalNames)</span>
+<span class="fc" id="L203">                    addAll(inferTextTags(record.internalName, record.shortEffect, record.effect, record.text))</span>
+<span class="fc" id="L204">                },</span>
+            data =
+<span class="fc" id="L206">                buildMap {</span>
+<span class="fc" id="L207">                    put(&quot;source&quot;, &quot;dataset&quot;)</span>
+<span class="fc" id="L208">                    put(&quot;entity&quot;, &quot;item&quot;)</span>
+<span class="fc" id="L209">                    put(&quot;shortEffect&quot;, record.shortEffect)</span>
+<span class="fc" id="L210">                    put(&quot;effect&quot;, record.effect)</span>
+<span class="fc" id="L211">                    put(&quot;text&quot;, record.text)</span>
+<span class="fc" id="L212">                    put(&quot;flingEffect&quot;, record.flingEffectInternalName)</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">                }.filterValues { it != null },</span>
+<span class="fc" id="L214">            hooks = hooks,</span>
+        )
+    }
+
+    private fun healingItemHook(record: ItemImportRecord): HookRule? {
+<span class="fc" id="L219">        val recovery =</span>
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">            when (record.internalName) {</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">                &quot;sitrus-berry&quot; -&gt; HealingSpec(mode = &quot;max_hp_ratio&quot;, value = 0.25)</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">                &quot;oran-berry&quot; -&gt; HealingSpec(mode = null, value = 10.0)</span>
+<span class="nc" id="L223">                else -&gt; null</span>
+<span class="nc" id="L224">            } ?: return null</span>
+
+<span class="fc" id="L226">        return HookRule(</span>
+            condition =
+<span class="fc" id="L228">                AllConditionNode(</span>
+                    conditions =
+<span class="fc" id="L230">                        listOf(</span>
+<span class="fc" id="L231">                            HasItemConditionNode(</span>
+<span class="fc" id="L232">                                actor = ActorId(&quot;self&quot;),</span>
+<span class="fc" id="L233">                                value = record.internalName,</span>
+                            ),
+<span class="fc" id="L235">                            HpRatioConditionNode(</span>
+<span class="fc" id="L236">                                actor = ActorId(&quot;self&quot;),</span>
+<span class="fc" id="L237">                                operator = &quot;&lt;=&quot;,</span>
+<span class="fc" id="L238">                                value = 0.5,</span>
+                            ),
+                        ),
+                ),
+            thenActions =
+<span class="fc" id="L243">                listOf(</span>
+<span class="fc" id="L244">                    ConsumeItemActionNode(StandardTargetSelectorIds.SELF),</span>
+<span class="fc" id="L245">                    HealActionNode(</span>
+<span class="fc" id="L246">                        target = StandardTargetSelectorIds.SELF,</span>
+<span class="fc" id="L247">                        mode = recovery.mode,</span>
+<span class="fc" id="L248">                        value = recovery.value,</span>
+                    ),
+                ),
+        )
+    }
+
+    private fun moveSecondaryEffectAction(record: MoveImportRecord): ActionNode? {
+<span class="pc bpc" id="L255" title="1 of 2 branches missed.">        val ailment = normalizedAilmentTag(record.ailmentInternalName) ?: return null</span>
+<span class="fc" id="L256">        val target = targetSelectorOf(record.targetInternalName)</span>
+<span class="pc bpc" id="L257" title="6 of 7 branches missed.">        return when (ailment) {</span>
+<span class="fc" id="L258">            &quot;paralysis&quot; -&gt; AddStatusActionNode(target, &quot;par&quot;)</span>
+<span class="nc" id="L259">            &quot;burn&quot; -&gt; AddStatusActionNode(target, &quot;brn&quot;)</span>
+<span class="nc" id="L260">            &quot;poison&quot; -&gt; AddStatusActionNode(target, &quot;psn&quot;)</span>
+<span class="nc" id="L261">            &quot;sleep&quot; -&gt; AddStatusActionNode(target, &quot;slp&quot;)</span>
+<span class="nc" id="L262">            &quot;freeze&quot; -&gt; AddStatusActionNode(target, &quot;frz&quot;)</span>
+<span class="nc" id="L263">            &quot;confusion&quot; -&gt; AddVolatileActionNode(target, &quot;confusion&quot;)</span>
+<span class="nc" id="L264">            else -&gt; ApplyConditionActionNode(target, ailment)</span>
+        }
+    }
+
+    private fun targetSelectorOf(rawTarget: String?): TargetSelectorId =
+<span class="pc bpc" id="L269" title="37 of 39 branches missed.">        when (rawTarget) {</span>
+<span class="nc" id="L270">            &quot;self&quot;, &quot;user&quot; -&gt; StandardTargetSelectorIds.SELF</span>
+<span class="nc" id="L271">            &quot;ally&quot; -&gt; StandardTargetSelectorIds.ALLY</span>
+<span class="nc" id="L272">            &quot;users-field&quot; -&gt; StandardTargetSelectorIds.SIDE</span>
+<span class="nc" id="L273">            &quot;user-or-ally&quot;, &quot;user-and-allies&quot;, &quot;all-allies&quot; -&gt; StandardTargetSelectorIds.ALL_ALLIES</span>
+<span class="nc" id="L274">            &quot;opponents-field&quot; -&gt; StandardTargetSelectorIds.FOE_SIDE</span>
+<span class="nc" id="L275">            &quot;all-opponents&quot; -&gt; StandardTargetSelectorIds.ALL_FOES</span>
+<span class="nc" id="L276">            &quot;all-other-pokemon&quot;, &quot;all-pokemon&quot;, &quot;entire-field&quot; -&gt; StandardTargetSelectorIds.ALL</span>
+<span class="fc" id="L277">            else -&gt; StandardTargetSelectorIds.TARGET</span>
+<span class="fc" id="L278">        }</span>
+
+    private fun guaranteedSecondaryEffect(record: MoveImportRecord): Boolean =
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">        record.ailmentInternalName != null &amp;&amp;</span>
+<span class="pc bpc" id="L282" title="3 of 6 branches missed.">            ((record.power ?: 0) &lt;= 0 || record.damageClassInternalName == &quot;status&quot;) &amp;&amp;</span>
+<span class="pc bnc" id="L283" title="All 4 branches missed.">            (record.ailmentChance == null &amp;&amp; record.effectChance == null)</span>
+
+    private fun chanceCondition(
+        chance: Int?,
+        guaranteed: Boolean,
+    ): ConditionNode? {
+<span class="pc bpc" id="L289" title="1 of 2 branches missed.">        if (guaranteed) {</span>
+<span class="nc" id="L290">            return null</span>
+        }
+<span class="pc bpc" id="L292" title="3 of 6 branches missed.">        if (chance == null || chance &lt;= 0 || chance &gt;= 100) {</span>
+<span class="nc" id="L293">            return null</span>
+        }
+<span class="fc" id="L295">        return ChanceConditionNode(chance)</span>
+    }
+
+    private fun normalizedAilmentTag(ailmentInternalName: String?): String? =
+<span class="pc bpc" id="L299" title="10 of 12 branches missed.">        when (ailmentInternalName) {</span>
+<span class="nc" id="L300">            null, &quot;&quot;, &quot;unknown&quot;, &quot;none&quot; -&gt; null</span>
+<span class="fc" id="L301">            else -&gt; ailmentInternalName</span>
+<span class="fc" id="L302">        }</span>
+
+    private fun inferTextTags(vararg values: String?): Set&lt;String&gt; {
+<span class="fc" id="L305">        val text = values.filterNotNull().joinToString(&quot; &quot;).lowercase()</span>
+<span class="fc" id="L306">        return buildSet {</span>
+<span class="fc bfc" id="L307" title="All 2 branches covered.">            if (&quot;berry&quot; in text) {</span>
+<span class="fc" id="L308">                add(&quot;berry&quot;)</span>
+            }
+<span class="pc bpc" id="L310" title="2 of 6 branches missed.">            if (&quot;recover&quot; in text || &quot;restore&quot; in text || &quot;heal&quot; in text) {</span>
+<span class="fc" id="L311">                add(&quot;recovery&quot;)</span>
+            }
+<span class="fc bfc" id="L313" title="All 2 branches covered.">            if (&quot;contact&quot; in text) {</span>
+<span class="fc" id="L314">                add(&quot;contact_reactive&quot;)</span>
+            }
+<span class="fc bfc" id="L316" title="All 2 branches covered.">            if (&quot;paraly&quot; in text) {</span>
+<span class="fc" id="L317">                add(&quot;paralysis&quot;)</span>
+            }
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">            if (&quot;burn&quot; in text) {</span>
+<span class="nc" id="L320">                add(&quot;burn&quot;)</span>
+            }
+<span class="pc bpc" id="L322" title="1 of 2 branches missed.">            if (&quot;confus&quot; in text) {</span>
+<span class="nc" id="L323">                add(&quot;confusion&quot;)</span>
+            }
+<span class="fc" id="L325">        }</span>
+    }
+
+<span class="fc" id="L328">    private data class HealingSpec(</span>
+<span class="fc" id="L329">        val mode: String?,</span>
+<span class="fc" id="L330">        val value: Double,</span>
+    )
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

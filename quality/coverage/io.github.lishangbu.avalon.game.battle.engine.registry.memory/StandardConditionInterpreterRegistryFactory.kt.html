@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StandardConditionInterpreterRegistryFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.registry.memory</a> &gt; <span class="el_source">StandardConditionInterpreterRegistryFactory.kt</span></div><h1>StandardConditionInterpreterRegistryFactory.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.registry.memory
+
+import io.github.lishangbu.avalon.game.battle.engine.runtime.condition.StandardConditionInterpreters
+import io.github.lishangbu.avalon.game.battle.engine.type.ConditionTypeId
+
+/**
+ * 标准条件解释器注册中心工厂。
+ *
+ * 设计意图：
+ * - 把第一版标准条件解释器一次性装配到内存 registry。
+ * - 避免测试和集成代码重复构建映射表。
+ */
+object StandardConditionInterpreterRegistryFactory {
+    fun create(): InMemoryConditionInterpreterRegistry {
+<span class="fc" id="L15">        val entries =</span>
+<span class="fc" id="L16">            StandardConditionInterpreters</span>
+<span class="fc" id="L17">                .all()</span>
+<span class="fc" id="L18">                .associateBy { interpreter -&gt; interpreter.type }</span>
+<span class="fc" id="L19">        return InMemoryConditionInterpreterRegistry(entries)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L19">    override fun save(command: SaveBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     /** 更新树果风味 */
-<span class="fc" id="L22">    override fun update(command: UpdateBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L22">    override fun update(command: UpdateBerryFlavorInput): BerryFlavorView = BerryFlavorView(berryFlavorRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     /** 按 ID 删除树果风味 */
     override fun removeById(id: Long) {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleMutationInterceptorChain.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">DefaultBattleMutationInterceptorChain.kt</span></div><h1>DefaultBattleMutationInterceptorChain.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+
+/**
+ * 默认 battle mutation 拦截链实现。
+ *
+ * @property interceptors 按顺序执行的 mutation 拦截器集合。
+ */
+<span class="fc" id="L10">class DefaultBattleMutationInterceptorChain(</span>
+    interceptors: List&lt;BattleMutationInterceptor&gt;,
+) : BattleMutationInterceptorChain {
+<span class="fc" id="L13">    private val interceptors: List&lt;BattleMutationInterceptor&gt; = interceptors.sortedBy(BattleMutationInterceptor::order)</span>
+
+    /**
+     * 过滤一组待提交的 mutation。
+     */
+    override fun filter(
+        snapshot: BattleRuntimeSnapshot,
+        selfId: String?,
+        targetId: String?,
+        sourceId: String?,
+        mutations: List&lt;BattleMutation&gt;,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): MutationFilteringResult {
+<span class="fc" id="L26">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L27">        val allowedMutations = mutableListOf&lt;BattleMutation&gt;()</span>
+
+<span class="fc" id="L29">        mutations.forEach { mutation -&gt;</span>
+<span class="fc" id="L30">            var mutationSnapshot = currentSnapshot</span>
+<span class="fc" id="L31">            var allowed = true</span>
+
+<span class="fc" id="L33">            interceptors.forEach { interceptor -&gt;</span>
+<span class="fc bfc" id="L34" title="All 4 branches covered.">                if (!allowed || !interceptor.supports(mutation)) {</span>
+<span class="fc" id="L35">                    return@forEach</span>
+                }
+<span class="fc" id="L37">                val result =</span>
+<span class="fc" id="L38">                    interceptor.intercept(</span>
+                        context =
+<span class="fc" id="L40">                            BattleMutationInterceptionContext(</span>
+<span class="fc" id="L41">                                snapshot = mutationSnapshot,</span>
+<span class="fc" id="L42">                                selfId = selfId,</span>
+<span class="fc" id="L43">                                targetId = targetId,</span>
+<span class="fc" id="L44">                                sourceId = sourceId,</span>
+<span class="fc" id="L45">                                mutation = mutation,</span>
+                            ),
+<span class="fc" id="L47">                        attachedEffectProcessor = attachedEffectProcessor,</span>
+                    )
+<span class="fc" id="L49">                mutationSnapshot = result.snapshot</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                if (!result.allowed) {</span>
+<span class="fc" id="L51">                    allowed = false</span>
+                }
+<span class="fc" id="L53">            }</span>
+
+<span class="fc" id="L55">            currentSnapshot = mutationSnapshot</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (allowed) {</span>
+<span class="fc" id="L57">                allowedMutations += mutation</span>
+            }
+<span class="fc" id="L59">        }</span>
+
+<span class="fc" id="L61">        return MutationFilteringResult(</span>
+<span class="fc" id="L62">            snapshot = currentSnapshot,</span>
+<span class="fc" id="L63">            mutations = allowedMutations,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

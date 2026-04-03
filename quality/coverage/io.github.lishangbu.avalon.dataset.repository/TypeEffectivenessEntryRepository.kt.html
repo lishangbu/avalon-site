@@ -3,8 +3,10 @@
 import io.github.lishangbu.avalon.dataset.entity.*
 import org.babyfish.jimmer.Page
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 
 /**
  * 属性相克条目仓储接口
@@ -21,13 +23,14 @@ interface TypeEffectivenessEntryRepository : KRepository&lt;TypeEffectivenessEnt
         defendingTypeId: Long?,
         multiplierPercent: Int?,
     ): List&lt;TypeEffectivenessEntry&gt; =
-<span class="fc" id="L24">        sql</span>
-<span class="fc" id="L25">            .createQuery(TypeEffectivenessEntry::class) {</span>
-<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
-<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
-<span class="fc" id="L29">                select(table)</span>
-<span class="fc" id="L30">            }.execute()</span>
+<span class="fc" id="L26">        sql</span>
+<span class="fc" id="L27">            .createQuery(TypeEffectivenessEntry::class) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
+<span class="fc" id="L31">                orderBy(table.id.attackingTypeId)</span>
+<span class="fc" id="L32">                select(table)</span>
+<span class="fc" id="L33">            }.execute()</span>
 
     /** 按条件分页查询属性相克条目 */
     fun pageByFilter(
@@ -36,12 +39,13 @@ interface TypeEffectivenessEntryRepository : KRepository&lt;TypeEffectivenessEnt
         multiplierPercent: Int?,
         pageable: Pageable,
     ): Page&lt;TypeEffectivenessEntry&gt; =
-<span class="fc" id="L39">        sql</span>
-<span class="fc" id="L40">            .createQuery(TypeEffectivenessEntry::class) {</span>
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
-<span class="fc" id="L44">                select(table)</span>
-<span class="fc" id="L45">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="fc" id="L42">        sql</span>
+<span class="fc" id="L43">            .createQuery(TypeEffectivenessEntry::class) {</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">                attackingTypeId?.let { where(table.id.attackingTypeId eq it) }</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                defendingTypeId?.let { where(table.id.defendingTypeId eq it) }</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">                multiplierPercent?.let { where(table.multiplierPercent eq it) }</span>
+<span class="fc" id="L47">                orderBy(table.id.attackingTypeId)</span>
+<span class="fc" id="L48">                select(table)</span>
+<span class="fc" id="L49">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleSessionAvailableTargetResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session.target</a> &gt; <span class="el_source">DefaultBattleSessionAvailableTargetResolver.kt</span></div><h1>DefaultBattleSessionAvailableTargetResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session.target
+
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * 默认可选目标解析器。
+ */
+<span class="fc" id="L8">class DefaultBattleSessionAvailableTargetResolver : BattleSessionAvailableTargetResolver {</span>
+    /**
+     * 解析指定目标模式下当前可选的目标单位列表。
+     */
+    override fun resolve(
+        snapshot: BattleRuntimeSnapshot,
+        actorUnitId: String,
+        mode: BattleSessionTargetMode,
+    ): List&lt;String&gt; =
+<span class="fc" id="L17">        BattleSessionTargetingSupport.availableTargetUnitIds(</span>
+<span class="fc" id="L18">            mode = mode,</span>
+<span class="fc" id="L19">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L20">            sides = snapshot.sides.values,</span>
+<span class="fc" id="L21">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InMemoryBattleSessionActionHandlerRegistry.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">InMemoryBattleSessionActionHandlerRegistry.kt</span></div><h1>InMemoryBattleSessionActionHandlerRegistry.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import kotlin.reflect.KClass
+
+/**
+ * 基于内存 Map 的 `BattleSessionActionHandlerRegistry` 实现。
+ *
+ * @property entries action 类型到处理器的不可变映射。
+ */
+<span class="fc" id="L10">class InMemoryBattleSessionActionHandlerRegistry(</span>
+    handlers: List&lt;BattleSessionActionHandler&gt;,
+) : BattleSessionActionHandlerRegistry {
+    private val entries: Map&lt;KClass&lt;out BattleSessionAction&gt;, BattleSessionActionHandler&gt; =
+<span class="fc" id="L14">        handlers.associateBy(BattleSessionActionHandler::actionType)</span>
+
+<span class="fc" id="L16">    init {</span>
+<span class="pc bpc" id="L17" title="2 of 4 branches missed.">        require(entries.size == handlers.size) {</span>
+<span class="nc" id="L18">            &quot;Duplicate BattleSessionActionHandler registrations were found.&quot;</span>
+        }
+<span class="fc" id="L20">    }</span>
+
+    /**
+     * 返回与当前 action 运行时类型匹配的处理器。
+     */
+    override fun get(action: BattleSessionAction): BattleSessionActionHandler =
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        entries[action::class]</span>
+<span class="pc" id="L27">            ?: error(&quot;No BattleSessionActionHandler registered for '${action::class.qualifiedName}'.&quot;)</span>
+
+    companion object {
+        /**
+         * 创建 battle-engine 内置的默认 action handler registry。
+         *
+         * @param actionExecutionSupport action 执行辅助组件。
+         * @return 包含标准 action 执行处理器的内存注册中心。
+         */
+        fun createDefault(actionExecutionSupport: BattleSessionActionExecutionSupport): InMemoryBattleSessionActionHandlerRegistry =
+<span class="fc" id="L37">            InMemoryBattleSessionActionHandlerRegistry(</span>
+                handlers =
+<span class="fc" id="L39">                    listOf(</span>
+<span class="fc" id="L40">                        BattleSessionMoveActionHandler(actionExecutionSupport),</span>
+<span class="fc" id="L41">                        BattleSessionSwitchActionHandler(actionExecutionSupport),</span>
+<span class="fc" id="L42">                        BattleSessionItemActionHandler(actionExecutionSupport),</span>
+<span class="fc" id="L43">                        BattleSessionCaptureActionHandler(),</span>
+<span class="fc" id="L44">                        BattleSessionRunActionHandler(actionExecutionSupport),</span>
+<span class="fc" id="L45">                        BattleSessionWaitActionHandler(),</span>
+                    ),
+<span class="fc" id="L47">            )</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

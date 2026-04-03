@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InMemoryBattleSessionService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.service.memory</a> &gt; <span class="el_source">InMemoryBattleSessionService.kt</span></div><h1>InMemoryBattleSessionService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.service.memory
+
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionFactory
+import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionService
+import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionStore
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSession
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionChoice
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnResult
+
+/**
+ * BattleSessionService 的内存版实现。
+ *
+ * 设计意图：
+ * - 为当前阶段提供最小可用的会话服务层。
+ * - 适用于本地测试、单进程运行和后续 API 层接入前的过渡形态。
+ */
+<span class="fc" id="L20">class InMemoryBattleSessionService(</span>
+<span class="fc" id="L21">    private val sessionFactory: BattleSessionFactory,</span>
+<span class="fc" id="L22">    private val sessionStore: BattleSessionStore = InMemoryBattleSessionStore(),</span>
+<span class="fc" id="L23">) : BattleSessionService {</span>
+    override fun createSession(
+        sessionId: String,
+        formatId: String,
+    ): BattleSessionQuery {
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        require(sessionStore.find(sessionId) == null) { &quot;Session '$sessionId' already exists.&quot; }</span>
+<span class="fc" id="L29">        val session = sessionFactory.create(sessionId, formatId)</span>
+<span class="fc" id="L30">        sessionStore.save(sessionId, session)</span>
+<span class="fc" id="L31">        return session.query()</span>
+    }
+
+    override fun configureSession(
+        sessionId: String,
+        battleKind: BattleType,
+        capturableSideId: String?,
+    ): BattleSessionQuery {
+<span class="fc" id="L39">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L40">        session.configureBattle(battleKind, capturableSideId)</span>
+<span class="fc" id="L41">        return session.query()</span>
+    }
+
+    override fun startSession(sessionId: String): BattleSessionQuery {
+<span class="fc" id="L45">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L46">        session.start()</span>
+<span class="fc" id="L47">        return session.query()</span>
+    }
+
+    override fun registerSide(
+        sessionId: String,
+        sideId: String,
+    ): BattleSessionQuery {
+<span class="fc" id="L54">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L55">        session.registerSide(sideId)</span>
+<span class="fc" id="L56">        return session.query()</span>
+    }
+
+    override fun registerUnit(
+        sessionId: String,
+        sideId: String,
+        unit: UnitState,
+        active: Boolean,
+    ): BattleSessionQuery {
+<span class="fc" id="L65">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L66">        session.registerUnit(sideId, unit, active)</span>
+<span class="fc" id="L67">        return session.query()</span>
+    }
+
+    override fun submitChoice(
+        sessionId: String,
+        choice: BattleSessionChoice,
+    ): BattleSessionQuery {
+<span class="fc" id="L74">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L75">        session.submitChoice(choice)</span>
+<span class="fc" id="L76">        return session.query()</span>
+    }
+
+    override fun submitChoices(
+        sessionId: String,
+        choices: List&lt;BattleSessionChoice&gt;,
+    ): BattleSessionQuery {
+<span class="fc" id="L83">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L84">        session.submitChoices(choices)</span>
+<span class="fc" id="L85">        return session.query()</span>
+    }
+
+    override fun submitReplacementChoice(
+        sessionId: String,
+        sideId: String,
+        incomingUnitId: String,
+    ): BattleSessionQuery {
+<span class="nc" id="L93">        val session = requireSession(sessionId)</span>
+<span class="nc" id="L94">        session.submitReplacementChoice(sideId, incomingUnitId)</span>
+<span class="nc" id="L95">        return session.query()</span>
+    }
+
+    override fun recordCaptureFailure(
+        sessionId: String,
+        ballItemId: String,
+        targetUnitId: String,
+        shakes: Int,
+        reason: String,
+        finalRate: Double,
+    ): BattleSessionQuery {
+<span class="nc" id="L106">        val session = requireSession(sessionId)</span>
+<span class="nc" id="L107">        session.recordCaptureFailure(ballItemId, targetUnitId, shakes, reason, finalRate)</span>
+<span class="nc" id="L108">        return session.query()</span>
+    }
+
+    override fun finishSessionByCapture(
+        sessionId: String,
+        targetUnitId: String,
+    ): BattleSessionQuery {
+<span class="nc" id="L115">        val session = requireSession(sessionId)</span>
+<span class="nc" id="L116">        session.finishByCapture(targetUnitId)</span>
+<span class="nc" id="L117">        return session.query()</span>
+    }
+
+    override fun markSessionSettled(sessionId: String): BattleSessionQuery {
+<span class="fc" id="L121">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L122">        session.markSettled()</span>
+<span class="fc" id="L123">        return session.query()</span>
+    }
+
+    override fun resolveTurn(sessionId: String): BattleSessionTurnResult {
+<span class="fc" id="L127">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L128">        return session.resolveTurn()</span>
+    }
+
+<span class="fc" id="L131">    override fun querySession(sessionId: String): BattleSessionQuery = requireSession(sessionId).query()</span>
+
+    private fun requireSession(sessionId: String): BattleSession =
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        requireNotNull(sessionStore.find(sessionId)) {</span>
+<span class="nc" id="L135">            &quot;Session '$sessionId' was not found.&quot;</span>
+<span class="fc" id="L136">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -4,25 +4,33 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.EggGroupSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.EggGroupView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 
 /** 蛋组仓储接口 */
 interface EggGroupRepository : KRepository&lt;EggGroup, Long&gt; {
     /** 按条件查询蛋组视图列表 */
     fun listViews(specification: EggGroupSpecification?): List&lt;EggGroupView&gt; =
-<span class="fc" id="L13">        sql</span>
-<span class="fc" id="L14">            .createQuery(EggGroup::class) {</span>
-<span class="fc bfc" id="L15" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L16">                select(table.fetch(EggGroupView::class))</span>
-<span class="fc" id="L17">            }.execute()</span>
+<span class="fc" id="L15">        sql</span>
+<span class="fc" id="L16">            .createQuery(EggGroup::class) {</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L18">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L19">                select(table.fetch(EggGroupView::class))</span>
+<span class="fc" id="L20">            }.execute()</span>
 
     /** 按 ID 查询蛋组视图 */
     fun loadViewById(id: Long): EggGroupView? =
-<span class="fc" id="L21">        sql</span>
-<span class="fc" id="L22">            .createQuery(EggGroup::class) {</span>
-<span class="fc" id="L23">                where(table.id eq id)</span>
-<span class="fc" id="L24">                select(table.fetch(EggGroupView::class))</span>
-<span class="fc" id="L25">            }.execute()</span>
-<span class="fc" id="L26">            .firstOrNull()</span>
+<span class="fc" id="L24">        sql</span>
+<span class="fc" id="L25">            .createQuery(EggGroup::class) {</span>
+<span class="fc" id="L26">                where(table.id eq id)</span>
+<span class="fc" id="L27">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L28">                select(table.fetch(EggGroupView::class))</span>
+<span class="fc" id="L29">            }.execute()</span>
+<span class="fc" id="L30">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L33">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

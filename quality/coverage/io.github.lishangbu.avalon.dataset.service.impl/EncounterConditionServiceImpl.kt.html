@@ -5,27 +5,32 @@ import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveEncounterConditionInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEncounterConditionInput
 import io.github.lishangbu.avalon.dataset.repository.EncounterConditionRepository
+import io.github.lishangbu.avalon.dataset.repository.EncounterConditionValueRepository
 import io.github.lishangbu.avalon.dataset.service.EncounterConditionService
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /** 遭遇条件服务实现 */
-<span class="fc" id="L14">@Service</span>
-<span class="fc" id="L15">class EncounterConditionServiceImpl(</span>
-<span class="fc" id="L16">    private val encounterConditionRepository: EncounterConditionRepository,</span>
+<span class="fc" id="L15">@Service</span>
+<span class="fc" id="L16">class EncounterConditionServiceImpl(</span>
+<span class="fc" id="L17">    private val encounterConditionRepository: EncounterConditionRepository,</span>
+<span class="fc" id="L18">    private val encounterConditionValueRepository: EncounterConditionValueRepository,</span>
 ) : EncounterConditionService {
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L19">    override fun save(command: SaveEncounterConditionInput): EncounterConditionView = EncounterConditionView(encounterConditionRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
+<span class="fc" id="L21">    override fun save(command: SaveEncounterConditionInput): EncounterConditionView = EncounterConditionView(encounterConditionRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L22">    override fun update(command: UpdateEncounterConditionInput): EncounterConditionView = EncounterConditionView(encounterConditionRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L24">    override fun update(command: UpdateEncounterConditionInput): EncounterConditionView = EncounterConditionView(encounterConditionRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc" id="L26">        encounterConditionRepository.deleteById(id)</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (encounterConditionValueRepository.existsByEncounterConditionId(id)) {</span>
+<span class="fc" id="L29">            throw IllegalStateException(&quot;当前遭遇条件下仍存在遭遇条件值，请先删除相关遭遇条件值后再删除当前遭遇条件&quot;)</span>
+        }
+<span class="fc" id="L31">        encounterConditionRepository.deleteById(id)</span>
+<span class="fc" id="L32">    }</span>
 
-<span class="fc" id="L29">    override fun listByCondition(specification: EncounterConditionSpecification): List&lt;EncounterConditionView&gt; = encounterConditionRepository.listViews(specification)</span>
+<span class="fc" id="L34">    override fun listByCondition(specification: EncounterConditionSpecification): List&lt;EncounterConditionView&gt; = encounterConditionRepository.listViews(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

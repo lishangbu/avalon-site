@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultMutationApplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.apply</a> &gt; <span class="el_source">DefaultMutationApplier.kt</span></div><h1>DefaultMutationApplier.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.apply
+
+import io.github.lishangbu.avalon.game.battle.engine.model.FieldState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.mutation.AddVolatileMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ApplyConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BoostMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ChangeTypeMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearBoostsMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearFlagMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearTerrainMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearWeatherMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ConsumeItemMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.DamageMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ForceSwitchMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.HealMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveStatusMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveVolatileMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RestorePpMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetFlagMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetStatusMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetTerrainMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetWeatherMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.TriggerEventMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTargetSelectorResolver
+
+/**
+ * 默认 mutation 应用器。
+ *
+ * 设计意图：
+ * - 以不可变回写方式提交 mutation。
+ * - 先覆盖当前骨架中已经存在的 mutation 类型。
+ */
+<span class="fc" id="L36">class DefaultMutationApplier : MutationApplier {</span>
+    override fun apply(
+        mutations: List&lt;BattleMutation&gt;,
+        context: MutationApplicationContext,
+    ): MutationApplicationResult {
+<span class="fc" id="L41">        var currentUnits: Map&lt;String, UnitState&gt; = context.units</span>
+<span class="fc" id="L42">        var currentField: FieldState = context.field</span>
+<span class="fc" id="L43">        val triggeredHooks = mutableListOf&lt;io.github.lishangbu.avalon.game.battle.engine.type.HookName&gt;()</span>
+
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (mutation in mutations) {</span>
+<span class="fc" id="L46">            when (mutation) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                is DamageMutation -&gt; currentUnits = applyDamage(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">                is HealMutation -&gt; currentUnits = applyHeal(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                is SetStatusMutation -&gt; currentUnits = applySetStatus(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">                is RemoveStatusMutation -&gt; currentUnits = applyRemoveStatus(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                is AddVolatileMutation -&gt; currentUnits = applyAddVolatile(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                is RemoveVolatileMutation -&gt; currentUnits = applyRemoveVolatile(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                is BoostMutation -&gt; currentUnits = applyBoost(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                is ClearBoostsMutation -&gt; currentUnits = applyClearBoosts(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                is SetWeatherMutation -&gt; currentField = currentField.copy(weatherId = mutation.weatherId)</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">                is ClearWeatherMutation -&gt; currentField = currentField.copy(weatherId = null)</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">                is SetTerrainMutation -&gt; currentField = currentField.copy(terrainId = mutation.terrainId)</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">                is ClearTerrainMutation -&gt; currentField = currentField.copy(terrainId = null)</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                is ConsumeItemMutation -&gt; currentUnits = applyConsumeItem(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                is RestorePpMutation -&gt; currentUnits = applyRestorePp(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                is ChangeTypeMutation -&gt; currentUnits = applyChangeType(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                is ForceSwitchMutation -&gt; currentUnits = applyForceSwitch(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                is ApplyConditionMutation -&gt; currentUnits = applyAddCondition(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                is RemoveConditionMutation -&gt; currentUnits = applyRemoveCondition(mutation, context, currentUnits)</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">                is SetFlagMutation -&gt; currentUnits = applySetFlag(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                is ClearFlagMutation -&gt; currentUnits = applyClearFlag(mutation, context, currentUnits)</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                is TriggerEventMutation -&gt; triggeredHooks += mutation.hookName</span>
+            }
+        }
+
+<span class="fc" id="L71">        return MutationApplicationResult(</span>
+<span class="fc" id="L72">            battle = context.battle,</span>
+<span class="fc" id="L73">            field = currentField,</span>
+<span class="fc" id="L74">            units = currentUnits,</span>
+<span class="fc" id="L75">            side = context.side,</span>
+<span class="fc" id="L76">            foeSide = context.foeSide,</span>
+<span class="fc" id="L77">            triggeredHooks = triggeredHooks,</span>
+        )
+    }
+
+    private fun applyDamage(
+        mutation: DamageMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L86">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L87">            val damage = calculateAmount(unit.maxHp, mutation.mode, mutation.value)</span>
+<span class="fc" id="L88">            unit.copy(currentHp = (unit.currentHp - damage).coerceAtLeast(0))</span>
+<span class="fc" id="L89">        }</span>
+
+    private fun applyHeal(
+        mutation: HealMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L96">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L97">            val healing = calculateAmount(unit.maxHp, mutation.mode, mutation.value)</span>
+<span class="fc" id="L98">            unit.copy(currentHp = (unit.currentHp + healing).coerceAtMost(unit.maxHp))</span>
+<span class="fc" id="L99">        }</span>
+
+    private fun applySetStatus(
+        mutation: SetStatusMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L106">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L107">            unit.copy(statusId = mutation.statusId)</span>
+<span class="fc" id="L108">        }</span>
+
+    private fun applyRemoveStatus(
+        mutation: RemoveStatusMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L115">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L116">            unit.copy(statusId = null)</span>
+<span class="nc" id="L117">        }</span>
+
+    private fun applyAddVolatile(
+        mutation: AddVolatileMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L124">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L125">            unit.copy(volatileIds = unit.volatileIds + mutation.volatileId)</span>
+<span class="fc" id="L126">        }</span>
+
+    private fun applyRemoveVolatile(
+        mutation: RemoveVolatileMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L133">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L134">            unit.copy(volatileIds = unit.volatileIds - mutation.volatileId)</span>
+<span class="nc" id="L135">        }</span>
+
+    private fun applyBoost(
+        mutation: BoostMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L142">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L143">            val nextBoosts = unit.boosts.toMutableMap()</span>
+<span class="fc" id="L144">            mutation.boosts.forEach { (stat, delta) -&gt;</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                nextBoosts[stat] = (nextBoosts[stat] ?: 0) + delta</span>
+<span class="fc" id="L146">            }</span>
+<span class="fc" id="L147">            unit.copy(boosts = nextBoosts)</span>
+<span class="fc" id="L148">        }</span>
+
+    private fun applyClearBoosts(
+        mutation: ClearBoostsMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L155">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L156">            unit.copy(boosts = emptyMap())</span>
+<span class="fc" id="L157">        }</span>
+
+    private fun applyConsumeItem(
+        mutation: ConsumeItemMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L164">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L165">            unit.copy(itemId = null)</span>
+<span class="fc" id="L166">        }</span>
+
+    private fun applyRestorePp(
+        mutation: RestorePpMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L173">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">            if (mutation.moveId == null) {</span>
+<span class="nc" id="L175">                unit</span>
+            } else {
+<span class="nc" id="L177">                val nextPp = unit.movePp.toMutableMap()</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">                nextPp[mutation.moveId] = (nextPp[mutation.moveId] ?: 0) + mutation.value</span>
+<span class="nc" id="L179">                unit.copy(movePp = nextPp)</span>
+<span class="nc" id="L180">            }</span>
+<span class="nc" id="L181">        }</span>
+
+    private fun applyChangeType(
+        mutation: ChangeTypeMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L188">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L189">            unit.copy(typeIds = mutation.values.toSet())</span>
+<span class="fc" id="L190">        }</span>
+
+    private fun applyForceSwitch(
+        mutation: ForceSwitchMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L197">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L198">            unit.copy(forceSwitchRequested = true)</span>
+<span class="nc" id="L199">        }</span>
+
+    private fun applyAddCondition(
+        mutation: ApplyConditionMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L206">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L207">            unit.copy(conditionIds = unit.conditionIds + mutation.conditionId)</span>
+<span class="nc" id="L208">        }</span>
+
+    private fun applyRemoveCondition(
+        mutation: RemoveConditionMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L215">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L216">            unit.copy(conditionIds = unit.conditionIds - mutation.conditionId)</span>
+<span class="nc" id="L217">        }</span>
+
+    private fun applySetFlag(
+        mutation: SetFlagMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L224">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L225">            unit.copy(flags = unit.flags + (mutation.key to mutation.value))</span>
+<span class="fc" id="L226">        }</span>
+
+    private fun applyClearFlag(
+        mutation: ClearFlagMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L233">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L234">            unit.copy(flags = unit.flags - mutation.key)</span>
+<span class="nc" id="L235">        }</span>
+
+    private fun updateTargets(
+        selector: io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+        transform: (UnitState) -&gt; UnitState,
+    ): Map&lt;String, UnitState&gt; {
+<span class="fc" id="L243">        val targetIds = MutationTargetSelectorResolver.resolve(selector, context)</span>
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">        if (targetIds.isEmpty()) {</span>
+<span class="nc" id="L245">            return units</span>
+        }
+<span class="fc" id="L247">        val nextUnits = units.toMutableMap()</span>
+<span class="fc" id="L248">        targetIds.forEach { unitId -&gt;</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">            val unit = requireNotNull(nextUnits[unitId]) { &quot;Target unit '$unitId' was not found.&quot; }</span>
+<span class="fc" id="L250">            nextUnits[unitId] = transform(unit)</span>
+<span class="fc" id="L251">        }</span>
+<span class="fc" id="L252">        return nextUnits</span>
+    }
+
+    private fun calculateAmount(
+        maxHp: Int,
+        mode: String?,
+        value: Double,
+    ): Int =
+<span class="fc" id="L260">        when (mode) {</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">            &quot;max_hp_ratio&quot; -&gt; (maxHp * value).toInt()</span>
+<span class="fc" id="L262">            else -&gt; value.toInt()</span>
+<span class="fc" id="L263">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

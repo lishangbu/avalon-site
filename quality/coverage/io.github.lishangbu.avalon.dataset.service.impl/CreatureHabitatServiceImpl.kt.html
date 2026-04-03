@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreatureHabitatServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">CreatureHabitatServiceImpl.kt</span></div><h1>CreatureHabitatServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
+
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureHabitatSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureHabitatView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveCreatureHabitatInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateCreatureHabitatInput
+import io.github.lishangbu.avalon.dataset.repository.CreatureHabitatRepository
+import io.github.lishangbu.avalon.dataset.service.CreatureHabitatService
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/** 生物栖息地服务实现 */
+<span class="fc" id="L14">@Service</span>
+<span class="fc" id="L15">class CreatureHabitatServiceImpl(</span>
+<span class="fc" id="L16">    private val creatureHabitatRepository: CreatureHabitatRepository,</span>
+) : CreatureHabitatService {
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L19">    override fun save(command: SaveCreatureHabitatInput): CreatureHabitatView = CreatureHabitatView(creatureHabitatRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L22">    override fun update(command: UpdateCreatureHabitatInput): CreatureHabitatView = CreatureHabitatView(creatureHabitatRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L26">        creatureHabitatRepository.deleteById(id)</span>
+<span class="fc" id="L27">    }</span>
+
+<span class="fc" id="L29">    override fun listByCondition(specification: CreatureHabitatSpecification): List&lt;CreatureHabitatView&gt; = creatureHabitatRepository.listViews(specification)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -4,7 +4,9 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 
 /** 遭遇条件值仓储接口 */
@@ -12,19 +14,35 @@ import org.springframework.stereotype.Repository
 interface EncounterConditionValueRepository : KRepository&lt;EncounterConditionValue, Long&gt; {
     /** 按条件查询遭遇条件值视图 */
     fun listViews(specification: EncounterConditionValueSpecification?): List&lt;EncounterConditionValueView&gt; =
-<span class="fc" id="L15">        sql</span>
-<span class="fc" id="L16">            .createQuery(EncounterConditionValue::class) {</span>
-<span class="pc bpc" id="L17" title="1 of 2 branches missed.">                specification?.let(::where)</span>
-<span class="fc" id="L18">                select(table.fetch(EncounterConditionValueView::class))</span>
-<span class="fc" id="L19">            }.execute()</span>
+<span class="fc" id="L17">        sql</span>
+<span class="fc" id="L18">            .createQuery(EncounterConditionValue::class) {</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L20">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L21">                select(table.fetch(EncounterConditionValueView::class))</span>
+<span class="fc" id="L22">            }.execute()</span>
 
     /** 按 ID 查询遭遇条件值视图 */
     fun loadViewById(id: Long): EncounterConditionValueView? =
-<span class="fc" id="L23">        sql</span>
-<span class="fc" id="L24">            .createQuery(EncounterConditionValue::class) {</span>
-<span class="fc" id="L25">                where(table.id eq id)</span>
-<span class="fc" id="L26">                select(table.fetch(EncounterConditionValueView::class))</span>
-<span class="fc" id="L27">            }.execute()</span>
-<span class="fc" id="L28">            .firstOrNull()</span>
+<span class="fc" id="L26">        sql</span>
+<span class="fc" id="L27">            .createQuery(EncounterConditionValue::class) {</span>
+<span class="fc" id="L28">                where(table.id eq id)</span>
+<span class="fc" id="L29">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L30">                select(table.fetch(EncounterConditionValueView::class))</span>
+<span class="fc" id="L31">            }.execute()</span>
+<span class="fc" id="L32">            .firstOrNull()</span>
+
+    /** 判断指定遭遇条件下是否存在遭遇条件值 */
+    fun existsByEncounterConditionId(encounterConditionId: Long): Boolean =
+<span class="nc" id="L36">        sql</span>
+<span class="nc" id="L37">            .createQuery(EncounterConditionValue::class) {</span>
+<span class="nc" id="L38">                where(table.encounterCondition.id eq encounterConditionId)</span>
+<span class="nc" id="L39">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L40">                select(table.id)</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            }.execute()</span>
+<span class="nc" id="L42">            .isNotEmpty()</span>
+
+    companion object {
+<span class="fc" id="L45">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

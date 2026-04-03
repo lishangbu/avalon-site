@@ -4,7 +4,9 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.EncounterMethodSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.EncounterMethodView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 
 /** 遭遇方式仓储接口 */
@@ -12,19 +14,25 @@ import org.springframework.stereotype.Repository
 interface EncounterMethodRepository : KRepository&lt;EncounterMethod, Long&gt; {
     /** 按条件查询遭遇方式视图 */
     fun listViews(specification: EncounterMethodSpecification?): List&lt;EncounterMethodView&gt; =
-<span class="fc" id="L15">        sql</span>
-<span class="fc" id="L16">            .createQuery(EncounterMethod::class) {</span>
-<span class="fc bfc" id="L17" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L18">                select(table.fetch(EncounterMethodView::class))</span>
-<span class="fc" id="L19">            }.execute()</span>
+<span class="fc" id="L17">        sql</span>
+<span class="fc" id="L18">            .createQuery(EncounterMethod::class) {</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L20">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L21">                select(table.fetch(EncounterMethodView::class))</span>
+<span class="fc" id="L22">            }.execute()</span>
 
     /** 按 ID 查询遭遇方式视图 */
     fun loadViewById(id: Long): EncounterMethodView? =
-<span class="fc" id="L23">        sql</span>
-<span class="fc" id="L24">            .createQuery(EncounterMethod::class) {</span>
-<span class="fc" id="L25">                where(table.id eq id)</span>
-<span class="fc" id="L26">                select(table.fetch(EncounterMethodView::class))</span>
-<span class="fc" id="L27">            }.execute()</span>
-<span class="fc" id="L28">            .firstOrNull()</span>
+<span class="fc" id="L26">        sql</span>
+<span class="fc" id="L27">            .createQuery(EncounterMethod::class) {</span>
+<span class="fc" id="L28">                where(table.id eq id)</span>
+<span class="fc" id="L29">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L30">                select(table.fetch(EncounterMethodView::class))</span>
+<span class="fc" id="L31">            }.execute()</span>
+<span class="fc" id="L32">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L35">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

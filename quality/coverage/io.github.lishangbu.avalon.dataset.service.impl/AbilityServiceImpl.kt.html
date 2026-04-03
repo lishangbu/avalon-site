@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L19">    override fun save(command: SaveAbilityInput): AbilityView = AbilityView(abilityRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L22">    override fun update(command: UpdateAbilityInput): AbilityView = AbilityView(abilityRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L22">    override fun update(command: UpdateAbilityInput): AbilityView = AbilityView(abilityRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {

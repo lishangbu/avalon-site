@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 
     /** 更新成长速率 */
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L25">    override fun update(command: UpdateGrowthRateInput): GrowthRateView = GrowthRateView(growthRateRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L25">    override fun update(command: UpdateGrowthRateInput): GrowthRateView = GrowthRateView(growthRateRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     /** 按 ID 删除成长速率 */
     @Transactional(rollbackFor = [Exception::class])

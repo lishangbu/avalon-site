@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionQueue.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionActionQueue.kt</span></div><h1>BattleSessionActionQueue.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+/**
+ * BattleSession 的最小动作队列。
+ *
+ * 设计意图：
+ * - 为一回合内多个 move action 提供收集与顺序执行能力。
+ * - 当前采用最小可用排序规则：
+ *   1. priority 降序
+ *   2. speed 降序
+ *   3. action type order 升序
+ *   4. enqueueOrder 升序
+ *
+ * @property actionSortingStrategy 当前队列使用的 action 排序策略。
+ */
+<span class="fc" id="L16">class BattleSessionActionQueue(</span>
+<span class="fc" id="L17">    private val actionSortingStrategy: BattleSessionActionSortingStrategy,</span>
+) {
+<span class="fc" id="L19">    private val actions: MutableList&lt;QueuedBattleSessionMoveAction&gt; = mutableListOf()</span>
+    private var nextEnqueueOrder: Long = 0
+
+    /**
+     * 入队一个 move action。
+     */
+    fun enqueue(action: BattleSessionAction) {
+<span class="fc" id="L26">        actions +=</span>
+<span class="fc" id="L27">            QueuedBattleSessionMoveAction(</span>
+<span class="fc" id="L28">                action = action,</span>
+<span class="fc" id="L29">                enqueueOrder = nextEnqueueOrder++,</span>
+            )
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * 返回当前待执行动作的只读快照。
+     */
+<span class="fc" id="L36">    fun snapshot(): List&lt;BattleSessionAction&gt; = actions.map(QueuedBattleSessionMoveAction::action)</span>
+
+    /**
+     * 取出并清空当前队列。
+     */
+    fun drain(): List&lt;BattleSessionAction&gt; {
+<span class="fc" id="L42">        val drained = actionSortingStrategy.sort(actions)</span>
+<span class="fc" id="L43">        actions.clear()</span>
+<span class="fc" id="L44">        return drained</span>
+    }
+
+    /**
+     * 以给定动作列表重建当前队列。
+     */
+    fun replaceAll(newActions: List&lt;BattleSessionAction&gt;) {
+<span class="fc" id="L51">        actions.clear()</span>
+<span class="fc" id="L52">        nextEnqueueOrder = 0</span>
+<span class="pc" id="L53">        newActions.forEach(::enqueue)</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * 当前队列是否为空。
+     */
+<span class="nc" id="L59">    fun isEmpty(): Boolean = actions.isEmpty()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

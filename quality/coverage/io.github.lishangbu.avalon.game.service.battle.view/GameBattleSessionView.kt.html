@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBattleSessionView.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.battle.view</a> &gt; <span class="el_source">GameBattleSessionView.kt</span></div><h1>GameBattleSessionView.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.battle.view
+
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+
+/**
+ * 面向前端的战斗会话视图。
+ *
+ * @property snapshot 当前战斗快照视图。
+ * @property pendingActions 当前待执行动作视图列表。
+ * @property choiceStatuses 当前回合各 side 的输入状态视图列表。
+ * @property replacementRequests 当前待处理替补请求视图列表。
+ * @property resourceLedger 当前资源账本视图列表。
+ * @property captureResourceLedger 当前捕捉资源账本视图列表。
+ * @property battleLogs 面向前端的人类可读 battle log。
+ * @property events 面向前端的结构化事件视图列表。
+ */
+<span class="fc" id="L17">data class GameBattleSessionView(</span>
+<span class="fc" id="L18">    val snapshot: GameBattleSnapshotView,</span>
+<span class="fc" id="L19">    val pendingActions: List&lt;GameBattleActionView&gt;,</span>
+<span class="pc" id="L20">    val choiceStatuses: List&lt;GameBattleChoiceStatusView&gt;,</span>
+<span class="pc" id="L21">    val replacementRequests: List&lt;GameBattleReplacementRequestView&gt;,</span>
+<span class="fc" id="L22">    val resourceLedger: List&lt;GameBattleResourceUsageView&gt;,</span>
+<span class="fc" id="L23">    val captureResourceLedger: List&lt;GameBattleCaptureResourceUsageView&gt;,</span>
+<span class="pc" id="L24">    val battleLogs: List&lt;String&gt;,</span>
+<span class="pc" id="L25">    val events: List&lt;GameBattleEventView&gt;,</span>
+)
+
+/**
+ * 面向前端的战斗快照视图。
+ *
+ * @property battle 战斗级状态视图。
+ * @property field 场地级状态视图。
+ * @property units 当前全部单位视图列表。
+ * @property sides 当前全部 side 视图列表。
+ */
+<span class="fc" id="L36">data class GameBattleSnapshotView(</span>
+<span class="fc" id="L37">    val battle: GameBattleStateView,</span>
+<span class="pc" id="L38">    val field: GameBattleFieldView,</span>
+<span class="fc" id="L39">    val units: List&lt;GameBattleUnitView&gt;,</span>
+<span class="pc" id="L40">    val sides: List&lt;GameBattleSideView&gt;,</span>
+)
+
+/**
+ * 面向前端的战斗级状态视图。
+ *
+ * @property id 战斗实例唯一标识。
+ * @property formatId 当前战斗采用的规则集标识。
+ * @property battleKind 当前战斗种类。
+ * @property started 战斗是否已经开始。
+ * @property turn 当前回合数。
+ * @property ended 战斗是否已经结束。
+ * @property settled 战斗是否已经完成结算。
+ * @property winner 战斗赢家标识。
+ * @property endedReason 战斗结束原因。
+ * @property capturableSideId 可被捕捉的 side 标识。
+ * @property capturedUnitId 已被捕捉的目标单位标识。
+ */
+<span class="fc" id="L58">data class GameBattleStateView(</span>
+<span class="pc" id="L59">    val id: String,</span>
+<span class="pc" id="L60">    val formatId: String,</span>
+<span class="pc" id="L61">    val battleKind: BattleType,</span>
+<span class="fc" id="L62">    val started: Boolean,</span>
+<span class="pc" id="L63">    val turn: Int,</span>
+<span class="fc" id="L64">    val ended: Boolean,</span>
+<span class="pc" id="L65">    val settled: Boolean,</span>
+<span class="pc" id="L66">    val winner: String?,</span>
+<span class="fc" id="L67">    val endedReason: String?,</span>
+<span class="pc" id="L68">    val capturableSideId: String?,</span>
+<span class="pc" id="L69">    val capturedUnitId: String?,</span>
+)
+
+/**
+ * 面向前端的场地级状态视图。
+ *
+ * @property weatherId 当前天气标识。
+ * @property terrainId 当前地形标识。
+ */
+<span class="fc" id="L78">data class GameBattleFieldView(</span>
+<span class="pc" id="L79">    val weatherId: String?,</span>
+<span class="pc" id="L80">    val terrainId: String?,</span>
+)
+
+/**
+ * 面向前端的单位状态视图。
+ *
+ * @property id 单位唯一标识。
+ * @property currentHp 当前生命值。
+ * @property maxHp 最大生命值。
+ * @property statusId 主状态标识。
+ * @property abilityId 当前特性标识。
+ * @property itemId 当前道具标识。
+ * @property typeIds 当前属性列表。
+ * @property volatileIds 当前挥发状态列表。
+ * @property conditionIds 当前附着条件列表。
+ * @property boosts 当前 stage / boost 表。
+ * @property stats 当前运行时属性值表。
+ * @property movePp 当前招式剩余 PP。
+ * @property flags 当前单位轻量标记表。
+ * @property forceSwitchRequested 当前单位是否被标记为强制替换。
+ */
+<span class="fc" id="L101">data class GameBattleUnitView(</span>
+<span class="pc" id="L102">    val id: String,</span>
+<span class="pc" id="L103">    val currentHp: Int,</span>
+<span class="pc" id="L104">    val maxHp: Int,</span>
+<span class="pc" id="L105">    val statusId: String?,</span>
+<span class="pc" id="L106">    val abilityId: String?,</span>
+<span class="pc" id="L107">    val itemId: String?,</span>
+<span class="pc" id="L108">    val typeIds: List&lt;String&gt;,</span>
+<span class="pc" id="L109">    val volatileIds: List&lt;String&gt;,</span>
+<span class="pc" id="L110">    val conditionIds: List&lt;String&gt;,</span>
+<span class="pc" id="L111">    val boosts: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L112">    val stats: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L113">    val movePp: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L114">    val flags: Map&lt;String, String&gt;,</span>
+<span class="pc" id="L115">    val forceSwitchRequested: Boolean,</span>
+)
+
+/**
+ * 面向前端的 side 状态视图。
+ *
+ * @property id side 唯一标识。
+ * @property unitIds 当前 side 名下全部单位标识列表。
+ * @property activeUnitIds 当前处于 active 槽位的单位标识列表。
+ */
+<span class="fc" id="L125">data class GameBattleSideView(</span>
+<span class="pc" id="L126">    val id: String,</span>
+<span class="pc" id="L127">    val unitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L128">    val activeUnitIds: List&lt;String&gt;,</span>
+)
+
+/**
+ * 面向前端的回合输入状态视图。
+ *
+ * @property sideId 当前 side 标识。
+ * @property activeUnitIds 当前 active 单位列表。
+ * @property submittedUnitIds 当前已经提交行动的单位列表。
+ * @property missingUnitIds 当前尚未提交行动的单位列表。
+ * @property requiredActionCount 当前回合要求提交的行动数量。
+ * @property submittedActionCount 当前回合已经提交的行动数量。
+ * @property ready 当前 side 是否已满足回合结算前置条件。
+ */
+<span class="fc" id="L142">data class GameBattleChoiceStatusView(</span>
+<span class="pc" id="L143">    val sideId: String,</span>
+<span class="pc" id="L144">    val activeUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L145">    val submittedUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L146">    val missingUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L147">    val requiredActionCount: Int,</span>
+<span class="pc" id="L148">    val submittedActionCount: Int,</span>
+<span class="pc" id="L149">    val ready: Boolean,</span>
+)
+
+/**
+ * 面向前端的替补请求视图。
+ *
+ * @property sideId 需要替补的 side 标识。
+ * @property outgoingUnitIds 当前需要下场的单位列表。
+ * @property candidateUnitIds 当前可选替补单位列表。
+ */
+<span class="nc" id="L159">data class GameBattleReplacementRequestView(</span>
+<span class="nc" id="L160">    val sideId: String,</span>
+<span class="nc" id="L161">    val outgoingUnitIds: List&lt;String&gt;,</span>
+<span class="nc" id="L162">    val candidateUnitIds: List&lt;String&gt;,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

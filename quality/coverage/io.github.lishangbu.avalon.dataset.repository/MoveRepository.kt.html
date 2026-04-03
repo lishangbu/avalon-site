@@ -5,8 +5,10 @@ import io.github.lishangbu.avalon.dataset.entity.dto.MoveSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.MoveView
 import org.babyfish.jimmer.Page
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 
 /**
@@ -19,32 +21,46 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface MoveRepository : KRepository&lt;Move, Long&gt; {
+    fun listAll(): List&lt;Move&gt; =
+<span class="nc" id="L25">        sql</span>
+<span class="nc" id="L26">            .createQuery(Move::class) {</span>
+<span class="nc" id="L27">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L28">                select(table)</span>
+<span class="nc" id="L29">            }.execute()</span>
+
     /** 按条件查询招式视图 */
     fun listViews(specification: MoveSpecification?): List&lt;MoveView&gt; =
-<span class="fc" id="L24">        sql</span>
-<span class="fc" id="L25">            .createQuery(Move::class) {</span>
-<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                specification?.let(::where)</span>
-<span class="fc" id="L27">                select(table.fetch(MoveView::class))</span>
-<span class="fc" id="L28">            }.execute()</span>
+<span class="fc" id="L33">        sql</span>
+<span class="fc" id="L34">            .createQuery(Move::class) {</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L36">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L37">                select(table.fetch(MoveView::class))</span>
+<span class="fc" id="L38">            }.execute()</span>
 
     /** 按条件分页查询招式视图 */
     fun pageViews(
         specification: MoveSpecification?,
         pageable: Pageable,
     ): Page&lt;MoveView&gt; =
-<span class="fc" id="L35">        sql</span>
-<span class="fc" id="L36">            .createQuery(Move::class) {</span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                specification?.let(::where)</span>
-<span class="fc" id="L38">                select(table.fetch(MoveView::class))</span>
-<span class="fc" id="L39">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="fc" id="L45">        sql</span>
+<span class="fc" id="L46">            .createQuery(Move::class) {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L48">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L49">                select(table.fetch(MoveView::class))</span>
+<span class="fc" id="L50">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按 ID 查询单个招式视图 */
     fun loadViewById(id: Long): MoveView? =
-<span class="fc" id="L43">        sql</span>
-<span class="fc" id="L44">            .createQuery(Move::class) {</span>
-<span class="fc" id="L45">                where(table.id eq id)</span>
-<span class="fc" id="L46">                select(table.fetch(MoveView::class))</span>
-<span class="fc" id="L47">            }.execute()</span>
-<span class="fc" id="L48">            .firstOrNull()</span>
+<span class="fc" id="L54">        sql</span>
+<span class="fc" id="L55">            .createQuery(Move::class) {</span>
+<span class="fc" id="L56">                where(table.id eq id)</span>
+<span class="fc" id="L57">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L58">                select(table.fetch(MoveView::class))</span>
+<span class="fc" id="L59">            }.execute()</span>
+<span class="fc" id="L60">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L63">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

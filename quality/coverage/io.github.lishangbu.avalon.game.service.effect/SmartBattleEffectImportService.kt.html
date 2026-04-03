@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleEffectImportService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.effect</a> &gt; <span class="el_source">SmartBattleEffectImportService.kt</span></div><h1>SmartBattleEffectImportService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.effect
+
+import io.github.lishangbu.avalon.dataset.entity.dto.AbilitySpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.AbilityView
+import io.github.lishangbu.avalon.dataset.entity.dto.ItemSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.ItemView
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveView
+import io.github.lishangbu.avalon.dataset.repository.AbilityRepository
+import io.github.lishangbu.avalon.dataset.repository.ItemRepository
+import io.github.lishangbu.avalon.dataset.repository.MoveRepository
+import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
+import org.springframework.stereotype.Service
+
+/**
+ * 基于真实数据源的战斗 effect 智能导入服务。
+ */
+<span class="nc" id="L18">@Service</span>
+<span class="nc" id="L19">class SmartBattleEffectImportService(</span>
+<span class="nc" id="L20">    private val moveRepository: MoveRepository,</span>
+<span class="nc" id="L21">    private val abilityRepository: AbilityRepository,</span>
+<span class="nc" id="L22">    private val itemRepository: ItemRepository,</span>
+) {
+    fun importEffect(effectId: String): EffectDefinition? =
+<span class="nc bnc" id="L25" title="All 6 branches missed.">        loadMove(effectId)?.let(::toMoveRecord)?.let(SmartBattleEffectAssembler::fromMove)</span>
+<span class="nc bnc" id="L26" title="All 4 branches missed.">            ?: loadAbility(effectId)?.let(::toAbilityRecord)?.let(SmartBattleEffectAssembler::fromAbility)</span>
+<span class="nc bnc" id="L27" title="All 4 branches missed.">            ?: loadItem(effectId)?.let(::toItemRecord)?.let(SmartBattleEffectAssembler::fromItem)</span>
+
+    private fun loadMove(internalName: String): MoveView? =
+<span class="nc" id="L30">        moveRepository</span>
+<span class="nc" id="L31">            .listViews(MoveSpecification(internalName = internalName))</span>
+<span class="nc" id="L32">            .firstOrNull { move -&gt; move.internalName == internalName }</span>
+
+    private fun loadAbility(internalName: String): AbilityView? =
+<span class="nc" id="L35">        abilityRepository</span>
+<span class="nc" id="L36">            .listViews(AbilitySpecification(internalName = internalName))</span>
+<span class="nc" id="L37">            .firstOrNull { ability -&gt; ability.internalName == internalName }</span>
+
+    private fun loadItem(internalName: String): ItemView? =
+<span class="nc" id="L40">        itemRepository</span>
+<span class="nc" id="L41">            .listViews(ItemSpecification(internalName = internalName))</span>
+<span class="nc" id="L42">            .firstOrNull { item -&gt; item.internalName == internalName }</span>
+
+    private fun toMoveRecord(move: MoveView): MoveImportRecord =
+<span class="nc" id="L45">        MoveImportRecord(</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            internalName = requireNotNull(move.internalName) { &quot;Move internalName must not be null.&quot; },</span>
+<span class="nc bnc" id="L47" title="All 4 branches missed.">            name = move.name ?: requireNotNull(move.internalName),</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            typeInternalName = move.type?.internalName,</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            damageClassInternalName = move.moveDamageClass?.internalName,</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            targetInternalName = move.moveTarget?.internalName,</span>
+<span class="nc" id="L51">            accuracy = move.accuracy,</span>
+<span class="nc" id="L52">            effectChance = move.effectChance,</span>
+<span class="nc" id="L53">            pp = move.pp,</span>
+<span class="nc" id="L54">            priority = move.priority,</span>
+<span class="nc" id="L55">            power = move.power,</span>
+<span class="nc" id="L56">            shortEffect = move.shortEffect,</span>
+<span class="nc" id="L57">            effect = move.effect,</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">            ailmentInternalName = move.moveAilment?.internalName,</span>
+<span class="nc" id="L59">            ailmentChance = move.ailmentChance,</span>
+<span class="nc" id="L60">            healing = move.healing,</span>
+<span class="nc" id="L61">            drain = move.drain,</span>
+<span class="nc" id="L62">        )</span>
+
+    private fun toAbilityRecord(ability: AbilityView): AbilityImportRecord =
+<span class="nc" id="L65">        AbilityImportRecord(</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            internalName = requireNotNull(ability.internalName) { &quot;Ability internalName must not be null.&quot; },</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">            name = ability.name ?: requireNotNull(ability.internalName),</span>
+<span class="nc" id="L68">            effect = ability.effect,</span>
+<span class="nc" id="L69">            introduction = ability.introduction,</span>
+<span class="nc" id="L70">        )</span>
+
+    private fun toItemRecord(item: ItemView): ItemImportRecord =
+<span class="nc" id="L73">        ItemImportRecord(</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            internalName = requireNotNull(item.internalName) { &quot;Item internalName must not be null.&quot; },</span>
+<span class="nc bnc" id="L75" title="All 4 branches missed.">            name = item.name ?: requireNotNull(item.internalName),</span>
+<span class="nc" id="L76">            shortEffect = item.shortEffect,</span>
+<span class="nc" id="L77">            effect = item.effect,</span>
+<span class="nc" id="L78">            text = item.text,</span>
+<span class="nc" id="L79">            attributeInternalNames = item.itemAttributes.mapNotNull { attribute -&gt; attribute.internalName }.toSet(),</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            flingEffectInternalName = item.itemFlingEffect?.internalName,</span>
+<span class="nc" id="L81">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBattleRequestAssembler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.battle.view</a> &gt; <span class="el_source">GameBattleRequestAssembler.kt</span></div><h1>GameBattleRequestAssembler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.battle.view
+
+import io.github.lishangbu.avalon.game.service.battle.CreateImportedBattleSessionRequest
+import io.github.lishangbu.avalon.game.service.battle.ImportedBattleSideRequest
+import io.github.lishangbu.avalon.game.service.unit.BattleMoveImportRequest
+import io.github.lishangbu.avalon.game.service.unit.BattleUnitImportRequest
+import org.springframework.stereotype.Component
+
+/**
+ * battle API 请求组装器。
+ *
+ * 设计意图：
+ * - 把 controller 接收到的前端 request view 映射为 service 内部使用的请求模型。
+ * - 让 `DefaultGameBattleService` 不必直接依赖 controller 层的入参结构。
+ */
+<span class="fc" id="L16">@Component</span>
+class GameBattleRequestAssembler {
+    /**
+     * 把导入建局 API 请求映射为 service 内部请求。
+     */
+    fun toCreateImportedSessionRequest(request: CreateImportedBattleSessionApiRequest): CreateImportedBattleSessionRequest =
+<span class="fc" id="L22">        CreateImportedBattleSessionRequest(</span>
+<span class="fc" id="L23">            sessionId = request.sessionId,</span>
+<span class="fc" id="L24">            formatId = request.formatId,</span>
+<span class="fc" id="L25">            sides = request.sides.map(::toImportedBattleSideRequest),</span>
+<span class="fc" id="L26">            battleKind = request.battleKind,</span>
+<span class="fc" id="L27">            capturableSideId = request.capturableSideId,</span>
+<span class="fc" id="L28">            autoStart = request.autoStart,</span>
+<span class="fc" id="L29">        )</span>
+
+    /**
+     * 把导入 side API 请求映射为 service 内部请求。
+     */
+    private fun toImportedBattleSideRequest(request: GameBattleImportedSideApiRequest): ImportedBattleSideRequest =
+<span class="fc" id="L35">        ImportedBattleSideRequest(</span>
+<span class="fc" id="L36">            sideId = request.sideId,</span>
+<span class="fc" id="L37">            units = request.units.map(::toBattleUnitImportRequest),</span>
+<span class="fc" id="L38">            activeUnitIds = request.activeUnitIds,</span>
+<span class="fc" id="L39">        )</span>
+
+    /**
+     * 把导入单位 API 请求映射为 service 内部请求。
+     */
+    private fun toBattleUnitImportRequest(request: GameBattleImportedUnitApiRequest): BattleUnitImportRequest =
+<span class="fc" id="L45">        BattleUnitImportRequest(</span>
+<span class="fc" id="L46">            unitId = request.unitId,</span>
+<span class="fc" id="L47">            level = request.level,</span>
+<span class="fc" id="L48">            creatureId = request.creatureId,</span>
+<span class="fc" id="L49">            creatureInternalName = request.creatureInternalName,</span>
+<span class="fc" id="L50">            natureId = request.natureId,</span>
+<span class="fc" id="L51">            natureInternalName = request.natureInternalName,</span>
+<span class="fc" id="L52">            abilityInternalName = request.abilityInternalName,</span>
+<span class="fc" id="L53">            itemId = request.itemId,</span>
+<span class="fc" id="L54">            moves = request.moves.map(::toBattleMoveImportRequest),</span>
+<span class="fc" id="L55">            ivs = request.ivs,</span>
+<span class="fc" id="L56">            evs = request.evs,</span>
+<span class="fc" id="L57">            currentHp = request.currentHp,</span>
+<span class="fc" id="L58">            statusId = request.statusId,</span>
+<span class="fc" id="L59">            volatileIds = request.volatileIds,</span>
+<span class="fc" id="L60">            conditionIds = request.conditionIds,</span>
+<span class="fc" id="L61">            boosts = request.boosts,</span>
+<span class="fc" id="L62">            flags = request.flags,</span>
+<span class="fc" id="L63">            forceSwitchRequested = request.forceSwitchRequested,</span>
+<span class="fc" id="L64">        )</span>
+
+    /**
+     * 把导入招式 API 请求映射为 service 内部请求。
+     */
+    private fun toBattleMoveImportRequest(request: GameBattleImportedMoveApiRequest): BattleMoveImportRequest =
+<span class="fc" id="L70">        BattleMoveImportRequest(</span>
+<span class="fc" id="L71">            moveId = request.moveId,</span>
+<span class="fc" id="L72">            currentPp = request.currentPp,</span>
+<span class="fc" id="L73">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

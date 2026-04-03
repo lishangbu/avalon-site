@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 
     /** 更新性别 */
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L25">    override fun update(command: UpdateGenderInput): GenderView = GenderView(genderRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L25">    override fun update(command: UpdateGenderInput): GenderView = GenderView(genderRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     /** 按 ID 删除性别 */
     @Transactional(rollbackFor = [Exception::class])

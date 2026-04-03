@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EvolutionChainRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">EvolutionChainRepository.kt</span></div><h1>EvolutionChainRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import io.github.lishangbu.avalon.dataset.entity.dto.EvolutionChainSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EvolutionChainView
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Repository
+
+/**
+ * 进化链仓储接口
+ *
+ * 定义进化链数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2026/2/12
+ */
+@Repository
+interface EvolutionChainRepository : KRepository&lt;EvolutionChain, Long&gt; {
+    fun listViews(specification: EvolutionChainSpecification?): List&lt;EvolutionChainView&gt; =
+<span class="nc" id="L25">        sql</span>
+<span class="nc" id="L26">            .createQuery(EvolutionChain::class) {</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">                specification?.let(::where)</span>
+<span class="nc" id="L28">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L29">                select(table.fetch(EvolutionChainView::class))</span>
+<span class="nc" id="L30">            }.execute()</span>
+
+    fun pageViews(
+        specification: EvolutionChainSpecification?,
+        pageable: Pageable,
+    ): Page&lt;EvolutionChainView&gt; =
+<span class="nc" id="L36">        sql</span>
+<span class="nc" id="L37">            .createQuery(EvolutionChain::class) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                specification?.let(::where)</span>
+<span class="nc" id="L39">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L40">                select(table.fetch(EvolutionChainView::class))</span>
+<span class="nc" id="L41">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    fun loadViewById(id: Long): EvolutionChainView? =
+<span class="nc" id="L44">        sql</span>
+<span class="nc" id="L45">            .createQuery(EvolutionChain::class) {</span>
+<span class="nc" id="L46">                where(table.id eq id)</span>
+<span class="nc" id="L47">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L48">                select(table.fetch(EvolutionChainView::class))</span>
+<span class="nc" id="L49">            }.execute()</span>
+<span class="nc" id="L50">            .firstOrNull()</span>
+
+    fun loadBabyTriggerItemId(id: Long): Long? =
+<span class="fc" id="L53">        sql</span>
+<span class="fc" id="L54">            .createQuery(EvolutionChain::class) {</span>
+<span class="fc" id="L55">                where(table.id eq id)</span>
+<span class="fc" id="L56">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L57">                select(table.babyTriggerItem.id)</span>
+<span class="fc" id="L58">            }.execute()</span>
+<span class="fc" id="L59">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L62">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

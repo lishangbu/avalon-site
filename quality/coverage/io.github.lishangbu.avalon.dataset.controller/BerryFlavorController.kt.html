@@ -6,41 +6,49 @@ import io.github.lishangbu.avalon.dataset.entity.dto.SaveBerryFlavorInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateBerryFlavorInput
 import io.github.lishangbu.avalon.dataset.service.BerryFlavorService
 import jakarta.validation.Valid
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 /** 树果风味控制器*/
-<span class="fc" id="L12">@RestController</span>
+<span class="fc" id="L20">@RestController</span>
 @RequestMapping(&quot;/berry-flavor&quot;)
-<span class="fc" id="L14">class BerryFlavorController(</span>
-    /** 树果风味服务 */
-<span class="fc" id="L16">    private val berryFlavorService: BerryFlavorService,</span>
+<span class="fc" id="L22">class BerryFlavorController(</span>
+    /** 树果风味应用服务 */
+<span class="fc" id="L24">    private val berryFlavorService: BerryFlavorService,</span>
 ) {
     /** 查询树果风味列表 */
     @GetMapping(&quot;/list&quot;)
     fun listBerryFlavors(
         @ModelAttribute specification: BerryFlavorSpecification,
-<span class="fc" id="L22">    ): List&lt;BerryFlavorView&gt; = berryFlavorService.listByCondition(specification)</span>
+<span class="fc" id="L30">    ): List&lt;BerryFlavorView&gt; = berryFlavorService.listByCondition(specification)</span>
 
     /** 保存树果风味 */
     @PostMapping
     fun save(
         @Valid
         @RequestBody command: SaveBerryFlavorInput,
-<span class="fc" id="L29">    ): BerryFlavorView = berryFlavorService.save(command)</span>
+<span class="fc" id="L37">    ): BerryFlavorView = berryFlavorService.save(command)</span>
 
     /** 更新树果风味 */
     @PutMapping
     fun update(
         @Valid
         @RequestBody command: UpdateBerryFlavorInput,
-<span class="fc" id="L36">    ): BerryFlavorView = berryFlavorService.update(command)</span>
+<span class="fc" id="L44">    ): BerryFlavorView = berryFlavorService.update(command)</span>
 
     /** 按 ID 删除树果风味 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L43">        berryFlavorService.removeById(id)</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L51">        berryFlavorService.removeById(id)</span>
+<span class="fc" id="L52">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

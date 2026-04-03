@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameServiceConfiguration.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.config</a> &gt; <span class="el_source">GameServiceConfiguration.kt</span></div><h1>GameServiceConfiguration.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.config
+
+import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionFactory
+import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionStore
+import io.github.lishangbu.avalon.game.service.effect.SmartBattleEffectImportService
+import io.github.lishangbu.avalon.game.service.effect.SmartImportingEffectDefinitionRepository
+import io.github.lishangbu.avalon.game.service.store.RedisBattleSessionStore
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.core.StringRedisTemplate
+import tools.jackson.databind.ObjectMapper
+
+/**
+ * `avalon-game-service` 默认装配。
+ */
+<span class="nc" id="L19">@Configuration(proxyBeanMethods = false)</span>
+class GameServiceConfiguration {
+    @Bean
+    @ConditionalOnMissingBean(EffectDefinitionRepository::class)
+<span class="nc" id="L23">    fun effectDefinitionRepository(importService: SmartBattleEffectImportService): EffectDefinitionRepository = SmartImportingEffectDefinitionRepository(importService)</span>
+
+    @Bean
+    @ConditionalOnBean(StringRedisTemplate::class)
+    @ConditionalOnMissingBean
+    fun redisBattleSessionStore(
+        stringRedisTemplate: StringRedisTemplate,
+        objectMapper: ObjectMapper,
+        battleSessionFactory: BattleSessionFactory,
+    ): BattleSessionStore =
+<span class="nc" id="L33">        RedisBattleSessionStore(</span>
+<span class="nc" id="L34">            stringRedisTemplate = stringRedisTemplate,</span>
+<span class="nc" id="L35">            objectMapper = objectMapper,</span>
+<span class="nc" id="L36">            battleSessionFactory = battleSessionFactory,</span>
+<span class="nc" id="L37">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

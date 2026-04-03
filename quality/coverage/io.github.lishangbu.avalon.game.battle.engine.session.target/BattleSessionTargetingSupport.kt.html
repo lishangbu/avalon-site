@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionTargetingSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session.target</a> &gt; <span class="el_source">BattleSessionTargetingSupport.kt</span></div><h1>BattleSessionTargetingSupport.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session.target
+
+import io.github.lishangbu.avalon.game.battle.engine.model.SideState
+
+/**
+ * BattleSession 目标模型辅助组件。
+ *
+ * 设计意图：
+ * - 把 `data.target` 到内部目标模式的映射集中管理。
+ * - 提供当前会话快照下的可选目标计算逻辑。
+ */
+object BattleSessionTargetingSupport {
+    fun resolveMode(rawTarget: String?): BattleSessionTargetMode =
+<span class="pc bpc" id="L14" title="7 of 11 branches missed.">        when (rawTarget) {</span>
+<span class="nc" id="L15">            null -&gt; BattleSessionTargetMode.UNKNOWN</span>
+<span class="fc" id="L16">            &quot;self&quot;, &quot;user&quot; -&gt; BattleSessionTargetMode.SELF</span>
+<span class="nc" id="L17">            &quot;ally&quot; -&gt; BattleSessionTargetMode.ALLY</span>
+<span class="fc" id="L18">            &quot;selected-pokemon&quot;, &quot;random-opponent&quot; -&gt; BattleSessionTargetMode.FOE</span>
+<span class="fc" id="L19">            &quot;all-opponents&quot; -&gt; BattleSessionTargetMode.ALL_FOES</span>
+<span class="nc" id="L20">            &quot;all-allies&quot;, &quot;user-and-allies&quot;, &quot;user-or-ally&quot; -&gt; BattleSessionTargetMode.ALL_ALLIES</span>
+<span class="fc" id="L21">            &quot;all-other-pokemon&quot; -&gt; BattleSessionTargetMode.ALL_OTHER_POKEMON</span>
+<span class="nc" id="L22">            &quot;all-pokemon&quot;, &quot;entire-field&quot; -&gt; BattleSessionTargetMode.ALL_POKEMON</span>
+<span class="nc" id="L23">            &quot;users-field&quot; -&gt; BattleSessionTargetMode.SIDE</span>
+<span class="nc" id="L24">            &quot;opponents-field&quot; -&gt; BattleSessionTargetMode.FOE_SIDE</span>
+<span class="nc" id="L25">            else -&gt; BattleSessionTargetMode.UNKNOWN</span>
+<span class="fc" id="L26">        }</span>
+
+    fun availableTargetUnitIds(
+        mode: BattleSessionTargetMode,
+        actorUnitId: String,
+        sides: Collection&lt;SideState&gt;,
+    ): List&lt;String&gt; {
+<span class="fc" id="L33">        val actorSide =</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">            requireNotNull(sides.firstOrNull { side -&gt; actorUnitId in side.activeUnitIds }) {</span>
+<span class="nc" id="L35">                &quot;Actor unit '$actorUnitId' is not currently active.&quot;</span>
+            }
+<span class="fc" id="L37">        val foeSides = sides.filterNot { side -&gt; side.id == actorSide.id }</span>
+<span class="fc" id="L38">        val foeActive = foeSides.flatMap(SideState::activeUnitIds)</span>
+<span class="fc" id="L39">        val allActive = sides.flatMap(SideState::activeUnitIds)</span>
+
+<span class="pc bpc" id="L41" title="7 of 11 branches missed.">        return when (mode) {</span>
+<span class="fc" id="L42">            BattleSessionTargetMode.SELF -&gt; listOf(actorUnitId)</span>
+<span class="nc" id="L43">            BattleSessionTargetMode.ALLY -&gt; actorSide.activeUnitIds.filterNot { unitId -&gt; unitId == actorUnitId }</span>
+<span class="fc" id="L44">            BattleSessionTargetMode.FOE -&gt; foeActive</span>
+<span class="nc" id="L45">            BattleSessionTargetMode.ALL_ALLIES -&gt; actorSide.activeUnitIds</span>
+<span class="fc" id="L46">            BattleSessionTargetMode.ALL_FOES -&gt; foeActive</span>
+<span class="fc" id="L47">            BattleSessionTargetMode.ALL_OTHER_POKEMON -&gt; allActive.filterNot { unitId -&gt; unitId == actorUnitId }</span>
+<span class="nc" id="L48">            BattleSessionTargetMode.ALL_POKEMON -&gt; allActive</span>
+<span class="nc" id="L49">            BattleSessionTargetMode.SIDE -&gt; actorSide.activeUnitIds</span>
+<span class="nc" id="L50">            BattleSessionTargetMode.FOE_SIDE -&gt; foeActive</span>
+<span class="nc" id="L51">            BattleSessionTargetMode.FIELD -&gt; emptyList()</span>
+<span class="nc" id="L52">            BattleSessionTargetMode.UNKNOWN -&gt; allActive</span>
+        }
+    }
+
+    fun requiresExplicitTarget(mode: BattleSessionTargetMode): Boolean =
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        when (mode) {</span>
+            BattleSessionTargetMode.SELF,
+            BattleSessionTargetMode.ALL_ALLIES,
+            BattleSessionTargetMode.ALL_FOES,
+            BattleSessionTargetMode.ALL_OTHER_POKEMON,
+            BattleSessionTargetMode.ALL_POKEMON,
+            BattleSessionTargetMode.SIDE,
+            BattleSessionTargetMode.FOE_SIDE,
+            BattleSessionTargetMode.FIELD,
+<span class="fc" id="L66">            -&gt; false</span>
+
+            BattleSessionTargetMode.ALLY,
+            BattleSessionTargetMode.FOE,
+            BattleSessionTargetMode.UNKNOWN,
+<span class="fc" id="L71">            -&gt; true</span>
+<span class="fc" id="L72">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

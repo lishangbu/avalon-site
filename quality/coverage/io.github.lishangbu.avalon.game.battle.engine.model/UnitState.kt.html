@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnitState.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.model</a> &gt; <span class="el_source">UnitState.kt</span></div><h1>UnitState.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.model
+
+/**
+ * 战斗单位运行时状态骨架。
+ *
+ * 设计意图：
+ * - 表示单个战斗单位的当前局内状态。
+ * - 与静态物种模板、技能数据、effect 定义解耦。
+ *
+ * @property id 单位唯一标识。
+ * @property currentHp 当前生命值。
+ * @property maxHp 最大生命值。
+ * @property statusId 主状态标识，未附加时为空。
+ * @property abilityId 当前特性标识。
+ * @property itemId 当前道具标识。
+ * @property typeIds 当前属性列表。
+ * @property volatileIds 当前挥发状态标识集合。
+ * @property conditionIds 当前附着条件标识集合。
+ * @property boosts 当前 stage / boost 表。
+ * @property stats 当前运行时属性值表。
+ * @property movePp 当前招式剩余 PP。
+ * @property flags 轻量字符串标记表。
+ * @property forceSwitchRequested 当前单位是否被标记为强制替换。
+ */
+<span class="fc" id="L25">data class UnitState(</span>
+<span class="fc" id="L26">    val id: String,</span>
+<span class="fc" id="L27">    val currentHp: Int,</span>
+<span class="fc" id="L28">    val maxHp: Int,</span>
+<span class="fc" id="L29">    val statusId: String? = null,</span>
+<span class="fc" id="L30">    val abilityId: String? = null,</span>
+<span class="fc" id="L31">    val itemId: String? = null,</span>
+<span class="fc" id="L32">    val typeIds: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L33">    val volatileIds: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L34">    val conditionIds: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L35">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L36">    val stats: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L37">    val movePp: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L38">    val flags: Map&lt;String, String&gt; = emptyMap(),</span>
+<span class="fc" id="L39">    val forceSwitchRequested: Boolean = false,</span>
+<span class="fc" id="L40">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

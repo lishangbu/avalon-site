@@ -4,7 +4,9 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.BerryFlavorView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 
 /**
  * 树果风味仓储接口
@@ -17,19 +19,25 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
 interface BerryFlavorRepository : KRepository&lt;BerryFlavor, Long&gt; {
     /** 按条件查询树果风味视图列表 */
     fun listViews(specification: BerryFlavorSpecification?): List&lt;BerryFlavorView&gt; =
-<span class="fc" id="L20">        sql</span>
-<span class="fc" id="L21">            .createQuery(BerryFlavor::class) {</span>
-<span class="fc bfc" id="L22" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L23">                select(table.fetch(BerryFlavorView::class))</span>
-<span class="fc" id="L24">            }.execute()</span>
+<span class="fc" id="L22">        sql</span>
+<span class="fc" id="L23">            .createQuery(BerryFlavor::class) {</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L25">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L26">                select(table.fetch(BerryFlavorView::class))</span>
+<span class="fc" id="L27">            }.execute()</span>
 
     /** 按 ID 查询树果风味视图 */
     fun loadViewById(id: Long): BerryFlavorView? =
-<span class="fc" id="L28">        sql</span>
-<span class="fc" id="L29">            .createQuery(BerryFlavor::class) {</span>
-<span class="fc" id="L30">                where(table.id eq id)</span>
-<span class="fc" id="L31">                select(table.fetch(BerryFlavorView::class))</span>
-<span class="fc" id="L32">            }.execute()</span>
-<span class="fc" id="L33">            .firstOrNull()</span>
+<span class="fc" id="L31">        sql</span>
+<span class="fc" id="L32">            .createQuery(BerryFlavor::class) {</span>
+<span class="fc" id="L33">                where(table.id eq id)</span>
+<span class="fc" id="L34">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L35">                select(table.fetch(BerryFlavorView::class))</span>
+<span class="fc" id="L36">            }.execute()</span>
+<span class="fc" id="L37">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L40">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

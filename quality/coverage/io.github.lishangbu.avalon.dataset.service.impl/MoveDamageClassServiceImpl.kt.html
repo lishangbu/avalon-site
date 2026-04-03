@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service
     /** 更新招式伤害分类 */
     override fun update(
         command: UpdateMoveDamageClassInput,
-<span class="fc" id="L37">    ): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L37">    ): MoveDamageClassView = MoveDamageClassView(moveDamageClassRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     /** 按 ID 删除招式伤害分类 */
     override fun removeById(id: Long) {

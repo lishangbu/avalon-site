@@ -6,6 +6,7 @@ import io.github.lishangbu.avalon.dataset.entity.dto.SaveAbilityInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateAbilityInput
 import io.github.lishangbu.avalon.dataset.service.AbilityService
 import jakarta.validation.Valid
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -17,33 +18,33 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /** 特性控制器 */
-<span class="fc" id="L20">@RestController</span>
+<span class="fc" id="L21">@RestController</span>
 @RequestMapping(&quot;/ability&quot;)
-<span class="fc" id="L22">class AbilityController(</span>
-<span class="fc" id="L23">    private val abilityService: AbilityService,</span>
+<span class="fc" id="L23">class AbilityController(</span>
+<span class="fc" id="L24">    private val abilityService: AbilityService,</span>
 ) {
     @PostMapping
     fun save(
         @Valid
         @RequestBody command: SaveAbilityInput,
-<span class="fc" id="L29">    ): AbilityView = abilityService.save(command)</span>
+<span class="fc" id="L30">    ): AbilityView = abilityService.save(command)</span>
 
     @PutMapping
     fun update(
         @Valid
         @RequestBody command: UpdateAbilityInput,
-<span class="fc" id="L35">    ): AbilityView = abilityService.update(command)</span>
+<span class="fc" id="L36">    ): AbilityView = abilityService.update(command)</span>
 
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L41">        abilityService.removeById(id)</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L42">        abilityService.removeById(id)</span>
+<span class="fc" id="L43">    }</span>
 
     @GetMapping(&quot;/list&quot;)
     fun listAbilities(
         @ModelAttribute specification: AbilitySpecification,
-<span class="fc" id="L47">    ): List&lt;AbilityView&gt; = abilityService.listByCondition(specification)</span>
+<span class="fc" id="L48">    ): List&lt;AbilityView&gt; = abilityService.listByCondition(specification)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

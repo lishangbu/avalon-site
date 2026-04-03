@@ -6,32 +6,37 @@ import io.github.lishangbu.avalon.dataset.entity.dto.EncounterConditionValueView
 import io.github.lishangbu.avalon.dataset.entity.dto.SaveEncounterConditionValueInput
 import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEncounterConditionValueInput
 import io.github.lishangbu.avalon.dataset.repository.EncounterConditionValueRepository
+import io.github.lishangbu.avalon.dataset.repository.LocationAreaEncounterConditionValueRepository
 import io.github.lishangbu.avalon.dataset.service.EncounterConditionValueService
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /** 遭遇条件值服务实现 */
-<span class="fc" id="L15">@Service</span>
-<span class="fc" id="L16">class EncounterConditionValueServiceImpl(</span>
-<span class="fc" id="L17">    private val encounterConditionValueRepository: EncounterConditionValueRepository,</span>
+<span class="fc" id="L16">@Service</span>
+<span class="fc" id="L17">class EncounterConditionValueServiceImpl(</span>
+<span class="fc" id="L18">    private val encounterConditionValueRepository: EncounterConditionValueRepository,</span>
+<span class="fc" id="L19">    private val locationAreaEncounterConditionValueRepository: LocationAreaEncounterConditionValueRepository,</span>
 ) : EncounterConditionValueService {
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L20">    override fun save(command: SaveEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
+<span class="fc" id="L22">    override fun save(command: SaveEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L23">    override fun update(command: UpdateEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+<span class="fc" id="L25">    override fun update(command: UpdateEncounterConditionValueInput): EncounterConditionValueView = encounterConditionValueRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY).let(::reloadView)</span>
 
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc" id="L27">        encounterConditionValueRepository.deleteById(id)</span>
-<span class="fc" id="L28">    }</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (locationAreaEncounterConditionValueRepository.existsByEncounterConditionValueId(id)) {</span>
+<span class="fc" id="L30">            throw IllegalStateException(&quot;当前遭遇条件值已被地点区域遭遇引用，请先删除相关遭遇引用后再删除当前遭遇条件值&quot;)</span>
+        }
+<span class="fc" id="L32">        encounterConditionValueRepository.deleteById(id)</span>
+<span class="fc" id="L33">    }</span>
 
-<span class="fc" id="L30">    override fun listByCondition(specification: EncounterConditionValueSpecification): List&lt;EncounterConditionValueView&gt; = encounterConditionValueRepository.listViews(specification)</span>
+<span class="fc" id="L35">    override fun listByCondition(specification: EncounterConditionValueSpecification): List&lt;EncounterConditionValueView&gt; = encounterConditionValueRepository.listViews(specification)</span>
 
     private fun reloadView(encounterConditionValue: EncounterConditionValue): EncounterConditionValueView =
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        requireNotNull(encounterConditionValueRepository.loadViewById(encounterConditionValue.id)) {</span>
-<span class="nc" id="L34">            &quot;未找到 ID=${encounterConditionValue.id} 对应的遭遇条件值&quot;</span>
-<span class="fc" id="L35">        }</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        requireNotNull(encounterConditionValueRepository.loadViewById(encounterConditionValue.id)) {</span>
+<span class="nc" id="L39">            &quot;未找到 ID=${encounterConditionValue.id} 对应的遭遇条件值&quot;</span>
+<span class="fc" id="L40">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

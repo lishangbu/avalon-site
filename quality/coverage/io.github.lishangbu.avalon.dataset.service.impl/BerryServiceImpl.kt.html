@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L32">    override fun save(command: SaveBerryInput): BerryView = berryRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     /** 更新树果 */
-<span class="fc" id="L35">    override fun update(command: UpdateBerryInput): BerryView = berryRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+<span class="fc" id="L35">    override fun update(command: UpdateBerryInput): BerryView = berryRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY).let(::reloadView)</span>
 
     /** 删除指定 ID 的树果*/
     override fun removeById(id: Long) {

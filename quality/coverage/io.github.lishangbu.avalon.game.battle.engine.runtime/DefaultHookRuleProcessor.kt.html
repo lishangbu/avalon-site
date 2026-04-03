@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultHookRuleProcessor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime</a> &gt; <span class="el_source">DefaultHookRuleProcessor.kt</span></div><h1>DefaultHookRuleProcessor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime
+
+import io.github.lishangbu.avalon.game.battle.engine.dsl.ConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.HookRule
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.AllConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.AnyConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.NotConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.registry.ActionExecutorRegistry
+import io.github.lishangbu.avalon.game.battle.engine.registry.ConditionInterpreterRegistry
+
+/**
+ * 默认 HookRule 处理器。
+ *
+ * 设计意图：
+ * - 串起条件求值与动作执行。
+ * - 以结构化 mutation 和 relay 变化作为处理输出。
+ */
+<span class="fc" id="L20">class DefaultHookRuleProcessor(</span>
+<span class="fc" id="L21">    private val conditionInterpreterRegistry: ConditionInterpreterRegistry,</span>
+<span class="fc" id="L22">    private val actionExecutorRegistry: ActionExecutorRegistry,</span>
+) : HookRuleProcessor {
+    override fun process(
+        rule: HookRule,
+        context: EventContext,
+    ): HookRuleResult {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        val matched: Boolean = rule.condition?.let { evaluateCondition(it, context) } ?: true</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        val selectedActions = if (matched) rule.thenActions else rule.elseActions</span>
+
+<span class="fc" id="L31">        var currentRelay: Any? = context.relay</span>
+<span class="fc" id="L32">        var cancelled = false</span>
+<span class="fc" id="L33">        val mutations = mutableListOf&lt;BattleMutation&gt;()</span>
+
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (action in selectedActions) {</span>
+<span class="fc" id="L36">            val executor = actionExecutorRegistry.get(action.type)</span>
+<span class="fc" id="L37">            val actionContext = context.copy(relay = currentRelay)</span>
+<span class="fc" id="L38">            val actionResult = executor.execute(action, actionContext)</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (actionResult.relay != null) {</span>
+<span class="fc" id="L40">                currentRelay = actionResult.relay</span>
+            }
+<span class="fc" id="L42">            mutations += actionResult.mutations</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (actionResult.cancelled) {</span>
+<span class="fc" id="L44">                cancelled = true</span>
+<span class="fc" id="L45">                break</span>
+            }
+        }
+
+<span class="fc" id="L49">        return HookRuleResult(</span>
+<span class="fc" id="L50">            matched = matched,</span>
+<span class="fc" id="L51">            cancelled = cancelled,</span>
+<span class="fc" id="L52">            relay = currentRelay,</span>
+<span class="fc" id="L53">            mutations = mutations,</span>
+        )
+    }
+
+    private fun evaluateCondition(
+        condition: ConditionNode,
+        context: EventContext,
+    ): Boolean =
+<span class="fc" id="L61">        when (condition) {</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            is AllConditionNode -&gt; condition.conditions.all { evaluateCondition(it, context) }</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            is AnyConditionNode -&gt; condition.conditions.any { evaluateCondition(it, context) }</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">            is NotConditionNode -&gt; !evaluateCondition(condition.condition, context)</span>
+<span class="fc" id="L65">            else -&gt; conditionInterpreterRegistry.get(condition.type).evaluate(condition, context)</span>
+<span class="fc" id="L66">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L20">    override fun save(command: SaveNatureInput): NatureView = natureRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L23">    override fun update(command: UpdateNatureInput): NatureView = natureRepository.save(command.toEntity(), SaveMode.UPSERT).let(::reloadView)</span>
+<span class="fc" id="L23">    override fun update(command: UpdateNatureInput): NatureView = natureRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY).let(::reloadView)</span>
 
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleChoiceFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.battle</a> &gt; <span class="el_source">DefaultBattleChoiceFactory.kt</span></div><h1>DefaultBattleChoiceFactory.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.battle
+
+import io.github.lishangbu.avalon.dataset.service.TypeEffectivenessService
+import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+import io.github.lishangbu.avalon.game.battle.engine.session.ItemChoice
+import io.github.lishangbu.avalon.game.battle.engine.session.MoveChoice
+import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQuery
+import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQueryService
+import org.springframework.stereotype.Service
+import kotlin.math.floor
+import kotlin.math.roundToInt
+
+/**
+ * 基于真实数据与当前快照自动补全行动输入。
+ */
+<span class="fc" id="L19">@Service</span>
+<span class="fc" id="L20">class DefaultBattleChoiceFactory(</span>
+<span class="fc" id="L21">    private val effectDefinitionRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L22">    private val typeEffectivenessService: TypeEffectivenessService,</span>
+<span class="fc" id="L23">    private val targetQueryService: BattleSessionTargetQueryService,</span>
+) : BattleChoiceFactory {
+    override fun queryTargets(
+        session: BattleSessionQuery,
+        effectId: String,
+        actorUnitId: String,
+    ): BattleSessionTargetQuery =
+<span class="fc" id="L30">        targetQueryService.resolve(</span>
+<span class="fc" id="L31">            snapshot = session.snapshot,</span>
+<span class="fc" id="L32">            effectId = effectId,</span>
+<span class="fc" id="L33">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L34">        )</span>
+
+    override fun createMoveChoice(
+        session: BattleSessionQuery,
+        request: SmartMoveChoiceRequest,
+    ): MoveChoice {
+<span class="fc" id="L40">        val effect = effectDefinitionRepository.get(request.moveId)</span>
+<span class="fc" id="L41">        val attacker = requireUnit(session, request.attackerId)</span>
+<span class="fc" id="L42">        val targetQuery = queryTargets(session, request.moveId, request.attackerId)</span>
+<span class="fc" id="L43">        val targetId = resolveTargetId(request.targetId, targetQuery, request.attackerId)</span>
+<span class="fc" id="L44">        val target = requireUnit(session, targetId)</span>
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">        val basePower = request.basePower ?: effect.intData(&quot;basePower&quot;) ?: 0</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        val moveAccuracy = request.accuracy ?: defaultAccuracy(effect, attacker)</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        val targetEvasion = request.evasion ?: defaultEvasion(target)</span>
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">        val priority = request.priority ?: effect.intData(&quot;priority&quot;) ?: 0</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        val speed = request.speed ?: effectiveStat(attacker, &quot;speed&quot;)</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        val damage = request.damage ?: estimateDamage(effect, attacker, target, basePower)</span>
+
+<span class="fc" id="L52">        return MoveChoice(</span>
+<span class="fc" id="L53">            moveId = request.moveId,</span>
+<span class="fc" id="L54">            attackerId = request.attackerId,</span>
+<span class="fc" id="L55">            targetId = targetId,</span>
+<span class="fc" id="L56">            priority = priority,</span>
+<span class="fc" id="L57">            speed = speed,</span>
+<span class="fc" id="L58">            accuracy = moveAccuracy,</span>
+<span class="fc" id="L59">            evasion = targetEvasion,</span>
+<span class="fc" id="L60">            basePower = basePower,</span>
+<span class="fc" id="L61">            damage = damage,</span>
+            attributes =
+<span class="fc" id="L63">                request.attributes +</span>
+<span class="fc" id="L64">                    mapOfNotNull(</span>
+<span class="fc" id="L65">                        &quot;accuracyRoll&quot; to request.accuracyRoll,</span>
+<span class="fc" id="L66">                        &quot;chanceRoll&quot; to request.chanceRoll,</span>
+                    ),
+        )
+    }
+
+    override fun createItemChoice(
+        session: BattleSessionQuery,
+        request: SmartItemChoiceRequest,
+    ): ItemChoice {
+<span class="nc" id="L75">        val actor = requireUnit(session, request.actorUnitId)</span>
+<span class="nc" id="L76">        val targetQuery = queryTargets(session, request.itemId, request.actorUnitId)</span>
+<span class="nc" id="L77">        val targetId = resolveTargetId(request.targetId, targetQuery, request.actorUnitId)</span>
+<span class="nc" id="L78">        val effect = effectDefinitionRepository.get(request.itemId)</span>
+<span class="nc" id="L79">        return ItemChoice(</span>
+<span class="nc" id="L80">            itemId = request.itemId,</span>
+<span class="nc" id="L81">            actorUnitId = request.actorUnitId,</span>
+<span class="nc" id="L82">            targetId = targetId,</span>
+<span class="nc bnc" id="L83" title="All 4 branches missed.">            priority = request.priority ?: effect.intData(&quot;priority&quot;) ?: 0,</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            speed = request.speed ?: effectiveStat(actor, &quot;speed&quot;),</span>
+<span class="nc" id="L85">            attributes = request.attributes + mapOfNotNull(&quot;chanceRoll&quot; to request.chanceRoll),</span>
+        )
+    }
+
+    private fun resolveTargetId(
+        requestedTargetId: String?,
+        targetQuery: BattleSessionTargetQuery,
+        actorUnitId: String,
+    ): String {
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (requestedTargetId != null) {</span>
+<span class="nc" id="L95">            return requestedTargetId</span>
+        }
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (!targetQuery.requiresExplicitTarget) {</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">            return targetQuery.availableTargetUnitIds.firstOrNull() ?: actorUnitId</span>
+        }
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (targetQuery.availableTargetUnitIds.size == 1) {</span>
+<span class="pc" id="L101">            return targetQuery.availableTargetUnitIds.single()</span>
+        }
+<span class="nc" id="L103">        error(&quot;Effect '${targetQuery.effectId}' requires an explicit target for actor '${targetQuery.actorUnitId}'.&quot;)</span>
+    }
+
+    private fun estimateDamage(
+        effect: EffectDefinition,
+        attacker: UnitState,
+        target: UnitState,
+        basePower: Int,
+    ): Int {
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (basePower &lt;= 0) {</span>
+<span class="nc" id="L113">            return 0</span>
+        }
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        val damageClass = effect.data[&quot;damageClass&quot;]?.toString()</span>
+<span class="pc bpc" id="L116" title="2 of 4 branches missed.">        if (damageClass == null || damageClass == &quot;status&quot;) {</span>
+<span class="nc" id="L117">            return 0</span>
+        }
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        val attackStatName = if (damageClass == &quot;special&quot;) &quot;special-attack&quot; else &quot;attack&quot;</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        val defenseStatName = if (damageClass == &quot;special&quot;) &quot;special-defense&quot; else &quot;defense&quot;</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed.">        val level = attacker.flags[&quot;level&quot;]?.toIntOrNull() ?: 50</span>
+<span class="fc" id="L122">        val attack = effectiveStat(attacker, attackStatName).coerceAtLeast(1)</span>
+<span class="fc" id="L123">        val defense = effectiveStat(target, defenseStatName).coerceAtLeast(1)</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        val typeId = effect.data[&quot;type&quot;]?.toString()</span>
+<span class="pc bpc" id="L125" title="2 of 4 branches missed.">        val stab = if (typeId != null &amp;&amp; typeId in attacker.typeIds) 1.5 else 1.0</span>
+<span class="fc" id="L126">        val typeMultiplier =</span>
+<span class="pc bpc" id="L127" title="3 of 6 branches missed.">            if (typeId != null &amp;&amp; target.typeIds.isNotEmpty()) {</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">                typeEffectivenessService.calculate(typeId, target.typeIds.toList()).finalMultiplier?.toDouble() ?: 1.0</span>
+            } else {
+<span class="nc" id="L130">                1.0</span>
+            }
+<span class="fc" id="L132">        val rawDamage = (((((2.0 * level) / 5.0) + 2.0) * basePower * attack / defense) / 50.0) + 2.0</span>
+<span class="fc" id="L133">        val finalDamage = floor(rawDamage * stab * typeMultiplier).toInt()</span>
+<span class="fc" id="L134">        return when {</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">            typeMultiplier &lt;= 0.0 -&gt; 0</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">            finalDamage &lt;= 0 -&gt; 1</span>
+<span class="fc" id="L137">            else -&gt; finalDamage</span>
+        }
+    }
+
+    private fun defaultAccuracy(
+        effect: EffectDefinition,
+        attacker: UnitState,
+    ): Int? {
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        val baseAccuracy = effect.intData(&quot;accuracy&quot;) ?: return null</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        return (baseAccuracy * stageMultiplier(attacker.boosts[&quot;accuracy&quot;] ?: 0)).roundToInt()</span>
+    }
+
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">    private fun defaultEvasion(target: UnitState): Int = (100.0 * stageMultiplier(target.boosts[&quot;evasion&quot;] ?: 0)).roundToInt()</span>
+
+    private fun effectiveStat(
+        unit: UnitState,
+        statName: String,
+    ): Int {
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        val baseStat = unit.stats[statName] ?: return 0</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        val stage = unit.boosts[statName] ?: 0</span>
+<span class="fc" id="L157">        return (baseStat * stageMultiplier(stage)).roundToInt()</span>
+    }
+
+    private fun stageMultiplier(stage: Int): Double {
+<span class="fc" id="L161">        val normalized = stage.coerceIn(-6, 6)</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        return if (normalized &gt;= 0) {</span>
+<span class="fc" id="L163">            (2.0 + normalized) / 2.0</span>
+        } else {
+<span class="nc" id="L165">            2.0 / (2.0 - normalized)</span>
+        }
+    }
+
+    private fun requireUnit(
+        session: BattleSessionQuery,
+        unitId: String,
+    ): UnitState =
+<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        requireNotNull(session.snapshot.units[unitId]) {</span>
+<span class="nc" id="L174">            &quot;Unit '$unitId' was not found in battle snapshot.&quot;</span>
+<span class="fc" id="L175">        }</span>
+
+    private fun EffectDefinition.intData(key: String): Int? =
+<span class="fc" id="L178">        when (val value = data[key]) {</span>
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">            is Int -&gt; value</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            is Long -&gt; value.toInt()</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">            is Double -&gt; value.roundToInt()</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            is Float -&gt; value.roundToInt()</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            is Number -&gt; value.toInt()</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            is String -&gt; value.toIntOrNull()</span>
+<span class="nc" id="L185">            else -&gt; null</span>
+<span class="fc" id="L186">        }</span>
+
+<span class="fc bfc" id="L188" title="All 2 branches covered.">    private fun mapOfNotNull(vararg entries: Pair&lt;String, Any?&gt;): Map&lt;String, Any&gt; = entries.mapNotNull { (key, value) -&gt; value?.let { key to it } }.toMap()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

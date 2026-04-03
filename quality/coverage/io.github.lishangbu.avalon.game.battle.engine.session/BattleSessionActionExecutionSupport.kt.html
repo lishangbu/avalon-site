@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionExecutionSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionActionExecutionSupport.kt</span></div><h1>BattleSessionActionExecutionSupport.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.mutation.DamageMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplicationContext
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.MoveResolutionResult
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
+
+/**
+ * session action 执行辅助组件。
+ *
+ * 设计意图：
+ * - 承载 move/item 目标展开、直接伤害写回、switch/run 状态更新等共用执行逻辑。
+ * - 让具体 action handler 保持轻量，并可作为无状态 Spring Bean 复用。
+ */
+<span class="fc" id="L16">class BattleSessionActionExecutionSupport {</span>
+    /**
+     * 执行一个已经具备目标信息的 effect。
+     *
+     * @param session 当前 battle session。
+     * @param effectId 当前执行的 effect 标识。
+     * @param actorUnitId 行动发起者单位标识。
+     * @param targetUnitId 调用方提供的目标单位标识。
+     * @param accuracy 命中值输入。
+     * @param evasion 回避值输入。
+     * @param basePower 基础威力输入。
+     * @param damage 基础伤害输入。
+     * @param attributes 透传给 battle flow 的扩展属性。
+     * @return effect 结算完成后的聚合结果。
+     */
+    fun executeResolvedEffect(
+        session: BattleSession,
+        effectId: String,
+        actorUnitId: String,
+        targetUnitId: String,
+        accuracy: Int?,
+        evasion: Int?,
+        basePower: Int,
+        damage: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): MoveResolutionResult {
+<span class="fc" id="L42">        val resolvedAttributes = completeRandomAttributes(session, accuracy, attributes)</span>
+<span class="fc" id="L43">        val targetQuery = session.queryTargets(effectId, actorUnitId)</span>
+<span class="fc" id="L44">        val resolvedTargetIds =</span>
+<span class="fc" id="L45">            when {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                targetQuery.requiresExplicitTarget -&gt; listOf(targetUnitId)</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">                targetQuery.availableTargetUnitIds.isEmpty() -&gt; listOf(targetUnitId)</span>
+<span class="fc" id="L48">                else -&gt; targetQuery.availableTargetUnitIds</span>
+            }
+
+<span class="fc" id="L51">        var aggregatedResult: MoveResolutionResult? = null</span>
+
+<span class="fc" id="L53">        resolvedTargetIds.forEach { resolvedTargetId -&gt;</span>
+<span class="fc" id="L54">            val result =</span>
+<span class="fc" id="L55">                session.battleFlowEngine.resolveMoveAction(</span>
+<span class="fc" id="L56">                    snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L57">                    moveId = effectId,</span>
+<span class="fc" id="L58">                    attackerId = actorUnitId,</span>
+<span class="fc" id="L59">                    targetId = resolvedTargetId,</span>
+<span class="fc" id="L60">                    accuracy = accuracy,</span>
+<span class="fc" id="L61">                    evasion = evasion,</span>
+<span class="fc" id="L62">                    basePower = basePower,</span>
+<span class="fc" id="L63">                    damage = damage,</span>
+<span class="fc" id="L64">                    attributes = resolvedAttributes,</span>
+                )
+<span class="fc" id="L66">            session.currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">            if (result.hitSuccessful &amp;&amp; result.damage &gt; 0) {</span>
+<span class="fc" id="L68">                session.currentSnapshot = applyDirectDamage(session, resolvedTargetId, result.damage)</span>
+            }
+<span class="fc" id="L70">            session.currentSnapshot = session.resolveFaintAndReplacement()</span>
+<span class="fc" id="L71">            val finalResult = result.copy(snapshot = session.currentSnapshot)</span>
+<span class="fc" id="L72">            recordMoveExecution(session, effectId, actorUnitId, resolvedTargetId, finalResult)</span>
+<span class="fc" id="L73">            val currentAggregated = aggregatedResult</span>
+<span class="fc" id="L74">            aggregatedResult =</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">                if (currentAggregated == null) {</span>
+<span class="fc" id="L76">                    finalResult</span>
+                } else {
+<span class="fc" id="L78">                    currentAggregated.copy(</span>
+<span class="fc" id="L79">                        snapshot = session.currentSnapshot,</span>
+<span class="pc bpc" id="L80" title="3 of 4 branches missed.">                        hitSuccessful = currentAggregated.hitSuccessful || finalResult.hitSuccessful,</span>
+<span class="fc" id="L81">                        accuracy = finalResult.accuracy,</span>
+<span class="fc" id="L82">                        evasion = finalResult.evasion,</span>
+<span class="fc" id="L83">                        basePower = finalResult.basePower,</span>
+<span class="fc" id="L84">                        damage = finalResult.damage,</span>
+                    )
+                }
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
+            }
+<span class="fc" id="L90">        }</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
+<span class="nc" id="L92">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
+        }
+    }
+
+    private fun completeRandomAttributes(
+        session: BattleSession,
+        accuracy: Int?,
+        attributes: Map&lt;String, Any?&gt;,
+    ): Map&lt;String, Any?&gt; {
+<span class="fc" id="L101">        var resolvedAttributes = attributes</span>
+<span class="pc bpc" id="L102" title="1 of 4 branches missed.">        if (accuracy != null &amp;&amp; resolvedAttributes[&quot;accuracyRoll&quot;] == null) {</span>
+<span class="nc" id="L103">            resolvedAttributes += &quot;accuracyRoll&quot; to session.nextPercentageRoll()</span>
+        }
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (resolvedAttributes[&quot;chanceRoll&quot;] == null) {</span>
+<span class="fc" id="L106">            resolvedAttributes += &quot;chanceRoll&quot; to session.nextPercentageRoll()</span>
+        }
+<span class="fc" id="L108">        return resolvedAttributes</span>
+    }
+
+    /**
+     * 将直接伤害 mutation 应用到当前快照。
+     */
+    fun applyDirectDamage(
+        session: BattleSession,
+        targetId: String,
+        damage: Int,
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L119">        val applyResult =</span>
+<span class="fc" id="L120">            session.mutationApplier.apply(</span>
+                mutations =
+<span class="fc" id="L122">                    listOf(</span>
+<span class="fc" id="L123">                        DamageMutation(</span>
+<span class="fc" id="L124">                            target = StandardTargetSelectorIds.TARGET,</span>
+<span class="fc" id="L125">                            mode = null,</span>
+<span class="fc" id="L126">                            value = damage.toDouble(),</span>
+                        ),
+                    ),
+                context =
+<span class="fc" id="L130">                    MutationApplicationContext(</span>
+<span class="fc" id="L131">                        battle = session.currentSnapshot.battle,</span>
+<span class="fc" id="L132">                        field = session.currentSnapshot.field,</span>
+<span class="fc" id="L133">                        units = session.currentSnapshot.units,</span>
+<span class="fc" id="L134">                        targetId = targetId,</span>
+                    ),
+            )
+<span class="fc" id="L137">        return session.currentSnapshot.copy(</span>
+<span class="fc" id="L138">            battle = applyResult.battle,</span>
+<span class="fc" id="L139">            field = applyResult.field,</span>
+<span class="fc" id="L140">            units = applyResult.units,</span>
+        )
+    }
+
+    /**
+     * 记录一次 move 或 item 的最终结算结果。
+     */
+    fun recordMoveExecution(
+        session: BattleSession,
+        moveId: String,
+        attackerId: String,
+        targetId: String,
+        result: MoveResolutionResult,
+    ) {
+<span class="fc" id="L154">        session.recordLog(</span>
+<span class="fc" id="L155">            &quot;Executed move $moveId from $attackerId to $targetId. &quot; +</span>
+<span class="fc" id="L156">                &quot;hit=${result.hitSuccessful}, basePower=${result.basePower}, damage=${result.damage}.&quot;,</span>
+        )
+<span class="fc" id="L158">        session.recordEvent(</span>
+<span class="fc" id="L159">            BattleSessionMoveExecutedPayload(</span>
+<span class="fc" id="L160">                moveId = moveId,</span>
+<span class="fc" id="L161">                attackerId = attackerId,</span>
+<span class="fc" id="L162">                targetId = targetId,</span>
+<span class="fc" id="L163">                hitSuccessful = result.hitSuccessful,</span>
+<span class="fc" id="L164">                basePower = result.basePower,</span>
+<span class="fc" id="L165">                damage = result.damage,</span>
+            ),
+        )
+<span class="fc" id="L168">    }</span>
+
+    /**
+     * 执行 switch 动作并更新当前 active 列表。
+     */
+    fun applySwitchAction(
+        session: BattleSession,
+        action: BattleSessionSwitchAction,
+    ): BattleRuntimeSnapshot {
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[action.sideId]) { &quot;Side '${action.sideId}' was not found.&quot; }</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        require(action.outgoingUnitId in side.activeUnitIds) {</span>
+<span class="nc" id="L179">            &quot;Outgoing unit '${action.outgoingUnitId}' is not active on side '${action.sideId}'.&quot;</span>
+        }
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        require(action.incomingUnitId in side.unitIds) {</span>
+<span class="nc" id="L182">            &quot;Incoming unit '${action.incomingUnitId}' is not registered on side '${action.sideId}'.&quot;</span>
+        }
+<span class="pc bpc" id="L184" title="3 of 6 branches missed.">        require((session.currentSnapshot.units[action.incomingUnitId]?.currentHp ?: 0) &gt; 0) {</span>
+<span class="nc" id="L185">            &quot;Incoming unit '${action.incomingUnitId}' is not able to battle.&quot;</span>
+        }
+<span class="fc" id="L187">        val nextActiveIds =</span>
+<span class="fc" id="L188">            side.activeUnitIds.map { unitId -&gt;</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">                if (unitId == action.outgoingUnitId) action.incomingUnitId else unitId</span>
+            }
+<span class="fc" id="L191">        session.currentSnapshot =</span>
+<span class="fc" id="L192">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L193">                sides = session.currentSnapshot.sides + (action.sideId to side.copy(activeUnitIds = nextActiveIds)),</span>
+            )
+<span class="fc" id="L195">        session.recordLog(&quot;Executed switch for side ${action.sideId}: ${action.outgoingUnitId} -&gt; ${action.incomingUnitId}.&quot;)</span>
+<span class="fc" id="L196">        session.recordEvent(</span>
+<span class="fc" id="L197">            BattleSessionSwitchExecutedPayload(</span>
+<span class="fc" id="L198">                sideId = action.sideId,</span>
+<span class="fc" id="L199">                outgoingUnitId = action.outgoingUnitId,</span>
+<span class="fc" id="L200">                incomingUnitId = action.incomingUnitId,</span>
+            ),
+        )
+<span class="fc" id="L203">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 执行逃跑动作并立即结束 battle。
+     */
+    fun applyRunAction(
+        session: BattleSession,
+        action: BattleSessionRunAction,
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L213">        val survivingOpponent =</span>
+<span class="fc" id="L214">            session.currentSnapshot.sides.keys</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">                .firstOrNull { sideId -&gt; sideId != action.sideId }</span>
+<span class="fc" id="L216">        session.currentSnapshot =</span>
+<span class="fc" id="L217">            session.currentSnapshot.copy(</span>
+                battle =
+<span class="fc" id="L219">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L220">                        ended = true,</span>
+<span class="fc" id="L221">                        winner = survivingOpponent,</span>
+                    ),
+            )
+<span class="fc" id="L224">        session.recordLog(&quot;Executed run action for side ${action.sideId}. Winner: $survivingOpponent.&quot;)</span>
+<span class="fc" id="L225">        session.recordEvent(</span>
+<span class="fc" id="L226">            BattleSessionBattleEndedPayload(</span>
+<span class="fc" id="L227">                winner = survivingOpponent,</span>
+<span class="fc" id="L228">                actionType = BattleSessionActionEventKind.RUN,</span>
+<span class="fc" id="L229">                runner = action.sideId,</span>
+            ),
+        )
+<span class="fc" id="L232">        return session.currentSnapshot</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

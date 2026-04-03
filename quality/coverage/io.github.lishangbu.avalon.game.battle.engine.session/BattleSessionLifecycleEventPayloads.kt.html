@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionLifecycleEventPayloads.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionLifecycleEventPayloads.kt</span></div><h1>BattleSessionLifecycleEventPayloads.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+/**
+ * battle session 启动事件 payload。
+ */
+data object BattleSessionStartedPayload : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="fc" id="L10">    override val type: BattleSessionEventType = BattleSessionEventType.SESSION_STARTED</span>
+}
+
+/**
+ * side 注册事件 payload。
+ *
+ * @property sideId 本次注册的 side 标识。
+ */
+<span class="fc" id="L18">data class BattleSessionSideRegisteredPayload(</span>
+<span class="pc" id="L19">    val sideId: String,</span>
+) : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="fc" id="L24">    override val type: BattleSessionEventType = BattleSessionEventType.SIDE_REGISTERED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+<span class="fc" id="L29">    override fun toAttributes(): Map&lt;String, Any?&gt; = mapOf(&quot;sideId&quot; to sideId)</span>
+}
+
+/**
+ * 单位注册事件 payload。
+ *
+ * @property sideId 单位所属 side 标识。
+ * @property unitId 本次注册的单位标识。
+ * @property active 单位是否直接加入 active 列表。
+ */
+<span class="fc" id="L39">data class BattleSessionUnitRegisteredPayload(</span>
+<span class="pc" id="L40">    val sideId: String,</span>
+<span class="pc" id="L41">    val unitId: String,</span>
+<span class="pc" id="L42">    val active: Boolean,</span>
+) : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="fc" id="L47">    override val type: BattleSessionEventType = BattleSessionEventType.UNIT_REGISTERED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+    override fun toAttributes(): Map&lt;String, Any?&gt; =
+<span class="fc" id="L53">        mapOf(</span>
+<span class="fc" id="L54">            &quot;sideId&quot; to sideId,</span>
+<span class="fc" id="L55">            &quot;unitId&quot; to unitId,</span>
+<span class="fc" id="L56">            &quot;active&quot; to active,</span>
+<span class="fc" id="L57">        )</span>
+}
+
+/**
+ * 捕捉失败事件 payload。
+ *
+ * @property ballItemId 使用的球类道具标识。
+ * @property targetUnitId 捕捉目标单位标识。
+ * @property shakes 本次捕捉的摇晃次数。
+ * @property reason 捕捉失败原因。
+ * @property finalRate 本次捕捉的最终概率。
+ */
+<span class="nc" id="L69">data class BattleSessionCaptureFailedPayload(</span>
+<span class="nc" id="L70">    val ballItemId: String,</span>
+<span class="nc" id="L71">    val targetUnitId: String,</span>
+<span class="nc" id="L72">    val shakes: Int,</span>
+<span class="nc" id="L73">    val reason: String,</span>
+<span class="nc" id="L74">    val finalRate: Double,</span>
+) : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="nc" id="L79">    override val type: BattleSessionEventType = BattleSessionEventType.CAPTURE_FAILED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+    override fun toAttributes(): Map&lt;String, Any?&gt; =
+<span class="nc" id="L85">        mapOf(</span>
+<span class="nc" id="L86">            &quot;ballItemId&quot; to ballItemId,</span>
+<span class="nc" id="L87">            &quot;targetUnitId&quot; to targetUnitId,</span>
+<span class="nc" id="L88">            &quot;shakes&quot; to shakes,</span>
+<span class="nc" id="L89">            &quot;reason&quot; to reason,</span>
+<span class="nc" id="L90">            &quot;finalRate&quot; to finalRate,</span>
+<span class="nc" id="L91">        )</span>
+}
+
+/**
+ * 捕捉成功事件 payload。
+ *
+ * @property targetUnitId 被成功捕捉的目标单位标识。
+ */
+<span class="fc" id="L99">data class BattleSessionCaptureSucceededPayload(</span>
+<span class="pc" id="L100">    val targetUnitId: String,</span>
+) : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="fc" id="L105">    override val type: BattleSessionEventType = BattleSessionEventType.CAPTURE_SUCCEEDED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+<span class="fc" id="L110">    override fun toAttributes(): Map&lt;String, Any?&gt; = mapOf(&quot;targetUnitId&quot; to targetUnitId)</span>
+}
+
+/**
+ * 回合结算完成事件 payload。
+ *
+ * @property actionCount 本回合已执行的 action 数量。
+ */
+<span class="fc" id="L118">data class BattleSessionTurnResolvedPayload(</span>
+<span class="pc" id="L119">    val actionCount: Int,</span>
+) : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="fc" id="L124">    override val type: BattleSessionEventType = BattleSessionEventType.TURN_RESOLVED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+<span class="fc" id="L129">    override fun toAttributes(): Map&lt;String, Any?&gt; = mapOf(&quot;actionCount&quot; to actionCount)</span>
+}
+
+/**
+ * 回合结束事件 payload。
+ */
+data object BattleSessionTurnEndedPayload : BattleSessionEventPayload {
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="pc" id="L139">    override val type: BattleSessionEventType = BattleSessionEventType.TURN_ENDED</span>
+}
+
+/**
+ * 替补完成事件 payload。
+ *
+ * @property sideId 发生替补的 side 标识。
+ * @property before 替补前的 active 单位列表；手动替补时可为空。
+ * @property after 替补后的 active 单位列表。
+ * @property manual 当前替补是否来自手动提交；自动替补时可为空。
+ */
+<span class="fc" id="L150">data class BattleSessionAutoReplacedPayload(</span>
+<span class="pc" id="L151">    val sideId: String,</span>
+<span class="pc" id="L152">    val before: List&lt;String&gt;? = null,</span>
+<span class="pc" id="L153">    val after: List&lt;String&gt;,</span>
+<span class="pc" id="L154">    val manual: Boolean? = null,</span>
+<span class="fc" id="L155">) : BattleSessionEventPayload {</span>
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="pc" id="L159">    override val type: BattleSessionEventType = BattleSessionEventType.AUTO_REPLACED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+    override fun toAttributes(): Map&lt;String, Any?&gt; =
+<span class="nc" id="L165">        buildMap {</span>
+<span class="nc" id="L166">            put(&quot;sideId&quot;, sideId)</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            before?.let { put(&quot;before&quot;, it) }</span>
+<span class="nc" id="L168">            put(&quot;after&quot;, after)</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">            manual?.let { put(&quot;manual&quot;, it) }</span>
+<span class="nc" id="L170">        }</span>
+}
+
+/**
+ * 战斗结束事件 payload。
+ *
+ * @property winner 当前战斗胜者标识；平局时为空。
+ * @property actionType 如果战斗由某类 action 直接结束，则记录该动作种类。
+ * @property runner 如果战斗由逃跑直接结束，则记录逃跑方 side 标识。
+ */
+<span class="fc" id="L180">data class BattleSessionBattleEndedPayload(</span>
+<span class="pc" id="L181">    val winner: String?,</span>
+<span class="pc" id="L182">    val actionType: BattleSessionActionEventKind? = null,</span>
+<span class="pc" id="L183">    val runner: String? = null,</span>
+<span class="fc" id="L184">) : BattleSessionEventPayload {</span>
+    /**
+     * 当前 payload 对应的结构化事件类型。
+     */
+<span class="pc" id="L188">    override val type: BattleSessionEventType = BattleSessionEventType.BATTLE_ENDED</span>
+
+    /**
+     * 把当前 payload 映射为兼容现有读模型的 attributes。
+     */
+    override fun toAttributes(): Map&lt;String, Any?&gt; =
+<span class="nc" id="L194">        buildMap {</span>
+<span class="nc" id="L195">            put(&quot;winner&quot;, winner)</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">            actionType?.let { put(&quot;actionType&quot;, it.wireValue) }</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">            runner?.let { put(&quot;runner&quot;, it) }</span>
+<span class="nc" id="L198">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreatureSpeciesRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">CreatureSpeciesRepository.kt</span></div><h1>CreatureSpeciesRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureSpeciesSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureSpeciesView
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Repository
+
+/**
+ * 生物种类仓储接口
+ *
+ * 定义生物种类数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2026/2/12
+ */
+@Repository
+interface CreatureSpeciesRepository : KRepository&lt;CreatureSpecies, Long&gt; {
+    /** 按条件查询生物种族视图 */
+    fun listViews(specification: CreatureSpeciesSpecification?): List&lt;CreatureSpeciesView&gt; =
+<span class="fc" id="L26">        sql</span>
+<span class="fc" id="L27">            .createQuery(CreatureSpecies::class) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L29">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L30">                select(table.fetch(CreatureSpeciesView::class))</span>
+<span class="fc" id="L31">            }.execute()</span>
+
+    /** 按条件分页查询生物种族视图 */
+    fun pageViews(
+        specification: CreatureSpeciesSpecification?,
+        pageable: Pageable,
+    ): Page&lt;CreatureSpeciesView&gt; =
+<span class="fc" id="L38">        sql</span>
+<span class="fc" id="L39">            .createQuery(CreatureSpecies::class) {</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L41">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L42">                select(table.fetch(CreatureSpeciesView::class))</span>
+<span class="fc" id="L43">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 按 ID 查询单个生物种族视图 */
+    fun loadViewById(id: Long): CreatureSpeciesView? =
+<span class="fc" id="L47">        sql</span>
+<span class="fc" id="L48">            .createQuery(CreatureSpecies::class) {</span>
+<span class="fc" id="L49">                where(table.id eq id)</span>
+<span class="fc" id="L50">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L51">                select(table.fetch(CreatureSpeciesView::class))</span>
+<span class="fc" id="L52">            }.execute()</span>
+<span class="fc" id="L53">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L56">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

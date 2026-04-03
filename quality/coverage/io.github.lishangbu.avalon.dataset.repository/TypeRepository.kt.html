@@ -4,7 +4,9 @@ import io.github.lishangbu.avalon.dataset.entity.*
 import io.github.lishangbu.avalon.dataset.entity.dto.TypeSpecification
 import io.github.lishangbu.avalon.dataset.entity.dto.TypeView
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Sort
 
 /**
  * 属性仓储接口
@@ -15,21 +17,34 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
  * @since 2025/09/14
  */
 interface TypeRepository : KRepository&lt;Type, Long&gt; {
+    fun listAll(): List&lt;Type&gt; =
+<span class="nc" id="L21">        sql</span>
+<span class="nc" id="L22">            .createQuery(Type::class) {</span>
+<span class="nc" id="L23">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L24">                select(table)</span>
+<span class="nc" id="L25">            }.execute()</span>
+
     /** 按条件查询属性视图列表 */
     fun listViews(specification: TypeSpecification?): List&lt;TypeView&gt; =
-<span class="fc" id="L20">        sql</span>
-<span class="fc" id="L21">            .createQuery(Type::class) {</span>
-<span class="fc bfc" id="L22" title="All 2 branches covered.">                specification?.let(::where)</span>
-<span class="fc" id="L23">                select(table.fetch(TypeView::class))</span>
-<span class="fc" id="L24">            }.execute()</span>
+<span class="fc" id="L29">        sql</span>
+<span class="fc" id="L30">            .createQuery(Type::class) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                specification?.let(::where)</span>
+<span class="fc" id="L32">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L33">                select(table.fetch(TypeView::class))</span>
+<span class="fc" id="L34">            }.execute()</span>
 
     /** 按 ID 查询属性视图 */
     fun loadViewById(id: Long): TypeView? =
-<span class="fc" id="L28">        sql</span>
-<span class="fc" id="L29">            .createQuery(Type::class) {</span>
-<span class="fc" id="L30">                where(table.id eq id)</span>
-<span class="fc" id="L31">                select(table.fetch(TypeView::class))</span>
-<span class="fc" id="L32">            }.execute()</span>
-<span class="fc" id="L33">            .firstOrNull()</span>
+<span class="fc" id="L38">        sql</span>
+<span class="fc" id="L39">            .createQuery(Type::class) {</span>
+<span class="fc" id="L40">                where(table.id eq id)</span>
+<span class="fc" id="L41">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L42">                select(table.fetch(TypeView::class))</span>
+<span class="fc" id="L43">            }.execute()</span>
+<span class="fc" id="L44">            .firstOrNull()</span>
+
+    companion object {
+<span class="fc" id="L47">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

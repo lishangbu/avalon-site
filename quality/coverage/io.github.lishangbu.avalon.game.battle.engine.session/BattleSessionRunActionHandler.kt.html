@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionRunActionHandler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionRunActionHandler.kt</span></div><h1>BattleSessionRunActionHandler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import kotlin.reflect.KClass
+
+/**
+ * `BattleSessionRunAction` 执行处理器。
+ *
+ * @property actionExecutionSupport switch/run 等状态更新辅助组件。
+ */
+<span class="fc" id="L10">class BattleSessionRunActionHandler(</span>
+<span class="fc" id="L11">    private val actionExecutionSupport: BattleSessionActionExecutionSupport,</span>
+) : BattleSessionActionHandler {
+    /**
+     * 当前处理器负责的 action 类型。
+     */
+<span class="fc" id="L16">    override val actionType: KClass&lt;out BattleSessionAction&gt; = BattleSessionRunAction::class</span>
+
+    /**
+     * 执行 run action。
+     */
+    override fun execute(
+        action: BattleSessionAction,
+        session: BattleSession,
+    ): BattleSessionActionExecutionResult {
+<span class="fc" id="L25">        val runAction =</span>
+<span class="pc bpc" id="L26" title="2 of 4 branches missed.">            action as? BattleSessionRunAction</span>
+<span class="nc" id="L27">                ?: error(&quot;Expected BattleSessionRunAction but got '${action::class.qualifiedName}'.&quot;)</span>
+<span class="fc" id="L28">        session.currentSnapshot = actionExecutionSupport.applyRunAction(session, runAction)</span>
+<span class="fc" id="L29">        return BattleSessionActionExecutionResult(</span>
+<span class="fc" id="L30">            action = runAction,</span>
+<span class="fc" id="L31">            snapshot = session.currentSnapshot,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

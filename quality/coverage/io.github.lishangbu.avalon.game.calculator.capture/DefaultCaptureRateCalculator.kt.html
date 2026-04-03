@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultCaptureRateCalculator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.calculator.capture</a> &gt; <span class="el_source">DefaultCaptureRateCalculator.kt</span></div><h1>DefaultCaptureRateCalculator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.calculator.capture
+
+import org.springframework.stereotype.Service
+import kotlin.math.ceil
+import kotlin.math.pow
+import kotlin.math.sqrt
+
+/**
+ * 默认捕捉率计算器。
+ *
+ * 公式说明：
+ *
+ * 1. 先解析球修正
+ * 2. 计算状态倍率
+ * 3. 计算有效捕获率 `max(1, captureRate + flatBonus)`
+ * 4. 计算 HP 因子 `((3 * maxHp) - (2 * currentHp)) / (3 * maxHp)`
+ * 5. 计算捕捉值 `a = effectiveCaptureRate * hpFactor * ballMultiplier * statusMultiplier`
+ * 6. 若 `a &gt;= 255` 则必定成功
+ * 7. 否则计算四摇阈值 `b = 1048560 / sqrt(sqrt(16711680 / a))`
+ * 8. 将单摇概率提升为四摇全过的整体成功概率
+ *
+ * 注意：
+ *
+ * - 这里返回的是“理论成功概率”
+ * - battle 层若需要实际摇晃结果，可以在后续用 [CaptureRateResult.shakeCheckThreshold] 配合随机源再做判定
+ */
+<span class="fc" id="L27">@Service</span>
+<span class="fc" id="L28">class DefaultCaptureRateCalculator(</span>
+<span class="fc" id="L29">    private val captureBallPolicy: CaptureBallPolicy = DefaultCaptureBallPolicy(),</span>
+<span class="fc" id="L30">) : CaptureRateCalculator {</span>
+    override fun calculate(input: CaptureRateInput): CaptureRateResult {
+<span class="fc" id="L32">        validateInput(input)</span>
+
+<span class="fc" id="L34">        val ballResolution = captureBallPolicy.resolve(input)</span>
+<span class="fc" id="L35">        val statusMultiplier = resolveStatusMultiplier(input.statusId)</span>
+<span class="fc" id="L36">        val effectiveCaptureRate = (input.captureRate + ballResolution.flatCaptureRateBonus).coerceAtLeast(MIN_CAPTURE_RATE)</span>
+<span class="fc" id="L37">        val hpFactor = ((3.0 * input.maxHp) - (2.0 * input.currentHp)) / (3.0 * input.maxHp)</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (ballResolution.directSuccess) {</span>
+<span class="fc" id="L40">            return CaptureRateResult(</span>
+<span class="fc" id="L41">                directSuccess = true,</span>
+<span class="fc" id="L42">                guaranteedSuccess = true,</span>
+<span class="fc" id="L43">                effectiveCaptureRate = effectiveCaptureRate,</span>
+<span class="fc" id="L44">                ballMultiplier = ballResolution.multiplier,</span>
+<span class="fc" id="L45">                flatCaptureRateBonus = ballResolution.flatCaptureRateBonus,</span>
+<span class="fc" id="L46">                statusMultiplier = statusMultiplier,</span>
+<span class="fc" id="L47">                hpFactor = hpFactor,</span>
+<span class="fc" id="L48">                captureValue = MAX_CAPTURE_VALUE,</span>
+<span class="fc" id="L49">                normalizedCaptureValueRate = 100.0,</span>
+<span class="fc" id="L50">                shakeCheckThreshold = null,</span>
+<span class="fc" id="L51">                singleShakeSuccessProbability = 1.0,</span>
+<span class="fc" id="L52">                overallCaptureSuccessProbability = 1.0,</span>
+<span class="fc" id="L53">                overallCaptureSuccessRate = 100.0,</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                note = ballResolution.note ?: &quot;direct-success-ball&quot;,</span>
+            )
+        }
+
+<span class="fc" id="L58">        val captureValue = effectiveCaptureRate * hpFactor * ballResolution.multiplier * statusMultiplier</span>
+<span class="fc" id="L59">        val normalizedCaptureValueRate = (captureValue.coerceIn(0.0, MAX_CAPTURE_VALUE) / MAX_CAPTURE_VALUE) * 100.0</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (captureValue &gt;= MAX_CAPTURE_VALUE) {</span>
+<span class="fc" id="L62">            return CaptureRateResult(</span>
+<span class="fc" id="L63">                directSuccess = false,</span>
+<span class="fc" id="L64">                guaranteedSuccess = true,</span>
+<span class="fc" id="L65">                effectiveCaptureRate = effectiveCaptureRate,</span>
+<span class="fc" id="L66">                ballMultiplier = ballResolution.multiplier,</span>
+<span class="fc" id="L67">                flatCaptureRateBonus = ballResolution.flatCaptureRateBonus,</span>
+<span class="fc" id="L68">                statusMultiplier = statusMultiplier,</span>
+<span class="fc" id="L69">                hpFactor = hpFactor,</span>
+<span class="fc" id="L70">                captureValue = captureValue,</span>
+<span class="fc" id="L71">                normalizedCaptureValueRate = 100.0,</span>
+<span class="fc" id="L72">                shakeCheckThreshold = null,</span>
+<span class="fc" id="L73">                singleShakeSuccessProbability = 1.0,</span>
+<span class="fc" id="L74">                overallCaptureSuccessProbability = 1.0,</span>
+<span class="fc" id="L75">                overallCaptureSuccessRate = 100.0,</span>
+<span class="fc" id="L76">                note = &quot;auto-success-threshold&quot;,</span>
+            )
+        }
+
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (captureValue &lt;= 0.0) {</span>
+<span class="nc" id="L81">            return CaptureRateResult(</span>
+<span class="nc" id="L82">                directSuccess = false,</span>
+<span class="nc" id="L83">                guaranteedSuccess = false,</span>
+<span class="nc" id="L84">                effectiveCaptureRate = effectiveCaptureRate,</span>
+<span class="nc" id="L85">                ballMultiplier = ballResolution.multiplier,</span>
+<span class="nc" id="L86">                flatCaptureRateBonus = ballResolution.flatCaptureRateBonus,</span>
+<span class="nc" id="L87">                statusMultiplier = statusMultiplier,</span>
+<span class="nc" id="L88">                hpFactor = hpFactor,</span>
+<span class="nc" id="L89">                captureValue = 0.0,</span>
+<span class="nc" id="L90">                normalizedCaptureValueRate = 0.0,</span>
+<span class="nc" id="L91">                shakeCheckThreshold = 0.0,</span>
+<span class="nc" id="L92">                singleShakeSuccessProbability = 0.0,</span>
+<span class="nc" id="L93">                overallCaptureSuccessProbability = 0.0,</span>
+<span class="nc" id="L94">                overallCaptureSuccessRate = 0.0,</span>
+<span class="nc" id="L95">                note = &quot;non-positive-capture-value&quot;,</span>
+            )
+        }
+
+<span class="fc" id="L99">        val shakeCheckThreshold = SHAKE_NUMERATOR / sqrt(sqrt(SHAKE_DENOMINATOR / captureValue))</span>
+<span class="fc" id="L100">        val singleShakeSuccessProbability = calculateSingleShakeSuccessProbability(shakeCheckThreshold)</span>
+<span class="fc" id="L101">        val overallCaptureSuccessProbability = singleShakeSuccessProbability.pow(SHAKE_COUNT)</span>
+
+<span class="fc" id="L103">        return CaptureRateResult(</span>
+<span class="fc" id="L104">            directSuccess = false,</span>
+<span class="fc" id="L105">            guaranteedSuccess = false,</span>
+<span class="fc" id="L106">            effectiveCaptureRate = effectiveCaptureRate,</span>
+<span class="fc" id="L107">            ballMultiplier = ballResolution.multiplier,</span>
+<span class="fc" id="L108">            flatCaptureRateBonus = ballResolution.flatCaptureRateBonus,</span>
+<span class="fc" id="L109">            statusMultiplier = statusMultiplier,</span>
+<span class="fc" id="L110">            hpFactor = hpFactor,</span>
+<span class="fc" id="L111">            captureValue = captureValue,</span>
+<span class="fc" id="L112">            normalizedCaptureValueRate = normalizedCaptureValueRate,</span>
+<span class="fc" id="L113">            shakeCheckThreshold = shakeCheckThreshold,</span>
+<span class="fc" id="L114">            singleShakeSuccessProbability = singleShakeSuccessProbability,</span>
+<span class="fc" id="L115">            overallCaptureSuccessProbability = overallCaptureSuccessProbability,</span>
+<span class="fc" id="L116">            overallCaptureSuccessRate = overallCaptureSuccessProbability * 100.0,</span>
+<span class="fc" id="L117">            note = &quot;standard-four-shake&quot;,</span>
+        )
+    }
+
+    private fun validateInput(input: CaptureRateInput) {
+<span class="pc bpc" id="L122" title="2 of 4 branches missed.">        require(input.maxHp &gt; 0) { &quot;maxHp must be greater than 0.&quot; }</span>
+<span class="pc bpc" id="L123" title="1 of 6 branches missed.">        require(input.currentHp in 0..input.maxHp) { &quot;currentHp must be between 0 and maxHp.&quot; }</span>
+<span class="pc bpc" id="L124" title="2 of 4 branches missed.">        require(input.captureRate &gt;= 0) { &quot;captureRate must be greater than or equal to 0.&quot; }</span>
+<span class="pc bpc" id="L125" title="2 of 4 branches missed.">        require(input.turn &gt; 0) { &quot;turn must be greater than 0.&quot; }</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * 状态倍率。
+     *
+     * 与常见主系列规则一致：
+     *
+     * - 睡眠、冰冻：2.0
+     * - 麻痹、灼伤、中毒：1.5
+     * - 其他或无状态：1.0
+     */
+    private fun resolveStatusMultiplier(statusId: String?): Double =
+<span class="fc bfc" id="L138" title="All 7 branches covered.">        when (statusId?.trim()?.lowercase()) {</span>
+<span class="fc" id="L139">            &quot;slp&quot;, &quot;sleep&quot;, &quot;frz&quot;, &quot;freeze&quot;, &quot;frozen&quot; -&gt; 2.0</span>
+<span class="fc" id="L140">            &quot;par&quot;, &quot;paralysis&quot;, &quot;paralyzed&quot;, &quot;brn&quot;, &quot;burn&quot;, &quot;psn&quot;, &quot;poison&quot;, &quot;tox&quot;, &quot;toxic&quot; -&gt; 1.5</span>
+<span class="fc" id="L141">            else -&gt; 1.0</span>
+<span class="fc" id="L142">        }</span>
+
+    /**
+     * 根据离散整数随机空间精确计算“单次摇晃成功概率”。
+     *
+     * battle 中 shake roll 的取值空间是 `0..65535`，共 65536 个整数。
+     * 判定条件为：`roll &lt; threshold`。
+     *
+     * 因此，成功样本数不是简单的 `threshold`，而是：
+     *
+     * - `threshold &lt;= 0` 时为 0
+     * - `threshold &gt;= 65536` 时为 65536
+     * - 否则为 `ceil(threshold)`
+     */
+    private fun calculateSingleShakeSuccessProbability(threshold: Double): Double {
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if (threshold &lt;= 0.0) {</span>
+<span class="nc" id="L158">            return 0.0</span>
+        }
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if (threshold &gt;= SHAKE_ROLL_SPACE) {</span>
+<span class="nc" id="L161">            return 1.0</span>
+        }
+<span class="fc" id="L163">        val successfulRollCount = ceil(threshold).toInt().coerceIn(0, SHAKE_ROLL_SPACE)</span>
+<span class="fc" id="L164">        return successfulRollCount.toDouble() / SHAKE_ROLL_SPACE</span>
+    }
+
+    private companion object {
+        private const val MIN_CAPTURE_RATE = 1
+        private const val MAX_CAPTURE_VALUE = 255.0
+        private const val SHAKE_ROLL_SPACE = 65536
+        private const val SHAKE_COUNT = 4.0
+        private const val SHAKE_NUMERATOR = 1048560.0
+        private const val SHAKE_DENOMINATOR = 16711680.0
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

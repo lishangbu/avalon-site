@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleFlowPhaseProcessor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">DefaultBattleFlowPhaseProcessor.kt</span></div><h1>DefaultBattleFlowPhaseProcessor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.game.battle.engine.runtime.HookRuleProcessor
+import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplicationContext
+import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplier
+
+/**
+ * 默认 battle hook phase 处理器。
+ *
+ * @property effectRepository effect 定义查询入口。
+ * @property hookRuleProcessor 单条 hook rule 处理器。
+ * @property mutationApplier mutation 写回组件。
+ * @property mutationInterceptorChain mutation 拦截链。
+ */
+<span class="fc" id="L20">class DefaultBattleFlowPhaseProcessor(</span>
+<span class="fc" id="L21">    private val effectRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L22">    private val hookRuleProcessor: HookRuleProcessor,</span>
+<span class="fc" id="L23">    private val mutationApplier: MutationApplier,</span>
+<span class="fc" id="L24">    private val mutationInterceptorChain: BattleMutationInterceptorChain,</span>
+) : BattleFlowPhaseProcessor {
+    /**
+     * 处理一次完整的 hook phase。
+     */
+    override fun processPhase(
+        snapshot: BattleRuntimeSnapshot,
+        hookName: String,
+        moveEffect: EffectDefinition,
+        selfId: String,
+        targetId: String,
+        sourceId: String,
+        relay: Any?,
+        attributes: Map&lt;String, Any?&gt;,
+    ): HookPhaseResult {
+<span class="fc" id="L39">        var currentResult =</span>
+<span class="fc" id="L40">            processEffectHook(</span>
+<span class="fc" id="L41">                snapshot = snapshot,</span>
+<span class="fc" id="L42">                hookName = hookName,</span>
+<span class="fc" id="L43">                effect = moveEffect,</span>
+<span class="fc" id="L44">                selfId = selfId,</span>
+<span class="fc" id="L45">                targetId = targetId,</span>
+<span class="fc" id="L46">                sourceId = sourceId,</span>
+<span class="fc" id="L47">                relay = relay,</span>
+<span class="fc" id="L48">                attributes = attributes,</span>
+            )
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (currentResult.cancelled) {</span>
+<span class="fc" id="L51">            return currentResult</span>
+        }
+
+<span class="fc" id="L54">        val attachmentOrder =</span>
+<span class="fc" id="L55">            attachmentOrderForPhase(</span>
+<span class="fc" id="L56">                hookName = hookName,</span>
+<span class="fc" id="L57">                selfId = selfId,</span>
+<span class="fc" id="L58">                targetId = targetId,</span>
+            )
+<span class="fc" id="L60">        attachmentOrder.forEach { unitId -&gt;</span>
+<span class="fc" id="L61">            currentResult =</span>
+<span class="fc" id="L62">                processAttachedEffects(</span>
+<span class="fc" id="L63">                    snapshot = currentResult.snapshot,</span>
+<span class="fc" id="L64">                    unitId = unitId,</span>
+<span class="fc" id="L65">                    hookName = hookName,</span>
+<span class="fc" id="L66">                    targetId = targetId,</span>
+<span class="fc" id="L67">                    sourceId = sourceId,</span>
+<span class="fc" id="L68">                    relay = currentResult.relay,</span>
+<span class="fc" id="L69">                    attributes = attributes,</span>
+                )
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (currentResult.cancelled) {</span>
+<span class="nc" id="L72">                return currentResult</span>
+            }
+<span class="fc" id="L74">        }</span>
+<span class="fc" id="L75">        return currentResult</span>
+    }
+
+    /**
+     * 处理某个单位上挂载 effect 的指定 hook。
+     */
+    override fun processAttachedEffects(
+        snapshot: BattleRuntimeSnapshot,
+        unitId: String,
+        hookName: String,
+        targetId: String?,
+        sourceId: String?,
+        relay: Any?,
+        attributes: Map&lt;String, Any?&gt;,
+    ): HookPhaseResult {
+<span class="fc" id="L90">        var currentResult = HookPhaseResult(snapshot = snapshot, cancelled = false, relay = relay)</span>
+<span class="fc" id="L91">        val unit = requireUnit(currentResult.snapshot, unitId)</span>
+<span class="fc" id="L92">        val effectIds =</span>
+<span class="fc" id="L93">            buildList {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                unit.abilityId?.let(::add)</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                unit.itemId?.let(::add)</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">                unit.statusId?.let(::add)</span>
+<span class="fc" id="L97">                addAll(unit.conditionIds)</span>
+<span class="fc" id="L98">                addAll(unit.volatileIds)</span>
+<span class="fc" id="L99">            }</span>
+
+<span class="fc" id="L101">        effectIds.forEach { effectId -&gt;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">            if (!effectRepository.contains(effectId)) {</span>
+<span class="fc" id="L103">                return@forEach</span>
+            }
+<span class="fc" id="L105">            currentResult =</span>
+<span class="fc" id="L106">                processEffectHook(</span>
+<span class="fc" id="L107">                    snapshot = currentResult.snapshot,</span>
+<span class="fc" id="L108">                    hookName = hookName,</span>
+<span class="fc" id="L109">                    effect = effectRepository.get(effectId),</span>
+<span class="fc" id="L110">                    selfId = unitId,</span>
+<span class="fc" id="L111">                    targetId = targetId,</span>
+<span class="fc" id="L112">                    sourceId = sourceId,</span>
+<span class="fc" id="L113">                    relay = currentResult.relay,</span>
+<span class="fc" id="L114">                    attributes = attributes,</span>
+                )
+<span class="fc bfc" id="L116" title="All 2 branches covered.">            if (currentResult.cancelled) {</span>
+<span class="fc" id="L117">                return currentResult</span>
+            }
+<span class="fc" id="L119">        }</span>
+<span class="fc" id="L120">        return currentResult</span>
+    }
+
+    /**
+     * 处理某个 effect 自身的指定 hook。
+     */
+    private fun processEffectHook(
+        snapshot: BattleRuntimeSnapshot,
+        hookName: String,
+        effect: EffectDefinition,
+        selfId: String?,
+        targetId: String?,
+        sourceId: String?,
+        relay: Any?,
+        attributes: Map&lt;String, Any?&gt;,
+    ): HookPhaseResult {
+<span class="fc" id="L136">        val rules =</span>
+<span class="fc" id="L137">            effect.hooks.entries</span>
+<span class="fc" id="L138">                .firstOrNull { entry -&gt; entry.key.value == hookName }</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">                ?.value</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">                .orEmpty()</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (rules.isEmpty()) {</span>
+<span class="fc" id="L142">            return HookPhaseResult(snapshot = snapshot, cancelled = false, relay = relay)</span>
+        }
+
+<span class="fc" id="L145">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L146">        var currentRelay: Any? = relay</span>
+<span class="fc" id="L147">        var cancelled = false</span>
+
+<span class="fc" id="L149">        val sortedRules =</span>
+<span class="fc" id="L150">            rules.sortedWith(</span>
+<span class="fc" id="L151">                compareByDescending&lt;io.github.lishangbu.avalon.game.battle.engine.dsl.HookRule&gt; { rule -&gt; rule.priority }</span>
+<span class="fc" id="L152">                    .thenByDescending { rule -&gt; rule.subOrder },</span>
+            )
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        for (rule in sortedRules) {</span>
+<span class="fc" id="L155">            val context =</span>
+<span class="fc" id="L156">                EventContext(</span>
+                    hookName =
+                        io.github.lishangbu.avalon.game.battle.engine.type
+<span class="fc" id="L159">                            .HookName(hookName),</span>
+<span class="fc" id="L160">                    battle = currentSnapshot.battle,</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">                    self = selfId?.let { id -&gt; currentSnapshot.units[id] },</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                    target = targetId?.let { id -&gt; currentSnapshot.units[id] },</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">                    source = sourceId?.let { id -&gt; currentSnapshot.units[id] },</span>
+<span class="fc" id="L164">                    field = currentSnapshot.field,</span>
+<span class="fc" id="L165">                    effect = effect,</span>
+<span class="fc" id="L166">                    relay = currentRelay,</span>
+<span class="fc" id="L167">                    attributes = attributes,</span>
+                )
+<span class="fc" id="L169">            val ruleResult = hookRuleProcessor.process(rule, context)</span>
+<span class="fc" id="L170">            currentRelay = ruleResult.relay</span>
+<span class="fc" id="L171">            currentSnapshot = applyMutations(currentSnapshot, selfId, targetId, sourceId, ruleResult.mutations)</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            if (ruleResult.cancelled) {</span>
+<span class="fc" id="L173">                cancelled = true</span>
+<span class="fc" id="L174">                break</span>
+            }
+        }
+
+<span class="fc" id="L178">        return HookPhaseResult(</span>
+<span class="fc" id="L179">            snapshot = currentSnapshot,</span>
+<span class="fc" id="L180">            cancelled = cancelled,</span>
+<span class="fc" id="L181">            relay = currentRelay,</span>
+        )
+    }
+
+    /**
+     * 把一批 mutation 写回当前 battle 快照。
+     */
+    private fun applyMutations(
+        snapshot: BattleRuntimeSnapshot,
+        selfId: String?,
+        targetId: String?,
+        sourceId: String?,
+        mutations: List&lt;BattleMutation&gt;,
+    ): BattleRuntimeSnapshot {
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (mutations.isEmpty()) {</span>
+<span class="fc" id="L196">            return snapshot</span>
+        }
+<span class="fc" id="L198">        val filteredResult =</span>
+<span class="fc" id="L199">            mutationInterceptorChain.filter(</span>
+<span class="fc" id="L200">                snapshot = snapshot,</span>
+<span class="fc" id="L201">                selfId = selfId,</span>
+<span class="fc" id="L202">                targetId = targetId,</span>
+<span class="fc" id="L203">                sourceId = sourceId,</span>
+<span class="fc" id="L204">                mutations = mutations,</span>
+                attachedEffectProcessor =
+                    BattleAttachedEffectProcessor { attachedSnapshot, unitId, hookName, attachedTargetId, attachedSourceId, relay, attributes -&gt;
+<span class="fc" id="L207">                        processAttachedEffects(</span>
+<span class="fc" id="L208">                            snapshot = attachedSnapshot,</span>
+<span class="fc" id="L209">                            unitId = unitId,</span>
+<span class="fc" id="L210">                            hookName = hookName,</span>
+<span class="fc" id="L211">                            targetId = attachedTargetId,</span>
+<span class="fc" id="L212">                            sourceId = attachedSourceId,</span>
+<span class="fc" id="L213">                            relay = relay,</span>
+<span class="fc" id="L214">                            attributes = attributes,</span>
+<span class="fc" id="L215">                        )</span>
+                    },
+            )
+<span class="fc" id="L218">        val applyResult =</span>
+<span class="fc" id="L219">            mutationApplier.apply(</span>
+<span class="fc" id="L220">                mutations = filteredResult.mutations,</span>
+                context =
+<span class="fc" id="L222">                    MutationApplicationContext(</span>
+<span class="fc" id="L223">                        battle = filteredResult.snapshot.battle,</span>
+<span class="fc" id="L224">                        field = filteredResult.snapshot.field,</span>
+<span class="fc" id="L225">                        units = filteredResult.snapshot.units,</span>
+<span class="fc" id="L226">                        selfId = selfId,</span>
+<span class="fc" id="L227">                        targetId = targetId,</span>
+<span class="fc" id="L228">                        sourceId = sourceId,</span>
+                    ),
+            )
+<span class="fc" id="L231">        return filteredResult.snapshot.copy(</span>
+<span class="fc" id="L232">            battle = applyResult.battle,</span>
+<span class="fc" id="L233">            field = applyResult.field,</span>
+<span class="fc" id="L234">            units = applyResult.units,</span>
+        )
+    }
+
+    /**
+     * 返回指定 phase 下挂载 effect 的处理顺序。
+     */
+    private fun attachmentOrderForPhase(
+        hookName: String,
+        selfId: String,
+        targetId: String,
+    ): List&lt;String&gt; =
+<span class="fc" id="L246">        when (hookName) {</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_EVASION.value -&gt; listOf(targetId)</span>
+<span class="fc bfc" id="L248" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_ACCURACY.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_BASE_POWER.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_DAMAGE.value -&gt; listOf(selfId, targetId)</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">            StandardHookNames.ON_BEFORE_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">            StandardHookNames.ON_TRY_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">            StandardHookNames.ON_AFTER_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc" id="L254">            else -&gt; listOf(selfId, targetId)</span>
+<span class="fc" id="L255">        }</span>
+
+    /**
+     * 从当前快照中读取指定单位状态。
+     */
+    private fun requireUnit(
+        snapshot: BattleRuntimeSnapshot,
+        unitId: String,
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">    ) = requireNotNull(snapshot.units[unitId]) { &quot;Unit '$unitId' was not found in snapshot.&quot; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

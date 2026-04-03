@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L34">    ): BerryFirmnessView = BerryFirmnessView(berryFirmnessRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
 
     /** 更新树果硬度 */
-<span class="fc" id="L37">    override fun update(command: UpdateBerryFirmnessInput): BerryFirmnessView = BerryFirmnessView(berryFirmnessRepository.save(command.toEntity(), SaveMode.UPSERT))</span>
+<span class="fc" id="L37">    override fun update(command: UpdateBerryFirmnessInput): BerryFirmnessView = BerryFirmnessView(berryFirmnessRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
 
     /** 按 ID 删除树果硬度 */
     override fun removeById(id: Long) {
