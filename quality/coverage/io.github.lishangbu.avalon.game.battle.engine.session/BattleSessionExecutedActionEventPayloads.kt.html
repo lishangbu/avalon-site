@@ -19,35 +19,41 @@ sealed interface BattleSessionExecutedActionPayload : BattleSessionEventPayload 
  * @property attackerId 出手单位标识。
  * @property targetId 目标单位标识。
  * @property hitSuccessful 当前招式是否命中。
+ * @property criticalHit 当前招式是否击中要害。
  * @property basePower 当前招式最终威力。
+ * @property damageRoll 当前招式最终伤害浮动倍率；未参与伤害浮动时为空。
  * @property damage 当前招式最终伤害。
  */
-<span class="fc" id="L25">data class BattleSessionMoveExecutedPayload(</span>
-<span class="pc" id="L26">    val moveId: String,</span>
-<span class="pc" id="L27">    val attackerId: String,</span>
-<span class="pc" id="L28">    val targetId: String,</span>
-<span class="pc" id="L29">    val hitSuccessful: Boolean,</span>
-<span class="pc" id="L30">    val basePower: Int,</span>
-<span class="pc" id="L31">    val damage: Int,</span>
-) : BattleSessionExecutedActionPayload {
+<span class="pc" id="L27">data class BattleSessionMoveExecutedPayload(</span>
+<span class="pc" id="L28">    val moveId: String,</span>
+<span class="pc" id="L29">    val attackerId: String,</span>
+<span class="pc" id="L30">    val targetId: String,</span>
+<span class="pc" id="L31">    val hitSuccessful: Boolean,</span>
+<span class="pc" id="L32">    val criticalHit: Boolean,</span>
+<span class="pc" id="L33">    val basePower: Int,</span>
+<span class="pc" id="L34">    val damageRoll: Int? = null,</span>
+<span class="pc" id="L35">    val damage: Int,</span>
+<span class="nc" id="L36">) : BattleSessionExecutedActionPayload {</span>
     /**
      * 当前已执行动作的种类。
      */
-<span class="pc" id="L36">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.MOVE</span>
+<span class="fc" id="L40">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.MOVE</span>
 
     /**
      * 把当前 payload 映射为兼容现有读模型的 attributes。
      */
     override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L42">        mapOf(</span>
-<span class="nc" id="L43">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L44">            &quot;moveId&quot; to moveId,</span>
-<span class="nc" id="L45">            &quot;attackerId&quot; to attackerId,</span>
-<span class="nc" id="L46">            &quot;targetId&quot; to targetId,</span>
-<span class="nc" id="L47">            &quot;hitSuccessful&quot; to hitSuccessful,</span>
-<span class="nc" id="L48">            &quot;basePower&quot; to basePower,</span>
-<span class="nc" id="L49">            &quot;damage&quot; to damage,</span>
-<span class="nc" id="L50">        )</span>
+<span class="fc" id="L46">        mapOf(</span>
+<span class="fc" id="L47">            &quot;actionType&quot; to actionType.wireValue,</span>
+<span class="fc" id="L48">            &quot;moveId&quot; to moveId,</span>
+<span class="fc" id="L49">            &quot;attackerId&quot; to attackerId,</span>
+<span class="fc" id="L50">            &quot;targetId&quot; to targetId,</span>
+<span class="fc" id="L51">            &quot;hitSuccessful&quot; to hitSuccessful,</span>
+<span class="fc" id="L52">            &quot;criticalHit&quot; to criticalHit,</span>
+<span class="fc" id="L53">            &quot;basePower&quot; to basePower,</span>
+<span class="fc" id="L54">            &quot;damageRoll&quot; to damageRoll,</span>
+<span class="fc" id="L55">            &quot;damage&quot; to damage,</span>
+<span class="fc" id="L56">        )</span>
 }
 
 /**
@@ -57,26 +63,26 @@ sealed interface BattleSessionExecutedActionPayload : BattleSessionEventPayload 
  * @property outgoingUnitId 当前下场单位标识。
  * @property incomingUnitId 即将上场单位标识。
  */
-<span class="fc" id="L60">data class BattleSessionSwitchExecutedPayload(</span>
-<span class="pc" id="L61">    val sideId: String,</span>
-<span class="pc" id="L62">    val outgoingUnitId: String,</span>
-<span class="pc" id="L63">    val incomingUnitId: String,</span>
+<span class="fc" id="L66">data class BattleSessionSwitchExecutedPayload(</span>
+<span class="pc" id="L67">    val sideId: String,</span>
+<span class="pc" id="L68">    val outgoingUnitId: String,</span>
+<span class="pc" id="L69">    val incomingUnitId: String,</span>
 ) : BattleSessionExecutedActionPayload {
     /**
      * 当前已执行动作的种类。
      */
-<span class="pc" id="L68">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.SWITCH</span>
+<span class="pc" id="L74">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.SWITCH</span>
 
     /**
      * 把当前 payload 映射为兼容现有读模型的 attributes。
      */
     override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L74">        mapOf(</span>
-<span class="nc" id="L75">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L76">            &quot;sideId&quot; to sideId,</span>
-<span class="nc" id="L77">            &quot;outgoingUnitId&quot; to outgoingUnitId,</span>
-<span class="nc" id="L78">            &quot;incomingUnitId&quot; to incomingUnitId,</span>
-<span class="nc" id="L79">        )</span>
+<span class="nc" id="L80">        mapOf(</span>
+<span class="nc" id="L81">            &quot;actionType&quot; to actionType.wireValue,</span>
+<span class="nc" id="L82">            &quot;sideId&quot; to sideId,</span>
+<span class="nc" id="L83">            &quot;outgoingUnitId&quot; to outgoingUnitId,</span>
+<span class="nc" id="L84">            &quot;incomingUnitId&quot; to incomingUnitId,</span>
+<span class="nc" id="L85">        )</span>
 }
 
 /**
@@ -86,26 +92,26 @@ sealed interface BattleSessionExecutedActionPayload : BattleSessionEventPayload 
  * @property actorUnitId 使用者单位标识。
  * @property targetId 目标单位标识。
  */
-<span class="fc" id="L89">data class BattleSessionItemExecutedPayload(</span>
-<span class="pc" id="L90">    val itemId: String,</span>
-<span class="pc" id="L91">    val actorUnitId: String,</span>
-<span class="pc" id="L92">    val targetId: String,</span>
+<span class="fc" id="L95">data class BattleSessionItemExecutedPayload(</span>
+<span class="pc" id="L96">    val itemId: String,</span>
+<span class="pc" id="L97">    val actorUnitId: String,</span>
+<span class="pc" id="L98">    val targetId: String,</span>
 ) : BattleSessionExecutedActionPayload {
     /**
      * 当前已执行动作的种类。
      */
-<span class="pc" id="L97">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.ITEM</span>
+<span class="pc" id="L103">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.ITEM</span>
 
     /**
      * 把当前 payload 映射为兼容现有读模型的 attributes。
      */
     override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L103">        mapOf(</span>
-<span class="nc" id="L104">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L105">            &quot;itemId&quot; to itemId,</span>
-<span class="nc" id="L106">            &quot;actorUnitId&quot; to actorUnitId,</span>
-<span class="nc" id="L107">            &quot;targetId&quot; to targetId,</span>
-<span class="nc" id="L108">        )</span>
+<span class="nc" id="L109">        mapOf(</span>
+<span class="nc" id="L110">            &quot;actionType&quot; to actionType.wireValue,</span>
+<span class="nc" id="L111">            &quot;itemId&quot; to itemId,</span>
+<span class="nc" id="L112">            &quot;actorUnitId&quot; to actorUnitId,</span>
+<span class="nc" id="L113">            &quot;targetId&quot; to targetId,</span>
+<span class="nc" id="L114">        )</span>
 }
 
 /**
@@ -113,21 +119,21 @@ sealed interface BattleSessionExecutedActionPayload : BattleSessionEventPayload 
  *
  * @property unitId 发起等待的单位标识。
  */
-<span class="nc" id="L116">data class BattleSessionWaitExecutedPayload(</span>
-<span class="nc" id="L117">    val unitId: String,</span>
+<span class="fc" id="L122">data class BattleSessionWaitExecutedPayload(</span>
+<span class="pc" id="L123">    val unitId: String,</span>
 ) : BattleSessionExecutedActionPayload {
     /**
      * 当前已执行动作的种类。
      */
-<span class="nc" id="L122">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.WAIT</span>
+<span class="pc" id="L128">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.WAIT</span>
 
     /**
      * 把当前 payload 映射为兼容现有读模型的 attributes。
      */
     override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L128">        mapOf(</span>
-<span class="nc" id="L129">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L130">            &quot;unitId&quot; to unitId,</span>
-<span class="nc" id="L131">        )</span>
+<span class="nc" id="L134">        mapOf(</span>
+<span class="nc" id="L135">            &quot;actionType&quot; to actionType.wireValue,</span>
+<span class="nc" id="L136">            &quot;unitId&quot; to unitId,</span>
+<span class="nc" id="L137">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

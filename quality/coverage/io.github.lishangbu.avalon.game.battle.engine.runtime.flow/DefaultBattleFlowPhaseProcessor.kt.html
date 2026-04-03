@@ -247,12 +247,16 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationAppli
 <span class="fc bfc" id="L247" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_EVASION.value -&gt; listOf(targetId)</span>
 <span class="fc bfc" id="L248" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_ACCURACY.value -&gt; listOf(selfId)</span>
 <span class="fc bfc" id="L249" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_BASE_POWER.value -&gt; listOf(selfId)</span>
-<span class="fc bfc" id="L250" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_DAMAGE.value -&gt; listOf(selfId, targetId)</span>
-<span class="fc bfc" id="L251" title="All 2 branches covered.">            StandardHookNames.ON_BEFORE_MOVE.value -&gt; listOf(selfId)</span>
-<span class="fc bfc" id="L252" title="All 2 branches covered.">            StandardHookNames.ON_TRY_MOVE.value -&gt; listOf(selfId)</span>
-<span class="fc bfc" id="L253" title="All 2 branches covered.">            StandardHookNames.ON_AFTER_MOVE.value -&gt; listOf(selfId)</span>
-<span class="fc" id="L254">            else -&gt; listOf(selfId, targetId)</span>
-<span class="fc" id="L255">        }</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_ATTACK.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_DEFENSE.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_CRIT_RATIO.value -&gt; listOf(selfId, targetId)</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_STAB.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L254" title="All 2 branches covered.">            StandardHookNames.ON_MODIFY_DAMAGE.value -&gt; listOf(selfId, targetId)</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">            StandardHookNames.ON_BEFORE_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">            StandardHookNames.ON_TRY_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">            StandardHookNames.ON_AFTER_MOVE.value -&gt; listOf(selfId)</span>
+<span class="fc" id="L258">            else -&gt; listOf(selfId, targetId)</span>
+<span class="fc" id="L259">        }</span>
 
     /**
      * 从当前快照中读取指定单位状态。
@@ -260,6 +264,6 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationAppli
     private fun requireUnit(
         snapshot: BattleRuntimeSnapshot,
         unitId: String,
-<span class="pc bpc" id="L263" title="1 of 2 branches missed.">    ) = requireNotNull(snapshot.units[unitId]) { &quot;Unit '$unitId' was not found in snapshot.&quot; }</span>
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">    ) = requireNotNull(snapshot.units[unitId]) { &quot;Unit '$unitId' was not found in snapshot.&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

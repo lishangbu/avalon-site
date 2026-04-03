@@ -169,7 +169,7 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L169">                RunChoice(</span>
 <span class="fc" id="L170">                    sideId = request.sideId,</span>
 <span class="pc bpc" id="L171" title="1 of 2 branches missed.">                    priority = request.priority ?: 0,</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                    speed = request.speed ?: 0,</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                    speed = request.speed ?: resolveRunSpeed(battleSessionService.querySession(sessionId), request.sideId),</span>
                 ),
             ),
 <span class="fc" id="L175">        )</span>
@@ -251,80 +251,90 @@ import org.springframework.transaction.annotation.Transactional
 <span class="nc" id="L251">            ?: error(&quot;No active source unit is available for capture.&quot;)</span>
     }
 
+    private fun resolveRunSpeed(
+        session: BattleSessionQuery,
+        sideId: String,
+    ): Int =
+<span class="pc bpc" id="L258" title="1 of 2 branches missed.">        session.snapshot.sides[sideId]</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">            ?.activeUnitIds</span>
+<span class="pc bpc" id="L260" title="1 of 2 branches missed.">            ?.mapNotNull(session.snapshot.units::get)</span>
+<span class="pc bpc" id="L261" title="11 of 14 branches missed.">            ?.maxOfOrNull { unit -&gt; unit.stats[&quot;speed&quot;] ?: unit.stats[&quot;spe&quot;] ?: 0 }</span>
+<span class="pc" id="L262">            ?: 0</span>
+
     private fun preparedCaptureContextFromUsage(
         sessionId: String,
         session: BattleSessionQuery,
         usage: BattleSessionCaptureResourceUsage,
-<span class="fc" id="L258">    ) = capturePreparationService.prepare(</span>
-<span class="fc" id="L259">        sessionId = sessionId,</span>
-<span class="fc" id="L260">        snapshot = session.snapshot,</span>
+<span class="fc" id="L268">    ) = capturePreparationService.prepare(</span>
+<span class="fc" id="L269">        sessionId = sessionId,</span>
+<span class="fc" id="L270">        snapshot = session.snapshot,</span>
         command =
-<span class="fc" id="L262">            CaptureCommand(</span>
-<span class="fc" id="L263">                playerId = usage.playerId,</span>
-<span class="fc" id="L264">                ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L265">                targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L266">                sourceUnitId = usage.sourceUnitId,</span>
+<span class="fc" id="L272">            CaptureCommand(</span>
+<span class="fc" id="L273">                playerId = usage.playerId,</span>
+<span class="fc" id="L274">                ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L275">                targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L276">                sourceUnitId = usage.sourceUnitId,</span>
             ),
-<span class="fc" id="L268">    )</span>
+<span class="fc" id="L278">    )</span>
 
     private fun captureFormulaResultFromUsage(usage: BattleSessionCaptureResourceUsage): CaptureFormulaResult =
-<span class="fc" id="L271">        CaptureFormulaResult(</span>
-<span class="fc" id="L272">            success = usage.success,</span>
-<span class="fc" id="L273">            shakes = usage.shakes,</span>
-<span class="fc" id="L274">            captureValue = 0.0,</span>
-<span class="fc" id="L275">            finalRate = usage.finalRate,</span>
-<span class="fc" id="L276">            ballRate = 0.0,</span>
-<span class="fc" id="L277">            statusRate = 0.0,</span>
-<span class="fc" id="L278">            reason = usage.reason,</span>
-<span class="fc" id="L279">        )</span>
+<span class="fc" id="L281">        CaptureFormulaResult(</span>
+<span class="fc" id="L282">            success = usage.success,</span>
+<span class="fc" id="L283">            shakes = usage.shakes,</span>
+<span class="fc" id="L284">            captureValue = 0.0,</span>
+<span class="fc" id="L285">            finalRate = usage.finalRate,</span>
+<span class="fc" id="L286">            ballRate = 0.0,</span>
+<span class="fc" id="L287">            statusRate = 0.0,</span>
+<span class="fc" id="L288">            reason = usage.reason,</span>
+<span class="fc" id="L289">        )</span>
 
     private fun settleCaptureLedgerInternal(
         sessionId: String,
         session: BattleSessionQuery,
     ): CaptureBattleResult? {
-<span class="fc" id="L285">        val captureUsages = session.captureResourceLedger</span>
-<span class="fc" id="L286">        var captureSummary: CapturedCreatureSummary? = null</span>
-<span class="fc" id="L287">        val successfulUsage =</span>
-<span class="fc" id="L288">            captureUsages.lastOrNull { usage -&gt;</span>
-<span class="pc bpc" id="L289" title="2 of 4 branches missed.">                usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
+<span class="fc" id="L295">        val captureUsages = session.captureResourceLedger</span>
+<span class="fc" id="L296">        var captureSummary: CapturedCreatureSummary? = null</span>
+<span class="fc" id="L297">        val successfulUsage =</span>
+<span class="fc" id="L298">            captureUsages.lastOrNull { usage -&gt;</span>
+<span class="pc bpc" id="L299" title="2 of 4 branches missed.">                usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
             }
 
-<span class="fc" id="L292">        captureUsages.forEach { usage -&gt;</span>
-<span class="fc" id="L293">            val prepared = preparedCaptureContextFromUsage(sessionId, session, usage)</span>
-<span class="fc" id="L294">            playerInventoryService.ensureAvailable(prepared.playerId, prepared.ballItemId)</span>
-<span class="fc" id="L295">            playerInventoryService.consume(prepared.playerId, prepared.ballItemId)</span>
-<span class="fc" id="L296">            val formulaResult = captureFormulaResultFromUsage(usage)</span>
-<span class="fc" id="L297">            val currentCaptureSummary =</span>
-<span class="pc bpc" id="L298" title="1 of 2 branches missed.">                if (usage == successfulUsage) {</span>
-<span class="fc" id="L299">                    ownedCreatureService.capture(prepared).also { summary -&gt; captureSummary = summary }</span>
+<span class="fc" id="L302">        captureUsages.forEach { usage -&gt;</span>
+<span class="fc" id="L303">            val prepared = preparedCaptureContextFromUsage(sessionId, session, usage)</span>
+<span class="fc" id="L304">            playerInventoryService.ensureAvailable(prepared.playerId, prepared.ballItemId)</span>
+<span class="fc" id="L305">            playerInventoryService.consume(prepared.playerId, prepared.ballItemId)</span>
+<span class="fc" id="L306">            val formulaResult = captureFormulaResultFromUsage(usage)</span>
+<span class="fc" id="L307">            val currentCaptureSummary =</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">                if (usage == successfulUsage) {</span>
+<span class="fc" id="L309">                    ownedCreatureService.capture(prepared).also { summary -&gt; captureSummary = summary }</span>
                 } else {
-<span class="nc" id="L301">                    null</span>
+<span class="nc" id="L311">                    null</span>
                 }
-<span class="fc" id="L303">            battleCaptureRecordService.record(prepared, formulaResult, currentCaptureSummary)</span>
-<span class="fc" id="L304">        }</span>
+<span class="fc" id="L313">            battleCaptureRecordService.record(prepared, formulaResult, currentCaptureSummary)</span>
+<span class="fc" id="L314">        }</span>
 
-<span class="pc bpc" id="L306" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
-<span class="fc" id="L307">            CaptureBattleResult(</span>
-<span class="fc" id="L308">                success = true,</span>
-<span class="fc" id="L309">                sessionId = sessionId,</span>
-<span class="fc" id="L310">                targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L311">                ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L312">                shakes = usage.shakes,</span>
-<span class="fc" id="L313">                reason = usage.reason,</span>
-<span class="fc" id="L314">                battleEnded = true,</span>
-<span class="fc" id="L315">                finalRate = usage.finalRate,</span>
-<span class="fc" id="L316">                session = session,</span>
-<span class="fc" id="L317">                capturedCreature = captureSummary,</span>
-<span class="fc" id="L318">            )</span>
+<span class="pc bpc" id="L316" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
+<span class="fc" id="L317">            CaptureBattleResult(</span>
+<span class="fc" id="L318">                success = true,</span>
+<span class="fc" id="L319">                sessionId = sessionId,</span>
+<span class="fc" id="L320">                targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L321">                ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L322">                shakes = usage.shakes,</span>
+<span class="fc" id="L323">                reason = usage.reason,</span>
+<span class="fc" id="L324">                battleEnded = true,</span>
+<span class="fc" id="L325">                finalRate = usage.finalRate,</span>
+<span class="fc" id="L326">                session = session,</span>
+<span class="fc" id="L327">                capturedCreature = captureSummary,</span>
+<span class="fc" id="L328">            )</span>
         }
     }
 
     private fun resolvePolicy(battleKind: BattleType): BattleTypePolicy =
-<span class="pc bpc" id="L323" title="1 of 2 branches missed.">        battleTypePolicies.firstOrNull { policy -&gt; policy.supports(battleKind) }</span>
-<span class="pc" id="L324">            ?: error(&quot;No BattleTypePolicy registered for battleKind '$battleKind'.&quot;)</span>
+<span class="pc bpc" id="L333" title="1 of 2 branches missed.">        battleTypePolicies.firstOrNull { policy -&gt; policy.supports(battleKind) }</span>
+<span class="pc" id="L334">            ?: error(&quot;No BattleTypePolicy registered for battleKind '$battleKind'.&quot;)</span>
 
     private fun resolveAiChoiceProvider(battleKind: BattleType): BattleAiChoiceProvider =
-<span class="pc bpc" id="L327" title="1 of 2 branches missed.">        battleAiChoiceProviders.firstOrNull { provider -&gt; provider.supports(battleKind) }</span>
-<span class="pc" id="L328">            ?: error(&quot;No BattleAiChoiceProvider registered for battleKind '$battleKind'.&quot;)</span>
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        battleAiChoiceProviders.firstOrNull { provider -&gt; provider.supports(battleKind) }</span>
+<span class="pc" id="L338">            ?: error(&quot;No BattleAiChoiceProvider registered for battleKind '$battleKind'.&quot;)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

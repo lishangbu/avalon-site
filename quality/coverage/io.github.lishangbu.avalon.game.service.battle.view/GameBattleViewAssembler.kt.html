@@ -212,117 +212,119 @@ class GameBattleViewAssembler {
 <span class="fc" id="L212">        GameBattleMoveResolutionView(</span>
 <span class="fc" id="L213">            cancelled = result.cancelled,</span>
 <span class="fc" id="L214">            hitSuccessful = result.hitSuccessful,</span>
-<span class="fc" id="L215">            accuracy = result.accuracy,</span>
-<span class="fc" id="L216">            evasion = result.evasion,</span>
-<span class="fc" id="L217">            basePower = result.basePower,</span>
-<span class="fc" id="L218">            damage = result.damage,</span>
-<span class="fc" id="L219">        )</span>
+<span class="fc" id="L215">            criticalHit = result.criticalHit,</span>
+<span class="fc" id="L216">            accuracy = result.accuracy,</span>
+<span class="fc" id="L217">            evasion = result.evasion,</span>
+<span class="fc" id="L218">            basePower = result.basePower,</span>
+<span class="fc" id="L219">            damageRoll = result.damageRoll,</span>
+<span class="fc" id="L220">            damage = result.damage,</span>
+<span class="fc" id="L221">        )</span>
 
     /**
      * 把 capture action 执行结果映射为前端视图。
      */
     private fun toCaptureExecutionView(result: BattleSessionCaptureResult): GameBattleCaptureExecutionView =
-<span class="fc" id="L225">        GameBattleCaptureExecutionView(</span>
-<span class="fc" id="L226">            success = result.success,</span>
-<span class="fc" id="L227">            playerId = result.playerId,</span>
-<span class="fc" id="L228">            ballItemId = result.ballItemId,</span>
-<span class="fc" id="L229">            sourceUnitId = result.sourceUnitId,</span>
-<span class="fc" id="L230">            targetId = result.targetId,</span>
-<span class="fc" id="L231">            shakes = result.shakes,</span>
-<span class="fc" id="L232">            reason = result.reason,</span>
-<span class="fc" id="L233">            finalRate = result.finalRate,</span>
-<span class="fc" id="L234">        )</span>
+<span class="fc" id="L227">        GameBattleCaptureExecutionView(</span>
+<span class="fc" id="L228">            success = result.success,</span>
+<span class="fc" id="L229">            playerId = result.playerId,</span>
+<span class="fc" id="L230">            ballItemId = result.ballItemId,</span>
+<span class="fc" id="L231">            sourceUnitId = result.sourceUnitId,</span>
+<span class="fc" id="L232">            targetId = result.targetId,</span>
+<span class="fc" id="L233">            shakes = result.shakes,</span>
+<span class="fc" id="L234">            reason = result.reason,</span>
+<span class="fc" id="L235">            finalRate = result.finalRate,</span>
+<span class="fc" id="L236">        )</span>
 
     /**
      * 把 choice status 映射为前端视图。
      */
     private fun toChoiceStatusView(status: BattleSessionChoiceStatus): GameBattleChoiceStatusView =
-<span class="fc" id="L240">        GameBattleChoiceStatusView(</span>
-<span class="fc" id="L241">            sideId = status.sideId,</span>
-<span class="fc" id="L242">            activeUnitIds = status.activeUnitIds,</span>
-<span class="fc" id="L243">            submittedUnitIds = status.submittedUnitIds,</span>
-<span class="fc" id="L244">            missingUnitIds = status.missingUnitIds,</span>
-<span class="fc" id="L245">            requiredActionCount = status.requiredActionCount,</span>
-<span class="fc" id="L246">            submittedActionCount = status.submittedActionCount,</span>
-<span class="fc" id="L247">            ready = status.ready,</span>
-<span class="fc" id="L248">        )</span>
+<span class="fc" id="L242">        GameBattleChoiceStatusView(</span>
+<span class="fc" id="L243">            sideId = status.sideId,</span>
+<span class="fc" id="L244">            activeUnitIds = status.activeUnitIds,</span>
+<span class="fc" id="L245">            submittedUnitIds = status.submittedUnitIds,</span>
+<span class="fc" id="L246">            missingUnitIds = status.missingUnitIds,</span>
+<span class="fc" id="L247">            requiredActionCount = status.requiredActionCount,</span>
+<span class="fc" id="L248">            submittedActionCount = status.submittedActionCount,</span>
+<span class="fc" id="L249">            ready = status.ready,</span>
+<span class="fc" id="L250">        )</span>
 
     /**
      * 把替补请求映射为前端视图。
      */
     private fun toReplacementRequestView(request: BattleSessionReplacementRequest): GameBattleReplacementRequestView =
-<span class="nc" id="L254">        GameBattleReplacementRequestView(</span>
-<span class="nc" id="L255">            sideId = request.sideId,</span>
-<span class="nc" id="L256">            outgoingUnitIds = request.outgoingUnitIds,</span>
-<span class="nc" id="L257">            candidateUnitIds = request.candidateUnitIds,</span>
-<span class="nc" id="L258">        )</span>
+<span class="nc" id="L256">        GameBattleReplacementRequestView(</span>
+<span class="nc" id="L257">            sideId = request.sideId,</span>
+<span class="nc" id="L258">            outgoingUnitIds = request.outgoingUnitIds,</span>
+<span class="nc" id="L259">            candidateUnitIds = request.candidateUnitIds,</span>
+<span class="nc" id="L260">        )</span>
 
     /**
      * 把 battle event 映射为前端视图。
      */
     private fun toEventView(event: BattleSessionEvent): GameBattleEventView =
-<span class="fc" id="L264">        GameBattleEventView(</span>
-<span class="fc" id="L265">            type = event.type,</span>
-<span class="fc" id="L266">            turn = event.turn,</span>
-<span class="pc bpc" id="L267" title="3 of 4 branches missed.">            payloadType = event.payload::class.simpleName ?: event.payload::class.qualifiedName.orEmpty(),</span>
-<span class="fc" id="L268">            attributes = event.attributes,</span>
-<span class="fc" id="L269">        )</span>
+<span class="fc" id="L266">        GameBattleEventView(</span>
+<span class="fc" id="L267">            type = event.type,</span>
+<span class="fc" id="L268">            turn = event.turn,</span>
+<span class="pc bpc" id="L269" title="3 of 4 branches missed.">            payloadType = event.payload::class.simpleName ?: event.payload::class.qualifiedName.orEmpty(),</span>
+<span class="fc" id="L270">            attributes = event.attributes,</span>
+<span class="fc" id="L271">        )</span>
 
     /**
      * 把资源账本条目映射为前端视图。
      */
     private fun toResourceUsageView(usage: BattleSessionResourceUsage): GameBattleResourceUsageView =
-<span class="fc" id="L275">        GameBattleResourceUsageView(</span>
-<span class="fc" id="L276">            kind = usage.kind,</span>
-<span class="pc bpc" id="L277" title="3 of 4 branches missed.">            payloadType = usage::class.simpleName ?: usage::class.qualifiedName.orEmpty(),</span>
+<span class="fc" id="L277">        GameBattleResourceUsageView(</span>
+<span class="fc" id="L278">            kind = usage.kind,</span>
+<span class="pc bpc" id="L279" title="3 of 4 branches missed.">            payloadType = usage::class.simpleName ?: usage::class.qualifiedName.orEmpty(),</span>
             attributes =
-<span class="fc" id="L279">                when (usage) {</span>
-<span class="pc bpc" id="L280" title="1 of 2 branches missed.">                    is BattleSessionCaptureResourceUsage -&gt; {</span>
-<span class="fc" id="L281">                        mapOf(</span>
-<span class="fc" id="L282">                            &quot;playerId&quot; to usage.playerId,</span>
-<span class="fc" id="L283">                            &quot;sourceUnitId&quot; to usage.sourceUnitId,</span>
-<span class="fc" id="L284">                            &quot;ballItemId&quot; to usage.ballItemId,</span>
-<span class="fc" id="L285">                            &quot;targetUnitId&quot; to usage.targetUnitId,</span>
-<span class="fc" id="L286">                            &quot;quantity&quot; to usage.quantity,</span>
-<span class="fc" id="L287">                            &quot;success&quot; to usage.success,</span>
-<span class="fc" id="L288">                            &quot;shakes&quot; to usage.shakes,</span>
-<span class="fc" id="L289">                            &quot;reason&quot; to usage.reason,</span>
-<span class="fc" id="L290">                            &quot;finalRate&quot; to usage.finalRate,</span>
+<span class="fc" id="L281">                when (usage) {</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">                    is BattleSessionCaptureResourceUsage -&gt; {</span>
+<span class="fc" id="L283">                        mapOf(</span>
+<span class="fc" id="L284">                            &quot;playerId&quot; to usage.playerId,</span>
+<span class="fc" id="L285">                            &quot;sourceUnitId&quot; to usage.sourceUnitId,</span>
+<span class="fc" id="L286">                            &quot;ballItemId&quot; to usage.ballItemId,</span>
+<span class="fc" id="L287">                            &quot;targetUnitId&quot; to usage.targetUnitId,</span>
+<span class="fc" id="L288">                            &quot;quantity&quot; to usage.quantity,</span>
+<span class="fc" id="L289">                            &quot;success&quot; to usage.success,</span>
+<span class="fc" id="L290">                            &quot;shakes&quot; to usage.shakes,</span>
+<span class="fc" id="L291">                            &quot;reason&quot; to usage.reason,</span>
+<span class="fc" id="L292">                            &quot;finalRate&quot; to usage.finalRate,</span>
                         )
                     }
 
                     else -&gt; {
-<span class="nc" id="L295">                        emptyMap()</span>
+<span class="nc" id="L297">                        emptyMap()</span>
                     }
                 },
-<span class="fc" id="L298">        )</span>
+<span class="fc" id="L300">        )</span>
 
     /**
      * 把捕捉账本条目映射为前端视图。
      */
     private fun toCaptureResourceUsageView(usage: BattleSessionCaptureResourceUsage): GameBattleCaptureResourceUsageView =
-<span class="fc" id="L304">        GameBattleCaptureResourceUsageView(</span>
-<span class="fc" id="L305">            playerId = usage.playerId,</span>
-<span class="fc" id="L306">            sourceUnitId = usage.sourceUnitId,</span>
-<span class="fc" id="L307">            ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L308">            targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L309">            quantity = usage.quantity,</span>
-<span class="fc" id="L310">            success = usage.success,</span>
-<span class="fc" id="L311">            shakes = usage.shakes,</span>
-<span class="fc" id="L312">            reason = usage.reason,</span>
-<span class="fc" id="L313">            finalRate = usage.finalRate,</span>
-<span class="fc" id="L314">        )</span>
+<span class="fc" id="L306">        GameBattleCaptureResourceUsageView(</span>
+<span class="fc" id="L307">            playerId = usage.playerId,</span>
+<span class="fc" id="L308">            sourceUnitId = usage.sourceUnitId,</span>
+<span class="fc" id="L309">            ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L310">            targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L311">            quantity = usage.quantity,</span>
+<span class="fc" id="L312">            success = usage.success,</span>
+<span class="fc" id="L313">            shakes = usage.shakes,</span>
+<span class="fc" id="L314">            reason = usage.reason,</span>
+<span class="fc" id="L315">            finalRate = usage.finalRate,</span>
+<span class="fc" id="L316">        )</span>
 
     /**
      * 把已捕捉生物摘要映射为前端视图。
      */
     private fun toCapturedCreatureView(summary: CapturedCreatureSummary): GameBattleCapturedCreatureView =
-<span class="fc" id="L320">        GameBattleCapturedCreatureView(</span>
-<span class="fc" id="L321">            ownedCreatureId = summary.ownedCreatureId,</span>
-<span class="fc" id="L322">            creatureId = summary.creatureId,</span>
-<span class="fc" id="L323">            creatureSpeciesId = summary.creatureSpeciesId,</span>
-<span class="fc" id="L324">            creatureInternalName = summary.creatureInternalName,</span>
-<span class="fc" id="L325">            creatureName = summary.creatureName,</span>
-<span class="fc" id="L326">        )</span>
+<span class="fc" id="L322">        GameBattleCapturedCreatureView(</span>
+<span class="fc" id="L323">            ownedCreatureId = summary.ownedCreatureId,</span>
+<span class="fc" id="L324">            creatureId = summary.creatureId,</span>
+<span class="fc" id="L325">            creatureSpeciesId = summary.creatureSpeciesId,</span>
+<span class="fc" id="L326">            creatureInternalName = summary.creatureInternalName,</span>
+<span class="fc" id="L327">            creatureName = summary.creatureName,</span>
+<span class="fc" id="L328">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,51 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMovePowerDamagePhaseStep.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">BattleMovePowerDamagePhaseStep.kt</span></div><h1>BattleMovePowerDamagePhaseStep.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
 
 import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 /**
  * 威力与伤害修正 phase step。
  *
  * @property phaseProcessor battle hook phase 处理器。
  */
-<span class="fc" id="L10">class BattleMovePowerDamagePhaseStep(</span>
-<span class="fc" id="L11">    private val phaseProcessor: BattleFlowPhaseProcessor,</span>
-) : BattleMoveResolutionStep {
+<span class="fc" id="L13">class BattleMovePowerDamagePhaseStep(</span>
+<span class="fc" id="L14">    private val phaseProcessor: BattleFlowPhaseProcessor,</span>
+<span class="fc" id="L15">    private val typeEffectivenessResolver: BattleTypeEffectivenessResolver = NoopBattleTypeEffectivenessResolver,</span>
+<span class="fc" id="L16">) : BattleMoveResolutionStep {</span>
     /**
      * 当前步骤在 pipeline 中的执行顺序。
      */
-<span class="fc" id="L16">    override val order: Int = 300</span>
+<span class="fc" id="L20">    override val order: Int = 300</span>
 
     /**
      * 执行威力与伤害修正阶段。
      */
     override fun execute(context: BattleMoveResolutionContext) {
-<span class="fc" id="L22">        val basePowerResult =</span>
-<span class="fc" id="L23">            phaseProcessor.processPhase(</span>
-<span class="fc" id="L24">                snapshot = context.snapshot,</span>
-<span class="fc" id="L25">                hookName = StandardHookNames.ON_MODIFY_BASE_POWER.value,</span>
-<span class="fc" id="L26">                moveEffect = context.moveEffect,</span>
-<span class="fc" id="L27">                selfId = context.attackerId,</span>
-<span class="fc" id="L28">                targetId = context.targetId,</span>
-<span class="fc" id="L29">                sourceId = context.sourceId,</span>
-<span class="fc" id="L30">                relay = context.basePower.toDouble(),</span>
-<span class="fc" id="L31">                attributes = context.attributes,</span>
+<span class="fc" id="L26">        val basePowerResult =</span>
+<span class="fc" id="L27">            phaseProcessor.processPhase(</span>
+<span class="fc" id="L28">                snapshot = context.snapshot,</span>
+<span class="fc" id="L29">                hookName = StandardHookNames.ON_MODIFY_BASE_POWER.value,</span>
+<span class="fc" id="L30">                moveEffect = context.moveEffect,</span>
+<span class="fc" id="L31">                selfId = context.attackerId,</span>
+<span class="fc" id="L32">                targetId = context.targetId,</span>
+<span class="fc" id="L33">                sourceId = context.sourceId,</span>
+<span class="fc" id="L34">                relay = context.basePower.toDouble(),</span>
+<span class="fc" id="L35">                attributes = context.attributes,</span>
             )
-<span class="fc" id="L33">        context.snapshot = basePowerResult.snapshot</span>
-<span class="pc bpc" id="L34" title="2 of 4 branches missed.">        context.basePower = (basePowerResult.relay as? Number)?.toInt() ?: context.basePower</span>
+<span class="fc" id="L37">        context.snapshot = basePowerResult.snapshot</span>
+<span class="pc bpc" id="L38" title="2 of 4 branches missed.">        context.basePower = (basePowerResult.relay as? Number)?.toInt() ?: context.basePower</span>
 
-<span class="fc" id="L36">        val damageResult =</span>
-<span class="fc" id="L37">            phaseProcessor.processPhase(</span>
-<span class="fc" id="L38">                snapshot = context.snapshot,</span>
-<span class="fc" id="L39">                hookName = StandardHookNames.ON_MODIFY_DAMAGE.value,</span>
-<span class="fc" id="L40">                moveEffect = context.moveEffect,</span>
-<span class="fc" id="L41">                selfId = context.attackerId,</span>
-<span class="fc" id="L42">                targetId = context.targetId,</span>
-<span class="fc" id="L43">                sourceId = context.sourceId,</span>
-<span class="fc" id="L44">                relay = context.damage.toDouble(),</span>
-<span class="fc" id="L45">                attributes = context.attributes,</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        val moveType = context.moveEffect.data[&quot;type&quot;]?.toString()</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        val damageClass = context.moveEffect.data[&quot;damageClass&quot;]?.toString()</span>
+<span class="fc" id="L42">        val attacker = context.snapshot.units[context.attackerId]</span>
+<span class="fc" id="L43">        val target = context.snapshot.units[context.targetId]</span>
+<span class="fc" id="L44">        val typeMultiplier = typeEffectivenessResolver.resolve(moveType, attacker, target)</span>
+<span class="fc" id="L45">        val shouldComputeNativeDamage = shouldComputeDamage(context, damageClass)</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (shouldComputeNativeDamage) {</span>
+<span class="fc" id="L47">            computeBaseDamage(</span>
+<span class="fc" id="L48">                context = context,</span>
+<span class="fc" id="L49">                moveType = moveType,</span>
+<span class="fc" id="L50">                damageClass = damageClass,</span>
+<span class="fc" id="L51">                attacker = attacker,</span>
+<span class="fc" id="L52">                target = target,</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">            )?.let { computedDamage -&gt;</span>
+<span class="fc" id="L54">                context.damage = computedDamage</span>
+<span class="fc" id="L55">            }</span>
+        }
+
+<span class="fc" id="L58">        val damageResult =</span>
+<span class="fc" id="L59">            phaseProcessor.processPhase(</span>
+<span class="fc" id="L60">                snapshot = context.snapshot,</span>
+<span class="fc" id="L61">                hookName = StandardHookNames.ON_MODIFY_DAMAGE.value,</span>
+<span class="fc" id="L62">                moveEffect = context.moveEffect,</span>
+<span class="fc" id="L63">                selfId = context.attackerId,</span>
+<span class="fc" id="L64">                targetId = context.targetId,</span>
+<span class="fc" id="L65">                sourceId = context.sourceId,</span>
+<span class="fc" id="L66">                relay = context.damage.toDouble(),</span>
+                attributes =
+<span class="fc" id="L68">                    context.attributes +</span>
+<span class="fc" id="L69">                        mapOf(</span>
+<span class="fc" id="L70">                            &quot;criticalHit&quot; to context.criticalHit,</span>
+<span class="fc" id="L71">                            &quot;moveType&quot; to moveType,</span>
+<span class="fc" id="L72">                            &quot;damageClass&quot; to damageClass,</span>
+<span class="fc" id="L73">                            &quot;typeMultiplier&quot; to typeMultiplier,</span>
+                        ),
             )
-<span class="fc" id="L47">        context.snapshot = damageResult.snapshot</span>
-<span class="pc bpc" id="L48" title="2 of 4 branches missed.">        context.damage = (damageResult.relay as? Number)?.toInt() ?: context.damage</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L76">        context.snapshot = damageResult.snapshot</span>
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        context.damage = (damageResult.relay as? Number)?.toInt() ?: context.damage</span>
+
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (context.criticalHit) {</span>
+<span class="fc" id="L80">            context.damage = floor(context.damage * CRITICAL_DAMAGE_MULTIPLIER).toInt()</span>
+        }
+<span class="pc bpc" id="L82" title="1 of 4 branches missed.">        if (shouldApplyDamageVariance(context, damageClass, shouldComputeNativeDamage) &amp;&amp; typeMultiplier &gt; 0.0) {</span>
+<span class="fc" id="L83">            val damageRoll = resolveDamageRoll(context)</span>
+<span class="fc" id="L84">            context.damageRoll = damageRoll</span>
+<span class="fc" id="L85">            context.damage = floor(context.damage * damageRoll / DAMAGE_ROLL_DENOMINATOR).toInt()</span>
+        }
+
+<span class="fc" id="L88">        val stabMatched =</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            context.basePower &gt; 0 &amp;&amp;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                damageClass != null &amp;&amp;</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                damageClass != &quot;status&quot; &amp;&amp;</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">                moveType != null &amp;&amp;</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">                attacker != null &amp;&amp;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                moveType in attacker.typeIds</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        val baseStab = if (stabMatched) 1.5 else 1.0</span>
+<span class="fc" id="L96">        val stabResult =</span>
+<span class="fc" id="L97">            phaseProcessor.processPhase(</span>
+<span class="fc" id="L98">                snapshot = context.snapshot,</span>
+<span class="fc" id="L99">                hookName = StandardHookNames.ON_MODIFY_STAB.value,</span>
+<span class="fc" id="L100">                moveEffect = context.moveEffect,</span>
+<span class="fc" id="L101">                selfId = context.attackerId,</span>
+<span class="fc" id="L102">                targetId = context.targetId,</span>
+<span class="fc" id="L103">                sourceId = context.sourceId,</span>
+<span class="fc" id="L104">                relay = baseStab,</span>
+                attributes =
+<span class="fc" id="L106">                    context.attributes +</span>
+<span class="fc" id="L107">                        mapOf(</span>
+<span class="fc" id="L108">                            &quot;moveType&quot; to moveType,</span>
+<span class="fc" id="L109">                            &quot;stabMatched&quot; to stabMatched,</span>
+                        ),
+            )
+<span class="fc" id="L112">        context.snapshot = stabResult.snapshot</span>
+<span class="pc bpc" id="L113" title="2 of 4 branches missed.">        val stab = (stabResult.relay as? Number)?.toDouble() ?: baseStab</span>
+<span class="fc" id="L114">        context.damage = floor(context.damage * stab).toInt()</span>
+
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (typeMultiplier &lt;= 0.0) {</span>
+<span class="nc" id="L117">            context.damage = 0</span>
+<span class="nc" id="L118">            context.hitSuccessful = false</span>
+<span class="nc" id="L119">            return</span>
+        }
+<span class="fc" id="L121">        context.damage = floor(context.damage * typeMultiplier).toInt()</span>
+<span class="pc bpc" id="L122" title="1 of 4 branches missed.">        if (context.basePower &gt; 0 &amp;&amp; context.damage &lt;= 0) {</span>
+<span class="nc" id="L123">            context.damage = 1</span>
+        }
+<span class="fc" id="L125">    }</span>
+
+    private fun shouldComputeDamage(
+        context: BattleMoveResolutionContext,
+        damageClass: String?,
+    ): Boolean {
+<span class="pc bpc" id="L131" title="1 of 6 branches missed.">        if (context.basePower &lt;= 0 || damageClass == null || damageClass == &quot;status&quot;) {</span>
+<span class="fc" id="L132">            return false</span>
+        }
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        if (context.attributes[&quot;computeDamage&quot;] == true) {</span>
+<span class="fc" id="L135">            return true</span>
+        }
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        return context.damage &lt;= 0</span>
+    }
+
+    private fun computeBaseDamage(
+        context: BattleMoveResolutionContext,
+        moveType: String?,
+        damageClass: String?,
+        attacker: UnitState?,
+        target: UnitState?,
+    ): Int? {
+<span class="pc bpc" id="L147" title="3 of 6 branches missed.">        if (attacker == null || target == null || damageClass == null) {</span>
+<span class="nc" id="L148">            return null</span>
+        }
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        val attackStatKey = if (damageClass == SPECIAL_DAMAGE_CLASS) SPECIAL_ATTACK_STAT else ATTACK_STAT</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        val defenseStatKey = if (damageClass == SPECIAL_DAMAGE_CLASS) SPECIAL_DEFENSE_STAT else DEFENSE_STAT</span>
+<span class="fc" id="L152">        val attackStat =</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">            resolveModifiedBattleStat(</span>
+<span class="fc" id="L154">                context = context,</span>
+<span class="fc" id="L155">                unit = attacker,</span>
+<span class="fc" id="L156">                statKey = attackStatKey,</span>
+<span class="fc" id="L157">                hookName = StandardHookNames.ON_MODIFY_ATTACK.value,</span>
+<span class="fc" id="L158">                moveType = moveType,</span>
+<span class="fc" id="L159">                damageClass = damageClass,</span>
+                stage =
+<span class="fc" id="L161">                    normalizedOffensiveStage(</span>
+<span class="fc" id="L162">                        unit = attacker,</span>
+<span class="fc" id="L163">                        statKey = attackStatKey,</span>
+<span class="fc" id="L164">                        criticalHit = context.criticalHit,</span>
+                    ),
+<span class="nc" id="L166">            ) ?: return null</span>
+<span class="fc" id="L167">        val defenseStat =</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">            resolveModifiedBattleStat(</span>
+<span class="fc" id="L169">                context = context,</span>
+<span class="fc" id="L170">                unit = target,</span>
+<span class="fc" id="L171">                statKey = defenseStatKey,</span>
+<span class="fc" id="L172">                hookName = StandardHookNames.ON_MODIFY_DEFENSE.value,</span>
+<span class="fc" id="L173">                moveType = moveType,</span>
+<span class="fc" id="L174">                damageClass = damageClass,</span>
+                stage =
+<span class="fc" id="L176">                    normalizedDefensiveStage(</span>
+<span class="fc" id="L177">                        unit = target,</span>
+<span class="fc" id="L178">                        statKey = defenseStatKey,</span>
+<span class="fc" id="L179">                        criticalHit = context.criticalHit,</span>
+                    ),
+<span class="nc" id="L181">            ) ?: return null</span>
+<span class="fc" id="L182">        val burnedAttack =</span>
+<span class="pc bpc" id="L183" title="1 of 6 branches missed.">            if (damageClass == PHYSICAL_DAMAGE_CLASS &amp;&amp; attacker.statusId == BURN_STATUS &amp;&amp; attacker.abilityId != GUTS_ABILITY) {</span>
+<span class="nc" id="L184">                attackStat * BURN_ATTACK_MULTIPLIER</span>
+            } else {
+<span class="fc" id="L186">                attackStat</span>
+            }
+<span class="pc bpc" id="L188" title="2 of 4 branches missed.">        val level = attacker.flags[&quot;level&quot;]?.toIntOrNull() ?: DEFAULT_LEVEL</span>
+<span class="fc" id="L189">        val rawDamage = (((((2.0 * level) / 5.0) + 2.0) * context.basePower * burnedAttack / defenseStat) / 50.0) + 2.0</span>
+<span class="fc" id="L190">        return floor(rawDamage).toInt().coerceAtLeast(1)</span>
+    }
+
+    private fun shouldApplyDamageVariance(
+        context: BattleMoveResolutionContext,
+        damageClass: String?,
+        shouldComputeNativeDamage: Boolean,
+    ): Boolean {
+<span class="pc bpc" id="L198" title="1 of 6 branches missed.">        if (context.basePower &lt;= 0 || damageClass == null || damageClass == &quot;status&quot;) {</span>
+<span class="fc" id="L199">            return false</span>
+        }
+<span class="fc bfc" id="L201" title="All 2 branches covered.">        if (context.attributes[&quot;damageRoll&quot;] is Number) {</span>
+<span class="fc" id="L202">            return true</span>
+        }
+<span class="fc" id="L204">        return shouldComputeNativeDamage</span>
+    }
+
+    private fun resolveDamageRoll(context: BattleMoveResolutionContext): Int {
+<span class="fc bfc" id="L208" title="All 4 branches covered.">        val explicitRoll = (context.attributes[&quot;damageRoll&quot;] as? Number)?.toInt()</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (explicitRoll != null) {</span>
+<span class="fc" id="L210">            return explicitRoll.coerceIn(MIN_DAMAGE_ROLL, MAX_DAMAGE_ROLL)</span>
+        }
+<span class="fc" id="L212">        val randomResult =</span>
+<span class="fc" id="L213">            context.snapshot.battle.randomState</span>
+<span class="fc" id="L214">                .nextInt(DAMAGE_ROLL_BOUND)</span>
+<span class="fc" id="L215">        context.snapshot =</span>
+<span class="fc" id="L216">            context.snapshot.copy(</span>
+                battle =
+<span class="fc" id="L218">                    context.snapshot.battle.copy(</span>
+<span class="fc" id="L219">                        randomState = randomResult.nextState,</span>
+                    ),
+            )
+<span class="fc" id="L222">        return MIN_DAMAGE_ROLL + randomResult.value</span>
+    }
+
+    private fun resolveModifiedBattleStat(
+        context: BattleMoveResolutionContext,
+        unit: UnitState,
+        statKey: String,
+        hookName: String,
+        moveType: String?,
+        damageClass: String,
+        stage: Int,
+    ): Double? {
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">        val baseStat = resolveStat(unit, statKey) ?: return null</span>
+<span class="fc" id="L235">        val stagedStat = baseStat * stageMultiplier(stage)</span>
+<span class="fc" id="L236">        val hookResult =</span>
+<span class="fc" id="L237">            phaseProcessor.processPhase(</span>
+<span class="fc" id="L238">                snapshot = context.snapshot,</span>
+<span class="fc" id="L239">                hookName = hookName,</span>
+<span class="fc" id="L240">                moveEffect = context.moveEffect,</span>
+<span class="fc" id="L241">                selfId = unit.id,</span>
+<span class="fc" id="L242">                targetId = context.targetId,</span>
+<span class="fc" id="L243">                sourceId = context.sourceId,</span>
+<span class="fc" id="L244">                relay = stagedStat,</span>
+                attributes =
+<span class="fc" id="L246">                    context.attributes +</span>
+<span class="fc" id="L247">                        mapOf(</span>
+<span class="fc" id="L248">                            &quot;moveType&quot; to moveType,</span>
+<span class="fc" id="L249">                            &quot;damageClass&quot; to damageClass,</span>
+<span class="fc" id="L250">                            &quot;criticalHit&quot; to context.criticalHit,</span>
+<span class="fc" id="L251">                            &quot;statKey&quot; to statKey,</span>
+                        ),
+            )
+<span class="fc" id="L254">        context.snapshot = hookResult.snapshot</span>
+<span class="pc bpc" id="L255" title="2 of 4 branches missed.">        return ((hookResult.relay as? Number)?.toDouble() ?: stagedStat).coerceAtLeast(1.0)</span>
+    }
+
+    private fun normalizedOffensiveStage(
+        unit: UnitState,
+        statKey: String,
+        criticalHit: Boolean,
+    ): Int {
+<span class="fc" id="L263">        val stage = resolveBoost(unit, statKey)</span>
+<span class="pc bpc" id="L264" title="1 of 4 branches missed.">        return if (criticalHit &amp;&amp; stage &lt; 0) 0 else stage</span>
+    }
+
+    private fun normalizedDefensiveStage(
+        unit: UnitState,
+        statKey: String,
+        criticalHit: Boolean,
+    ): Int {
+<span class="fc" id="L272">        val stage = resolveBoost(unit, statKey)</span>
+<span class="pc bpc" id="L273" title="1 of 4 branches missed.">        return if (criticalHit &amp;&amp; stage &gt; 0) 0 else stage</span>
+    }
+
+    private fun resolveStat(
+        unit: UnitState,
+        statKey: String,
+    ): Int? =
+<span class="pc bpc" id="L280" title="1 of 5 branches missed.">        when (statKey) {</span>
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">            ATTACK_STAT -&gt; unit.stats[ATTACK_STAT] ?: unit.stats[&quot;atk&quot;]</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">            DEFENSE_STAT -&gt; unit.stats[DEFENSE_STAT] ?: unit.stats[&quot;def&quot;]</span>
+<span class="pc bpc" id="L283" title="1 of 2 branches missed.">            SPECIAL_ATTACK_STAT -&gt; unit.stats[SPECIAL_ATTACK_STAT] ?: unit.stats[&quot;spa&quot;]</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">            SPECIAL_DEFENSE_STAT -&gt; unit.stats[SPECIAL_DEFENSE_STAT] ?: unit.stats[&quot;spd&quot;]</span>
+<span class="nc" id="L285">            else -&gt; unit.stats[statKey]</span>
+<span class="fc" id="L286">        }</span>
+
+    private fun resolveBoost(
+        unit: UnitState,
+        statKey: String,
+    ): Int =
+<span class="pc bpc" id="L292" title="1 of 5 branches missed.">        when (statKey) {</span>
+<span class="pc bpc" id="L293" title="2 of 4 branches missed.">            ATTACK_STAT -&gt; unit.boosts[ATTACK_STAT] ?: unit.boosts[&quot;atk&quot;] ?: 0</span>
+<span class="pc bpc" id="L294" title="1 of 4 branches missed.">            DEFENSE_STAT -&gt; unit.boosts[DEFENSE_STAT] ?: unit.boosts[&quot;def&quot;] ?: 0</span>
+<span class="pc bpc" id="L295" title="2 of 4 branches missed.">            SPECIAL_ATTACK_STAT -&gt; unit.boosts[SPECIAL_ATTACK_STAT] ?: unit.boosts[&quot;spa&quot;] ?: 0</span>
+<span class="pc bpc" id="L296" title="2 of 4 branches missed.">            SPECIAL_DEFENSE_STAT -&gt; unit.boosts[SPECIAL_DEFENSE_STAT] ?: unit.boosts[&quot;spd&quot;] ?: 0</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">            else -&gt; unit.boosts[statKey] ?: 0</span>
+<span class="fc" id="L298">        }</span>
+
+    private fun stageMultiplier(stage: Int): Double {
+<span class="fc" id="L301">        val normalized = stage.coerceIn(-6, 6)</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">        return if (normalized &gt;= 0) {</span>
+<span class="fc" id="L303">            (2.0 + normalized) / 2.0</span>
+        } else {
+<span class="nc" id="L305">            2.0 / (2.0 - normalized)</span>
+        }
+    }
+
+    private companion object {
+        private const val DEFAULT_LEVEL: Int = 50
+        private const val ATTACK_STAT: String = &quot;attack&quot;
+        private const val DEFENSE_STAT: String = &quot;defense&quot;
+        private const val SPECIAL_ATTACK_STAT: String = &quot;special-attack&quot;
+        private const val SPECIAL_DEFENSE_STAT: String = &quot;special-defense&quot;
+        private const val PHYSICAL_DAMAGE_CLASS: String = &quot;physical&quot;
+        private const val SPECIAL_DAMAGE_CLASS: String = &quot;special&quot;
+        private const val BURN_STATUS: String = &quot;brn&quot;
+        private const val GUTS_ABILITY: String = &quot;guts&quot;
+        private const val BURN_ATTACK_MULTIPLIER: Double = 0.5
+        private const val CRITICAL_DAMAGE_MULTIPLIER: Double = 1.5
+        private const val MIN_DAMAGE_ROLL: Int = 85
+        private const val MAX_DAMAGE_ROLL: Int = 100
+        private const val DAMAGE_ROLL_BOUND: Int = 16
+        private const val DAMAGE_ROLL_DENOMINATOR: Double = 100.0
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

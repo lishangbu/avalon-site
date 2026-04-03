@@ -18,16 +18,16 @@ import kotlin.reflect.KClass
         action: BattleSessionAction,
         session: BattleSession,
     ): BattleSessionActionExecutionResult {
-<span class="nc" id="L21">        val waitAction =</span>
-<span class="nc bnc" id="L22" title="All 4 branches missed.">            action as? BattleSessionWaitAction</span>
+<span class="fc" id="L21">        val waitAction =</span>
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">            action as? BattleSessionWaitAction</span>
 <span class="nc" id="L23">                ?: error(&quot;Expected BattleSessionWaitAction but got '${action::class.qualifiedName}'.&quot;)</span>
-<span class="nc" id="L24">        session.recordLog(&quot;Executed wait action for unit ${waitAction.unitId}.&quot;)</span>
-<span class="nc" id="L25">        session.recordEvent(</span>
-<span class="nc" id="L26">            BattleSessionWaitExecutedPayload(unitId = waitAction.unitId),</span>
+<span class="fc" id="L24">        session.recordLog(&quot;Executed wait action for unit ${waitAction.unitId}.&quot;)</span>
+<span class="fc" id="L25">        session.recordEvent(</span>
+<span class="fc" id="L26">            BattleSessionWaitExecutedPayload(unitId = waitAction.unitId),</span>
         )
-<span class="nc" id="L28">        return BattleSessionActionExecutionResult(</span>
-<span class="nc" id="L29">            action = waitAction,</span>
-<span class="nc" id="L30">            snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L28">        return BattleSessionActionExecutionResult(</span>
+<span class="fc" id="L29">            action = waitAction,</span>
+<span class="fc" id="L30">            snapshot = session.currentSnapshot,</span>
         )
     }
 }

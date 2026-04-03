@@ -19,6 +19,7 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleFlowPhas
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleHitResolutionPolicy
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveAccuracyEvasionPhaseStep
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveAfterMovePhaseStep
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveCriticalHitPhaseStep
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveHitHooksPhaseStep
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveHitResolutionStep
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMovePowerDamagePhaseStep
@@ -27,11 +28,13 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveReso
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMoveResolutionStep
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMutationInterceptor
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMutationInterceptorChain
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleTypeEffectivenessResolver
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.DefaultBattleFlowEngine
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.DefaultBattleFlowPhaseProcessor
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.DefaultBattleHitResolutionPolicy
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.DefaultBattleMoveResolutionPipeline
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.DefaultBattleMutationInterceptorChain
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.NoopBattleTypeEffectivenessResolver
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.SetStatusBattleMutationInterceptor
 import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionFactory
 import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionService
@@ -104,37 +107,37 @@ import org.springframework.context.annotation.Configuration
 /**
  * `avalon-game-battle-engine` 默认装配。
  */
-<span class="nc" id="L107">@Configuration(proxyBeanMethods = false)</span>
+<span class="nc" id="L110">@Configuration(proxyBeanMethods = false)</span>
 class BattleEngineConfiguration {
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L111">    fun captureRandomSource(): CaptureRandomSource = DefaultCaptureRandomSource()</span>
+<span class="nc" id="L114">    fun captureRandomSource(): CaptureRandomSource = DefaultCaptureRandomSource()</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L115">    fun captureRateCalculator(): CaptureRateCalculator = DefaultCaptureRateCalculator()</span>
+<span class="nc" id="L118">    fun captureRateCalculator(): CaptureRateCalculator = DefaultCaptureRateCalculator()</span>
 
     @Bean
     @ConditionalOnMissingBean
     fun captureFormulaService(
         captureRandomSource: CaptureRandomSource,
         captureRateCalculator: CaptureRateCalculator,
-<span class="nc" id="L122">    ): CaptureFormulaService = DefaultCaptureFormulaService(captureRandomSource, captureRateCalculator)</span>
+<span class="nc" id="L125">    ): CaptureFormulaService = DefaultCaptureFormulaService(captureRandomSource, captureRateCalculator)</span>
 
     @Bean
     @ConditionalOnMissingBean(CaptureActionResolver::class)
     fun captureActionResolver(
         captureFormulaInputResolver: CaptureFormulaInputResolver,
         captureFormulaService: CaptureFormulaService,
-<span class="nc" id="L129">    ): CaptureActionResolver = DefaultCaptureActionResolver(captureFormulaInputResolver, captureFormulaService)</span>
+<span class="nc" id="L132">    ): CaptureActionResolver = DefaultCaptureActionResolver(captureFormulaInputResolver, captureFormulaService)</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L133">    fun conditionInterpreterRegistry(): ConditionInterpreterRegistry = StandardConditionInterpreterRegistryFactory.create()</span>
+<span class="nc" id="L136">    fun conditionInterpreterRegistry(): ConditionInterpreterRegistry = StandardConditionInterpreterRegistryFactory.create()</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L137">    fun actionExecutorRegistry(): ActionExecutorRegistry = StandardActionExecutorRegistryFactory.create()</span>
+<span class="nc" id="L140">    fun actionExecutorRegistry(): ActionExecutorRegistry = StandardActionExecutorRegistryFactory.create()</span>
 
     @Bean
     @ConditionalOnMissingBean
@@ -142,32 +145,32 @@ class BattleEngineConfiguration {
         conditionInterpreterRegistry: ConditionInterpreterRegistry,
         actionExecutorRegistry: ActionExecutorRegistry,
     ): HookRuleProcessor =
-<span class="nc" id="L145">        DefaultHookRuleProcessor(</span>
-<span class="nc" id="L146">            conditionInterpreterRegistry = conditionInterpreterRegistry,</span>
-<span class="nc" id="L147">            actionExecutorRegistry = actionExecutorRegistry,</span>
-<span class="nc" id="L148">        )</span>
+<span class="nc" id="L148">        DefaultHookRuleProcessor(</span>
+<span class="nc" id="L149">            conditionInterpreterRegistry = conditionInterpreterRegistry,</span>
+<span class="nc" id="L150">            actionExecutorRegistry = actionExecutorRegistry,</span>
+<span class="nc" id="L151">        )</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L152">    fun mutationApplier(): MutationApplier = DefaultMutationApplier()</span>
+<span class="nc" id="L155">    fun mutationApplier(): MutationApplier = DefaultMutationApplier()</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L156">    fun replacementStrategy(): ReplacementStrategy = DefaultReplacementStrategy()</span>
+<span class="nc" id="L159">    fun replacementStrategy(): ReplacementStrategy = DefaultReplacementStrategy()</span>
 
     @Bean
     @ConditionalOnMissingBean(SetStatusBattleMutationInterceptor::class)
-<span class="nc" id="L160">    fun setStatusBattleMutationInterceptor(): SetStatusBattleMutationInterceptor = SetStatusBattleMutationInterceptor()</span>
+<span class="nc" id="L163">    fun setStatusBattleMutationInterceptor(): SetStatusBattleMutationInterceptor = SetStatusBattleMutationInterceptor()</span>
 
     @Bean
     @ConditionalOnMissingBean(AddVolatileBattleMutationInterceptor::class)
-<span class="nc" id="L164">    fun addVolatileBattleMutationInterceptor(): AddVolatileBattleMutationInterceptor = AddVolatileBattleMutationInterceptor()</span>
+<span class="nc" id="L167">    fun addVolatileBattleMutationInterceptor(): AddVolatileBattleMutationInterceptor = AddVolatileBattleMutationInterceptor()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMutationInterceptorChain::class)
     fun battleMutationInterceptorChain(
         interceptors: List&lt;BattleMutationInterceptor&gt;,
-<span class="nc" id="L170">    ): BattleMutationInterceptorChain = DefaultBattleMutationInterceptorChain(interceptors)</span>
+<span class="nc" id="L173">    ): BattleMutationInterceptorChain = DefaultBattleMutationInterceptorChain(interceptors)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleFlowPhaseProcessor::class)
@@ -177,58 +180,69 @@ class BattleEngineConfiguration {
         mutationApplier: MutationApplier,
         battleMutationInterceptorChain: BattleMutationInterceptorChain,
     ): BattleFlowPhaseProcessor =
-<span class="nc" id="L180">        DefaultBattleFlowPhaseProcessor(</span>
-<span class="nc" id="L181">            effectRepository = effectDefinitionRepository,</span>
-<span class="nc" id="L182">            hookRuleProcessor = hookRuleProcessor,</span>
-<span class="nc" id="L183">            mutationApplier = mutationApplier,</span>
-<span class="nc" id="L184">            mutationInterceptorChain = battleMutationInterceptorChain,</span>
-<span class="nc" id="L185">        )</span>
+<span class="nc" id="L183">        DefaultBattleFlowPhaseProcessor(</span>
+<span class="nc" id="L184">            effectRepository = effectDefinitionRepository,</span>
+<span class="nc" id="L185">            hookRuleProcessor = hookRuleProcessor,</span>
+<span class="nc" id="L186">            mutationApplier = mutationApplier,</span>
+<span class="nc" id="L187">            mutationInterceptorChain = battleMutationInterceptorChain,</span>
+<span class="nc" id="L188">        )</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleHitResolutionPolicy::class)
-<span class="nc" id="L189">    fun battleHitResolutionPolicy(): BattleHitResolutionPolicy = DefaultBattleHitResolutionPolicy()</span>
+<span class="nc" id="L192">    fun battleHitResolutionPolicy(): BattleHitResolutionPolicy = DefaultBattleHitResolutionPolicy()</span>
+
+    @Bean
+    @ConditionalOnMissingBean(BattleTypeEffectivenessResolver::class)
+<span class="nc" id="L196">    fun battleTypeEffectivenessResolver(): BattleTypeEffectivenessResolver = NoopBattleTypeEffectivenessResolver</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMovePreHitPhaseStep::class)
     fun battleMovePreHitPhaseStep(
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
-<span class="nc" id="L195">    ): BattleMovePreHitPhaseStep = BattleMovePreHitPhaseStep(battleFlowPhaseProcessor)</span>
+<span class="nc" id="L202">    ): BattleMovePreHitPhaseStep = BattleMovePreHitPhaseStep(battleFlowPhaseProcessor)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMoveAccuracyEvasionPhaseStep::class)
     fun battleMoveAccuracyEvasionPhaseStep(
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
-<span class="nc" id="L201">    ): BattleMoveAccuracyEvasionPhaseStep = BattleMoveAccuracyEvasionPhaseStep(battleFlowPhaseProcessor)</span>
+<span class="nc" id="L208">    ): BattleMoveAccuracyEvasionPhaseStep = BattleMoveAccuracyEvasionPhaseStep(battleFlowPhaseProcessor)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMoveHitResolutionStep::class)
     fun battleMoveHitResolutionStep(
         battleHitResolutionPolicy: BattleHitResolutionPolicy,
-<span class="nc" id="L207">    ): BattleMoveHitResolutionStep = BattleMoveHitResolutionStep(battleHitResolutionPolicy)</span>
+<span class="nc" id="L214">    ): BattleMoveHitResolutionStep = BattleMoveHitResolutionStep(battleHitResolutionPolicy)</span>
+
+    @Bean
+    @ConditionalOnMissingBean(BattleMoveCriticalHitPhaseStep::class)
+    fun battleMoveCriticalHitPhaseStep(
+        battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
+<span class="nc" id="L220">    ): BattleMoveCriticalHitPhaseStep = BattleMoveCriticalHitPhaseStep(battleFlowPhaseProcessor)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMovePowerDamagePhaseStep::class)
     fun battleMovePowerDamagePhaseStep(
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
-<span class="nc" id="L213">    ): BattleMovePowerDamagePhaseStep = BattleMovePowerDamagePhaseStep(battleFlowPhaseProcessor)</span>
+        battleTypeEffectivenessResolver: BattleTypeEffectivenessResolver,
+<span class="nc" id="L227">    ): BattleMovePowerDamagePhaseStep = BattleMovePowerDamagePhaseStep(battleFlowPhaseProcessor, battleTypeEffectivenessResolver)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMoveHitHooksPhaseStep::class)
     fun battleMoveHitHooksPhaseStep(
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
-<span class="nc" id="L219">    ): BattleMoveHitHooksPhaseStep = BattleMoveHitHooksPhaseStep(battleFlowPhaseProcessor)</span>
+<span class="nc" id="L233">    ): BattleMoveHitHooksPhaseStep = BattleMoveHitHooksPhaseStep(battleFlowPhaseProcessor)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMoveAfterMovePhaseStep::class)
     fun battleMoveAfterMovePhaseStep(
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
-<span class="nc" id="L225">    ): BattleMoveAfterMovePhaseStep = BattleMoveAfterMovePhaseStep(battleFlowPhaseProcessor)</span>
+<span class="nc" id="L239">    ): BattleMoveAfterMovePhaseStep = BattleMoveAfterMovePhaseStep(battleFlowPhaseProcessor)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleMoveResolutionPipeline::class)
     fun battleMoveResolutionPipeline(
         steps: List&lt;BattleMoveResolutionStep&gt;,
-<span class="nc" id="L231">    ): BattleMoveResolutionPipeline = DefaultBattleMoveResolutionPipeline(steps)</span>
+<span class="nc" id="L245">    ): BattleMoveResolutionPipeline = DefaultBattleMoveResolutionPipeline(steps)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleFlowEngine::class)
@@ -237,43 +251,43 @@ class BattleEngineConfiguration {
         battleFlowPhaseProcessor: BattleFlowPhaseProcessor,
         battleMoveResolutionPipeline: BattleMoveResolutionPipeline,
     ): BattleFlowEngine =
-<span class="nc" id="L240">        DefaultBattleFlowEngine(</span>
-<span class="nc" id="L241">            effectRepository = effectDefinitionRepository,</span>
-<span class="nc" id="L242">            phaseProcessor = battleFlowPhaseProcessor,</span>
-<span class="nc" id="L243">            moveResolutionPipeline = battleMoveResolutionPipeline,</span>
-<span class="nc" id="L244">        )</span>
+<span class="nc" id="L254">        DefaultBattleFlowEngine(</span>
+<span class="nc" id="L255">            effectRepository = effectDefinitionRepository,</span>
+<span class="nc" id="L256">            phaseProcessor = battleFlowPhaseProcessor,</span>
+<span class="nc" id="L257">            moveResolutionPipeline = battleMoveResolutionPipeline,</span>
+<span class="nc" id="L258">        )</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionActionSortingStrategy::class)
-<span class="nc" id="L248">    fun battleSessionActionSortingStrategy(): BattleSessionActionSortingStrategy = DefaultBattleSessionActionSortingStrategy()</span>
+<span class="nc" id="L262">    fun battleSessionActionSortingStrategy(): BattleSessionActionSortingStrategy = DefaultBattleSessionActionSortingStrategy()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionBattleLogProjector::class)
-<span class="nc" id="L252">    fun battleSessionBattleLogProjector(): BattleSessionBattleLogProjector = BattleSessionBattleLogProjector()</span>
+<span class="nc" id="L266">    fun battleSessionBattleLogProjector(): BattleSessionBattleLogProjector = BattleSessionBattleLogProjector()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionStructuredEventProjector::class)
-<span class="nc" id="L256">    fun battleSessionStructuredEventProjector(): BattleSessionStructuredEventProjector = BattleSessionStructuredEventProjector()</span>
+<span class="nc" id="L270">    fun battleSessionStructuredEventProjector(): BattleSessionStructuredEventProjector = BattleSessionStructuredEventProjector()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionResourceLedgerProjector::class)
-<span class="nc" id="L260">    fun battleSessionResourceLedgerProjector(): BattleSessionResourceLedgerProjector = BattleSessionResourceLedgerProjector()</span>
+<span class="nc" id="L274">    fun battleSessionResourceLedgerProjector(): BattleSessionResourceLedgerProjector = BattleSessionResourceLedgerProjector()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionEventPublisher::class)
     fun battleSessionEventPublisher(
         projectors: List&lt;BattleSessionProjector&gt;,
-<span class="nc" id="L266">    ): BattleSessionEventPublisher = DefaultBattleSessionEventPublisher(projectors)</span>
+<span class="nc" id="L280">    ): BattleSessionEventPublisher = DefaultBattleSessionEventPublisher(projectors)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTargetModeResolver::class)
     fun battleSessionTargetModeResolver(
         effectDefinitionRepository: EffectDefinitionRepository,
-<span class="nc" id="L272">    ): BattleSessionTargetModeResolver = DefaultBattleSessionTargetModeResolver(effectDefinitionRepository)</span>
+<span class="nc" id="L286">    ): BattleSessionTargetModeResolver = DefaultBattleSessionTargetModeResolver(effectDefinitionRepository)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionAvailableTargetResolver::class)
-<span class="nc" id="L276">    fun battleSessionAvailableTargetResolver(): BattleSessionAvailableTargetResolver = DefaultBattleSessionAvailableTargetResolver()</span>
+<span class="nc" id="L290">    fun battleSessionAvailableTargetResolver(): BattleSessionAvailableTargetResolver = DefaultBattleSessionAvailableTargetResolver()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTargetQueryService::class)
@@ -281,139 +295,139 @@ class BattleEngineConfiguration {
         battleSessionTargetModeResolver: BattleSessionTargetModeResolver,
         battleSessionAvailableTargetResolver: BattleSessionAvailableTargetResolver,
     ): BattleSessionTargetQueryService =
-<span class="nc" id="L284">        DefaultBattleSessionTargetQueryService(</span>
-<span class="nc" id="L285">            targetModeResolver = battleSessionTargetModeResolver,</span>
-<span class="nc" id="L286">            availableTargetResolver = battleSessionAvailableTargetResolver,</span>
-<span class="nc" id="L287">        )</span>
+<span class="nc" id="L298">        DefaultBattleSessionTargetQueryService(</span>
+<span class="nc" id="L299">            targetModeResolver = battleSessionTargetModeResolver,</span>
+<span class="nc" id="L300">            availableTargetResolver = battleSessionAvailableTargetResolver,</span>
+<span class="nc" id="L301">        )</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTurnReadySpecification::class)
-<span class="nc" id="L291">    fun battleSessionTurnReadySpecification(): BattleSessionTurnReadySpecification = DefaultBattleSessionTurnReadySpecification()</span>
+<span class="nc" id="L305">    fun battleSessionTurnReadySpecification(): BattleSessionTurnReadySpecification = DefaultBattleSessionTurnReadySpecification()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionUnitChoiceSpecification::class)
-<span class="nc" id="L295">    fun battleSessionUnitChoiceSpecification(): BattleSessionUnitChoiceSpecification = DefaultBattleSessionUnitChoiceSpecification()</span>
+<span class="nc" id="L309">    fun battleSessionUnitChoiceSpecification(): BattleSessionUnitChoiceSpecification = DefaultBattleSessionUnitChoiceSpecification()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionRunChoiceSpecification::class)
-<span class="nc" id="L299">    fun battleSessionRunChoiceSpecification(): BattleSessionRunChoiceSpecification = DefaultBattleSessionRunChoiceSpecification()</span>
+<span class="nc" id="L313">    fun battleSessionRunChoiceSpecification(): BattleSessionRunChoiceSpecification = DefaultBattleSessionRunChoiceSpecification()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTargetChoiceSpecification::class)
     fun battleSessionTargetChoiceSpecification(
         battleSessionTargetQueryService: BattleSessionTargetQueryService,
-<span class="nc" id="L305">    ): BattleSessionTargetChoiceSpecification = DefaultBattleSessionTargetChoiceSpecification(battleSessionTargetQueryService)</span>
+<span class="nc" id="L319">    ): BattleSessionTargetChoiceSpecification = DefaultBattleSessionTargetChoiceSpecification(battleSessionTargetQueryService)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionCaptureChoiceSpecification::class)
-<span class="nc" id="L309">    fun battleSessionCaptureChoiceSpecification(): BattleSessionCaptureChoiceSpecification = DefaultBattleSessionCaptureChoiceSpecification()</span>
+<span class="nc" id="L323">    fun battleSessionCaptureChoiceSpecification(): BattleSessionCaptureChoiceSpecification = DefaultBattleSessionCaptureChoiceSpecification()</span>
 
     @Bean
     @ConditionalOnMissingBean
-<span class="nc" id="L313">    fun battleSessionActionExecutionSupport(): BattleSessionActionExecutionSupport = BattleSessionActionExecutionSupport()</span>
+<span class="nc" id="L327">    fun battleSessionActionExecutionSupport(): BattleSessionActionExecutionSupport = BattleSessionActionExecutionSupport()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionCommandFactory::class)
-<span class="nc" id="L317">    fun battleSessionCommandFactory(): BattleSessionCommandFactory = DefaultBattleSessionCommandFactory()</span>
+<span class="nc" id="L331">    fun battleSessionCommandFactory(): BattleSessionCommandFactory = DefaultBattleSessionCommandFactory()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionMoveChoiceHandler::class)
     fun battleSessionMoveChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L323">    ): BattleSessionMoveChoiceHandler = BattleSessionMoveChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L337">    ): BattleSessionMoveChoiceHandler = BattleSessionMoveChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionSwitchChoiceHandler::class)
     fun battleSessionSwitchChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L329">    ): BattleSessionSwitchChoiceHandler = BattleSessionSwitchChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L343">    ): BattleSessionSwitchChoiceHandler = BattleSessionSwitchChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionItemChoiceHandler::class)
     fun battleSessionItemChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L335">    ): BattleSessionItemChoiceHandler = BattleSessionItemChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L349">    ): BattleSessionItemChoiceHandler = BattleSessionItemChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionCaptureChoiceHandler::class)
     fun battleSessionCaptureChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L341">    ): BattleSessionCaptureChoiceHandler = BattleSessionCaptureChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L355">    ): BattleSessionCaptureChoiceHandler = BattleSessionCaptureChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionRunChoiceHandler::class)
     fun battleSessionRunChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L347">    ): BattleSessionRunChoiceHandler = BattleSessionRunChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L361">    ): BattleSessionRunChoiceHandler = BattleSessionRunChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionWaitChoiceHandler::class)
     fun battleSessionWaitChoiceHandler(
         battleSessionCommandFactory: BattleSessionCommandFactory,
-<span class="nc" id="L353">    ): BattleSessionWaitChoiceHandler = BattleSessionWaitChoiceHandler(battleSessionCommandFactory)</span>
+<span class="nc" id="L367">    ): BattleSessionWaitChoiceHandler = BattleSessionWaitChoiceHandler(battleSessionCommandFactory)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionChoiceHandlerRegistry::class)
     fun battleSessionChoiceHandlerRegistry(
         battleSessionCommandFactory: BattleSessionCommandFactory,
         handlers: List&lt;BattleSessionChoiceHandler&gt;,
-<span class="nc" id="L360">    ): BattleSessionChoiceHandlerRegistry = InMemoryBattleSessionChoiceHandlerRegistry(handlers)</span>
+<span class="nc" id="L374">    ): BattleSessionChoiceHandlerRegistry = InMemoryBattleSessionChoiceHandlerRegistry(handlers)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionMoveActionHandler::class)
     fun battleSessionMoveActionHandler(
         battleSessionActionExecutionSupport: BattleSessionActionExecutionSupport,
-<span class="nc" id="L366">    ): BattleSessionMoveActionHandler = BattleSessionMoveActionHandler(battleSessionActionExecutionSupport)</span>
+<span class="nc" id="L380">    ): BattleSessionMoveActionHandler = BattleSessionMoveActionHandler(battleSessionActionExecutionSupport)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionSwitchActionHandler::class)
     fun battleSessionSwitchActionHandler(
         battleSessionActionExecutionSupport: BattleSessionActionExecutionSupport,
-<span class="nc" id="L372">    ): BattleSessionSwitchActionHandler = BattleSessionSwitchActionHandler(battleSessionActionExecutionSupport)</span>
+<span class="nc" id="L386">    ): BattleSessionSwitchActionHandler = BattleSessionSwitchActionHandler(battleSessionActionExecutionSupport)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionItemActionHandler::class)
     fun battleSessionItemActionHandler(
         battleSessionActionExecutionSupport: BattleSessionActionExecutionSupport,
-<span class="nc" id="L378">    ): BattleSessionItemActionHandler = BattleSessionItemActionHandler(battleSessionActionExecutionSupport)</span>
+<span class="nc" id="L392">    ): BattleSessionItemActionHandler = BattleSessionItemActionHandler(battleSessionActionExecutionSupport)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionCaptureActionHandler::class)
-<span class="nc" id="L382">    fun battleSessionCaptureActionHandler(): BattleSessionCaptureActionHandler = BattleSessionCaptureActionHandler()</span>
+<span class="nc" id="L396">    fun battleSessionCaptureActionHandler(): BattleSessionCaptureActionHandler = BattleSessionCaptureActionHandler()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionRunActionHandler::class)
     fun battleSessionRunActionHandler(
         battleSessionActionExecutionSupport: BattleSessionActionExecutionSupport,
-<span class="nc" id="L388">    ): BattleSessionRunActionHandler = BattleSessionRunActionHandler(battleSessionActionExecutionSupport)</span>
+<span class="nc" id="L402">    ): BattleSessionRunActionHandler = BattleSessionRunActionHandler(battleSessionActionExecutionSupport)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionWaitActionHandler::class)
-<span class="nc" id="L392">    fun battleSessionWaitActionHandler(): BattleSessionWaitActionHandler = BattleSessionWaitActionHandler()</span>
+<span class="nc" id="L406">    fun battleSessionWaitActionHandler(): BattleSessionWaitActionHandler = BattleSessionWaitActionHandler()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionActionHandlerRegistry::class)
     fun battleSessionActionHandlerRegistry(
         handlers: List&lt;BattleSessionActionHandler&gt;,
-<span class="nc" id="L398">    ): BattleSessionActionHandlerRegistry = InMemoryBattleSessionActionHandlerRegistry(handlers)</span>
+<span class="nc" id="L412">    ): BattleSessionActionHandlerRegistry = InMemoryBattleSessionActionHandlerRegistry(handlers)</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTurnValidationStep::class)
-<span class="nc" id="L402">    fun battleSessionTurnValidationStep(): BattleSessionTurnValidationStep = BattleSessionTurnValidationStep()</span>
+<span class="nc" id="L416">    fun battleSessionTurnValidationStep(): BattleSessionTurnValidationStep = BattleSessionTurnValidationStep()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionQueuedActionExecutionStep::class)
-<span class="nc" id="L406">    fun battleSessionQueuedActionExecutionStep(): BattleSessionQueuedActionExecutionStep = BattleSessionQueuedActionExecutionStep()</span>
+<span class="nc" id="L420">    fun battleSessionQueuedActionExecutionStep(): BattleSessionQueuedActionExecutionStep = BattleSessionQueuedActionExecutionStep()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTurnAdvanceStep::class)
-<span class="nc" id="L410">    fun battleSessionTurnAdvanceStep(): BattleSessionTurnAdvanceStep = BattleSessionTurnAdvanceStep()</span>
+<span class="nc" id="L424">    fun battleSessionTurnAdvanceStep(): BattleSessionTurnAdvanceStep = BattleSessionTurnAdvanceStep()</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionTurnPipeline::class)
     fun battleSessionTurnPipeline(
         steps: List&lt;BattleSessionTurnStep&gt;,
-<span class="nc" id="L416">    ): BattleSessionTurnPipeline = DefaultBattleSessionTurnPipeline(steps)</span>
+<span class="nc" id="L430">    ): BattleSessionTurnPipeline = DefaultBattleSessionTurnPipeline(steps)</span>
 
     @Bean
     @ConditionalOnMissingBean
@@ -437,36 +451,36 @@ class BattleEngineConfiguration {
         battleSessionEventPublisher: BattleSessionEventPublisher,
         battleSessionCommandFactory: BattleSessionCommandFactory,
     ): BattleSessionFactory =
-<span class="nc" id="L440">        DefaultBattleSessionFactory(</span>
-<span class="nc" id="L441">            effectRepository = effectDefinitionRepository,</span>
-<span class="nc" id="L442">            battleFlowEngine = battleFlowEngine,</span>
-<span class="nc" id="L443">            captureActionResolver = captureActionResolver,</span>
-<span class="nc" id="L444">            mutationApplier = mutationApplier,</span>
-<span class="nc" id="L445">            replacementStrategy = replacementStrategy,</span>
-<span class="nc" id="L446">            actionExecutionSupport = battleSessionActionExecutionSupport,</span>
-<span class="nc" id="L447">            choiceHandlerRegistry = battleSessionChoiceHandlerRegistry,</span>
-<span class="nc" id="L448">            actionHandlerRegistry = battleSessionActionHandlerRegistry,</span>
-<span class="nc" id="L449">            turnPipeline = battleSessionTurnPipeline,</span>
-<span class="nc" id="L450">            turnReadySpecification = battleSessionTurnReadySpecification,</span>
-<span class="nc" id="L451">            unitChoiceSpecification = battleSessionUnitChoiceSpecification,</span>
-<span class="nc" id="L452">            runChoiceSpecification = battleSessionRunChoiceSpecification,</span>
-<span class="nc" id="L453">            targetChoiceSpecification = battleSessionTargetChoiceSpecification,</span>
-<span class="nc" id="L454">            captureChoiceSpecification = battleSessionCaptureChoiceSpecification,</span>
-<span class="nc" id="L455">            targetQueryService = battleSessionTargetQueryService,</span>
-<span class="nc" id="L456">            actionSortingStrategy = battleSessionActionSortingStrategy,</span>
-<span class="nc" id="L457">            eventPublisher = battleSessionEventPublisher,</span>
-<span class="nc" id="L458">            commandFactory = battleSessionCommandFactory,</span>
-<span class="nc" id="L459">        )</span>
+<span class="nc" id="L454">        DefaultBattleSessionFactory(</span>
+<span class="nc" id="L455">            effectRepository = effectDefinitionRepository,</span>
+<span class="nc" id="L456">            battleFlowEngine = battleFlowEngine,</span>
+<span class="nc" id="L457">            captureActionResolver = captureActionResolver,</span>
+<span class="nc" id="L458">            mutationApplier = mutationApplier,</span>
+<span class="nc" id="L459">            replacementStrategy = replacementStrategy,</span>
+<span class="nc" id="L460">            actionExecutionSupport = battleSessionActionExecutionSupport,</span>
+<span class="nc" id="L461">            choiceHandlerRegistry = battleSessionChoiceHandlerRegistry,</span>
+<span class="nc" id="L462">            actionHandlerRegistry = battleSessionActionHandlerRegistry,</span>
+<span class="nc" id="L463">            turnPipeline = battleSessionTurnPipeline,</span>
+<span class="nc" id="L464">            turnReadySpecification = battleSessionTurnReadySpecification,</span>
+<span class="nc" id="L465">            unitChoiceSpecification = battleSessionUnitChoiceSpecification,</span>
+<span class="nc" id="L466">            runChoiceSpecification = battleSessionRunChoiceSpecification,</span>
+<span class="nc" id="L467">            targetChoiceSpecification = battleSessionTargetChoiceSpecification,</span>
+<span class="nc" id="L468">            captureChoiceSpecification = battleSessionCaptureChoiceSpecification,</span>
+<span class="nc" id="L469">            targetQueryService = battleSessionTargetQueryService,</span>
+<span class="nc" id="L470">            actionSortingStrategy = battleSessionActionSortingStrategy,</span>
+<span class="nc" id="L471">            eventPublisher = battleSessionEventPublisher,</span>
+<span class="nc" id="L472">            commandFactory = battleSessionCommandFactory,</span>
+<span class="nc" id="L473">        )</span>
 
     @Bean
     @ConditionalOnMissingBean(BattleSessionStore::class)
-<span class="nc" id="L463">    fun inMemoryBattleSessionStore(): BattleSessionStore = InMemoryBattleSessionStore()</span>
+<span class="nc" id="L477">    fun inMemoryBattleSessionStore(): BattleSessionStore = InMemoryBattleSessionStore()</span>
 
     @Bean
     @ConditionalOnMissingBean
     fun battleSessionService(
         sessionFactory: BattleSessionFactory,
         battleSessionStore: BattleSessionStore,
-<span class="nc" id="L470">    ): BattleSessionService = InMemoryBattleSessionService(sessionFactory, battleSessionStore)</span>
+<span class="nc" id="L484">    ): BattleSessionService = InMemoryBattleSessionService(sessionFactory, battleSessionStore)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

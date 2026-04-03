@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionExecutionSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionActionExecutionSupport.kt</span></div><h1>BattleSessionActionExecutionSupport.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
 
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 import io.github.lishangbu.avalon.game.battle.engine.mutation.DamageMutation
 import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplicationContext
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.MoveResolutionResult
 import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 /**
  * session action 执行辅助组件。
@@ -13,7 +18,7 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
  * - 承载 move/item 目标展开、直接伤害写回、switch/run 状态更新等共用执行逻辑。
  * - 让具体 action handler 保持轻量，并可作为无状态 Spring Bean 复用。
  */
-<span class="fc" id="L16">class BattleSessionActionExecutionSupport {</span>
+<span class="fc" id="L21">class BattleSessionActionExecutionSupport {</span>
     /**
      * 执行一个已经具备目标信息的 effect。
      *
@@ -39,57 +44,59 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
         damage: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): MoveResolutionResult {
-<span class="fc" id="L42">        val resolvedAttributes = completeRandomAttributes(session, accuracy, attributes)</span>
-<span class="fc" id="L43">        val targetQuery = session.queryTargets(effectId, actorUnitId)</span>
-<span class="fc" id="L44">        val resolvedTargetIds =</span>
-<span class="fc" id="L45">            when {</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">                targetQuery.requiresExplicitTarget -&gt; listOf(targetUnitId)</span>
-<span class="pc bpc" id="L47" title="1 of 2 branches missed.">                targetQuery.availableTargetUnitIds.isEmpty() -&gt; listOf(targetUnitId)</span>
-<span class="fc" id="L48">                else -&gt; targetQuery.availableTargetUnitIds</span>
+<span class="fc" id="L47">        val resolvedAttributes = completeRandomAttributes(session, accuracy, attributes)</span>
+<span class="fc" id="L48">        val targetQuery = session.queryTargets(effectId, actorUnitId)</span>
+<span class="fc" id="L49">        val resolvedTargetIds =</span>
+<span class="fc" id="L50">            when {</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                targetQuery.requiresExplicitTarget -&gt; listOf(targetUnitId)</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                targetQuery.availableTargetUnitIds.isEmpty() -&gt; listOf(targetUnitId)</span>
+<span class="fc" id="L53">                else -&gt; targetQuery.availableTargetUnitIds</span>
             }
 
-<span class="fc" id="L51">        var aggregatedResult: MoveResolutionResult? = null</span>
+<span class="fc" id="L56">        var aggregatedResult: MoveResolutionResult? = null</span>
 
-<span class="fc" id="L53">        resolvedTargetIds.forEach { resolvedTargetId -&gt;</span>
-<span class="fc" id="L54">            val result =</span>
-<span class="fc" id="L55">                session.battleFlowEngine.resolveMoveAction(</span>
-<span class="fc" id="L56">                    snapshot = session.currentSnapshot,</span>
-<span class="fc" id="L57">                    moveId = effectId,</span>
-<span class="fc" id="L58">                    attackerId = actorUnitId,</span>
-<span class="fc" id="L59">                    targetId = resolvedTargetId,</span>
-<span class="fc" id="L60">                    accuracy = accuracy,</span>
-<span class="fc" id="L61">                    evasion = evasion,</span>
-<span class="fc" id="L62">                    basePower = basePower,</span>
-<span class="fc" id="L63">                    damage = damage,</span>
-<span class="fc" id="L64">                    attributes = resolvedAttributes,</span>
+<span class="fc" id="L58">        resolvedTargetIds.forEach { resolvedTargetId -&gt;</span>
+<span class="fc" id="L59">            val result =</span>
+<span class="fc" id="L60">                session.battleFlowEngine.resolveMoveAction(</span>
+<span class="fc" id="L61">                    snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L62">                    moveId = effectId,</span>
+<span class="fc" id="L63">                    attackerId = actorUnitId,</span>
+<span class="fc" id="L64">                    targetId = resolvedTargetId,</span>
+<span class="fc" id="L65">                    accuracy = accuracy,</span>
+<span class="fc" id="L66">                    evasion = evasion,</span>
+<span class="fc" id="L67">                    basePower = basePower,</span>
+<span class="fc" id="L68">                    damage = damage,</span>
+<span class="fc" id="L69">                    attributes = resolvedAttributes,</span>
                 )
-<span class="fc" id="L66">            session.currentSnapshot = result.snapshot</span>
-<span class="pc bpc" id="L67" title="1 of 4 branches missed.">            if (result.hitSuccessful &amp;&amp; result.damage &gt; 0) {</span>
-<span class="fc" id="L68">                session.currentSnapshot = applyDirectDamage(session, resolvedTargetId, result.damage)</span>
+<span class="fc" id="L71">            session.currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">            if (result.hitSuccessful &amp;&amp; result.damage &gt; 0) {</span>
+<span class="fc" id="L73">                session.currentSnapshot = applyDirectDamage(session, resolvedTargetId, result.damage)</span>
             }
-<span class="fc" id="L70">            session.currentSnapshot = session.resolveFaintAndReplacement()</span>
-<span class="fc" id="L71">            val finalResult = result.copy(snapshot = session.currentSnapshot)</span>
-<span class="fc" id="L72">            recordMoveExecution(session, effectId, actorUnitId, resolvedTargetId, finalResult)</span>
-<span class="fc" id="L73">            val currentAggregated = aggregatedResult</span>
-<span class="fc" id="L74">            aggregatedResult =</span>
-<span class="fc bfc" id="L75" title="All 2 branches covered.">                if (currentAggregated == null) {</span>
-<span class="fc" id="L76">                    finalResult</span>
+<span class="fc" id="L75">            session.currentSnapshot = session.resolveFaintAndReplacement()</span>
+<span class="fc" id="L76">            val finalResult = result.copy(snapshot = session.currentSnapshot)</span>
+<span class="fc" id="L77">            recordMoveExecution(session, effectId, actorUnitId, resolvedTargetId, finalResult)</span>
+<span class="fc" id="L78">            val currentAggregated = aggregatedResult</span>
+<span class="fc" id="L79">            aggregatedResult =</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">                if (currentAggregated == null) {</span>
+<span class="fc" id="L81">                    finalResult</span>
                 } else {
-<span class="fc" id="L78">                    currentAggregated.copy(</span>
-<span class="fc" id="L79">                        snapshot = session.currentSnapshot,</span>
-<span class="pc bpc" id="L80" title="3 of 4 branches missed.">                        hitSuccessful = currentAggregated.hitSuccessful || finalResult.hitSuccessful,</span>
-<span class="fc" id="L81">                        accuracy = finalResult.accuracy,</span>
-<span class="fc" id="L82">                        evasion = finalResult.evasion,</span>
-<span class="fc" id="L83">                        basePower = finalResult.basePower,</span>
-<span class="fc" id="L84">                        damage = finalResult.damage,</span>
+<span class="fc" id="L83">                    currentAggregated.copy(</span>
+<span class="fc" id="L84">                        snapshot = session.currentSnapshot,</span>
+<span class="pc bpc" id="L85" title="3 of 4 branches missed.">                        hitSuccessful = currentAggregated.hitSuccessful || finalResult.hitSuccessful,</span>
+<span class="pc bpc" id="L86" title="2 of 4 branches missed.">                        criticalHit = currentAggregated.criticalHit || finalResult.criticalHit,</span>
+<span class="fc" id="L87">                        accuracy = finalResult.accuracy,</span>
+<span class="fc" id="L88">                        evasion = finalResult.evasion,</span>
+<span class="fc" id="L89">                        basePower = finalResult.basePower,</span>
+<span class="fc" id="L90">                        damageRoll = finalResult.damageRoll,</span>
+<span class="fc" id="L91">                        damage = finalResult.damage,</span>
                     )
                 }
-<span class="fc bfc" id="L87" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
-<span class="pc bpc" id="L88" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
             }
-<span class="fc" id="L90">        }</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
-<span class="nc" id="L92">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
+<span class="fc" id="L97">        }</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
+<span class="nc" id="L99">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
         }
     }
 
@@ -98,14 +105,14 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
         accuracy: Int?,
         attributes: Map&lt;String, Any?&gt;,
     ): Map&lt;String, Any?&gt; {
-<span class="fc" id="L101">        var resolvedAttributes = attributes</span>
-<span class="pc bpc" id="L102" title="1 of 4 branches missed.">        if (accuracy != null &amp;&amp; resolvedAttributes[&quot;accuracyRoll&quot;] == null) {</span>
-<span class="nc" id="L103">            resolvedAttributes += &quot;accuracyRoll&quot; to session.nextPercentageRoll()</span>
+<span class="fc" id="L108">        var resolvedAttributes = attributes</span>
+<span class="pc bpc" id="L109" title="1 of 4 branches missed.">        if (accuracy != null &amp;&amp; resolvedAttributes[&quot;accuracyRoll&quot;] == null) {</span>
+<span class="nc" id="L110">            resolvedAttributes += &quot;accuracyRoll&quot; to session.nextPercentageRoll()</span>
         }
-<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (resolvedAttributes[&quot;chanceRoll&quot;] == null) {</span>
-<span class="fc" id="L106">            resolvedAttributes += &quot;chanceRoll&quot; to session.nextPercentageRoll()</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (resolvedAttributes[&quot;chanceRoll&quot;] == null) {</span>
+<span class="fc" id="L113">            resolvedAttributes += &quot;chanceRoll&quot; to session.nextPercentageRoll()</span>
         }
-<span class="fc" id="L108">        return resolvedAttributes</span>
+<span class="fc" id="L115">        return resolvedAttributes</span>
     }
 
     /**
@@ -116,28 +123,28 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
         targetId: String,
         damage: Int,
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L119">        val applyResult =</span>
-<span class="fc" id="L120">            session.mutationApplier.apply(</span>
+<span class="fc" id="L126">        val applyResult =</span>
+<span class="fc" id="L127">            session.mutationApplier.apply(</span>
                 mutations =
-<span class="fc" id="L122">                    listOf(</span>
-<span class="fc" id="L123">                        DamageMutation(</span>
-<span class="fc" id="L124">                            target = StandardTargetSelectorIds.TARGET,</span>
-<span class="fc" id="L125">                            mode = null,</span>
-<span class="fc" id="L126">                            value = damage.toDouble(),</span>
+<span class="fc" id="L129">                    listOf(</span>
+<span class="fc" id="L130">                        DamageMutation(</span>
+<span class="fc" id="L131">                            target = StandardTargetSelectorIds.TARGET,</span>
+<span class="fc" id="L132">                            mode = null,</span>
+<span class="fc" id="L133">                            value = damage.toDouble(),</span>
                         ),
                     ),
                 context =
-<span class="fc" id="L130">                    MutationApplicationContext(</span>
-<span class="fc" id="L131">                        battle = session.currentSnapshot.battle,</span>
-<span class="fc" id="L132">                        field = session.currentSnapshot.field,</span>
-<span class="fc" id="L133">                        units = session.currentSnapshot.units,</span>
-<span class="fc" id="L134">                        targetId = targetId,</span>
+<span class="fc" id="L137">                    MutationApplicationContext(</span>
+<span class="fc" id="L138">                        battle = session.currentSnapshot.battle,</span>
+<span class="fc" id="L139">                        field = session.currentSnapshot.field,</span>
+<span class="fc" id="L140">                        units = session.currentSnapshot.units,</span>
+<span class="fc" id="L141">                        targetId = targetId,</span>
                     ),
             )
-<span class="fc" id="L137">        return session.currentSnapshot.copy(</span>
-<span class="fc" id="L138">            battle = applyResult.battle,</span>
-<span class="fc" id="L139">            field = applyResult.field,</span>
-<span class="fc" id="L140">            units = applyResult.units,</span>
+<span class="fc" id="L144">        return session.currentSnapshot.copy(</span>
+<span class="fc" id="L145">            battle = applyResult.battle,</span>
+<span class="fc" id="L146">            field = applyResult.field,</span>
+<span class="fc" id="L147">            units = applyResult.units,</span>
         )
     }
 
@@ -151,21 +158,26 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
         targetId: String,
         result: MoveResolutionResult,
     ) {
-<span class="fc" id="L154">        session.recordLog(</span>
-<span class="fc" id="L155">            &quot;Executed move $moveId from $attackerId to $targetId. &quot; +</span>
-<span class="fc" id="L156">                &quot;hit=${result.hitSuccessful}, basePower=${result.basePower}, damage=${result.damage}.&quot;,</span>
+<span class="fc" id="L161">        session.recordLog(</span>
+<span class="fc" id="L162">            &quot;Executed move $moveId from $attackerId to $targetId. &quot; +</span>
+<span class="fc" id="L163">                &quot;hit=${result.hitSuccessful}, critical=${result.criticalHit}, &quot; +</span>
+<span class="fc" id="L164">                &quot;basePower=${result.basePower}, &quot; +</span>
+<span class="fc bfc" id="L165" title="All 4 branches covered.">                (result.damageRoll?.let { &quot;damageRoll=$it, &quot; } ?: &quot;&quot;) +</span>
+<span class="fc" id="L166">                &quot;damage=${result.damage}.&quot;,</span>
         )
-<span class="fc" id="L158">        session.recordEvent(</span>
-<span class="fc" id="L159">            BattleSessionMoveExecutedPayload(</span>
-<span class="fc" id="L160">                moveId = moveId,</span>
-<span class="fc" id="L161">                attackerId = attackerId,</span>
-<span class="fc" id="L162">                targetId = targetId,</span>
-<span class="fc" id="L163">                hitSuccessful = result.hitSuccessful,</span>
-<span class="fc" id="L164">                basePower = result.basePower,</span>
-<span class="fc" id="L165">                damage = result.damage,</span>
+<span class="fc" id="L168">        session.recordEvent(</span>
+<span class="fc" id="L169">            BattleSessionMoveExecutedPayload(</span>
+<span class="fc" id="L170">                moveId = moveId,</span>
+<span class="fc" id="L171">                attackerId = attackerId,</span>
+<span class="fc" id="L172">                targetId = targetId,</span>
+<span class="fc" id="L173">                hitSuccessful = result.hitSuccessful,</span>
+<span class="fc" id="L174">                criticalHit = result.criticalHit,</span>
+<span class="fc" id="L175">                basePower = result.basePower,</span>
+<span class="fc" id="L176">                damageRoll = result.damageRoll,</span>
+<span class="fc" id="L177">                damage = result.damage,</span>
             ),
         )
-<span class="fc" id="L168">    }</span>
+<span class="fc" id="L180">    }</span>
 
     /**
      * 执行 switch 动作并更新当前 active 列表。
@@ -174,62 +186,266 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelector
         session: BattleSession,
         action: BattleSessionSwitchAction,
     ): BattleRuntimeSnapshot {
-<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[action.sideId]) { &quot;Side '${action.sideId}' was not found.&quot; }</span>
-<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        require(action.outgoingUnitId in side.activeUnitIds) {</span>
-<span class="nc" id="L179">            &quot;Outgoing unit '${action.outgoingUnitId}' is not active on side '${action.sideId}'.&quot;</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[action.sideId]) { &quot;Side '${action.sideId}' was not found.&quot; }</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        require(action.outgoingUnitId in side.activeUnitIds) {</span>
+<span class="nc" id="L191">            &quot;Outgoing unit '${action.outgoingUnitId}' is not active on side '${action.sideId}'.&quot;</span>
         }
-<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        require(action.incomingUnitId in side.unitIds) {</span>
-<span class="nc" id="L182">            &quot;Incoming unit '${action.incomingUnitId}' is not registered on side '${action.sideId}'.&quot;</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        require(action.incomingUnitId in side.unitIds) {</span>
+<span class="nc" id="L194">            &quot;Incoming unit '${action.incomingUnitId}' is not registered on side '${action.sideId}'.&quot;</span>
         }
-<span class="pc bpc" id="L184" title="3 of 6 branches missed.">        require((session.currentSnapshot.units[action.incomingUnitId]?.currentHp ?: 0) &gt; 0) {</span>
-<span class="nc" id="L185">            &quot;Incoming unit '${action.incomingUnitId}' is not able to battle.&quot;</span>
+<span class="pc bpc" id="L196" title="3 of 6 branches missed.">        require((session.currentSnapshot.units[action.incomingUnitId]?.currentHp ?: 0) &gt; 0) {</span>
+<span class="nc" id="L197">            &quot;Incoming unit '${action.incomingUnitId}' is not able to battle.&quot;</span>
         }
-<span class="fc" id="L187">        val nextActiveIds =</span>
-<span class="fc" id="L188">            side.activeUnitIds.map { unitId -&gt;</span>
-<span class="pc bpc" id="L189" title="1 of 2 branches missed.">                if (unitId == action.outgoingUnitId) action.incomingUnitId else unitId</span>
+<span class="fc" id="L199">        val nextActiveIds =</span>
+<span class="fc" id="L200">            side.activeUnitIds.map { unitId -&gt;</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">                if (unitId == action.outgoingUnitId) action.incomingUnitId else unitId</span>
             }
-<span class="fc" id="L191">        session.currentSnapshot =</span>
-<span class="fc" id="L192">            session.currentSnapshot.copy(</span>
-<span class="fc" id="L193">                sides = session.currentSnapshot.sides + (action.sideId to side.copy(activeUnitIds = nextActiveIds)),</span>
+<span class="fc" id="L203">        session.currentSnapshot =</span>
+<span class="fc" id="L204">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L205">                sides = session.currentSnapshot.sides + (action.sideId to side.copy(activeUnitIds = nextActiveIds)),</span>
             )
-<span class="fc" id="L195">        session.recordLog(&quot;Executed switch for side ${action.sideId}: ${action.outgoingUnitId} -&gt; ${action.incomingUnitId}.&quot;)</span>
-<span class="fc" id="L196">        session.recordEvent(</span>
-<span class="fc" id="L197">            BattleSessionSwitchExecutedPayload(</span>
-<span class="fc" id="L198">                sideId = action.sideId,</span>
-<span class="fc" id="L199">                outgoingUnitId = action.outgoingUnitId,</span>
-<span class="fc" id="L200">                incomingUnitId = action.incomingUnitId,</span>
+<span class="fc" id="L207">        session.recordLog(&quot;Executed switch for side ${action.sideId}: ${action.outgoingUnitId} -&gt; ${action.incomingUnitId}.&quot;)</span>
+<span class="fc" id="L208">        session.recordEvent(</span>
+<span class="fc" id="L209">            BattleSessionSwitchExecutedPayload(</span>
+<span class="fc" id="L210">                sideId = action.sideId,</span>
+<span class="fc" id="L211">                outgoingUnitId = action.outgoingUnitId,</span>
+<span class="fc" id="L212">                incomingUnitId = action.incomingUnitId,</span>
             ),
         )
-<span class="fc" id="L203">        return session.currentSnapshot</span>
+<span class="fc" id="L215">        return session.currentSnapshot</span>
     }
 
     /**
-     * 执行逃跑动作并立即结束 battle。
+     * 执行逃跑动作。
      */
     fun applyRunAction(
         session: BattleSession,
         action: BattleSessionRunAction,
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L213">        val survivingOpponent =</span>
-<span class="fc" id="L214">            session.currentSnapshot.sides.keys</span>
-<span class="fc bfc" id="L215" title="All 2 branches covered.">                .firstOrNull { sideId -&gt; sideId != action.sideId }</span>
-<span class="fc" id="L216">        session.currentSnapshot =</span>
-<span class="fc" id="L217">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L225">        val resolution = resolveRunAttempt(session, action)</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        if (!resolution.success) {</span>
+<span class="pc bpc" id="L227" title="3 of 4 branches missed.">            val failedAttempts = resolution.failedAttempts ?: session.currentSnapshot.battle.failedRunAttempts[action.sideId] ?: 0</span>
+<span class="fc" id="L228">            session.currentSnapshot =</span>
+<span class="fc" id="L229">                session.currentSnapshot.copy(</span>
+                    battle =
+<span class="fc" id="L231">                        session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L232">                            failedRunAttempts = session.currentSnapshot.battle.failedRunAttempts + (action.sideId to failedAttempts),</span>
+                        ),
+                )
+<span class="fc" id="L235">            session.recordLog(</span>
+<span class="fc" id="L236">                &quot;Run failed for side ${action.sideId}. &quot; +</span>
+<span class="fc" id="L237">                    &quot;reason=${resolution.reason} runner=${resolution.runnerUnitId} &quot; +</span>
+<span class="fc" id="L238">                    &quot;failedAttempts=$failedAttempts&quot; +</span>
+<span class="pc bpc" id="L239" title="2 of 4 branches missed.">                    (resolution.escapeValue?.let { &quot; escapeValue=$it&quot; } ?: &quot;&quot;) +</span>
+<span class="pc bpc" id="L240" title="2 of 4 branches missed.">                    (resolution.roll?.let { &quot; roll=$it&quot; } ?: &quot;&quot;) +</span>
+                    &quot;.&quot;,
+            )
+<span class="fc" id="L243">            session.recordEvent(</span>
+<span class="fc" id="L244">                BattleSessionRunFailedPayload(</span>
+<span class="fc" id="L245">                    sideId = action.sideId,</span>
+<span class="fc" id="L246">                    runnerUnitId = resolution.runnerUnitId,</span>
+<span class="fc" id="L247">                    reason = resolution.reason,</span>
+<span class="fc" id="L248">                    failedAttempts = failedAttempts,</span>
+<span class="fc" id="L249">                    escapeValue = resolution.escapeValue,</span>
+<span class="fc" id="L250">                    roll = resolution.roll,</span>
+                ),
+            )
+<span class="fc" id="L253">            return session.currentSnapshot</span>
+        }
+
+<span class="fc" id="L256">        val survivingOpponent =</span>
+<span class="fc" id="L257">            session.currentSnapshot.sides.keys</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                .firstOrNull { sideId -&gt; sideId != action.sideId }</span>
+<span class="fc" id="L259">        session.currentSnapshot =</span>
+<span class="fc" id="L260">            session.currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L219">                    session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L220">                        ended = true,</span>
-<span class="fc" id="L221">                        winner = survivingOpponent,</span>
+<span class="fc" id="L262">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L263">                        ended = true,</span>
+<span class="fc" id="L264">                        winner = survivingOpponent,</span>
+<span class="fc" id="L265">                        endedReason = &quot;run&quot;,</span>
                     ),
             )
-<span class="fc" id="L224">        session.recordLog(&quot;Executed run action for side ${action.sideId}. Winner: $survivingOpponent.&quot;)</span>
-<span class="fc" id="L225">        session.recordEvent(</span>
-<span class="fc" id="L226">            BattleSessionBattleEndedPayload(</span>
-<span class="fc" id="L227">                winner = survivingOpponent,</span>
-<span class="fc" id="L228">                actionType = BattleSessionActionEventKind.RUN,</span>
-<span class="fc" id="L229">                runner = action.sideId,</span>
+<span class="fc" id="L268">        session.recordLog(</span>
+<span class="fc" id="L269">            &quot;Executed run action for side ${action.sideId}. &quot; +</span>
+<span class="fc" id="L270">                &quot;runner=${resolution.runnerUnitId} reason=${resolution.reason}. Winner: $survivingOpponent.&quot;,</span>
+        )
+<span class="fc" id="L272">        session.recordEvent(</span>
+<span class="fc" id="L273">            BattleSessionBattleEndedPayload(</span>
+<span class="fc" id="L274">                winner = survivingOpponent,</span>
+<span class="fc" id="L275">                actionType = BattleSessionActionEventKind.RUN,</span>
+<span class="fc" id="L276">                runner = action.sideId,</span>
             ),
         )
-<span class="fc" id="L232">        return session.currentSnapshot</span>
+<span class="fc" id="L279">        return session.currentSnapshot</span>
+    }
+
+    private fun resolveRunAttempt(
+        session: BattleSession,
+        action: BattleSessionRunAction,
+    ): RunResolution {
+<span class="fc" id="L286">        val battle = session.currentSnapshot.battle</span>
+<span class="pc bpc" id="L287" title="1 of 2 branches missed.">        if (battle.battleKind != BattleType.WILD) {</span>
+<span class="nc" id="L288">            return RunResolution(success = false, reason = &quot;run-not-allowed&quot;)</span>
+        }
+<span class="fc" id="L290">        val side =</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">            session.currentSnapshot.sides[action.sideId]</span>
+<span class="nc" id="L292">                ?: return RunResolution(success = false, reason = &quot;side-not-found&quot;)</span>
+<span class="fc" id="L293">        val opponents =</span>
+<span class="fc" id="L294">            session.currentSnapshot.sides.values</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">                .filter { other -&gt; other.id != action.sideId }</span>
+<span class="fc" id="L296">        val runner = resolveRunnerUnit(session, side)</span>
+<span class="pc bpc" id="L297" title="1 of 2 branches missed.">        if (runner == null) {</span>
+<span class="nc" id="L298">            return RunResolution(success = false, reason = &quot;runner-not-found&quot;)</span>
+        }
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (guaranteedRunSuccess(runner)) {</span>
+<span class="fc" id="L301">            return RunResolution(</span>
+<span class="fc" id="L302">                success = true,</span>
+<span class="fc" id="L303">                runnerUnitId = runner.id,</span>
+<span class="fc" id="L304">                reason = &quot;guaranteed&quot;,</span>
+            )
+        }
+<span class="fc" id="L307">        blockedRunReason(runner, opponents, session)</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">            ?.let { reason -&gt;</span>
+<span class="fc" id="L309">                return RunResolution(</span>
+<span class="fc" id="L310">                    success = false,</span>
+<span class="fc" id="L311">                    runnerUnitId = runner.id,</span>
+<span class="fc" id="L312">                    reason = reason,</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">                    failedAttempts = (battle.failedRunAttempts[action.sideId] ?: 0) + 1,</span>
+                )
+            }
+
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">        val failedAttempts = (battle.failedRunAttempts[action.sideId] ?: 0) + 1</span>
+<span class="fc" id="L318">        val runnerSpeed = effectiveSpeed(runner).coerceAtLeast(1)</span>
+<span class="fc" id="L319">        val opponentSpeed =</span>
+<span class="fc" id="L320">            opponents</span>
+<span class="fc" id="L321">                .flatMap(SideState::activeUnitIds)</span>
+<span class="fc" id="L322">                .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="pc bpc" id="L323" title="4 of 6 branches missed.">                .maxOfOrNull(::effectiveSpeed)</span>
+<span class="pc bpc" id="L324" title="1 of 2 branches missed.">                ?.coerceAtLeast(1)</span>
+<span class="nc" id="L325">                ?: 1</span>
+        // The wiki formula scales the foe speed by 1/4 and keeps the denominator in 8-bit range.
+<span class="fc" id="L327">        val scaledOpponentSpeed = ((opponentSpeed / 4) % 256).coerceAtLeast(1)</span>
+<span class="fc" id="L328">        val escapeValue = floor((runnerSpeed * 32.0) / scaledOpponentSpeed.toDouble()).toInt() + (30 * failedAttempts)</span>
+<span class="pc bpc" id="L329" title="1 of 2 branches missed.">        if (escapeValue &gt; 255) {</span>
+<span class="fc" id="L330">            return RunResolution(</span>
+<span class="fc" id="L331">                success = true,</span>
+<span class="fc" id="L332">                runnerUnitId = runner.id,</span>
+<span class="fc" id="L333">                reason = &quot;formula&quot;,</span>
+<span class="fc" id="L334">                failedAttempts = failedAttempts,</span>
+<span class="fc" id="L335">                escapeValue = escapeValue,</span>
+            )
+        }
+<span class="nc" id="L338">        val roll = session.nextRandomInt(256)</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        return if (roll &lt; escapeValue) {</span>
+<span class="nc" id="L340">            RunResolution(</span>
+<span class="nc" id="L341">                success = true,</span>
+<span class="nc" id="L342">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L343">                reason = &quot;formula&quot;,</span>
+<span class="nc" id="L344">                failedAttempts = failedAttempts,</span>
+<span class="nc" id="L345">                escapeValue = escapeValue,</span>
+<span class="nc" id="L346">                roll = roll,</span>
+            )
+        } else {
+<span class="nc" id="L349">            RunResolution(</span>
+<span class="nc" id="L350">                success = false,</span>
+<span class="nc" id="L351">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L352">                reason = &quot;formula&quot;,</span>
+<span class="nc" id="L353">                failedAttempts = failedAttempts,</span>
+<span class="nc" id="L354">                escapeValue = escapeValue,</span>
+<span class="nc" id="L355">                roll = roll,</span>
+            )
+        }
+    }
+
+    private fun resolveRunnerUnit(
+        session: BattleSession,
+        side: SideState,
+    ): UnitState? =
+<span class="fc" id="L364">        side.activeUnitIds</span>
+<span class="fc" id="L365">            .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="pc" id="L366">            .maxByOrNull(::effectiveSpeed)</span>
+
+    private fun guaranteedRunSuccess(unit: UnitState): Boolean =
+<span class="pc bpc" id="L369" title="1 of 2 branches missed.">        &quot;ghost&quot; in unit.typeIds ||</span>
+<span class="pc bpc" id="L370" title="1 of 2 branches missed.">            unit.abilityId == &quot;run-away&quot; ||</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">            unit.itemId == &quot;smoke-ball&quot;</span>
+
+    private fun blockedRunReason(
+        runner: UnitState,
+        opponents: List&lt;SideState&gt;,
+        session: BattleSession,
+    ): String? {
+<span class="pc bpc" id="L378" title="1 of 4 branches missed.">        if (runner.conditionIds.any { it in DIRECT_TRAP_CONDITIONS } || runner.volatileIds.any { it in DIRECT_TRAP_CONDITIONS }) {</span>
+<span class="fc" id="L379">            return &quot;direct-trap&quot;</span>
+        }
+<span class="fc" id="L381">        val opponentUnits =</span>
+<span class="fc" id="L382">            opponents</span>
+<span class="fc" id="L383">                .flatMap(SideState::activeUnitIds)</span>
+<span class="fc" id="L384">                .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="fc" id="L385">        val shadowTagged =</span>
+<span class="fc" id="L386">            opponentUnits.any { unit -&gt;</span>
+<span class="pc bpc" id="L387" title="1 of 2 branches missed.">                unit.abilityId == &quot;shadow-tag&quot; &amp;&amp;</span>
+<span class="pc bnc" id="L388" title="All 2 branches missed.">                    runner.abilityId != &quot;shadow-tag&quot;</span>
+            }
+<span class="pc bpc" id="L390" title="1 of 2 branches missed.">        if (shadowTagged) {</span>
+<span class="nc" id="L391">            return &quot;shadow-tag&quot;</span>
+        }
+<span class="fc" id="L393">        val arenaTrapped =</span>
+<span class="pc bpc" id="L394" title="1 of 2 branches missed.">            opponentUnits.any { unit -&gt; unit.abilityId == &quot;arena-trap&quot; } &amp;&amp;</span>
+<span class="pc bnc" id="L395" title="All 2 branches missed.">                isGrounded(runner)</span>
+<span class="pc bpc" id="L396" title="1 of 2 branches missed.">        if (arenaTrapped) {</span>
+<span class="nc" id="L397">            return &quot;arena-trap&quot;</span>
+        }
+<span class="fc" id="L399">        return null</span>
+    }
+
+    private fun isGrounded(unit: UnitState): Boolean {
+<span class="nc bnc" id="L403" title="All 2 branches missed.">        if (&quot;flying&quot; in unit.typeIds) {</span>
+<span class="nc" id="L404">            return false</span>
+        }
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        if (unit.abilityId == &quot;levitate&quot;) {</span>
+<span class="nc" id="L407">            return false</span>
+        }
+<span class="nc bnc" id="L409" title="All 2 branches missed.">        if (unit.itemId == &quot;air-balloon&quot;) {</span>
+<span class="nc" id="L410">            return false</span>
+        }
+<span class="nc bnc" id="L412" title="All 4 branches missed.">        if (&quot;magnet-rise&quot; in unit.volatileIds || &quot;magnet-rise&quot; in unit.conditionIds) {</span>
+<span class="nc" id="L413">            return false</span>
+        }
+<span class="nc" id="L415">        return true</span>
+    }
+
+    private fun effectiveSpeed(unit: UnitState): Int {
+<span class="pc bpc" id="L419" title="3 of 4 branches missed.">        val baseSpeed = unit.stats[&quot;speed&quot;] ?: unit.stats[&quot;spe&quot;] ?: 0</span>
+<span class="pc bpc" id="L420" title="2 of 4 branches missed.">        val stage = unit.boosts[&quot;speed&quot;] ?: unit.boosts[&quot;spe&quot;] ?: 0</span>
+<span class="fc" id="L421">        return (baseSpeed * stageMultiplier(stage)).roundToInt()</span>
+    }
+
+    private fun stageMultiplier(stage: Int): Double {
+<span class="fc" id="L425">        val normalized = stage.coerceIn(-6, 6)</span>
+<span class="pc bpc" id="L426" title="1 of 2 branches missed.">        return if (normalized &gt;= 0) {</span>
+<span class="fc" id="L427">            (2.0 + normalized) / 2.0</span>
+        } else {
+<span class="nc" id="L429">            2.0 / (2.0 - normalized)</span>
+        }
+    }
+
+<span class="fc" id="L433">    private data class RunResolution(</span>
+<span class="fc" id="L434">        val success: Boolean,</span>
+<span class="fc" id="L435">        val reason: String,</span>
+<span class="pc" id="L436">        val runnerUnitId: String? = null,</span>
+<span class="fc" id="L437">        val failedAttempts: Int? = null,</span>
+<span class="fc" id="L438">        val escapeValue: Int? = null,</span>
+<span class="fc" id="L439">        val roll: Int? = null,</span>
+<span class="fc" id="L440">    )</span>
+
+    private companion object {
+<span class="nc" id="L443">        val DIRECT_TRAP_CONDITIONS: Set&lt;String&gt; =</span>
+<span class="fc" id="L444">            setOf(</span>
+<span class="fc" id="L445">                &quot;trapped&quot;,</span>
+<span class="fc" id="L446">                &quot;partially-trapped&quot;,</span>
+<span class="fc" id="L447">                &quot;cannot-escape&quot;,</span>
+            )
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

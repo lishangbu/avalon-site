@@ -312,9 +312,9 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
     /**
      * 配置当前 battle 的业务语义，例如 wild/trainer 和可捕捉 side。
      */
-<span class="nc" id="L315">    fun configureBattle(</span>
+<span class="fc" id="L315">    fun configureBattle(</span>
         battleKind: BattleType,
-<span class="nc" id="L317">        capturableSideId: String? = null,</span>
+<span class="fc" id="L317">        capturableSideId: String? = null,</span>
     ): BattleRuntimeSnapshot {
 <span class="fc" id="L319">        currentSnapshot =</span>
 <span class="fc" id="L320">            currentSnapshot.copy(</span>
@@ -393,7 +393,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="fc" id="L393">        evasion: Int? = null,</span>
         basePower: Int,
         damage: Int,
-<span class="nc" id="L396">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L396">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): MoveResolutionResult {
 <span class="fc" id="L398">        ensureStarted()</span>
 <span class="fc" id="L399">        return executeResolvedEffect(</span>
