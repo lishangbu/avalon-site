@@ -93,24 +93,24 @@
   <div class="breadcrumbs"><a href="../../index.html">avalon-game-battle-engine</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.battle.engine.model</a><span class="delimiter">/</span><span class="current">FieldState</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Field</span><wbr><span><span>State</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">FieldState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>weatherId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>terrainId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">场地级运行时状态骨架。</p><p class="paragraph">设计意图：</p><ul><li><p class="paragraph">表示天气、地形等战场公共状态。</p></li><li><p class="paragraph">避免把 battle 共享状态和 side / unit 状态混在一起。</p></li></ul></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">FieldState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>weatherState<span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>terrainState<span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>conditionStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span></div><p class="paragraph">场地级运行时状态骨架。</p><p class="paragraph">设计意图：</p><ul><li><p class="paragraph">表示天气、地形等战场公共状态。</p></li><li><p class="paragraph">避免把 battle 共享状态和 side / unit 状态混在一起。</p></li></ul></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="-1381128206%2FConstructors%2F-1879947025" anchor-label="FieldState" id="-1381128206%2FConstructors%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+        <div class="table"><a data-name="1105757187%2FConstructors%2F-1879947025" anchor-label="FieldState" id="1105757187%2FConstructors%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-field-state.html"><span>Field</span><wbr><span><span>State</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1381128206%2FConstructors%2F-1879947025"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1105757187%2FConstructors%2F-1879947025"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weatherId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">terrainId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weatherState<span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">terrainState<span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">conditionStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -119,32 +119,47 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="-739436570%2FProperties%2F-1879947025" anchor-label="terrainId" id="-739436570%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+        <div class="table"><a data-name="-1654825479%2FProperties%2F-1879947025" anchor-label="conditionStates" id="-1654825479%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="terrain-id.html"><span>terrain</span><wbr><span><span>Id</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739436570%2FProperties%2F-1879947025"></span>
+                  <div><a href="condition-states.html"><span>condition</span><wbr><span><span>States</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1654825479%2FProperties%2F-1879947025"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="terrain-id.html">terrainId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">当前地形标识。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="condition-states.html">conditionStates</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">当前 field 级附着条件表。</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-861473849%2FProperties%2F-1879947025" anchor-label="weatherId" id="-861473849%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+<a data-name="-19235608%2FProperties%2F-1879947025" anchor-label="terrainState" id="-19235608%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="weather-id.html"><span>weather</span><wbr><span><span>Id</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-861473849%2FProperties%2F-1879947025"></span>
+                  <div><a href="terrain-state.html"><span>terrain</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-19235608%2FProperties%2F-1879947025"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="weather-id.html">weatherId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">当前天气标识。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="terrain-state.html">terrainState</a><span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">当前地形的运行时状态。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2089481881%2FProperties%2F-1879947025" anchor-label="weatherState" id="-2089481881%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="weather-state.html"><span>weather</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2089481881%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="weather-state.html">weatherState</a><span class="token operator">: </span><a href="../-attached-effect-state/index.html">AttachedEffectState</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">当前天气的运行时状态。</p></div></div></div>
                 </div>
               </div>
             </div>

@@ -109,7 +109,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session/index.html">BattleSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectRepository<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a><span class="token punctuation">, </span></span><span class="parameter ">battleFlowEngine<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-engine/index.html">BattleFlowEngine</a><span class="token punctuation">, </span></span><span class="parameter ">mutationApplier<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.apply/-mutation-applier/index.html">MutationApplier</a><span class="token punctuation">, </span></span><span class="parameter ">replacementStrategy<span class="token operator">: </span><a href="-replacement-strategy/index.html">ReplacementStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">captureActionResolver<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.service/-capture-action-resolver/index.html">CaptureActionResolver</a><span class="token punctuation">, </span></span><span class="parameter ">actionExecutionSupport<span class="token operator">: </span><a href="-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a><span class="token punctuation">, </span></span><span class="parameter ">choiceHandlerRegistry<span class="token operator">: </span><a href="-battle-session-choice-handler-registry/index.html">BattleSessionChoiceHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">actionHandlerRegistry<span class="token operator">: </span><a href="-battle-session-action-handler-registry/index.html">BattleSessionActionHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">turnPipeline<span class="token operator">: </span><a href="-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a><span class="token punctuation">, </span></span><span class="parameter ">turnReadySpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-turn-ready-specification/index.html">BattleSessionTurnReadySpecification</a><span class="token punctuation">, </span></span><span class="parameter ">unitChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-unit-choice-specification/index.html">BattleSessionUnitChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">runChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-run-choice-specification/index.html">BattleSessionRunChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">targetChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-target-choice-specification/index.html">BattleSessionTargetChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">captureChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-capture-choice-specification/index.html">BattleSessionCaptureChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">targetQueryService<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService</a><span class="token punctuation">, </span></span><span class="parameter ">actionSortingStrategy<span class="token operator">: </span><a href="-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">eventPublisher<span class="token operator">: </span><a href="-battle-session-event-publisher/index.html">BattleSessionEventPublisher</a><span class="token punctuation">, </span></span><span class="parameter ">commandFactory<span class="token operator">: </span><a href="-battle-session-command-factory/index.html">BattleSessionCommandFactory</a><span class="token punctuation">, </span></span><span class="parameter ">battleId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">formatId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">最小可跑的 battle session。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session/index.html">BattleSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectRepository<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.repository/-effect-definition-repository/index.html">EffectDefinitionRepository</a><span class="token punctuation">, </span></span><span class="parameter ">battleFlowEngine<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-engine/index.html">BattleFlowEngine</a><span class="token punctuation">, </span></span><span class="parameter ">battleFlowPhaseProcessor<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-flow-phase-processor/index.html">BattleFlowPhaseProcessor</a><span class="token punctuation">, </span></span><span class="parameter ">mutationInterceptorChain<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.flow/-battle-mutation-interceptor-chain/index.html">BattleMutationInterceptorChain</a><span class="token punctuation">, </span></span><span class="parameter ">mutationApplier<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.runtime.apply/-mutation-applier/index.html">MutationApplier</a><span class="token punctuation">, </span></span><span class="parameter ">replacementStrategy<span class="token operator">: </span><a href="-replacement-strategy/index.html">ReplacementStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">captureActionResolver<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.service/-capture-action-resolver/index.html">CaptureActionResolver</a><span class="token punctuation">, </span></span><span class="parameter ">actionExecutionSupport<span class="token operator">: </span><a href="-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a><span class="token punctuation">, </span></span><span class="parameter ">choiceHandlerRegistry<span class="token operator">: </span><a href="-battle-session-choice-handler-registry/index.html">BattleSessionChoiceHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">actionHandlerRegistry<span class="token operator">: </span><a href="-battle-session-action-handler-registry/index.html">BattleSessionActionHandlerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">turnPipeline<span class="token operator">: </span><a href="-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a><span class="token punctuation">, </span></span><span class="parameter ">turnReadySpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-turn-ready-specification/index.html">BattleSessionTurnReadySpecification</a><span class="token punctuation">, </span></span><span class="parameter ">unitChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-unit-choice-specification/index.html">BattleSessionUnitChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">runChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-run-choice-specification/index.html">BattleSessionRunChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">targetChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-target-choice-specification/index.html">BattleSessionTargetChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">captureChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-capture-choice-specification/index.html">BattleSessionCaptureChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">moveChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-move-choice-specification/index.html">BattleSessionMoveChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">itemChoiceSpecification<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.specification/-battle-session-item-choice-specification/index.html">BattleSessionItemChoiceSpecification</a><span class="token punctuation">, </span></span><span class="parameter ">targetQueryService<span class="token operator">: </span><a href="../io.github.lishangbu.avalon.game.battle.engine.session.target/-battle-session-target-query-service/index.html">BattleSessionTargetQueryService</a><span class="token punctuation">, </span></span><span class="parameter ">actionSortingStrategy<span class="token operator">: </span><a href="-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a><span class="token punctuation">, </span></span><span class="parameter ">eventPublisher<span class="token operator">: </span><a href="-battle-session-event-publisher/index.html">BattleSessionEventPublisher</a><span class="token punctuation">, </span></span><span class="parameter ">commandFactory<span class="token operator">: </span><a href="-battle-session-command-factory/index.html">BattleSessionCommandFactory</a><span class="token punctuation">, </span></span><span class="parameter ">battleId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">formatId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">最小可跑的 battle session。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a></div><div class="brief "><p class="paragraph">session action 执行辅助组件。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-action-execution-support/index.html">BattleSessionActionExecutionSupport</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">effectExecutionCoordinator<span class="token operator">: </span><a href="-battle-session-effect-execution-coordinator/index.html">BattleSessionEffectExecutionCoordinator</a><span class="token operator"> = </span>BattleSessionEffectExecutionCoordinator()<span class="token punctuation">, </span></span><span class="parameter ">directDamageApplier<span class="token operator">: </span><a href="-battle-session-direct-damage-applier/index.html">BattleSessionDirectDamageApplier</a><span class="token operator"> = </span>BattleSessionDirectDamageApplier()<span class="token punctuation">, </span></span><span class="parameter ">switchActionExecutor<span class="token operator">: </span><a href="-battle-session-switch-action-executor/index.html">BattleSessionSwitchActionExecutor</a><span class="token operator"> = </span>BattleSessionSwitchActionExecutor()<span class="token punctuation">, </span></span><span class="parameter ">runActionExecutor<span class="token operator">: </span><a href="-battle-session-run-action-executor/index.html">BattleSessionRunActionExecutor</a><span class="token operator"> = </span>BattleSessionRunActionExecutor()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">session action 执行辅助组件。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -249,6 +249,21 @@
               </div>
             </div>
           </div>
+<a data-name="1600623366%2FClasslikes%2F-1879947025" anchor-label="BattleSessionActionSpeedResolver" id="1600623366%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-action-speed-resolver/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Action</span><wbr><span>Speed</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1600623366%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-action-speed-resolver/index.html">BattleSessionActionSpeedResolver</a></div><div class="brief "><p class="paragraph">battle session 行动速度解析器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-683946162%2FClasslikes%2F-1879947025" anchor-label="BattleSessionAutoReplacedPayload" id="-683946162%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
@@ -290,6 +305,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-battle-log-projector/index.html">BattleSessionBattleLogProjector</a> : <a href="-battle-session-projector/index.html">BattleSessionProjector</a></div><div class="brief "><p class="paragraph">battle log 投影器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1964357213%2FClasslikes%2F-1879947025" anchor-label="BattleSessionBeforeTurnStep" id="1964357213%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-before-turn-step/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Before</span><wbr><span>Turn</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1964357213%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-before-turn-step/index.html">BattleSessionBeforeTurnStep</a> : <a href="-battle-session-turn-step/index.html">BattleSessionTurnStep</a></div><div class="brief "><p class="paragraph">回合开始前生命周期步骤。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -504,6 +534,21 @@
               </div>
             </div>
           </div>
+<a data-name="31538346%2FClasslikes%2F-1879947025" anchor-label="BattleSessionDirectDamageApplier" id="31538346%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-direct-damage-applier/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Direct</span><wbr><span>Damage</span><wbr><span><span>Applier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="31538346%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-direct-damage-applier/index.html">BattleSessionDirectDamageApplier</a></div><div class="brief "><p class="paragraph">session 直接伤害写回器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-455521634%2FClasslikes%2F-1879947025" anchor-label="BattleSessionEffectAction" id="-455521634%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
@@ -530,6 +575,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-battle-session-effect-choice/index.html">BattleSessionEffectChoice</a> : <a href="-battle-session-targeted-choice/index.html">BattleSessionTargetedChoice</a></div><div class="brief "><p class="paragraph">基于 effect 定义执行的 choice。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-598473508%2FClasslikes%2F-1879947025" anchor-label="BattleSessionEffectExecutionCoordinator" id="-598473508%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-effect-execution-coordinator/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Effect</span><wbr><span>Execution</span><wbr><span><span>Coordinator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-598473508%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-effect-execution-coordinator/index.html">BattleSessionEffectExecutionCoordinator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">directDamageApplier<span class="token operator">: </span><a href="-battle-session-direct-damage-applier/index.html">BattleSessionDirectDamageApplier</a><span class="token operator"> = </span>BattleSessionDirectDamageApplier()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">session effect 执行协调器。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -909,6 +969,21 @@
               </div>
             </div>
           </div>
+<a data-name="653097705%2FClasslikes%2F-1879947025" anchor-label="BattleSessionRunActionExecutor" id="653097705%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-run-action-executor/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Run</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="653097705%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-run-action-executor/index.html">BattleSessionRunActionExecutor</a></div><div class="brief "><p class="paragraph">session run action 执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="2114771612%2FClasslikes%2F-1879947025" anchor-label="BattleSessionRunActionHandler" id="2114771612%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
@@ -1100,6 +1175,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-battle-session-switch-action/index.html">BattleSessionSwitchAction</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>sideId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>outgoingUnitId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>incomingUnitId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>kind<span class="token operator">: </span><a href="-battle-session-action-kind/index.html">BattleSessionActionKind</a><span class="token operator"> = </span>BattleSessionActionKind.SWITCH<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>speed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span> : <a href="-battle-session-switching-action/index.html">BattleSessionSwitchingAction</a></div><div class="brief "><p class="paragraph">BattleSession 中的最小可用替换行动。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-753247992%2FClasslikes%2F-1879947025" anchor-label="BattleSessionSwitchActionExecutor" id="-753247992%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-switch-action-executor/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Switch</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-753247992%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-switch-action-executor/index.html">BattleSessionSwitchActionExecutor</a></div><div class="brief "><p class="paragraph">session switch action 执行器。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -1314,6 +1404,21 @@
               </div>
             </div>
           </div>
+<a data-name="-1831581171%2FClasslikes%2F-1879947025" anchor-label="BattleSessionTurnResultRecorder" id="-1831581171%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-battle-session-turn-result-recorder/index.html"><span>Battle</span><wbr><span>Session</span><wbr><span>Turn</span><wbr><span>Result</span><wbr><span><span>Recorder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1831581171%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-battle-session-turn-result-recorder/index.html">BattleSessionTurnResultRecorder</a></div><div class="brief "><p class="paragraph">turn pipeline 结果记录器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="1335681308%2FClasslikes%2F-1879947025" anchor-label="BattleSessionTurnStep" id="1335681308%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
             <div class="main-subrow keyValue ">
@@ -1459,7 +1564,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-battle-session-action-sorting-strategy/index.html">DefaultBattleSessionActionSortingStrategy</a> : <a href="-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a></div><div class="brief "><p class="paragraph">默认 battle session action 排序策略。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-battle-session-action-sorting-strategy/index.html">DefaultBattleSessionActionSortingStrategy</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionSpeedResolver<span class="token operator">: </span><a href="-battle-session-action-speed-resolver/index.html">BattleSessionActionSpeedResolver</a><span class="token operator"> = </span>BattleSessionActionSpeedResolver()</span></span><span class="token punctuation">)</span> : <a href="-battle-session-action-sorting-strategy/index.html">BattleSessionActionSortingStrategy</a></div><div class="brief "><p class="paragraph">默认 battle session action 排序策略。</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -1504,7 +1609,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-battle-session-turn-pipeline/index.html">DefaultBattleSessionTurnPipeline</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">steps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-battle-session-turn-step/index.html">BattleSessionTurnStep</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a></div><div class="brief "><p class="paragraph">默认 battle 回合推进 pipeline。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-battle-session-turn-pipeline/index.html">DefaultBattleSessionTurnPipeline</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">steps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-battle-session-turn-step/index.html">BattleSessionTurnStep</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">resultRecorder<span class="token operator">: </span><a href="-battle-session-turn-result-recorder/index.html">BattleSessionTurnResultRecorder</a><span class="token operator"> = </span>BattleSessionTurnResultRecorder()</span></span><span class="token punctuation">)</span> : <a href="-battle-session-turn-pipeline/index.html">BattleSessionTurnPipeline</a></div><div class="brief "><p class="paragraph">默认 battle 回合推进 pipeline。</p></div></div></div>
                 </div>
               </div>
             </div>
