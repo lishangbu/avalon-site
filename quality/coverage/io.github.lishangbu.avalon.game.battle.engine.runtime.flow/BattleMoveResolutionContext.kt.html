@@ -19,17 +19,19 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
  * @property evasion 当前阶段持有的回避值。
  * @property basePower 当前阶段持有的威力值。
  * @property damage 当前阶段持有的伤害值。
+ * @property forcedHitSuccessful 当前阶段是否已经被特殊规则显式判定为必中/必不中。
+ * @property skipAccuracyEvasionModifiers 当前阶段是否应跳过常规 accuracy/evasion 修正链。
  * @property hitSuccessful 本次出招是否成功命中。
  * @property criticalHit 本次出招是否击中要害。
  * @property cancelled 本次出招是否已经在前置阶段被取消。
  */
-<span class="fc" id="L26">class BattleMoveResolutionContext(</span>
+<span class="fc" id="L28">class BattleMoveResolutionContext(</span>
     snapshot: BattleRuntimeSnapshot,
-<span class="fc" id="L28">    val moveEffect: EffectDefinition,</span>
-<span class="fc" id="L29">    val attackerId: String,</span>
-<span class="fc" id="L30">    val targetId: String,</span>
-<span class="fc" id="L31">    val sourceId: String,</span>
-<span class="fc" id="L32">    val attributes: Map&lt;String, Any?&gt;,</span>
+<span class="fc" id="L30">    val moveEffect: EffectDefinition,</span>
+<span class="fc" id="L31">    val attackerId: String,</span>
+<span class="fc" id="L32">    val targetId: String,</span>
+<span class="fc" id="L33">    val sourceId: String,</span>
+<span class="fc" id="L34">    val attributes: Map&lt;String, Any?&gt;,</span>
     accuracy: Int?,
     evasion: Int?,
     basePower: Int,
@@ -38,47 +40,67 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
     /**
      * 当前阶段持有的最新 battle 快照。
      */
-<span class="fc" id="L41">    var snapshot: BattleRuntimeSnapshot = snapshot</span>
+<span class="fc" id="L43">    var snapshot: BattleRuntimeSnapshot = snapshot</span>
 
     /**
      * 当前阶段持有的命中值。
      */
-<span class="fc" id="L46">    var accuracy: Int? = accuracy</span>
+<span class="fc" id="L48">    var accuracy: Int? = accuracy</span>
 
     /**
      * 当前阶段持有的回避值。
      */
-<span class="fc" id="L51">    var evasion: Int? = evasion</span>
+<span class="fc" id="L53">    var evasion: Int? = evasion</span>
 
     /**
      * 当前阶段持有的威力值。
      */
-<span class="fc" id="L56">    var basePower: Int = basePower</span>
+<span class="fc" id="L58">    var basePower: Int = basePower</span>
 
     /**
      * 当前阶段持有的伤害值。
      */
-<span class="fc" id="L61">    var damage: Int = damage</span>
+<span class="fc" id="L63">    var damage: Int = damage</span>
+
+    /**
+     * 当前阶段是否已经被特殊规则显式判定为必中/必不中。
+     *
+     * 说明：
+     * - `null` 表示继续走标准命中策略；
+     * - 非空时表示命中结果已经由更高优先级规则收口。
+     */
+<span class="fc" id="L72">    var forcedHitSuccessful: Boolean? = null</span>
+
+    /**
+     * 当前阶段是否应跳过常规 accuracy/evasion 修正链。
+     *
+     * 设计意图：
+     * - 让 OHKO 这类已经在特殊规则阶段完成 accuracy 公式裁决的规则，
+     *   不再错误叠加普通命中/闪避 stage、特性或道具修正；
+     * - 与 `forcedHitSuccessful` 分离，避免“仍需进入标准命中策略掷骰，
+     *   但不应再改写 accuracy/evasion”的场景被迫伪装成显式命中或显式 miss。
+     */
+<span class="fc" id="L83">    var skipAccuracyEvasionModifiers: Boolean = false</span>
 
     /**
      * 本次出招是否成功命中。
      */
-<span class="fc" id="L66">    var hitSuccessful: Boolean = false</span>
+<span class="fc" id="L88">    var hitSuccessful: Boolean = false</span>
 
     /**
      * 本次出招是否击中要害。
      */
-<span class="fc" id="L71">    var criticalHit: Boolean = false</span>
+<span class="fc" id="L93">    var criticalHit: Boolean = false</span>
 
     /**
      * 本次伤害浮动使用的随机倍率。
      */
-<span class="pc" id="L76">    var damageRoll: Int? = null</span>
+<span class="pc" id="L98">    var damageRoll: Int? = null</span>
 
     /**
      * 本次出招是否已经在前置阶段被取消。
      */
-<span class="pc" id="L81">    var cancelled: Boolean = false</span>
+<span class="pc" id="L103">    var cancelled: Boolean = false</span>
 
     /**
      * 把当前上下文标记为已取消。
@@ -86,9 +108,9 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
      * @param nextSnapshot 取消时需要保留的最新快照。
      */
     fun markCancelled(nextSnapshot: BattleRuntimeSnapshot) {
-<span class="fc" id="L89">        snapshot = nextSnapshot</span>
-<span class="fc" id="L90">        cancelled = true</span>
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L111">        snapshot = nextSnapshot</span>
+<span class="fc" id="L112">        cancelled = true</span>
+<span class="fc" id="L113">    }</span>
 
     /**
      * 把当前上下文收敛为最终的 move resolution 结果。
@@ -96,16 +118,16 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
      * @return 面向调用方的最终结算结果对象。
      */
     fun toResult(): MoveResolutionResult =
-<span class="fc" id="L99">        MoveResolutionResult(</span>
-<span class="fc" id="L100">            snapshot = snapshot,</span>
-<span class="fc" id="L101">            cancelled = cancelled,</span>
-<span class="fc" id="L102">            hitSuccessful = hitSuccessful,</span>
-<span class="fc" id="L103">            criticalHit = criticalHit,</span>
-<span class="fc" id="L104">            accuracy = accuracy,</span>
-<span class="fc" id="L105">            evasion = evasion,</span>
-<span class="fc" id="L106">            basePower = basePower,</span>
-<span class="fc" id="L107">            damageRoll = damageRoll,</span>
-<span class="fc" id="L108">            damage = damage,</span>
-<span class="fc" id="L109">        )</span>
+<span class="fc" id="L121">        MoveResolutionResult(</span>
+<span class="fc" id="L122">            snapshot = snapshot,</span>
+<span class="fc" id="L123">            cancelled = cancelled,</span>
+<span class="fc" id="L124">            hitSuccessful = hitSuccessful,</span>
+<span class="fc" id="L125">            criticalHit = criticalHit,</span>
+<span class="fc" id="L126">            accuracy = accuracy,</span>
+<span class="fc" id="L127">            evasion = evasion,</span>
+<span class="fc" id="L128">            basePower = basePower,</span>
+<span class="fc" id="L129">            damageRoll = damageRoll,</span>
+<span class="fc" id="L130">            damage = damage,</span>
+<span class="fc" id="L131">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

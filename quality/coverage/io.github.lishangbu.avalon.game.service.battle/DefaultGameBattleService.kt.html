@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultGameBattleService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.battle</a> &gt; <span class="el_source">DefaultGameBattleService.kt</span></div><h1>DefaultGameBattleService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.battle
 
-import io.github.lishangbu.avalon.game.battle.engine.capture.CaptureFormulaResult
 import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
 import io.github.lishangbu.avalon.game.battle.engine.service.BattleAiChoiceProvider
 import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionService
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionCaptureResourceUsage
 import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionResourceUsage
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnResult
 import io.github.lishangbu.avalon.game.battle.engine.session.CaptureChoice
 import io.github.lishangbu.avalon.game.battle.engine.session.RunChoice
 import io.github.lishangbu.avalon.game.battle.engine.session.SwitchChoice
-import io.github.lishangbu.avalon.game.battle.engine.session.WaitChoice
-import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQuery
+import io.github.lishangbu.avalon.game.capture.BattleCaptureSettlementService
+import io.github.lishangbu.avalon.game.capture.CaptureBattleResult
+import io.github.lishangbu.avalon.game.capture.CaptureCommand
+import io.github.lishangbu.avalon.game.capture.DefaultCapturePreparationService
+import io.github.lishangbu.avalon.game.capture.DefaultPlayerInventoryService
 import io.github.lishangbu.avalon.game.service.battle.view.CreateImportedBattleSessionApiRequest
 import io.github.lishangbu.avalon.game.service.battle.view.GameBattleRequestAssembler
 import io.github.lishangbu.avalon.game.service.battle.view.GameBattleSessionView
@@ -20,13 +19,6 @@ import io.github.lishangbu.avalon.game.service.battle.view.GameBattleSettlementV
 import io.github.lishangbu.avalon.game.service.battle.view.GameBattleTargetQueryView
 import io.github.lishangbu.avalon.game.service.battle.view.GameBattleTurnResultView
 import io.github.lishangbu.avalon.game.service.battle.view.GameBattleViewAssembler
-import io.github.lishangbu.avalon.game.service.capture.CaptureBattleResult
-import io.github.lishangbu.avalon.game.service.capture.CaptureCommand
-import io.github.lishangbu.avalon.game.service.capture.CapturedCreatureSummary
-import io.github.lishangbu.avalon.game.service.capture.DefaultBattleCaptureRecordService
-import io.github.lishangbu.avalon.game.service.capture.DefaultCapturePreparationService
-import io.github.lishangbu.avalon.game.service.capture.DefaultOwnedCreatureService
-import io.github.lishangbu.avalon.game.service.capture.DefaultPlayerInventoryService
 import io.github.lishangbu.avalon.game.service.unit.BattleUnitImporter
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -36,107 +28,119 @@ import org.springframework.transaction.annotation.Transactional
  *
  * 在智能导入与 battle engine 之间提供一个更贴近业务的入口。
  */
-<span class="fc" id="L39">@Service</span>
-<span class="fc" id="L40">class DefaultGameBattleService internal constructor(</span>
-<span class="fc" id="L41">    private val battleSessionService: BattleSessionService,</span>
-<span class="fc" id="L42">    private val battleUnitImporter: BattleUnitImporter,</span>
-<span class="fc" id="L43">    private val battleChoiceFactory: BattleChoiceFactory,</span>
-<span class="fc" id="L44">    private val battleAiChoiceProviders: List&lt;BattleAiChoiceProvider&gt;,</span>
-<span class="fc" id="L45">    private val battleTypePolicies: List&lt;BattleTypePolicy&gt;,</span>
-<span class="fc" id="L46">    private val capturePreparationService: DefaultCapturePreparationService,</span>
-<span class="fc" id="L47">    private val playerInventoryService: DefaultPlayerInventoryService,</span>
-<span class="fc" id="L48">    private val ownedCreatureService: DefaultOwnedCreatureService,</span>
-<span class="fc" id="L49">    private val battleCaptureRecordService: DefaultBattleCaptureRecordService,</span>
-<span class="fc" id="L50">    private val gameBattleRequestAssembler: GameBattleRequestAssembler,</span>
-<span class="fc" id="L51">    private val gameBattleViewAssembler: GameBattleViewAssembler,</span>
+<span class="fc" id="L31">@Service</span>
+<span class="fc" id="L32">class DefaultGameBattleService internal constructor(</span>
+<span class="fc" id="L33">    private val battleSessionService: BattleSessionService,</span>
+<span class="fc" id="L34">    private val battleUnitImporter: BattleUnitImporter,</span>
+<span class="fc" id="L35">    private val battleChoiceFactory: BattleChoiceFactory,</span>
+<span class="fc" id="L36">    private val battleAiChoiceProviders: List&lt;BattleAiChoiceProvider&gt;,</span>
+<span class="fc" id="L37">    private val battleTypePolicies: List&lt;BattleTypePolicy&gt;,</span>
+<span class="fc" id="L38">    private val capturePreparationService: DefaultCapturePreparationService,</span>
+<span class="fc" id="L39">    private val playerInventoryService: DefaultPlayerInventoryService,</span>
+<span class="fc" id="L40">    private val battleCaptureSettlementService: BattleCaptureSettlementService,</span>
+<span class="fc" id="L41">    private val gameBattleRequestAssembler: GameBattleRequestAssembler,</span>
+<span class="fc" id="L42">    private val gameBattleViewAssembler: GameBattleViewAssembler,</span>
 ) : GameBattleService {
     override fun createImportedSession(request: CreateImportedBattleSessionApiRequest): GameBattleSessionView {
-<span class="fc" id="L54">        val internalRequest = gameBattleRequestAssembler.toCreateImportedSessionRequest(request)</span>
-<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        require(internalRequest.sides.isNotEmpty()) { &quot;At least one side must be provided.&quot; }</span>
-<span class="fc" id="L56">        battleSessionService.createSession(internalRequest.sessionId, internalRequest.formatId)</span>
-<span class="fc" id="L57">        battleSessionService.configureSession(</span>
-<span class="fc" id="L58">            sessionId = internalRequest.sessionId,</span>
-<span class="fc" id="L59">            battleKind = internalRequest.battleKind,</span>
-<span class="fc" id="L60">            capturableSideId = internalRequest.capturableSideId,</span>
+<span class="fc" id="L45">        val internalRequest = gameBattleRequestAssembler.toCreateImportedSessionRequest(request)</span>
+<span class="pc bpc" id="L46" title="2 of 4 branches missed.">        require(internalRequest.sides.isNotEmpty()) { &quot;At least one side must be provided.&quot; }</span>
+<span class="fc" id="L47">        battleSessionService.createSession(internalRequest.sessionId, internalRequest.formatId)</span>
+<span class="fc" id="L48">        battleSessionService.configureSession(</span>
+<span class="fc" id="L49">            sessionId = internalRequest.sessionId,</span>
+<span class="fc" id="L50">            battleKind = internalRequest.battleKind,</span>
+<span class="fc" id="L51">            capturableSideId = internalRequest.capturableSideId,</span>
         )
 
-<span class="fc" id="L63">        internalRequest.sides.forEach { side -&gt;</span>
-<span class="fc" id="L64">            battleSessionService.registerSide(internalRequest.sessionId, side.sideId)</span>
-<span class="fc" id="L65">            val normalizedActiveIds = normalizeActiveUnitIds(side)</span>
-<span class="fc" id="L66">            side.units.forEach { unitRequest -&gt;</span>
-<span class="fc" id="L67">                val imported = battleUnitImporter.importUnit(unitRequest)</span>
-<span class="fc" id="L68">                battleSessionService.registerUnit(</span>
-<span class="fc" id="L69">                    sessionId = internalRequest.sessionId,</span>
-<span class="fc" id="L70">                    sideId = side.sideId,</span>
-<span class="fc" id="L71">                    unit = imported.unit,</span>
-<span class="fc" id="L72">                    active = imported.unit.id in normalizedActiveIds,</span>
+<span class="fc" id="L54">        internalRequest.sides.forEach { side -&gt;</span>
+<span class="fc" id="L55">            battleSessionService.registerSide(internalRequest.sessionId, side.sideId)</span>
+<span class="fc" id="L56">            val normalizedActiveIds = normalizeActiveUnitIds(side)</span>
+<span class="fc" id="L57">            side.units.forEach { unitRequest -&gt;</span>
+<span class="fc" id="L58">                val imported = battleUnitImporter.importUnit(unitRequest)</span>
+<span class="fc" id="L59">                battleSessionService.registerUnit(</span>
+<span class="fc" id="L60">                    sessionId = internalRequest.sessionId,</span>
+<span class="fc" id="L61">                    sideId = side.sideId,</span>
+<span class="fc" id="L62">                    unit = imported.unit,</span>
+<span class="fc" id="L63">                    active = imported.unit.id in normalizedActiveIds,</span>
                 )
-<span class="fc" id="L74">            }</span>
-<span class="fc" id="L75">        }</span>
+<span class="fc" id="L65">            }</span>
+<span class="fc" id="L66">        }</span>
 
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (internalRequest.autoStart) {</span>
-<span class="fc" id="L78">            return gameBattleViewAssembler.toSessionView(battleSessionService.startSession(internalRequest.sessionId))</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (internalRequest.autoStart) {</span>
+<span class="fc" id="L69">            return gameBattleViewAssembler.toSessionView(battleSessionService.startSession(internalRequest.sessionId))</span>
         }
-<span class="nc" id="L80">        return gameBattleViewAssembler.toSessionView(battleSessionService.querySession(internalRequest.sessionId))</span>
+<span class="nc" id="L71">        return gameBattleViewAssembler.toSessionView(battleSessionService.querySession(internalRequest.sessionId))</span>
     }
 
-<span class="nc" id="L83">    override fun startSession(sessionId: String): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleSessionService.startSession(sessionId))</span>
+<span class="nc" id="L74">    override fun startSession(sessionId: String): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleSessionService.startSession(sessionId))</span>
 
-<span class="nc" id="L85">    override fun querySession(sessionId: String): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleSessionService.querySession(sessionId))</span>
+<span class="fc" id="L76">    override fun querySession(sessionId: String): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleSessionService.querySession(sessionId))</span>
 
     override fun queryTargets(
         sessionId: String,
         effectId: String,
         actorUnitId: String,
     ): GameBattleTargetQueryView =
-<span class="fc" id="L92">        gameBattleViewAssembler.toTargetQueryView(</span>
-<span class="fc" id="L93">            battleChoiceFactory.queryTargets(</span>
-<span class="fc" id="L94">                session = battleSessionService.querySession(sessionId),</span>
-<span class="fc" id="L95">                effectId = effectId,</span>
-<span class="fc" id="L96">                actorUnitId = actorUnitId,</span>
+<span class="fc" id="L83">        gameBattleViewAssembler.toTargetQueryView(</span>
+<span class="fc" id="L84">            battleChoiceFactory.queryTargets(</span>
+<span class="fc" id="L85">                session = battleSessionService.querySession(sessionId),</span>
+<span class="fc" id="L86">                effectId = effectId,</span>
+<span class="fc" id="L87">                actorUnitId = actorUnitId,</span>
             ),
-<span class="fc" id="L98">        )</span>
+<span class="fc" id="L89">        )</span>
 
     override fun submitMoveChoice(
         sessionId: String,
         request: SmartMoveChoiceRequest,
     ): GameBattleSessionView {
-<span class="fc" id="L104">        val session = battleSessionService.querySession(sessionId)</span>
-<span class="fc" id="L105">        val choice = battleChoiceFactory.createMoveChoice(session, request)</span>
-<span class="fc" id="L106">        return gameBattleViewAssembler.toSessionView(battleSessionService.submitChoice(sessionId, choice))</span>
+<span class="fc" id="L95">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="fc" id="L96">        val choice = battleChoiceFactory.createMoveChoice(session, request)</span>
+<span class="fc" id="L97">        return gameBattleViewAssembler.toSessionView(battleSessionService.submitChoice(sessionId, choice))</span>
     }
 
     override fun submitItemChoice(
         sessionId: String,
         request: SmartItemChoiceRequest,
     ): GameBattleSessionView {
-<span class="nc" id="L113">        val session = battleSessionService.querySession(sessionId)</span>
-<span class="nc" id="L114">        val choice = battleChoiceFactory.createItemChoice(session, request)</span>
-<span class="nc" id="L115">        return gameBattleViewAssembler.toSessionView(battleSessionService.submitChoice(sessionId, choice))</span>
+<span class="nc" id="L104">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="nc" id="L105">        val choice = battleChoiceFactory.createItemChoice(session, request)</span>
+<span class="nc" id="L106">        return gameBattleViewAssembler.toSessionView(battleSessionService.submitChoice(sessionId, choice))</span>
     }
 
     override fun submitCaptureChoice(
         sessionId: String,
         request: SmartCaptureChoiceRequest,
     ): GameBattleSessionView {
-<span class="fc" id="L122">        val session = battleSessionService.querySession(sessionId)</span>
-<span class="fc" id="L123">        val resolvedSourceUnitId = resolveCaptureSourceUnitId(session, request.sourceUnitId, request.targetId)</span>
-<span class="fc" id="L124">        val speed =</span>
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">            request.speed ?: (</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">                session.snapshot.units[resolvedSourceUnitId]</span>
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">                    ?.stats</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">                    ?.get(&quot;speed&quot;) ?: 0</span>
+<span class="fc" id="L113">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="fc" id="L114">        val resolvedSourceUnitId = resolveCaptureSourceUnitId(session, request.sourceUnitId, request.targetId)</span>
+<span class="fc" id="L115">        val preparedCaptureContext =</span>
+<span class="fc" id="L116">            capturePreparationService.prepare(</span>
+<span class="fc" id="L117">                sessionId = sessionId,</span>
+<span class="fc" id="L118">                snapshot = session.snapshot,</span>
+                command =
+<span class="fc" id="L120">                    CaptureCommand(</span>
+<span class="fc" id="L121">                        playerId = request.playerId,</span>
+<span class="fc" id="L122">                        ballItemId = request.ballItemId,</span>
+<span class="fc" id="L123">                        targetUnitId = request.targetId,</span>
+<span class="fc" id="L124">                        sourceUnitId = resolvedSourceUnitId,</span>
+                    ),
             )
-<span class="fc" id="L130">        return gameBattleViewAssembler.toSessionView(</span>
-<span class="fc" id="L131">            battleSessionService.submitChoice(</span>
-<span class="fc" id="L132">                sessionId,</span>
-<span class="fc" id="L133">                CaptureChoice(</span>
-<span class="fc" id="L134">                    playerId = request.playerId,</span>
-<span class="fc" id="L135">                    ballItemId = request.ballItemId,</span>
-<span class="fc" id="L136">                    sourceUnitId = resolvedSourceUnitId,</span>
-<span class="fc" id="L137">                    targetId = request.targetId,</span>
-<span class="pc bpc" id="L138" title="1 of 2 branches missed.">                    priority = request.priority ?: 0,</span>
-<span class="fc" id="L139">                    speed = speed,</span>
+<span class="fc" id="L127">        playerInventoryService.ensureAvailable(preparedCaptureContext.playerId, preparedCaptureContext.ballItemId)</span>
+<span class="fc" id="L128">        val speed =</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">            request.speed ?: (</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">                session.snapshot.units[resolvedSourceUnitId]</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">                    ?.stats</span>
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">                    ?.get(&quot;speed&quot;) ?: 0</span>
+            )
+<span class="fc" id="L134">        return gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L135">            battleSessionService.submitChoice(</span>
+<span class="fc" id="L136">                sessionId,</span>
+<span class="fc" id="L137">                CaptureChoice(</span>
+<span class="fc" id="L138">                    playerId = request.playerId,</span>
+<span class="fc" id="L139">                    ballItemId = request.ballItemId,</span>
+<span class="fc" id="L140">                    sourceUnitId = resolvedSourceUnitId,</span>
+<span class="fc" id="L141">                    targetId = request.targetId,</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">                    priority = request.priority ?: 0,</span>
+<span class="fc" id="L143">                    speed = speed,</span>
                 ),
             ),
         )
@@ -146,93 +150,93 @@ import org.springframework.transaction.annotation.Transactional
         sessionId: String,
         request: SubmitSwitchChoiceRequest,
     ): GameBattleSessionView =
-<span class="nc" id="L149">        gameBattleViewAssembler.toSessionView(</span>
-<span class="nc" id="L150">            battleSessionService.submitChoice(</span>
-<span class="nc" id="L151">                sessionId,</span>
-<span class="nc" id="L152">                SwitchChoice(</span>
-<span class="nc" id="L153">                    sideId = request.sideId,</span>
-<span class="nc" id="L154">                    outgoingUnitId = request.outgoingUnitId,</span>
-<span class="nc" id="L155">                    incomingUnitId = request.incomingUnitId,</span>
-<span class="nc bnc" id="L156" title="All 2 branches missed.">                    priority = request.priority ?: 0,</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">                    speed = request.speed ?: 0,</span>
+<span class="nc" id="L153">        gameBattleViewAssembler.toSessionView(</span>
+<span class="nc" id="L154">            battleSessionService.submitChoice(</span>
+<span class="nc" id="L155">                sessionId,</span>
+<span class="nc" id="L156">                SwitchChoice(</span>
+<span class="nc" id="L157">                    sideId = request.sideId,</span>
+<span class="nc" id="L158">                    outgoingUnitId = request.outgoingUnitId,</span>
+<span class="nc" id="L159">                    incomingUnitId = request.incomingUnitId,</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                    priority = request.priority ?: 0,</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                    speed = request.speed ?: 0,</span>
                 ),
             ),
-<span class="nc" id="L160">        )</span>
+<span class="nc" id="L164">        )</span>
 
     override fun submitRunChoice(
         sessionId: String,
         request: SubmitRunChoiceRequest,
     ): GameBattleSessionView =
-<span class="fc" id="L166">        gameBattleViewAssembler.toSessionView(</span>
-<span class="fc" id="L167">            battleSessionService.submitChoice(</span>
-<span class="fc" id="L168">                sessionId,</span>
-<span class="fc" id="L169">                RunChoice(</span>
-<span class="fc" id="L170">                    sideId = request.sideId,</span>
-<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                    priority = request.priority ?: 0,</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                    speed = request.speed ?: resolveRunSpeed(battleSessionService.querySession(sessionId), request.sideId),</span>
+<span class="fc" id="L170">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L171">            battleSessionService.submitChoice(</span>
+<span class="fc" id="L172">                sessionId,</span>
+<span class="fc" id="L173">                RunChoice(</span>
+<span class="fc" id="L174">                    sideId = request.sideId,</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">                    priority = request.priority ?: 0,</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">                    speed = request.speed ?: resolveRunSpeed(battleSessionService.querySession(sessionId), request.sideId),</span>
                 ),
             ),
-<span class="fc" id="L175">        )</span>
+<span class="fc" id="L179">        )</span>
 
     override fun submitReplacementChoice(
         sessionId: String,
         sideId: String,
         incomingUnitId: String,
     ): GameBattleSessionView =
-<span class="nc" id="L182">        gameBattleViewAssembler.toSessionView(</span>
-<span class="nc" id="L183">            battleSessionService.submitReplacementChoice(sessionId, sideId, incomingUnitId),</span>
-<span class="nc" id="L184">        )</span>
+<span class="nc" id="L186">        gameBattleViewAssembler.toSessionView(</span>
+<span class="nc" id="L187">            battleSessionService.submitReplacementChoice(sessionId, sideId, incomingUnitId),</span>
+<span class="nc" id="L188">        )</span>
 
     @Transactional(rollbackFor = [Exception::class])
-<span class="fc" id="L187">    override fun settleSession(sessionId: String): GameBattleSettlementView = gameBattleViewAssembler.toSettlementView(settleSessionInternal(sessionId))</span>
+<span class="fc" id="L191">    override fun settleSession(sessionId: String): GameBattleSettlementView = gameBattleViewAssembler.toSettlementView(settleSessionInternal(sessionId))</span>
 
     @Transactional(rollbackFor = [Exception::class])
     private fun settleSessionInternal(sessionId: String): BattleSettlementResult {
-<span class="fc" id="L191">        val session = battleSessionService.querySession(sessionId)</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        require(session.snapshot.battle.ended) { &quot;Battle '$sessionId' has not ended yet.&quot; }</span>
-<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (session.snapshot.battle.settled) {</span>
-<span class="nc" id="L194">            return BattleSettlementResult(</span>
-<span class="nc" id="L195">                sessionId = sessionId,</span>
-<span class="nc" id="L196">                endedReason = session.snapshot.battle.endedReason,</span>
-<span class="nc" id="L197">                settled = true,</span>
-<span class="nc" id="L198">                session = session,</span>
-<span class="nc" id="L199">                captureResult = null,</span>
+<span class="fc" id="L195">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">        require(session.snapshot.battle.ended) { &quot;Battle '$sessionId' has not ended yet.&quot; }</span>
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (session.snapshot.battle.settled) {</span>
+<span class="nc" id="L198">            return BattleSettlementResult(</span>
+<span class="nc" id="L199">                sessionId = sessionId,</span>
+<span class="nc" id="L200">                endedReason = session.snapshot.battle.endedReason,</span>
+<span class="nc" id="L201">                settled = true,</span>
+<span class="nc" id="L202">                session = session,</span>
+<span class="nc" id="L203">                captureResult = null,</span>
             )
         }
-<span class="fc" id="L202">        val policy = resolvePolicy(session.snapshot.battle.battleKind)</span>
-<span class="fc" id="L203">        return policy.settlementHandler().settle(</span>
-<span class="fc" id="L204">            sessionId = sessionId,</span>
-<span class="fc" id="L205">            session = session,</span>
+<span class="fc" id="L206">        val policy = resolvePolicy(session.snapshot.battle.battleKind)</span>
+<span class="fc" id="L207">        return policy.settlementHandler().settle(</span>
+<span class="fc" id="L208">            sessionId = sessionId,</span>
+<span class="fc" id="L209">            session = session,</span>
             support =
-<span class="fc" id="L207">                object : BattleSettlementSupport {</span>
+<span class="fc" id="L211">                object : BattleSettlementSupport {</span>
                     override fun settleCaptureLedger(
                         sessionId: String,
                         session: BattleSessionQuery,
-<span class="fc" id="L211">                    ): CaptureBattleResult? = settleCaptureLedgerInternal(sessionId, session)</span>
+<span class="fc" id="L215">                    ): CaptureBattleResult? = battleCaptureSettlementService.settle(sessionId, session)</span>
 
-<span class="fc" id="L213">                    override fun markSessionSettled(sessionId: String): BattleSessionQuery = battleSessionService.markSessionSettled(sessionId)</span>
+<span class="fc" id="L217">                    override fun markSessionSettled(sessionId: String): BattleSessionQuery = battleSessionService.markSessionSettled(sessionId)</span>
                 },
         )
     }
 
     override fun resolveTurn(sessionId: String): GameBattleTurnResultView {
-<span class="fc" id="L219">        val session = battleSessionService.querySession(sessionId)</span>
-<span class="fc" id="L220">        resolveAiChoiceProvider(session.snapshot.battle.battleKind)</span>
-<span class="fc" id="L221">            .provide(session)</span>
-<span class="fc" id="L222">            .forEach { choice -&gt;</span>
-<span class="fc" id="L223">                battleSessionService.submitChoice(sessionId = sessionId, choice = choice)</span>
-<span class="fc" id="L224">            }</span>
-<span class="fc" id="L225">        return gameBattleViewAssembler.toTurnResultView(battleSessionService.resolveTurn(sessionId))</span>
+<span class="fc" id="L223">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="fc" id="L224">        resolveAiChoiceProvider(session.snapshot.battle.battleKind)</span>
+<span class="fc" id="L225">            .provide(session)</span>
+<span class="fc" id="L226">            .forEach { choice -&gt;</span>
+<span class="fc" id="L227">                battleSessionService.submitChoice(sessionId = sessionId, choice = choice)</span>
+<span class="fc" id="L228">            }</span>
+<span class="fc" id="L229">        return gameBattleViewAssembler.toTurnResultView(battleSessionService.resolveTurn(sessionId))</span>
     }
 
     private fun normalizeActiveUnitIds(side: ImportedBattleSideRequest): Set&lt;String&gt; {
-<span class="pc bpc" id="L229" title="2 of 4 branches missed.">        require(side.units.isNotEmpty()) { &quot;Side '${side.sideId}' must contain at least one unit.&quot; }</span>
-<span class="fc" id="L230">        val allUnitIds = side.units.map { unit -&gt; unit.unitId }.toSet()</span>
-<span class="pc bpc" id="L231" title="1 of 2 branches missed.">        val normalized = side.activeUnitIds.ifEmpty { setOf(side.units.first().unitId) }</span>
-<span class="pc bpc" id="L232" title="1 of 2 branches missed.">        require(normalized.all { unitId -&gt; unitId in allUnitIds }) {</span>
-<span class="nc" id="L233">            &quot;Side '${side.sideId}' has activeUnitIds that are not present in its unit list.&quot;</span>
+<span class="pc bpc" id="L233" title="2 of 4 branches missed.">        require(side.units.isNotEmpty()) { &quot;Side '${side.sideId}' must contain at least one unit.&quot; }</span>
+<span class="fc" id="L234">        val allUnitIds = side.units.map { unit -&gt; unit.unitId }.toSet()</span>
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        val normalized = side.activeUnitIds.ifEmpty { setOf(side.units.first().unitId) }</span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">        require(normalized.all { unitId -&gt; unitId in allUnitIds }) {</span>
+<span class="nc" id="L237">            &quot;Side '${side.sideId}' has activeUnitIds that are not present in its unit list.&quot;</span>
         }
-<span class="fc" id="L235">        return normalized</span>
+<span class="fc" id="L239">        return normalized</span>
     }
 
     private fun resolveCaptureSourceUnitId(
@@ -240,101 +244,33 @@ import org.springframework.transaction.annotation.Transactional
         requestedSourceUnitId: String,
         targetId: String,
     ): String {
-<span class="pc bpc" id="L243" title="2 of 4 branches missed.">        if (requestedSourceUnitId.isNotBlank()) {</span>
-<span class="fc" id="L244">            return requestedSourceUnitId</span>
+<span class="pc bpc" id="L247" title="2 of 4 branches missed.">        if (requestedSourceUnitId.isNotBlank()) {</span>
+<span class="fc" id="L248">            return requestedSourceUnitId</span>
         }
-<span class="nc" id="L246">        val capturableSideId = session.snapshot.battle.capturableSideId</span>
-<span class="nc bnc" id="L247" title="All 2 branches missed.">        return session.snapshot.sides.values</span>
-<span class="nc bnc" id="L248" title="All 6 branches missed.">            .firstOrNull { side -&gt; side.id != capturableSideId &amp;&amp; side.activeUnitIds.isNotEmpty() }</span>
-<span class="nc bnc" id="L249" title="All 2 branches missed.">            ?.activeUnitIds</span>
-<span class="nc bnc" id="L250" title="All 2 branches missed.">            ?.firstOrNull()</span>
-<span class="nc" id="L251">            ?: error(&quot;No active source unit is available for capture.&quot;)</span>
+<span class="nc" id="L250">        val capturableSideId = session.snapshot.battle.capturableSideId</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        return session.snapshot.sides.values</span>
+<span class="nc bnc" id="L252" title="All 6 branches missed.">            .firstOrNull { side -&gt; side.id != capturableSideId &amp;&amp; side.activeUnitIds.isNotEmpty() }</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">            ?.activeUnitIds</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">            ?.firstOrNull()</span>
+<span class="nc" id="L255">            ?: error(&quot;No active source unit is available for capture.&quot;)</span>
     }
 
     private fun resolveRunSpeed(
         session: BattleSessionQuery,
         sideId: String,
     ): Int =
-<span class="pc bpc" id="L258" title="1 of 2 branches missed.">        session.snapshot.sides[sideId]</span>
-<span class="pc bpc" id="L259" title="1 of 2 branches missed.">            ?.activeUnitIds</span>
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">            ?.mapNotNull(session.snapshot.units::get)</span>
-<span class="pc bpc" id="L261" title="11 of 14 branches missed.">            ?.maxOfOrNull { unit -&gt; unit.stats[&quot;speed&quot;] ?: unit.stats[&quot;spe&quot;] ?: 0 }</span>
-<span class="pc" id="L262">            ?: 0</span>
-
-    private fun preparedCaptureContextFromUsage(
-        sessionId: String,
-        session: BattleSessionQuery,
-        usage: BattleSessionCaptureResourceUsage,
-<span class="fc" id="L268">    ) = capturePreparationService.prepare(</span>
-<span class="fc" id="L269">        sessionId = sessionId,</span>
-<span class="fc" id="L270">        snapshot = session.snapshot,</span>
-        command =
-<span class="fc" id="L272">            CaptureCommand(</span>
-<span class="fc" id="L273">                playerId = usage.playerId,</span>
-<span class="fc" id="L274">                ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L275">                targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L276">                sourceUnitId = usage.sourceUnitId,</span>
-            ),
-<span class="fc" id="L278">    )</span>
-
-    private fun captureFormulaResultFromUsage(usage: BattleSessionCaptureResourceUsage): CaptureFormulaResult =
-<span class="fc" id="L281">        CaptureFormulaResult(</span>
-<span class="fc" id="L282">            success = usage.success,</span>
-<span class="fc" id="L283">            shakes = usage.shakes,</span>
-<span class="fc" id="L284">            captureValue = 0.0,</span>
-<span class="fc" id="L285">            finalRate = usage.finalRate,</span>
-<span class="fc" id="L286">            ballRate = 0.0,</span>
-<span class="fc" id="L287">            statusRate = 0.0,</span>
-<span class="fc" id="L288">            reason = usage.reason,</span>
-<span class="fc" id="L289">        )</span>
-
-    private fun settleCaptureLedgerInternal(
-        sessionId: String,
-        session: BattleSessionQuery,
-    ): CaptureBattleResult? {
-<span class="fc" id="L295">        val captureUsages = session.captureResourceLedger</span>
-<span class="fc" id="L296">        var captureSummary: CapturedCreatureSummary? = null</span>
-<span class="fc" id="L297">        val successfulUsage =</span>
-<span class="fc" id="L298">            captureUsages.lastOrNull { usage -&gt;</span>
-<span class="pc bpc" id="L299" title="2 of 4 branches missed.">                usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
-            }
-
-<span class="fc" id="L302">        captureUsages.forEach { usage -&gt;</span>
-<span class="fc" id="L303">            val prepared = preparedCaptureContextFromUsage(sessionId, session, usage)</span>
-<span class="fc" id="L304">            playerInventoryService.ensureAvailable(prepared.playerId, prepared.ballItemId)</span>
-<span class="fc" id="L305">            playerInventoryService.consume(prepared.playerId, prepared.ballItemId)</span>
-<span class="fc" id="L306">            val formulaResult = captureFormulaResultFromUsage(usage)</span>
-<span class="fc" id="L307">            val currentCaptureSummary =</span>
-<span class="pc bpc" id="L308" title="1 of 2 branches missed.">                if (usage == successfulUsage) {</span>
-<span class="fc" id="L309">                    ownedCreatureService.capture(prepared).also { summary -&gt; captureSummary = summary }</span>
-                } else {
-<span class="nc" id="L311">                    null</span>
-                }
-<span class="fc" id="L313">            battleCaptureRecordService.record(prepared, formulaResult, currentCaptureSummary)</span>
-<span class="fc" id="L314">        }</span>
-
-<span class="pc bpc" id="L316" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
-<span class="fc" id="L317">            CaptureBattleResult(</span>
-<span class="fc" id="L318">                success = true,</span>
-<span class="fc" id="L319">                sessionId = sessionId,</span>
-<span class="fc" id="L320">                targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L321">                ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L322">                shakes = usage.shakes,</span>
-<span class="fc" id="L323">                reason = usage.reason,</span>
-<span class="fc" id="L324">                battleEnded = true,</span>
-<span class="fc" id="L325">                finalRate = usage.finalRate,</span>
-<span class="fc" id="L326">                session = session,</span>
-<span class="fc" id="L327">                capturedCreature = captureSummary,</span>
-<span class="fc" id="L328">            )</span>
-        }
-    }
+<span class="pc bpc" id="L262" title="1 of 2 branches missed.">        session.snapshot.sides[sideId]</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">            ?.activeUnitIds</span>
+<span class="pc bpc" id="L264" title="1 of 2 branches missed.">            ?.mapNotNull(session.snapshot.units::get)</span>
+<span class="pc bpc" id="L265" title="11 of 14 branches missed.">            ?.maxOfOrNull { unit -&gt; unit.stats[&quot;speed&quot;] ?: unit.stats[&quot;spe&quot;] ?: 0 }</span>
+<span class="pc" id="L266">            ?: 0</span>
 
     private fun resolvePolicy(battleKind: BattleType): BattleTypePolicy =
-<span class="pc bpc" id="L333" title="1 of 2 branches missed.">        battleTypePolicies.firstOrNull { policy -&gt; policy.supports(battleKind) }</span>
-<span class="pc" id="L334">            ?: error(&quot;No BattleTypePolicy registered for battleKind '$battleKind'.&quot;)</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        battleTypePolicies.firstOrNull { policy -&gt; policy.supports(battleKind) }</span>
+<span class="pc" id="L270">            ?: error(&quot;No BattleTypePolicy registered for battleKind '$battleKind'.&quot;)</span>
 
     private fun resolveAiChoiceProvider(battleKind: BattleType): BattleAiChoiceProvider =
-<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        battleAiChoiceProviders.firstOrNull { provider -&gt; provider.supports(battleKind) }</span>
-<span class="pc" id="L338">            ?: error(&quot;No BattleAiChoiceProvider registered for battleKind '$battleKind'.&quot;)</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">        battleAiChoiceProviders.firstOrNull { provider -&gt; provider.supports(battleKind) }</span>
+<span class="pc" id="L274">            ?: error(&quot;No BattleAiChoiceProvider registered for battleKind '$battleKind'.&quot;)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

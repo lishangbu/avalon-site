@@ -24,9 +24,9 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardConditionTypeI
 <span class="nc" id="L24">                &quot;Actor '${condition.actor.value}' is not available for status evaluation.&quot;</span>
             }
 <span class="fc bfc" id="L26" title="All 2 branches covered.">        return if (condition.value == null) {</span>
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">            unit.statusId != null</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">            unit.statusState != null</span>
         } else {
-<span class="fc" id="L29">            unit.statusId == condition.value</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            unit.statusState?.effectId == condition.value</span>
         }
     }
 }

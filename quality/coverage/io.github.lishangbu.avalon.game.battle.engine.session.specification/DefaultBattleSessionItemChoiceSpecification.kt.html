@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleSessionItemChoiceSpecification.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session.specification</a> &gt; <span class="el_source">DefaultBattleSessionItemChoiceSpecification.kt</span></div><h1>DefaultBattleSessionItemChoiceSpecification.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session.specification
+
+import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleFieldConditionSupport
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSession
+
+/**
+ * 默认 item 选择限制规格。
+ *
+ * 当前已覆盖：
+ * - `embargo`：禁止主动使用物品。
+ * - `magic-room-field`：field 上 room 生效期间，禁止主动使用物品。
+ */
+<span class="fc" id="L14">class DefaultBattleSessionItemChoiceSpecification(</span>
+<span class="fc" id="L15">    private val effectRepository: EffectDefinitionRepository,</span>
+) : BattleSessionItemChoiceSpecification {
+    override fun validate(
+        session: BattleSession,
+        itemId: String,
+        actorUnitId: String,
+    ): BattleSessionValidationResult {
+<span class="fc" id="L22">        val actor =</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">            session.currentSnapshot.units[actorUnitId]</span>
+<span class="nc" id="L24">                ?: return BattleSessionValidationResult.rejected(</span>
+<span class="nc" id="L25">                    &quot;Actor unit '$actorUnitId' was not found.&quot;,</span>
+                )
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (!effectRepository.contains(itemId)) {</span>
+<span class="nc" id="L28">            return BattleSessionValidationResult.rejected(&quot;Item effect '$itemId' was not found.&quot;)</span>
+        }
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (BattleSessionChoiceRestrictionSupport.hasEmbargo(actor)) {</span>
+<span class="fc" id="L31">            return BattleSessionValidationResult.rejected(</span>
+<span class="fc" id="L32">                &quot;Unit '$actorUnitId' is under embargo and cannot use item '$itemId'.&quot;,</span>
+            )
+        }
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (BattleFieldConditionSupport.hasMagicRoom(session.currentSnapshot)) {</span>
+<span class="fc" id="L36">            return BattleSessionValidationResult.rejected(</span>
+<span class="fc" id="L37">                &quot;Field is under magic room and item '$itemId' cannot be used.&quot;,</span>
+            )
+        }
+<span class="fc" id="L40">        return BattleSessionValidationResult.satisfied()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

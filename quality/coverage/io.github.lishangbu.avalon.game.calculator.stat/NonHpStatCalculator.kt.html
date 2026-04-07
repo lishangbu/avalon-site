@@ -22,15 +22,15 @@ class NonHpStatCalculator :
     ) {
     override fun calculateStat(
         base: Int,
-        dv: Int,
-        stateExp: Int,
+        iv: Int,
+        ev: Int,
         level: Int,
         nature: Int,
     ): Int {
 <span class="fc bfc" id="L30" title="All 2 branches covered.">        if (level &lt;= 0) {</span>
 <span class="fc" id="L31">            return 0</span>
         }
-<span class="fc" id="L33">        val baseStatValue = calculateBaseStatValue(base, dv, stateExp, level)</span>
+<span class="fc" id="L33">        val baseStatValue = calculateBaseStatValue(base, iv, ev, level)</span>
 <span class="fc" id="L34">        return ((baseStatValue + 5) * nature) / 100</span>
     }
 }

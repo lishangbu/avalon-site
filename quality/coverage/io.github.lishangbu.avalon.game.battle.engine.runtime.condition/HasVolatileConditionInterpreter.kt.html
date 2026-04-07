@@ -23,7 +23,7 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardConditionTypeI
 <span class="pc bpc" id="L23" title="1 of 2 branches missed.">            requireNotNull(EventContextActorReader.readUnit(condition.actor, context)) {</span>
 <span class="nc" id="L24">                &quot;Actor '${condition.actor.value}' is not available for volatile evaluation.&quot;</span>
             }
-<span class="fc" id="L26">        return condition.value in unit.volatileIds</span>
+<span class="fc" id="L26">        return condition.value in unit.volatileStates</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BoostBattleMutationInterceptor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">BoostBattleMutationInterceptor.kt</span></div><h1>BoostBattleMutationInterceptor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BoostMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleBoostContextSupport
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleStatStageSupport
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTargetSelectorResolver
+
+/**
+ * 能力阶级变更 mutation 的生命周期拦截器。
+ *
+ * 设计意图：
+ * - 把 `BoostMutation` 接到 `on_boost`，让能力 / 道具 / 状态能够在 boost 落盘前响应；
+ * - 允许 hook 直接把 relay object 回写成新的 `boosts` 负载。
+ *
+ * 说明：
+ * - `on_boost` 的标准 relay 语义是 object；
+ * - 默认 DSL 已经提供 `set_relay`，可以直接把 relay 改成新的 boost map；
+ * - 这里会把任意 object relay 规范化成 `Map&lt;String, Int&gt;` 后再决定是否重写 mutation。
+ */
+<span class="fc" id="L22">class BoostBattleMutationInterceptor : BattleMutationInterceptor {</span>
+<span class="fc" id="L23">    override val order: Int = 400</span>
+
+<span class="fc" id="L25">    override fun supports(mutation: BattleMutation): Boolean = mutation is BoostMutation</span>
+
+    override fun intercept(
+        context: BattleMutationInterceptionContext,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult {
+<span class="fc" id="L31">        val mutation =</span>
+<span class="pc bpc" id="L32" title="2 of 4 branches missed.">            context.mutation as? BoostMutation</span>
+<span class="nc" id="L33">                ?: return BattleMutationInterceptionResult(context.snapshot, true, context.mutation)</span>
+<span class="fc" id="L34">        val targetUnitIds =</span>
+<span class="fc" id="L35">            MutationTargetSelectorResolver.resolve(</span>
+<span class="fc" id="L36">                mutation.target,</span>
+<span class="fc" id="L37">                BattleMutationInterceptorSupport.mutationApplicationContext(context),</span>
+            )
+<span class="fc" id="L39">        var currentSnapshot = context.snapshot</span>
+<span class="fc" id="L40">        var blocked = false</span>
+<span class="fc" id="L41">        var rewrittenBoosts: Map&lt;String, Int&gt;? = null</span>
+<span class="fc" id="L42">        var rewriteConflicted = false</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        val requestedBoosts = BattleBoostContextSupport.normalizeBoostMap(mutation.boosts).orEmpty()</span>
+
+<span class="fc" id="L45">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            val affectedUnit = currentSnapshot.units[affectedTargetId] ?: return@forEach</span>
+<span class="fc" id="L47">            val currentBoosts = BattleStatStageSupport.normalizeStoredBoosts(affectedUnit.boosts)</span>
+<span class="fc" id="L48">            val result =</span>
+<span class="fc" id="L49">                attachedEffectProcessor.process(</span>
+<span class="fc" id="L50">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L51">                    unitId = affectedTargetId,</span>
+<span class="fc" id="L52">                    hookName = StandardHookNames.ON_BOOST.value,</span>
+<span class="fc" id="L53">                    targetId = affectedTargetId,</span>
+<span class="fc" id="L54">                    sourceId = context.sourceId,</span>
+<span class="fc" id="L55">                    relay = requestedBoosts,</span>
+                    attributes =
+<span class="fc" id="L57">                        BattleBoostContextSupport.createOnBoostAttributes(</span>
+<span class="fc" id="L58">                            currentBoosts = currentBoosts,</span>
+<span class="fc" id="L59">                            requestedBoosts = requestedBoosts,</span>
+                            targetRelation =
+<span class="fc" id="L61">                                BattleMutationInterceptorSupport.resolveTargetRelation(</span>
+<span class="fc" id="L62">                                    currentSnapshot,</span>
+<span class="fc" id="L63">                                    context.sourceId,</span>
+<span class="fc" id="L64">                                    affectedTargetId,</span>
+                                ),
+                        ),
+                )
+<span class="fc" id="L68">            currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">            if (result.cancelled || result.relay == false) {</span>
+<span class="fc" id="L70">                blocked = true</span>
+<span class="fc" id="L71">                return@forEach</span>
+            }
+
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">            val relayBoosts = BattleBoostContextSupport.normalizeBoostMap(result.relay) ?: return@forEach</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (targetUnitIds.size == 1) {</span>
+<span class="fc" id="L76">                rewrittenBoosts = relayBoosts</span>
+<span class="fc" id="L77">                return@forEach</span>
+            }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (rewrittenBoosts == null) {</span>
+<span class="nc" id="L80">                rewrittenBoosts = relayBoosts</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            } else if (rewrittenBoosts != relayBoosts) {</span>
+<span class="nc" id="L82">                rewriteConflicted = true</span>
+            }
+<span class="nc" id="L84">        }</span>
+
+<span class="fc" id="L86">        val nextMutation =</span>
+<span class="pc bpc" id="L87" title="2 of 6 branches missed.">            if (!blocked &amp;&amp; !rewriteConflicted &amp;&amp; rewrittenBoosts != null) {</span>
+<span class="fc" id="L88">                mutation.copy(boosts = requireNotNull(rewrittenBoosts))</span>
+<span class="pc bpc" id="L89" title="3 of 4 branches missed.">            } else if (!blocked &amp;&amp; requestedBoosts != mutation.boosts) {</span>
+<span class="nc" id="L90">                mutation.copy(boosts = requestedBoosts)</span>
+            } else {
+<span class="fc" id="L92">                mutation</span>
+            }
+
+<span class="fc" id="L95">        return BattleMutationInterceptionResult(</span>
+<span class="fc" id="L96">            snapshot = currentSnapshot,</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            allowed = !blocked,</span>
+<span class="fc" id="L98">            mutation = nextMutation,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

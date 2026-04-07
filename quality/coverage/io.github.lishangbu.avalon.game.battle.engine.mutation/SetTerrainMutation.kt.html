@@ -3,9 +3,13 @@
 /**
  * 设置地形变更。
  *
- * @property terrainId 目标地形标识。
+ * @property terrainEffectId 目标地形 effect 标识。
+ * @property duration 可选的持续回合数。
+ * @property sourceId 可选的来源单位标识。
  */
-<span class="nc" id="L8">data class SetTerrainMutation(</span>
-<span class="nc" id="L9">    val terrainId: String,</span>
-) : BattleMutation
+<span class="pc" id="L10">data class SetTerrainMutation(</span>
+<span class="fc" id="L11">    val terrainEffectId: String,</span>
+<span class="pc" id="L12">    val duration: Int? = null,</span>
+<span class="pc" id="L13">    val sourceId: String? = null,</span>
+<span class="nc" id="L14">) : BattleMutation</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

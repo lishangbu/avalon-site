@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionSpeedResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionActionSpeedResolver.kt</span></div><h1>BattleSessionActionSpeedResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleFieldConditionIds
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * battle session 行动速度解析器。
+ *
+ * 设计意图：
+ * - 把“动作原始 speed 字段”提升为可读取当前快照的有效速度解析；
+ * - 让回合内排序能够感知 side condition 等运行时规则，而不把这些规则散落进排序器本体；
+ * - 为后续继续接入更完整的速度修正体系保留单一扩展点。
+ *
+ * 当前已接入：
+ * - `tailwind`：将所属 side 的有效速度翻倍；
+ * - `trick-room-field`：当 field 上挂有该 room 标记时，反转速度排序方向；
+ * - 当 action 自身未显式传入 speed 时，会从提交单位或所属 side 的 active 单位推导速度。
+ */
+<span class="fc" id="L19">class BattleSessionActionSpeedResolver {</span>
+    /**
+     * 解析单个 action 在当前快照下的有效速度。
+     */
+    fun resolveEffectiveSpeed(
+        snapshot: BattleRuntimeSnapshot,
+        action: BattleSessionAction,
+    ): Int {
+<span class="fc" id="L27">        val baseSpeed = resolveBaseSpeed(snapshot, action)</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        val side = resolveSide(snapshot, action) ?: return baseSpeed</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        return if (TAILWIND_EFFECT_ID in side.conditionStates) {</span>
+<span class="fc" id="L30">            baseSpeed * 2</span>
+        } else {
+<span class="fc" id="L32">            baseSpeed</span>
+        }
+    }
+
+    /**
+     * 当前快照下是否应按 Trick Room 反转速度排序。
+     *
+     * `trick-room-field` 已收口为正式 field condition，
+     * 后续同类 room 规则也应沿这一公共场地状态链路接入。
+     */
+<span class="fc" id="L42">    fun isSpeedOrderReversed(snapshot: BattleRuntimeSnapshot): Boolean = BattleFieldConditionIds.TRICK_ROOM in snapshot.field.conditionStates</span>
+
+    private fun resolveBaseSpeed(
+        snapshot: BattleRuntimeSnapshot,
+        action: BattleSessionAction,
+    ): Int {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (action.speed != 0) {</span>
+<span class="fc" id="L49">            return action.speed</span>
+        }
+<span class="fc" id="L51">        return when (action) {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            is BattleSessionSubmittingAction -&gt; {</span>
+<span class="fc" id="L53">                resolveUnitSpeed(snapshot, action.submittingUnitId)</span>
+            }
+
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            is BattleSessionSideAction -&gt; {</span>
+<span class="fc" id="L57">                val side = snapshot.sides[action.sideId]</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">                side</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">                    ?.activeUnitIds</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                    ?.map { unitId -&gt; resolveUnitSpeed(snapshot, unitId) }</span>
+<span class="fc" id="L61">                    ?.maxOrNull()</span>
+<span class="nc" id="L62">                    ?: 0</span>
+            }
+
+            else -&gt; {
+<span class="nc" id="L66">                0</span>
+            }
+        }
+    }
+
+    private fun resolveSide(
+        snapshot: BattleRuntimeSnapshot,
+        action: BattleSessionAction,
+<span class="fc" id="L74">    ) = when (action) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        is BattleSessionSideAction -&gt; {</span>
+<span class="fc" id="L76">            snapshot.sides[action.sideId]</span>
+        }
+
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        is BattleSessionSubmittingAction -&gt; {</span>
+<span class="fc" id="L80">            snapshot.sides.values.firstOrNull { side -&gt; action.submittingUnitId in side.unitIds }</span>
+        }
+
+        else -&gt; {
+<span class="nc" id="L84">            null</span>
+        }
+<span class="fc" id="L86">    }</span>
+
+    private fun resolveUnitSpeed(
+        snapshot: BattleRuntimeSnapshot,
+        unitId: String,
+    ): Int {
+<span class="pc bpc" id="L92" title="2 of 4 branches missed.">        val stats = snapshot.units[unitId]?.stats.orEmpty()</span>
+<span class="pc bpc" id="L93" title="1 of 4 branches missed.">        return (stats[&quot;speed&quot;] ?: stats[&quot;spe&quot;]) ?: 0</span>
+    }
+
+    private companion object {
+        private const val TAILWIND_EFFECT_ID: String = &quot;tailwind-boost&quot;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

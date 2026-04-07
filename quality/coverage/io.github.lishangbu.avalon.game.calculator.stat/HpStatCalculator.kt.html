@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L17">class HpStatCalculator : AbstractStatCalculator(&quot;hp&quot;) {</span>
     override fun calculateStat(
         base: Int,
-        dv: Int,
-        stateExp: Int,
+        iv: Int,
+        ev: Int,
         level: Int,
         nature: Int,
     ): Int {
@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service
 <span class="fc bfc" id="L30" title="All 2 branches covered.">        if (base == 1) {</span>
 <span class="fc" id="L31">            return 1</span>
         }
-<span class="fc" id="L33">        return calculateBaseStatValue(base, dv, stateExp, level) + level + 10</span>
+<span class="fc" id="L33">        return calculateBaseStatValue(base, iv, ev, level) + level + 10</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

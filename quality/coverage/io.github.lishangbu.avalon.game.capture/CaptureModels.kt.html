@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CaptureModels.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.capture</a> &gt; <span class="el_source">CaptureModels.kt</span></div><h1>CaptureModels.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.capture
+
+import io.github.lishangbu.avalon.game.battle.engine.capture.CaptureContext
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+
+<span class="fc" id="L8">data class CaptureCommand(</span>
+<span class="fc" id="L9">    val playerId: String,</span>
+<span class="fc" id="L10">    val ballItemId: String,</span>
+<span class="fc" id="L11">    val targetUnitId: String,</span>
+<span class="fc" id="L12">    val sourceUnitId: String? = null,</span>
+<span class="fc" id="L13">)</span>
+
+<span class="fc" id="L15">data class CapturedCreatureSummary(</span>
+<span class="fc" id="L16">    val ownedCreatureId: String,</span>
+<span class="fc" id="L17">    val creatureId: String,</span>
+<span class="fc" id="L18">    val creatureSpeciesId: String,</span>
+<span class="fc" id="L19">    val creatureInternalName: String,</span>
+<span class="fc" id="L20">    val creatureName: String,</span>
+)
+
+<span class="pc" id="L23">data class CaptureBattleResult(</span>
+<span class="fc" id="L24">    val success: Boolean,</span>
+<span class="fc" id="L25">    val sessionId: String,</span>
+<span class="fc" id="L26">    val targetUnitId: String,</span>
+<span class="fc" id="L27">    val ballItemId: String,</span>
+<span class="fc" id="L28">    val shakes: Int,</span>
+<span class="fc" id="L29">    val reason: String,</span>
+<span class="fc" id="L30">    val battleEnded: Boolean,</span>
+<span class="fc" id="L31">    val finalRate: Double,</span>
+<span class="pc" id="L32">    val session: BattleSessionQuery,</span>
+<span class="pc" id="L33">    val capturedCreature: CapturedCreatureSummary? = null,</span>
+<span class="nc" id="L34">)</span>
+
+<span class="fc" id="L36">data class BattleUnitMetadata(</span>
+<span class="fc" id="L37">    val creatureId: Long,</span>
+<span class="fc" id="L38">    val creatureSpeciesId: Long,</span>
+<span class="fc" id="L39">    val creatureInternalName: String,</span>
+<span class="fc" id="L40">    val creatureName: String,</span>
+<span class="fc" id="L41">    val level: Int,</span>
+<span class="fc" id="L42">    val requiredExperience: Int,</span>
+<span class="fc" id="L43">    val natureId: Long?,</span>
+<span class="fc" id="L44">    val captureRate: Int?,</span>
+<span class="fc" id="L45">    val ivs: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L46">    val evs: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L47">    val calculatedStats: Map&lt;String, Int&gt;,</span>
+)
+
+<span class="fc" id="L50">data class PreparedCaptureContext(</span>
+<span class="fc" id="L51">    val sessionId: String,</span>
+<span class="fc" id="L52">    val playerId: Long,</span>
+<span class="fc" id="L53">    val ballItemId: Long,</span>
+<span class="pc" id="L54">    val ballItemInternalName: String,</span>
+<span class="pc" id="L55">    val targetUnitId: String,</span>
+<span class="pc" id="L56">    val sourceUnitId: String?,</span>
+<span class="pc" id="L57">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L58">    val targetUnit: UnitState,</span>
+<span class="pc" id="L59">    val sourceUnit: UnitState?,</span>
+<span class="fc" id="L60">    val targetMetadata: BattleUnitMetadata,</span>
+<span class="fc" id="L61">    val battleContext: CaptureContext,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

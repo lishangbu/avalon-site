@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RemoveConditionBattleMutationInterceptor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">RemoveConditionBattleMutationInterceptor.kt</span></div><h1>RemoveConditionBattleMutationInterceptor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleAttributeKeys
+import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveSideConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTargetSelectorResolver
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
+
+/**
+ * condition 移除 mutation 的生命周期拦截器。
+ *
+ * 设计意图：
+ * - 统一覆盖单位 condition、side condition 与 field condition 的移除前生命周期；
+ * - 避免 `remove_condition` 在 unit/side/field 三类目标上再次出现“动作能生成 mutation，但生命周期没接通”的断点；
+ * - 对不同作用域保持同一 hook 名称，差异通过 attributes 暴露。
+ */
+<span class="fc" id="L21">class RemoveConditionBattleMutationInterceptor : BattleMutationInterceptor {</span>
+<span class="fc" id="L22">    override val order: Int = 500</span>
+
+<span class="pc bpc" id="L24" title="1 of 6 branches missed.">    override fun supports(mutation: BattleMutation): Boolean = mutation is RemoveConditionMutation || mutation is RemoveSideConditionMutation || mutation is RemoveFieldConditionMutation</span>
+
+    override fun intercept(
+        context: BattleMutationInterceptionContext,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult =
+<span class="fc" id="L30">        when (val mutation = context.mutation) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            is RemoveConditionMutation -&gt; interceptUnitCondition(context, mutation, attachedEffectProcessor)</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            is RemoveSideConditionMutation -&gt; interceptSideCondition(context, mutation, attachedEffectProcessor)</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            is RemoveFieldConditionMutation -&gt; interceptFieldCondition(context, mutation, attachedEffectProcessor)</span>
+<span class="nc" id="L34">            else -&gt; BattleMutationInterceptionResult(context.snapshot, true, context.mutation)</span>
+<span class="fc" id="L35">        }</span>
+
+    private fun interceptUnitCondition(
+        context: BattleMutationInterceptionContext,
+        mutation: RemoveConditionMutation,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult {
+<span class="fc" id="L42">        val targetUnitIds =</span>
+<span class="fc" id="L43">            MutationTargetSelectorResolver.resolve(</span>
+<span class="fc" id="L44">                mutation.target,</span>
+<span class="fc" id="L45">                BattleMutationInterceptorSupport.mutationApplicationContext(context),</span>
+            )
+<span class="fc" id="L47">        var currentSnapshot = context.snapshot</span>
+<span class="fc" id="L48">        var blocked = false</span>
+
+<span class="fc" id="L50">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">            val affectedUnit = currentSnapshot.units[affectedTargetId] ?: return@forEach</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            if (mutation.conditionEffectId !in affectedUnit.conditionStates) {</span>
+<span class="nc" id="L53">                return@forEach</span>
+            }
+<span class="fc" id="L55">            val result =</span>
+<span class="fc" id="L56">                attachedEffectProcessor.process(</span>
+<span class="fc" id="L57">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L58">                    unitId = affectedTargetId,</span>
+<span class="fc" id="L59">                    hookName = StandardHookNames.ON_REMOVE_CONDITION.value,</span>
+<span class="fc" id="L60">                    targetId = affectedTargetId,</span>
+<span class="fc" id="L61">                    sourceId = context.sourceId,</span>
+<span class="fc" id="L62">                    relay = true,</span>
+                    attributes =
+<span class="fc" id="L64">                        buildMap {</span>
+<span class="fc" id="L65">                            put(&quot;conditionEffectId&quot;, mutation.conditionEffectId)</span>
+<span class="fc" id="L66">                            put(&quot;conditionScope&quot;, UNIT_SCOPE)</span>
+<span class="fc" id="L67">                            BattleMutationInterceptorSupport</span>
+<span class="fc" id="L68">                                .resolveTargetRelation(currentSnapshot, context.sourceId, affectedTargetId)</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                                ?.let { relation -&gt; put(BattleAttributeKeys.TARGET_RELATION, relation) }</span>
+<span class="fc" id="L70">                        },</span>
+                )
+<span class="fc" id="L72">            currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L73" title="2 of 4 branches missed.">            if (result.cancelled || result.relay == false) {</span>
+<span class="nc" id="L74">                blocked = true</span>
+            }
+<span class="fc" id="L76">        }</span>
+
+<span class="fc" id="L78">        return BattleMutationInterceptionResult(</span>
+<span class="fc" id="L79">            snapshot = currentSnapshot,</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">            allowed = !blocked,</span>
+<span class="fc" id="L81">            mutation = mutation,</span>
+        )
+    }
+
+    private fun interceptSideCondition(
+        context: BattleMutationInterceptionContext,
+        mutation: RemoveSideConditionMutation,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult {
+<span class="fc" id="L90">        val targetSides = resolveTargetSides(context, mutation)</span>
+<span class="fc" id="L91">        var currentSnapshot = context.snapshot</span>
+<span class="fc" id="L92">        var blocked = false</span>
+
+<span class="fc" id="L94">        targetSides.forEach { targetSide -&gt;</span>
+<span class="fc" id="L95">            val hasCondition = mutation.conditionEffectId in targetSide.conditionStates</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (!hasCondition) {</span>
+<span class="nc" id="L97">                return@forEach</span>
+            }
+<span class="fc" id="L99">            targetSide.activeUnitIds.distinct().forEach { affectedTargetId -&gt;</span>
+<span class="fc" id="L100">                val result =</span>
+<span class="fc" id="L101">                    attachedEffectProcessor.process(</span>
+<span class="fc" id="L102">                        snapshot = currentSnapshot,</span>
+<span class="fc" id="L103">                        unitId = affectedTargetId,</span>
+<span class="fc" id="L104">                        hookName = StandardHookNames.ON_REMOVE_CONDITION.value,</span>
+<span class="fc" id="L105">                        targetId = affectedTargetId,</span>
+<span class="fc" id="L106">                        sourceId = context.sourceId,</span>
+<span class="fc" id="L107">                        relay = true,</span>
+                        attributes =
+<span class="fc" id="L109">                            buildMap {</span>
+<span class="fc" id="L110">                                put(&quot;conditionEffectId&quot;, mutation.conditionEffectId)</span>
+<span class="fc" id="L111">                                put(&quot;conditionScope&quot;, SIDE_SCOPE)</span>
+<span class="fc" id="L112">                                put(&quot;sideId&quot;, targetSide.id)</span>
+<span class="fc" id="L113">                                BattleMutationInterceptorSupport</span>
+<span class="fc" id="L114">                                    .resolveTargetRelation(currentSnapshot, context.sourceId, affectedTargetId)</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                                    ?.let { relation -&gt; put(BattleAttributeKeys.TARGET_RELATION, relation) }</span>
+<span class="fc" id="L116">                            },</span>
+                    )
+<span class="fc" id="L118">                currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L119" title="1 of 4 branches missed.">                if (result.cancelled || result.relay == false) {</span>
+<span class="fc" id="L120">                    blocked = true</span>
+                }
+<span class="fc" id="L122">            }</span>
+<span class="fc" id="L123">        }</span>
+
+<span class="fc" id="L125">        return BattleMutationInterceptionResult(</span>
+<span class="fc" id="L126">            snapshot = currentSnapshot,</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            allowed = !blocked,</span>
+<span class="fc" id="L128">            mutation = mutation,</span>
+        )
+    }
+
+    private fun interceptFieldCondition(
+        context: BattleMutationInterceptionContext,
+        mutation: RemoveFieldConditionMutation,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult {
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (mutation.conditionEffectId !in context.snapshot.field.conditionStates) {</span>
+<span class="nc" id="L138">            return BattleMutationInterceptionResult(context.snapshot, true, mutation)</span>
+        }
+<span class="nc" id="L140">        val targetUnitIds =</span>
+<span class="nc" id="L141">            context.snapshot.sides.values</span>
+<span class="nc" id="L142">                .flatMap(SideState::activeUnitIds)</span>
+<span class="nc" id="L143">                .distinct()</span>
+<span class="nc" id="L144">        var currentSnapshot = context.snapshot</span>
+<span class="nc" id="L145">        var blocked = false</span>
+
+<span class="nc" id="L147">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
+<span class="nc" id="L148">            val result =</span>
+<span class="nc" id="L149">                attachedEffectProcessor.process(</span>
+<span class="nc" id="L150">                    snapshot = currentSnapshot,</span>
+<span class="nc" id="L151">                    unitId = affectedTargetId,</span>
+<span class="nc" id="L152">                    hookName = StandardHookNames.ON_REMOVE_CONDITION.value,</span>
+<span class="nc" id="L153">                    targetId = affectedTargetId,</span>
+<span class="nc" id="L154">                    sourceId = context.sourceId,</span>
+<span class="nc" id="L155">                    relay = true,</span>
+                    attributes =
+<span class="nc" id="L157">                        buildMap {</span>
+<span class="nc" id="L158">                            put(&quot;conditionEffectId&quot;, mutation.conditionEffectId)</span>
+<span class="nc" id="L159">                            put(&quot;conditionScope&quot;, FIELD_SCOPE)</span>
+<span class="nc" id="L160">                            BattleMutationInterceptorSupport</span>
+<span class="nc" id="L161">                                .resolveTargetRelation(currentSnapshot, context.sourceId, affectedTargetId)</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                                ?.let { relation -&gt; put(BattleAttributeKeys.TARGET_RELATION, relation) }</span>
+<span class="nc" id="L163">                        },</span>
+                )
+<span class="nc" id="L165">            currentSnapshot = result.snapshot</span>
+<span class="nc bnc" id="L166" title="All 4 branches missed.">            if (result.cancelled || result.relay == false) {</span>
+<span class="nc" id="L167">                blocked = true</span>
+            }
+<span class="nc" id="L169">        }</span>
+
+<span class="nc" id="L171">        return BattleMutationInterceptionResult(</span>
+<span class="nc" id="L172">            snapshot = currentSnapshot,</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">            allowed = !blocked,</span>
+<span class="nc" id="L174">            mutation = mutation,</span>
+        )
+    }
+
+    private fun resolveTargetSides(
+        context: BattleMutationInterceptionContext,
+        mutation: RemoveSideConditionMutation,
+    ): List&lt;SideState&gt; =
+<span class="fc" id="L182">        when (mutation.target) {</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">            StandardTargetSelectorIds.SIDE -&gt; listOfNotNull(BattleMutationInterceptorSupport.mutationApplicationContext(context).side)</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            StandardTargetSelectorIds.FOE_SIDE -&gt; listOfNotNull(BattleMutationInterceptorSupport.mutationApplicationContext(context).foeSide)</span>
+<span class="nc" id="L185">            else -&gt; emptyList()</span>
+<span class="fc" id="L186">        }</span>
+
+    private companion object {
+        private const val UNIT_SCOPE: String = &quot;unit&quot;
+        private const val SIDE_SCOPE: String = &quot;side&quot;
+        private const val FIELD_SCOPE: String = &quot;field&quot;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

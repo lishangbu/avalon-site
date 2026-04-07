@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultOwnedCreatureQueryService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.player</a> &gt; <span class="el_source">DefaultOwnedCreatureQueryService.kt</span></div><h1>DefaultOwnedCreatureQueryService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.player
+
+import io.github.lishangbu.avalon.game.entity.CreatureStorageBox
+import io.github.lishangbu.avalon.game.entity.OwnedCreature
+import io.github.lishangbu.avalon.game.repository.CreatureStorageBoxRepository
+import io.github.lishangbu.avalon.game.repository.OwnedCreatureRepository
+import org.springframework.stereotype.Service
+
+<span class="fc" id="L9">@Service</span>
+<span class="fc" id="L10">class DefaultOwnedCreatureQueryService(</span>
+<span class="fc" id="L11">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
+<span class="fc" id="L12">    private val creatureStorageBoxRepository: CreatureStorageBoxRepository,</span>
+) : OwnedCreatureQueryService {
+    override fun listByPlayerId(playerId: String): List&lt;OwnedCreatureSummaryView&gt; {
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        val parsedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
+<span class="fc" id="L16">        val boxesById =</span>
+<span class="fc" id="L17">            creatureStorageBoxRepository</span>
+<span class="fc" id="L18">                .findAll()</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">                .filter { box -&gt; box.playerId == parsedPlayerId }</span>
+<span class="fc" id="L20">                .associateBy(CreatureStorageBox::id)</span>
+<span class="fc" id="L21">        return ownedCreatureRepository</span>
+<span class="fc" id="L22">            .findAll()</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">            .filter { creature -&gt; creature.playerId == parsedPlayerId }</span>
+<span class="fc" id="L24">            .sortedWith(</span>
+<span class="fc" id="L25">                compareBy&lt;OwnedCreature&gt; { creature -&gt; creature.storageType }</span>
+<span class="fc" id="L26">                    .thenBy { creature -&gt; creature.partySlot ?: Int.MAX_VALUE }</span>
+<span class="fc" id="L27">                    .thenBy { creature -&gt; creature.storageBoxId ?: Long.MAX_VALUE }</span>
+<span class="fc" id="L28">                    .thenBy { creature -&gt; creature.storageSlot ?: Int.MAX_VALUE }</span>
+<span class="fc" id="L29">                    .thenBy { creature -&gt; creature.id },</span>
+<span class="fc" id="L30">            ).map { creature -&gt;</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">                val storageBox = creature.storageBoxId?.let(boxesById::get)</span>
+<span class="fc" id="L32">                OwnedCreatureSummaryView(</span>
+<span class="fc" id="L33">                    id = creature.id.toString(),</span>
+<span class="fc" id="L34">                    playerId = creature.playerId.toString(),</span>
+<span class="fc" id="L35">                    creatureId = creature.creatureId.toString(),</span>
+<span class="fc" id="L36">                    creatureSpeciesId = creature.creatureSpeciesId.toString(),</span>
+<span class="fc" id="L37">                    nickname = creature.nickname,</span>
+<span class="fc" id="L38">                    level = creature.level,</span>
+<span class="fc" id="L39">                    abilityInternalName = creature.abilityInternalName,</span>
+<span class="fc" id="L40">                    currentHp = creature.currentHp,</span>
+<span class="fc" id="L41">                    maxHp = creature.maxHp,</span>
+<span class="fc" id="L42">                    statusState = creature.statusState,</span>
+<span class="fc" id="L43">                    storageType = creature.storageType,</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">                    storageBoxId = creature.storageBoxId?.toString(),</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                    storageBoxName = storageBox?.name,</span>
+<span class="fc" id="L46">                    storageSlot = creature.storageSlot,</span>
+<span class="fc" id="L47">                    partySlot = creature.partySlot,</span>
+<span class="fc" id="L48">                    capturedAt = creature.capturedAt,</span>
+<span class="fc" id="L49">                    captureSessionId = creature.captureSessionId,</span>
+<span class="fc" id="L50">                )</span>
+            }
+    }
+
+    override fun listBoxesByPlayerId(playerId: String): List&lt;CreatureStorageBoxView&gt; {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        val parsedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
+<span class="nc" id="L56">        return creatureStorageBoxRepository</span>
+<span class="nc" id="L57">            .findAll()</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">            .filter { box -&gt; box.playerId == parsedPlayerId }</span>
+<span class="nc" id="L59">            .sortedWith(compareBy&lt;CreatureStorageBox&gt; { box -&gt; box.sortingOrder }.thenBy { box -&gt; box.id })</span>
+<span class="nc" id="L60">            .map { box -&gt;</span>
+<span class="nc" id="L61">                CreatureStorageBoxView(</span>
+<span class="nc" id="L62">                    id = box.id.toString(),</span>
+<span class="nc" id="L63">                    playerId = box.playerId.toString(),</span>
+<span class="nc" id="L64">                    name = box.name,</span>
+<span class="nc" id="L65">                    sortingOrder = box.sortingOrder,</span>
+<span class="nc" id="L66">                    capacity = box.capacity,</span>
+<span class="nc" id="L67">                )</span>
+            }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -131,7 +131,7 @@ import tools.jackson.databind.ObjectMapper
 <span class="nc" id="L131">                requireTextField(conditionNode, &quot;value&quot;, &quot;Condition '$type'&quot;)</span>
             }
 
-            &quot;weather_is&quot;, &quot;terrain_is&quot;, &quot;target_relation&quot; -&gt; {
+            &quot;weather_is&quot;, &quot;terrain_is&quot;, &quot;target_relation&quot;, &quot;battle_format_is&quot; -&gt; {
 <span class="nc" id="L135">                requireTextField(conditionNode, &quot;value&quot;, &quot;Condition '$type'&quot;)</span>
             }
 
@@ -179,274 +179,356 @@ import tools.jackson.databind.ObjectMapper
 <span class="fc" id="L179">        val type = actionNode.required(&quot;type&quot;).asString()</span>
 <span class="fc bfc" id="L180" title="All 2 branches covered.">        require(type in supportedActionTypes) { &quot;Unsupported action type '$type'.&quot; }</span>
 
-<span class="pc bpc" id="L182" title="13 of 14 branches missed.">        when (type) {</span>
+<span class="pc bpc" id="L182" title="18 of 20 branches missed.">        when (type) {</span>
             &quot;add_status&quot;, &quot;add_volatile&quot;, &quot;apply_condition&quot;, &quot;remove_condition&quot; -&gt; {
 <span class="nc" id="L184">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
 <span class="nc" id="L185">                requireTextField(actionNode, &quot;value&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc bnc" id="L186" title="All 4 branches missed.">                if (type in setOf(&quot;add_status&quot;, &quot;add_volatile&quot;, &quot;apply_condition&quot;) &amp;&amp; actionNode.has(&quot;duration&quot;)) {</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">                    require(actionNode.path(&quot;duration&quot;).isInt) { &quot;Action '$type.duration' must be an integer.&quot; }</span>
+<span class="nc bnc" id="L188" title="All 4 branches missed.">                    require(actionNode.path(&quot;duration&quot;).asInt() &gt; 0) { &quot;Action '$type.duration' must be greater than 0.&quot; }</span>
+                }
             }
 
             &quot;remove_status&quot;, &quot;clear_boosts&quot;, &quot;consume_item&quot;, &quot;force_switch&quot; -&gt; {
-<span class="nc" id="L189">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc" id="L193">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
             }
 
             &quot;remove_volatile&quot; -&gt; {
-<span class="nc" id="L193">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'remove_volatile'&quot;)</span>
-<span class="nc" id="L194">                requireTextField(actionNode, &quot;value&quot;, &quot;Action 'remove_volatile'&quot;)</span>
+<span class="nc" id="L197">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'remove_volatile'&quot;)</span>
+<span class="nc" id="L198">                requireTextField(actionNode, &quot;value&quot;, &quot;Action 'remove_volatile'&quot;)</span>
             }
 
             &quot;damage&quot;, &quot;heal&quot; -&gt; {
-<span class="fc" id="L198">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
-<span class="pc bpc" id="L199" title="1 of 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action '$type' requires field 'value'.&quot; }</span>
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action '$type.value' must be numeric.&quot; }</span>
-<span class="pc bpc" id="L201" title="1 of 2 branches missed.">                if (actionNode.has(&quot;mode&quot;)) {</span>
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">                    require(actionNode.path(&quot;mode&quot;).isString) { &quot;Action '$type.mode' must be a string.&quot; }</span>
+<span class="fc" id="L202">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action '$type' requires field 'value'.&quot; }</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action '$type.value' must be numeric.&quot; }</span>
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">                if (actionNode.has(&quot;mode&quot;)) {</span>
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">                    require(actionNode.path(&quot;mode&quot;).isString) { &quot;Action '$type.mode' must be a string.&quot; }</span>
                 }
             }
 
             &quot;boost&quot; -&gt; {
-<span class="nc" id="L207">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'boost'&quot;)</span>
-<span class="nc bnc" id="L208" title="All 2 branches missed.">                require(actionNode.path(&quot;stats&quot;).isObject) { &quot;Action 'boost.stats' must be an object.&quot; }</span>
-<span class="nc bnc" id="L209" title="All 4 branches missed.">                require(!actionNode.path(&quot;stats&quot;).isEmpty) { &quot;Action 'boost.stats' must not be empty.&quot; }</span>
-<span class="nc" id="L210">                actionNode.path(&quot;stats&quot;).properties().forEach { entry -&gt;</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">                    require(entry.value.isInt) { &quot;Action 'boost.stats.${entry.key}' must be an integer.&quot; }</span>
-<span class="nc" id="L212">                }</span>
+<span class="nc" id="L211">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'boost'&quot;)</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">                require(actionNode.path(&quot;stats&quot;).isObject) { &quot;Action 'boost.stats' must be an object.&quot; }</span>
+<span class="nc bnc" id="L213" title="All 4 branches missed.">                require(!actionNode.path(&quot;stats&quot;).isEmpty) { &quot;Action 'boost.stats' must not be empty.&quot; }</span>
+<span class="nc" id="L214">                actionNode.path(&quot;stats&quot;).properties().forEach { entry -&gt;</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">                    require(entry.value.isInt) { &quot;Action 'boost.stats.${entry.key}' must be an integer.&quot; }</span>
+<span class="nc" id="L216">                }</span>
             }
 
             &quot;set_weather&quot;, &quot;set_terrain&quot; -&gt; {
-<span class="nc" id="L216">                requireTextField(actionNode, &quot;value&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc" id="L220">                requireTextField(actionNode, &quot;value&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (actionNode.has(&quot;duration&quot;)) {</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">                    require(actionNode.path(&quot;duration&quot;).isInt) { &quot;Action '$type.duration' must be an integer.&quot; }</span>
+<span class="nc bnc" id="L223" title="All 4 branches missed.">                    require(actionNode.path(&quot;duration&quot;).asInt() &gt; 0) { &quot;Action '$type.duration' must be greater than 0.&quot; }</span>
+                }
             }
 
             &quot;restore_pp&quot; -&gt; {
-<span class="nc" id="L220">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'restore_pp'&quot;)</span>
-<span class="nc bnc" id="L221" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'restore_pp' requires field 'value'.&quot; }</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isInt) { &quot;Action 'restore_pp.value' must be an integer.&quot; }</span>
-<span class="nc bnc" id="L223" title="All 2 branches missed.">                if (actionNode.has(&quot;moveId&quot;)) {</span>
-<span class="nc bnc" id="L224" title="All 2 branches missed.">                    require(actionNode.path(&quot;moveId&quot;).isString) { &quot;Action 'restore_pp.moveId' must be a string.&quot; }</span>
+<span class="nc" id="L228">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'restore_pp'&quot;)</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'restore_pp' requires field 'value'.&quot; }</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isInt) { &quot;Action 'restore_pp.value' must be an integer.&quot; }</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                if (actionNode.has(&quot;moveId&quot;)) {</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">                    require(actionNode.path(&quot;moveId&quot;).isString) { &quot;Action 'restore_pp.moveId' must be a string.&quot; }</span>
                 }
             }
 
             &quot;change_type&quot; -&gt; {
-<span class="nc" id="L229">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'change_type'&quot;)</span>
-<span class="nc bnc" id="L230" title="All 2 branches missed.">                require(actionNode.path(&quot;values&quot;).isArray) { &quot;Action 'change_type.values' must be an array.&quot; }</span>
-<span class="nc bnc" id="L231" title="All 4 branches missed.">                require(!actionNode.path(&quot;values&quot;).isEmpty) { &quot;Action 'change_type.values' must not be empty.&quot; }</span>
-<span class="nc" id="L232">                actionNode.path(&quot;values&quot;).forEach { valueNode -&gt;</span>
-<span class="nc bnc" id="L233" title="All 2 branches missed.">                    require(valueNode.isString) { &quot;Each 'change_type.values' item must be a string.&quot; }</span>
-<span class="nc" id="L234">                }</span>
+<span class="nc" id="L237">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'change_type'&quot;)</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">                require(actionNode.path(&quot;values&quot;).isArray) { &quot;Action 'change_type.values' must be an array.&quot; }</span>
+<span class="nc bnc" id="L239" title="All 4 branches missed.">                require(!actionNode.path(&quot;values&quot;).isEmpty) { &quot;Action 'change_type.values' must not be empty.&quot; }</span>
+<span class="nc" id="L240">                actionNode.path(&quot;values&quot;).forEach { valueNode -&gt;</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">                    require(valueNode.isString) { &quot;Each 'change_type.values' item must be a string.&quot; }</span>
+<span class="nc" id="L242">                }</span>
             }
 
             &quot;trigger_event&quot; -&gt; {
-<span class="nc" id="L238">                requireHookField(actionNode, &quot;hookName&quot;, &quot;Action 'trigger_event'&quot;)</span>
+<span class="nc" id="L246">                requireHookField(actionNode, &quot;hookName&quot;, &quot;Action 'trigger_event'&quot;)</span>
             }
 
             &quot;modify_multiplier&quot; -&gt; {
-<span class="nc bnc" id="L242" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'modify_multiplier' requires field 'value'.&quot; }</span>
-<span class="nc bnc" id="L243" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action 'modify_multiplier.value' must be numeric.&quot; }</span>
-<span class="nc bnc" id="L244" title="All 2 branches missed.">                if (actionNode.has(&quot;rounding&quot;)) {</span>
-<span class="nc bnc" id="L245" title="All 2 branches missed.">                    require(actionNode.path(&quot;rounding&quot;).isString) { &quot;Action 'modify_multiplier.rounding' must be a string.&quot; }</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'modify_multiplier' requires field 'value'.&quot; }</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action 'modify_multiplier.value' must be numeric.&quot; }</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">                if (actionNode.has(&quot;rounding&quot;)) {</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">                    require(actionNode.path(&quot;rounding&quot;).isString) { &quot;Action 'modify_multiplier.rounding' must be a string.&quot; }</span>
                 }
             }
 
             &quot;add_relay&quot; -&gt; {
-<span class="nc bnc" id="L250" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'add_relay' requires field 'value'.&quot; }</span>
-<span class="nc bnc" id="L251" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action 'add_relay.value' must be numeric.&quot; }</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'add_relay' requires field 'value'.&quot; }</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">                require(actionNode.path(&quot;value&quot;).isNumber) { &quot;Action 'add_relay.value' must be numeric.&quot; }</span>
             }
 
-            &quot;set_flag&quot; -&gt; {
-<span class="nc" id="L255">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'set_flag'&quot;)</span>
-<span class="nc" id="L256">                requireTextField(actionNode, &quot;key&quot;, &quot;Action 'set_flag'&quot;)</span>
-<span class="nc" id="L257">                requireTextField(actionNode, &quot;value&quot;, &quot;Action 'set_flag'&quot;)</span>
+            &quot;set_relay&quot; -&gt; {
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">                require(actionNode.has(&quot;value&quot;)) { &quot;Action 'set_relay' requires field 'value'.&quot; }</span>
             }
 
-            &quot;clear_flag&quot; -&gt; {
-<span class="nc" id="L261">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'clear_flag'&quot;)</span>
-<span class="nc" id="L262">                requireTextField(actionNode, &quot;key&quot;, &quot;Action 'clear_flag'&quot;)</span>
+            &quot;invert_boost_relay&quot; -&gt; {
+            }
+
+            &quot;boost_from_relay&quot; -&gt; {
+<span class="nc" id="L270">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'boost_from_relay'&quot;)</span>
+<span class="nc bnc" id="L271" title="All 2 branches missed.">                if (actionNode.has(&quot;selection&quot;)) {</span>
+<span class="nc bnc" id="L272" title="All 2 branches missed.">                    require(actionNode.path(&quot;selection&quot;).isString) { &quot;Action 'boost_from_relay.selection' must be a string.&quot; }</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">                    require(actionNode.path(&quot;selection&quot;).asString() in setOf(&quot;all&quot;, &quot;positive&quot;, &quot;negative&quot;)) {</span>
+<span class="nc" id="L274">                        &quot;Action 'boost_from_relay.selection' must be one of all/positive/negative.&quot;</span>
+                    }
+                }
+            }
+
+            &quot;copy_boosts&quot;, &quot;steal_boosts&quot; -&gt; {
+<span class="nc" id="L280">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc" id="L281">                requireTargetField(actionNode, &quot;from&quot;, &quot;Action '$type'&quot;)</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">                if (actionNode.has(&quot;selection&quot;)) {</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">                    require(actionNode.path(&quot;selection&quot;).isString) { &quot;Action '$type.selection' must be a string.&quot; }</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">                    require(actionNode.path(&quot;selection&quot;).asString() in setOf(&quot;all&quot;, &quot;positive&quot;, &quot;negative&quot;)) {</span>
+<span class="nc" id="L285">                        &quot;Action '$type.selection' must be one of all/positive/negative.&quot;</span>
+                    }
+                }
+<span class="nc bnc" id="L288" title="All 2 branches missed.">                if (actionNode.has(&quot;stats&quot;)) {</span>
+<span class="nc" id="L289">                    requireStringArrayField(actionNode, &quot;stats&quot;, &quot;Action '$type'&quot;)</span>
+                }
+            }
+
+            &quot;swap_boosts&quot; -&gt; {
+<span class="nc" id="L294">                requireTargetField(actionNode, &quot;left&quot;, &quot;Action 'swap_boosts'&quot;)</span>
+<span class="nc" id="L295">                requireTargetField(actionNode, &quot;right&quot;, &quot;Action 'swap_boosts'&quot;)</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">                if (actionNode.has(&quot;stats&quot;)) {</span>
+<span class="nc" id="L297">                    requireStringArrayField(actionNode, &quot;stats&quot;, &quot;Action 'swap_boosts'&quot;)</span>
+                }
+            }
+
+            &quot;invert_stored_boosts&quot; -&gt; {
+<span class="nc" id="L302">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'invert_stored_boosts'&quot;)</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                if (actionNode.has(&quot;stats&quot;)) {</span>
+<span class="nc" id="L304">                    requireStringArrayField(actionNode, &quot;stats&quot;, &quot;Action 'invert_stored_boosts'&quot;)</span>
+                }
+            }
+
+            &quot;prepare_boost_pass&quot; -&gt; {
+<span class="nc" id="L309">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'prepare_boost_pass'&quot;)</span>
+            }
+
+            &quot;set_probe&quot; -&gt; {
+<span class="nc" id="L313">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'set_probe'&quot;)</span>
+<span class="nc" id="L314">                requireTextField(actionNode, &quot;key&quot;, &quot;Action 'set_probe'&quot;)</span>
+<span class="nc" id="L315">                requireTextField(actionNode, &quot;value&quot;, &quot;Action 'set_probe'&quot;)</span>
+            }
+
+            &quot;clear_probe&quot; -&gt; {
+<span class="nc" id="L319">                requireTargetField(actionNode, &quot;target&quot;, &quot;Action 'clear_probe'&quot;)</span>
+<span class="nc" id="L320">                requireTextField(actionNode, &quot;key&quot;, &quot;Action 'clear_probe'&quot;)</span>
             }
         }
-<span class="fc" id="L265">    }</span>
+<span class="fc" id="L323">    }</span>
 
     private fun JsonNode.required(name: String): JsonNode =
-<span class="nc bnc" id="L268" title="All 2 branches missed.">        requireNotNull(get(name)) {</span>
-<span class="nc" id="L269">            &quot;Field '$name' is required.&quot;</span>
-<span class="nc" id="L270">        }</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">        requireNotNull(get(name)) {</span>
+<span class="nc" id="L327">            &quot;Field '$name' is required.&quot;</span>
+<span class="nc" id="L328">        }</span>
 
     private fun requireTextField(
         node: JsonNode,
         fieldName: String,
         owner: String,
     ) {
-<span class="pc bpc" id="L277" title="1 of 2 branches missed.">        require(node.hasNonNull(fieldName)) { &quot;$owner requires field '$fieldName'.&quot; }</span>
-<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        require(node.path(fieldName).isString) { &quot;$owner field '$fieldName' must be a string.&quot; }</span>
-<span class="fc" id="L279">    }</span>
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">        require(node.hasNonNull(fieldName)) { &quot;$owner requires field '$fieldName'.&quot; }</span>
+<span class="pc bpc" id="L336" title="1 of 2 branches missed.">        require(node.path(fieldName).isString) { &quot;$owner field '$fieldName' must be a string.&quot; }</span>
+<span class="fc" id="L337">    }</span>
 
     private fun requireActorField(
         node: JsonNode,
         fieldName: String,
         owner: String,
     ) {
-<span class="fc" id="L286">        requireTextField(node, fieldName, owner)</span>
-<span class="fc" id="L287">        val actor = node.path(fieldName).asString()</span>
-<span class="pc bpc" id="L288" title="1 of 2 branches missed.">        require(actor in supportedActorIds) { &quot;$owner field '$fieldName' has unsupported actor '$actor'.&quot; }</span>
-<span class="nc" id="L289">    }</span>
+<span class="fc" id="L344">        requireTextField(node, fieldName, owner)</span>
+<span class="fc" id="L345">        val actor = node.path(fieldName).asString()</span>
+<span class="pc bpc" id="L346" title="1 of 2 branches missed.">        require(actor in supportedActorIds) { &quot;$owner field '$fieldName' has unsupported actor '$actor'.&quot; }</span>
+<span class="nc" id="L347">    }</span>
 
     private fun requireTargetField(
         node: JsonNode,
         fieldName: String,
         owner: String,
     ) {
-<span class="fc" id="L296">        requireTextField(node, fieldName, owner)</span>
-<span class="fc" id="L297">        val target = node.path(fieldName).asString()</span>
-<span class="fc bfc" id="L298" title="All 2 branches covered.">        require(target in supportedTargetSelectors) {</span>
-<span class="fc" id="L299">            &quot;$owner field '$fieldName' has unsupported target selector '$target'.&quot;</span>
+<span class="fc" id="L354">        requireTextField(node, fieldName, owner)</span>
+<span class="fc" id="L355">        val target = node.path(fieldName).asString()</span>
+<span class="fc bfc" id="L356" title="All 2 branches covered.">        require(target in supportedTargetSelectors) {</span>
+<span class="fc" id="L357">            &quot;$owner field '$fieldName' has unsupported target selector '$target'.&quot;</span>
         }
-<span class="fc" id="L301">    }</span>
+<span class="fc" id="L359">    }</span>
 
     private fun requireHookField(
         node: JsonNode,
         fieldName: String,
         owner: String,
     ) {
-<span class="fc" id="L308">        requireTextField(node, fieldName, owner)</span>
-<span class="fc" id="L309">        val hookName = node.path(fieldName).asString()</span>
-<span class="pc bpc" id="L310" title="1 of 2 branches missed.">        require(hookName in supportedHookNames) { &quot;$owner field '$fieldName' has unsupported hook '$hookName'.&quot; }</span>
-<span class="nc" id="L311">    }</span>
+<span class="fc" id="L366">        requireTextField(node, fieldName, owner)</span>
+<span class="fc" id="L367">        val hookName = node.path(fieldName).asString()</span>
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">        require(hookName in supportedHookNames) { &quot;$owner field '$fieldName' has unsupported hook '$hookName'.&quot; }</span>
+<span class="nc" id="L369">    }</span>
+
+    private fun requireStringArrayField(
+        node: JsonNode,
+        fieldName: String,
+        owner: String,
+    ) {
+<span class="nc bnc" id="L376" title="All 2 branches missed.">        require(node.path(fieldName).isArray) { &quot;$owner field '$fieldName' must be an array.&quot; }</span>
+<span class="nc" id="L377">        node.path(fieldName).forEach { item -&gt;</span>
+<span class="nc bnc" id="L378" title="All 2 branches missed.">            require(item.isString) { &quot;$owner field '$fieldName' must contain only strings.&quot; }</span>
+<span class="nc" id="L379">        }</span>
+<span class="nc" id="L380">    }</span>
 
     private fun validateOperator(
         operator: String,
         owner: String,
     ) {
-<span class="nc bnc" id="L317" title="All 2 branches missed.">        require(operator in supportedOperators) { &quot;$owner operator '$operator' is not supported.&quot; }</span>
-<span class="nc" id="L318">    }</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">        require(operator in supportedOperators) { &quot;$owner operator '$operator' is not supported.&quot; }</span>
+<span class="nc" id="L387">    }</span>
 
     private companion object {
         private val supportedConditionTypes =
-<span class="fc" id="L322">            setOf(</span>
-<span class="fc" id="L323">                StandardConditionTypeIds.ALL.value,</span>
-<span class="fc" id="L324">                StandardConditionTypeIds.ANY.value,</span>
-<span class="fc" id="L325">                StandardConditionTypeIds.NOT.value,</span>
-<span class="fc" id="L326">                StandardConditionTypeIds.CHANCE.value,</span>
-<span class="fc" id="L327">                StandardConditionTypeIds.HP_RATIO.value,</span>
-<span class="fc" id="L328">                StandardConditionTypeIds.HAS_STATUS.value,</span>
-<span class="fc" id="L329">                StandardConditionTypeIds.HAS_VOLATILE.value,</span>
-<span class="fc" id="L330">                StandardConditionTypeIds.HAS_TYPE.value,</span>
-<span class="fc" id="L331">                StandardConditionTypeIds.HAS_ITEM.value,</span>
-<span class="fc" id="L332">                StandardConditionTypeIds.HAS_ABILITY.value,</span>
-<span class="fc" id="L333">                StandardConditionTypeIds.WEATHER_IS.value,</span>
-<span class="fc" id="L334">                StandardConditionTypeIds.TERRAIN_IS.value,</span>
-<span class="fc" id="L335">                StandardConditionTypeIds.BOOST_COMPARE.value,</span>
-<span class="fc" id="L336">                StandardConditionTypeIds.STAT_COMPARE.value,</span>
-<span class="fc" id="L337">                StandardConditionTypeIds.MOVE_HAS_TAG.value,</span>
-<span class="fc" id="L338">                StandardConditionTypeIds.TARGET_RELATION.value,</span>
-<span class="fc" id="L339">                StandardConditionTypeIds.TURN_COMPARE.value,</span>
-<span class="fc" id="L340">                StandardConditionTypeIds.ATTRIBUTE_EQUALS.value,</span>
+<span class="fc" id="L391">            setOf(</span>
+<span class="fc" id="L392">                StandardConditionTypeIds.ALL.value,</span>
+<span class="fc" id="L393">                StandardConditionTypeIds.ANY.value,</span>
+<span class="fc" id="L394">                StandardConditionTypeIds.NOT.value,</span>
+<span class="fc" id="L395">                StandardConditionTypeIds.CHANCE.value,</span>
+<span class="fc" id="L396">                StandardConditionTypeIds.HP_RATIO.value,</span>
+<span class="fc" id="L397">                StandardConditionTypeIds.HAS_STATUS.value,</span>
+<span class="fc" id="L398">                StandardConditionTypeIds.HAS_VOLATILE.value,</span>
+<span class="fc" id="L399">                StandardConditionTypeIds.HAS_TYPE.value,</span>
+<span class="fc" id="L400">                StandardConditionTypeIds.HAS_ITEM.value,</span>
+<span class="fc" id="L401">                StandardConditionTypeIds.HAS_ABILITY.value,</span>
+<span class="fc" id="L402">                StandardConditionTypeIds.WEATHER_IS.value,</span>
+<span class="fc" id="L403">                StandardConditionTypeIds.TERRAIN_IS.value,</span>
+<span class="fc" id="L404">                StandardConditionTypeIds.BOOST_COMPARE.value,</span>
+<span class="fc" id="L405">                StandardConditionTypeIds.STAT_COMPARE.value,</span>
+<span class="fc" id="L406">                StandardConditionTypeIds.MOVE_HAS_TAG.value,</span>
+<span class="fc" id="L407">                StandardConditionTypeIds.TARGET_RELATION.value,</span>
+<span class="fc" id="L408">                StandardConditionTypeIds.TURN_COMPARE.value,</span>
+<span class="fc" id="L409">                StandardConditionTypeIds.ATTRIBUTE_EQUALS.value,</span>
+<span class="fc" id="L410">                StandardConditionTypeIds.BATTLE_FORMAT_IS.value,</span>
             )
 
         private val supportedActionTypes =
-<span class="fc" id="L344">            setOf(</span>
-<span class="fc" id="L345">                StandardActionTypeIds.DAMAGE.value,</span>
-<span class="fc" id="L346">                StandardActionTypeIds.HEAL.value,</span>
-<span class="fc" id="L347">                StandardActionTypeIds.ADD_STATUS.value,</span>
-<span class="fc" id="L348">                StandardActionTypeIds.REMOVE_STATUS.value,</span>
-<span class="fc" id="L349">                StandardActionTypeIds.ADD_VOLATILE.value,</span>
-<span class="fc" id="L350">                StandardActionTypeIds.REMOVE_VOLATILE.value,</span>
-<span class="fc" id="L351">                StandardActionTypeIds.BOOST.value,</span>
-<span class="fc" id="L352">                StandardActionTypeIds.CLEAR_BOOSTS.value,</span>
-<span class="fc" id="L353">                StandardActionTypeIds.SET_WEATHER.value,</span>
-<span class="fc" id="L354">                StandardActionTypeIds.CLEAR_WEATHER.value,</span>
-<span class="fc" id="L355">                StandardActionTypeIds.SET_TERRAIN.value,</span>
-<span class="fc" id="L356">                StandardActionTypeIds.CLEAR_TERRAIN.value,</span>
-<span class="fc" id="L357">                StandardActionTypeIds.CONSUME_ITEM.value,</span>
-<span class="fc" id="L358">                StandardActionTypeIds.RESTORE_PP.value,</span>
-<span class="fc" id="L359">                StandardActionTypeIds.CHANGE_TYPE.value,</span>
-<span class="fc" id="L360">                StandardActionTypeIds.FORCE_SWITCH.value,</span>
-<span class="fc" id="L361">                StandardActionTypeIds.FAIL_MOVE.value,</span>
-<span class="fc" id="L362">                StandardActionTypeIds.TRIGGER_EVENT.value,</span>
-<span class="fc" id="L363">                StandardActionTypeIds.APPLY_CONDITION.value,</span>
-<span class="fc" id="L364">                StandardActionTypeIds.REMOVE_CONDITION.value,</span>
-<span class="fc" id="L365">                StandardActionTypeIds.MODIFY_MULTIPLIER.value,</span>
-<span class="fc" id="L366">                StandardActionTypeIds.ADD_RELAY.value,</span>
-<span class="fc" id="L367">                StandardActionTypeIds.SET_FLAG.value,</span>
-<span class="fc" id="L368">                StandardActionTypeIds.CLEAR_FLAG.value,</span>
+<span class="fc" id="L414">            setOf(</span>
+<span class="fc" id="L415">                StandardActionTypeIds.DAMAGE.value,</span>
+<span class="fc" id="L416">                StandardActionTypeIds.HEAL.value,</span>
+<span class="fc" id="L417">                StandardActionTypeIds.ADD_STATUS.value,</span>
+<span class="fc" id="L418">                StandardActionTypeIds.REMOVE_STATUS.value,</span>
+<span class="fc" id="L419">                StandardActionTypeIds.ADD_VOLATILE.value,</span>
+<span class="fc" id="L420">                StandardActionTypeIds.REMOVE_VOLATILE.value,</span>
+<span class="fc" id="L421">                StandardActionTypeIds.BOOST.value,</span>
+<span class="fc" id="L422">                StandardActionTypeIds.CLEAR_BOOSTS.value,</span>
+<span class="fc" id="L423">                StandardActionTypeIds.SET_WEATHER.value,</span>
+<span class="fc" id="L424">                StandardActionTypeIds.CLEAR_WEATHER.value,</span>
+<span class="fc" id="L425">                StandardActionTypeIds.SET_TERRAIN.value,</span>
+<span class="fc" id="L426">                StandardActionTypeIds.CLEAR_TERRAIN.value,</span>
+<span class="fc" id="L427">                StandardActionTypeIds.CONSUME_ITEM.value,</span>
+<span class="fc" id="L428">                StandardActionTypeIds.RESTORE_PP.value,</span>
+<span class="fc" id="L429">                StandardActionTypeIds.CHANGE_TYPE.value,</span>
+<span class="fc" id="L430">                StandardActionTypeIds.FORCE_SWITCH.value,</span>
+<span class="fc" id="L431">                StandardActionTypeIds.FAIL_MOVE.value,</span>
+<span class="fc" id="L432">                StandardActionTypeIds.TRIGGER_EVENT.value,</span>
+<span class="fc" id="L433">                StandardActionTypeIds.APPLY_CONDITION.value,</span>
+<span class="fc" id="L434">                StandardActionTypeIds.REMOVE_CONDITION.value,</span>
+<span class="fc" id="L435">                StandardActionTypeIds.MODIFY_MULTIPLIER.value,</span>
+<span class="fc" id="L436">                StandardActionTypeIds.ADD_RELAY.value,</span>
+<span class="fc" id="L437">                StandardActionTypeIds.SET_RELAY.value,</span>
+<span class="fc" id="L438">                StandardActionTypeIds.INVERT_BOOST_RELAY.value,</span>
+<span class="fc" id="L439">                StandardActionTypeIds.BOOST_FROM_RELAY.value,</span>
+<span class="fc" id="L440">                StandardActionTypeIds.SET_PROBE.value,</span>
+<span class="fc" id="L441">                StandardActionTypeIds.CLEAR_PROBE.value,</span>
             )
 
         private val supportedEffectKinds =
-<span class="fc" id="L372">            setOf(</span>
-<span class="fc" id="L373">                StandardEffectKindIds.MOVE.value,</span>
-<span class="fc" id="L374">                StandardEffectKindIds.ABILITY.value,</span>
-<span class="fc" id="L375">                StandardEffectKindIds.ITEM.value,</span>
-<span class="fc" id="L376">                StandardEffectKindIds.STATUS.value,</span>
-<span class="fc" id="L377">                StandardEffectKindIds.VOLATILE.value,</span>
-<span class="fc" id="L378">                StandardEffectKindIds.SIDE_CONDITION.value,</span>
-<span class="fc" id="L379">                StandardEffectKindIds.PSEUDO_WEATHER.value,</span>
-<span class="fc" id="L380">                StandardEffectKindIds.WEATHER.value,</span>
-<span class="fc" id="L381">                StandardEffectKindIds.TERRAIN.value,</span>
-<span class="fc" id="L382">                StandardEffectKindIds.FORMAT_RULE.value,</span>
+<span class="fc" id="L445">            setOf(</span>
+<span class="fc" id="L446">                StandardEffectKindIds.MOVE.value,</span>
+<span class="fc" id="L447">                StandardEffectKindIds.ABILITY.value,</span>
+<span class="fc" id="L448">                StandardEffectKindIds.ITEM.value,</span>
+<span class="fc" id="L449">                StandardEffectKindIds.STATUS.value,</span>
+<span class="fc" id="L450">                StandardEffectKindIds.VOLATILE.value,</span>
+<span class="fc" id="L451">                StandardEffectKindIds.SIDE_CONDITION.value,</span>
+<span class="fc" id="L452">                StandardEffectKindIds.PSEUDO_WEATHER.value,</span>
+<span class="fc" id="L453">                StandardEffectKindIds.WEATHER.value,</span>
+<span class="fc" id="L454">                StandardEffectKindIds.TERRAIN.value,</span>
+<span class="fc" id="L455">                StandardEffectKindIds.FORMAT_RULE.value,</span>
             )
 
         private val supportedHookNames =
-<span class="fc" id="L386">            setOf(</span>
-<span class="fc" id="L387">                StandardHookNames.ON_SWITCH_IN.value,</span>
-<span class="fc" id="L388">                StandardHookNames.ON_SWITCH_OUT.value,</span>
-<span class="fc" id="L389">                StandardHookNames.ON_BEFORE_TURN.value,</span>
-<span class="fc" id="L390">                StandardHookNames.ON_BEFORE_MOVE.value,</span>
-<span class="fc" id="L391">                StandardHookNames.ON_TRY_MOVE.value,</span>
-<span class="fc" id="L392">                StandardHookNames.ON_PREPARE_HIT.value,</span>
-<span class="fc" id="L393">                StandardHookNames.ON_TRY_HIT.value,</span>
-<span class="fc" id="L394">                StandardHookNames.ON_MODIFY_ACCURACY.value,</span>
-<span class="fc" id="L395">                StandardHookNames.ON_MODIFY_EVASION.value,</span>
-<span class="fc" id="L396">                StandardHookNames.ON_MODIFY_BASE_POWER.value,</span>
-<span class="fc" id="L397">                StandardHookNames.ON_MODIFY_ATTACK.value,</span>
-<span class="fc" id="L398">                StandardHookNames.ON_MODIFY_DEFENSE.value,</span>
-<span class="fc" id="L399">                StandardHookNames.ON_MODIFY_CRIT_RATIO.value,</span>
-<span class="fc" id="L400">                StandardHookNames.ON_MODIFY_STAB.value,</span>
-<span class="fc" id="L401">                StandardHookNames.ON_MODIFY_DAMAGE.value,</span>
-<span class="fc" id="L402">                StandardHookNames.ON_DAMAGE.value,</span>
-<span class="fc" id="L403">                StandardHookNames.ON_HEAL.value,</span>
-<span class="fc" id="L404">                StandardHookNames.ON_HIT.value,</span>
-<span class="fc" id="L405">                StandardHookNames.ON_AFTER_HIT.value,</span>
-<span class="fc" id="L406">                StandardHookNames.ON_AFTER_MOVE.value,</span>
-<span class="fc" id="L407">                StandardHookNames.ON_SET_STATUS.value,</span>
-<span class="fc" id="L408">                StandardHookNames.ON_TRY_ADD_VOLATILE.value,</span>
-<span class="fc" id="L409">                StandardHookNames.ON_BOOST.value,</span>
-<span class="fc" id="L410">                StandardHookNames.ON_RESIDUAL.value,</span>
-<span class="fc" id="L411">                StandardHookNames.ON_WEATHER_CHANGE.value,</span>
-<span class="fc" id="L412">                StandardHookNames.ON_TERRAIN_CHANGE.value,</span>
-<span class="fc" id="L413">                StandardHookNames.ON_FAINT.value,</span>
+<span class="fc" id="L459">            setOf(</span>
+<span class="fc" id="L460">                StandardHookNames.ON_SWITCH_IN.value,</span>
+<span class="fc" id="L461">                StandardHookNames.ON_SWITCH_OUT.value,</span>
+<span class="fc" id="L462">                StandardHookNames.ON_BEFORE_TURN.value,</span>
+<span class="fc" id="L463">                StandardHookNames.ON_BEFORE_MOVE.value,</span>
+<span class="fc" id="L464">                StandardHookNames.ON_TRY_MOVE.value,</span>
+<span class="fc" id="L465">                StandardHookNames.ON_PREPARE_HIT.value,</span>
+<span class="fc" id="L466">                StandardHookNames.ON_TRY_HIT.value,</span>
+<span class="fc" id="L467">                StandardHookNames.ON_MODIFY_ACCURACY.value,</span>
+<span class="fc" id="L468">                StandardHookNames.ON_MODIFY_EVASION.value,</span>
+<span class="fc" id="L469">                StandardHookNames.ON_MODIFY_BASE_POWER.value,</span>
+<span class="fc" id="L470">                StandardHookNames.ON_MODIFY_ATTACK.value,</span>
+<span class="fc" id="L471">                StandardHookNames.ON_MODIFY_DEFENSE.value,</span>
+<span class="fc" id="L472">                StandardHookNames.ON_MODIFY_CRIT_RATIO.value,</span>
+<span class="fc" id="L473">                StandardHookNames.ON_MODIFY_STAB.value,</span>
+<span class="fc" id="L474">                StandardHookNames.ON_MODIFY_DAMAGE.value,</span>
+<span class="fc" id="L475">                StandardHookNames.ON_BEFORE_DAMAGE.value,</span>
+<span class="fc" id="L476">                StandardHookNames.ON_DAMAGE.value,</span>
+<span class="fc" id="L477">                StandardHookNames.ON_HEAL.value,</span>
+<span class="fc" id="L478">                StandardHookNames.ON_HIT.value,</span>
+<span class="fc" id="L479">                StandardHookNames.ON_AFTER_HIT.value,</span>
+<span class="fc" id="L480">                StandardHookNames.ON_AFTER_MOVE.value,</span>
+<span class="fc" id="L481">                StandardHookNames.ON_SET_STATUS.value,</span>
+<span class="fc" id="L482">                StandardHookNames.ON_APPLY_CONDITION.value,</span>
+<span class="fc" id="L483">                StandardHookNames.ON_REMOVE_STATUS.value,</span>
+<span class="fc" id="L484">                StandardHookNames.ON_TRY_ADD_VOLATILE.value,</span>
+<span class="fc" id="L485">                StandardHookNames.ON_REMOVE_VOLATILE.value,</span>
+<span class="fc" id="L486">                StandardHookNames.ON_BOOST.value,</span>
+<span class="fc" id="L487">                StandardHookNames.ON_CLEAR_BOOSTS.value,</span>
+<span class="fc" id="L488">                StandardHookNames.ON_REMOVE_CONDITION.value,</span>
+<span class="fc" id="L489">                StandardHookNames.ON_CONSUME_ITEM.value,</span>
+<span class="fc" id="L490">                StandardHookNames.ON_RESTORE_PP.value,</span>
+<span class="fc" id="L491">                StandardHookNames.ON_CHANGE_TYPE.value,</span>
+<span class="fc" id="L492">                StandardHookNames.ON_RESIDUAL.value,</span>
+<span class="fc" id="L493">                StandardHookNames.ON_WEATHER_CHANGE.value,</span>
+<span class="fc" id="L494">                StandardHookNames.ON_TERRAIN_CHANGE.value,</span>
+<span class="fc" id="L495">                StandardHookNames.ON_FAINT.value,</span>
             )
 
         private val supportedActorIds =
-<span class="fc" id="L417">            setOf(</span>
-<span class="fc" id="L418">                StandardActorIds.SELF.value,</span>
-<span class="fc" id="L419">                StandardActorIds.TARGET.value,</span>
-<span class="fc" id="L420">                StandardActorIds.SOURCE.value,</span>
-<span class="fc" id="L421">                StandardActorIds.MOVE.value,</span>
-<span class="fc" id="L422">                StandardActorIds.FIELD.value,</span>
-<span class="fc" id="L423">                StandardActorIds.SIDE.value,</span>
-<span class="fc" id="L424">                StandardActorIds.FOE_SIDE.value,</span>
+<span class="fc" id="L499">            setOf(</span>
+<span class="fc" id="L500">                StandardActorIds.SELF.value,</span>
+<span class="fc" id="L501">                StandardActorIds.TARGET.value,</span>
+<span class="fc" id="L502">                StandardActorIds.SOURCE.value,</span>
+<span class="fc" id="L503">                StandardActorIds.MOVE.value,</span>
+<span class="fc" id="L504">                StandardActorIds.FIELD.value,</span>
+<span class="fc" id="L505">                StandardActorIds.SIDE.value,</span>
+<span class="fc" id="L506">                StandardActorIds.FOE_SIDE.value,</span>
             )
 
         private val supportedTargetSelectors =
-<span class="fc" id="L428">            setOf(</span>
-<span class="fc" id="L429">                StandardTargetSelectorIds.SELF.value,</span>
-<span class="fc" id="L430">                StandardTargetSelectorIds.TARGET.value,</span>
-<span class="fc" id="L431">                StandardTargetSelectorIds.SOURCE.value,</span>
-<span class="fc" id="L432">                StandardTargetSelectorIds.ALLY.value,</span>
-<span class="fc" id="L433">                StandardTargetSelectorIds.ALL_ALLIES.value,</span>
-<span class="fc" id="L434">                StandardTargetSelectorIds.FOE.value,</span>
-<span class="fc" id="L435">                StandardTargetSelectorIds.ALL_FOES.value,</span>
-<span class="fc" id="L436">                StandardTargetSelectorIds.SIDE.value,</span>
-<span class="fc" id="L437">                StandardTargetSelectorIds.FOE_SIDE.value,</span>
-<span class="fc" id="L438">                StandardTargetSelectorIds.FIELD.value,</span>
-<span class="fc" id="L439">                StandardTargetSelectorIds.ALL.value,</span>
+<span class="fc" id="L510">            setOf(</span>
+<span class="fc" id="L511">                StandardTargetSelectorIds.SELF.value,</span>
+<span class="fc" id="L512">                StandardTargetSelectorIds.TARGET.value,</span>
+<span class="fc" id="L513">                StandardTargetSelectorIds.SOURCE.value,</span>
+<span class="fc" id="L514">                StandardTargetSelectorIds.ALLY.value,</span>
+<span class="fc" id="L515">                StandardTargetSelectorIds.ALL_ALLIES.value,</span>
+<span class="fc" id="L516">                StandardTargetSelectorIds.FOE.value,</span>
+<span class="fc" id="L517">                StandardTargetSelectorIds.ALL_FOES.value,</span>
+<span class="fc" id="L518">                StandardTargetSelectorIds.SIDE.value,</span>
+<span class="fc" id="L519">                StandardTargetSelectorIds.FOE_SIDE.value,</span>
+<span class="fc" id="L520">                StandardTargetSelectorIds.FIELD.value,</span>
+<span class="fc" id="L521">                StandardTargetSelectorIds.ALL.value,</span>
             )
 
         private val supportedOperators =
-<span class="fc" id="L443">            setOf(</span>
-<span class="fc" id="L444">                &quot;&gt;&quot;,</span>
-<span class="fc" id="L445">                &quot;&gt;=&quot;,</span>
-<span class="fc" id="L446">                &quot;&lt;&quot;,</span>
-<span class="fc" id="L447">                &quot;&lt;=&quot;,</span>
-<span class="fc" id="L448">                &quot;==&quot;,</span>
-<span class="fc" id="L449">                &quot;!=&quot;,</span>
+<span class="fc" id="L525">            setOf(</span>
+<span class="fc" id="L526">                &quot;&gt;&quot;,</span>
+<span class="fc" id="L527">                &quot;&gt;=&quot;,</span>
+<span class="fc" id="L528">                &quot;&lt;&quot;,</span>
+<span class="fc" id="L529">                &quot;&lt;=&quot;,</span>
+<span class="fc" id="L530">                &quot;==&quot;,</span>
+<span class="fc" id="L531">                &quot;!=&quot;,</span>
             )
     }
 }

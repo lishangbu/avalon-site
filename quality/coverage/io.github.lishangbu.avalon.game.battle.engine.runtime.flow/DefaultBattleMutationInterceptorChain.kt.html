@@ -26,41 +26,44 @@ import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
 <span class="fc" id="L26">        var currentSnapshot = snapshot</span>
 <span class="fc" id="L27">        val allowedMutations = mutableListOf&lt;BattleMutation&gt;()</span>
 
-<span class="fc" id="L29">        mutations.forEach { mutation -&gt;</span>
+<span class="fc" id="L29">        mutations.forEach { originalMutation -&gt;</span>
 <span class="fc" id="L30">            var mutationSnapshot = currentSnapshot</span>
-<span class="fc" id="L31">            var allowed = true</span>
+<span class="fc" id="L31">            var currentMutation: BattleMutation? = originalMutation</span>
+<span class="fc" id="L32">            var allowed = true</span>
 
-<span class="fc" id="L33">            interceptors.forEach { interceptor -&gt;</span>
-<span class="fc bfc" id="L34" title="All 4 branches covered.">                if (!allowed || !interceptor.supports(mutation)) {</span>
-<span class="fc" id="L35">                    return@forEach</span>
+<span class="fc" id="L34">            interceptors.forEach { interceptor -&gt;</span>
+<span class="fc" id="L35">                val mutation = currentMutation</span>
+<span class="pc bpc" id="L36" title="1 of 6 branches missed.">                if (!allowed || mutation == null || !interceptor.supports(mutation)) {</span>
+<span class="fc" id="L37">                    return@forEach</span>
                 }
-<span class="fc" id="L37">                val result =</span>
-<span class="fc" id="L38">                    interceptor.intercept(</span>
+<span class="fc" id="L39">                val result =</span>
+<span class="fc" id="L40">                    interceptor.intercept(</span>
                         context =
-<span class="fc" id="L40">                            BattleMutationInterceptionContext(</span>
-<span class="fc" id="L41">                                snapshot = mutationSnapshot,</span>
-<span class="fc" id="L42">                                selfId = selfId,</span>
-<span class="fc" id="L43">                                targetId = targetId,</span>
-<span class="fc" id="L44">                                sourceId = sourceId,</span>
-<span class="fc" id="L45">                                mutation = mutation,</span>
+<span class="fc" id="L42">                            BattleMutationInterceptionContext(</span>
+<span class="fc" id="L43">                                snapshot = mutationSnapshot,</span>
+<span class="fc" id="L44">                                selfId = selfId,</span>
+<span class="fc" id="L45">                                targetId = targetId,</span>
+<span class="fc" id="L46">                                sourceId = sourceId,</span>
+<span class="fc" id="L47">                                mutation = mutation,</span>
                             ),
-<span class="fc" id="L47">                        attachedEffectProcessor = attachedEffectProcessor,</span>
+<span class="fc" id="L49">                        attachedEffectProcessor = attachedEffectProcessor,</span>
                     )
-<span class="fc" id="L49">                mutationSnapshot = result.snapshot</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">                if (!result.allowed) {</span>
-<span class="fc" id="L51">                    allowed = false</span>
+<span class="fc" id="L51">                mutationSnapshot = result.snapshot</span>
+<span class="fc" id="L52">                currentMutation = result.mutation</span>
+<span class="pc bpc" id="L53" title="1 of 4 branches missed.">                if (!result.allowed || result.mutation == null) {</span>
+<span class="fc" id="L54">                    allowed = false</span>
                 }
-<span class="fc" id="L53">            }</span>
+<span class="fc" id="L56">            }</span>
 
-<span class="fc" id="L55">            currentSnapshot = mutationSnapshot</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (allowed) {</span>
-<span class="fc" id="L57">                allowedMutations += mutation</span>
+<span class="fc" id="L58">            currentSnapshot = mutationSnapshot</span>
+<span class="pc bpc" id="L59" title="1 of 4 branches missed.">            if (allowed &amp;&amp; currentMutation != null) {</span>
+<span class="fc" id="L60">                allowedMutations += currentMutation</span>
             }
-<span class="fc" id="L59">        }</span>
+<span class="fc" id="L62">        }</span>
 
-<span class="fc" id="L61">        return MutationFilteringResult(</span>
-<span class="fc" id="L62">            snapshot = currentSnapshot,</span>
-<span class="fc" id="L63">            mutations = allowedMutations,</span>
+<span class="fc" id="L64">        return MutationFilteringResult(</span>
+<span class="fc" id="L65">            snapshot = currentSnapshot,</span>
+<span class="fc" id="L66">            mutations = allowedMutations,</span>
         )
     }
 }

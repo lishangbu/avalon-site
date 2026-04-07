@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EffectDefinitionServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">EffectDefinitionServiceImpl.kt</span></div><h1>EffectDefinitionServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
+
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveEffectDefinitionInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEffectDefinitionInput
+import io.github.lishangbu.avalon.dataset.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.dataset.service.EffectDefinitionService
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/** 战斗效果定义应用服务实现。 */
+<span class="fc" id="L16">@Service</span>
+<span class="fc" id="L17">class EffectDefinitionServiceImpl(</span>
+    /** 战斗效果定义仓储。 */
+<span class="fc" id="L19">    private val effectDefinitionRepository: EffectDefinitionRepository,</span>
+) : EffectDefinitionService {
+    override fun getPageByCondition(
+        specification: EffectDefinitionSpecification,
+        pageable: Pageable,
+<span class="fc" id="L24">    ): Page&lt;EffectDefinitionView&gt; = effectDefinitionRepository.pageViews(specification, pageable)</span>
+
+<span class="fc" id="L26">    override fun listByCondition(specification: EffectDefinitionSpecification): List&lt;EffectDefinitionView&gt; = effectDefinitionRepository.listViews(specification)</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L29">    override fun save(command: SaveEffectDefinitionInput): EffectDefinitionView = EffectDefinitionView(effectDefinitionRepository.save(command.toEntity(), SaveMode.INSERT_ONLY))</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L32">    override fun update(command: UpdateEffectDefinitionInput): EffectDefinitionView = EffectDefinitionView(effectDefinitionRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY))</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L36">        effectDefinitionRepository.deleteById(id)</span>
+<span class="fc" id="L37">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

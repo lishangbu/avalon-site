@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EffectDefinitionController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.controller</a> &gt; <span class="el_source">EffectDefinitionController.kt</span></div><h1>EffectDefinitionController.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.controller
+
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionView
+import io.github.lishangbu.avalon.dataset.entity.dto.SaveEffectDefinitionInput
+import io.github.lishangbu.avalon.dataset.entity.dto.UpdateEffectDefinitionInput
+import io.github.lishangbu.avalon.dataset.service.EffectDefinitionService
+import jakarta.validation.Valid
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+
+/** 战斗效果定义控制器。 */
+<span class="fc" id="L22">@RestController</span>
+@RequestMapping(&quot;/effect-definition&quot;)
+<span class="fc" id="L24">class EffectDefinitionController(</span>
+    /** 战斗效果定义应用服务。 */
+<span class="fc" id="L26">    private val effectDefinitionService: EffectDefinitionService,</span>
+) {
+    /** 分页查询效果定义。 */
+    @GetMapping(&quot;/page&quot;)
+    fun getEffectDefinitionPage(
+        pageable: Pageable,
+        @ModelAttribute specification: EffectDefinitionSpecification,
+<span class="fc" id="L33">    ): Page&lt;EffectDefinitionView&gt; = effectDefinitionService.getPageByCondition(specification, pageable)</span>
+
+    /** 查询效果定义列表。 */
+    @GetMapping(&quot;/list&quot;)
+    fun listEffectDefinitions(
+        @ModelAttribute specification: EffectDefinitionSpecification,
+<span class="fc" id="L39">    ): List&lt;EffectDefinitionView&gt; = effectDefinitionService.listByCondition(specification)</span>
+
+    /** 创建效果定义。 */
+    @PostMapping
+    fun save(
+        @Valid
+        @RequestBody command: SaveEffectDefinitionInput,
+<span class="fc" id="L46">    ): EffectDefinitionView = effectDefinitionService.save(command)</span>
+
+    /** 更新效果定义。 */
+    @PutMapping
+    fun update(
+        @Valid
+        @RequestBody command: UpdateEffectDefinitionInput,
+<span class="fc" id="L53">    ): EffectDefinitionView = effectDefinitionService.update(command)</span>
+
+    /** 删除指定 ID 的效果定义。 */
+    @DeleteMapping(&quot;/{id:\\d+}&quot;)
+    fun deleteById(
+        @PathVariable id: Long,
+    ) {
+<span class="fc" id="L60">        effectDefinitionService.removeById(id)</span>
+<span class="fc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

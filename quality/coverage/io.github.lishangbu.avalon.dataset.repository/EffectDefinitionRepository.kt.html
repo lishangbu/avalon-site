@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EffectDefinitionRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.repository</a> &gt; <span class="el_source">EffectDefinitionRepository.kt</span></div><h1>EffectDefinitionRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.repository
+
+import io.github.lishangbu.avalon.dataset.entity.*
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.EffectDefinitionView
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Repository
+
+/**
+ * 战斗效果定义仓储。
+ *
+ * 这层负责把单表 `effect_definition` 暴露成 dataset 模块统一的 DTO-first 查询入口，
+ * 方便管理端直接做分页、列表和保存后的视图重载。
+ */
+@Repository
+interface EffectDefinitionRepository : KRepository&lt;EffectDefinition, Long&gt; {
+    /** 按条件查询效果定义列表视图。 */
+    fun listViews(specification: EffectDefinitionSpecification?): List&lt;EffectDefinitionView&gt; =
+<span class="fc" id="L24">        sql</span>
+<span class="fc" id="L25">            .createQuery(EffectDefinition::class) {</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L27">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L28">                select(table.fetch(EffectDefinitionView::class))</span>
+<span class="fc" id="L29">            }.execute()</span>
+
+    /** 按条件分页查询效果定义视图。 */
+    fun pageViews(
+        specification: EffectDefinitionSpecification?,
+        pageable: Pageable,
+    ): Page&lt;EffectDefinitionView&gt; =
+<span class="fc" id="L36">        sql</span>
+<span class="fc" id="L37">            .createQuery(EffectDefinition::class) {</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L39">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L40">                select(table.fetch(EffectDefinitionView::class))</span>
+<span class="fc" id="L41">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+
+    /** 按 ID 查询单条效果定义视图。 */
+    fun loadViewById(id: Long): EffectDefinitionView? =
+<span class="fc" id="L45">        sql</span>
+<span class="fc" id="L46">            .createQuery(EffectDefinition::class) {</span>
+<span class="fc" id="L47">                where(table.id eq id)</span>
+<span class="fc" id="L48">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L49">                select(table.fetch(EffectDefinitionView::class))</span>
+<span class="fc" id="L50">            }.execute()</span>
+<span class="fc" id="L51">            .firstOrNull()</span>
+
+    companion object {
+        /**
+         * 默认排序先按 `kind` 分组，再按 `internalName` 稳定输出，
+         * 方便管理端浏览同类 effect。
+         */
+        private val DEFAULT_SORT: Sort =
+<span class="fc" id="L59">            Sort.by(</span>
+<span class="fc" id="L60">                Sort.Order.asc(&quot;kind&quot;),</span>
+<span class="fc" id="L61">                Sort.Order.asc(&quot;internalName&quot;),</span>
+<span class="fc" id="L62">                Sort.Order.asc(&quot;id&quot;),</span>
+            )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

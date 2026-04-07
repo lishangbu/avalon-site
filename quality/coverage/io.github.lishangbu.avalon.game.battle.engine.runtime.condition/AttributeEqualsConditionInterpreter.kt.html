@@ -4,21 +4,22 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.ConditionNode
 import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.AttributeEqualsConditionNode
 import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ConditionInterpreter
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.EventContextAttributeReader
 import io.github.lishangbu.avalon.game.battle.engine.type.ConditionTypeId
 import io.github.lishangbu.avalon.game.battle.engine.type.StandardConditionTypeIds
 
 /**
  * `attribute_equals` 条件解释器。
  */
-<span class="fc" id="L13">class AttributeEqualsConditionInterpreter : ConditionInterpreter {</span>
-<span class="fc" id="L14">    override val type: ConditionTypeId = StandardConditionTypeIds.ATTRIBUTE_EQUALS</span>
+<span class="fc" id="L14">class AttributeEqualsConditionInterpreter : ConditionInterpreter {</span>
+<span class="fc" id="L15">    override val type: ConditionTypeId = StandardConditionTypeIds.ATTRIBUTE_EQUALS</span>
 
     override fun evaluate(
         condition: ConditionNode,
         context: EventContext,
     ): Boolean {
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">        require(condition is AttributeEqualsConditionNode) { &quot;Condition must be AttributeEqualsConditionNode.&quot; }</span>
-<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        return context.attributes[condition.key]?.toString() == condition.value</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        require(condition is AttributeEqualsConditionNode) { &quot;Condition must be AttributeEqualsConditionNode.&quot; }</span>
+<span class="fc" id="L22">        return EventContextAttributeReader.readString(condition.key, context) == condition.value</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

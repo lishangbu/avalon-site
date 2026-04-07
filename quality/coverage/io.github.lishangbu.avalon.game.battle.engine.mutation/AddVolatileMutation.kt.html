@@ -6,10 +6,14 @@ import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
  * 添加挥发状态变更。
  *
  * @property target 目标选择器。
- * @property volatileId 挥发状态标识。
+ * @property volatileEffectId 挥发状态 effect 标识。
+ * @property duration 可选的持续回合数。
+ * @property sourceId 可选的来源单位标识。
  */
-<span class="fc" id="L11">data class AddVolatileMutation(</span>
-<span class="fc" id="L12">    val target: TargetSelectorId,</span>
-<span class="fc" id="L13">    val volatileId: String,</span>
-) : BattleMutation
+<span class="pc" id="L13">data class AddVolatileMutation(</span>
+<span class="fc" id="L14">    val target: TargetSelectorId,</span>
+<span class="fc" id="L15">    val volatileEffectId: String,</span>
+<span class="pc" id="L16">    val duration: Int? = null,</span>
+<span class="pc" id="L17">    val sourceId: String? = null,</span>
+<span class="nc" id="L18">) : BattleMutation</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

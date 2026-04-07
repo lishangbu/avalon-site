@@ -29,26 +29,13 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
 <span class="pc" id="L29">    val moveId: String,</span>
 <span class="pc" id="L30">    val attackerId: String,</span>
 <span class="pc" id="L31">    val targetId: String,</span>
-<span class="fc" id="L32">    override val priority: Int,</span>
-<span class="fc" id="L33">    override val speed: Int,</span>
+<span class="pc" id="L32">    override val priority: Int,</span>
+<span class="pc" id="L33">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="fc" id="L38">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.MOVE</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="fc" id="L44">        mapOf(</span>
-<span class="fc" id="L45">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="fc" id="L46">            &quot;moveId&quot; to moveId,</span>
-<span class="fc" id="L47">            &quot;attackerId&quot; to attackerId,</span>
-<span class="fc" id="L48">            &quot;targetId&quot; to targetId,</span>
-<span class="fc" id="L49">            &quot;priority&quot; to priority,</span>
-<span class="fc" id="L50">            &quot;speed&quot; to speed,</span>
-<span class="fc" id="L51">        )</span>
+<span class="pc" id="L38">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.MOVE</span>
 }
 
 /**
@@ -60,30 +47,17 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
  * @property priority 当前动作优先级。
  * @property speed 当前动作排序速度。
  */
-<span class="fc" id="L63">data class BattleSessionSwitchQueuedPayload(</span>
-<span class="pc" id="L64">    val sideId: String,</span>
-<span class="pc" id="L65">    val outgoingUnitId: String,</span>
-<span class="pc" id="L66">    val incomingUnitId: String,</span>
-<span class="pc" id="L67">    override val priority: Int,</span>
-<span class="pc" id="L68">    override val speed: Int,</span>
+<span class="fc" id="L50">data class BattleSessionSwitchQueuedPayload(</span>
+<span class="pc" id="L51">    val sideId: String,</span>
+<span class="pc" id="L52">    val outgoingUnitId: String,</span>
+<span class="pc" id="L53">    val incomingUnitId: String,</span>
+<span class="pc" id="L54">    override val priority: Int,</span>
+<span class="pc" id="L55">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="pc" id="L73">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.SWITCH</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L79">        mapOf(</span>
-<span class="nc" id="L80">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L81">            &quot;sideId&quot; to sideId,</span>
-<span class="nc" id="L82">            &quot;outgoingUnitId&quot; to outgoingUnitId,</span>
-<span class="nc" id="L83">            &quot;incomingUnitId&quot; to incomingUnitId,</span>
-<span class="nc" id="L84">            &quot;priority&quot; to priority,</span>
-<span class="nc" id="L85">            &quot;speed&quot; to speed,</span>
-<span class="nc" id="L86">        )</span>
+<span class="pc" id="L60">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.SWITCH</span>
 }
 
 /**
@@ -95,30 +69,17 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
  * @property priority 当前动作优先级。
  * @property speed 当前动作排序速度。
  */
-<span class="fc" id="L98">data class BattleSessionItemQueuedPayload(</span>
-<span class="pc" id="L99">    val itemId: String,</span>
-<span class="pc" id="L100">    val actorUnitId: String,</span>
-<span class="pc" id="L101">    val targetId: String,</span>
-<span class="pc" id="L102">    override val priority: Int,</span>
-<span class="pc" id="L103">    override val speed: Int,</span>
+<span class="fc" id="L72">data class BattleSessionItemQueuedPayload(</span>
+<span class="pc" id="L73">    val itemId: String,</span>
+<span class="pc" id="L74">    val actorUnitId: String,</span>
+<span class="pc" id="L75">    val targetId: String,</span>
+<span class="pc" id="L76">    override val priority: Int,</span>
+<span class="pc" id="L77">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="pc" id="L108">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.ITEM</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="nc" id="L114">        mapOf(</span>
-<span class="nc" id="L115">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="nc" id="L116">            &quot;itemId&quot; to itemId,</span>
-<span class="nc" id="L117">            &quot;actorUnitId&quot; to actorUnitId,</span>
-<span class="nc" id="L118">            &quot;targetId&quot; to targetId,</span>
-<span class="nc" id="L119">            &quot;priority&quot; to priority,</span>
-<span class="nc" id="L120">            &quot;speed&quot; to speed,</span>
-<span class="nc" id="L121">        )</span>
+<span class="pc" id="L82">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.ITEM</span>
 }
 
 /**
@@ -131,32 +92,18 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
  * @property priority 当前动作优先级。
  * @property speed 当前动作排序速度。
  */
-<span class="fc" id="L134">data class BattleSessionCaptureQueuedPayload(</span>
-<span class="pc" id="L135">    val playerId: String,</span>
-<span class="pc" id="L136">    val ballItemId: String,</span>
-<span class="pc" id="L137">    val sourceUnitId: String,</span>
-<span class="pc" id="L138">    val targetId: String,</span>
-<span class="fc" id="L139">    override val priority: Int,</span>
-<span class="fc" id="L140">    override val speed: Int,</span>
+<span class="fc" id="L95">data class BattleSessionCaptureQueuedPayload(</span>
+<span class="pc" id="L96">    val playerId: String,</span>
+<span class="pc" id="L97">    val ballItemId: String,</span>
+<span class="pc" id="L98">    val sourceUnitId: String,</span>
+<span class="pc" id="L99">    val targetId: String,</span>
+<span class="pc" id="L100">    override val priority: Int,</span>
+<span class="pc" id="L101">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="fc" id="L145">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.CAPTURE</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="fc" id="L151">        mapOf(</span>
-<span class="fc" id="L152">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="fc" id="L153">            &quot;playerId&quot; to playerId,</span>
-<span class="fc" id="L154">            &quot;ballItemId&quot; to ballItemId,</span>
-<span class="fc" id="L155">            &quot;sourceUnitId&quot; to sourceUnitId,</span>
-<span class="fc" id="L156">            &quot;targetId&quot; to targetId,</span>
-<span class="fc" id="L157">            &quot;priority&quot; to priority,</span>
-<span class="fc" id="L158">            &quot;speed&quot; to speed,</span>
-<span class="fc" id="L159">        )</span>
+<span class="pc" id="L106">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.CAPTURE</span>
 }
 
 /**
@@ -166,26 +113,15 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
  * @property priority 当前动作优先级。
  * @property speed 当前动作排序速度。
  */
-<span class="fc" id="L169">data class BattleSessionRunQueuedPayload(</span>
-<span class="pc" id="L170">    val sideId: String,</span>
-<span class="fc" id="L171">    override val priority: Int,</span>
-<span class="fc" id="L172">    override val speed: Int,</span>
+<span class="fc" id="L116">data class BattleSessionRunQueuedPayload(</span>
+<span class="pc" id="L117">    val sideId: String,</span>
+<span class="pc" id="L118">    override val priority: Int,</span>
+<span class="pc" id="L119">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="fc" id="L177">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.RUN</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="fc" id="L183">        mapOf(</span>
-<span class="fc" id="L184">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="fc" id="L185">            &quot;sideId&quot; to sideId,</span>
-<span class="fc" id="L186">            &quot;priority&quot; to priority,</span>
-<span class="fc" id="L187">            &quot;speed&quot; to speed,</span>
-<span class="fc" id="L188">        )</span>
+<span class="pc" id="L124">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.RUN</span>
 }
 
 /**
@@ -195,25 +131,14 @@ sealed interface BattleSessionQueuedActionPayload : BattleSessionEventPayload {
  * @property priority 当前动作优先级。
  * @property speed 当前动作排序速度。
  */
-<span class="fc" id="L198">data class BattleSessionWaitQueuedPayload(</span>
-<span class="pc" id="L199">    val unitId: String,</span>
-<span class="fc" id="L200">    override val priority: Int,</span>
-<span class="fc" id="L201">    override val speed: Int,</span>
+<span class="fc" id="L134">data class BattleSessionWaitQueuedPayload(</span>
+<span class="pc" id="L135">    val unitId: String,</span>
+<span class="pc" id="L136">    override val priority: Int,</span>
+<span class="pc" id="L137">    override val speed: Int,</span>
 ) : BattleSessionQueuedActionPayload {
     /**
      * 当前入队动作的种类。
      */
-<span class="fc" id="L206">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.WAIT</span>
-
-    /**
-     * 把当前 payload 映射为兼容现有读模型的 attributes。
-     */
-    override fun toAttributes(): Map&lt;String, Any?&gt; =
-<span class="fc" id="L212">        mapOf(</span>
-<span class="fc" id="L213">            &quot;actionType&quot; to actionType.wireValue,</span>
-<span class="fc" id="L214">            &quot;unitId&quot; to unitId,</span>
-<span class="fc" id="L215">            &quot;priority&quot; to priority,</span>
-<span class="fc" id="L216">            &quot;speed&quot; to speed,</span>
-<span class="fc" id="L217">        )</span>
+<span class="pc" id="L142">    override val actionType: BattleSessionActionEventKind = BattleSessionActionEventKind.WAIT</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

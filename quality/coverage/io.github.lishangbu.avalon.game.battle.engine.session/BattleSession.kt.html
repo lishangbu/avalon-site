@@ -8,10 +8,14 @@ import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
 import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplier
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleFlowEngine
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleFlowPhaseProcessor
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleMutationInterceptorChain
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.MoveResolutionResult
 import io.github.lishangbu.avalon.game.battle.engine.service.CaptureActionResolver
 import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionCaptureChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionItemChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionMoveChoiceSpecification
 import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionRunChoiceSpecification
 import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionTargetChoiceSpecification
 import io.github.lishangbu.avalon.game.battle.engine.session.specification.BattleSessionTurnReadySpecification
@@ -34,6 +38,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
  *
  * @property effectRepository effect 定义查询入口。
  * @property battleFlowEngine battle runtime 主流程入口。
+ * @property battleFlowPhaseProcessor battle attached-effect 生命周期处理入口。
  * @property mutationApplier 结构化 mutation 写回组件。
  * @property replacementStrategy 自动替补选择策略。
  * @property captureActionResolver battle 内捕捉动作解析器。
@@ -46,115 +51,151 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
  * @property runChoiceSpecification side 逃跑提交规格。
  * @property targetChoiceSpecification effect 目标合法性规格。
  * @property captureChoiceSpecification 捕捉动作合法性规格。
+ * @property moveChoiceSpecification 招式选择限制规格。
+ * @property itemChoiceSpecification 物品选择限制规格。
  * @property targetQueryService battle session 目标查询服务。
  * @property actionSortingStrategy battle session action 排序策略。
  * @property eventPublisher battle session 内部事件发布器。
  * @property commandFactory battle session 命令工厂。
  */
-<span class="fc" id="L54">class BattleSession(</span>
-<span class="pc" id="L55">    internal val effectRepository: EffectDefinitionRepository,</span>
-<span class="fc" id="L56">    internal val battleFlowEngine: BattleFlowEngine,</span>
-<span class="fc" id="L57">    internal val mutationApplier: MutationApplier,</span>
-<span class="fc" id="L58">    internal val replacementStrategy: ReplacementStrategy,</span>
-<span class="fc" id="L59">    internal val captureActionResolver: CaptureActionResolver,</span>
-<span class="pc" id="L60">    internal val actionExecutionSupport: BattleSessionActionExecutionSupport,</span>
-<span class="fc" id="L61">    private val choiceHandlerRegistry: BattleSessionChoiceHandlerRegistry,</span>
-<span class="fc" id="L62">    private val actionHandlerRegistry: BattleSessionActionHandlerRegistry,</span>
-<span class="fc" id="L63">    private val turnPipeline: BattleSessionTurnPipeline,</span>
-<span class="fc" id="L64">    private val turnReadySpecification: BattleSessionTurnReadySpecification,</span>
-<span class="fc" id="L65">    private val unitChoiceSpecification: BattleSessionUnitChoiceSpecification,</span>
-<span class="fc" id="L66">    private val runChoiceSpecification: BattleSessionRunChoiceSpecification,</span>
-<span class="fc" id="L67">    private val targetChoiceSpecification: BattleSessionTargetChoiceSpecification,</span>
-<span class="fc" id="L68">    private val captureChoiceSpecification: BattleSessionCaptureChoiceSpecification,</span>
-<span class="fc" id="L69">    private val targetQueryService: BattleSessionTargetQueryService,</span>
-<span class="fc" id="L70">    private val actionSortingStrategy: BattleSessionActionSortingStrategy,</span>
-<span class="fc" id="L71">    private val eventPublisher: BattleSessionEventPublisher,</span>
-<span class="fc" id="L72">    private val commandFactory: BattleSessionCommandFactory,</span>
+<span class="fc" id="L61">class BattleSession(</span>
+<span class="fc" id="L62">    internal val effectRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L63">    internal val battleFlowEngine: BattleFlowEngine,</span>
+<span class="fc" id="L64">    internal val battleFlowPhaseProcessor: BattleFlowPhaseProcessor,</span>
+<span class="fc" id="L65">    internal val mutationInterceptorChain: BattleMutationInterceptorChain,</span>
+<span class="fc" id="L66">    internal val mutationApplier: MutationApplier,</span>
+<span class="fc" id="L67">    internal val replacementStrategy: ReplacementStrategy,</span>
+<span class="fc" id="L68">    internal val captureActionResolver: CaptureActionResolver,</span>
+<span class="pc" id="L69">    internal val actionExecutionSupport: BattleSessionActionExecutionSupport,</span>
+<span class="fc" id="L70">    private val choiceHandlerRegistry: BattleSessionChoiceHandlerRegistry,</span>
+<span class="fc" id="L71">    private val actionHandlerRegistry: BattleSessionActionHandlerRegistry,</span>
+<span class="fc" id="L72">    private val turnPipeline: BattleSessionTurnPipeline,</span>
+<span class="fc" id="L73">    private val turnReadySpecification: BattleSessionTurnReadySpecification,</span>
+<span class="fc" id="L74">    private val unitChoiceSpecification: BattleSessionUnitChoiceSpecification,</span>
+<span class="fc" id="L75">    private val runChoiceSpecification: BattleSessionRunChoiceSpecification,</span>
+<span class="fc" id="L76">    private val targetChoiceSpecification: BattleSessionTargetChoiceSpecification,</span>
+<span class="fc" id="L77">    private val captureChoiceSpecification: BattleSessionCaptureChoiceSpecification,</span>
+<span class="fc" id="L78">    private val moveChoiceSpecification: BattleSessionMoveChoiceSpecification,</span>
+<span class="fc" id="L79">    private val itemChoiceSpecification: BattleSessionItemChoiceSpecification,</span>
+<span class="fc" id="L80">    private val targetQueryService: BattleSessionTargetQueryService,</span>
+<span class="fc" id="L81">    private val actionSortingStrategy: BattleSessionActionSortingStrategy,</span>
+<span class="fc" id="L82">    private val eventPublisher: BattleSessionEventPublisher,</span>
+<span class="fc" id="L83">    private val commandFactory: BattleSessionCommandFactory,</span>
     battleId: String,
     formatId: String,
 ) {
     /**
      * 当前回合待执行动作队列。
      */
-<span class="fc" id="L79">    internal val actionQueue: BattleSessionActionQueue = BattleSessionActionQueue(actionSortingStrategy)</span>
+<span class="fc" id="L90">    internal val actionQueue: BattleSessionActionQueue = BattleSessionActionQueue(actionSortingStrategy)</span>
 
     /**
      * 面向玩家可读的 battle log 缓存。
      */
-<span class="pc" id="L84">    internal val battleLogs: MutableList&lt;String&gt; = mutableListOf()</span>
+<span class="fc" id="L95">    internal val battleLogs: MutableList&lt;String&gt; = mutableListOf()</span>
 
     /**
      * 结构化事件日志缓存。
      */
-<span class="pc" id="L89">    internal val eventLogs: MutableList&lt;BattleSessionEvent&gt; = mutableListOf()</span>
+<span class="fc" id="L100">    internal val eventLogs: MutableList&lt;BattleSessionEvent&gt; = mutableListOf()</span>
 
     /**
      * 当前待处理的替补请求集合。
      */
-<span class="fc" id="L94">    internal val replacementRequests: MutableList&lt;BattleSessionReplacementRequest&gt; = mutableListOf()</span>
+<span class="fc" id="L105">    internal val replacementRequests: MutableList&lt;BattleSessionReplacementRequest&gt; = mutableListOf()</span>
 
     /**
      * battle 内资源消耗账本。
      */
-<span class="pc" id="L99">    internal val resourceLedger: MutableList&lt;BattleSessionResourceUsage&gt; = mutableListOf()</span>
+<span class="fc" id="L110">    internal val resourceLedger: MutableList&lt;BattleSessionResourceUsage&gt; = mutableListOf()</span>
 
     /**
      * 当前会话持有的最新运行时快照。
      */
-<span class="fc" id="L104">    internal var currentSnapshot: BattleRuntimeSnapshot =</span>
-<span class="fc" id="L105">        BattleRuntimeSnapshot(</span>
-<span class="fc" id="L106">            battle = BattleState(id = battleId, formatId = formatId),</span>
-<span class="fc" id="L107">            field = FieldState(),</span>
-<span class="fc" id="L108">            units = emptyMap(),</span>
-<span class="fc" id="L109">            sides = emptyMap(),</span>
+<span class="fc" id="L115">    internal var currentSnapshot: BattleRuntimeSnapshot =</span>
+<span class="fc" id="L116">        BattleRuntimeSnapshot(</span>
+<span class="fc" id="L117">            battle = BattleState(id = battleId, formatId = formatId),</span>
+<span class="fc" id="L118">            field = FieldState(),</span>
+<span class="fc" id="L119">            units = emptyMap(),</span>
+<span class="fc" id="L120">            sides = emptyMap(),</span>
         )
 
     /**
      * choice 合法性校验器。
      */
     private val choiceValidator: BattleSessionChoiceValidator =
-<span class="fc" id="L116">        BattleSessionChoiceValidator(</span>
-<span class="fc" id="L117">            session = this,</span>
-<span class="fc" id="L118">            turnReadySpecification = turnReadySpecification,</span>
-<span class="fc" id="L119">            unitChoiceSpecification = unitChoiceSpecification,</span>
-<span class="fc" id="L120">            runChoiceSpecification = runChoiceSpecification,</span>
-<span class="fc" id="L121">            targetChoiceSpecification = targetChoiceSpecification,</span>
-<span class="fc" id="L122">            captureChoiceSpecification = captureChoiceSpecification,</span>
+<span class="fc" id="L127">        BattleSessionChoiceValidator(</span>
+<span class="fc" id="L128">            session = this,</span>
+<span class="fc" id="L129">            turnReadySpecification = turnReadySpecification,</span>
+<span class="fc" id="L130">            unitChoiceSpecification = unitChoiceSpecification,</span>
+<span class="fc" id="L131">            runChoiceSpecification = runChoiceSpecification,</span>
+<span class="fc" id="L132">            targetChoiceSpecification = targetChoiceSpecification,</span>
+<span class="fc" id="L133">            captureChoiceSpecification = captureChoiceSpecification,</span>
+<span class="fc" id="L134">            moveChoiceSpecification = moveChoiceSpecification,</span>
+<span class="fc" id="L135">            itemChoiceSpecification = itemChoiceSpecification,</span>
         )
 
     /**
      * 已入队 action 的执行协调器。
      */
-<span class="fc" id="L128">    private val actionExecutor: BattleSessionActionExecutor = BattleSessionActionExecutor(this, actionHandlerRegistry)</span>
+<span class="fc" id="L141">    private val actionExecutor: BattleSessionActionExecutor = BattleSessionActionExecutor(this, actionHandlerRegistry)</span>
 
     /**
      * 濒死、替补与胜负更新协调器。
      */
-<span class="fc" id="L133">    private val replacementResolver: BattleSessionReplacementResolver = BattleSessionReplacementResolver(this)</span>
+<span class="fc" id="L146">    private val replacementResolver: BattleSessionReplacementResolver = BattleSessionReplacementResolver(this)</span>
+
+    /**
+     * `before_turn / switch / faint` 等生命周期 hook 的统一调度器。
+     */
+    private val hookLifecycleProcessor: BattleSessionHookLifecycleProcessor =
+<span class="fc" id="L152">        BattleSessionHookLifecycleProcessor(</span>
+<span class="fc" id="L153">            session = this,</span>
+<span class="fc" id="L154">            battleFlowPhaseProcessor = battleFlowPhaseProcessor,</span>
+        )
 
     /**
      * 回合末推进与替补提交流程协调器。
      */
-<span class="fc" id="L138">    private val lifecycleCoordinator: BattleSessionLifecycleCoordinator = BattleSessionLifecycleCoordinator(this)</span>
+<span class="fc" id="L160">    private val lifecycleCoordinator: BattleSessionLifecycleCoordinator = BattleSessionLifecycleCoordinator(this)</span>
+
+    /**
+     * 建局、恢复与会话外壳状态协调器。
+     */
+<span class="fc" id="L165">    private val setupCoordinator: BattleSessionSetupCoordinator = BattleSessionSetupCoordinator(this)</span>
+
+    /**
+     * session 内部的统一 mutation 提交器。
+     */
+<span class="fc" id="L170">    private val mutationProcessor: BattleSessionMutationProcessor = BattleSessionMutationProcessor(this)</span>
+
+    /**
+     * publication 发布与读模型写入协调器。
+     */
+    private val publicationRecorder: BattleSessionPublicationRecorder =
+<span class="fc" id="L176">        BattleSessionPublicationRecorder(</span>
+<span class="fc" id="L177">            session = this,</span>
+<span class="fc" id="L178">            eventPublisher = eventPublisher,</span>
+        )
 
     /**
      * 返回当前会话快照。
      */
-<span class="fc" id="L143">    fun snapshot(): BattleRuntimeSnapshot = currentSnapshot</span>
+<span class="fc" id="L184">    fun snapshot(): BattleRuntimeSnapshot = currentSnapshot</span>
 
     /**
      * 返回当前会话的统一查询结果。
      */
     fun query(): BattleSessionQuery =
-<span class="fc" id="L149">        BattleSessionQuery(</span>
-<span class="fc" id="L150">            snapshot = snapshot(),</span>
-<span class="fc" id="L151">            pendingActions = pendingActions(),</span>
-<span class="fc" id="L152">            choiceStatuses = choiceStatuses(),</span>
-<span class="fc" id="L153">            replacementRequests = pendingReplacementRequests(),</span>
-<span class="fc" id="L154">            resourceLedger = resourceLedger(),</span>
-<span class="fc" id="L155">            battleLogs = battleLogs(),</span>
-<span class="fc" id="L156">            eventLogs = eventLogs(),</span>
-<span class="fc" id="L157">        )</span>
+<span class="fc" id="L190">        BattleSessionQuery(</span>
+<span class="fc" id="L191">            snapshot = snapshot(),</span>
+<span class="fc" id="L192">            pendingActions = pendingActions(),</span>
+<span class="fc" id="L193">            choiceStatuses = choiceStatuses(),</span>
+<span class="fc" id="L194">            replacementRequests = pendingReplacementRequests(),</span>
+<span class="fc" id="L195">            resourceLedger = resourceLedger(),</span>
+<span class="fc" id="L196">            battleLogs = battleLogs(),</span>
+<span class="fc" id="L197">            eventLogs = eventLogs(),</span>
+<span class="fc" id="L198">        )</span>
 
     /**
      * 查询某个 effect 在当前会话下的目标模式和可选目标。
@@ -167,35 +208,35 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         effectId: String,
         actorUnitId: String,
     ): BattleSessionTargetQuery =
-<span class="fc" id="L170">        targetQueryService.resolve(</span>
-<span class="fc" id="L171">            snapshot = currentSnapshot,</span>
-<span class="fc" id="L172">            effectId = effectId,</span>
-<span class="fc" id="L173">            actorUnitId = actorUnitId,</span>
-<span class="fc" id="L174">        )</span>
+<span class="fc" id="L211">        targetQueryService.resolve(</span>
+<span class="fc" id="L212">            snapshot = currentSnapshot,</span>
+<span class="fc" id="L213">            effectId = effectId,</span>
+<span class="fc" id="L214">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L215">        )</span>
 
     /**
      * 返回当前待执行动作队列快照。
      */
-<span class="fc" id="L179">    fun pendingActions(): List&lt;BattleSessionAction&gt; = actionQueue.snapshot()</span>
+<span class="fc" id="L220">    fun pendingActions(): List&lt;BattleSessionAction&gt; = actionQueue.snapshot()</span>
 
     /**
      * 返回每个 side 的当前回合输入状态。
      */
     fun choiceStatuses(): List&lt;BattleSessionChoiceStatus&gt; =
-<span class="fc" id="L185">        currentSnapshot.sides.values.map { side -&gt;</span>
-<span class="fc" id="L186">            val activeUnitIds = side.activeUnitIds</span>
-<span class="fc" id="L187">            val submittedUnitIds = submittedUnitIdsForSide(side)</span>
-<span class="fc" id="L188">            val missingUnitIds = activeUnitIds.filterNot { unitId -&gt; unitId in submittedUnitIds }</span>
-<span class="fc" id="L189">            BattleSessionChoiceStatus(</span>
-<span class="fc" id="L190">                sideId = side.id,</span>
-<span class="fc" id="L191">                activeUnitIds = activeUnitIds,</span>
-<span class="fc" id="L192">                submittedUnitIds = submittedUnitIds,</span>
-<span class="fc" id="L193">                missingUnitIds = missingUnitIds,</span>
-<span class="fc" id="L194">                requiredActionCount = activeUnitIds.size,</span>
-<span class="fc" id="L195">                submittedActionCount = submittedUnitIds.size,</span>
-<span class="fc" id="L196">                ready = missingUnitIds.isEmpty(),</span>
-<span class="fc" id="L197">            )</span>
-<span class="fc" id="L198">        }</span>
+<span class="fc" id="L226">        currentSnapshot.sides.values.map { side -&gt;</span>
+<span class="fc" id="L227">            val activeUnitIds = side.activeUnitIds</span>
+<span class="fc" id="L228">            val submittedUnitIds = submittedUnitIdsForSide(side)</span>
+<span class="fc" id="L229">            val missingUnitIds = activeUnitIds.filterNot { unitId -&gt; unitId in submittedUnitIds }</span>
+<span class="fc" id="L230">            BattleSessionChoiceStatus(</span>
+<span class="fc" id="L231">                sideId = side.id,</span>
+<span class="fc" id="L232">                activeUnitIds = activeUnitIds,</span>
+<span class="fc" id="L233">                submittedUnitIds = submittedUnitIds,</span>
+<span class="fc" id="L234">                missingUnitIds = missingUnitIds,</span>
+<span class="fc" id="L235">                requiredActionCount = activeUnitIds.size,</span>
+<span class="fc" id="L236">                submittedActionCount = submittedUnitIds.size,</span>
+<span class="fc" id="L237">                ready = missingUnitIds.isEmpty(),</span>
+<span class="fc" id="L238">            )</span>
+<span class="fc" id="L239">        }</span>
 
     /**
      * 返回当前回合尚未提交行动的 side 标识列表。
@@ -205,21 +246,21 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * - side 下只要还有任一 active 单位未提交行动，就视为该 side 仍缺少输入。
      */
     fun missingChoiceSideIds(): List&lt;String&gt; =
-<span class="fc" id="L208">        choiceStatuses()</span>
-<span class="fc" id="L209">            .filterNot(BattleSessionChoiceStatus::ready)</span>
-<span class="fc" id="L210">            .map(BattleSessionChoiceStatus::sideId)</span>
+<span class="fc" id="L249">        choiceStatuses()</span>
+<span class="fc" id="L250">            .filterNot(BattleSessionChoiceStatus::ready)</span>
+<span class="fc" id="L251">            .map(BattleSessionChoiceStatus::sideId)</span>
 
     /**
      * 返回本回合尚未提交行动的 active 单位列表。
      */
     fun pendingChoiceUnitIds(): List&lt;String&gt; =
-<span class="fc" id="L216">        choiceStatuses()</span>
-<span class="fc" id="L217">            .flatMap(BattleSessionChoiceStatus::missingUnitIds)</span>
+<span class="fc" id="L257">        choiceStatuses()</span>
+<span class="fc" id="L258">            .flatMap(BattleSessionChoiceStatus::missingUnitIds)</span>
 
     /**
      * 当前回合是否已经满足最小提交条件。
      */
-<span class="fc" id="L222">    fun isTurnReady(): Boolean = missingChoiceSideIds().isEmpty()</span>
+<span class="fc" id="L263">    fun isTurnReady(): Boolean = missingChoiceSideIds().isEmpty()</span>
 
     /**
      * 当前回合是否允许进入结算。
@@ -227,57 +268,37 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 额外约束：
      * - 不能有未完成的 replacement request。
      */
-<span class="pc bpc" id="L230" title="3 of 4 branches missed.">    fun canResolveTurn(): Boolean = isTurnReady() &amp;&amp; replacementRequests.isEmpty()</span>
+<span class="pc bpc" id="L271" title="3 of 4 branches missed.">    fun canResolveTurn(): Boolean = isTurnReady() &amp;&amp; replacementRequests.isEmpty()</span>
 
     /**
      * 返回人类可读 battle log 快照。
      */
-<span class="fc" id="L235">    fun battleLogs(): List&lt;String&gt; = battleLogs.toList()</span>
+<span class="fc" id="L276">    fun battleLogs(): List&lt;String&gt; = battleLogs.toList()</span>
 
     /**
      * 返回结构化 event log 快照。
      */
-<span class="fc" id="L240">    fun eventLogs(): List&lt;BattleSessionEvent&gt; = eventLogs.toList()</span>
+<span class="fc" id="L281">    fun eventLogs(): List&lt;BattleSessionEvent&gt; = eventLogs.toList()</span>
 
     /**
      * 返回当前待处理的替补请求。
      */
-<span class="fc" id="L245">    fun pendingReplacementRequests(): List&lt;BattleSessionReplacementRequest&gt; = replacementRequests.toList()</span>
+<span class="fc" id="L286">    fun pendingReplacementRequests(): List&lt;BattleSessionReplacementRequest&gt; = replacementRequests.toList()</span>
 
     /**
      * 返回当前 battle 内部资源账本。
      */
-<span class="fc" id="L250">    fun resourceLedger(): List&lt;BattleSessionResourceUsage&gt; = resourceLedger.toList()</span>
+<span class="fc" id="L291">    fun resourceLedger(): List&lt;BattleSessionResourceUsage&gt; = resourceLedger.toList()</span>
 
     /**
      * 导出当前可持久化状态。
      */
-    fun exportState(): BattleSessionState =
-<span class="fc" id="L256">        BattleSessionState(</span>
-<span class="fc" id="L257">            snapshot = currentSnapshot,</span>
-<span class="fc" id="L258">            pendingActions = pendingActions(),</span>
-<span class="fc" id="L259">            replacementRequests = pendingReplacementRequests(),</span>
-<span class="fc" id="L260">            resourceLedger = resourceLedger(),</span>
-<span class="fc" id="L261">            battleLogs = battleLogs(),</span>
-<span class="fc" id="L262">            eventLogs = eventLogs(),</span>
-<span class="fc" id="L263">        )</span>
+<span class="fc" id="L296">    fun exportState(): BattleSessionState = setupCoordinator.exportState()</span>
 
     /**
      * 用已持久化状态恢复当前 session。
      */
-    fun restoreState(state: BattleSessionState): BattleRuntimeSnapshot {
-<span class="fc" id="L269">        currentSnapshot = state.snapshot</span>
-<span class="fc" id="L270">        actionQueue.replaceAll(state.pendingActions)</span>
-<span class="fc" id="L271">        replacementRequests.clear()</span>
-<span class="fc" id="L272">        replacementRequests += state.replacementRequests</span>
-<span class="fc" id="L273">        resourceLedger.clear()</span>
-<span class="fc" id="L274">        resourceLedger += state.resourceLedger</span>
-<span class="fc" id="L275">        battleLogs.clear()</span>
-<span class="fc" id="L276">        battleLogs += state.battleLogs</span>
-<span class="fc" id="L277">        eventLogs.clear()</span>
-<span class="fc" id="L278">        eventLogs += state.eventLogs</span>
-<span class="fc" id="L279">        return currentSnapshot</span>
-    }
+<span class="fc" id="L301">    fun restoreState(state: BattleSessionState): BattleRuntimeSnapshot = setupCoordinator.restoreState(state)</span>
 
     /**
      * 启动 battle session。
@@ -285,13 +306,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 约定：
      * - 启动后 turn 初始化为 1。
      */
-    fun start(): BattleRuntimeSnapshot {
-<span class="fc" id="L289">        val battle = currentSnapshot.battle.copy(started = true, turn = 1)</span>
-<span class="fc" id="L290">        currentSnapshot = currentSnapshot.copy(battle = battle)</span>
-<span class="fc" id="L291">        recordLog(&quot;Battle ${battle.id} started at turn ${battle.turn}.&quot;)</span>
-<span class="fc" id="L292">        recordEvent(BattleSessionStartedPayload)</span>
-<span class="fc" id="L293">        return currentSnapshot</span>
-    }
+<span class="fc" id="L309">    fun start(): BattleRuntimeSnapshot = setupCoordinator.start()</span>
 
     /**
      * 注册一个 side。
@@ -299,34 +314,15 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param sideId 待注册的 side 标识
      * @return 更新后的快照
      */
-    fun registerSide(sideId: String): BattleRuntimeSnapshot {
-<span class="fc" id="L303">        val nextSides = currentSnapshot.sides + (sideId to SideState(id = sideId))</span>
-<span class="fc" id="L304">        currentSnapshot = currentSnapshot.copy(sides = nextSides)</span>
-<span class="fc" id="L305">        recordLog(&quot;Registered side $sideId.&quot;)</span>
-<span class="fc" id="L306">        recordEvent(</span>
-<span class="fc" id="L307">            BattleSessionSideRegisteredPayload(sideId = sideId),</span>
-        )
-<span class="fc" id="L309">        return currentSnapshot</span>
-    }
+<span class="fc" id="L317">    fun registerSide(sideId: String): BattleRuntimeSnapshot = setupCoordinator.registerSide(sideId)</span>
 
     /**
      * 配置当前 battle 的业务语义，例如 wild/trainer 和可捕捉 side。
      */
-<span class="fc" id="L315">    fun configureBattle(</span>
+<span class="fc" id="L322">    fun configureBattle(</span>
         battleKind: BattleType,
-<span class="fc" id="L317">        capturableSideId: String? = null,</span>
-    ): BattleRuntimeSnapshot {
-<span class="fc" id="L319">        currentSnapshot =</span>
-<span class="fc" id="L320">            currentSnapshot.copy(</span>
-                battle =
-<span class="fc" id="L322">                    currentSnapshot.battle.copy(</span>
-<span class="fc" id="L323">                        battleKind = battleKind,</span>
-<span class="fc" id="L324">                        capturableSideId = capturableSideId,</span>
-                    ),
-            )
-<span class="fc" id="L327">        recordLog(&quot;Configured battle kind=${battleKind.name} capturableSideId=$capturableSideId.&quot;)</span>
-<span class="fc" id="L328">        return currentSnapshot</span>
-    }
+<span class="fc" id="L324">        capturableSideId: String? = null,</span>
+<span class="fc" id="L325">    ): BattleRuntimeSnapshot = setupCoordinator.configureBattle(battleKind, capturableSideId)</span>
 
     /**
      * 注册一个单位并挂到指定 side。
@@ -336,41 +332,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param active 当前是否直接加入 activeUnitIds
      * @return 更新后的快照
      */
-<span class="fc" id="L339">    fun registerUnit(</span>
+<span class="nc" id="L335">    fun registerUnit(</span>
         sideId: String,
         unit: UnitState,
-<span class="fc" id="L342">        active: Boolean = true,</span>
-    ): BattleRuntimeSnapshot {
-<span class="fc" id="L344">        val side =</span>
-<span class="pc bpc" id="L345" title="1 of 2 branches missed.">            requireNotNull(currentSnapshot.sides[sideId]) {</span>
-<span class="nc" id="L346">                &quot;Side '$sideId' must be registered before units can be added.&quot;</span>
-            }
-<span class="fc" id="L348">        val nextUnits = currentSnapshot.units + (unit.id to unit)</span>
-<span class="fc" id="L349">        val nextSide =</span>
-<span class="fc bfc" id="L350" title="All 2 branches covered.">            if (active) {</span>
-<span class="fc" id="L351">                side.copy(</span>
-<span class="fc" id="L352">                    unitIds = (side.unitIds + unit.id).distinct(),</span>
-<span class="fc" id="L353">                    activeUnitIds = (side.activeUnitIds + unit.id).distinct(),</span>
-                )
-            } else {
-<span class="fc" id="L356">                side.copy(unitIds = (side.unitIds + unit.id).distinct())</span>
-            }
-<span class="fc" id="L358">        val nextSides = currentSnapshot.sides + (sideId to nextSide)</span>
-<span class="fc" id="L359">        currentSnapshot =</span>
-<span class="fc" id="L360">            currentSnapshot.copy(</span>
-<span class="fc" id="L361">                units = nextUnits,</span>
-<span class="fc" id="L362">                sides = nextSides,</span>
-            )
-<span class="fc" id="L364">        recordLog(&quot;Registered unit ${unit.id} to side $sideId.&quot;)</span>
-<span class="fc" id="L365">        recordEvent(</span>
-<span class="fc" id="L366">            BattleSessionUnitRegisteredPayload(</span>
-<span class="fc" id="L367">                sideId = sideId,</span>
-<span class="fc" id="L368">                unitId = unit.id,</span>
-<span class="fc" id="L369">                active = active,</span>
-            ),
-        )
-<span class="fc" id="L372">        return currentSnapshot</span>
-    }
+<span class="nc" id="L338">        active: Boolean = true,</span>
+<span class="fc" id="L339">    ): BattleRuntimeSnapshot = setupCoordinator.registerUnit(sideId, unit, active)</span>
 
     /**
      * 执行一次出招。
@@ -385,26 +351,26 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param attributes 附加属性
      * @return 最终结算结果
      */
-<span class="fc" id="L388">    fun useMove(</span>
+<span class="fc" id="L354">    fun useMove(</span>
         moveId: String,
         attackerId: String,
         targetId: String,
-<span class="fc" id="L392">        accuracy: Int? = null,</span>
-<span class="fc" id="L393">        evasion: Int? = null,</span>
+<span class="fc" id="L358">        accuracy: Int? = null,</span>
+<span class="fc" id="L359">        evasion: Int? = null,</span>
         basePower: Int,
         damage: Int,
-<span class="fc" id="L396">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L362">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): MoveResolutionResult {
-<span class="fc" id="L398">        ensureStarted()</span>
-<span class="fc" id="L399">        return executeResolvedEffect(</span>
-<span class="fc" id="L400">            effectId = moveId,</span>
-<span class="fc" id="L401">            actorUnitId = attackerId,</span>
-<span class="fc" id="L402">            targetUnitId = targetId,</span>
-<span class="fc" id="L403">            accuracy = accuracy,</span>
-<span class="fc" id="L404">            evasion = evasion,</span>
-<span class="fc" id="L405">            basePower = basePower,</span>
-<span class="fc" id="L406">            damage = damage,</span>
-<span class="fc" id="L407">            attributes = attributes,</span>
+<span class="fc" id="L364">        ensureStarted()</span>
+<span class="fc" id="L365">        return executeResolvedEffect(</span>
+<span class="fc" id="L366">            effectId = moveId,</span>
+<span class="fc" id="L367">            actorUnitId = attackerId,</span>
+<span class="fc" id="L368">            targetUnitId = targetId,</span>
+<span class="fc" id="L369">            accuracy = accuracy,</span>
+<span class="fc" id="L370">            evasion = evasion,</span>
+<span class="fc" id="L371">            basePower = basePower,</span>
+<span class="fc" id="L372">            damage = damage,</span>
+<span class="fc" id="L373">            attributes = attributes,</span>
         )
     }
 
@@ -423,46 +389,47 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param attributes 附加属性
      * @return 当前动作队列快照
      */
-<span class="fc" id="L426">    fun queueMove(</span>
+<span class="fc" id="L392">    fun queueMove(</span>
         moveId: String,
         attackerId: String,
         targetId: String,
-<span class="fc" id="L430">        priority: Int = 0,</span>
-<span class="fc" id="L431">        speed: Int = 0,</span>
-<span class="fc" id="L432">        accuracy: Int? = null,</span>
-<span class="fc" id="L433">        evasion: Int? = null,</span>
+<span class="fc" id="L396">        priority: Int = 0,</span>
+<span class="fc" id="L397">        speed: Int = 0,</span>
+<span class="fc" id="L398">        accuracy: Int? = null,</span>
+<span class="fc" id="L399">        evasion: Int? = null,</span>
         basePower: Int,
         damage: Int,
-<span class="fc" id="L436">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L402">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): List&lt;BattleSessionAction&gt; {
-<span class="fc" id="L438">        ensureStarted()</span>
-<span class="fc" id="L439">        ensureUnitCanSubmitChoice(attackerId)</span>
-<span class="fc" id="L440">        ensureTargetIsLegalForAction(effectId = moveId, actorUnitId = attackerId, targetUnitId = targetId)</span>
-<span class="fc" id="L441">        actionQueue.enqueue(</span>
-<span class="fc" id="L442">            commandFactory.createMoveAction(</span>
-<span class="fc" id="L443">                moveId = moveId,</span>
-<span class="fc" id="L444">                attackerId = attackerId,</span>
-<span class="fc" id="L445">                targetId = targetId,</span>
-<span class="fc" id="L446">                priority = priority,</span>
-<span class="fc" id="L447">                speed = speed,</span>
-<span class="fc" id="L448">                accuracy = accuracy,</span>
-<span class="fc" id="L449">                evasion = evasion,</span>
-<span class="fc" id="L450">                basePower = basePower,</span>
-<span class="fc" id="L451">                damage = damage,</span>
-<span class="fc" id="L452">                attributes = attributes,</span>
+<span class="fc" id="L404">        ensureStarted()</span>
+<span class="fc" id="L405">        ensureUnitCanSubmitChoice(attackerId)</span>
+<span class="fc" id="L406">        ensureMoveChoiceIsLegal(moveId = moveId, actorUnitId = attackerId)</span>
+<span class="fc" id="L407">        ensureTargetIsLegalForAction(effectId = moveId, actorUnitId = attackerId, targetUnitId = targetId)</span>
+<span class="fc" id="L408">        actionQueue.enqueue(</span>
+<span class="fc" id="L409">            commandFactory.createMoveAction(</span>
+<span class="fc" id="L410">                moveId = moveId,</span>
+<span class="fc" id="L411">                attackerId = attackerId,</span>
+<span class="fc" id="L412">                targetId = targetId,</span>
+<span class="fc" id="L413">                priority = priority,</span>
+<span class="fc" id="L414">                speed = speed,</span>
+<span class="fc" id="L415">                accuracy = accuracy,</span>
+<span class="fc" id="L416">                evasion = evasion,</span>
+<span class="fc" id="L417">                basePower = basePower,</span>
+<span class="fc" id="L418">                damage = damage,</span>
+<span class="fc" id="L419">                attributes = attributes,</span>
             ),
         )
-<span class="fc" id="L455">        recordLog(&quot;Queued move $moveId from $attackerId to $targetId.&quot;)</span>
-<span class="fc" id="L456">        recordEvent(</span>
-<span class="fc" id="L457">            BattleSessionMoveQueuedPayload(</span>
-<span class="fc" id="L458">                moveId = moveId,</span>
-<span class="fc" id="L459">                attackerId = attackerId,</span>
-<span class="fc" id="L460">                targetId = targetId,</span>
-<span class="fc" id="L461">                priority = priority,</span>
-<span class="fc" id="L462">                speed = speed,</span>
+<span class="fc" id="L422">        recordLog(&quot;Queued move $moveId from $attackerId to $targetId.&quot;)</span>
+<span class="fc" id="L423">        recordEvent(</span>
+<span class="fc" id="L424">            BattleSessionMoveQueuedPayload(</span>
+<span class="fc" id="L425">                moveId = moveId,</span>
+<span class="fc" id="L426">                attackerId = attackerId,</span>
+<span class="fc" id="L427">                targetId = targetId,</span>
+<span class="fc" id="L428">                priority = priority,</span>
+<span class="fc" id="L429">                speed = speed,</span>
             ),
         )
-<span class="fc" id="L465">        return actionQueue.snapshot()</span>
+<span class="fc" id="L432">        return actionQueue.snapshot()</span>
     }
 
     /**
@@ -480,32 +447,32 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param attributes 附加属性
      * @return 当前动作队列快照
      */
-<span class="fc" id="L483">    fun submitMoveChoice(</span>
+<span class="fc" id="L450">    fun submitMoveChoice(</span>
         moveId: String,
         attackerId: String,
         targetId: String,
-<span class="fc" id="L487">        priority: Int = 0,</span>
-<span class="fc" id="L488">        speed: Int = 0,</span>
-<span class="fc" id="L489">        accuracy: Int? = null,</span>
-<span class="fc" id="L490">        evasion: Int? = null,</span>
+<span class="fc" id="L454">        priority: Int = 0,</span>
+<span class="fc" id="L455">        speed: Int = 0,</span>
+<span class="fc" id="L456">        accuracy: Int? = null,</span>
+<span class="fc" id="L457">        evasion: Int? = null,</span>
         basePower: Int,
         damage: Int,
-<span class="fc" id="L493">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L460">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="fc" id="L495">        submitChoice(</span>
-<span class="fc" id="L496">            commandFactory.createMoveChoice(</span>
-<span class="fc" id="L497">                moveId = moveId,</span>
-<span class="fc" id="L498">                attackerId = attackerId,</span>
-<span class="fc" id="L499">                targetId = targetId,</span>
-<span class="fc" id="L500">                priority = priority,</span>
-<span class="fc" id="L501">                speed = speed,</span>
-<span class="fc" id="L502">                accuracy = accuracy,</span>
-<span class="fc" id="L503">                evasion = evasion,</span>
-<span class="fc" id="L504">                basePower = basePower,</span>
-<span class="fc" id="L505">                damage = damage,</span>
-<span class="fc" id="L506">                attributes = attributes,</span>
+<span class="fc" id="L462">        submitChoice(</span>
+<span class="fc" id="L463">            commandFactory.createMoveChoice(</span>
+<span class="fc" id="L464">                moveId = moveId,</span>
+<span class="fc" id="L465">                attackerId = attackerId,</span>
+<span class="fc" id="L466">                targetId = targetId,</span>
+<span class="fc" id="L467">                priority = priority,</span>
+<span class="fc" id="L468">                speed = speed,</span>
+<span class="fc" id="L469">                accuracy = accuracy,</span>
+<span class="fc" id="L470">                evasion = evasion,</span>
+<span class="fc" id="L471">                basePower = basePower,</span>
+<span class="fc" id="L472">                damage = damage,</span>
+<span class="fc" id="L473">                attributes = attributes,</span>
             ),
-<span class="fc" id="L508">        )</span>
+<span class="fc" id="L475">        )</span>
 
     /**
      * 提交一个统一 choice 输入。
@@ -517,7 +484,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param choice 本次要提交的统一选择对象
      * @return 当前动作队列快照
      */
-<span class="fc" id="L520">    fun submitChoice(choice: BattleSessionChoice): List&lt;BattleSessionAction&gt; = choiceHandlerRegistry.get(choice).submit(choice, this)</span>
+<span class="fc" id="L487">    fun submitChoice(choice: BattleSessionChoice): List&lt;BattleSessionAction&gt; = choiceHandlerRegistry.get(choice).submit(choice, this)</span>
 
     /**
      * 批量提交多个统一 choice 输入。
@@ -526,47 +493,47 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @return 当前动作队列快照
      */
     fun submitChoices(choices: List&lt;BattleSessionChoice&gt;): List&lt;BattleSessionAction&gt; {
-<span class="fc" id="L529">        choices.forEach(::submitChoice)</span>
-<span class="fc" id="L530">        return actionQueue.snapshot()</span>
+<span class="fc" id="L496">        choices.forEach(::submitChoice)</span>
+<span class="fc" id="L497">        return actionQueue.snapshot()</span>
     }
 
     /**
      * 提交一个捕捉选择。
      */
-<span class="nc" id="L536">    fun submitCaptureChoice(</span>
+<span class="fc" id="L503">    fun submitCaptureChoice(</span>
         playerId: String,
         ballItemId: String,
         sourceUnitId: String,
         targetId: String,
-<span class="nc" id="L541">        priority: Int = 0,</span>
-<span class="nc" id="L542">        speed: Int = 0,</span>
+<span class="fc" id="L508">        priority: Int = 0,</span>
+<span class="fc" id="L509">        speed: Int = 0,</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="nc" id="L544">        submitChoice(</span>
-<span class="nc" id="L545">            commandFactory.createCaptureChoice(</span>
-<span class="nc" id="L546">                playerId = playerId,</span>
-<span class="nc" id="L547">                ballItemId = ballItemId,</span>
-<span class="nc" id="L548">                sourceUnitId = sourceUnitId,</span>
-<span class="nc" id="L549">                targetId = targetId,</span>
-<span class="nc" id="L550">                priority = priority,</span>
-<span class="nc" id="L551">                speed = speed,</span>
+<span class="fc" id="L511">        submitChoice(</span>
+<span class="fc" id="L512">            commandFactory.createCaptureChoice(</span>
+<span class="fc" id="L513">                playerId = playerId,</span>
+<span class="fc" id="L514">                ballItemId = ballItemId,</span>
+<span class="fc" id="L515">                sourceUnitId = sourceUnitId,</span>
+<span class="fc" id="L516">                targetId = targetId,</span>
+<span class="fc" id="L517">                priority = priority,</span>
+<span class="fc" id="L518">                speed = speed,</span>
             ),
-<span class="nc" id="L553">        )</span>
+<span class="fc" id="L520">        )</span>
 
     /**
      * 提交一个等待动作。
      */
-<span class="nc" id="L558">    fun submitWaitChoice(</span>
+<span class="fc" id="L525">    fun submitWaitChoice(</span>
         unitId: String,
-<span class="nc" id="L560">        priority: Int = 0,</span>
-<span class="nc" id="L561">        speed: Int = 0,</span>
+<span class="fc" id="L527">        priority: Int = 0,</span>
+<span class="fc" id="L528">        speed: Int = 0,</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="nc" id="L563">        submitChoice(</span>
-<span class="nc" id="L564">            commandFactory.createWaitChoice(</span>
-<span class="nc" id="L565">                unitId = unitId,</span>
-<span class="nc" id="L566">                priority = priority,</span>
-<span class="nc" id="L567">                speed = speed,</span>
+<span class="fc" id="L530">        submitChoice(</span>
+<span class="fc" id="L531">            commandFactory.createWaitChoice(</span>
+<span class="fc" id="L532">                unitId = unitId,</span>
+<span class="fc" id="L533">                priority = priority,</span>
+<span class="fc" id="L534">                speed = speed,</span>
             ),
-<span class="nc" id="L569">        )</span>
+<span class="fc" id="L536">        )</span>
 
     /**
      * 提交一个玩家替换选择。
@@ -578,22 +545,22 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param speed 排序速度
      * @return 当前动作队列快照
      */
-<span class="nc" id="L581">    fun submitSwitchChoice(</span>
+<span class="fc" id="L548">    fun submitSwitchChoice(</span>
         sideId: String,
         outgoingUnitId: String,
         incomingUnitId: String,
-<span class="nc" id="L585">        priority: Int = 0,</span>
-<span class="nc" id="L586">        speed: Int = 0,</span>
+<span class="fc" id="L552">        priority: Int = 0,</span>
+<span class="fc" id="L553">        speed: Int = 0,</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="fc" id="L588">        submitChoice(</span>
-<span class="fc" id="L589">            commandFactory.createSwitchChoice(</span>
-<span class="fc" id="L590">                sideId = sideId,</span>
-<span class="fc" id="L591">                outgoingUnitId = outgoingUnitId,</span>
-<span class="fc" id="L592">                incomingUnitId = incomingUnitId,</span>
-<span class="fc" id="L593">                priority = priority,</span>
-<span class="fc" id="L594">                speed = speed,</span>
+<span class="fc" id="L555">        submitChoice(</span>
+<span class="fc" id="L556">            commandFactory.createSwitchChoice(</span>
+<span class="fc" id="L557">                sideId = sideId,</span>
+<span class="fc" id="L558">                outgoingUnitId = outgoingUnitId,</span>
+<span class="fc" id="L559">                incomingUnitId = incomingUnitId,</span>
+<span class="fc" id="L560">                priority = priority,</span>
+<span class="fc" id="L561">                speed = speed,</span>
             ),
-<span class="fc" id="L596">        )</span>
+<span class="fc" id="L563">        )</span>
 
     /**
      * 提交一个玩家物品使用选择。
@@ -606,24 +573,24 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param attributes 附加属性
      * @return 当前动作队列快照
      */
-<span class="nc" id="L609">    fun submitItemChoice(</span>
+<span class="pc" id="L576">    fun submitItemChoice(</span>
         itemId: String,
         actorUnitId: String,
         targetId: String,
-<span class="nc" id="L613">        priority: Int = 0,</span>
-<span class="nc" id="L614">        speed: Int = 0,</span>
-<span class="nc" id="L615">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L580">        priority: Int = 0,</span>
+<span class="fc" id="L581">        speed: Int = 0,</span>
+<span class="fc" id="L582">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="nc" id="L617">        submitChoice(</span>
-<span class="nc" id="L618">            commandFactory.createItemChoice(</span>
-<span class="nc" id="L619">                itemId = itemId,</span>
-<span class="nc" id="L620">                actorUnitId = actorUnitId,</span>
-<span class="nc" id="L621">                targetId = targetId,</span>
-<span class="nc" id="L622">                priority = priority,</span>
-<span class="nc" id="L623">                speed = speed,</span>
-<span class="nc" id="L624">                attributes = attributes,</span>
+<span class="pc" id="L584">        submitChoice(</span>
+<span class="fc" id="L585">            commandFactory.createItemChoice(</span>
+<span class="fc" id="L586">                itemId = itemId,</span>
+<span class="fc" id="L587">                actorUnitId = actorUnitId,</span>
+<span class="fc" id="L588">                targetId = targetId,</span>
+<span class="fc" id="L589">                priority = priority,</span>
+<span class="fc" id="L590">                speed = speed,</span>
+<span class="fc" id="L591">                attributes = attributes,</span>
             ),
-<span class="nc" id="L626">        )</span>
+<span class="nc" id="L593">        )</span>
 
     /**
      * 提交一个玩家逃跑选择。
@@ -633,32 +600,32 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param speed 排序速度
      * @return 当前动作队列快照
      */
-<span class="nc" id="L636">    fun submitRunChoice(</span>
+<span class="nc" id="L603">    fun submitRunChoice(</span>
         sideId: String,
-<span class="nc" id="L638">        priority: Int = 0,</span>
-<span class="nc" id="L639">        speed: Int = 0,</span>
+<span class="nc" id="L605">        priority: Int = 0,</span>
+<span class="nc" id="L606">        speed: Int = 0,</span>
     ): List&lt;BattleSessionAction&gt; =
-<span class="nc" id="L641">        submitChoice(</span>
-<span class="nc" id="L642">            commandFactory.createRunChoice(</span>
-<span class="nc" id="L643">                sideId = sideId,</span>
-<span class="nc" id="L644">                priority = priority,</span>
-<span class="nc" id="L645">                speed = speed,</span>
+<span class="nc" id="L608">        submitChoice(</span>
+<span class="nc" id="L609">            commandFactory.createRunChoice(</span>
+<span class="nc" id="L610">                sideId = sideId,</span>
+<span class="nc" id="L611">                priority = priority,</span>
+<span class="nc" id="L612">                speed = speed,</span>
             ),
-<span class="nc" id="L647">        )</span>
+<span class="nc" id="L614">        )</span>
 
     /**
      * 按当前队列排序规则执行本回合已收集的全部 move action。
      *
      * @return 每个动作对应的执行结果列表
      */
-<span class="fc" id="L654">    fun executeQueuedActions(): List&lt;BattleSessionActionExecutionResult&gt; = actionExecutor.executeQueuedActions()</span>
+<span class="fc" id="L621">    fun executeQueuedActions(): List&lt;BattleSessionActionExecutionResult&gt; = actionExecutor.executeQueuedActions()</span>
 
     /**
      * 执行当前回合动作队列，然后推进到回合结束。
      *
      * @return 本回合汇总结果
      */
-<span class="fc" id="L661">    fun resolveTurn(): BattleSessionTurnResult = turnPipeline.resolve(this)</span>
+<span class="fc" id="L628">    fun resolveTurn(): BattleSessionTurnResult = turnPipeline.resolve(this)</span>
 
     /**
      * 对一个待处理替补请求提交具体选择。
@@ -670,14 +637,14 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
     fun submitReplacementChoice(
         sideId: String,
         incomingUnitId: String,
-<span class="fc" id="L673">    ): BattleRuntimeSnapshot = lifecycleCoordinator.submitReplacementChoice(sideId, incomingUnitId)</span>
+<span class="fc" id="L640">    ): BattleRuntimeSnapshot = lifecycleCoordinator.submitReplacementChoice(sideId, incomingUnitId)</span>
 
     /**
      * 推进到回合结束并执行 residual。
      *
      * @return 回合结束后的快照
      */
-<span class="fc" id="L680">    fun endTurn(): BattleRuntimeSnapshot = lifecycleCoordinator.endTurn()</span>
+<span class="fc" id="L647">    fun endTurn(): BattleRuntimeSnapshot = lifecycleCoordinator.endTurn()</span>
 
     /**
      * 记录一次捕捉失败，不结束 battle。
@@ -689,40 +656,40 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         reason: String,
         finalRate: Double,
     ): BattleRuntimeSnapshot {
-<span class="nc" id="L692">        recordLog(</span>
-<span class="nc" id="L693">            &quot;Capture failed: item=$ballItemId target=$targetUnitId shakes=$shakes reason=$reason finalRate=$finalRate.&quot;,</span>
+<span class="nc" id="L659">        recordLog(</span>
+<span class="nc" id="L660">            &quot;Capture failed: item=$ballItemId target=$targetUnitId shakes=$shakes reason=$reason finalRate=$finalRate.&quot;,</span>
         )
-<span class="nc" id="L695">        recordEvent(</span>
-<span class="nc" id="L696">            BattleSessionCaptureFailedPayload(</span>
-<span class="nc" id="L697">                ballItemId = ballItemId,</span>
-<span class="nc" id="L698">                targetUnitId = targetUnitId,</span>
-<span class="nc" id="L699">                shakes = shakes,</span>
-<span class="nc" id="L700">                reason = reason,</span>
-<span class="nc" id="L701">                finalRate = finalRate,</span>
+<span class="nc" id="L662">        recordEvent(</span>
+<span class="nc" id="L663">            BattleSessionCaptureFailedPayload(</span>
+<span class="nc" id="L664">                ballItemId = ballItemId,</span>
+<span class="nc" id="L665">                targetUnitId = targetUnitId,</span>
+<span class="nc" id="L666">                shakes = shakes,</span>
+<span class="nc" id="L667">                reason = reason,</span>
+<span class="nc" id="L668">                finalRate = finalRate,</span>
             ),
         )
-<span class="nc" id="L704">        return currentSnapshot</span>
+<span class="nc" id="L671">        return currentSnapshot</span>
     }
 
     /**
      * 以捕捉成功结束当前 battle。
      */
     fun finishByCapture(targetUnitId: String): BattleRuntimeSnapshot {
-<span class="fc" id="L711">        currentSnapshot =</span>
-<span class="fc" id="L712">            currentSnapshot.copy(</span>
+<span class="fc" id="L678">        currentSnapshot =</span>
+<span class="fc" id="L679">            currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L714">                    currentSnapshot.battle.copy(</span>
-<span class="fc" id="L715">                        ended = true,</span>
-<span class="fc" id="L716">                        winner = null,</span>
-<span class="fc" id="L717">                        endedReason = &quot;capture&quot;,</span>
-<span class="fc" id="L718">                        capturedUnitId = targetUnitId,</span>
+<span class="fc" id="L681">                    currentSnapshot.battle.copy(</span>
+<span class="fc" id="L682">                        ended = true,</span>
+<span class="fc" id="L683">                        winner = null,</span>
+<span class="fc" id="L684">                        endedReason = &quot;capture&quot;,</span>
+<span class="fc" id="L685">                        capturedUnitId = targetUnitId,</span>
                     ),
             )
-<span class="fc" id="L721">        recordLog(&quot;Battle ended by capture. target=$targetUnitId.&quot;)</span>
-<span class="fc" id="L722">        recordEvent(</span>
-<span class="fc" id="L723">            BattleSessionCaptureSucceededPayload(targetUnitId = targetUnitId),</span>
+<span class="fc" id="L688">        recordLog(&quot;Battle ended by capture. target=$targetUnitId.&quot;)</span>
+<span class="fc" id="L689">        recordEvent(</span>
+<span class="fc" id="L690">            BattleSessionCaptureSucceededPayload(targetUnitId = targetUnitId),</span>
         )
-<span class="fc" id="L725">        return currentSnapshot</span>
+<span class="fc" id="L692">        return currentSnapshot</span>
     }
 
     /**
@@ -732,55 +699,61 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 因而该结果可以随着 session state 一起被导出和恢复。
      */
     internal fun nextRandomInt(bound: Int): Int {
-<span class="fc" id="L735">        val randomResult = currentSnapshot.battle.randomState.nextInt(bound)</span>
-<span class="fc" id="L736">        currentSnapshot =</span>
-<span class="fc" id="L737">            currentSnapshot.copy(</span>
+<span class="fc" id="L702">        val randomResult = currentSnapshot.battle.randomState.nextInt(bound)</span>
+<span class="fc" id="L703">        currentSnapshot =</span>
+<span class="fc" id="L704">            currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L739">                    currentSnapshot.battle.copy(</span>
-<span class="fc" id="L740">                        randomState = randomResult.nextState,</span>
+<span class="fc" id="L706">                    currentSnapshot.battle.copy(</span>
+<span class="fc" id="L707">                        randomState = randomResult.nextState,</span>
                     ),
             )
-<span class="fc" id="L743">        return randomResult.value</span>
+<span class="fc" id="L710">        return randomResult.value</span>
     }
 
     /**
      * 生成一个 `[1, 100]` 的百分比判定值。
      */
-<span class="fc" id="L749">    internal fun nextPercentageRoll(): Int = nextRandomInt(100) + 1</span>
+<span class="fc" id="L716">    internal fun nextPercentageRoll(): Int = nextRandomInt(100) + 1</span>
 
     /**
      * 生成一个 `[0, 65535]` 的捕捉摇晃判定值。
      */
-<span class="fc" id="L754">    internal fun nextCaptureShakeRoll(): Int = nextRandomInt(65536)</span>
+<span class="fc" id="L721">    internal fun nextCaptureShakeRoll(): Int = nextRandomInt(65536)</span>
 
     /**
      * 标记当前 battle 已完成结算。
      */
-    fun markSettled(): BattleRuntimeSnapshot {
-<span class="fc" id="L760">        currentSnapshot = currentSnapshot.copy(battle = currentSnapshot.battle.copy(settled = true))</span>
-<span class="fc" id="L761">        recordLog(&quot;Battle settlement completed.&quot;)</span>
-<span class="fc" id="L762">        return currentSnapshot</span>
-    }
+<span class="fc" id="L726">    fun markSettled(): BattleRuntimeSnapshot = setupCoordinator.markSettled()</span>
 
-<span class="fc" id="L765">    internal fun ensureStarted() = choiceValidator.ensureStarted()</span>
+<span class="fc" id="L728">    internal fun ensureStarted() = choiceValidator.ensureStarted()</span>
 
-<span class="fc" id="L767">    internal fun ensureTurnReady() = choiceValidator.ensureTurnReady()</span>
+<span class="fc" id="L730">    internal fun ensureTurnReady() = choiceValidator.ensureTurnReady()</span>
 
-<span class="fc" id="L769">    internal fun ensureUnitCanSubmitChoice(unitId: String) = choiceValidator.ensureUnitCanSubmitChoice(unitId)</span>
+<span class="fc" id="L732">    internal fun ensureUnitCanSubmitChoice(unitId: String) = choiceValidator.ensureUnitCanSubmitChoice(unitId)</span>
 
-<span class="fc" id="L771">    internal fun ensureSideCanSubmitRunChoice(sideId: String) = choiceValidator.ensureSideCanSubmitRunChoice(sideId)</span>
+<span class="fc" id="L734">    internal fun ensureSideCanSubmitRunChoice(sideId: String) = choiceValidator.ensureSideCanSubmitRunChoice(sideId)</span>
 
     internal fun ensureTargetIsLegalForAction(
         effectId: String,
         actorUnitId: String,
         targetUnitId: String,
-<span class="fc" id="L777">    ) = choiceValidator.ensureTargetIsLegalForAction(effectId, actorUnitId, targetUnitId)</span>
+<span class="fc" id="L740">    ) = choiceValidator.ensureTargetIsLegalForAction(effectId, actorUnitId, targetUnitId)</span>
 
     internal fun ensureCaptureIsLegal(
         playerId: String,
         sourceUnitId: String,
         targetUnitId: String,
-<span class="fc" id="L783">    ) = choiceValidator.ensureCaptureIsLegal(playerId, sourceUnitId, targetUnitId)</span>
+<span class="fc" id="L746">    ) = choiceValidator.ensureCaptureIsLegal(playerId, sourceUnitId, targetUnitId)</span>
+
+    internal fun ensureMoveChoiceIsLegal(
+        moveId: String,
+        actorUnitId: String,
+<span class="fc" id="L751">    ) = choiceValidator.ensureMoveChoiceIsLegal(moveId, actorUnitId)</span>
+
+    internal fun ensureItemChoiceIsLegal(
+        itemId: String,
+        actorUnitId: String,
+<span class="fc" id="L756">    ) = choiceValidator.ensureItemChoiceIsLegal(itemId, actorUnitId)</span>
 
     internal fun executeResolvedEffect(
         effectId: String,
@@ -792,64 +765,111 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         damage: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): MoveResolutionResult =
-<span class="fc" id="L795">        actionExecutionSupport.executeResolvedEffect(</span>
-<span class="fc" id="L796">            session = this,</span>
-<span class="fc" id="L797">            effectId = effectId,</span>
-<span class="fc" id="L798">            actorUnitId = actorUnitId,</span>
-<span class="fc" id="L799">            targetUnitId = targetUnitId,</span>
-<span class="fc" id="L800">            accuracy = accuracy,</span>
-<span class="fc" id="L801">            evasion = evasion,</span>
-<span class="fc" id="L802">            basePower = basePower,</span>
-<span class="fc" id="L803">            damage = damage,</span>
-<span class="fc" id="L804">            attributes = attributes,</span>
-<span class="fc" id="L805">        )</span>
+<span class="fc" id="L768">        actionExecutionSupport.executeResolvedEffect(</span>
+<span class="fc" id="L769">            session = this,</span>
+<span class="fc" id="L770">            effectId = effectId,</span>
+<span class="fc" id="L771">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L772">            targetUnitId = targetUnitId,</span>
+<span class="fc" id="L773">            accuracy = accuracy,</span>
+<span class="fc" id="L774">            evasion = evasion,</span>
+<span class="fc" id="L775">            basePower = basePower,</span>
+<span class="fc" id="L776">            damage = damage,</span>
+<span class="fc" id="L777">            attributes = attributes,</span>
+<span class="fc" id="L778">        )</span>
 
     internal fun applyDirectDamage(
+        sourceId: String,
         targetId: String,
         damage: Int,
-<span class="nc" id="L810">    ): BattleRuntimeSnapshot = actionExecutionSupport.applyDirectDamage(this, targetId, damage)</span>
+<span class="nc" id="L784">    ): BattleRuntimeSnapshot = actionExecutionSupport.applyDirectDamage(this, sourceId, targetId, damage)</span>
 
-<span class="fc" id="L812">    internal fun resolveFaintAndReplacement(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot = replacementResolver.resolveFaintAndReplacement(snapshot)</span>
+    internal fun applyMutations(
+        snapshot: BattleRuntimeSnapshot,
+        selfId: String?,
+        targetId: String?,
+        sourceId: String?,
+        mutations: List&lt;io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation&gt;,
+<span class="fc" id="L792">    ): BattleRuntimeSnapshot = mutationProcessor.apply(snapshot, selfId, targetId, sourceId, mutations)</span>
 
-<span class="nc" id="L814">    internal fun updateWinnerIfNeeded(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot = replacementResolver.updateWinnerIfNeeded(snapshot)</span>
+<span class="fc" id="L794">    internal fun resolveFaintAndReplacement(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot = replacementResolver.resolveFaintAndReplacement(snapshot)</span>
+
+<span class="nc" id="L796">    internal fun updateWinnerIfNeeded(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot = replacementResolver.updateWinnerIfNeeded(snapshot)</span>
+
+<span class="fc" id="L798">    internal fun processBeforeTurn(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
+<span class="fc" id="L799">        currentSnapshot = hookLifecycleProcessor.processBeforeTurn(snapshot)</span>
+<span class="fc" id="L800">        return currentSnapshot</span>
+    }
+
+<span class="nc" id="L803">    internal fun processSwitchOut(</span>
+        unitId: String,
+<span class="nc" id="L805">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L807">        currentSnapshot = hookLifecycleProcessor.processSwitchOut(unitId, snapshot)</span>
+<span class="fc" id="L808">        return currentSnapshot</span>
+    }
+
+<span class="nc" id="L811">    internal fun processSwitchIn(</span>
+        unitId: String,
+<span class="nc" id="L813">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L815">        currentSnapshot = hookLifecycleProcessor.processSwitchIn(unitId, snapshot)</span>
+<span class="fc" id="L816">        return currentSnapshot</span>
+    }
+
+<span class="nc" id="L819">    internal fun processFaintHooks(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
+<span class="fc" id="L820">        currentSnapshot = hookLifecycleProcessor.processFaintHooks(snapshot)</span>
+<span class="fc" id="L821">        return currentSnapshot</span>
+    }
+
+<span class="nc" id="L824">    internal fun clearForceSwitchRequests(</span>
+<span class="nc" id="L825">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+        unitIds: Collection&lt;String&gt;,
+    ): BattleRuntimeSnapshot {
+<span class="pc bpc" id="L828" title="1 of 2 branches missed.">        if (unitIds.isEmpty()) {</span>
+<span class="nc" id="L829">            return snapshot</span>
+        }
+<span class="fc" id="L831">        val nextUnits = snapshot.units.toMutableMap()</span>
+<span class="fc" id="L832">        var changed = false</span>
+<span class="fc" id="L833">        unitIds.distinct().forEach { unitId -&gt;</span>
+<span class="pc bpc" id="L834" title="1 of 2 branches missed.">            val unit = nextUnits[unitId] ?: return@forEach</span>
+<span class="fc bfc" id="L835" title="All 2 branches covered.">            if (!unit.forceSwitchRequested) {</span>
+<span class="fc" id="L836">                return@forEach</span>
+            }
+<span class="fc" id="L838">            nextUnits[unitId] = unit.copy(forceSwitchRequested = false)</span>
+<span class="fc" id="L839">            changed = true</span>
+<span class="fc" id="L840">        }</span>
+<span class="fc" id="L841">        val nextSnapshot =</span>
+<span class="fc bfc" id="L842" title="All 2 branches covered.">            if (changed) {</span>
+<span class="fc" id="L843">                snapshot.copy(units = nextUnits)</span>
+            } else {
+<span class="fc" id="L845">                snapshot</span>
+            }
+<span class="fc" id="L847">        currentSnapshot = nextSnapshot</span>
+<span class="fc" id="L848">        return nextSnapshot</span>
+    }
 
     internal fun recordMoveExecution(
         moveId: String,
         attackerId: String,
         targetId: String,
         result: MoveResolutionResult,
-<span class="nc" id="L821">    ) = actionExecutionSupport.recordMoveExecution(this, moveId, attackerId, targetId, result)</span>
+<span class="fc" id="L856">    ) = actionExecutionSupport.recordMoveExecution(this, moveId, attackerId, targetId, result)</span>
 
-<span class="nc" id="L823">    internal fun applySwitchAction(action: BattleSessionSwitchAction): BattleRuntimeSnapshot = actionExecutionSupport.applySwitchAction(this, action)</span>
+<span class="fc" id="L858">    internal fun applySwitchAction(action: BattleSessionSwitchAction): BattleRuntimeSnapshot = actionExecutionSupport.applySwitchAction(this, action)</span>
 
-<span class="nc" id="L825">    internal fun applyRunAction(action: BattleSessionRunAction): BattleRuntimeSnapshot = actionExecutionSupport.applyRunAction(this, action)</span>
+<span class="nc" id="L860">    internal fun applyRunAction(action: BattleSessionRunAction): BattleRuntimeSnapshot = actionExecutionSupport.applyRunAction(this, action)</span>
 
     internal fun recordResourceUsage(usage: BattleSessionResourceUsage) {
-<span class="fc" id="L828">        publish(</span>
-<span class="fc" id="L829">            BattleSessionPublication(</span>
-<span class="fc" id="L830">                turn = currentSnapshot.battle.turn,</span>
-<span class="fc" id="L831">                resourceUsage = usage,</span>
-            ),
-        )
-<span class="fc" id="L834">    }</span>
+<span class="fc" id="L863">        publicationRecorder.recordResourceUsage(usage)</span>
+<span class="fc" id="L864">    }</span>
 
     internal fun recordLog(message: String) {
-<span class="fc" id="L837">        publish(</span>
-<span class="fc" id="L838">            BattleSessionPublication(</span>
-<span class="fc" id="L839">                turn = currentSnapshot.battle.turn,</span>
-<span class="fc" id="L840">                battleLogMessage = message,</span>
-            ),
-        )
-<span class="fc" id="L843">    }</span>
+<span class="fc" id="L867">        publicationRecorder.recordLog(message)</span>
+<span class="fc" id="L868">    }</span>
 
     internal fun recordEvent(payload: BattleSessionEventPayload) {
-<span class="fc" id="L846">        publish(</span>
-<span class="fc" id="L847">            BattleSessionPublication(</span>
-<span class="fc" id="L848">                turn = currentSnapshot.battle.turn,</span>
-<span class="fc" id="L849">                eventPayload = payload,</span>
-            ),
-        )
-<span class="fc" id="L852">    }</span>
+<span class="fc" id="L871">        publicationRecorder.recordEvent(payload)</span>
+<span class="fc" id="L872">    }</span>
 
     /**
      * 发布一条 session 内部事件。
@@ -857,8 +877,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param publication 本次需要投影到各个读模型的事件载体。
      */
     internal fun publish(publication: BattleSessionPublication) {
-<span class="fc" id="L860">        eventPublisher.publish(this, publication)</span>
-<span class="fc" id="L861">    }</span>
+<span class="nc" id="L880">        publicationRecorder.publish(publication)</span>
+<span class="nc" id="L881">    }</span>
 
     /**
      * 供 projector 追加一条 battle log。
@@ -866,8 +886,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param message 已经完成格式化的 battle log 文本。
      */
     internal fun appendBattleLog(message: String) {
-<span class="fc" id="L869">        battleLogs += message</span>
-<span class="fc" id="L870">    }</span>
+<span class="fc" id="L889">        publicationRecorder.appendBattleLog(message)</span>
+<span class="fc" id="L890">    }</span>
 
     /**
      * 供 projector 追加一条结构化事件。
@@ -875,8 +895,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param event 已经完成组装的结构化事件对象。
      */
     internal fun appendEventLog(event: BattleSessionEvent) {
-<span class="fc" id="L878">        eventLogs += event</span>
-<span class="fc" id="L879">    }</span>
+<span class="fc" id="L898">        publicationRecorder.appendEventLog(event)</span>
+<span class="fc" id="L899">    }</span>
 
     /**
      * 供 projector 追加一条资源账本记录。
@@ -884,13 +904,13 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param usage 已经完成组装的资源账本条目。
      */
     internal fun appendResourceUsage(usage: BattleSessionResourceUsage) {
-<span class="fc" id="L887">        resourceLedger += usage</span>
-<span class="fc" id="L888">    }</span>
+<span class="fc" id="L907">        publicationRecorder.appendResourceUsage(usage)</span>
+<span class="fc" id="L908">    }</span>
 
-<span class="nc" id="L890">    internal fun submittedSideId(action: BattleSessionAction): String? = choiceValidator.submittedSideId(action)</span>
+<span class="nc" id="L910">    internal fun submittedSideId(action: BattleSessionAction): String? = choiceValidator.submittedSideId(action)</span>
 
-<span class="nc" id="L892">    internal fun sideIdOfUnit(unitId: String): String? = choiceValidator.sideIdOfUnit(unitId)</span>
+<span class="fc" id="L912">    internal fun sideIdOfUnit(unitId: String): String? = choiceValidator.sideIdOfUnit(unitId)</span>
 
-<span class="fc" id="L894">    internal fun submittedUnitIdsForSide(side: SideState): List&lt;String&gt; = choiceValidator.submittedUnitIdsForSide(side)</span>
+<span class="fc" id="L914">    internal fun submittedUnitIdsForSide(side: SideState): List&lt;String&gt; = choiceValidator.submittedUnitIdsForSide(side)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

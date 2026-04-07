@@ -5,25 +5,26 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.action.AddRelayActionNo
 import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionExecutor
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionResult
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleRelayReader
 import io.github.lishangbu.avalon.game.battle.engine.type.ActionTypeId
 import io.github.lishangbu.avalon.game.battle.engine.type.StandardActionTypeIds
 
 /**
  * `add_relay` 动作执行器。
  */
-<span class="fc" id="L14">class AddRelayActionExecutor : ActionExecutor {</span>
-<span class="fc" id="L15">    override val type: ActionTypeId = StandardActionTypeIds.ADD_RELAY</span>
+<span class="fc" id="L15">class AddRelayActionExecutor : ActionExecutor {</span>
+<span class="fc" id="L16">    override val type: ActionTypeId = StandardActionTypeIds.ADD_RELAY</span>
 
     override fun execute(
         action: ActionNode,
         context: EventContext,
     ): ActionResult {
-<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        require(action is AddRelayActionNode) { &quot;Action must be AddRelayActionNode.&quot; }</span>
-<span class="fc" id="L22">        val relayValue =</span>
-<span class="pc bpc" id="L23" title="2 of 4 branches missed.">            context.relay as? Number</span>
-<span class="nc" id="L24">                ?: error(&quot;add_relay requires numeric relay value.&quot;)</span>
-<span class="fc" id="L25">        return ActionResult(</span>
-<span class="fc" id="L26">            relay = relayValue.toDouble() + action.value,</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        require(action is AddRelayActionNode) { &quot;Action must be AddRelayActionNode.&quot; }</span>
+<span class="fc" id="L23">        val relayValue =</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">            BattleRelayReader.readDouble(context.relay)</span>
+<span class="nc" id="L25">                ?: error(&quot;add_relay requires numeric relay value.&quot;)</span>
+<span class="fc" id="L26">        return ActionResult(</span>
+<span class="fc" id="L27">            relay = relayValue + action.value,</span>
         )
     }
 }

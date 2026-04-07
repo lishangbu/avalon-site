@@ -12,11 +12,11 @@ import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
  * @property moveId 目标招式标识，空值表示由执行器决定作用范围。
  * @property value 回复量。
  */
-<span class="nc" id="L15">data class RestorePpActionNode(</span>
-<span class="nc" id="L16">    val target: TargetSelectorId,</span>
-<span class="nc" id="L17">    val moveId: String? = null,</span>
-<span class="nc" id="L18">    val value: Int,</span>
+<span class="pc" id="L15">data class RestorePpActionNode(</span>
+<span class="fc" id="L16">    val target: TargetSelectorId,</span>
+<span class="pc" id="L17">    val moveId: String? = null,</span>
+<span class="fc" id="L18">    val value: Int,</span>
 <span class="nc" id="L19">) : ActionNode {</span>
-<span class="nc" id="L20">    override val type: ActionTypeId = StandardActionTypeIds.RESTORE_PP</span>
+<span class="fc" id="L20">    override val type: ActionTypeId = StandardActionTypeIds.RESTORE_PP</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

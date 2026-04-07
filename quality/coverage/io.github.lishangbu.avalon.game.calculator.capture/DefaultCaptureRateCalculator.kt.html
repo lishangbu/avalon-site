@@ -32,7 +32,7 @@ import kotlin.math.sqrt
 <span class="fc" id="L32">        validateInput(input)</span>
 
 <span class="fc" id="L34">        val ballResolution = captureBallPolicy.resolve(input)</span>
-<span class="fc" id="L35">        val statusMultiplier = resolveStatusMultiplier(input.statusId)</span>
+<span class="fc" id="L35">        val statusMultiplier = resolveStatusMultiplier(input.statusEffectId)</span>
 <span class="fc" id="L36">        val effectiveCaptureRate = (input.captureRate + ballResolution.flatCaptureRateBonus).coerceAtLeast(MIN_CAPTURE_RATE)</span>
 <span class="fc" id="L37">        val hpFactor = ((3.0 * input.maxHp) - (2.0 * input.currentHp)) / (3.0 * input.maxHp)</span>
 
@@ -134,10 +134,10 @@ import kotlin.math.sqrt
      * - 麻痹、灼伤、中毒：1.5
      * - 其他或无状态：1.0
      */
-    private fun resolveStatusMultiplier(statusId: String?): Double =
-<span class="fc bfc" id="L138" title="All 7 branches covered.">        when (statusId?.trim()?.lowercase()) {</span>
-<span class="fc" id="L139">            &quot;slp&quot;, &quot;sleep&quot;, &quot;frz&quot;, &quot;freeze&quot;, &quot;frozen&quot; -&gt; 2.0</span>
-<span class="fc" id="L140">            &quot;par&quot;, &quot;paralysis&quot;, &quot;paralyzed&quot;, &quot;brn&quot;, &quot;burn&quot;, &quot;psn&quot;, &quot;poison&quot;, &quot;tox&quot;, &quot;toxic&quot; -&gt; 1.5</span>
+    private fun resolveStatusMultiplier(statusEffectId: String?): Double =
+<span class="fc bfc" id="L138" title="All 7 branches covered.">        when (statusEffectId?.trim()?.lowercase()) {</span>
+<span class="fc" id="L139">            &quot;slp&quot;, &quot;frz&quot; -&gt; 2.0</span>
+<span class="fc" id="L140">            &quot;par&quot;, &quot;brn&quot;, &quot;psn&quot;, &quot;tox&quot; -&gt; 1.5</span>
 <span class="fc" id="L141">            else -&gt; 1.0</span>
 <span class="fc" id="L142">        }</span>
 

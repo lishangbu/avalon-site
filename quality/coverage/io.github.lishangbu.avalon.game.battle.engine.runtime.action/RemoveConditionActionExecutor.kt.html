@@ -4,24 +4,38 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.ActionNode
 import io.github.lishangbu.avalon.game.battle.engine.dsl.action.RemoveConditionActionNode
 import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
 import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveSideConditionMutation
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionExecutor
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionResult
 import io.github.lishangbu.avalon.game.battle.engine.type.ActionTypeId
 import io.github.lishangbu.avalon.game.battle.engine.type.StandardActionTypeIds
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
 
 /**
  * `remove_condition` 动作执行器。
  */
-<span class="fc" id="L15">class RemoveConditionActionExecutor : ActionExecutor {</span>
-<span class="fc" id="L16">    override val type: ActionTypeId = StandardActionTypeIds.REMOVE_CONDITION</span>
+<span class="fc" id="L18">class RemoveConditionActionExecutor : ActionExecutor {</span>
+<span class="fc" id="L19">    override val type: ActionTypeId = StandardActionTypeIds.REMOVE_CONDITION</span>
 
     override fun execute(
         action: ActionNode,
         context: EventContext,
     ): ActionResult {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        require(action is RemoveConditionActionNode) { &quot;Action must be RemoveConditionActionNode.&quot; }</span>
-<span class="nc" id="L23">        return ActionResult(</span>
-<span class="nc" id="L24">            mutations = listOf(RemoveConditionMutation(action.target, action.value)),</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        require(action is RemoveConditionActionNode) { &quot;Action must be RemoveConditionActionNode.&quot; }</span>
+<span class="fc" id="L26">        return ActionResult(</span>
+            mutations =
+<span class="fc" id="L28">                listOf(</span>
+<span class="fc" id="L29">                    when (action.target) {</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">                        StandardTargetSelectorIds.SIDE,</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">                        StandardTargetSelectorIds.FOE_SIDE,</span>
+<span class="fc" id="L32">                        -&gt; RemoveSideConditionMutation(action.target, action.value)</span>
+
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                        StandardTargetSelectorIds.FIELD -&gt; RemoveFieldConditionMutation(action.value)</span>
+
+<span class="fc" id="L36">                        else -&gt; RemoveConditionMutation(action.target, action.value)</span>
+                    },
+                ),
         )
     }
 }

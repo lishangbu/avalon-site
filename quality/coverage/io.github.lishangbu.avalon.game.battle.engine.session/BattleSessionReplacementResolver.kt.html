@@ -12,51 +12,38 @@
 <span class="fc" id="L12">internal class BattleSessionReplacementResolver(</span>
 <span class="fc" id="L13">    private val session: BattleSession,</span>
 ) {
+    private val replacementPlanResolver: BattleSessionReplacementPlanResolver =
+<span class="fc" id="L16">        BattleSessionReplacementPlanResolver(session.replacementStrategy)</span>
+    private val autoReplacementExecutor: BattleSessionAutoReplacementExecutor =
+<span class="fc" id="L18">        BattleSessionAutoReplacementExecutor(session)</span>
+<span class="fc" id="L19">    private val winnerResolver: BattleSessionWinnerResolver = BattleSessionWinnerResolver(session)</span>
+
     /**
      * 在给定快照上完成“濒死检查 + 自动替补 + 待替补请求 + 胜负更新”。
      *
      * @param snapshot 要处理的快照，默认使用会话当前快照
      * @return 处理后的快照
      */
-<span class="nc" id="L21">    fun resolveFaintAndReplacement(snapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot = session.currentSnapshot): io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot {</span>
-<span class="fc" id="L22">        var nextSnapshot = snapshot</span>
-<span class="fc" id="L23">        val nextSides = nextSnapshot.sides.toMutableMap()</span>
-<span class="fc" id="L24">        session.replacementRequests.clear()</span>
+<span class="nc" id="L27">    fun resolveFaintAndReplacement(snapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot = session.currentSnapshot): io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot {</span>
+<span class="fc" id="L28">        var nextSnapshot = session.processFaintHooks(snapshot)</span>
+<span class="fc" id="L29">        session.replacementRequests.clear()</span>
 
-<span class="fc" id="L26">        nextSnapshot.sides.forEach { (sideId, side) -&gt;</span>
-<span class="fc" id="L27">            val currentUnits = nextSnapshot.units</span>
-<span class="fc" id="L28">            val nextActiveIds = session.replacementStrategy.selectActiveUnitIds(side, currentUnits)</span>
-<span class="fc bfc" id="L29" title="All 2 branches covered.">            if (nextActiveIds == side.activeUnitIds) {</span>
-<span class="pc bpc" id="L30" title="1 of 4 branches missed.">                val faintedActiveIds = side.activeUnitIds.filter { unitId -&gt; (currentUnits[unitId]?.currentHp ?: 0) &lt;= 0 }</span>
-<span class="fc bfc" id="L31" title="All 4 branches covered.">                if (faintedActiveIds.isNotEmpty()) {</span>
-<span class="fc" id="L32">                    val candidates =</span>
-<span class="fc" id="L33">                        side.unitIds</span>
-<span class="fc" id="L34">                            .filterNot { unitId -&gt; unitId in side.activeUnitIds }</span>
-<span class="pc bpc" id="L35" title="2 of 4 branches missed.">                            .filter { unitId -&gt; (currentUnits[unitId]?.currentHp ?: 0) &gt; 0 }</span>
-<span class="pc bpc" id="L36" title="2 of 4 branches missed.">                    if (candidates.isNotEmpty()) {</span>
-<span class="fc" id="L37">                        session.replacementRequests +=</span>
-<span class="fc" id="L38">                            BattleSessionReplacementRequest(</span>
-<span class="fc" id="L39">                                sideId = sideId,</span>
-<span class="fc" id="L40">                                outgoingUnitIds = faintedActiveIds,</span>
-<span class="fc" id="L41">                                candidateUnitIds = candidates,</span>
-                            )
-                    }
-                }
-<span class="fc" id="L45">                return@forEach</span>
+<span class="fc" id="L31">        nextSnapshot.sides.forEach { (sideId, side) -&gt;</span>
+<span class="fc" id="L32">            val currentUnits = nextSnapshot.units</span>
+<span class="fc" id="L33">            val plan = replacementPlanResolver.resolve(sideId, side, currentUnits)</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (plan.requiresManualReplacement) {</span>
+<span class="fc" id="L35">                session.replacementRequests +=</span>
+<span class="fc" id="L36">                    BattleSessionReplacementRequest(</span>
+<span class="fc" id="L37">                        sideId = plan.sideId,</span>
+<span class="fc" id="L38">                        outgoingUnitIds = plan.requiredOutgoingUnitIds,</span>
+<span class="fc" id="L39">                        candidateUnitIds = plan.candidateUnitIds,</span>
+                    )
+<span class="fc" id="L41">                return@forEach</span>
             }
-<span class="fc" id="L47">            nextSides[sideId] = side.copy(activeUnitIds = nextActiveIds)</span>
-<span class="fc" id="L48">            session.recordLog(&quot;Side $sideId auto replaced active units: ${side.activeUnitIds} -&gt; $nextActiveIds.&quot;)</span>
-<span class="fc" id="L49">            session.recordEvent(</span>
-<span class="fc" id="L50">                BattleSessionAutoReplacedPayload(</span>
-<span class="fc" id="L51">                    sideId = sideId,</span>
-<span class="fc" id="L52">                    before = side.activeUnitIds,</span>
-<span class="fc" id="L53">                    after = nextActiveIds,</span>
-                ),
-            )
-<span class="fc" id="L56">        }</span>
+<span class="fc" id="L43">            nextSnapshot = autoReplacementExecutor.execute(nextSnapshot, plan)</span>
+<span class="fc" id="L44">        }</span>
 
-<span class="fc" id="L58">        nextSnapshot = nextSnapshot.copy(sides = nextSides)</span>
-<span class="fc" id="L59">        return updateWinnerIfNeeded(nextSnapshot)</span>
+<span class="fc" id="L46">        return updateWinnerIfNeeded(nextSnapshot)</span>
     }
 
     /**
@@ -65,37 +52,6 @@
      * @param snapshot 待判定的快照
      * @return 已更新胜者信息的快照
      */
-    fun updateWinnerIfNeeded(snapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot): io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot {
-<span class="fc" id="L69">        val survivingSides =</span>
-<span class="fc" id="L70">            snapshot.sides.values.filter { side -&gt;</span>
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">                side.unitIds.any { unitId -&gt; (snapshot.units[unitId]?.currentHp ?: 0) &gt; 0 }</span>
-            }
-<span class="fc" id="L73">        return when {</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">            survivingSides.size == 1 -&gt; {</span>
-<span class="fc" id="L75">                val winnerId = survivingSides.single().id</span>
-<span class="fc" id="L76">                session.recordLog(&quot;Battle ended. Winner: $winnerId.&quot;)</span>
-<span class="fc" id="L77">                session.recordEvent(</span>
-<span class="fc" id="L78">                    BattleSessionBattleEndedPayload(winner = winnerId),</span>
-                )
-<span class="fc" id="L80">                snapshot.copy(</span>
-<span class="fc" id="L81">                    battle = snapshot.battle.copy(ended = true, winner = winnerId),</span>
-                )
-            }
-
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">            survivingSides.isEmpty() -&gt; {</span>
-<span class="nc" id="L86">                session.recordLog(&quot;Battle ended with no surviving sides.&quot;)</span>
-<span class="nc" id="L87">                session.recordEvent(</span>
-<span class="nc" id="L88">                    BattleSessionBattleEndedPayload(winner = null),</span>
-                )
-<span class="nc" id="L90">                snapshot.copy(</span>
-<span class="nc" id="L91">                    battle = snapshot.battle.copy(ended = true, winner = null),</span>
-                )
-            }
-
-            else -&gt; {
-<span class="fc" id="L96">                snapshot</span>
-            }
-        }
-    }
+<span class="fc" id="L55">    fun updateWinnerIfNeeded(snapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot): io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot = winnerResolver.updateWinnerIfNeeded(snapshot)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

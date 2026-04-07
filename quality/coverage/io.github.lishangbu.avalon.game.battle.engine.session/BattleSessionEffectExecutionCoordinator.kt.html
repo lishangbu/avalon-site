@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionEffectExecutionCoordinator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionEffectExecutionCoordinator.kt</span></div><h1>BattleSessionEffectExecutionCoordinator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.MoveResolutionResult
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleMoveDataReader
+
+/**
+ * session effect 执行协调器。
+ *
+ * 设计意图：
+ * - 承载 move/item 这类“指定 effectId + actor + target”的统一结算编排；
+ * - 把目标展开、attributes 补全、逐目标聚合、直接伤害写回和日志事件记录
+ *   从 `BattleSessionActionExecutionSupport` 中剥离出来；
+ * - 让 action support 退化成一层薄分发器。
+ */
+<span class="fc" id="L15">class BattleSessionEffectExecutionCoordinator(</span>
+<span class="fc" id="L16">    private val directDamageApplier: BattleSessionDirectDamageApplier = BattleSessionDirectDamageApplier(),</span>
+<span class="fc" id="L17">) {</span>
+    /**
+     * 执行一个已经具备目标信息的 effect。
+     */
+    fun executeResolvedEffect(
+        session: BattleSession,
+        effectId: String,
+        actorUnitId: String,
+        targetUnitId: String,
+        accuracy: Int?,
+        evasion: Int?,
+        basePower: Int,
+        damage: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): MoveResolutionResult {
+<span class="fc" id="L32">        val targetQuery = session.queryTargets(effectId, actorUnitId)</span>
+<span class="fc" id="L33">        val effect = session.effectRepository.get(effectId)</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        val resolvedAccuracy = accuracy ?: BattleMoveDataReader.readAccuracy(effect.data)</span>
+<span class="fc" id="L35">        val resolvedTargetIds =</span>
+<span class="fc" id="L36">            when {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                targetQuery.requiresExplicitTarget -&gt; listOf(targetUnitId)</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                targetQuery.availableTargetUnitIds.isEmpty() -&gt; listOf(targetUnitId)</span>
+<span class="fc" id="L39">                else -&gt; targetQuery.availableTargetUnitIds</span>
+            }
+<span class="fc" id="L41">        val resolvedAttributes =</span>
+<span class="fc" id="L42">            BattleSessionEffectAttributeResolver</span>
+<span class="fc" id="L43">                .completeRandomAttributes(session, resolvedAccuracy, attributes)</span>
+<span class="fc" id="L44">                .let { candidate -&gt;</span>
+<span class="fc" id="L45">                    BattleSessionEffectAttributeResolver.withResolvedTargetCount(candidate, resolvedTargetIds.size)</span>
+                }
+
+<span class="fc" id="L48">        var aggregatedResult: MoveResolutionResult? = null</span>
+<span class="fc" id="L49">        resolvedTargetIds.forEach { resolvedTargetId -&gt;</span>
+<span class="fc" id="L50">            val targetAwareAttributes =</span>
+<span class="fc" id="L51">                BattleSessionEffectAttributeResolver.withDerivedTargetRelation(</span>
+<span class="fc" id="L52">                    attributes = resolvedAttributes,</span>
+<span class="fc" id="L53">                    session = session,</span>
+<span class="fc" id="L54">                    actorUnitId = actorUnitId,</span>
+<span class="fc" id="L55">                    targetUnitId = resolvedTargetId,</span>
+                )
+<span class="fc" id="L57">            val result =</span>
+<span class="fc" id="L58">                session.battleFlowEngine.resolveMoveAction(</span>
+<span class="fc" id="L59">                    snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L60">                    moveId = effectId,</span>
+<span class="fc" id="L61">                    attackerId = actorUnitId,</span>
+<span class="fc" id="L62">                    targetId = resolvedTargetId,</span>
+<span class="fc" id="L63">                    accuracy = resolvedAccuracy,</span>
+<span class="fc" id="L64">                    evasion = evasion,</span>
+<span class="fc" id="L65">                    basePower = basePower,</span>
+<span class="fc" id="L66">                    damage = damage,</span>
+<span class="fc" id="L67">                    attributes = targetAwareAttributes,</span>
+                )
+<span class="fc" id="L69">            session.currentSnapshot = result.snapshot</span>
+<span class="fc bfc" id="L70" title="All 4 branches covered.">            if (result.hitSuccessful &amp;&amp; result.damage &gt; 0) {</span>
+<span class="fc" id="L71">                session.currentSnapshot = directDamageApplier.apply(session, actorUnitId, resolvedTargetId, result.damage)</span>
+            }
+<span class="fc" id="L73">            session.currentSnapshot = session.resolveFaintAndReplacement()</span>
+<span class="fc" id="L74">            val finalResult = result.copy(snapshot = session.currentSnapshot)</span>
+<span class="fc" id="L75">            session.recordMoveExecution(effectId, actorUnitId, resolvedTargetId, finalResult)</span>
+<span class="fc" id="L76">            aggregatedResult = aggregateResult(aggregatedResult, finalResult, session.currentSnapshot)</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
+            }
+<span class="fc" id="L80">        }</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
+<span class="nc" id="L82">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
+        }
+    }
+
+    /**
+     * 聚合同一 effect 多目标结算结果。
+     *
+     * 当前策略保持与原实现一致：
+     * - `hitSuccessful / criticalHit` 取任一目标命中即可；
+     * - 其余数值字段保留最后一个目标的结果；
+     * - `snapshot` 始终返回最新 session snapshot。
+     */
+    private fun aggregateResult(
+        current: MoveResolutionResult?,
+        next: MoveResolutionResult,
+        latestSnapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot,
+    ): MoveResolutionResult =
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (current == null) {</span>
+<span class="fc" id="L100">            next</span>
+        } else {
+<span class="fc" id="L102">            current.copy(</span>
+<span class="fc" id="L103">                snapshot = latestSnapshot,</span>
+<span class="pc bpc" id="L104" title="3 of 4 branches missed.">                hitSuccessful = current.hitSuccessful || next.hitSuccessful,</span>
+<span class="pc bpc" id="L105" title="2 of 4 branches missed.">                criticalHit = current.criticalHit || next.criticalHit,</span>
+<span class="fc" id="L106">                accuracy = next.accuracy,</span>
+<span class="fc" id="L107">                evasion = next.evasion,</span>
+<span class="fc" id="L108">                basePower = next.basePower,</span>
+<span class="fc" id="L109">                damageRoll = next.damageRoll,</span>
+<span class="fc" id="L110">                damage = next.damage,</span>
+            )
+<span class="fc" id="L112">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

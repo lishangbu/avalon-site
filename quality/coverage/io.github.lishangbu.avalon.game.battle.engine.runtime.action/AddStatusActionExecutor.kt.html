@@ -20,8 +20,22 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardActionTypeIds
         context: EventContext,
     ): ActionResult {
 <span class="pc bpc" id="L22" title="1 of 2 branches missed.">        require(action is AddStatusActionNode) { &quot;Action must be AddStatusActionNode.&quot; }</span>
-<span class="fc" id="L23">        return ActionResult(</span>
-<span class="fc" id="L24">            mutations = listOf(SetStatusMutation(action.target, action.value)),</span>
+<span class="fc" id="L23">        val resolvedDuration =</span>
+<span class="fc" id="L24">            AttachedEffectDurationResolver.resolve(</span>
+<span class="fc" id="L25">                explicitDuration = action.duration,</span>
+<span class="fc" id="L26">                effectId = action.value,</span>
+<span class="fc" id="L27">                context = context,</span>
+            )
+<span class="fc" id="L29">        return ActionResult(</span>
+            mutations =
+<span class="fc" id="L31">                listOf(</span>
+<span class="fc" id="L32">                    SetStatusMutation(</span>
+<span class="fc" id="L33">                        target = action.target,</span>
+<span class="fc" id="L34">                        statusEffectId = action.value,</span>
+<span class="fc" id="L35">                        duration = resolvedDuration,</span>
+<span class="pc bpc" id="L36" title="1 of 6 branches missed.">                        sourceId = context.source?.id ?: context.self?.id,</span>
+                    ),
+                ),
         )
     }
 }

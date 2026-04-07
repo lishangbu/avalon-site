@@ -7,9 +7,11 @@ import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
  *
  * @property snapshot 过滤过程中可能被前置 hook 修改后的快照。
  * @property mutations 通过拦截检查后允许提交的 mutation。
+ *
+ * 这里的 mutation 列表既可能是原始输入的子集，也可能包含被拦截器重写后的新 mutation。
  */
-<span class="fc" id="L11">data class MutationFilteringResult(</span>
-<span class="fc" id="L12">    val snapshot: BattleRuntimeSnapshot,</span>
-<span class="fc" id="L13">    val mutations: List&lt;BattleMutation&gt;,</span>
+<span class="fc" id="L13">data class MutationFilteringResult(</span>
+<span class="fc" id="L14">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L15">    val mutations: List&lt;BattleMutation&gt;,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

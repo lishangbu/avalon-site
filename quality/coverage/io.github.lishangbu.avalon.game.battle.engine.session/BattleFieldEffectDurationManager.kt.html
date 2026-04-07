@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleFieldEffectDurationManager.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleFieldEffectDurationManager.kt</span></div><h1>BattleFieldEffectDurationManager.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.model.FieldState
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearTerrainMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearWeatherMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * 天气 / 地形的持续回合推进器。
+ *
+ * 设计意图：
+ * - 在回合末统一推进 field-attached effect 的持续时间；
+ * - 只以 `weatherState / terrainState / conditionStates` 作为场地挂载效果的唯一真实来源。
+ */
+<span class="fc" id="L17">internal class BattleFieldEffectDurationManager {</span>
+    /**
+     * 推进当前快照上的天气与地形持续时间。
+     */
+    fun advance(snapshot: BattleRuntimeSnapshot): BattleEffectDurationAdvanceResult {
+<span class="fc" id="L22">        val expirationMutations = mutableListOf&lt;BattleSessionScopedMutation&gt;()</span>
+<span class="fc" id="L23">        val nextField = advanceField(snapshot.field, expirationMutations)</span>
+<span class="fc" id="L24">        val nextSnapshot =</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">            if (nextField == snapshot.field) {</span>
+<span class="fc" id="L26">                snapshot</span>
+            } else {
+<span class="fc" id="L28">                snapshot.copy(field = nextField)</span>
+            }
+<span class="fc" id="L30">        return BattleEffectDurationAdvanceResult(</span>
+<span class="fc" id="L31">            snapshot = nextSnapshot,</span>
+<span class="fc" id="L32">            expirationMutations = expirationMutations,</span>
+        )
+    }
+
+    /**
+     * 推进当前 field 上的天气、地形与 field condition 持续时间。
+     */
+    private fun advanceField(
+        field: FieldState,
+        expirationMutations: MutableList&lt;BattleSessionScopedMutation&gt;,
+    ): FieldState {
+<span class="fc" id="L43">        val nextWeatherState =</span>
+<span class="fc" id="L44">            advanceState(field.weatherState) { state -&gt;</span>
+<span class="fc" id="L45">                expirationMutations +=</span>
+<span class="fc" id="L46">                    BattleSessionScopedMutation(</span>
+<span class="fc" id="L47">                        selfId = null,</span>
+<span class="fc" id="L48">                        targetId = null,</span>
+<span class="fc" id="L49">                        sourceId = state.sourceId,</span>
+<span class="fc" id="L50">                        mutation = ClearWeatherMutation(),</span>
+                    )
+<span class="fc" id="L52">            }</span>
+<span class="fc" id="L53">        val nextTerrainState =</span>
+<span class="fc" id="L54">            advanceState(field.terrainState) { state -&gt;</span>
+<span class="fc" id="L55">                expirationMutations +=</span>
+<span class="fc" id="L56">                    BattleSessionScopedMutation(</span>
+<span class="fc" id="L57">                        selfId = null,</span>
+<span class="fc" id="L58">                        targetId = null,</span>
+<span class="fc" id="L59">                        sourceId = state.sourceId,</span>
+<span class="fc" id="L60">                        mutation = ClearTerrainMutation(),</span>
+                    )
+<span class="fc" id="L62">            }</span>
+<span class="fc" id="L63">        val nextConditionStates = linkedMapOf&lt;String, AttachedEffectState&gt;()</span>
+<span class="fc" id="L64">        field.conditionStates.values</span>
+<span class="fc" id="L65">            .sortedBy(AttachedEffectState::effectOrder)</span>
+<span class="fc" id="L66">            .forEach { state -&gt;</span>
+<span class="fc" id="L67">                val nextState =</span>
+<span class="fc" id="L68">                    advanceState(state) { expiredState -&gt;</span>
+<span class="nc" id="L69">                        expirationMutations +=</span>
+<span class="nc" id="L70">                            BattleSessionScopedMutation(</span>
+<span class="nc" id="L71">                                selfId = null,</span>
+<span class="nc" id="L72">                                targetId = null,</span>
+<span class="nc" id="L73">                                sourceId = expiredState.sourceId,</span>
+<span class="nc" id="L74">                                mutation = RemoveFieldConditionMutation(expiredState.effectId),</span>
+                            )
+<span class="nc" id="L76">                    }</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                if (nextState != null) {</span>
+<span class="fc" id="L78">                    nextConditionStates[nextState.effectId] = nextState</span>
+                }
+<span class="fc" id="L80">            }</span>
+<span class="fc" id="L81">        return field.copy(</span>
+<span class="fc" id="L82">            weatherState = nextWeatherState,</span>
+<span class="fc" id="L83">            terrainState = nextTerrainState,</span>
+<span class="fc" id="L84">            conditionStates = nextConditionStates,</span>
+        )
+    }
+
+    /**
+     * 推进单个 field effect 的剩余回合。
+     *
+     * 返回空值表示该 effect 已在本次回合结束时自然到期。
+     */
+<span class="nc" id="L93">    private fun advanceState(</span>
+        state: AttachedEffectState?,
+<span class="nc" id="L95">        onExpired: (AttachedEffectState) -&gt; Unit = {},</span>
+    ): AttachedEffectState? {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        val currentState = state ?: return null</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        val duration = currentState.duration ?: return currentState</span>
+<span class="fc" id="L99">        val nextDuration = duration - 1</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        return if (nextDuration &gt; 0) {</span>
+<span class="fc" id="L101">            currentState.copy(duration = nextDuration)</span>
+        } else {
+<span class="fc" id="L103">            onExpired(currentState)</span>
+<span class="fc" id="L104">            currentState</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

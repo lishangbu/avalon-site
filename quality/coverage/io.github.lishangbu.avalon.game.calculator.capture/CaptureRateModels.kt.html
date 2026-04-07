@@ -69,14 +69,14 @@
     /** 基础捕获率。 */
 <span class="fc" id="L70">    val captureRate: Int,</span>
     /**
-     * 状态内部名称。
+     * 状态 effect 标识。
      *
-     * 当前默认支持：
+     * 当前只接受规范化 effect id：
      *
-     * - 睡眠/冰冻：`slp`、`sleep`、`frz`、`freeze`
-     * - 麻痹/灼伤/中毒：`par`、`paralysis`、`brn`、`burn`、`psn`、`poison`、`tox`
+     * - 睡眠/冰冻：`slp`、`frz`
+     * - 麻痹/灼伤/中毒：`par`、`brn`、`psn`、`tox`
      */
-<span class="fc" id="L79">    val statusId: String? = null,</span>
+<span class="fc" id="L79">    val statusEffectId: String? = null,</span>
     /** 球的内部名称，例如 `poke-ball`、`great-ball`。 */
 <span class="fc" id="L81">    val ballItemInternalName: String,</span>
     /** 当前回合数，从 1 开始。 */

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultPlayerInventoryManagementService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.player</a> &gt; <span class="el_source">DefaultPlayerInventoryManagementService.kt</span></div><h1>DefaultPlayerInventoryManagementService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.player
+
+import io.github.lishangbu.avalon.dataset.entity.Item
+import io.github.lishangbu.avalon.dataset.entity.dto.ItemSpecification
+import io.github.lishangbu.avalon.dataset.repository.ItemRepository
+import io.github.lishangbu.avalon.game.entity.PlayerInventoryItem
+import io.github.lishangbu.avalon.game.repository.PlayerInventoryItemRepository
+import io.github.lishangbu.avalon.game.repository.PlayerRepository
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.time.Instant
+
+<span class="nc" id="L14">@Service</span>
+<span class="nc" id="L15">class DefaultPlayerInventoryManagementService(</span>
+<span class="nc" id="L16">    private val playerRepository: PlayerRepository,</span>
+<span class="nc" id="L17">    private val playerInventoryItemRepository: PlayerInventoryItemRepository,</span>
+<span class="nc" id="L18">    private val itemRepository: ItemRepository,</span>
+) : PlayerInventoryManagementService {
+    override fun listByPlayerId(playerId: String): List&lt;PlayerInventoryItemView&gt; {
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        val parsedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
+<span class="nc" id="L22">        val inventoryItems =</span>
+<span class="nc" id="L23">            playerInventoryItemRepository</span>
+<span class="nc" id="L24">                .findAll()</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">                .filter { item -&gt; item.playerId == parsedPlayerId }</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (inventoryItems.isEmpty()) {</span>
+<span class="nc" id="L27">            return emptyList()</span>
+        }
+<span class="nc" id="L29">        val itemsById = itemRepository.findAllById(inventoryItems.map { inventoryItem -&gt; inventoryItem.itemId }.toSet()).associateBy(Item::id)</span>
+<span class="nc" id="L30">        return inventoryItems</span>
+<span class="nc" id="L31">            .sortedBy { inventoryItem -&gt; inventoryItem.itemId }</span>
+<span class="nc" id="L32">            .map { inventoryItem -&gt;</span>
+<span class="nc" id="L33">                val item =</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">                    requireNotNull(itemsById[inventoryItem.itemId]) {</span>
+<span class="nc" id="L35">                        &quot;Item '${inventoryItem.itemId}' was not found.&quot;</span>
+                    }
+<span class="nc" id="L37">                PlayerInventoryItemView(</span>
+<span class="nc" id="L38">                    playerId = inventoryItem.playerId.toString(),</span>
+<span class="nc" id="L39">                    itemId = item.id.toString(),</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                    itemInternalName = requireNotNull(item.internalName),</span>
+<span class="nc bnc" id="L41" title="All 4 branches missed.">                    itemName = item.name ?: requireNotNull(item.internalName),</span>
+<span class="nc" id="L42">                    quantity = inventoryItem.quantity,</span>
+<span class="nc" id="L43">                )</span>
+            }
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun grant(command: GrantInventoryItemCommand): PlayerInventoryItemView {
+<span class="nc bnc" id="L49" title="All 4 branches missed.">        require(command.quantity &gt; 0) { &quot;Grant quantity must be greater than 0.&quot; }</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        val playerId = command.playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        requireNotNull(playerRepository.findNullable(playerId)) {</span>
+<span class="nc" id="L52">            &quot;Player '$playerId' was not found.&quot;</span>
+        }
+<span class="nc" id="L54">        val itemView =</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            itemRepository</span>
+<span class="nc" id="L56">                .listViews(ItemSpecification(internalName = command.itemInternalName))</span>
+<span class="nc" id="L57">                .firstOrNull { item -&gt; item.internalName == command.itemInternalName }</span>
+<span class="nc" id="L58">                ?: error(&quot;Item '${command.itemInternalName}' was not found.&quot;)</span>
+<span class="nc" id="L59">        val itemId = itemView.id.toLong()</span>
+<span class="nc" id="L60">        val existing =</span>
+<span class="nc" id="L61">            playerInventoryItemRepository</span>
+<span class="nc" id="L62">                .findAll()</span>
+<span class="nc bnc" id="L63" title="All 4 branches missed.">                .firstOrNull { inventoryItem -&gt; inventoryItem.playerId == playerId &amp;&amp; inventoryItem.itemId == itemId }</span>
+<span class="nc" id="L64">        val saved =</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if (existing == null) {</span>
+<span class="nc" id="L66">                playerInventoryItemRepository.save(</span>
+<span class="nc" id="L67">                    PlayerInventoryItem {</span>
+<span class="nc" id="L68">                        this.playerId = playerId</span>
+<span class="nc" id="L69">                        this.itemId = itemId</span>
+<span class="nc" id="L70">                        quantity = command.quantity</span>
+<span class="nc" id="L71">                        updatedAt = Instant.now()</span>
+<span class="nc" id="L72">                    },</span>
+<span class="nc" id="L73">                    SaveMode.INSERT_ONLY,</span>
+                )
+            } else {
+<span class="nc" id="L76">                playerInventoryItemRepository.save(</span>
+<span class="nc" id="L77">                    PlayerInventoryItem(existing) {</span>
+<span class="nc" id="L78">                        quantity = existing.quantity + command.quantity</span>
+<span class="nc" id="L79">                        updatedAt = Instant.now()</span>
+<span class="nc" id="L80">                    },</span>
+                )
+            }
+
+<span class="nc" id="L84">        return PlayerInventoryItemView(</span>
+<span class="nc" id="L85">            playerId = saved.playerId.toString(),</span>
+<span class="nc" id="L86">            itemId = itemId.toString(),</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            itemInternalName = requireNotNull(itemView.internalName),</span>
+<span class="nc bnc" id="L88" title="All 4 branches missed.">            itemName = itemView.name ?: requireNotNull(itemView.internalName),</span>
+<span class="nc" id="L89">            quantity = saved.quantity,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -7,11 +7,13 @@
  * - 表示天气、地形等战场公共状态。
  * - 避免把 battle 共享状态和 side / unit 状态混在一起。
  *
- * @property weatherId 当前天气标识。
- * @property terrainId 当前地形标识。
+ * @property weatherState 当前天气的运行时状态。
+ * @property terrainState 当前地形的运行时状态。
+ * @property conditionStates 当前 field 级附着条件表。
  */
-<span class="fc" id="L13">data class FieldState(</span>
-<span class="fc" id="L14">    val weatherId: String? = null,</span>
-<span class="fc" id="L15">    val terrainId: String? = null,</span>
-<span class="fc" id="L16">)</span>
+<span class="fc" id="L14">data class FieldState(</span>
+<span class="fc" id="L15">    val weatherState: AttachedEffectState? = null,</span>
+<span class="fc" id="L16">    val terrainState: AttachedEffectState? = null,</span>
+<span class="fc" id="L17">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L18">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

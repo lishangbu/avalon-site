@@ -23,16 +23,21 @@
      */
     fun executeQueuedActions(): List&lt;BattleSessionActionExecutionResult&gt; {
 <span class="fc" id="L25">        session.ensureStarted()</span>
-<span class="fc" id="L26">        val actions = session.actionQueue.drain()</span>
+<span class="fc" id="L26">        val actions = session.actionQueue.drain(session.currentSnapshot)</span>
 <span class="fc" id="L27">        val results = mutableListOf&lt;BattleSessionActionExecutionResult&gt;()</span>
 <span class="fc" id="L28">        actions.forEach { action -&gt;</span>
-<span class="fc" id="L29">            val handler = actionHandlerRegistry.get(action)</span>
-<span class="fc" id="L30">            results += handler.execute(action, session)</span>
-<span class="fc bfc" id="L31" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
-<span class="fc" id="L32">                return results</span>
+<span class="fc" id="L29">            val preparedAction =</span>
+<span class="fc" id="L30">                when (action) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                    is BattleSessionMoveAction -&gt; BattleSessionMoveOrderAttributeResolver.enrich(action, results.map(BattleSessionActionExecutionResult::action))</span>
+<span class="fc" id="L32">                    else -&gt; action</span>
+                }
+<span class="fc" id="L34">            val handler = actionHandlerRegistry.get(preparedAction)</span>
+<span class="fc" id="L35">            results += handler.execute(preparedAction, session)</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
+<span class="fc" id="L37">                return results</span>
             }
-<span class="fc" id="L34">        }</span>
-<span class="fc" id="L35">        return results</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        return results</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

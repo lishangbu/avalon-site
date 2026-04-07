@@ -11,10 +11,10 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionCaptur
  *
  * 业务层只需要提供公式输入，具体公式计算由 battle-engine 负责。
  */
-<span class="pc" id="L14">class DefaultCaptureActionResolver(</span>
+<span class="fc" id="L14">class DefaultCaptureActionResolver(</span>
 <span class="fc" id="L15">    private val captureFormulaInputResolver: CaptureFormulaInputResolver,</span>
-<span class="pc" id="L16">    private val captureFormulaService: CaptureFormulaService = DefaultCaptureFormulaService(),</span>
-<span class="nc" id="L17">) : CaptureActionResolver {</span>
+<span class="fc" id="L16">    private val captureFormulaService: CaptureFormulaService = DefaultCaptureFormulaService(),</span>
+<span class="fc" id="L17">) : CaptureActionResolver {</span>
     override fun resolve(
         session: BattleSession,
         action: BattleSessionCaptureAction,

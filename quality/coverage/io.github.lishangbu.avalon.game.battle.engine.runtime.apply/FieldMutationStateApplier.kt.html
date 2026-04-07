@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FieldMutationStateApplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.apply</a> &gt; <span class="el_source">FieldMutationStateApplier.kt</span></div><h1>FieldMutationStateApplier.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.apply
+
+import io.github.lishangbu.avalon.game.battle.engine.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.model.FieldState
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ApplyFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.RemoveFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetTerrainMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.SetWeatherMutation
+
+/**
+ * field 级 mutation 写回助手。
+ */
+internal object FieldMutationStateApplier {
+    fun applySetWeather(
+        mutation: SetWeatherMutation,
+        field: FieldState,
+    ): FieldState {
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        val nextOrder = field.weatherState?.effectOrder ?: 1</span>
+<span class="fc" id="L19">        return field.copy(</span>
+            weatherState =
+<span class="fc" id="L21">                AttachedEffectState(</span>
+<span class="fc" id="L22">                    effectId = mutation.weatherEffectId,</span>
+<span class="fc" id="L23">                    sourceId = mutation.sourceId,</span>
+<span class="fc" id="L24">                    duration = mutation.duration,</span>
+<span class="fc" id="L25">                    effectOrder = nextOrder,</span>
+                ),
+        )
+    }
+
+    fun applySetTerrain(
+        mutation: SetTerrainMutation,
+        field: FieldState,
+    ): FieldState {
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        val nextOrder = field.terrainState?.effectOrder ?: 1</span>
+<span class="fc" id="L35">        return field.copy(</span>
+            terrainState =
+<span class="fc" id="L37">                AttachedEffectState(</span>
+<span class="fc" id="L38">                    effectId = mutation.terrainEffectId,</span>
+<span class="fc" id="L39">                    sourceId = mutation.sourceId,</span>
+<span class="fc" id="L40">                    duration = mutation.duration,</span>
+<span class="fc" id="L41">                    effectOrder = nextOrder,</span>
+                ),
+        )
+    }
+
+    fun applyAddCondition(
+        mutation: ApplyFieldConditionMutation,
+        field: FieldState,
+    ): FieldState {
+<span class="fc" id="L50">        val existingState = field.conditionStates[mutation.conditionEffectId]</span>
+<span class="fc" id="L51">        val nextOrder =</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            existingState?.effectOrder</span>
+<span class="pc bpc" id="L53" title="6 of 8 branches missed.">                ?: ((field.conditionStates.values.maxOfOrNull(AttachedEffectState::effectOrder) ?: 0) + 1)</span>
+<span class="fc" id="L54">        val nextState =</span>
+<span class="fc" id="L55">            AttachedEffectState(</span>
+<span class="fc" id="L56">                effectId = mutation.conditionEffectId,</span>
+<span class="fc" id="L57">                sourceId = mutation.sourceId,</span>
+<span class="fc" id="L58">                duration = mutation.duration,</span>
+<span class="fc" id="L59">                effectOrder = nextOrder,</span>
+            )
+<span class="fc" id="L61">        return field.copy(</span>
+<span class="fc" id="L62">            conditionStates = field.conditionStates + (mutation.conditionEffectId to nextState),</span>
+        )
+    }
+
+    fun applyRemoveCondition(
+        mutation: RemoveFieldConditionMutation,
+        field: FieldState,
+<span class="nc" id="L69">    ): FieldState = field.copy(conditionStates = field.conditionStates - mutation.conditionEffectId)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

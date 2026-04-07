@@ -19,9 +19,9 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardActionTypeIds
         action: ActionNode,
         context: EventContext,
     ): ActionResult {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        require(action is TriggerEventActionNode) { &quot;Action must be TriggerEventActionNode.&quot; }</span>
-<span class="nc" id="L23">        return ActionResult(</span>
-<span class="nc" id="L24">            mutations = listOf(TriggerEventMutation(action.hookName)),</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        require(action is TriggerEventActionNode) { &quot;Action must be TriggerEventActionNode.&quot; }</span>
+<span class="fc" id="L23">        return ActionResult(</span>
+<span class="fc" id="L24">            mutations = listOf(TriggerEventMutation(action.hookName)),</span>
         )
     }
 }

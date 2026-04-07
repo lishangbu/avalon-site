@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMoveDataReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.support</a> &gt; <span class="el_source">BattleMoveDataReader.kt</span></div><h1>BattleMoveDataReader.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.support
+
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleMoveDataKeys
+
+/**
+ * battle move `effect.data` 字段的轻量 typed reader。
+ *
+ * 设计意图：
+ * - 收口 battle 主流程反复读取的
+ *   `accuracy / type / damageClass / target / critRatio / alwaysCriticalHit / alwaysHit`
+ *   以及少量特殊命中规则字段；
+ * - 避免 `moveEffect.data[...]?.toString()`、`as? Number`、`== true` 在多个 phase step 中散落；
+ * - 让 JSON/CSV 装配边界保留宽松输入，而执行链只通过统一 reader 取值。
+ *
+ * 说明：
+ * - 这里只覆盖 battle move 主链当前高频字段，不扩展到所有 effect data；
+ * - 对数值与布尔值保持与 `EventContextAttributeReader` 一致的宽松解析语义。
+ */
+object BattleMoveDataReader {
+<span class="fc" id="L20">    fun readAccuracy(moveData: Map&lt;String, Any?&gt;): Int? = readInt(BattleMoveDataKeys.ACCURACY, moveData)</span>
+
+<span class="fc" id="L22">    fun readType(moveData: Map&lt;String, Any?&gt;): String? = readString(BattleMoveDataKeys.TYPE, moveData)</span>
+
+<span class="fc" id="L24">    fun readDamageClass(moveData: Map&lt;String, Any?&gt;): String? = readString(BattleMoveDataKeys.DAMAGE_CLASS, moveData)</span>
+
+<span class="fc" id="L26">    fun readTarget(moveData: Map&lt;String, Any?&gt;): String? = readString(BattleMoveDataKeys.TARGET, moveData)</span>
+
+<span class="fc" id="L28">    fun readCritRatio(moveData: Map&lt;String, Any?&gt;): Int? = readInt(BattleMoveDataKeys.CRIT_RATIO, moveData)</span>
+
+<span class="fc" id="L30">    fun readAlwaysCriticalHit(moveData: Map&lt;String, Any?&gt;): Boolean? = readBoolean(BattleMoveDataKeys.ALWAYS_CRITICAL_HIT, moveData)</span>
+
+<span class="fc" id="L32">    fun readAlwaysHit(moveData: Map&lt;String, Any?&gt;): Boolean? = readBoolean(BattleMoveDataKeys.ALWAYS_HIT, moveData)</span>
+
+<span class="fc" id="L34">    fun readGuaranteedHitWeatherEffectIds(moveData: Map&lt;String, Any?&gt;): Set&lt;String&gt; = readStringList(BattleMoveDataKeys.GUARANTEED_HIT_WEATHER_EFFECT_IDS, moveData).toSet()</span>
+
+<span class="fc" id="L36">    fun readWeatherAccuracyOverrides(moveData: Map&lt;String, Any?&gt;): Map&lt;String, Int&gt; = readIntMap(BattleMoveDataKeys.WEATHER_ACCURACY_OVERRIDES, moveData)</span>
+
+<span class="fc" id="L38">    fun readOneHitKnockOut(moveData: Map&lt;String, Any?&gt;): Boolean? = readBoolean(BattleMoveDataKeys.OHKO, moveData)</span>
+
+<span class="fc" id="L40">    fun readOffTypeOhkoAccuracy(moveData: Map&lt;String, Any?&gt;): Int? = readInt(BattleMoveDataKeys.OHKO_OFF_TYPE_ACCURACY, moveData)</span>
+
+<span class="fc" id="L42">    fun readPositiveStageBasePowerBase(moveData: Map&lt;String, Any?&gt;): Int? = readInt(BattleMoveDataKeys.BASE_POWER_POSITIVE_STAGE_BASE, moveData)</span>
+
+<span class="fc" id="L44">    fun readBasePowerPerPositiveStage(moveData: Map&lt;String, Any?&gt;): Int? = readInt(BattleMoveDataKeys.BASE_POWER_PER_POSITIVE_STAGE, moveData)</span>
+
+<span class="fc" id="L46">    fun readIgnoreTargetDefensiveBoosts(moveData: Map&lt;String, Any?&gt;): Boolean? = readBoolean(BattleMoveDataKeys.IGNORE_TARGET_DEFENSIVE_BOOSTS, moveData)</span>
+
+    fun readString(
+        key: String,
+        moveData: Map&lt;String, Any?&gt;,
+<span class="fc bfc" id="L51" title="All 2 branches covered.">    ): String? = moveData[key]?.toString()</span>
+
+    fun readInt(
+        key: String,
+        moveData: Map&lt;String, Any?&gt;,
+    ): Int? =
+<span class="fc" id="L57">        when (val value = moveData[key]) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            null -&gt; null</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            is Int -&gt; value</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            is Number -&gt; value.toInt()</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            is String -&gt; value.toIntOrNull()</span>
+<span class="nc" id="L62">            else -&gt; null</span>
+<span class="fc" id="L63">        }</span>
+
+    fun readBoolean(
+        key: String,
+        moveData: Map&lt;String, Any?&gt;,
+    ): Boolean? =
+<span class="fc" id="L69">        when (val value = moveData[key]) {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            null -&gt; {</span>
+<span class="fc" id="L71">                null</span>
+            }
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            is Boolean -&gt; {</span>
+<span class="fc" id="L75">                value</span>
+            }
+
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            is String -&gt; {</span>
+<span class="fc" id="L79">                when {</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">                    value.equals(&quot;true&quot;, ignoreCase = true) -&gt; true</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                    value.equals(&quot;false&quot;, ignoreCase = true) -&gt; false</span>
+<span class="nc" id="L82">                    else -&gt; null</span>
+                }
+            }
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            is Number -&gt; {</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">                value.toInt() != 0</span>
+            }
+
+            else -&gt; {
+<span class="nc" id="L91">                null</span>
+            }
+<span class="fc" id="L93">        }</span>
+
+    fun readStringList(
+        key: String,
+        moveData: Map&lt;String, Any?&gt;,
+    ): List&lt;String&gt; =
+<span class="fc" id="L99">        when (val value = moveData[key]) {</span>
+<span class="pc bpc" id="L100" title="1 of 4 branches missed.">            is Iterable&lt;*&gt; -&gt; value.mapNotNull { entry -&gt; entry?.toString() }</span>
+<span class="pc bpc" id="L101" title="3 of 4 branches missed.">            is Array&lt;*&gt; -&gt; value.mapNotNull { entry -&gt; entry?.toString() }</span>
+<span class="fc" id="L102">            else -&gt; emptyList()</span>
+<span class="fc" id="L103">        }</span>
+
+    fun readIntMap(
+        key: String,
+        moveData: Map&lt;String, Any?&gt;,
+    ): Map&lt;String, Int&gt; =
+<span class="fc" id="L109">        when (val value = moveData[key]) {</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            is Map&lt;*, *&gt; -&gt; {</span>
+<span class="fc" id="L111">                value.entries</span>
+<span class="fc" id="L112">                    .mapNotNull { (mapKey, mapValue) -&gt;</span>
+<span class="pc bpc" id="L113" title="2 of 4 branches missed.">                        val resolvedKey = mapKey?.toString() ?: return@mapNotNull null</span>
+<span class="fc" id="L114">                        val resolvedValue =</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                            when (mapValue) {</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">                                is Int -&gt; mapValue</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                                is Number -&gt; mapValue.toInt()</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">                                is String -&gt; mapValue.toIntOrNull()</span>
+<span class="nc" id="L119">                                else -&gt; null</span>
+<span class="nc" id="L120">                            } ?: return@mapNotNull null</span>
+<span class="fc" id="L121">                        resolvedKey to resolvedValue</span>
+<span class="fc" id="L122">                    }.toMap()</span>
+            }
+
+            else -&gt; {
+<span class="fc" id="L126">                emptyMap()</span>
+            }
+<span class="fc" id="L128">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -29,23 +29,27 @@ import kotlin.reflect.KClass
 <span class="pc bpc" id="L29" title="2 of 4 branches missed.">        val moveChoice = choice as? MoveChoice ?: error(&quot;Expected MoveChoice but got '${choice::class.qualifiedName}'.&quot;)</span>
 <span class="fc" id="L30">        session.ensureStarted()</span>
 <span class="fc" id="L31">        session.ensureUnitCanSubmitChoice(moveChoice.attackerId)</span>
-<span class="fc" id="L32">        session.ensureTargetIsLegalForAction(</span>
-<span class="fc" id="L33">            effectId = moveChoice.moveId,</span>
+<span class="fc" id="L32">        session.ensureMoveChoiceIsLegal(</span>
+<span class="fc" id="L33">            moveId = moveChoice.moveId,</span>
 <span class="fc" id="L34">            actorUnitId = moveChoice.attackerId,</span>
-<span class="fc" id="L35">            targetUnitId = moveChoice.targetId,</span>
         )
-<span class="fc" id="L37">        session.actionQueue.enqueue(commandFactory.createAction(moveChoice))</span>
-<span class="fc" id="L38">        session.recordLog(&quot;Queued move ${moveChoice.moveId} from ${moveChoice.attackerId} to ${moveChoice.targetId}.&quot;)</span>
-<span class="fc" id="L39">        session.recordEvent(</span>
-<span class="fc" id="L40">            BattleSessionMoveQueuedPayload(</span>
-<span class="fc" id="L41">                moveId = moveChoice.moveId,</span>
-<span class="fc" id="L42">                attackerId = moveChoice.attackerId,</span>
-<span class="fc" id="L43">                targetId = moveChoice.targetId,</span>
-<span class="fc" id="L44">                priority = moveChoice.priority,</span>
-<span class="fc" id="L45">                speed = moveChoice.speed,</span>
+<span class="fc" id="L36">        session.ensureTargetIsLegalForAction(</span>
+<span class="fc" id="L37">            effectId = moveChoice.moveId,</span>
+<span class="fc" id="L38">            actorUnitId = moveChoice.attackerId,</span>
+<span class="fc" id="L39">            targetUnitId = moveChoice.targetId,</span>
+        )
+<span class="fc" id="L41">        session.actionQueue.enqueue(commandFactory.createAction(moveChoice))</span>
+<span class="fc" id="L42">        session.recordLog(&quot;Queued move ${moveChoice.moveId} from ${moveChoice.attackerId} to ${moveChoice.targetId}.&quot;)</span>
+<span class="fc" id="L43">        session.recordEvent(</span>
+<span class="fc" id="L44">            BattleSessionMoveQueuedPayload(</span>
+<span class="fc" id="L45">                moveId = moveChoice.moveId,</span>
+<span class="fc" id="L46">                attackerId = moveChoice.attackerId,</span>
+<span class="fc" id="L47">                targetId = moveChoice.targetId,</span>
+<span class="fc" id="L48">                priority = moveChoice.priority,</span>
+<span class="fc" id="L49">                speed = moveChoice.speed,</span>
             ),
         )
-<span class="fc" id="L48">        return session.actionQueue.snapshot()</span>
+<span class="fc" id="L52">        return session.actionQueue.snapshot()</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMutationInterceptorSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">BattleMutationInterceptorSupport.kt</span></div><h1>BattleMutationInterceptorSupport.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleTargetRelationValues
+import io.github.lishangbu.avalon.game.battle.engine.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplicationContext
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleRelayReader
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleStatStageSupport
+
+/**
+ * battle mutation 拦截器的共用辅助方法集合。
+ *
+ * 设计意图：
+ * - 把各个拦截器都会重复做的目标解析上下文组装、关系判定、数值换算集中收口；
+ * - 保持“一个拦截器只关注一个生命周期 hook”的类职责，而不是每个文件都重复一套样板代码；
+ * - 让 `set_status / add_volatile / damage / heal / boost` 这些 mutation hook 的上下文语义保持一致。
+ */
+internal object BattleMutationInterceptorSupport {
+    /**
+     * 为 mutation target selector 解析组装一份完整上下文。
+     *
+     * 这里沿用 `DefaultBattleFlowPhaseProcessor` 的快照语义：
+     * - `selfId` 表示当前正在处理 hook 的 self；
+     * - `targetId` 表示当前 move / effect 主目标；
+     * - `sourceId` 表示这次 mutation 的来源单位。
+     *
+     * 拦截器本身不直接修改这些语义，只负责把它们原样透传给 selector 解析层。
+     */
+    fun mutationApplicationContext(context: BattleMutationInterceptionContext): MutationApplicationContext =
+<span class="fc" id="L30">        MutationApplicationContext(</span>
+<span class="fc" id="L31">            battle = context.snapshot.battle,</span>
+<span class="fc" id="L32">            field = context.snapshot.field,</span>
+<span class="fc" id="L33">            units = context.snapshot.units,</span>
+<span class="fc" id="L34">            sides = context.snapshot.sides,</span>
+<span class="fc" id="L35">            selfId = context.selfId,</span>
+<span class="fc" id="L36">            targetId = context.targetId,</span>
+<span class="fc" id="L37">            sourceId = context.sourceId,</span>
+<span class="fc" id="L38">            side = sideOfUnit(context.snapshot, context.selfId),</span>
+<span class="fc" id="L39">            foeSide = sideOfUnit(context.snapshot, context.targetId),</span>
+<span class="fc" id="L40">        )</span>
+
+    /**
+     * 计算当前 mutation 在单个目标身上的最终数值。
+     *
+     * 这里故意与 `DefaultMutationApplier` 中的换算规则保持一致，
+     * 避免拦截器看到的 relay 数值和最终落盘值出现两套语义。
+     */
+    fun calculateAmount(
+        unit: UnitState,
+        mode: String?,
+        value: Double,
+    ): Int =
+<span class="fc" id="L53">        when (mode) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            &quot;max_hp_ratio&quot; -&gt; (unit.maxHp * value).toInt()</span>
+<span class="fc" id="L55">            else -&gt; value.toInt()</span>
+<span class="fc" id="L56">        }</span>
+
+    /**
+     * 把 hook relay 规范化为整数语义。
+     *
+     * 默认数值动作会返回 `Double`，而 `damage / heal / restore_pp` 最终仍按整数落盘，
+     * 因此这里统一把 relay 收口成 int。
+     */
+<span class="fc" id="L64">    fun normalizeIntegerRelay(relay: Any?): Int? = BattleRelayReader.readInt(relay)</span>
+
+    /**
+     * 把 hook relay 规范化为 boost 映射。
+     *
+     * 当前 `on_boost` 虽然还没有默认 DSL 级的 object relay 修改动作，
+     * 但运行时允许自定义执行器直接返回 map，这里提前定义可接受的结构：
+     * - key 必须是字符串 stat id；
+     * - value 必须是数值，并最终按整数 stage 处理。
+     */
+    fun normalizeBoostRelay(relay: Any?): Map&lt;String, Int&gt;? {
+<span class="nc bnc" id="L75" title="All 4 branches missed.">        val relayMap = relay as? Map&lt;*, *&gt; ?: return null</span>
+<span class="nc" id="L76">        val normalized = mutableMapOf&lt;String, Int&gt;()</span>
+<span class="nc" id="L77">        relayMap.forEach { (key, value) -&gt;</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">            val statId = key as? String ?: return null</span>
+<span class="nc bnc" id="L79" title="All 4 branches missed.">            val stageDelta = value as? Number ?: return null</span>
+<span class="nc" id="L80">            normalized[statId] = stageDelta.toInt()</span>
+<span class="nc" id="L81">        }</span>
+<span class="nc" id="L82">        return BattleStatStageSupport.normalizeBoostPayload(normalized)</span>
+    }
+
+    /**
+     * 把 hook relay 规范化为属性 id 列表。
+     *
+     * `on_change_type` 的新语义按“字符串数组”收口，不再只停留在 veto。
+     */
+    fun normalizeTypeRelay(relay: Any?): List&lt;String&gt;? {
+<span class="fc" id="L91">        val relayValues =</span>
+<span class="fc" id="L92">            when (relay) {</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">                is Collection&lt;*&gt; -&gt; relay.toList()</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                is Array&lt;*&gt; -&gt; relay.toList()</span>
+<span class="nc" id="L95">                else -&gt; return null</span>
+            }
+<span class="fc" id="L97">        return relayValues.map { value -&gt;</span>
+<span class="pc bpc" id="L98" title="2 of 4 branches missed.">            value as? String ?: return null</span>
+        }
+    }
+
+    /**
+     * 推导“source 对当前 target 的关系”。
+     *
+     * 该值会作为 attributes 透传给 hook，便于 effect 规则区分：
+     * - `self`
+     * - `ally`
+     * - `foe`
+     *
+     * 如果来源单位缺失，当前返回空值并由调用方决定是否写入 attributes。
+     */
+    fun resolveTargetRelation(
+        snapshot: BattleRuntimeSnapshot,
+        sourceId: String?,
+        targetId: String,
+    ): String? {
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (sourceId == null) {</span>
+<span class="fc" id="L118">            return null</span>
+        }
+<span class="pc bpc" id="L120" title="2 of 4 branches missed.">        val sourceSideId = sideOfUnit(snapshot, sourceId)?.id ?: return null</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed.">        val targetSideId = sideOfUnit(snapshot, targetId)?.id ?: return null</span>
+<span class="fc" id="L122">        return when {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            sourceId == targetId -&gt; BattleTargetRelationValues.SELF</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">            sourceSideId == targetSideId -&gt; BattleTargetRelationValues.ALLY</span>
+<span class="fc" id="L125">            else -&gt; BattleTargetRelationValues.FOE</span>
+        }
+    }
+
+    private fun sideOfUnit(
+        snapshot: BattleRuntimeSnapshot,
+        unitId: String?,
+    ): SideState? =
+<span class="fc" id="L133">        snapshot.sides.values.firstOrNull { side -&gt;</span>
+<span class="pc bpc" id="L134" title="1 of 4 branches missed.">            unitId in side.activeUnitIds || unitId in side.unitIds</span>
+<span class="fc" id="L135">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

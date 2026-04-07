@@ -10,11 +10,13 @@ import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
  *
  * @property target 目标选择器。
  * @property value 状态标识。
+ * @property duration 可选的持续回合数。
  */
-<span class="fc" id="L14">data class AddStatusActionNode(</span>
-<span class="fc" id="L15">    val target: TargetSelectorId,</span>
-<span class="fc" id="L16">    val value: String,</span>
-) : ActionNode {
-<span class="fc" id="L18">    override val type: ActionTypeId = StandardActionTypeIds.ADD_STATUS</span>
+<span class="fc" id="L15">data class AddStatusActionNode(</span>
+<span class="fc" id="L16">    val target: TargetSelectorId,</span>
+<span class="fc" id="L17">    val value: String,</span>
+<span class="fc" id="L18">    val duration: Int? = null,</span>
+<span class="fc" id="L19">) : ActionNode {</span>
+<span class="fc" id="L20">    override val type: ActionTypeId = StandardActionTypeIds.ADD_STATUS</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

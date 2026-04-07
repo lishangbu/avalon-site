@@ -7,23 +7,17 @@
  */
 <span class="fc" id="L8">class DefaultBattleSessionTurnPipeline(</span>
     steps: List&lt;BattleSessionTurnStep&gt;,
-) : BattleSessionTurnPipeline {
-<span class="fc" id="L11">    private val steps: List&lt;BattleSessionTurnStep&gt; = steps.sortedBy(BattleSessionTurnStep::order)</span>
+<span class="fc" id="L10">    private val resultRecorder: BattleSessionTurnResultRecorder = BattleSessionTurnResultRecorder(),</span>
+<span class="fc" id="L11">) : BattleSessionTurnPipeline {</span>
+<span class="fc" id="L12">    private val steps: List&lt;BattleSessionTurnStep&gt; = steps.sortedBy(BattleSessionTurnStep::order)</span>
 
     /**
      * 按既定顺序推进一次完整回合。
      */
     override fun resolve(session: BattleSession): BattleSessionTurnResult {
-<span class="fc" id="L17">        val context = BattleSessionTurnContext(session)</span>
-<span class="fc" id="L18">        steps.forEach { step -&gt; step.execute(context) }</span>
-<span class="fc" id="L19">        session.recordLog(&quot;Resolved turn with ${context.actionResults.size} action(s).&quot;)</span>
-<span class="fc" id="L20">        session.recordEvent(</span>
-<span class="fc" id="L21">            BattleSessionTurnResolvedPayload(actionCount = context.actionResults.size),</span>
-        )
-<span class="fc" id="L23">        return BattleSessionTurnResult(</span>
-<span class="fc" id="L24">            actionResults = context.actionResults,</span>
-<span class="fc" id="L25">            snapshot = context.snapshot,</span>
-        )
+<span class="fc" id="L18">        val context = BattleSessionTurnContext(session)</span>
+<span class="fc" id="L19">        steps.forEach { step -&gt; step.execute(context) }</span>
+<span class="fc" id="L20">        return resultRecorder.record(context)</span>
     }
 
     companion object {
@@ -33,14 +27,9 @@
          * @return 包含标准回合步骤的默认 pipeline。
          */
         fun createDefault(): DefaultBattleSessionTurnPipeline =
-<span class="fc" id="L36">            DefaultBattleSessionTurnPipeline(</span>
-                steps =
-<span class="fc" id="L38">                    listOf(</span>
-<span class="fc" id="L39">                        BattleSessionTurnValidationStep(),</span>
-<span class="fc" id="L40">                        BattleSessionQueuedActionExecutionStep(),</span>
-<span class="fc" id="L41">                        BattleSessionTurnAdvanceStep(),</span>
-                    ),
-<span class="fc" id="L43">            )</span>
+<span class="fc" id="L30">            DefaultBattleSessionTurnPipeline(</span>
+<span class="fc" id="L31">                steps = BattleSessionDefaultTurnStepFactory.createDefaultSteps(),</span>
+<span class="fc" id="L32">            )</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

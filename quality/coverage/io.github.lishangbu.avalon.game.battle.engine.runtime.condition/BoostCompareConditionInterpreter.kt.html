@@ -4,6 +4,7 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.ConditionNode
 import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.BoostCompareConditionNode
 import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ConditionInterpreter
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleStatStageSupport
 import io.github.lishangbu.avalon.game.battle.engine.runtime.support.ComparisonSupport
 import io.github.lishangbu.avalon.game.battle.engine.runtime.support.EventContextActorReader
 import io.github.lishangbu.avalon.game.battle.engine.type.ConditionTypeId
@@ -12,20 +13,20 @@ import io.github.lishangbu.avalon.game.battle.engine.type.StandardConditionTypeI
 /**
  * `boost_compare` 条件解释器。
  */
-<span class="fc" id="L15">class BoostCompareConditionInterpreter : ConditionInterpreter {</span>
-<span class="fc" id="L16">    override val type: ConditionTypeId = StandardConditionTypeIds.BOOST_COMPARE</span>
+<span class="fc" id="L16">class BoostCompareConditionInterpreter : ConditionInterpreter {</span>
+<span class="fc" id="L17">    override val type: ConditionTypeId = StandardConditionTypeIds.BOOST_COMPARE</span>
 
     override fun evaluate(
         condition: ConditionNode,
         context: EventContext,
     ): Boolean {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        require(condition is BoostCompareConditionNode) { &quot;Condition must be BoostCompareConditionNode.&quot; }</span>
-<span class="nc" id="L23">        val unit =</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">            requireNotNull(EventContextActorReader.readUnit(condition.actor, context)) {</span>
-<span class="nc" id="L25">                &quot;Actor '${condition.actor.value}' is not available for boost evaluation.&quot;</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        require(condition is BoostCompareConditionNode) { &quot;Condition must be BoostCompareConditionNode.&quot; }</span>
+<span class="fc" id="L24">        val unit =</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">            requireNotNull(EventContextActorReader.readUnit(condition.actor, context)) {</span>
+<span class="nc" id="L26">                &quot;Actor '${condition.actor.value}' is not available for boost evaluation.&quot;</span>
             }
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        val actual = unit.boosts[condition.stat] ?: 0</span>
-<span class="nc" id="L28">        return ComparisonSupport.compare(actual.toDouble(), condition.operator, condition.value.toDouble())</span>
+<span class="fc" id="L28">        val actual = BattleStatStageSupport.readStage(unit.boosts, condition.stat)</span>
+<span class="fc" id="L29">        return ComparisonSupport.compare(actual.toDouble(), condition.operator, condition.value.toDouble())</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventContextAttributeReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.support</a> &gt; <span class="el_source">EventContextAttributeReader.kt</span></div><h1>EventContextAttributeReader.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.support
+
+import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
+
+/**
+ * `EventContext.attributes` 的轻量类型化读取器。
+ *
+ * 设计意图：
+ * - 把 `Map&lt;String, Any?&gt;` 上常见的字符串、布尔值、数值、Map 读取逻辑集中到一处；
+ * - 避免条件解释器和动作执行器到处手写 `as?`、`toString()`、字符串数值解析；
+ * - 为 battle attribute key 常量化之后的“按类型读取”提供统一入口。
+ *
+ * 说明：
+ * - 这里只处理 battle 引擎执行期最常见的几类读取，不做重量级 schema 校验；
+ * - 对于布尔值，兼容 `Boolean`、`String(&quot;true&quot;/&quot;false&quot;)`、`Number(0/非0)` 三类输入；
+ * - 对于数值，兼容 `Number` 与可解析的字符串；
+ * - 读取失败时返回 `null`，由调用方决定是否提供默认值。
+ */
+object EventContextAttributeReader {
+    fun readString(
+        key: String,
+        context: EventContext,
+<span class="fc" id="L23">    ): String? = readString(key, context.attributes)</span>
+
+    fun readString(
+        key: String,
+        attributes: Map&lt;String, Any?&gt;,
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    ): String? = attributes[key]?.toString()</span>
+
+    fun readBoolean(
+        key: String,
+        context: EventContext,
+<span class="fc" id="L33">    ): Boolean? = readBoolean(key, context.attributes)</span>
+
+    fun readBoolean(
+        key: String,
+        attributes: Map&lt;String, Any?&gt;,
+    ): Boolean? =
+<span class="fc" id="L39">        when (val value = attributes[key]) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            null -&gt; {</span>
+<span class="fc" id="L41">                null</span>
+            }
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            is Boolean -&gt; {</span>
+<span class="fc" id="L45">                value</span>
+            }
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            is String -&gt; {</span>
+<span class="fc" id="L49">                when {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                    value.equals(&quot;true&quot;, ignoreCase = true) -&gt; true</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">                    value.equals(&quot;false&quot;, ignoreCase = true) -&gt; false</span>
+<span class="nc" id="L52">                    else -&gt; null</span>
+                }
+            }
+
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            is Number -&gt; {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                value.toInt() != 0</span>
+            }
+
+            else -&gt; {
+<span class="nc" id="L61">                null</span>
+            }
+<span class="fc" id="L63">        }</span>
+
+    fun readInt(
+        key: String,
+        context: EventContext,
+<span class="fc" id="L68">    ): Int? = readInt(key, context.attributes)</span>
+
+    fun readInt(
+        key: String,
+        attributes: Map&lt;String, Any?&gt;,
+    ): Int? =
+<span class="fc" id="L74">        when (val value = attributes[key]) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            null -&gt; null</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            is Int -&gt; value</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            is Number -&gt; value.toInt()</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            is String -&gt; value.toIntOrNull()</span>
+<span class="nc" id="L79">            else -&gt; null</span>
+<span class="fc" id="L80">        }</span>
+
+    fun readDouble(
+        key: String,
+        context: EventContext,
+<span class="fc" id="L85">    ): Double? = readDouble(key, context.attributes)</span>
+
+    fun readDouble(
+        key: String,
+        attributes: Map&lt;String, Any?&gt;,
+    ): Double? =
+<span class="fc" id="L91">        when (val value = attributes[key]) {</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">            null -&gt; null</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            is Double -&gt; value</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            is Number -&gt; value.toDouble()</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            is String -&gt; value.toDoubleOrNull()</span>
+<span class="nc" id="L96">            else -&gt; null</span>
+<span class="fc" id="L97">        }</span>
+
+    fun readMap(
+        key: String,
+        context: EventContext,
+<span class="fc" id="L102">    ): Map&lt;*, *&gt;? = readMap(key, context.attributes)</span>
+
+    fun readMap(
+        key: String,
+        attributes: Map&lt;String, Any?&gt;,
+<span class="fc bfc" id="L107" title="All 2 branches covered.">    ): Map&lt;*, *&gt;? = attributes[key] as? Map&lt;*, *&gt;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

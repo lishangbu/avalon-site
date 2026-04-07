@@ -34,12 +34,20 @@ object StandardHookSpecs {
 <span class="nc" id="L34">            HookSpec(StandardHookNames.ON_AFTER_HIT, StandardRelayTypeIds.NONE, false, false),</span>
 <span class="nc" id="L35">            HookSpec(StandardHookNames.ON_AFTER_MOVE, StandardRelayTypeIds.NONE, false, false),</span>
 <span class="nc" id="L36">            HookSpec(StandardHookNames.ON_SET_STATUS, StandardRelayTypeIds.BOOLEAN, false, true),</span>
-<span class="nc" id="L37">            HookSpec(StandardHookNames.ON_TRY_ADD_VOLATILE, StandardRelayTypeIds.BOOLEAN, false, true),</span>
-<span class="nc" id="L38">            HookSpec(StandardHookNames.ON_BOOST, StandardRelayTypeIds.OBJECT, true, false),</span>
-<span class="nc" id="L39">            HookSpec(StandardHookNames.ON_RESIDUAL, StandardRelayTypeIds.NONE, false, false),</span>
-<span class="nc" id="L40">            HookSpec(StandardHookNames.ON_WEATHER_CHANGE, StandardRelayTypeIds.NONE, false, false),</span>
-<span class="nc" id="L41">            HookSpec(StandardHookNames.ON_TERRAIN_CHANGE, StandardRelayTypeIds.NONE, false, false),</span>
-<span class="nc" id="L42">            HookSpec(StandardHookNames.ON_FAINT, StandardRelayTypeIds.NONE, false, false),</span>
-<span class="nc" id="L43">        ).associateBy(HookSpec::name)</span>
+<span class="nc" id="L37">            HookSpec(StandardHookNames.ON_APPLY_CONDITION, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L38">            HookSpec(StandardHookNames.ON_REMOVE_STATUS, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L39">            HookSpec(StandardHookNames.ON_TRY_ADD_VOLATILE, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L40">            HookSpec(StandardHookNames.ON_REMOVE_VOLATILE, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L41">            HookSpec(StandardHookNames.ON_BOOST, StandardRelayTypeIds.OBJECT, true, false),</span>
+<span class="nc" id="L42">            HookSpec(StandardHookNames.ON_CLEAR_BOOSTS, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L43">            HookSpec(StandardHookNames.ON_REMOVE_CONDITION, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L44">            HookSpec(StandardHookNames.ON_CONSUME_ITEM, StandardRelayTypeIds.BOOLEAN, false, true),</span>
+<span class="nc" id="L45">            HookSpec(StandardHookNames.ON_RESTORE_PP, StandardRelayTypeIds.INTEGER, true, false),</span>
+<span class="nc" id="L46">            HookSpec(StandardHookNames.ON_CHANGE_TYPE, StandardRelayTypeIds.ARRAY, true, true),</span>
+<span class="nc" id="L47">            HookSpec(StandardHookNames.ON_RESIDUAL, StandardRelayTypeIds.NONE, false, false),</span>
+<span class="nc" id="L48">            HookSpec(StandardHookNames.ON_WEATHER_CHANGE, StandardRelayTypeIds.NONE, false, false),</span>
+<span class="nc" id="L49">            HookSpec(StandardHookNames.ON_TERRAIN_CHANGE, StandardRelayTypeIds.NONE, false, false),</span>
+<span class="nc" id="L50">            HookSpec(StandardHookNames.ON_FAINT, StandardRelayTypeIds.NONE, false, false),</span>
+<span class="nc" id="L51">        ).associateBy(HookSpec::name)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

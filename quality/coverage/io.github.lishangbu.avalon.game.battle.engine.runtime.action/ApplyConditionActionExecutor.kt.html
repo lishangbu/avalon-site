@@ -4,24 +4,64 @@ import io.github.lishangbu.avalon.game.battle.engine.dsl.ActionNode
 import io.github.lishangbu.avalon.game.battle.engine.dsl.action.ApplyConditionActionNode
 import io.github.lishangbu.avalon.game.battle.engine.event.EventContext
 import io.github.lishangbu.avalon.game.battle.engine.mutation.ApplyConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ApplyFieldConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ApplySideConditionMutation
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionExecutor
 import io.github.lishangbu.avalon.game.battle.engine.runtime.ActionResult
 import io.github.lishangbu.avalon.game.battle.engine.type.ActionTypeId
 import io.github.lishangbu.avalon.game.battle.engine.type.StandardActionTypeIds
+import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
 
 /**
  * `apply_condition` 动作执行器。
  */
-<span class="fc" id="L15">class ApplyConditionActionExecutor : ActionExecutor {</span>
-<span class="fc" id="L16">    override val type: ActionTypeId = StandardActionTypeIds.APPLY_CONDITION</span>
+<span class="fc" id="L18">class ApplyConditionActionExecutor : ActionExecutor {</span>
+<span class="fc" id="L19">    override val type: ActionTypeId = StandardActionTypeIds.APPLY_CONDITION</span>
 
     override fun execute(
         action: ActionNode,
         context: EventContext,
     ): ActionResult {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        require(action is ApplyConditionActionNode) { &quot;Action must be ApplyConditionActionNode.&quot; }</span>
-<span class="nc" id="L23">        return ActionResult(</span>
-<span class="nc" id="L24">            mutations = listOf(ApplyConditionMutation(action.target, action.value)),</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        require(action is ApplyConditionActionNode) { &quot;Action must be ApplyConditionActionNode.&quot; }</span>
+<span class="fc" id="L26">        val resolvedDuration =</span>
+<span class="fc" id="L27">            AttachedEffectDurationResolver.resolve(</span>
+<span class="fc" id="L28">                explicitDuration = action.duration,</span>
+<span class="fc" id="L29">                effectId = action.value,</span>
+<span class="fc" id="L30">                context = context,</span>
+            )
+<span class="fc" id="L32">        return ActionResult(</span>
+            mutations =
+<span class="fc" id="L34">                listOf(</span>
+<span class="fc" id="L35">                    when (action.target) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">                        StandardTargetSelectorIds.SIDE,</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                        StandardTargetSelectorIds.FOE_SIDE,</span>
+                        -&gt; {
+<span class="fc" id="L39">                            ApplySideConditionMutation(</span>
+<span class="fc" id="L40">                                target = action.target,</span>
+<span class="fc" id="L41">                                conditionEffectId = action.value,</span>
+<span class="fc" id="L42">                                duration = resolvedDuration,</span>
+<span class="pc bpc" id="L43" title="4 of 6 branches missed.">                                sourceId = context.source?.id ?: context.self?.id,</span>
+                            )
+                        }
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                        StandardTargetSelectorIds.FIELD -&gt; {</span>
+<span class="fc" id="L48">                            ApplyFieldConditionMutation(</span>
+<span class="fc" id="L49">                                conditionEffectId = action.value,</span>
+<span class="fc" id="L50">                                duration = resolvedDuration,</span>
+<span class="pc bpc" id="L51" title="4 of 6 branches missed.">                                sourceId = context.source?.id ?: context.self?.id,</span>
+                            )
+                        }
+
+                        else -&gt; {
+<span class="fc" id="L56">                            ApplyConditionMutation(</span>
+<span class="fc" id="L57">                                target = action.target,</span>
+<span class="fc" id="L58">                                conditionEffectId = action.value,</span>
+<span class="fc" id="L59">                                duration = resolvedDuration,</span>
+<span class="pc bpc" id="L60" title="4 of 6 branches missed.">                                sourceId = context.source?.id ?: context.self?.id,</span>
+                            )
+                        }
+                    },
+                ),
         )
     }
 }

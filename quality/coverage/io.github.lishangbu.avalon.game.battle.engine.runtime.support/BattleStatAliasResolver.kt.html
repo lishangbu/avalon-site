@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleStatAliasResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.support</a> &gt; <span class="el_source">BattleStatAliasResolver.kt</span></div><h1>BattleStatAliasResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.support
+
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleStatIds
+
+/**
+ * battle 能力项别名解析器。
+ *
+ * 设计意图：
+ * - 统一处理 `attack/atk`、`speed/spe` 这类长短写别名；
+ * - 让伤害、逃跑、条件判断、boost 落盘等路径共享同一套 stat id 解析规则；
+ * - 为后续继续收口到单一规范命名提供唯一入口，避免各文件继续手写 if/when 分支。
+ *
+ * 当前约定：
+ * - 运行时基础能力值 `stats` 仍允许读取长写和短写；
+ * - stage / boost 在真正写回时会优先归一到短写，便于与既有 fixture 及规则数据保持一致；
+ * - 对于未知 stat id，不做额外猜测，按原值透传。
+ */
+object BattleStatAliasResolver {
+    /**
+     * 给出一个 stat id 的“读取优先顺序”。
+     *
+     * 说明：
+     * - 会优先返回调用方传入的原始写法，避免同一份 map 中同时存在长写和短写时出现意外覆盖；
+     * - 如果该 stat 存在标准别名，则把另一种写法追加到后面作为兜底。
+     */
+    fun aliasesOf(statId: String): List&lt;String&gt; {
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        val counterpart = counterpartOf(statId) ?: return listOf(statId)</span>
+<span class="fc" id="L28">        return listOf(statId, counterpart)</span>
+    }
+
+    /**
+     * 返回一个 stat id 所属别名族。
+     *
+     * 适用于“删除旧键后写回规范键”这类需要整族处理的场景。
+     */
+<span class="fc" id="L36">    fun equivalentIds(statId: String): Set&lt;String&gt; = aliasesOf(statId).toSet()</span>
+
+    /**
+     * 从任意 stat map 中读取能力值。
+     *
+     * 设计目标不是“把 map 彻底改写”，而是提供一个稳定读取入口，
+     * 让各调用方不用重复写 `speed ?: spe`、`attack ?: atk` 这类兼容分支。
+     */
+    fun readValue(
+        values: Map&lt;String, Int&gt;,
+        statId: String,
+<span class="fc bfc" id="L47" title="All 4 branches covered.">    ): Int? = aliasesOf(statId).firstNotNullOfOrNull(values::get)</span>
+
+    /**
+     * 把任意 boost/stat id 归一成 stage map 的标准短写键。
+     *
+     * 例如：
+     * - `attack` -&gt; `atk`
+     * - `special-defense` -&gt; `spd`
+     * - 未知键保持原样
+     */
+    fun canonicalBoostId(statId: String): String =
+<span class="pc bpc" id="L58" title="1 of 8 branches missed.">        when (statId) {</span>
+            BattleStatIds.ATTACK,
+            BattleStatIds.ATTACK_SHORT,
+<span class="fc" id="L61">            -&gt; BattleStatIds.ATTACK_SHORT</span>
+
+            BattleStatIds.DEFENSE,
+            BattleStatIds.DEFENSE_SHORT,
+<span class="fc" id="L65">            -&gt; BattleStatIds.DEFENSE_SHORT</span>
+
+            BattleStatIds.SPECIAL_ATTACK,
+            BattleStatIds.SPECIAL_ATTACK_SHORT,
+<span class="fc" id="L69">            -&gt; BattleStatIds.SPECIAL_ATTACK_SHORT</span>
+
+            BattleStatIds.SPECIAL_DEFENSE,
+            BattleStatIds.SPECIAL_DEFENSE_SHORT,
+<span class="fc" id="L73">            -&gt; BattleStatIds.SPECIAL_DEFENSE_SHORT</span>
+
+            BattleStatIds.SPEED,
+            BattleStatIds.SPEED_SHORT,
+<span class="fc" id="L77">            -&gt; BattleStatIds.SPEED_SHORT</span>
+
+            BattleStatIds.ACCURACY,
+            BattleStatIds.ACCURACY_SHORT,
+<span class="fc" id="L81">            -&gt; BattleStatIds.ACCURACY_SHORT</span>
+
+            BattleStatIds.EVASION,
+            BattleStatIds.EVASION_SHORT,
+<span class="fc" id="L85">            -&gt; BattleStatIds.EVASION_SHORT</span>
+
+<span class="nc" id="L87">            else -&gt; statId</span>
+<span class="fc" id="L88">        }</span>
+
+    private fun counterpartOf(statId: String): String? =
+<span class="pc bpc" id="L91" title="3 of 15 branches missed.">        when (statId) {</span>
+<span class="fc" id="L92">            BattleStatIds.ATTACK -&gt; BattleStatIds.ATTACK_SHORT</span>
+<span class="fc" id="L93">            BattleStatIds.ATTACK_SHORT -&gt; BattleStatIds.ATTACK</span>
+<span class="fc" id="L94">            BattleStatIds.DEFENSE -&gt; BattleStatIds.DEFENSE_SHORT</span>
+<span class="fc" id="L95">            BattleStatIds.DEFENSE_SHORT -&gt; BattleStatIds.DEFENSE</span>
+<span class="fc" id="L96">            BattleStatIds.SPECIAL_ATTACK -&gt; BattleStatIds.SPECIAL_ATTACK_SHORT</span>
+<span class="nc" id="L97">            BattleStatIds.SPECIAL_ATTACK_SHORT -&gt; BattleStatIds.SPECIAL_ATTACK</span>
+<span class="fc" id="L98">            BattleStatIds.SPECIAL_DEFENSE -&gt; BattleStatIds.SPECIAL_DEFENSE_SHORT</span>
+<span class="nc" id="L99">            BattleStatIds.SPECIAL_DEFENSE_SHORT -&gt; BattleStatIds.SPECIAL_DEFENSE</span>
+<span class="fc" id="L100">            BattleStatIds.SPEED -&gt; BattleStatIds.SPEED_SHORT</span>
+<span class="fc" id="L101">            BattleStatIds.SPEED_SHORT -&gt; BattleStatIds.SPEED</span>
+<span class="fc" id="L102">            BattleStatIds.ACCURACY -&gt; BattleStatIds.ACCURACY_SHORT</span>
+<span class="fc" id="L103">            BattleStatIds.ACCURACY_SHORT -&gt; BattleStatIds.ACCURACY</span>
+<span class="fc" id="L104">            BattleStatIds.EVASION -&gt; BattleStatIds.EVASION_SHORT</span>
+<span class="fc" id="L105">            BattleStatIds.EVASION_SHORT -&gt; BattleStatIds.EVASION</span>
+<span class="nc" id="L106">            else -&gt; null</span>
+<span class="fc" id="L107">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

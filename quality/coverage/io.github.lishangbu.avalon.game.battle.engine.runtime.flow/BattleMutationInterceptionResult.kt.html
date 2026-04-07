@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMutationInterceptionResult.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">BattleMutationInterceptionResult.kt</span></div><h1>BattleMutationInterceptionResult.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
 
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+
 /**
  * 单个 mutation 在拦截链中的处理结果。
  *
  * @property snapshot 拦截过程中产生的最新 battle 快照。
  * @property allowed 当前 mutation 是否允许继续提交。
+ * @property mutation 拦截完成后继续向后传递的 mutation。
+ *
+ * 说明：
+ * - `allowed = false` 表示当前 mutation 被整个拦截链拦下；
+ * - `mutation` 允许被拦截器替换，用于把 hook relay 真正回写到 mutation 负载；
+ * - 调用方应把 `allowed = false` 或 `mutation = null` 都视作过滤结果。
  */
-<span class="fc" id="L9">data class BattleMutationInterceptionResult(</span>
-<span class="fc" id="L10">    val snapshot: BattleRuntimeSnapshot,</span>
-<span class="fc" id="L11">    val allowed: Boolean,</span>
+<span class="fc" id="L17">data class BattleMutationInterceptionResult(</span>
+<span class="fc" id="L18">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L19">    val allowed: Boolean,</span>
+<span class="fc" id="L20">    val mutation: BattleMutation?,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

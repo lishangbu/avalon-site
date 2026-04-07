@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionActionFactory.kt</span></div><h1>BattleSessionActionFactory.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+/**
+ * battle session action 构造器。
+ *
+ * 设计意图：
+ * - 把 action 族的数据对象创建逻辑从默认命令工厂中拆出；
+ * - 让 `choice -&gt; action` 映射可以复用同一套 action 构造入口；
+ * - 保持 action 数据结构创建语义集中且独立。
+ */
+<span class="fc" id="L11">internal class BattleSessionActionFactory {</span>
+    fun createMoveAction(
+        moveId: String,
+        attackerId: String,
+        targetId: String,
+        priority: Int,
+        speed: Int,
+        accuracy: Int?,
+        evasion: Int?,
+        basePower: Int,
+        damage: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): BattleSessionMoveAction =
+<span class="fc" id="L24">        BattleSessionMoveAction(</span>
+<span class="fc" id="L25">            moveId = moveId,</span>
+<span class="fc" id="L26">            attackerId = attackerId,</span>
+<span class="fc" id="L27">            targetId = targetId,</span>
+<span class="fc" id="L28">            priority = priority,</span>
+<span class="fc" id="L29">            speed = speed,</span>
+<span class="fc" id="L30">            accuracy = accuracy,</span>
+<span class="fc" id="L31">            evasion = evasion,</span>
+<span class="fc" id="L32">            basePower = basePower,</span>
+<span class="fc" id="L33">            damage = damage,</span>
+<span class="fc" id="L34">            attributes = attributes,</span>
+<span class="fc" id="L35">        )</span>
+
+    fun createItemAction(
+        itemId: String,
+        actorUnitId: String,
+        targetId: String,
+        priority: Int,
+        speed: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): BattleSessionItemAction =
+<span class="fc" id="L45">        BattleSessionItemAction(</span>
+<span class="fc" id="L46">            itemId = itemId,</span>
+<span class="fc" id="L47">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L48">            targetId = targetId,</span>
+<span class="fc" id="L49">            priority = priority,</span>
+<span class="fc" id="L50">            speed = speed,</span>
+<span class="fc" id="L51">            attributes = attributes,</span>
+<span class="fc" id="L52">        )</span>
+
+    fun createCaptureAction(
+        playerId: String,
+        ballItemId: String,
+        sourceUnitId: String,
+        targetId: String,
+        priority: Int,
+        speed: Int,
+    ): BattleSessionCaptureAction =
+<span class="fc" id="L62">        BattleSessionCaptureAction(</span>
+<span class="fc" id="L63">            playerId = playerId,</span>
+<span class="fc" id="L64">            ballItemId = ballItemId,</span>
+<span class="fc" id="L65">            sourceUnitId = sourceUnitId,</span>
+<span class="fc" id="L66">            targetId = targetId,</span>
+<span class="fc" id="L67">            priority = priority,</span>
+<span class="fc" id="L68">            speed = speed,</span>
+<span class="fc" id="L69">        )</span>
+
+    fun createSwitchAction(
+        sideId: String,
+        outgoingUnitId: String,
+        incomingUnitId: String,
+        priority: Int,
+        speed: Int,
+    ): BattleSessionSwitchAction =
+<span class="fc" id="L78">        BattleSessionSwitchAction(</span>
+<span class="fc" id="L79">            sideId = sideId,</span>
+<span class="fc" id="L80">            outgoingUnitId = outgoingUnitId,</span>
+<span class="fc" id="L81">            incomingUnitId = incomingUnitId,</span>
+<span class="fc" id="L82">            priority = priority,</span>
+<span class="fc" id="L83">            speed = speed,</span>
+<span class="fc" id="L84">        )</span>
+
+    fun createRunAction(
+        sideId: String,
+        priority: Int,
+        speed: Int,
+    ): BattleSessionRunAction =
+<span class="fc" id="L91">        BattleSessionRunAction(</span>
+<span class="fc" id="L92">            sideId = sideId,</span>
+<span class="fc" id="L93">            priority = priority,</span>
+<span class="fc" id="L94">            speed = speed,</span>
+<span class="fc" id="L95">        )</span>
+
+    fun createWaitAction(
+        unitId: String,
+        priority: Int,
+        speed: Int,
+    ): BattleSessionWaitAction =
+<span class="fc" id="L102">        BattleSessionWaitAction(</span>
+<span class="fc" id="L103">            unitId = unitId,</span>
+<span class="fc" id="L104">            priority = priority,</span>
+<span class="fc" id="L105">            speed = speed,</span>
+<span class="fc" id="L106">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleCaptureSettlementService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.capture</a> &gt; <span class="el_source">DefaultBattleCaptureSettlementService.kt</span></div><h1>DefaultBattleCaptureSettlementService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.capture
+
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionCaptureResourceUsage
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+import org.springframework.stereotype.Service
+
+/**
+ * 默认捕捉账本结算实现。
+ *
+ * 这里统一收口 battle engine 与玩家域的衔接：
+ * - engine 只负责记录“这回合发生了哪些捕捉尝试”；
+ * - player 域负责把这些尝试转成库存变更与已拥有精灵落库。
+ */
+<span class="fc" id="L14">@Service</span>
+<span class="fc" id="L15">open class DefaultBattleCaptureSettlementService(</span>
+<span class="fc" id="L16">    private val capturePreparationService: DefaultCapturePreparationService,</span>
+<span class="fc" id="L17">    private val playerInventoryService: DefaultPlayerInventoryService,</span>
+<span class="fc" id="L18">    private val ownedCreatureService: DefaultOwnedCreatureService,</span>
+) : BattleCaptureSettlementService {
+    override fun settle(
+        sessionId: String,
+        session: BattleSessionQuery,
+    ): CaptureBattleResult? {
+<span class="fc" id="L24">        val captureUsages = session.captureResourceLedger</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (captureUsages.isEmpty()) {</span>
+<span class="fc" id="L26">            return null</span>
+        }
+
+<span class="fc" id="L29">        var captureSummary: CapturedCreatureSummary? = null</span>
+<span class="fc" id="L30">        val successfulUsage = resolveSuccessfulUsage(session)</span>
+
+<span class="fc" id="L32">        captureUsages.forEach { usage -&gt;</span>
+<span class="fc" id="L33">            val prepared = prepareCaptureContext(sessionId, session, usage)</span>
+
+            // 结算阶段再次校验库存，避免预校验与真实落库之间被并发消耗破坏一致性。
+<span class="fc" id="L36">            playerInventoryService.ensureAvailable(prepared.playerId, prepared.ballItemId, usage.quantity)</span>
+<span class="fc" id="L37">            playerInventoryService.consume(prepared.playerId, prepared.ballItemId, usage.quantity)</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (usage == successfulUsage) {</span>
+<span class="fc" id="L40">                captureSummary = ownedCreatureService.capture(prepared)</span>
+            }
+<span class="fc" id="L42">        }</span>
+
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
+<span class="fc" id="L45">            CaptureBattleResult(</span>
+<span class="fc" id="L46">                success = true,</span>
+<span class="fc" id="L47">                sessionId = sessionId,</span>
+<span class="fc" id="L48">                targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L49">                ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L50">                shakes = usage.shakes,</span>
+<span class="fc" id="L51">                reason = usage.reason,</span>
+<span class="fc" id="L52">                battleEnded = true,</span>
+<span class="fc" id="L53">                finalRate = usage.finalRate,</span>
+<span class="fc" id="L54">                session = session,</span>
+<span class="fc" id="L55">                capturedCreature = captureSummary,</span>
+<span class="fc" id="L56">            )</span>
+        }
+    }
+
+    private fun resolveSuccessfulUsage(session: BattleSessionQuery): BattleSessionCaptureResourceUsage? =
+<span class="fc" id="L61">        session.captureResourceLedger.lastOrNull { usage -&gt;</span>
+<span class="pc bpc" id="L62" title="2 of 4 branches missed.">            usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
+<span class="fc" id="L63">        }</span>
+
+    private fun prepareCaptureContext(
+        sessionId: String,
+        session: BattleSessionQuery,
+        usage: BattleSessionCaptureResourceUsage,
+    ): PreparedCaptureContext =
+<span class="fc" id="L70">        capturePreparationService.prepare(</span>
+<span class="fc" id="L71">            sessionId = sessionId,</span>
+<span class="fc" id="L72">            snapshot = session.snapshot,</span>
+            command =
+<span class="fc" id="L74">                CaptureCommand(</span>
+<span class="fc" id="L75">                    playerId = usage.playerId,</span>
+<span class="fc" id="L76">                    ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L77">                    targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L78">                    sourceUnitId = usage.sourceUnitId,</span>
+                ),
+<span class="fc" id="L80">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

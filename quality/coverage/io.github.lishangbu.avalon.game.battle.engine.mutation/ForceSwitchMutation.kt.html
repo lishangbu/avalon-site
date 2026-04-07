@@ -6,8 +6,13 @@ import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
  * 强制替换变更。
  *
  * @property target 目标选择器。
+ *
+ * 说明：
+ * - 该 mutation 不直接执行换人，而是先把目标单位标记为 `forceSwitchRequested=true`；
+ * - 后续由 `BattleSessionReplacementResolver` 在统一替补阶段消费这个标记，
+ *   决定是自动替补还是生成 replacement request。
  */
-<span class="nc" id="L10">data class ForceSwitchMutation(</span>
-<span class="nc" id="L11">    val target: TargetSelectorId,</span>
+<span class="fc" id="L15">data class ForceSwitchMutation(</span>
+<span class="fc" id="L16">    val target: TargetSelectorId,</span>
 ) : BattleMutation
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

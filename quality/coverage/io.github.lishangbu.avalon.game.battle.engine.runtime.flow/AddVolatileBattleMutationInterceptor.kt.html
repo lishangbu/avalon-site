@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddVolatileBattleMutationInterceptor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">AddVolatileBattleMutationInterceptor.kt</span></div><h1>AddVolatileBattleMutationInterceptor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
 
+import io.github.lishangbu.avalon.game.battle.engine.constant.BattleAttributeKeys
 import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
 import io.github.lishangbu.avalon.game.battle.engine.mutation.AddVolatileMutation
 import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
-import io.github.lishangbu.avalon.game.battle.engine.runtime.apply.MutationApplicationContext
 import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTargetSelectorResolver
 
 /**
@@ -27,49 +27,45 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTar
         context: BattleMutationInterceptionContext,
         attachedEffectProcessor: BattleAttachedEffectProcessor,
     ): BattleMutationInterceptionResult {
-<span class="pc bpc" id="L30" title="2 of 4 branches missed.">        val mutation = context.mutation as? AddVolatileMutation ?: return BattleMutationInterceptionResult(context.snapshot, true)</span>
-<span class="fc" id="L31">        val targetUnitIds =</span>
-<span class="fc" id="L32">            MutationTargetSelectorResolver.resolve(</span>
-<span class="fc" id="L33">                mutation.target,</span>
-<span class="fc" id="L34">                mutationApplicationContext(context),</span>
+<span class="fc" id="L30">        val mutation =</span>
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">            context.mutation as? AddVolatileMutation</span>
+<span class="nc" id="L32">                ?: return BattleMutationInterceptionResult(context.snapshot, true, context.mutation)</span>
+<span class="fc" id="L33">        val targetUnitIds =</span>
+<span class="fc" id="L34">            MutationTargetSelectorResolver.resolve(</span>
+<span class="fc" id="L35">                mutation.target,</span>
+<span class="fc" id="L36">                BattleMutationInterceptorSupport.mutationApplicationContext(context),</span>
             )
-<span class="fc" id="L36">        var currentSnapshot = context.snapshot</span>
-<span class="fc" id="L37">        var blocked = false</span>
+<span class="fc" id="L38">        var currentSnapshot = context.snapshot</span>
+<span class="fc" id="L39">        var blocked = false</span>
 
-<span class="fc" id="L39">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
-<span class="fc" id="L40">            val result =</span>
-<span class="fc" id="L41">                attachedEffectProcessor.process(</span>
-<span class="fc" id="L42">                    snapshot = currentSnapshot,</span>
-<span class="fc" id="L43">                    unitId = affectedTargetId,</span>
-<span class="fc" id="L44">                    hookName = StandardHookNames.ON_TRY_ADD_VOLATILE.value,</span>
-<span class="fc" id="L45">                    targetId = affectedTargetId,</span>
-<span class="fc" id="L46">                    sourceId = context.sourceId,</span>
-<span class="fc" id="L47">                    relay = true,</span>
-<span class="fc" id="L48">                    attributes = mapOf(&quot;volatileId&quot; to mutation.volatileId, &quot;targetRelation&quot; to &quot;foe&quot;),</span>
+<span class="fc" id="L41">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
+<span class="fc" id="L42">            val result =</span>
+<span class="fc" id="L43">                attachedEffectProcessor.process(</span>
+<span class="fc" id="L44">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L45">                    unitId = affectedTargetId,</span>
+<span class="fc" id="L46">                    hookName = StandardHookNames.ON_TRY_ADD_VOLATILE.value,</span>
+<span class="fc" id="L47">                    targetId = affectedTargetId,</span>
+<span class="fc" id="L48">                    sourceId = context.sourceId,</span>
+<span class="fc" id="L49">                    relay = true,</span>
+                    attributes =
+<span class="fc" id="L51">                        buildMap {</span>
+<span class="fc" id="L52">                            put(&quot;volatileEffectId&quot;, mutation.volatileEffectId)</span>
+<span class="fc" id="L53">                            BattleMutationInterceptorSupport</span>
+<span class="fc" id="L54">                                .resolveTargetRelation(currentSnapshot, context.sourceId, affectedTargetId)</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                                ?.let { relation -&gt; put(BattleAttributeKeys.TARGET_RELATION, relation) }</span>
+<span class="fc" id="L56">                        },</span>
                 )
-<span class="fc" id="L50">            currentSnapshot = result.snapshot</span>
-<span class="pc bpc" id="L51" title="1 of 4 branches missed.">            if (result.cancelled || result.relay == false) {</span>
-<span class="fc" id="L52">                blocked = true</span>
+<span class="fc" id="L58">            currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L59" title="1 of 4 branches missed.">            if (result.cancelled || result.relay == false) {</span>
+<span class="fc" id="L60">                blocked = true</span>
             }
-<span class="fc" id="L54">        }</span>
+<span class="fc" id="L62">        }</span>
 
-<span class="fc" id="L56">        return BattleMutationInterceptionResult(</span>
-<span class="fc" id="L57">            snapshot = currentSnapshot,</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">            allowed = !blocked,</span>
+<span class="fc" id="L64">        return BattleMutationInterceptionResult(</span>
+<span class="fc" id="L65">            snapshot = currentSnapshot,</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            allowed = !blocked,</span>
+<span class="fc" id="L67">            mutation = mutation,</span>
         )
     }
-
-    /**
-     * 组装 mutation target selector 所需的上下文对象。
-     */
-    private fun mutationApplicationContext(context: BattleMutationInterceptionContext): MutationApplicationContext =
-<span class="fc" id="L66">        MutationApplicationContext(</span>
-<span class="fc" id="L67">            battle = context.snapshot.battle,</span>
-<span class="fc" id="L68">            field = context.snapshot.field,</span>
-<span class="fc" id="L69">            units = context.snapshot.units,</span>
-<span class="fc" id="L70">            selfId = context.selfId,</span>
-<span class="fc" id="L71">            targetId = context.targetId,</span>
-<span class="fc" id="L72">            sourceId = context.sourceId,</span>
-<span class="fc" id="L73">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

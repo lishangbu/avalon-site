@@ -10,32 +10,44 @@
  * @property id 单位唯一标识。
  * @property currentHp 当前生命值。
  * @property maxHp 最大生命值。
- * @property statusId 主状态标识，未附加时为空。
+ * @property statusState 主状态的运行时状态。
  * @property abilityId 当前特性标识。
  * @property itemId 当前道具标识。
  * @property typeIds 当前属性列表。
- * @property volatileIds 当前挥发状态标识集合。
- * @property conditionIds 当前附着条件标识集合。
+ * @property volatileStates 当前挥发状态的运行时状态表。
+ * @property conditionStates 当前附着条件的运行时状态表。
  * @property boosts 当前 stage / boost 表。
  * @property stats 当前运行时属性值表。
  * @property movePp 当前招式剩余 PP。
- * @property flags 轻量字符串标记表。
+ * @property metadata 当前单位的结构化规则元数据。
+ * @property debugState 当前单位的调试/探针状态。
+ * @property sessionState 仅供 session 编排使用的内部工作状态。
  * @property forceSwitchRequested 当前单位是否被标记为强制替换。
+ *
+ * 说明：
+ * - `statusState / volatileStates / conditionStates` 是唯一合法的挂载效果表达；
+ * - 不再保留旧的 id 镜像字段，避免状态真值来源分裂。
+ * - `metadata` 用于承载会被战斗规则直接读取的结构化单位元数据；
+ * - `debugState` 当前仅保留给测试探针与轻量调试上下文；
+ * - `sessionState` 用于承载必须随快照持久化、但不应该暴露成探针式字符串状态位的
+ *   session 内部工作位。
  */
-<span class="fc" id="L25">data class UnitState(</span>
-<span class="fc" id="L26">    val id: String,</span>
-<span class="fc" id="L27">    val currentHp: Int,</span>
-<span class="fc" id="L28">    val maxHp: Int,</span>
-<span class="fc" id="L29">    val statusId: String? = null,</span>
-<span class="fc" id="L30">    val abilityId: String? = null,</span>
-<span class="fc" id="L31">    val itemId: String? = null,</span>
-<span class="fc" id="L32">    val typeIds: Set&lt;String&gt; = emptySet(),</span>
-<span class="fc" id="L33">    val volatileIds: Set&lt;String&gt; = emptySet(),</span>
-<span class="fc" id="L34">    val conditionIds: Set&lt;String&gt; = emptySet(),</span>
-<span class="fc" id="L35">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="fc" id="L36">    val stats: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="fc" id="L37">    val movePp: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="fc" id="L38">    val flags: Map&lt;String, String&gt; = emptyMap(),</span>
-<span class="fc" id="L39">    val forceSwitchRequested: Boolean = false,</span>
-<span class="fc" id="L40">)</span>
+<span class="fc" id="L35">data class UnitState(</span>
+<span class="fc" id="L36">    val id: String,</span>
+<span class="fc" id="L37">    val currentHp: Int,</span>
+<span class="fc" id="L38">    val maxHp: Int,</span>
+<span class="fc" id="L39">    val statusState: AttachedEffectState? = null,</span>
+<span class="fc" id="L40">    val abilityId: String? = null,</span>
+<span class="fc" id="L41">    val itemId: String? = null,</span>
+<span class="fc" id="L42">    val typeIds: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L43">    val volatileStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L44">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L45">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L46">    val stats: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L47">    val movePp: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L48">    val metadata: UnitMetadataState = UnitMetadataState(),</span>
+<span class="fc" id="L49">    val debugState: UnitDebugState = UnitDebugState(),</span>
+<span class="fc" id="L50">    val sessionState: UnitSessionState = UnitSessionState(),</span>
+<span class="fc" id="L51">    val forceSwitchRequested: Boolean = false,</span>
+<span class="fc" id="L52">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

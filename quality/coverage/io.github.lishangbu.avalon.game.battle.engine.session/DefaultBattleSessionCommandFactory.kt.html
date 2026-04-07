@@ -8,6 +8,10 @@
  * - 保证 session 层各个入口对命令对象的创建语义保持一致。
  */
 <span class="fc" id="L10">class DefaultBattleSessionCommandFactory : BattleSessionCommandFactory {</span>
+<span class="fc" id="L11">    private val choiceFactory: BattleSessionChoiceFactory = BattleSessionChoiceFactory()</span>
+<span class="fc" id="L12">    private val actionFactory: BattleSessionActionFactory = BattleSessionActionFactory()</span>
+<span class="fc" id="L13">    private val choiceActionMapper: BattleSessionChoiceActionMapper = BattleSessionChoiceActionMapper(actionFactory)</span>
+
     /**
      * 创建一个 move choice。
      */
@@ -23,18 +27,18 @@
         damage: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): MoveChoice =
-<span class="fc" id="L26">        MoveChoice(</span>
-<span class="fc" id="L27">            moveId = moveId,</span>
-<span class="fc" id="L28">            attackerId = attackerId,</span>
-<span class="fc" id="L29">            targetId = targetId,</span>
-<span class="fc" id="L30">            priority = priority,</span>
-<span class="fc" id="L31">            speed = speed,</span>
-<span class="fc" id="L32">            accuracy = accuracy,</span>
-<span class="fc" id="L33">            evasion = evasion,</span>
-<span class="fc" id="L34">            basePower = basePower,</span>
-<span class="fc" id="L35">            damage = damage,</span>
-<span class="fc" id="L36">            attributes = attributes,</span>
-<span class="fc" id="L37">        )</span>
+<span class="fc" id="L30">        choiceFactory.createMoveChoice(</span>
+<span class="fc" id="L31">            moveId = moveId,</span>
+<span class="fc" id="L32">            attackerId = attackerId,</span>
+<span class="fc" id="L33">            targetId = targetId,</span>
+<span class="fc" id="L34">            priority = priority,</span>
+<span class="fc" id="L35">            speed = speed,</span>
+<span class="fc" id="L36">            accuracy = accuracy,</span>
+<span class="fc" id="L37">            evasion = evasion,</span>
+<span class="fc" id="L38">            basePower = basePower,</span>
+<span class="fc" id="L39">            damage = damage,</span>
+<span class="fc" id="L40">            attributes = attributes,</span>
+<span class="fc" id="L41">        )</span>
 
     /**
      * 创建一个 item choice。
@@ -47,14 +51,14 @@
         speed: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): ItemChoice =
-<span class="nc" id="L50">        ItemChoice(</span>
-<span class="nc" id="L51">            itemId = itemId,</span>
-<span class="nc" id="L52">            actorUnitId = actorUnitId,</span>
-<span class="nc" id="L53">            targetId = targetId,</span>
-<span class="nc" id="L54">            priority = priority,</span>
-<span class="nc" id="L55">            speed = speed,</span>
-<span class="nc" id="L56">            attributes = attributes,</span>
-<span class="nc" id="L57">        )</span>
+<span class="fc" id="L54">        choiceFactory.createItemChoice(</span>
+<span class="fc" id="L55">            itemId = itemId,</span>
+<span class="fc" id="L56">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L57">            targetId = targetId,</span>
+<span class="fc" id="L58">            priority = priority,</span>
+<span class="fc" id="L59">            speed = speed,</span>
+<span class="fc" id="L60">            attributes = attributes,</span>
+<span class="fc" id="L61">        )</span>
 
     /**
      * 创建一个 capture choice。
@@ -67,14 +71,14 @@
         priority: Int,
         speed: Int,
     ): CaptureChoice =
-<span class="nc" id="L70">        CaptureChoice(</span>
-<span class="nc" id="L71">            playerId = playerId,</span>
-<span class="nc" id="L72">            ballItemId = ballItemId,</span>
-<span class="nc" id="L73">            sourceUnitId = sourceUnitId,</span>
-<span class="nc" id="L74">            targetId = targetId,</span>
-<span class="nc" id="L75">            priority = priority,</span>
-<span class="nc" id="L76">            speed = speed,</span>
-<span class="nc" id="L77">        )</span>
+<span class="fc" id="L74">        choiceFactory.createCaptureChoice(</span>
+<span class="fc" id="L75">            playerId = playerId,</span>
+<span class="fc" id="L76">            ballItemId = ballItemId,</span>
+<span class="fc" id="L77">            sourceUnitId = sourceUnitId,</span>
+<span class="fc" id="L78">            targetId = targetId,</span>
+<span class="fc" id="L79">            priority = priority,</span>
+<span class="fc" id="L80">            speed = speed,</span>
+<span class="fc" id="L81">        )</span>
 
     /**
      * 创建一个 switch choice。
@@ -86,13 +90,13 @@
         priority: Int,
         speed: Int,
     ): SwitchChoice =
-<span class="fc" id="L89">        SwitchChoice(</span>
-<span class="fc" id="L90">            sideId = sideId,</span>
-<span class="fc" id="L91">            outgoingUnitId = outgoingUnitId,</span>
-<span class="fc" id="L92">            incomingUnitId = incomingUnitId,</span>
-<span class="fc" id="L93">            priority = priority,</span>
-<span class="fc" id="L94">            speed = speed,</span>
-<span class="fc" id="L95">        )</span>
+<span class="fc" id="L93">        choiceFactory.createSwitchChoice(</span>
+<span class="fc" id="L94">            sideId = sideId,</span>
+<span class="fc" id="L95">            outgoingUnitId = outgoingUnitId,</span>
+<span class="fc" id="L96">            incomingUnitId = incomingUnitId,</span>
+<span class="fc" id="L97">            priority = priority,</span>
+<span class="fc" id="L98">            speed = speed,</span>
+<span class="fc" id="L99">        )</span>
 
     /**
      * 创建一个 run choice。
@@ -102,11 +106,11 @@
         priority: Int,
         speed: Int,
     ): RunChoice =
-<span class="nc" id="L105">        RunChoice(</span>
-<span class="nc" id="L106">            sideId = sideId,</span>
-<span class="nc" id="L107">            priority = priority,</span>
-<span class="nc" id="L108">            speed = speed,</span>
-<span class="nc" id="L109">        )</span>
+<span class="fc" id="L109">        choiceFactory.createRunChoice(</span>
+<span class="fc" id="L110">            sideId = sideId,</span>
+<span class="fc" id="L111">            priority = priority,</span>
+<span class="fc" id="L112">            speed = speed,</span>
+<span class="fc" id="L113">        )</span>
 
     /**
      * 创建一个 wait choice。
@@ -116,11 +120,11 @@
         priority: Int,
         speed: Int,
     ): WaitChoice =
-<span class="nc" id="L119">        WaitChoice(</span>
-<span class="nc" id="L120">            unitId = unitId,</span>
-<span class="nc" id="L121">            priority = priority,</span>
-<span class="nc" id="L122">            speed = speed,</span>
-<span class="nc" id="L123">        )</span>
+<span class="fc" id="L123">        choiceFactory.createWaitChoice(</span>
+<span class="fc" id="L124">            unitId = unitId,</span>
+<span class="fc" id="L125">            priority = priority,</span>
+<span class="fc" id="L126">            speed = speed,</span>
+<span class="fc" id="L127">        )</span>
 
     /**
      * 创建一个 move action。
@@ -137,18 +141,18 @@
         damage: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): BattleSessionMoveAction =
-<span class="fc" id="L140">        BattleSessionMoveAction(</span>
-<span class="fc" id="L141">            moveId = moveId,</span>
-<span class="fc" id="L142">            attackerId = attackerId,</span>
-<span class="fc" id="L143">            targetId = targetId,</span>
-<span class="fc" id="L144">            priority = priority,</span>
-<span class="fc" id="L145">            speed = speed,</span>
-<span class="fc" id="L146">            accuracy = accuracy,</span>
-<span class="fc" id="L147">            evasion = evasion,</span>
-<span class="fc" id="L148">            basePower = basePower,</span>
-<span class="fc" id="L149">            damage = damage,</span>
-<span class="fc" id="L150">            attributes = attributes,</span>
-<span class="fc" id="L151">        )</span>
+<span class="fc" id="L144">        actionFactory.createMoveAction(</span>
+<span class="fc" id="L145">            moveId = moveId,</span>
+<span class="fc" id="L146">            attackerId = attackerId,</span>
+<span class="fc" id="L147">            targetId = targetId,</span>
+<span class="fc" id="L148">            priority = priority,</span>
+<span class="fc" id="L149">            speed = speed,</span>
+<span class="fc" id="L150">            accuracy = accuracy,</span>
+<span class="fc" id="L151">            evasion = evasion,</span>
+<span class="fc" id="L152">            basePower = basePower,</span>
+<span class="fc" id="L153">            damage = damage,</span>
+<span class="fc" id="L154">            attributes = attributes,</span>
+<span class="fc" id="L155">        )</span>
 
     /**
      * 创建一个 item action。
@@ -161,14 +165,14 @@
         speed: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): BattleSessionItemAction =
-<span class="fc" id="L164">        BattleSessionItemAction(</span>
-<span class="fc" id="L165">            itemId = itemId,</span>
-<span class="fc" id="L166">            actorUnitId = actorUnitId,</span>
-<span class="fc" id="L167">            targetId = targetId,</span>
-<span class="fc" id="L168">            priority = priority,</span>
-<span class="fc" id="L169">            speed = speed,</span>
-<span class="fc" id="L170">            attributes = attributes,</span>
-<span class="fc" id="L171">        )</span>
+<span class="nc" id="L168">        actionFactory.createItemAction(</span>
+<span class="nc" id="L169">            itemId = itemId,</span>
+<span class="nc" id="L170">            actorUnitId = actorUnitId,</span>
+<span class="nc" id="L171">            targetId = targetId,</span>
+<span class="nc" id="L172">            priority = priority,</span>
+<span class="nc" id="L173">            speed = speed,</span>
+<span class="nc" id="L174">            attributes = attributes,</span>
+<span class="nc" id="L175">        )</span>
 
     /**
      * 创建一个 capture action。
@@ -181,14 +185,14 @@
         priority: Int,
         speed: Int,
     ): BattleSessionCaptureAction =
-<span class="fc" id="L184">        BattleSessionCaptureAction(</span>
-<span class="fc" id="L185">            playerId = playerId,</span>
-<span class="fc" id="L186">            ballItemId = ballItemId,</span>
-<span class="fc" id="L187">            sourceUnitId = sourceUnitId,</span>
-<span class="fc" id="L188">            targetId = targetId,</span>
-<span class="fc" id="L189">            priority = priority,</span>
-<span class="fc" id="L190">            speed = speed,</span>
-<span class="fc" id="L191">        )</span>
+<span class="nc" id="L188">        actionFactory.createCaptureAction(</span>
+<span class="nc" id="L189">            playerId = playerId,</span>
+<span class="nc" id="L190">            ballItemId = ballItemId,</span>
+<span class="nc" id="L191">            sourceUnitId = sourceUnitId,</span>
+<span class="nc" id="L192">            targetId = targetId,</span>
+<span class="nc" id="L193">            priority = priority,</span>
+<span class="nc" id="L194">            speed = speed,</span>
+<span class="nc" id="L195">        )</span>
 
     /**
      * 创建一个 switch action。
@@ -200,13 +204,13 @@
         priority: Int,
         speed: Int,
     ): BattleSessionSwitchAction =
-<span class="fc" id="L203">        BattleSessionSwitchAction(</span>
-<span class="fc" id="L204">            sideId = sideId,</span>
-<span class="fc" id="L205">            outgoingUnitId = outgoingUnitId,</span>
-<span class="fc" id="L206">            incomingUnitId = incomingUnitId,</span>
-<span class="fc" id="L207">            priority = priority,</span>
-<span class="fc" id="L208">            speed = speed,</span>
-<span class="fc" id="L209">        )</span>
+<span class="nc" id="L207">        actionFactory.createSwitchAction(</span>
+<span class="nc" id="L208">            sideId = sideId,</span>
+<span class="nc" id="L209">            outgoingUnitId = outgoingUnitId,</span>
+<span class="nc" id="L210">            incomingUnitId = incomingUnitId,</span>
+<span class="nc" id="L211">            priority = priority,</span>
+<span class="nc" id="L212">            speed = speed,</span>
+<span class="nc" id="L213">        )</span>
 
     /**
      * 创建一个 run action。
@@ -216,11 +220,11 @@
         priority: Int,
         speed: Int,
     ): BattleSessionRunAction =
-<span class="fc" id="L219">        BattleSessionRunAction(</span>
-<span class="fc" id="L220">            sideId = sideId,</span>
-<span class="fc" id="L221">            priority = priority,</span>
-<span class="fc" id="L222">            speed = speed,</span>
-<span class="fc" id="L223">        )</span>
+<span class="nc" id="L223">        actionFactory.createRunAction(</span>
+<span class="nc" id="L224">            sideId = sideId,</span>
+<span class="nc" id="L225">            priority = priority,</span>
+<span class="nc" id="L226">            speed = speed,</span>
+<span class="nc" id="L227">        )</span>
 
     /**
      * 创建一个 wait action。
@@ -230,83 +234,15 @@
         priority: Int,
         speed: Int,
     ): BattleSessionWaitAction =
-<span class="fc" id="L233">        BattleSessionWaitAction(</span>
-<span class="fc" id="L234">            unitId = unitId,</span>
-<span class="fc" id="L235">            priority = priority,</span>
-<span class="fc" id="L236">            speed = speed,</span>
-<span class="fc" id="L237">        )</span>
+<span class="nc" id="L237">        actionFactory.createWaitAction(</span>
+<span class="nc" id="L238">            unitId = unitId,</span>
+<span class="nc" id="L239">            priority = priority,</span>
+<span class="nc" id="L240">            speed = speed,</span>
+<span class="nc" id="L241">        )</span>
 
     /**
      * 由统一 choice 创建对应的 action。
      */
-    override fun createAction(choice: BattleSessionChoice): BattleSessionAction =
-<span class="fc" id="L243">        when (choice) {</span>
-<span class="fc bfc" id="L244" title="All 2 branches covered.">            is MoveChoice -&gt; {</span>
-<span class="fc" id="L245">                createMoveAction(</span>
-<span class="fc" id="L246">                    moveId = choice.moveId,</span>
-<span class="fc" id="L247">                    attackerId = choice.attackerId,</span>
-<span class="fc" id="L248">                    targetId = choice.targetId,</span>
-<span class="fc" id="L249">                    priority = choice.priority,</span>
-<span class="fc" id="L250">                    speed = choice.speed,</span>
-<span class="fc" id="L251">                    accuracy = choice.accuracy,</span>
-<span class="fc" id="L252">                    evasion = choice.evasion,</span>
-<span class="fc" id="L253">                    basePower = choice.basePower,</span>
-<span class="fc" id="L254">                    damage = choice.damage,</span>
-<span class="fc" id="L255">                    attributes = choice.attributes,</span>
-                )
-            }
-
-<span class="fc bfc" id="L259" title="All 2 branches covered.">            is ItemChoice -&gt; {</span>
-<span class="fc" id="L260">                createItemAction(</span>
-<span class="fc" id="L261">                    itemId = choice.itemId,</span>
-<span class="fc" id="L262">                    actorUnitId = choice.actorUnitId,</span>
-<span class="fc" id="L263">                    targetId = choice.targetId,</span>
-<span class="fc" id="L264">                    priority = choice.priority,</span>
-<span class="fc" id="L265">                    speed = choice.speed,</span>
-<span class="fc" id="L266">                    attributes = choice.attributes,</span>
-                )
-            }
-
-<span class="fc bfc" id="L270" title="All 2 branches covered.">            is CaptureChoice -&gt; {</span>
-<span class="fc" id="L271">                createCaptureAction(</span>
-<span class="fc" id="L272">                    playerId = choice.playerId,</span>
-<span class="fc" id="L273">                    ballItemId = choice.ballItemId,</span>
-<span class="fc" id="L274">                    sourceUnitId = choice.sourceUnitId,</span>
-<span class="fc" id="L275">                    targetId = choice.targetId,</span>
-<span class="fc" id="L276">                    priority = choice.priority,</span>
-<span class="fc" id="L277">                    speed = choice.speed,</span>
-                )
-            }
-
-<span class="fc bfc" id="L281" title="All 2 branches covered.">            is SwitchChoice -&gt; {</span>
-<span class="fc" id="L282">                createSwitchAction(</span>
-<span class="fc" id="L283">                    sideId = choice.sideId,</span>
-<span class="fc" id="L284">                    outgoingUnitId = choice.outgoingUnitId,</span>
-<span class="fc" id="L285">                    incomingUnitId = choice.incomingUnitId,</span>
-<span class="fc" id="L286">                    priority = choice.priority,</span>
-<span class="fc" id="L287">                    speed = choice.speed,</span>
-                )
-            }
-
-<span class="fc bfc" id="L291" title="All 2 branches covered.">            is RunChoice -&gt; {</span>
-<span class="fc" id="L292">                createRunAction(</span>
-<span class="fc" id="L293">                    sideId = choice.sideId,</span>
-<span class="fc" id="L294">                    priority = choice.priority,</span>
-<span class="fc" id="L295">                    speed = choice.speed,</span>
-                )
-            }
-
-<span class="pc bpc" id="L299" title="1 of 2 branches missed.">            is WaitChoice -&gt; {</span>
-<span class="pc" id="L300">                createWaitAction(</span>
-<span class="fc" id="L301">                    unitId = choice.unitId,</span>
-<span class="fc" id="L302">                    priority = choice.priority,</span>
-<span class="fc" id="L303">                    speed = choice.speed,</span>
-                )
-            }
-
-            else -&gt; {
-<span class="nc" id="L308">                error(&quot;Unsupported BattleSessionChoice type '${choice::class.qualifiedName}'.&quot;)</span>
-            }
-<span class="fc" id="L310">        }</span>
+<span class="fc" id="L246">    override fun createAction(choice: BattleSessionChoice): BattleSessionAction = choiceActionMapper.createAction(choice)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionSetupCoordinator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionSetupCoordinator.kt</span></div><h1>BattleSessionSetupCoordinator.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
+
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * BattleSession 建局与状态恢复协调器。
+ *
+ * 设计意图：
+ * - 把 `start/register/configure/restore/settle` 这一组初始化与会话外壳管理逻辑
+ *   从 `BattleSession` 主体中拆出去；
+ * - 让主类把注意力放在“回合执行”和“生命周期推进”上；
+ * - 保持现有公开 API 不变，仅调整内部职责分布。
+ */
+<span class="fc" id="L17">internal class BattleSessionSetupCoordinator(</span>
+<span class="fc" id="L18">    private val session: BattleSession,</span>
+) {
+    /**
+     * 导出当前可持久化状态。
+     */
+    fun exportState(): BattleSessionState =
+<span class="fc" id="L24">        BattleSessionState(</span>
+<span class="fc" id="L25">            snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L26">            pendingActions = session.pendingActions(),</span>
+<span class="fc" id="L27">            replacementRequests = session.pendingReplacementRequests(),</span>
+<span class="fc" id="L28">            resourceLedger = session.resourceLedger(),</span>
+<span class="fc" id="L29">            battleLogs = session.battleLogs(),</span>
+<span class="fc" id="L30">            eventLogs = session.eventLogs(),</span>
+<span class="fc" id="L31">        )</span>
+
+    /**
+     * 用已持久化状态恢复当前 session。
+     */
+    fun restoreState(state: BattleSessionState): BattleRuntimeSnapshot {
+<span class="fc" id="L37">        session.currentSnapshot = state.snapshot</span>
+<span class="fc" id="L38">        session.actionQueue.replaceAll(state.pendingActions)</span>
+<span class="fc" id="L39">        session.replacementRequests.clear()</span>
+<span class="fc" id="L40">        session.replacementRequests += state.replacementRequests</span>
+<span class="fc" id="L41">        session.resourceLedger.clear()</span>
+<span class="fc" id="L42">        session.resourceLedger += state.resourceLedger</span>
+<span class="fc" id="L43">        session.battleLogs.clear()</span>
+<span class="fc" id="L44">        session.battleLogs += state.battleLogs</span>
+<span class="fc" id="L45">        session.eventLogs.clear()</span>
+<span class="fc" id="L46">        session.eventLogs += state.eventLogs</span>
+<span class="fc" id="L47">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 启动 battle session。
+     */
+    fun start(): BattleRuntimeSnapshot {
+<span class="fc" id="L54">        val battle = session.currentSnapshot.battle.copy(started = true, turn = 1)</span>
+<span class="fc" id="L55">        session.currentSnapshot = session.currentSnapshot.copy(battle = battle)</span>
+<span class="fc" id="L56">        session.recordLog(&quot;Battle ${battle.id} started at turn ${battle.turn}.&quot;)</span>
+<span class="fc" id="L57">        session.recordEvent(BattleSessionStartedPayload)</span>
+<span class="fc" id="L58">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 注册一个 side。
+     */
+    fun registerSide(sideId: String): BattleRuntimeSnapshot {
+<span class="fc" id="L65">        val nextSides = session.currentSnapshot.sides + (sideId to SideState(id = sideId))</span>
+<span class="fc" id="L66">        session.currentSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
+<span class="fc" id="L67">        session.recordLog(&quot;Registered side $sideId.&quot;)</span>
+<span class="fc" id="L68">        session.recordEvent(BattleSessionSideRegisteredPayload(sideId = sideId))</span>
+<span class="fc" id="L69">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 配置当前 battle 的业务语义。
+     */
+<span class="nc" id="L75">    fun configureBattle(</span>
+        battleKind: BattleType,
+<span class="nc" id="L77">        capturableSideId: String? = null,</span>
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L79">        session.currentSnapshot =</span>
+<span class="fc" id="L80">            session.currentSnapshot.copy(</span>
+                battle =
+<span class="fc" id="L82">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L83">                        battleKind = battleKind,</span>
+<span class="fc" id="L84">                        capturableSideId = capturableSideId,</span>
+                    ),
+            )
+<span class="fc" id="L87">        session.recordLog(&quot;Configured battle kind=${battleKind.name} capturableSideId=$capturableSideId.&quot;)</span>
+<span class="fc" id="L88">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 注册一个单位并挂到指定 side。
+     */
+<span class="nc" id="L94">    fun registerUnit(</span>
+        sideId: String,
+        unit: UnitState,
+<span class="nc" id="L97">        active: Boolean = true,</span>
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L99">        val side =</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            requireNotNull(session.currentSnapshot.sides[sideId]) {</span>
+<span class="nc" id="L101">                &quot;Side '$sideId' must be registered before units can be added.&quot;</span>
+            }
+<span class="fc" id="L103">        val nextUnits = session.currentSnapshot.units + (unit.id to unit)</span>
+<span class="fc" id="L104">        val nextSide =</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            if (active) {</span>
+<span class="fc" id="L106">                side.copy(</span>
+<span class="fc" id="L107">                    unitIds = (side.unitIds + unit.id).distinct(),</span>
+<span class="fc" id="L108">                    activeUnitIds = (side.activeUnitIds + unit.id).distinct(),</span>
+                )
+            } else {
+<span class="fc" id="L111">                side.copy(unitIds = (side.unitIds + unit.id).distinct())</span>
+            }
+<span class="fc" id="L113">        session.currentSnapshot =</span>
+<span class="fc" id="L114">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L115">                units = nextUnits,</span>
+<span class="fc" id="L116">                sides = session.currentSnapshot.sides + (sideId to nextSide),</span>
+            )
+<span class="fc" id="L118">        session.recordLog(&quot;Registered unit ${unit.id} to side $sideId.&quot;)</span>
+<span class="fc" id="L119">        session.recordEvent(</span>
+<span class="fc" id="L120">            BattleSessionUnitRegisteredPayload(</span>
+<span class="fc" id="L121">                sideId = sideId,</span>
+<span class="fc" id="L122">                unitId = unit.id,</span>
+<span class="fc" id="L123">                active = active,</span>
+            ),
+        )
+<span class="fc" id="L126">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 标记当前 battle 已完成结算。
+     */
+    fun markSettled(): BattleRuntimeSnapshot {
+<span class="fc" id="L133">        session.currentSnapshot = session.currentSnapshot.copy(battle = session.currentSnapshot.battle.copy(settled = true))</span>
+<span class="fc" id="L134">        session.recordLog(&quot;Battle settlement completed.&quot;)</span>
+<span class="fc" id="L135">        return session.currentSnapshot</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

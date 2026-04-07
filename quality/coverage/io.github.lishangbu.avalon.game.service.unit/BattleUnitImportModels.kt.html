@@ -1,43 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleUnitImportModels.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.unit</a> &gt; <span class="el_source">BattleUnitImportModels.kt</span></div><h1>BattleUnitImportModels.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.unit
 
+import io.github.lishangbu.avalon.game.battle.engine.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitCaptureContextState
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitMetadataState
 import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 
 /** 单个招式槽位导入参数。 */
-<span class="pc" id="L6">data class BattleMoveImportRequest(</span>
-<span class="fc" id="L7">    val moveId: String,</span>
-<span class="pc" id="L8">    val currentPp: Int? = null,</span>
-<span class="nc" id="L9">)</span>
+<span class="pc" id="L9">data class BattleMoveImportRequest(</span>
+<span class="fc" id="L10">    val moveId: String,</span>
+<span class="pc" id="L11">    val currentPp: Int? = null,</span>
+<span class="nc" id="L12">)</span>
 
-/** 真实数据智能导入战斗单位时所需的输入。 */
-<span class="pc" id="L12">data class BattleUnitImportRequest(</span>
-<span class="fc" id="L13">    val unitId: String,</span>
-<span class="fc" id="L14">    val level: Int,</span>
-<span class="pc" id="L15">    val creatureId: Long? = null,</span>
-<span class="pc" id="L16">    val creatureInternalName: String? = null,</span>
-<span class="pc" id="L17">    val natureId: Long? = null,</span>
-<span class="pc" id="L18">    val natureInternalName: String? = null,</span>
-<span class="pc" id="L19">    val abilityInternalName: String? = null,</span>
-<span class="pc" id="L20">    val itemId: String? = null,</span>
-<span class="pc" id="L21">    val moves: List&lt;BattleMoveImportRequest&gt; = emptyList(),</span>
+/** 单位导入边界上的结构化元数据。 */
+<span class="pc" id="L15">data class BattleUnitImportMetadata(</span>
+<span class="fc" id="L16">    val level: Int,</span>
+<span class="pc" id="L17">    val creatureId: Long? = null,</span>
+<span class="pc" id="L18">    val creatureInternalName: String? = null,</span>
+<span class="pc" id="L19">    val natureId: Long? = null,</span>
+<span class="pc" id="L20">    val natureInternalName: String? = null,</span>
+<span class="pc" id="L21">    val captureContext: UnitCaptureContextState = UnitCaptureContextState(),</span>
 <span class="pc" id="L22">    val ivs: Map&lt;String, Int&gt; = emptyMap(),</span>
 <span class="pc" id="L23">    val evs: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="pc" id="L24">    val currentHp: Int? = null,</span>
-<span class="pc" id="L25">    val statusId: String? = null,</span>
-<span class="pc" id="L26">    val volatileIds: Set&lt;String&gt; = emptySet(),</span>
-<span class="pc" id="L27">    val conditionIds: Set&lt;String&gt; = emptySet(),</span>
-<span class="pc" id="L28">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="pc" id="L29">    val flags: Map&lt;String, String&gt; = emptyMap(),</span>
-<span class="pc" id="L30">    val forceSwitchRequested: Boolean = false,</span>
-<span class="nc" id="L31">)</span>
+<span class="nc" id="L24">)</span>
+
+/** 真实数据智能导入战斗单位时所需的输入。 */
+<span class="pc" id="L27">data class BattleUnitImportRequest(</span>
+<span class="fc" id="L28">    val unitId: String,</span>
+<span class="fc" id="L29">    val metadata: BattleUnitImportMetadata,</span>
+<span class="pc" id="L30">    val abilityInternalName: String? = null,</span>
+<span class="pc" id="L31">    val itemId: String? = null,</span>
+<span class="pc" id="L32">    val moves: List&lt;BattleMoveImportRequest&gt; = emptyList(),</span>
+<span class="pc" id="L33">    val currentHp: Int? = null,</span>
+<span class="pc" id="L34">    val statusState: AttachedEffectState? = null,</span>
+<span class="pc" id="L35">    val volatileStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="pc" id="L36">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="pc" id="L37">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="pc" id="L38">    val forceSwitchRequested: Boolean = false,</span>
+<span class="nc" id="L39">)</span>
 
 /** 智能导入后的战斗单位结果。 */
-<span class="fc" id="L34">data class BattleUnitImportResult(</span>
-<span class="fc" id="L35">    val unit: UnitState,</span>
-<span class="pc" id="L36">    val creatureId: Long,</span>
-<span class="pc" id="L37">    val creatureInternalName: String,</span>
-<span class="pc" id="L38">    val creatureName: String,</span>
-<span class="pc" id="L39">    val level: Int,</span>
-<span class="pc" id="L40">    val requiredExperience: Int,</span>
-<span class="pc" id="L41">    val calculatedStats: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L42">data class BattleUnitImportResult(</span>
+<span class="fc" id="L43">    val unit: UnitState,</span>
+<span class="pc" id="L44">    val creatureId: Long,</span>
+<span class="pc" id="L45">    val creatureInternalName: String,</span>
+<span class="pc" id="L46">    val creatureName: String,</span>
+<span class="pc" id="L47">    val level: Int,</span>
+<span class="pc" id="L48">    val requiredExperience: Int,</span>
+<span class="pc" id="L49">    val calculatedStats: Map&lt;String, Int&gt;,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

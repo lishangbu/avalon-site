@@ -11,10 +11,10 @@ import io.github.lishangbu.avalon.game.battle.engine.model.SideState
  */
 object BattleSessionTargetingSupport {
     fun resolveMode(rawTarget: String?): BattleSessionTargetMode =
-<span class="pc bpc" id="L14" title="7 of 11 branches missed.">        when (rawTarget) {</span>
-<span class="nc" id="L15">            null -&gt; BattleSessionTargetMode.UNKNOWN</span>
+<span class="pc bpc" id="L14" title="5 of 11 branches missed.">        when (rawTarget) {</span>
+<span class="fc" id="L15">            null -&gt; BattleSessionTargetMode.UNKNOWN</span>
 <span class="fc" id="L16">            &quot;self&quot;, &quot;user&quot; -&gt; BattleSessionTargetMode.SELF</span>
-<span class="nc" id="L17">            &quot;ally&quot; -&gt; BattleSessionTargetMode.ALLY</span>
+<span class="fc" id="L17">            &quot;ally&quot; -&gt; BattleSessionTargetMode.ALLY</span>
 <span class="fc" id="L18">            &quot;selected-pokemon&quot;, &quot;random-opponent&quot; -&gt; BattleSessionTargetMode.FOE</span>
 <span class="fc" id="L19">            &quot;all-opponents&quot; -&gt; BattleSessionTargetMode.ALL_FOES</span>
 <span class="nc" id="L20">            &quot;all-allies&quot;, &quot;user-and-allies&quot;, &quot;user-or-ally&quot; -&gt; BattleSessionTargetMode.ALL_ALLIES</span>
@@ -38,9 +38,9 @@ object BattleSessionTargetingSupport {
 <span class="fc" id="L38">        val foeActive = foeSides.flatMap(SideState::activeUnitIds)</span>
 <span class="fc" id="L39">        val allActive = sides.flatMap(SideState::activeUnitIds)</span>
 
-<span class="pc bpc" id="L41" title="7 of 11 branches missed.">        return when (mode) {</span>
+<span class="pc bpc" id="L41" title="5 of 11 branches missed.">        return when (mode) {</span>
 <span class="fc" id="L42">            BattleSessionTargetMode.SELF -&gt; listOf(actorUnitId)</span>
-<span class="nc" id="L43">            BattleSessionTargetMode.ALLY -&gt; actorSide.activeUnitIds.filterNot { unitId -&gt; unitId == actorUnitId }</span>
+<span class="fc" id="L43">            BattleSessionTargetMode.ALLY -&gt; actorSide.activeUnitIds.filterNot { unitId -&gt; unitId == actorUnitId }</span>
 <span class="fc" id="L44">            BattleSessionTargetMode.FOE -&gt; foeActive</span>
 <span class="nc" id="L45">            BattleSessionTargetMode.ALL_ALLIES -&gt; actorSide.activeUnitIds</span>
 <span class="fc" id="L46">            BattleSessionTargetMode.ALL_FOES -&gt; foeActive</span>
@@ -49,7 +49,7 @@ object BattleSessionTargetingSupport {
 <span class="nc" id="L49">            BattleSessionTargetMode.SIDE -&gt; actorSide.activeUnitIds</span>
 <span class="nc" id="L50">            BattleSessionTargetMode.FOE_SIDE -&gt; foeActive</span>
 <span class="nc" id="L51">            BattleSessionTargetMode.FIELD -&gt; emptyList()</span>
-<span class="nc" id="L52">            BattleSessionTargetMode.UNKNOWN -&gt; allActive</span>
+<span class="fc" id="L52">            BattleSessionTargetMode.UNKNOWN -&gt; allActive</span>
         }
     }
 

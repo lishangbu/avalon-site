@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClearBoostsBattleMutationInterceptor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.runtime.flow</a> &gt; <span class="el_source">ClearBoostsBattleMutationInterceptor.kt</span></div><h1>ClearBoostsBattleMutationInterceptor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.mutation.ClearBoostsMutation
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleBoostContextSupport
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleStatStageSupport
+import io.github.lishangbu.avalon.game.battle.engine.runtime.support.MutationTargetSelectorResolver
+
+/**
+ * boost 清空 mutation 的生命周期拦截器。
+ *
+ * 设计意图：
+ * - 在 `ClearBoostsMutation` 真正清空前派发 `on_clear_boosts`；
+ * - 让目标可以拒绝被清能力阶级；
+ * - 把清空前的 boosts 快照通过 attributes 透传给 hook，便于规则做精确判断。
+ */
+<span class="fc" id="L18">class ClearBoostsBattleMutationInterceptor : BattleMutationInterceptor {</span>
+<span class="fc" id="L19">    override val order: Int = 450</span>
+
+<span class="fc" id="L21">    override fun supports(mutation: BattleMutation): Boolean = mutation is ClearBoostsMutation</span>
+
+    override fun intercept(
+        context: BattleMutationInterceptionContext,
+        attachedEffectProcessor: BattleAttachedEffectProcessor,
+    ): BattleMutationInterceptionResult {
+<span class="fc" id="L27">        val mutation =</span>
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">            context.mutation as? ClearBoostsMutation</span>
+<span class="nc" id="L29">                ?: return BattleMutationInterceptionResult(context.snapshot, true, context.mutation)</span>
+<span class="fc" id="L30">        val targetUnitIds =</span>
+<span class="fc" id="L31">            MutationTargetSelectorResolver.resolve(</span>
+<span class="fc" id="L32">                mutation.target,</span>
+<span class="fc" id="L33">                BattleMutationInterceptorSupport.mutationApplicationContext(context),</span>
+            )
+<span class="fc" id="L35">        var currentSnapshot = context.snapshot</span>
+<span class="fc" id="L36">        var blocked = false</span>
+
+<span class="fc" id="L38">        targetUnitIds.forEach { affectedTargetId -&gt;</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">            val affectedUnit = currentSnapshot.units[affectedTargetId] ?: return@forEach</span>
+<span class="fc" id="L40">            val currentBoosts = BattleStatStageSupport.normalizeStoredBoosts(affectedUnit.boosts)</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            val boostChanged = currentBoosts.isNotEmpty()</span>
+<span class="fc" id="L42">            val result =</span>
+<span class="fc" id="L43">                attachedEffectProcessor.process(</span>
+<span class="fc" id="L44">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L45">                    unitId = affectedTargetId,</span>
+<span class="fc" id="L46">                    hookName = StandardHookNames.ON_CLEAR_BOOSTS.value,</span>
+<span class="fc" id="L47">                    targetId = affectedTargetId,</span>
+<span class="fc" id="L48">                    sourceId = context.sourceId,</span>
+<span class="fc" id="L49">                    relay = true,</span>
+                    attributes =
+<span class="fc" id="L51">                        BattleBoostContextSupport.createOnClearBoostsAttributes(</span>
+<span class="fc" id="L52">                            currentBoosts = currentBoosts,</span>
+                            targetRelation =
+<span class="fc" id="L54">                                BattleMutationInterceptorSupport.resolveTargetRelation(</span>
+<span class="fc" id="L55">                                    currentSnapshot,</span>
+<span class="fc" id="L56">                                    context.sourceId,</span>
+<span class="fc" id="L57">                                    affectedTargetId,</span>
+                                ),
+                        ),
+                )
+<span class="fc" id="L61">            currentSnapshot = result.snapshot</span>
+<span class="pc bpc" id="L62" title="3 of 6 branches missed.">            if (boostChanged &amp;&amp; (result.cancelled || result.relay == false)) {</span>
+<span class="fc" id="L63">                blocked = true</span>
+            }
+<span class="fc" id="L65">        }</span>
+
+<span class="fc" id="L67">        return BattleMutationInterceptionResult(</span>
+<span class="fc" id="L68">            snapshot = currentSnapshot,</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            allowed = !blocked,</span>
+<span class="fc" id="L70">            mutation = mutation,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

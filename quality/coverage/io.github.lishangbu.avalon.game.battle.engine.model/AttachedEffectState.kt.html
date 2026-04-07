@@ -11,13 +11,15 @@
  * @property sourceId effect 来源对象标识。
  * @property duration 剩余持续时间，空值表示无固定持续回合。
  * @property effectOrder effect 挂载顺序，用于稳定 tie-break。
- * @property flags effect 自身维护的轻量字符串标记集合。
+ * @property internalState effect 自身维护的内部工作状态集合。
+ * @property debugFlags effect 对外可观测的轻量调试标记集合。
  */
-<span class="nc" id="L16">data class AttachedEffectState(</span>
-<span class="nc" id="L17">    val effectId: String,</span>
-<span class="nc" id="L18">    val sourceId: String? = null,</span>
-<span class="nc" id="L19">    val duration: Int? = null,</span>
-<span class="nc" id="L20">    val effectOrder: Int = 0,</span>
-<span class="nc" id="L21">    val flags: Map&lt;String, String&gt; = emptyMap(),</span>
-<span class="nc" id="L22">)</span>
+<span class="fc" id="L17">data class AttachedEffectState(</span>
+<span class="fc" id="L18">    val effectId: String,</span>
+<span class="fc" id="L19">    val sourceId: String? = null,</span>
+<span class="fc" id="L20">    val duration: Int? = null,</span>
+<span class="fc" id="L21">    val effectOrder: Int = 0,</span>
+<span class="fc" id="L22">    val internalState: Map&lt;String, String&gt; = emptyMap(),</span>
+<span class="fc" id="L23">    val debugFlags: Map&lt;String, String&gt; = emptyMap(),</span>
+<span class="fc" id="L24">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

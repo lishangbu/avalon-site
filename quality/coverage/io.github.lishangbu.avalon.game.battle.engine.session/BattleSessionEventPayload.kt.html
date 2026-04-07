@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
  * battle session 结构化事件 payload。
  *
  * 设计意图：
- * - 用强类型 payload 取代 `BattleSessionEvent` 内部字符串化的 attributes 写入方式。
- * - 保留 `type` 与 `attributes` 的统一派生能力，兼容现有读模型。
+ * - 用强类型 payload 取代松散的 attributes 映射。
+ * - 让 session 事件边界直接暴露真实 payload，而不是再退化成松散 map。
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = &quot;@class&quot;)
 interface BattleSessionEventPayload {
@@ -15,13 +15,6 @@ interface BattleSessionEventPayload {
      * 当前 payload 对应的结构化事件类型。
      */
     val type: BattleSessionEventType
-
-    /**
-     * 把强类型 payload 映射为兼容现有读模型的 attributes 结构。
-     *
-     * @return 与旧事件模型兼容的属性映射。
-     */
-<span class="fc" id="L24">    fun toAttributes(): Map&lt;String, Any?&gt; = emptyMap()</span>
 }
 
 /**
@@ -29,17 +22,13 @@ interface BattleSessionEventPayload {
  *
  * 设计意图：
  * - 为 queued/executed/battle-ended 等事件提供比裸字符串更明确的动作语义。
- *
- * @property wireValue 与既有 `attributes[&quot;actionType&quot;]` 兼容的字符串值。
  */
-<span class="fc" id="L35">enum class BattleSessionActionEventKind(</span>
-<span class="fc" id="L36">    val wireValue: String,</span>
-) {
-<span class="fc" id="L38">    MOVE(&quot;move&quot;),</span>
-<span class="fc" id="L39">    SWITCH(&quot;switch&quot;),</span>
-<span class="fc" id="L40">    ITEM(&quot;item&quot;),</span>
-<span class="fc" id="L41">    CAPTURE(&quot;capture&quot;),</span>
-<span class="fc" id="L42">    RUN(&quot;run&quot;),</span>
-<span class="fc" id="L43">    WAIT(&quot;wait&quot;),</span>
+enum class BattleSessionActionEventKind {
+<span class="fc" id="L27">    MOVE,</span>
+<span class="fc" id="L28">    SWITCH,</span>
+<span class="fc" id="L29">    ITEM,</span>
+<span class="fc" id="L30">    CAPTURE,</span>
+<span class="fc" id="L31">    RUN,</span>
+<span class="fc" id="L32">    WAIT,</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

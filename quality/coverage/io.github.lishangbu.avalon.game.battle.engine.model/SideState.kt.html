@@ -10,10 +10,12 @@
  * @property id Side 唯一标识。
  * @property unitIds 当前 side 名下全部单位标识列表。
  * @property activeUnitIds 当前处于 active 槽位的单位标识列表。
+ * @property conditionStates 当前 side condition 的运行时状态表。
  */
-<span class="fc" id="L14">data class SideState(</span>
-<span class="fc" id="L15">    val id: String,</span>
-<span class="fc" id="L16">    val unitIds: List&lt;String&gt; = emptyList(),</span>
-<span class="fc" id="L17">    val activeUnitIds: List&lt;String&gt; = emptyList(),</span>
-<span class="fc" id="L18">)</span>
+<span class="fc" id="L15">data class SideState(</span>
+<span class="fc" id="L16">    val id: String,</span>
+<span class="fc" id="L17">    val unitIds: List&lt;String&gt; = emptyList(),</span>
+<span class="fc" id="L18">    val activeUnitIds: List&lt;String&gt; = emptyList(),</span>
+<span class="fc" id="L19">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L20">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

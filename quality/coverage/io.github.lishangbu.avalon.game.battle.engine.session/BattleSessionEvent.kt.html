@@ -15,11 +15,5 @@
      */
     val type: BattleSessionEventType
 <span class="fc" id="L17">        get() = payload.type</span>
-
-    /**
-     * 与旧读模型兼容的事件属性映射。
-     */
-    val attributes: Map&lt;String, Any?&gt;
-<span class="fc" id="L23">        get() = payload.toAttributes()</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

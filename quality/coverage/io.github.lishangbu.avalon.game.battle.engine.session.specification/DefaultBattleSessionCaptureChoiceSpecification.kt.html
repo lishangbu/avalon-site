@@ -49,7 +49,16 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSession
             )
         }
 
-<span class="fc" id="L52">        return BattleSessionValidationResult.satisfied()</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (session.currentSnapshot.units[targetUnitId]</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                ?.metadata</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                ?.captureRate == null</span>
+        ) {
+<span class="fc" id="L56">            return BattleSessionValidationResult.rejected(</span>
+<span class="fc" id="L57">                &quot;Target unit '$targetUnitId' is missing capture metadata.&quot;,</span>
+            )
+        }
+
+<span class="fc" id="L61">        return BattleSessionValidationResult.satisfied()</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
