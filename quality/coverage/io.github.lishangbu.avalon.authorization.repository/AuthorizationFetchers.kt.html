@@ -5,46 +5,34 @@ import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 
 /** 认证模块常用对象抓取器 */
 internal object AuthorizationFetchers {
-    /** 用户标量字段抓取器 */
-<span class="fc" id="L9">    val USER =</span>
+    /** 用户及角色抓取器 */
+<span class="fc" id="L9">    val USER_WITH_ROLES =</span>
 <span class="fc" id="L10">        newFetcher(User::class).`by` {</span>
 <span class="fc" id="L11">            allScalarFields()</span>
-<span class="fc" id="L12">        }</span>
-
-    /** 用户及角色抓取器 */
-<span class="fc" id="L15">    val USER_WITH_ROLES =</span>
-<span class="fc" id="L16">        newFetcher(User::class).`by` {</span>
-<span class="fc" id="L17">            allScalarFields()</span>
-<span class="fc" id="L18">            roles {</span>
-<span class="fc" id="L19">                allScalarFields()</span>
-<span class="fc" id="L20">            }</span>
-<span class="fc" id="L21">        }</span>
-
-    /** 角色标量字段抓取器 */
-<span class="fc" id="L24">    val ROLE =</span>
-<span class="fc" id="L25">        newFetcher(Role::class).`by` {</span>
-<span class="fc" id="L26">            allScalarFields()</span>
-<span class="fc" id="L27">        }</span>
+<span class="fc" id="L12">            roles {</span>
+<span class="fc" id="L13">                allScalarFields()</span>
+<span class="fc" id="L14">            }</span>
+<span class="fc" id="L15">        }</span>
 
     /** 角色及菜单抓取器 */
-<span class="fc" id="L30">    val ROLE_WITH_MENUS =</span>
-<span class="fc" id="L31">        newFetcher(Role::class).`by` {</span>
-<span class="fc" id="L32">            allScalarFields()</span>
-<span class="fc" id="L33">            menus {</span>
-<span class="fc" id="L34">                allScalarFields()</span>
-<span class="fc" id="L35">                parent {</span>
-<span class="fc" id="L36">                    allScalarFields()</span>
-<span class="fc" id="L37">                }</span>
-<span class="fc" id="L38">            }</span>
-<span class="fc" id="L39">        }</span>
+<span class="fc" id="L18">    val ROLE_WITH_MENUS =</span>
+<span class="fc" id="L19">        newFetcher(Role::class).`by` {</span>
+<span class="fc" id="L20">            allScalarFields()</span>
+<span class="fc" id="L21">            menus {</span>
+<span class="fc" id="L22">                allScalarFields()</span>
+<span class="fc" id="L23">                parent {</span>
+<span class="fc" id="L24">                    allScalarFields()</span>
+<span class="fc" id="L25">                }</span>
+<span class="fc" id="L26">            }</span>
+<span class="fc" id="L27">        }</span>
 
     /** 菜单标量字段抓取器 */
-<span class="fc" id="L42">    val MENU =</span>
-<span class="fc" id="L43">        newFetcher(Menu::class).`by` {</span>
-<span class="fc" id="L44">            allScalarFields()</span>
-<span class="fc" id="L45">            parent {</span>
-<span class="fc" id="L46">                allScalarFields()</span>
-<span class="fc" id="L47">            }</span>
-<span class="fc" id="L48">        }</span>
+<span class="fc" id="L30">    val MENU =</span>
+<span class="fc" id="L31">        newFetcher(Menu::class).`by` {</span>
+<span class="fc" id="L32">            allScalarFields()</span>
+<span class="fc" id="L33">            parent {</span>
+<span class="fc" id="L34">                allScalarFields()</span>
+<span class="fc" id="L35">            }</span>
+<span class="fc" id="L36">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

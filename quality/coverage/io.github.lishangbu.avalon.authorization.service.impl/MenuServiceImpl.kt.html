@@ -120,7 +120,7 @@ import org.springframework.transaction.annotation.Transactional
     private fun detachMenuFromRoles(menuId: Long) {
 <span class="fc" id="L121">        val roles =</span>
 <span class="fc" id="L122">            roleRepository</span>
-<span class="fc" id="L123">                .listWithMenus(null)</span>
+<span class="fc" id="L123">                .listEntitiesWithMenus(null)</span>
 <span class="fc bfc" id="L124" title="All 2 branches covered.">                .filter { role -&gt; role.menus.any { menu -&gt; menu.id == menuId } }</span>
 
 <span class="fc" id="L126">        roles.forEach { role -&gt;</span>

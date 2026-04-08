@@ -17,27 +17,37 @@ import org.springframework.data.domain.Sort
  * @since 2026/2/11
  */
 interface StatRepository : KRepository&lt;Stat, Long&gt; {
+    /** 查询核心能力值定义，过滤仅战斗可用项并按游戏索引排序 */
+    fun listCoreStats(): List&lt;Stat&gt; =
+<span class="nc" id="L22">        sql</span>
+<span class="nc" id="L23">            .createQuery(Stat::class) {</span>
+<span class="nc" id="L24">                where(table.battleOnly eq false)</span>
+<span class="nc" id="L25">                orderBy(CORE_STAT_SORT)</span>
+<span class="nc" id="L26">                select(table)</span>
+<span class="nc" id="L27">            }.execute()</span>
+
     /** 按条件查询能力值列表 */
     fun listViews(specification: StatSpecification?): List&lt;StatView&gt; =
-<span class="fc" id="L22">        sql</span>
-<span class="fc" id="L23">            .createQuery(Stat::class) {</span>
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">                specification?.let(::where)</span>
-<span class="fc" id="L25">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L26">                select(table.fetch(StatView::class))</span>
-<span class="fc" id="L27">            }.execute()</span>
-
-    /** 按 ID 查询能力值 */
-    fun loadViewById(id: Long): StatView? =
 <span class="fc" id="L31">        sql</span>
 <span class="fc" id="L32">            .createQuery(Stat::class) {</span>
-<span class="fc" id="L33">                where(table.id eq id)</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                specification?.let(::where)</span>
 <span class="fc" id="L34">                orderBy(DEFAULT_SORT)</span>
 <span class="fc" id="L35">                select(table.fetch(StatView::class))</span>
 <span class="fc" id="L36">            }.execute()</span>
-<span class="fc" id="L37">            .firstOrNull()</span>
+
+    /** 按 ID 查询能力值 */
+    fun loadViewById(id: Long): StatView? =
+<span class="fc" id="L40">        sql</span>
+<span class="fc" id="L41">            .createQuery(Stat::class) {</span>
+<span class="fc" id="L42">                where(table.id eq id)</span>
+<span class="fc" id="L43">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L44">                select(table.fetch(StatView::class))</span>
+<span class="fc" id="L45">            }.execute()</span>
+<span class="fc" id="L46">            .firstOrNull()</span>
 
     companion object {
-<span class="fc" id="L40">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+<span class="fc" id="L49">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+<span class="fc" id="L50">        private val CORE_STAT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;))</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

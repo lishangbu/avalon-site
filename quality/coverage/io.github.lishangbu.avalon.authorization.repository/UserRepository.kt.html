@@ -20,45 +20,45 @@ import org.springframework.data.domain.Sort
  */
 interface UserRepository : KRepository&lt;User, Long&gt; {
     /** 按条件查询用户列表 */
-    fun findAll(specification: Specification&lt;User&gt;?): List&lt;User&gt; =
+    fun findAll(specification: Specification&lt;User&gt;?): List&lt;UserView&gt; =
 <span class="fc" id="L24">        sql</span>
 <span class="fc" id="L25">            .createQuery(User::class) {</span>
 <span class="pc bpc" id="L26" title="1 of 2 branches missed.">                specification?.let(::where)</span>
 <span class="fc" id="L27">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L28">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="fc" id="L28">                select(table.fetch(UserView::class))</span>
 <span class="fc" id="L29">            }.execute()</span>
 
     /** 按条件分页查询用户 */
     fun findAll(
         specification: Specification&lt;User&gt;?,
         pageable: Pageable,
-    ): Page&lt;User&gt; =
+    ): Page&lt;UserView&gt; =
 <span class="fc" id="L36">        sql</span>
 <span class="fc" id="L37">            .createQuery(User::class) {</span>
 <span class="pc bpc" id="L38" title="1 of 2 branches missed.">                specification?.let(::where)</span>
 <span class="fc" id="L39">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L40">                select(table.fetch(AuthorizationFetchers.USER))</span>
+<span class="fc" id="L40">                select(table.fetch(UserView::class))</span>
 <span class="fc" id="L41">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按条件查询用户列表，并抓取角色 */
-    fun listWithRoles(specification: Specification&lt;User&gt;?): List&lt;User&gt; =
+    fun listWithRoles(specification: Specification&lt;User&gt;?): List&lt;UserView&gt; =
 <span class="fc" id="L45">        sql</span>
 <span class="fc" id="L46">            .createQuery(User::class) {</span>
 <span class="pc bpc" id="L47" title="1 of 2 branches missed.">                specification?.let(::where)</span>
 <span class="fc" id="L48">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L49">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L49">                select(table.fetch(UserView::class))</span>
 <span class="fc" id="L50">            }.execute()</span>
 
     /** 按条件分页查询用户，并抓取角色 */
     fun pageWithRoles(
         specification: Specification&lt;User&gt;?,
         pageable: Pageable,
-    ): Page&lt;User&gt; =
+    ): Page&lt;UserView&gt; =
 <span class="fc" id="L57">        sql</span>
 <span class="fc" id="L58">            .createQuery(User::class) {</span>
 <span class="pc bpc" id="L59" title="1 of 2 branches missed.">                specification?.let(::where)</span>
 <span class="fc" id="L60">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L61">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L61">                select(table.fetch(UserView::class))</span>
 <span class="fc" id="L62">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按条件分页查询用户视图 */
