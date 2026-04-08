@@ -35,8 +35,8 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc" id="L35">    override fun listByCondition(specification: EncounterConditionValueSpecification): List&lt;EncounterConditionValueView&gt; = encounterConditionValueRepository.listViews(specification)</span>
 
     private fun reloadView(encounterConditionValue: EncounterConditionValue): EncounterConditionValueView =
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        requireNotNull(encounterConditionValueRepository.loadViewById(encounterConditionValue.id)) {</span>
-<span class="nc" id="L39">            &quot;未找到 ID=${encounterConditionValue.id} 对应的遭遇条件值&quot;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        requireNotNull(encounterConditionValueRepository.loadViewById(encounterConditionValue.id)) {</span>
+<span class="fc" id="L39">            &quot;未找到 ID=${encounterConditionValue.id} 对应的遭遇条件值&quot;</span>
 <span class="fc" id="L40">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

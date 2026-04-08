@@ -33,209 +33,209 @@ import java.util.Locale
 <span class="fc" id="L33">                )</span>
             }
 
-<span class="fc" id="L36">        val finalMultiplierPercent =</span>
-<span class="fc bfc" id="L37" title="All 4 branches covered.">            if (matchupEvaluations.any { it.multiplierPercent == null }) {</span>
-<span class="fc" id="L38">                null</span>
+<span class="fc" id="L36">        val configuredMultipliers = matchupEvaluations.map { evaluation -&gt; evaluation.multiplierPercent }</span>
+<span class="fc" id="L37">        val finalMultiplierPercent =</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">            if (configuredMultipliers.any { multiplierPercent -&gt; multiplierPercent == null }) {</span>
+<span class="fc" id="L39">                null</span>
             } else {
-<span class="fc" id="L40">                matchupEvaluations.fold(TypeEffectivenessMultiplierCodec.ONE_X_PERCENT) { acc, evaluation -&gt;</span>
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                    TypeEffectivenessMultiplierCodec.multiplyStoredPercents(acc, requireNotNull(evaluation.multiplierPercent))</span>
-                }
+<span class="fc" id="L41">                configuredMultipliers</span>
+<span class="fc" id="L42">                    .filterNotNull()</span>
+<span class="fc" id="L43">                    .fold(TypeEffectivenessMultiplierCodec.ONE_X_PERCENT) { acc, multiplierPercent -&gt;</span>
+<span class="fc" id="L44">                        TypeEffectivenessMultiplierCodec.multiplyStoredPercents(acc, multiplierPercent)</span>
+                    }
             }
 
-<span class="fc" id="L45">        return TypeEffectivenessResult(</span>
-<span class="fc" id="L46">            attackingType = attacking.apiView,</span>
+<span class="fc" id="L48">        return TypeEffectivenessResult(</span>
+<span class="fc" id="L49">            attackingType = attacking.apiView,</span>
             defendingTypes =
-<span class="fc" id="L48">                matchupEvaluations.map { evaluation -&gt;</span>
-<span class="fc" id="L49">                    TypeEffectivenessMatchup(</span>
-<span class="fc" id="L50">                        defendingType = evaluation.defending.apiView,</span>
-<span class="fc" id="L51">                        multiplier = TypeEffectivenessMultiplierCodec.decode(evaluation.multiplierPercent),</span>
-<span class="fc" id="L52">                        status = cellStatusOf(evaluation.multiplierPercent),</span>
-<span class="fc" id="L53">                    )</span>
+<span class="fc" id="L51">                matchupEvaluations.map { evaluation -&gt;</span>
+<span class="fc" id="L52">                    TypeEffectivenessMatchup(</span>
+<span class="fc" id="L53">                        defendingType = evaluation.defending.apiView,</span>
+<span class="fc" id="L54">                        multiplier = TypeEffectivenessMultiplierCodec.decode(evaluation.multiplierPercent),</span>
+<span class="fc" id="L55">                        status = cellStatusOf(evaluation.multiplierPercent),</span>
+<span class="fc" id="L56">                    )</span>
                 },
-<span class="fc" id="L55">            finalMultiplier = TypeEffectivenessMultiplierCodec.decode(finalMultiplierPercent),</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">            status = if (finalMultiplierPercent == null) STATUS_INCOMPLETE else STATUS_COMPLETE,</span>
-<span class="fc" id="L57">            effectiveness = effectivenessOf(finalMultiplierPercent),</span>
+<span class="fc" id="L58">            finalMultiplier = TypeEffectivenessMultiplierCodec.decode(finalMultiplierPercent),</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            status = if (finalMultiplierPercent == null) STATUS_INCOMPLETE else STATUS_COMPLETE,</span>
+<span class="fc" id="L60">            effectiveness = effectivenessOf(finalMultiplierPercent),</span>
         )
     }
 
-<span class="fc" id="L61">    override fun getChart(): TypeEffectivenessChart = buildChart(loadMatrixContext())</span>
+<span class="fc" id="L64">    override fun getChart(): TypeEffectivenessChart = buildChart(loadMatrixContext())</span>
 
     @Transactional(rollbackFor = [Exception::class])
     override fun upsertMatrix(command: UpsertTypeEffectivenessMatrixCommand): TypeEffectivenessChart {
-<span class="fc" id="L65">        val context = loadMatrixContext()</span>
-<span class="fc" id="L66">        val normalizedCells = normalizeMatrixCells(command.cells)</span>
-<span class="fc" id="L67">        normalizedCells.forEach { cell -&gt;</span>
-<span class="fc" id="L68">            val attacking = context.requireType(cell.attackingType, &quot;cells.attackingType&quot;)</span>
-<span class="fc" id="L69">            val defending = context.requireType(cell.defendingType, &quot;cells.defendingType&quot;)</span>
-<span class="fc" id="L70">            val id =</span>
-<span class="fc" id="L71">                TypeEffectivenessEntryId {</span>
-<span class="fc" id="L72">                    attackingTypeId = attacking.id</span>
-<span class="fc" id="L73">                    defendingTypeId = defending.id</span>
-<span class="fc" id="L74">                }</span>
-<span class="fc" id="L75">            val multiplierPercent = cell.multiplierPercent</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">            if (multiplierPercent == null) {</span>
-<span class="fc" id="L77">                typeEffectivenessEntryRepository.deleteById(id)</span>
+<span class="fc" id="L68">        val context = loadMatrixContext()</span>
+<span class="fc" id="L69">        val normalizedCells = normalizeMatrixCells(command.cells)</span>
+<span class="fc" id="L70">        normalizedCells.forEach { cell -&gt;</span>
+<span class="fc" id="L71">            val attacking = context.requireType(cell.attackingType, &quot;cells.attackingType&quot;)</span>
+<span class="fc" id="L72">            val defending = context.requireType(cell.defendingType, &quot;cells.defendingType&quot;)</span>
+<span class="fc" id="L73">            val id =</span>
+<span class="fc" id="L74">                TypeEffectivenessEntryId {</span>
+<span class="fc" id="L75">                    attackingTypeId = attacking.id</span>
+<span class="fc" id="L76">                    defendingTypeId = defending.id</span>
+<span class="fc" id="L77">                }</span>
+<span class="fc" id="L78">            val multiplierPercent = cell.multiplierPercent</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            if (multiplierPercent == null) {</span>
+<span class="fc" id="L80">                typeEffectivenessEntryRepository.deleteById(id)</span>
             } else {
                 // API 层传入的是自然倍率；真正写入数据库前必须先编码成整数百分比。
-<span class="fc" id="L80">                typeEffectivenessEntryRepository.save(</span>
-<span class="fc" id="L81">                    TypeEffectivenessEntry {</span>
-<span class="fc" id="L82">                        this.id = id</span>
-<span class="fc" id="L83">                        this.multiplierPercent = multiplierPercent</span>
-<span class="fc" id="L84">                    },</span>
-<span class="fc" id="L85">                    SaveMode.UPSERT,</span>
+<span class="fc" id="L83">                typeEffectivenessEntryRepository.save(</span>
+<span class="fc" id="L84">                    TypeEffectivenessEntry {</span>
+<span class="fc" id="L85">                        this.id = id</span>
+<span class="fc" id="L86">                        this.multiplierPercent = multiplierPercent</span>
+<span class="fc" id="L87">                    },</span>
+<span class="fc" id="L88">                    SaveMode.UPSERT,</span>
                 )
             }
-<span class="fc" id="L88">        }</span>
-<span class="fc" id="L89">        return buildChart(loadMatrixContext())</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">        return buildChart(loadMatrixContext())</span>
     }
 
     private fun buildChart(context: TypeEffectivenessContext): TypeEffectivenessChart {
-<span class="fc" id="L93">        val expectedPairs = context.supportedTypes.size * context.supportedTypes.size</span>
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        val configuredPairs = context.storedMultipliers.count { (_, multiplierPercent) -&gt; multiplierPercent != null }</span>
-<span class="fc" id="L95">        val rows =</span>
-<span class="fc" id="L96">            context.supportedTypes.map { attacking -&gt;</span>
-<span class="fc" id="L97">                TypeEffectivenessRow(</span>
-<span class="fc" id="L98">                    attackingType = attacking.apiView,</span>
+<span class="fc" id="L96">        val expectedPairs = context.supportedTypes.size * context.supportedTypes.size</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        val configuredPairs = context.storedMultipliers.count { (_, multiplierPercent) -&gt; multiplierPercent != null }</span>
+<span class="fc" id="L98">        val rows =</span>
+<span class="fc" id="L99">            context.supportedTypes.map { attacking -&gt;</span>
+<span class="fc" id="L100">                TypeEffectivenessRow(</span>
+<span class="fc" id="L101">                    attackingType = attacking.apiView,</span>
                     cells =
-<span class="fc" id="L100">                        context.supportedTypes.map { defending -&gt;</span>
-<span class="fc" id="L101">                            val multiplierPercent = context.storedMultipliers[attacking.internalName to defending.internalName]</span>
-<span class="fc" id="L102">                            TypeEffectivenessCell(</span>
-<span class="fc" id="L103">                                defendingType = defending.apiView,</span>
-<span class="fc" id="L104">                                multiplier = TypeEffectivenessMultiplierCodec.decode(multiplierPercent),</span>
-<span class="fc" id="L105">                                status = cellStatusOf(multiplierPercent),</span>
-<span class="fc" id="L106">                            )</span>
+<span class="fc" id="L103">                        context.supportedTypes.map { defending -&gt;</span>
+<span class="fc" id="L104">                            val multiplierPercent = context.storedMultipliers[attacking.internalName to defending.internalName]</span>
+<span class="fc" id="L105">                            TypeEffectivenessCell(</span>
+<span class="fc" id="L106">                                defendingType = defending.apiView,</span>
+<span class="fc" id="L107">                                multiplier = TypeEffectivenessMultiplierCodec.decode(multiplierPercent),</span>
+<span class="fc" id="L108">                                status = cellStatusOf(multiplierPercent),</span>
+<span class="fc" id="L109">                            )</span>
                         },
-<span class="fc" id="L108">                )</span>
+<span class="fc" id="L111">                )</span>
             }
-<span class="fc" id="L110">        return TypeEffectivenessChart(</span>
-<span class="fc" id="L111">            supportedTypes = context.supportedTypes.map { it.apiView },</span>
+<span class="fc" id="L113">        return TypeEffectivenessChart(</span>
+<span class="fc" id="L114">            supportedTypes = context.supportedTypes.map { it.apiView },</span>
             completeness =
-<span class="fc" id="L113">                TypeEffectivenessCompleteness(</span>
-<span class="fc" id="L114">                    expectedPairs = expectedPairs,</span>
-<span class="fc" id="L115">                    configuredPairs = configuredPairs,</span>
-<span class="fc" id="L116">                    missingPairs = expectedPairs - configuredPairs,</span>
+<span class="fc" id="L116">                TypeEffectivenessCompleteness(</span>
+<span class="fc" id="L117">                    expectedPairs = expectedPairs,</span>
+<span class="fc" id="L118">                    configuredPairs = configuredPairs,</span>
+<span class="fc" id="L119">                    missingPairs = expectedPairs - configuredPairs,</span>
                 ),
-<span class="fc" id="L118">            rows = rows,</span>
+<span class="fc" id="L121">            rows = rows,</span>
         )
     }
 
     private fun loadContext(): TypeEffectivenessContext {
-<span class="fc" id="L123">        val supportedTypes =</span>
-<span class="fc" id="L124">            loadSupportedTypes()</span>
-<span class="fc" id="L125">                .sortedBy { type -&gt; type.id }</span>
+<span class="fc" id="L126">        val supportedTypes =</span>
+<span class="fc" id="L127">            loadSupportedTypes()</span>
+<span class="fc" id="L128">                .sortedBy { type -&gt; type.id }</span>
 
-<span class="fc" id="L127">        return TypeEffectivenessContext(</span>
-<span class="fc" id="L128">            supportedTypes = supportedTypes,</span>
-<span class="fc" id="L129">            typesByInternalName = supportedTypes.associateBy { it.internalName },</span>
-<span class="fc" id="L130">            storedMultipliers = loadStoredMultipliers(supportedTypes),</span>
+<span class="fc" id="L130">        return TypeEffectivenessContext(</span>
+<span class="fc" id="L131">            supportedTypes = supportedTypes,</span>
+<span class="fc" id="L132">            typesByInternalName = supportedTypes.associateBy { it.internalName },</span>
+<span class="fc" id="L133">            storedMultipliers = loadStoredMultipliers(supportedTypes),</span>
         )
     }
 
     private fun loadMatrixContext(): TypeEffectivenessContext {
-<span class="fc" id="L135">        val supportedTypes =</span>
-<span class="fc" id="L136">            loadSupportedTypes()</span>
-<span class="fc" id="L137">                .filter { type -&gt; type.battleOnly == false }</span>
-<span class="fc" id="L138">                .sortedBy { type -&gt; type.id }</span>
+<span class="fc" id="L138">        val supportedTypes =</span>
+<span class="fc" id="L139">            loadSupportedTypes()</span>
+<span class="fc" id="L140">                .sortedBy { type -&gt; type.id }</span>
 
-<span class="fc" id="L140">        return TypeEffectivenessContext(</span>
-<span class="fc" id="L141">            supportedTypes = supportedTypes,</span>
-<span class="fc" id="L142">            typesByInternalName = supportedTypes.associateBy { it.internalName },</span>
-<span class="fc" id="L143">            storedMultipliers = loadStoredMultipliers(supportedTypes),</span>
+<span class="fc" id="L142">        return TypeEffectivenessContext(</span>
+<span class="fc" id="L143">            supportedTypes = supportedTypes,</span>
+<span class="fc" id="L144">            typesByInternalName = supportedTypes.associateBy { it.internalName },</span>
+<span class="fc" id="L145">            storedMultipliers = loadStoredMultipliers(supportedTypes),</span>
         )
     }
 
     private fun loadSupportedTypes(): List&lt;SupportedTypeView&gt; =
-<span class="fc" id="L148">        typeRepository</span>
-<span class="fc" id="L149">            .findAll()</span>
-<span class="fc" id="L150">            .map { entity -&gt; entity.toSupportedTypeView() }</span>
+<span class="fc" id="L150">        typeRepository</span>
+<span class="fc" id="L151">            .findAll()</span>
+<span class="fc" id="L152">            .map { entity -&gt; entity.toSupportedTypeView() }</span>
 
     private fun loadStoredMultipliers(supportedTypes: List&lt;SupportedTypeView&gt;): Map&lt;Pair&lt;String, String&gt;, Int?&gt; {
-<span class="fc" id="L153">        val supportedTypeIds = supportedTypes.associateBy({ it.id }, { it.internalName })</span>
-<span class="fc" id="L154">        return typeEffectivenessEntryRepository</span>
-<span class="fc" id="L155">            .listByFilter(</span>
-<span class="fc" id="L156">                attackingTypeId = null,</span>
-<span class="fc" id="L157">                defendingTypeId = null,</span>
-<span class="fc" id="L158">                multiplierPercent = null,</span>
-<span class="fc" id="L159">            ).mapNotNull { entry -&gt;</span>
+<span class="fc" id="L155">        val supportedTypeIds = supportedTypes.associateBy({ it.id }, { it.internalName })</span>
+<span class="fc" id="L156">        return typeEffectivenessEntryRepository</span>
+<span class="fc" id="L157">            .listByFilter(</span>
+<span class="fc" id="L158">                attackingTypeId = null,</span>
+<span class="fc" id="L159">                defendingTypeId = null,</span>
+<span class="fc" id="L160">                multiplierPercent = null,</span>
+<span class="fc" id="L161">            ).mapNotNull { entry -&gt;</span>
                 // 上下文内部始终只缓存数据库中的定点整数，避免后续计算退回到浮点路径。
-<span class="fc bfc" id="L161" title="All 2 branches covered.">                val attackingInternalName = supportedTypeIds[entry.id.attackingTypeId] ?: return@mapNotNull null</span>
-<span class="fc bfc" id="L162" title="All 2 branches covered.">                val defendingInternalName = supportedTypeIds[entry.id.defendingTypeId] ?: return@mapNotNull null</span>
-<span class="fc" id="L163">                (attackingInternalName to defendingInternalName) to entry.multiplierPercent</span>
-<span class="fc" id="L164">            }.toMap(LinkedHashMap())</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">                val attackingInternalName = supportedTypeIds[entry.id.attackingTypeId] ?: return@mapNotNull null</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">                val defendingInternalName = supportedTypeIds[entry.id.defendingTypeId] ?: return@mapNotNull null</span>
+<span class="fc" id="L165">                (attackingInternalName to defendingInternalName) to entry.multiplierPercent</span>
+<span class="fc" id="L166">            }.toMap(LinkedHashMap())</span>
     }
 
     private fun normalizeDefendingTypes(defendingTypes: List&lt;String&gt;): List&lt;String&gt; {
-<span class="pc bpc" id="L168" title="2 of 4 branches missed.">        require(defendingTypes.isNotEmpty()) { &quot;defendingTypes must not be empty&quot; }</span>
-<span class="pc bpc" id="L169" title="2 of 4 branches missed.">        require(defendingTypes.size &lt;= 2) { &quot;defendingTypes supports at most 2 entries&quot; }</span>
-<span class="fc" id="L170">        val normalized =</span>
-<span class="fc" id="L171">            defendingTypes.map { defendingType -&gt;</span>
-<span class="fc" id="L172">                normalizeTypeName(defendingType, &quot;defendingTypes&quot;)</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">        require(defendingTypes.isNotEmpty()) { &quot;defendingTypes must not be empty&quot; }</span>
+<span class="fc bfc" id="L171" title="All 4 branches covered.">        require(defendingTypes.size &lt;= 2) { &quot;defendingTypes supports at most 2 entries&quot; }</span>
+<span class="fc" id="L172">        val normalized =</span>
+<span class="fc" id="L173">            defendingTypes.map { defendingType -&gt;</span>
+<span class="fc" id="L174">                normalizeTypeName(defendingType, &quot;defendingTypes&quot;)</span>
             }
-<span class="fc bfc" id="L174" title="All 4 branches covered.">        require(normalized.distinct().size == normalized.size) { &quot;defendingTypes must not contain duplicates&quot; }</span>
-<span class="fc" id="L175">        return normalized</span>
+<span class="fc bfc" id="L176" title="All 4 branches covered.">        require(normalized.distinct().size == normalized.size) { &quot;defendingTypes must not contain duplicates&quot; }</span>
+<span class="fc" id="L177">        return normalized</span>
     }
 
     private fun normalizeMatrixCells(cells: List&lt;TypeEffectivenessMatrixCellInput&gt;): List&lt;NormalizedMatrixCell&gt; {
-<span class="fc" id="L179">        val normalized =</span>
-<span class="fc" id="L180">            cells.map { cell -&gt;</span>
-<span class="fc" id="L181">                NormalizedMatrixCell(</span>
-<span class="fc" id="L182">                    attackingType = normalizeTypeName(cell.attackingType, &quot;cells.attackingType&quot;),</span>
-<span class="fc" id="L183">                    defendingType = normalizeTypeName(cell.defendingType, &quot;cells.defendingType&quot;),</span>
-<span class="fc" id="L184">                    multiplierPercent = TypeEffectivenessMultiplierCodec.encodeEntryMultiplier(cell.multiplier),</span>
-<span class="fc" id="L185">                )</span>
+<span class="fc" id="L181">        val normalized =</span>
+<span class="fc" id="L182">            cells.map { cell -&gt;</span>
+<span class="fc" id="L183">                NormalizedMatrixCell(</span>
+<span class="fc" id="L184">                    attackingType = normalizeTypeName(cell.attackingType, &quot;cells.attackingType&quot;),</span>
+<span class="fc" id="L185">                    defendingType = normalizeTypeName(cell.defendingType, &quot;cells.defendingType&quot;),</span>
+<span class="fc" id="L186">                    multiplierPercent = TypeEffectivenessMultiplierCodec.encodeEntryMultiplier(cell.multiplier),</span>
+<span class="fc" id="L187">                )</span>
             }
-<span class="fc" id="L187">        val keys = normalized.map { it.attackingType to it.defendingType }</span>
-<span class="pc bpc" id="L188" title="2 of 4 branches missed.">        require(keys.distinct().size == keys.size) { &quot;cells must not contain duplicate attackingType/defendingType pairs&quot; }</span>
-<span class="fc" id="L189">        return normalized</span>
+<span class="fc" id="L189">        val keys = normalized.map { it.attackingType to it.defendingType }</span>
+<span class="fc bfc" id="L190" title="All 4 branches covered.">        require(keys.distinct().size == keys.size) { &quot;cells must not contain duplicate attackingType/defendingType pairs&quot; }</span>
+<span class="fc" id="L191">        return normalized</span>
     }
 
     private fun normalizeTypeName(
         value: String,
         fieldName: String,
     ): String {
-<span class="fc" id="L196">        val normalized = value.trim().lowercase(Locale.ROOT)</span>
-<span class="pc bpc" id="L197" title="2 of 4 branches missed.">        require(normalized.isNotEmpty()) { &quot;$fieldName must not be blank&quot; }</span>
-<span class="fc" id="L198">        return normalized</span>
+<span class="fc" id="L198">        val normalized = value.trim().lowercase(Locale.ROOT)</span>
+<span class="fc bfc" id="L199" title="All 4 branches covered.">        require(normalized.isNotEmpty()) { &quot;$fieldName must not be blank&quot; }</span>
+<span class="fc" id="L200">        return normalized</span>
     }
 
     private fun Type.toSupportedTypeView(): SupportedTypeView {
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        val internalName = requireNotNull(internalName) { &quot;Type id=$id is missing internalName&quot; }.trim().lowercase(Locale.ROOT)</span>
-<span class="pc bpc" id="L203" title="2 of 4 branches missed.">        require(internalName.isNotEmpty()) { &quot;Type id=$id has blank internalName&quot; }</span>
-<span class="fc" id="L204">        return SupportedTypeView(</span>
-<span class="fc" id="L205">            id = id,</span>
-<span class="fc" id="L206">            battleOnly = battleOnly,</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        val internalName = requireNotNull(internalName) { &quot;Type id=$id is missing internalName&quot; }.trim().lowercase(Locale.ROOT)</span>
+<span class="fc bfc" id="L205" title="All 4 branches covered.">        require(internalName.isNotEmpty()) { &quot;Type id=$id has blank internalName&quot; }</span>
+<span class="fc" id="L206">        return SupportedTypeView(</span>
+<span class="fc" id="L207">            id = id,</span>
             apiView =
-<span class="fc" id="L208">                TypeEffectivenessTypeView(</span>
-<span class="fc" id="L209">                    internalName = internalName,</span>
-<span class="pc bpc" id="L210" title="1 of 2 branches missed.">                    name = requireNotNull(name) { &quot;Type $internalName is missing name&quot; },</span>
+<span class="fc" id="L209">                TypeEffectivenessTypeView(</span>
+<span class="fc" id="L210">                    internalName = internalName,</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">                    name = requireNotNull(name) { &quot;Type $internalName is missing name&quot; },</span>
                 ),
         )
     }
 
     private fun cellStatusOf(multiplierPercent: Int?): String =
-<span class="fc bfc" id="L216" title="All 2 branches covered.">        if (multiplierPercent == null) {</span>
-<span class="fc" id="L217">            STATUS_MISSING</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        if (multiplierPercent == null) {</span>
+<span class="fc" id="L218">            STATUS_MISSING</span>
         } else {
-<span class="fc" id="L219">            STATUS_CONFIGURED</span>
-<span class="fc" id="L220">        }</span>
+<span class="fc" id="L220">            STATUS_CONFIGURED</span>
+<span class="fc" id="L221">        }</span>
 
     private fun effectivenessOf(multiplierPercent: Int?): String =
-<span class="fc" id="L223">        when {</span>
-<span class="fc bfc" id="L224" title="All 2 branches covered.">            multiplierPercent == null -&gt; EFFECTIVENESS_INCOMPLETE</span>
-<span class="pc bpc" id="L225" title="1 of 2 branches missed.">            multiplierPercent == 0 -&gt; EFFECTIVENESS_IMMUNE</span>
-<span class="fc bfc" id="L226" title="All 2 branches covered.">            multiplierPercent &lt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_NOT_VERY_EFFECTIVE</span>
-<span class="pc bpc" id="L227" title="1 of 2 branches missed.">            multiplierPercent &gt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_SUPER_EFFECTIVE</span>
-<span class="nc" id="L228">            else -&gt; EFFECTIVENESS_NORMAL_EFFECTIVE</span>
-<span class="fc" id="L229">        }</span>
+<span class="fc" id="L224">        when {</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">            multiplierPercent == null -&gt; EFFECTIVENESS_INCOMPLETE</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">            multiplierPercent == 0 -&gt; EFFECTIVENESS_IMMUNE</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">            multiplierPercent &lt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_NOT_VERY_EFFECTIVE</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">            multiplierPercent &gt; TypeEffectivenessMultiplierCodec.ONE_X_PERCENT -&gt; EFFECTIVENESS_SUPER_EFFECTIVE</span>
+<span class="fc" id="L229">            else -&gt; EFFECTIVENESS_NORMAL_EFFECTIVE</span>
+<span class="fc" id="L230">        }</span>
 
-<span class="fc" id="L231">    private data class MatchupEvaluation(</span>
-<span class="fc" id="L232">        val defending: SupportedTypeView,</span>
-<span class="fc" id="L233">        val multiplierPercent: Int?,</span>
+<span class="fc" id="L232">    private data class MatchupEvaluation(</span>
+<span class="fc" id="L233">        val defending: SupportedTypeView,</span>
+<span class="fc" id="L234">        val multiplierPercent: Int?,</span>
     )
 
-<span class="fc" id="L236">    private data class SupportedTypeView(</span>
-<span class="fc" id="L237">        val id: Long,</span>
-<span class="fc" id="L238">        val battleOnly: Boolean?,</span>
+<span class="fc" id="L237">    private data class SupportedTypeView(</span>
+<span class="fc" id="L238">        val id: Long,</span>
 <span class="fc" id="L239">        val apiView: TypeEffectivenessTypeView,</span>
     ) {
         val internalName: String
@@ -250,7 +250,7 @@ import java.util.Locale
         fun requireType(
             internalName: String,
             fieldName: String,
-<span class="fc bfc" id="L253" title="All 2 branches covered.">        ): SupportedTypeView = requireNotNull(typesByInternalName[internalName]) { &quot;Unsupported $fieldName: $internalName&quot; }</span>
+<span class="pc bpc" id="L253" title="1 of 2 branches missed.">        ): SupportedTypeView = requireNotNull(typesByInternalName[internalName]) { &quot;Unsupported $fieldName: $internalName&quot; }</span>
     }
 
 <span class="fc" id="L256">    private data class NormalizedMatrixCell(</span>

@@ -69,8 +69,8 @@ internal object TypeEffectivenessMultiplierCodec {
         rightPercent: Int,
     ): Int {
 <span class="fc" id="L71">        val scaledProduct = leftPercent.toLong() * rightPercent.toLong()</span>
-<span class="pc bpc" id="L72" title="2 of 4 branches missed.">        check(scaledProduct % ONE_X_PERCENT.toLong() == 0L) {</span>
-<span class="nc" id="L73">            &quot;Stored multiplier product $scaledProduct cannot be represented with scale $ONE_X_PERCENT&quot;</span>
+<span class="fc bfc" id="L72" title="All 4 branches covered.">        check(scaledProduct % ONE_X_PERCENT.toLong() == 0L) {</span>
+<span class="fc" id="L73">            &quot;Stored multiplier product $scaledProduct cannot be represented with scale $ONE_X_PERCENT&quot;</span>
         }
 <span class="fc" id="L75">        return (scaledProduct / ONE_X_PERCENT).toInt()</span>
     }

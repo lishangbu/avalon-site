@@ -17,23 +17,26 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L17">class CreatureServiceImpl(</span>
 <span class="fc" id="L18">    private val creatureRepository: CreatureRepository,</span>
 ) : CreatureService {
+    /** 按筛选条件查询生物列表 */
+<span class="fc" id="L21">    override fun listByCondition(specification: CreatureSpecification): List&lt;CreatureView&gt; = creatureRepository.listViews(specification)</span>
+
     /** 按筛选条件分页查询生物 */
     override fun getPageByCondition(
         specification: CreatureSpecification,
         pageable: Pageable,
-<span class="fc" id="L24">    ): Page&lt;CreatureView&gt; = creatureRepository.pageViews(specification, pageable)</span>
+<span class="fc" id="L27">    ): Page&lt;CreatureView&gt; = creatureRepository.pageViews(specification, pageable)</span>
 
     /** 创建生物 */
-<span class="fc" id="L27">    override fun save(command: SaveCreatureInput): CreatureView = creatureRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
+<span class="fc" id="L30">    override fun save(command: SaveCreatureInput): CreatureView = creatureRepository.save(command.toEntity(), SaveMode.INSERT_ONLY).let(::reloadView)</span>
 
     /** 更新生物 */
-<span class="fc" id="L30">    override fun update(command: UpdateCreatureInput): CreatureView = creatureRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY).let(::reloadView)</span>
+<span class="fc" id="L33">    override fun update(command: UpdateCreatureInput): CreatureView = creatureRepository.save(command.toEntity(), SaveMode.UPDATE_ONLY).let(::reloadView)</span>
 
     /** 删除指定 ID 的生物 */
     override fun removeById(id: Long) {
-<span class="fc" id="L34">        creatureRepository.deleteById(id)</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L37">        creatureRepository.deleteById(id)</span>
+<span class="fc" id="L38">    }</span>
 
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">    private fun reloadView(creature: Creature): CreatureView = requireNotNull(creatureRepository.loadViewById(creature.id)) { &quot;未找到 ID=${creature.id} 对应的生物&quot; }</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">    private fun reloadView(creature: Creature): CreatureView = requireNotNull(creatureRepository.loadViewById(creature.id)) { &quot;未找到 ID=${creature.id} 对应的生物&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -34,13 +34,13 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L34">        statRepository.deleteById(id)</span>
 <span class="fc" id="L35">    }</span>
 
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.loadViewById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">    private fun reloadView(stat: Stat): StatView = requireNotNull(statRepository.loadViewById(stat.id)) { &quot;未找到 ID=${stat.id} 对应的能力值&quot; }</span>
 
     private fun requireStatEditable(
         id: Long,
         errorMessage: String,
     ) {
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        val stat = requireNotNull(statRepository.findNullable(id)) { &quot;未找到 ID=$id 对应的能力值&quot; }</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        val stat = requireNotNull(statRepository.findNullable(id)) { &quot;未找到 ID=$id 对应的能力值&quot; }</span>
 <span class="fc bfc" id="L44" title="All 2 branches covered.">        if (stat.readonly) {</span>
 <span class="fc" id="L45">            throw IllegalStateException(errorMessage)</span>
         }

@@ -24,33 +24,39 @@ import org.springframework.web.bind.annotation.RestController
 <span class="fc" id="L24">class CreatureController(</span>
 <span class="fc" id="L25">    private val creatureService: CreatureService,</span>
 ) {
+    /** 按筛选条件查询生物列表 */
+    @GetMapping(&quot;/list&quot;)
+    fun listCreatures(
+        @ModelAttribute specification: CreatureSpecification,
+<span class="fc" id="L31">    ): List&lt;CreatureView&gt; = creatureService.listByCondition(specification)</span>
+
     /** 按筛选条件分页查询生物 */
     @GetMapping(&quot;/page&quot;)
     fun getCreaturePage(
         pageable: Pageable,
         @ModelAttribute specification: CreatureSpecification,
-<span class="fc" id="L32">    ): Page&lt;CreatureView&gt; = creatureService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L38">    ): Page&lt;CreatureView&gt; = creatureService.getPageByCondition(specification, pageable)</span>
 
     /** 创建生物 */
     @PostMapping
     fun save(
         @Valid
         @RequestBody command: SaveCreatureInput,
-<span class="fc" id="L39">    ): CreatureView = creatureService.save(command)</span>
+<span class="fc" id="L45">    ): CreatureView = creatureService.save(command)</span>
 
     /** 更新生物 */
     @PutMapping
     fun update(
         @Valid
         @RequestBody command: UpdateCreatureInput,
-<span class="fc" id="L46">    ): CreatureView = creatureService.update(command)</span>
+<span class="fc" id="L52">    ): CreatureView = creatureService.update(command)</span>
 
     /** 删除指定 ID 的生物 */
     @DeleteMapping(&quot;/{id:\\d+}&quot;)
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L53">        creatureService.removeById(id)</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L59">        creatureService.removeById(id)</span>
+<span class="fc" id="L60">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

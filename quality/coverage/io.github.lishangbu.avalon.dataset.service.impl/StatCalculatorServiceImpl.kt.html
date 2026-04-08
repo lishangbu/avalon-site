@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatCalculatorServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.impl</a> &gt; <span class="el_source">StatCalculatorServiceImpl.kt</span></div><h1>StatCalculatorServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.impl
+
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureView
+import io.github.lishangbu.avalon.dataset.entity.dto.NatureView
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorCreaturePresetView
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorCreatureStatPresetView
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorEntryRequest
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorEntryResultView
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorNatureView
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorRequest
+import io.github.lishangbu.avalon.dataset.model.StatCalculatorResultView
+import io.github.lishangbu.avalon.dataset.repository.CreatureRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureStatRepository
+import io.github.lishangbu.avalon.dataset.repository.NatureRepository
+import io.github.lishangbu.avalon.dataset.repository.StatRepository
+import io.github.lishangbu.avalon.dataset.service.StatCalculatorService
+import io.github.lishangbu.avalon.game.calculator.stat.StatCalculatorFactory
+import org.springframework.stereotype.Service
+
+<span class="fc" id="L20">@Service</span>
+<span class="fc" id="L21">class StatCalculatorServiceImpl(</span>
+<span class="fc" id="L22">    private val creatureRepository: CreatureRepository,</span>
+<span class="fc" id="L23">    private val creatureStatRepository: CreatureStatRepository,</span>
+<span class="fc" id="L24">    private val statRepository: StatRepository,</span>
+<span class="fc" id="L25">    private val natureRepository: NatureRepository,</span>
+<span class="fc" id="L26">    private val statCalculatorFactory: StatCalculatorFactory,</span>
+) : StatCalculatorService {
+    override fun getCreaturePreset(
+        creatureId: String?,
+    ): StatCalculatorCreaturePresetView {
+<span class="fc" id="L31">        val creature = resolveCreature(creatureId)</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        val rows = creatureStatRepository.findAll().filter { row -&gt; row.id.creatureId == creature.id.toLong() }</span>
+<span class="fc" id="L33">        val statsById = statRepository.findAll().associateBy { stat -&gt; stat.id }</span>
+<span class="fc" id="L34">        val presetStats =</span>
+<span class="fc" id="L35">            rows</span>
+<span class="fc" id="L36">                .mapNotNull { row -&gt;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                    val stat = statsById[row.id.statId] ?: return@mapNotNull null</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">                    val internalName = stat.internalName ?: return@mapNotNull null</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">                    if (internalName !in CORE_STAT_ORDER) {</span>
+<span class="fc" id="L40">                        return@mapNotNull null</span>
+                    }
+<span class="fc" id="L42">                    StatCalculatorCreatureStatPresetView(</span>
+<span class="fc" id="L43">                        statId = stat.id.toString(),</span>
+<span class="fc" id="L44">                        statInternalName = internalName,</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                        statName = stat.name ?: internalName,</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                        baseStat = row.baseStat ?: 0,</span>
+<span class="fc" id="L47">                        effortYield = 0,</span>
+<span class="fc" id="L48">                    )</span>
+<span class="fc" id="L49">                }.sortedBy(::coreStatOrder)</span>
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        val creatureInternalNameValue = creature.internalName ?: error(&quot;Creature internalName must not be null.&quot;)</span>
+<span class="fc" id="L52">        return StatCalculatorCreaturePresetView(</span>
+<span class="fc" id="L53">            creatureId = creature.id,</span>
+<span class="fc" id="L54">            creatureInternalName = creatureInternalNameValue,</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            creatureName = creature.name ?: creatureInternalNameValue,</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            creatureSpeciesId = creature.creatureSpecies?.id,</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            creatureSpeciesInternalName = creature.creatureSpecies?.internalName,</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            creatureSpeciesName = creature.creatureSpecies?.name,</span>
+<span class="fc" id="L59">            stats = presetStats,</span>
+        )
+    }
+
+    override fun calculate(request: StatCalculatorRequest): StatCalculatorResultView {
+<span class="fc bfc" id="L64" title="All 6 branches covered.">        require(request.level in 1..100) { &quot;level must be between 1 and 100.&quot; }</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">        require(request.stats.isNotEmpty()) { &quot;stats must not be empty.&quot; }</span>
+
+<span class="fc" id="L67">        val nature = resolveNature(request.natureId)</span>
+<span class="fc" id="L68">        val statsById =</span>
+<span class="fc" id="L69">            statRepository</span>
+<span class="fc" id="L70">                .findAll()</span>
+<span class="fc" id="L71">                .associateBy { stat -&gt; stat.id }</span>
+
+<span class="fc" id="L73">        val duplicatedStat =</span>
+<span class="fc" id="L74">            request.stats</span>
+<span class="fc" id="L75">                .groupBy { entry -&gt; entry.statId }</span>
+<span class="fc" id="L76">                .entries</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                .firstOrNull { entry -&gt; entry.value.size &gt; 1 }</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                ?.key</span>
+<span class="fc bfc" id="L79" title="All 4 branches covered.">        require(duplicatedStat == null) { &quot;Duplicate statId '$duplicatedStat' is not allowed.&quot; }</span>
+
+<span class="fc" id="L81">        val results =</span>
+<span class="fc" id="L82">            request.stats.map { entry -&gt;</span>
+<span class="fc" id="L83">                validateEntry(entry)</span>
+<span class="fc" id="L84">                val stat =</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">                    statsById[entry.statId]</span>
+<span class="fc" id="L86">                        ?: error(&quot;Stat '${entry.statId}' was not found in dataset.&quot;)</span>
+<span class="fc" id="L87">                val statInternalName =</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">                    stat.internalName ?: error(&quot;Stat '${entry.statId}' internalName must not be null.&quot;)</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">                require(statInternalName in CORE_STAT_ORDER) {</span>
+<span class="fc" id="L90">                    &quot;Unsupported statId '${entry.statId}'.&quot;</span>
+                }
+<span class="fc" id="L92">                val natureModifier = resolveNatureModifier(statInternalName, nature)</span>
+<span class="fc" id="L93">                val actualValue =</span>
+<span class="fc" id="L94">                    statCalculatorFactory.calculateStat(</span>
+<span class="fc" id="L95">                        statInternalName,</span>
+<span class="fc" id="L96">                        entry.baseStat,</span>
+<span class="fc" id="L97">                        entry.iv,</span>
+<span class="fc" id="L98">                        entry.ev,</span>
+<span class="fc" id="L99">                        request.level,</span>
+<span class="fc" id="L100">                        natureModifier,</span>
+                    )
+<span class="fc" id="L102">                val minimumValue =</span>
+<span class="fc" id="L103">                    statCalculatorFactory.calculateStat(</span>
+<span class="fc" id="L104">                        statInternalName,</span>
+<span class="fc" id="L105">                        entry.baseStat,</span>
+<span class="fc" id="L106">                        0,</span>
+<span class="fc" id="L107">                        entry.ev,</span>
+<span class="fc" id="L108">                        request.level,</span>
+<span class="fc" id="L109">                        natureModifier,</span>
+                    )
+<span class="fc" id="L111">                val maximumValue =</span>
+<span class="fc" id="L112">                    statCalculatorFactory.calculateStat(</span>
+<span class="fc" id="L113">                        statInternalName,</span>
+<span class="fc" id="L114">                        entry.baseStat,</span>
+<span class="fc" id="L115">                        31,</span>
+<span class="fc" id="L116">                        entry.ev,</span>
+<span class="fc" id="L117">                        request.level,</span>
+<span class="fc" id="L118">                        natureModifier,</span>
+                    )
+
+<span class="fc" id="L121">                StatCalculatorEntryResultView(</span>
+<span class="fc" id="L122">                    statId = stat.id.toString(),</span>
+<span class="fc" id="L123">                    statInternalName = statInternalName,</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                    statName = stat.name ?: statInternalName,</span>
+<span class="fc" id="L125">                    baseStat = entry.baseStat,</span>
+<span class="fc" id="L126">                    iv = entry.iv,</span>
+<span class="fc" id="L127">                    ev = entry.ev,</span>
+<span class="fc" id="L128">                    actualValue = actualValue,</span>
+<span class="fc" id="L129">                    minimumValue = minimumValue,</span>
+<span class="fc" id="L130">                    maximumValue = maximumValue,</span>
+<span class="fc" id="L131">                    natureModifier = natureModifier,</span>
+<span class="fc" id="L132">                )</span>
+            }
+
+<span class="fc" id="L135">        return StatCalculatorResultView(</span>
+<span class="fc" id="L136">            level = request.level,</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            totalEv = request.stats.sumOf { entry -&gt; entry.ev },</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">            nature = nature?.toCalculatorView(),</span>
+<span class="fc" id="L139">            stats = results,</span>
+        )
+    }
+
+    private fun resolveCreature(
+        creatureId: String?,
+    ): CreatureView {
+<span class="fc bfc" id="L146" title="All 8 branches covered.">        require(!creatureId.isNullOrBlank()) {</span>
+<span class="fc" id="L147">            &quot;creatureId must not be blank.&quot;</span>
+        }
+
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        val parsedCreatureId = creatureId.toLongOrNull() ?: error(&quot;creatureId must be a valid long value.&quot;)</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        return requireNotNull(creatureRepository.loadViewById(parsedCreatureId)) {</span>
+<span class="fc" id="L152">            &quot;Creature '$creatureId' was not found.&quot;</span>
+        }
+    }
+
+    private fun resolveNature(
+        natureId: Long?,
+    ): NatureView? {
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (natureId == null) {</span>
+<span class="fc" id="L160">            return null</span>
+        }
+
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        return requireNotNull(natureRepository.loadViewById(natureId)) {</span>
+<span class="fc" id="L164">            &quot;Nature '$natureId' was not found.&quot;</span>
+        }
+    }
+
+    private fun validateEntry(entry: StatCalculatorEntryRequest) {
+<span class="fc bfc" id="L169" title="All 4 branches covered.">        require(entry.statId &gt;= 1) { &quot;statId must be greater than or equal to 1.&quot; }</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">        require(entry.baseStat &gt;= 1) { &quot;baseStat must be greater than or equal to 1.&quot; }</span>
+<span class="fc bfc" id="L171" title="All 6 branches covered.">        require(entry.iv in 0..31) { &quot;iv must be between 0 and 31.&quot; }</span>
+<span class="fc bfc" id="L172" title="All 6 branches covered.">        require(entry.ev in 0..252) { &quot;ev must be between 0 and 252.&quot; }</span>
+<span class="fc" id="L173">    }</span>
+
+    private fun resolveNatureModifier(
+        statInternalName: String,
+        nature: NatureView?,
+    ): Int {
+<span class="fc bfc" id="L179" title="All 4 branches covered.">        if (nature == null || statInternalName == &quot;hp&quot;) {</span>
+<span class="fc" id="L180">            return 100</span>
+        }
+
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        val increasedStat = nature.increasedStat?.internalName</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        val decreasedStat = nature.decreasedStat?.internalName</span>
+
+<span class="fc" id="L186">        return when {</span>
+<span class="fc bfc" id="L187" title="All 4 branches covered.">            increasedStat == statInternalName &amp;&amp; decreasedStat != statInternalName -&gt; 110</span>
+<span class="pc bpc" id="L188" title="1 of 4 branches missed.">            decreasedStat == statInternalName &amp;&amp; increasedStat != statInternalName -&gt; 90</span>
+<span class="fc" id="L189">            else -&gt; 100</span>
+        }
+    }
+
+    private fun NatureView.toCalculatorView(): StatCalculatorNatureView =
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        (internalName ?: error(&quot;Nature internalName must not be null.&quot;)).let { internalNameValue -&gt;</span>
+<span class="fc" id="L195">            StatCalculatorNatureView(</span>
+<span class="fc" id="L196">                id = id,</span>
+<span class="fc" id="L197">                internalName = internalNameValue,</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">                name = name ?: internalNameValue,</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">                increasedStatId = increasedStat?.id,</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">                increasedStatInternalName = increasedStat?.internalName,</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                increasedStatName = increasedStat?.name,</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                decreasedStatId = decreasedStat?.id,</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">                decreasedStatInternalName = decreasedStat?.internalName,</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">                decreasedStatName = decreasedStat?.name,</span>
+<span class="fc" id="L205">            )</span>
+<span class="fc" id="L206">        }</span>
+
+    private fun coreStatOrder(
+        stat: StatCalculatorCreatureStatPresetView,
+<span class="fc bfc" id="L210" title="All 6 branches covered.">    ): Int = CORE_STAT_ORDER.indexOf(stat.statInternalName).takeIf { index -&gt; index &gt;= 0 } ?: Int.MAX_VALUE</span>
+
+    companion object {
+        private val CORE_STAT_ORDER =
+<span class="fc" id="L214">            listOf(</span>
+<span class="fc" id="L215">                &quot;hp&quot;,</span>
+<span class="fc" id="L216">                &quot;attack&quot;,</span>
+<span class="fc" id="L217">                &quot;defense&quot;,</span>
+<span class="fc" id="L218">                &quot;special-attack&quot;,</span>
+<span class="fc" id="L219">                &quot;special-defense&quot;,</span>
+<span class="fc" id="L220">                &quot;speed&quot;,</span>
+            )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

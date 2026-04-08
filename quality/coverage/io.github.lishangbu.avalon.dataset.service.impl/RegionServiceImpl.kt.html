@@ -24,6 +24,6 @@ import org.springframework.stereotype.Service
 
 <span class="fc" id="L25">    override fun listByCondition(specification: RegionSpecification): List&lt;RegionView&gt; = regionRepository.listViews(specification)</span>
 
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    private fun reloadView(region: Region): RegionView = requireNotNull(regionRepository.loadViewById(region.id)) { &quot;未找到 ID=${region.id} 对应的地区&quot; }</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">    private fun reloadView(region: Region): RegionView = requireNotNull(regionRepository.loadViewById(region.id)) { &quot;未找到 ID=${region.id} 对应的地区&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

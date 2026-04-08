@@ -31,6 +31,6 @@ import org.springframework.stereotype.Service
 
 <span class="fc" id="L32">    override fun listByCondition(specification: LocationSpecification): List&lt;LocationView&gt; = locationRepository.listViews(specification)</span>
 
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    private fun reloadView(location: Location): LocationView = requireNotNull(locationRepository.loadViewById(location.id)) { &quot;未找到 ID=${location.id} 对应的地点&quot; }</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    private fun reloadView(location: Location): LocationView = requireNotNull(locationRepository.loadViewById(location.id)) { &quot;未找到 ID=${location.id} 对应的地点&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

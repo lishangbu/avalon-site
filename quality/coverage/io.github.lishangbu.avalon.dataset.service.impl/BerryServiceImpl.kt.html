@@ -39,6 +39,6 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L39">        berryRepository.deleteById(id)</span>
 <span class="fc" id="L40">    }</span>
 
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">    private fun reloadView(berry: Berry): BerryView = requireNotNull(berryRepository.loadViewById(berry.id)) { &quot;未找到 ID=${berry.id} 对应的树果&quot; }</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    private fun reloadView(berry: Berry): BerryView = requireNotNull(berryRepository.loadViewById(berry.id)) { &quot;未找到 ID=${berry.id} 对应的树果&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

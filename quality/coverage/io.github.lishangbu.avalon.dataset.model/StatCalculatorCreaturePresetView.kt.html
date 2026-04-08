@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatCalculatorCreaturePresetView.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.model</a> &gt; <span class="el_source">StatCalculatorCreaturePresetView.kt</span></div><h1>StatCalculatorCreaturePresetView.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.model
+
+/** 能力值计算器使用的生物能力值预设。 */
+<span class="pc" id="L4">data class StatCalculatorCreaturePresetView(</span>
+    /** 生物 ID。 */
+<span class="fc" id="L6">    val creatureId: String,</span>
+    /** 生物内部名称。 */
+<span class="fc" id="L8">    val creatureInternalName: String,</span>
+    /** 生物显示名称。 */
+<span class="fc" id="L10">    val creatureName: String,</span>
+    /** 生物种族 ID。 */
+<span class="pc" id="L12">    val creatureSpeciesId: String? = null,</span>
+    /** 生物种族内部名称。 */
+<span class="pc" id="L14">    val creatureSpeciesInternalName: String? = null,</span>
+    /** 生物种族显示名称。 */
+<span class="pc" id="L16">    val creatureSpeciesName: String? = null,</span>
+    /** 六围预设列表。 */
+<span class="fc" id="L18">    val stats: List&lt;StatCalculatorCreatureStatPresetView&gt;,</span>
+<span class="nc" id="L19">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -29,6 +29,6 @@ import org.springframework.transaction.annotation.Transactional
 
 <span class="fc" id="L30">    override fun listByCondition(specification: ItemCategorySpecification): List&lt;ItemCategoryView&gt; = itemCategoryRepository.listViews(specification)</span>
 
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">    private fun reloadView(itemCategory: ItemCategory): ItemCategoryView = requireNotNull(itemCategoryRepository.loadViewById(itemCategory.id)) { &quot;未找到 ID=${itemCategory.id} 对应的道具类别&quot; }</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">    private fun reloadView(itemCategory: ItemCategory): ItemCategoryView = requireNotNull(itemCategoryRepository.loadViewById(itemCategory.id)) { &quot;未找到 ID=${itemCategory.id} 对应的道具类别&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
