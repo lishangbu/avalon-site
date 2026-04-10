@@ -37,6 +37,16 @@ import org.springframework.web.bind.annotation.*
 <span class="fc" id="L37">    ): CurrentUserView? = userService.getUserByUsername(user.username)</span>
 
     /**
+     * 获取当前用户权限编码列表
+     *
+     * 主要供前端做按钮级显隐与禁用控制使用。
+     */
+    @GetMapping(&quot;/permissions&quot;)
+    fun getCurrentPermissionCodes(
+        @AuthenticationPrincipal user: UserInfo,
+<span class="nc" id="L47">    ): List&lt;String&gt; = userService.getCurrentPermissionCodes(user.username)</span>
+
+    /**
      * 分页条件查询用户
      *
      * @param pageable 分页参数
@@ -47,7 +57,7 @@ import org.springframework.web.bind.annotation.*
     fun getUserPage(
         pageable: Pageable,
         @ModelAttribute specification: UserSpecification,
-<span class="fc" id="L50">    ): Page&lt;UserView&gt; = userService.getPageByCondition(specification, pageable)</span>
+<span class="fc" id="L60">    ): Page&lt;UserView&gt; = userService.getPageByCondition(specification, pageable)</span>
 
     /**
      * 条件查询用户列表
@@ -58,7 +68,7 @@ import org.springframework.web.bind.annotation.*
     @GetMapping(&quot;/list&quot;)
     fun listUsers(
         @ModelAttribute specification: UserSpecification,
-<span class="fc" id="L61">    ): List&lt;UserView&gt; = userService.listByCondition(specification)</span>
+<span class="fc" id="L71">    ): List&lt;UserView&gt; = userService.listByCondition(specification)</span>
 
     /**
      * 根据 ID 查询用户
@@ -69,7 +79,7 @@ import org.springframework.web.bind.annotation.*
     @GetMapping(&quot;/{id:\\d+}&quot;)
     fun getById(
         @PathVariable id: Long,
-<span class="fc" id="L72">    ): UserView? = userService.getById(id)</span>
+<span class="fc" id="L82">    ): UserView? = userService.getById(id)</span>
 
     /**
      * 新增用户
@@ -80,7 +90,7 @@ import org.springframework.web.bind.annotation.*
     @PostMapping
     fun save(
         @RequestBody @Valid input: SaveUserInput,
-<span class="fc" id="L83">    ): UserView = userService.save(input)</span>
+<span class="fc" id="L93">    ): UserView = userService.save(input)</span>
 
     /**
      * 更新用户
@@ -91,7 +101,7 @@ import org.springframework.web.bind.annotation.*
     @PutMapping
     fun update(
         @RequestBody @Valid input: UpdateUserInput,
-<span class="fc" id="L94">    ): UserView = userService.update(input)</span>
+<span class="fc" id="L104">    ): UserView = userService.update(input)</span>
 
     /**
      * 根据 ID 删除用户
@@ -102,7 +112,7 @@ import org.springframework.web.bind.annotation.*
     fun deleteById(
         @PathVariable id: Long,
     ) {
-<span class="fc" id="L105">        userService.removeById(id)</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L115">        userService.removeById(id)</span>
+<span class="fc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

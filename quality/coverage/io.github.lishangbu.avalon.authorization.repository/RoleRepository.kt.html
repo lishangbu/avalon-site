@@ -58,51 +58,60 @@ interface RoleRepository : KRepository&lt;Role, Long&gt; {
 <span class="nc" id="L58">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
 <span class="nc" id="L59">            }.execute()</span>
 
+    /** 按条件查询角色实体列表，并抓取菜单与权限点。 */
+    fun listEntitiesWithBindings(specification: Specification&lt;Role&gt;?): List&lt;Role&gt; =
+<span class="nc" id="L63">        sql</span>
+<span class="nc" id="L64">            .createQuery(Role::class) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                specification?.let(::where)</span>
+<span class="nc" id="L66">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L67">                select(table.fetch(AuthorizationFetchers.ROLE_WITH_BINDINGS))</span>
+<span class="nc" id="L68">            }.execute()</span>
+
     /** 按条件分页查询角色，并抓取菜单 */
     fun pageWithMenus(
         specification: Specification&lt;Role&gt;?,
         pageable: Pageable,
     ): Page&lt;RoleView&gt; =
-<span class="fc" id="L66">        sql</span>
-<span class="fc" id="L67">            .createQuery(Role::class) {</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">                specification?.let(::where)</span>
-<span class="fc" id="L69">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L70">                select(table.fetch(RoleView::class))</span>
-<span class="fc" id="L71">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
+<span class="fc" id="L75">        sql</span>
+<span class="fc" id="L76">            .createQuery(Role::class) {</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L78">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L79">                select(table.fetch(RoleView::class))</span>
+<span class="fc" id="L80">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
     /** 按条件分页查询角色视图 */
     fun pageViews(
         specification: Specification&lt;Role&gt;?,
         pageable: Pageable,
     ): Page&lt;RoleView&gt; =
-<span class="nc" id="L78">        sql</span>
-<span class="nc" id="L79">            .createQuery(Role::class) {</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">                specification?.let(::where)</span>
-<span class="nc" id="L81">                orderBy(DEFAULT_SORT)</span>
-<span class="nc" id="L82">                select(table.fetch(RoleView::class))</span>
-<span class="nc" id="L83">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
-
-    /** 按条件查询角色视图列表 */
-    fun listViews(specification: Specification&lt;Role&gt;?): List&lt;RoleView&gt; =
 <span class="nc" id="L87">        sql</span>
 <span class="nc" id="L88">            .createQuery(Role::class) {</span>
 <span class="nc bnc" id="L89" title="All 2 branches missed.">                specification?.let(::where)</span>
 <span class="nc" id="L90">                orderBy(DEFAULT_SORT)</span>
 <span class="nc" id="L91">                select(table.fetch(RoleView::class))</span>
-<span class="nc" id="L92">            }.execute()</span>
+<span class="nc" id="L92">            }.fetchPage(pageable.pageNumber, pageable.pageSize)</span>
 
-    /** 按 ID 查询角色视图 */
-    fun loadViewById(id: Long): RoleView? =
+    /** 按条件查询角色视图列表 */
+    fun listViews(specification: Specification&lt;Role&gt;?): List&lt;RoleView&gt; =
 <span class="nc" id="L96">        sql</span>
 <span class="nc" id="L97">            .createQuery(Role::class) {</span>
-<span class="nc" id="L98">                where(table.id eq id)</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">                specification?.let(::where)</span>
 <span class="nc" id="L99">                orderBy(DEFAULT_SORT)</span>
 <span class="nc" id="L100">                select(table.fetch(RoleView::class))</span>
 <span class="nc" id="L101">            }.execute()</span>
-<span class="nc" id="L102">            .firstOrNull()</span>
+
+    /** 按 ID 查询角色视图 */
+    fun loadViewById(id: Long): RoleView? =
+<span class="nc" id="L105">        sql</span>
+<span class="nc" id="L106">            .createQuery(Role::class) {</span>
+<span class="nc" id="L107">                where(table.id eq id)</span>
+<span class="nc" id="L108">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L109">                select(table.fetch(RoleView::class))</span>
+<span class="nc" id="L110">            }.execute()</span>
+<span class="nc" id="L111">            .firstOrNull()</span>
 
     companion object {
-<span class="fc" id="L105">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+<span class="fc" id="L114">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

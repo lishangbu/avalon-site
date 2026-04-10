@@ -100,52 +100,51 @@ interface UserRepository : KRepository&lt;User, Long&gt; {
 <span class="fc" id="L100">                ?: loadByEmail(account)</span>
 <span class="fc" id="L101">                ?: return null</span>
 
-<span class="fc" id="L103">        val enabledRoles = found.roles.filter { it.enabled == true }</span>
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (enabledRoles.isEmpty()) {</span>
-<span class="nc" id="L105">            return null</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (found.enabled == false) {</span>
+<span class="fc" id="L104">            return null</span>
         }
-<span class="fc" id="L107">        return User(found) {</span>
-<span class="fc" id="L108">            roles().clear()</span>
-<span class="fc" id="L109">            enabledRoles.forEach { role -&gt;</span>
-<span class="fc" id="L110">                roles().addBy {</span>
-<span class="fc" id="L111">                    id = role.id</span>
-<span class="fc" id="L112">                    code = role.code</span>
-<span class="fc" id="L113">                    name = role.name</span>
-<span class="fc" id="L114">                    enabled = role.enabled</span>
-<span class="fc" id="L115">                }</span>
-<span class="fc" id="L116">            }</span>
-<span class="fc" id="L117">        }</span>
+
+<span class="fc" id="L107">        val enabledRoles = found.roles.filter { it.enabled == true }</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (enabledRoles.isEmpty()) {</span>
+<span class="nc" id="L109">            return null</span>
+        }
+<span class="fc" id="L111">        return User(found) {</span>
+<span class="fc" id="L112">            roles().clear()</span>
+<span class="fc" id="L113">            enabledRoles.forEach { role -&gt;</span>
+<span class="fc" id="L114">                roles().addBy(role)</span>
+<span class="fc" id="L115">            }</span>
+<span class="fc" id="L116">        }</span>
     }
 
     private fun loadByUsername(account: String): User? =
-<span class="fc" id="L121">        sql</span>
-<span class="fc" id="L122">            .createQuery(User::class) {</span>
-<span class="fc" id="L123">                where(table.username eq account)</span>
-<span class="fc" id="L124">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L125">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L126">            }.execute()</span>
-<span class="fc" id="L127">            .firstOrNull()</span>
+<span class="fc" id="L120">        sql</span>
+<span class="fc" id="L121">            .createQuery(User::class) {</span>
+<span class="fc" id="L122">                where(table.username eq account)</span>
+<span class="fc" id="L123">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L124">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L125">            }.execute()</span>
+<span class="fc" id="L126">            .firstOrNull()</span>
 
     private fun loadByPhone(account: String): User? =
-<span class="fc" id="L130">        sql</span>
-<span class="fc" id="L131">            .createQuery(User::class) {</span>
-<span class="fc" id="L132">                where(table.phone eq account)</span>
-<span class="fc" id="L133">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L134">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L135">            }.execute()</span>
-<span class="fc" id="L136">            .firstOrNull()</span>
+<span class="fc" id="L129">        sql</span>
+<span class="fc" id="L130">            .createQuery(User::class) {</span>
+<span class="fc" id="L131">                where(table.phone eq account)</span>
+<span class="fc" id="L132">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L133">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L134">            }.execute()</span>
+<span class="fc" id="L135">            .firstOrNull()</span>
 
     private fun loadByEmail(account: String): User? =
-<span class="fc" id="L139">        sql</span>
-<span class="fc" id="L140">            .createQuery(User::class) {</span>
-<span class="fc" id="L141">                where(table.email eq account)</span>
-<span class="fc" id="L142">                orderBy(DEFAULT_SORT)</span>
-<span class="fc" id="L143">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
-<span class="fc" id="L144">            }.execute()</span>
-<span class="fc" id="L145">            .firstOrNull()</span>
+<span class="fc" id="L138">        sql</span>
+<span class="fc" id="L139">            .createQuery(User::class) {</span>
+<span class="fc" id="L140">                where(table.email eq account)</span>
+<span class="fc" id="L141">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L142">                select(table.fetch(AuthorizationFetchers.USER_WITH_ROLES))</span>
+<span class="fc" id="L143">            }.execute()</span>
+<span class="fc" id="L144">            .firstOrNull()</span>
 
     companion object {
-<span class="fc" id="L148">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
+<span class="fc" id="L147">        private val DEFAULT_SORT: Sort = Sort.by(Sort.Order.asc(&quot;id&quot;))</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

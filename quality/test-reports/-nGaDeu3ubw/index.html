@@ -62,7 +62,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">1m4.91s</div>
+<div class="counter">19.773s</div>
 <p>duration</p>
 </div>
 </td>
@@ -97,7 +97,7 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>2.628s</td>
+<td>0.606s</td>
 <td class="success">100%</td>
 </tr>
 </table>
@@ -106,263 +106,232 @@
 <div class="tab">
 <h2>standard output</h2>
 <span class="code">
-<pre id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">2026-04-08T23:11:31.822Z  INFO 2908 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Starting AuthenticationLogRepositoryTest using Java 25.0.2 with PID 2908 (started by runner in /home/runner/work/avalon/avalon/avalon-modules/avalon-authorization)
-2026-04-08T23:11:31.841Z  INFO 2908 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2026-04-08T23:11:33.366Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2026-04-08T23:11:33.367Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Jimmer repositories in DEFAULT mode.
-2026-04-08T23:11:33.637Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 259 ms. Found 7 Jimmer repository interfaces.
-2026-04-08T23:11:34.425Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2026-04-08T23:11:34.428Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-04-08T23:11:34.808Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.808Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.MenuRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.809Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.Oauth2AuthorizationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.809Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.Oauth2RegisteredClientRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.810Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.OauthAuthorizationConsentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.815Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.816Z  INFO 2908 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2026-04-08T23:11:34.816Z  INFO 2908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 369 ms. Found 0 Redis repository interfaces.
-2026-04-08T23:11:35.872Z  INFO 2908 --- [    Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
-2026-04-08T23:11:35.877Z  INFO 2908 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-2026-04-08T23:11:35.910Z  INFO 2908 --- [    Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.4
-2026-04-08T23:11:37.970Z  INFO 2908 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-2026-04-08T23:11:37.981Z  INFO 2908 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
-2026-04-08T23:11:38.047Z  INFO 2908 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+<pre id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">2026-04-10T19:21:45.218Z  INFO 3427 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Starting AuthenticationLogRepositoryTest using Java 25.0.2 with PID 3427 (started by runner in /home/runner/work/avalon/avalon/avalon-modules/avalon-authorization)
+2026-04-10T19:21:45.232Z  INFO 3427 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-04-10T19:21:46.141Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10T19:21:46.142Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Jimmer repositories in DEFAULT mode.
+2026-04-10T19:21:46.392Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 235 ms. Found 8 Jimmer repository interfaces.
+2026-04-10T19:21:46.855Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10T19:21:46.856Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-10T19:21:47.036Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.036Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.MenuRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.037Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.Oauth2AuthorizationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.037Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.Oauth2RegisteredClientRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.038Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.OauthAuthorizationConsentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.038Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.038Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.039Z  INFO 3427 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface io.github.lishangbu.avalon.authorization.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-10T19:21:47.039Z  INFO 3427 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 168 ms. Found 0 Redis repository interfaces.
+2026-04-10T19:21:47.496Z  INFO 3427 --- [    Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-04-10T19:21:47.499Z  INFO 3427 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-04-10T19:21:47.532Z  INFO 3427 --- [    Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.4
+2026-04-10T19:21:47.949Z  INFO 3427 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-04-10T19:21:48.422Z  INFO 3427 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-04-10T19:21:48.424Z  INFO 3427 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-04-10T19:21:48.444Z  INFO 3427 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
   Server Version: 28.0.4
   API Version: 1.48
   Operating System: Ubuntu 24.04.4 LTS
-  Total Memory: 15989 MB
-2026-04-08T23:11:38.153Z  INFO 2908 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
-2026-04-08T23:11:38.527Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Starting to pull image
-2026-04-08T23:11:38.567Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2026-04-08T23:11:38.764Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (24 KB/? MB)
-2026-04-08T23:11:38.779Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  0 extracted, (232 KB/2 MB)
-2026-04-08T23:11:38.780Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (232 KB/2 MB)
-2026-04-08T23:11:38.788Z  INFO 2908 --- [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
-2026-04-08T23:11:38.803Z  INFO 2908 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Image testcontainers/ryuk:0.14.0 pull took PT0.649538359S
-2026-04-08T23:11:38.882Z  INFO 2908 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
-2026-04-08T23:11:39.033Z  INFO 2908 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: f58b1a572d374ca1d51a645f9095fcbec16063972441b02481e56bd861eeacda
-2026-04-08T23:11:39.538Z  INFO 2908 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.656424864S
-2026-04-08T23:11:39.548Z  INFO 2908 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-2026-04-08T23:11:39.549Z  INFO 2908 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
-2026-04-08T23:11:39.551Z  INFO 2908 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
-2026-04-08T23:11:39.559Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Pulling docker image: postgres:latest. Please be patient; this may take some time but only needs to be done once.
-2026-04-08T23:11:39.826Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Starting to pull image
-2026-04-08T23:11:39.830Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2026-04-08T23:11:39.978Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 12 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
-2026-04-08T23:11:40.085Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 11 pending,  2 downloaded,  0 extracted, (5 MB/? MB)
-2026-04-08T23:11:40.127Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers: 10 pending,  3 downloaded,  0 extracted, (5 MB/? MB)
-2026-04-08T23:11:40.177Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  9 pending,  4 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.183Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  8 pending,  5 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.248Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  7 pending,  6 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.253Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  6 pending,  7 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.264Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  5 pending,  8 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.318Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  4 pending,  9 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.332Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  3 pending, 10 downloaded,  0 extracted, (20 MB/? MB)
-2026-04-08T23:11:40.412Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  2 pending, 11 downloaded,  0 extracted, (21 MB/? MB)
-2026-04-08T23:11:40.421Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  0 extracted, (21 MB/? MB)
-2026-04-08T23:11:41.562Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  1 extracted, (71 MB/? MB)
-2026-04-08T23:11:41.707Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  2 extracted, (81 MB/? MB)
-2026-04-08T23:11:42.025Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  3 extracted, (102 MB/? MB)
-2026-04-08T23:11:42.098Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  4 extracted, (113 MB/? MB)
-2026-04-08T23:11:42.586Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  5 extracted, (149 MB/? MB)
-2026-04-08T23:11:42.725Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  1 pending, 12 downloaded,  6 extracted, (151 MB/? MB)
-2026-04-08T23:11:42.741Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded,  6 extracted, (151 MB/154 MB)
-2026-04-08T23:11:42.749Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded,  7 extracted, (151 MB/154 MB)
-2026-04-08T23:11:42.754Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded,  8 extracted, (151 MB/154 MB)
-2026-04-08T23:11:46.988Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded,  9 extracted, (154 MB/154 MB)
-2026-04-08T23:11:47.015Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded, 10 extracted, (154 MB/154 MB)
-2026-04-08T23:11:47.039Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded, 11 extracted, (154 MB/154 MB)
-2026-04-08T23:11:47.077Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded, 12 extracted, (154 MB/154 MB)
-2026-04-08T23:11:47.082Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pulling image layers:  0 pending, 13 downloaded, 13 extracted, (154 MB/154 MB)
-2026-04-08T23:11:47.093Z  INFO 2908 --- [ream-1288415510] tc.postgres:latest                       : Pull complete. 13 layers, pulled in 7s (downloaded 154 MB at 22 MB/s)
-2026-04-08T23:11:47.094Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Image postgres:latest pull took PT7.533876827S
-2026-04-08T23:11:47.103Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
-2026-04-08T23:11:47.130Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 16e9d4db830f19f8efb75a77bbbf7be7de03df3ecf8871d588e2a7cf212233a5
-2026-04-08T23:11:48.850Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.747410257S
-2026-04-08T23:11:48.854Z  INFO 2908 --- [    Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:32769/test?loggerLevel=OFF)
-2026-04-08T23:11:49.623Z  INFO 2908 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-04-08T23:11:50.278Z  INFO 2908 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5cab174b
-2026-04-08T23:11:50.285Z  INFO 2908 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-04-08T23:11:52.103Z  WARN 2908 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥和私钥路径，将在首次使用时生成随机密钥对
-2026-04-08T23:11:52.104Z  WARN 2908 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥或私钥，使用随机生成的密钥对，重启后之前签发的 token 将无法解析
-2026-04-08T23:11:53.486Z  INFO 2908 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : JWKSet 初始化完成，kid: 69u1Ak4_87Bpjxs7VaBVxPrPus62yZJh2VYBHNt_lL0, 算法: RS256
-2026-04-08T23:11:57.183Z  INFO 2908 --- [    Test worker] liquibase.database                       : Set default schema name to public
-2026-04-08T23:11:59.641Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/versions/0.0.1/0.0.1.yaml
-2026-04-08T23:12:01.337Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
-2026-04-08T23:12:01.525Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
-2026-04-08T23:12:01.590Z  INFO 2908 --- [    Test worker] liquibase.snapshot                       : Creating snapshot
-2026-04-08T23:12:02.813Z  INFO 2908 --- [    Test worker] liquibase.lockservice                    : Successfully acquired change log lock
-2026-04-08T23:12:02.821Z  INFO 2908 --- [    Test worker] liquibase.command                        : Using deploymentId: 5689916411
-2026-04-08T23:12:02.830Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
-2026-04-08T23:12:05.172Z  INFO 2908 --- [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu
-2026-04-08T23:12:05.221Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table ability created
-2026-04-08T23:12:05.268Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table effect_definition created
-2026-04-08T23:12:05.327Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table authentication_log created
-2026-04-08T23:12:05.374Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table berry created
-2026-04-08T23:12:05.387Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table berry_firmness created
-2026-04-08T23:12:05.406Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table berry_flavor created
-2026-04-08T23:12:05.428Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table egg_group created
-2026-04-08T23:12:05.443Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table encounter_condition created
-2026-04-08T23:12:05.465Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table encounter_condition_value created
-2026-04-08T23:12:05.482Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table encounter_method created
-2026-04-08T23:12:05.497Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table evolution_chain created
-2026-04-08T23:12:05.516Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table evolution_trigger created
-2026-04-08T23:12:05.537Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table gender created
-2026-04-08T23:12:05.552Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table growth_rate created
-2026-04-08T23:12:05.584Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item created
-2026-04-08T23:12:05.596Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item_attribute created
-2026-04-08T23:12:05.618Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item_attribute_relation created
-2026-04-08T23:12:05.639Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item_category created
-2026-04-08T23:12:05.658Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item_fling_effect created
-2026-04-08T23:12:05.670Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table item_pocket created
-2026-04-08T23:12:05.686Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table machine created
-2026-04-08T23:12:05.730Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table menu created
-2026-04-08T23:12:05.811Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move created
-2026-04-08T23:12:05.827Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move_ailment created
-2026-04-08T23:12:05.850Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move_category created
-2026-04-08T23:12:05.875Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move_damage_class created
-2026-04-08T23:12:05.892Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move_learn_method created
-2026-04-08T23:12:05.912Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table move_target created
-2026-04-08T23:12:05.942Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table nature created
-2026-04-08T23:12:06.026Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization created
-2026-04-08T23:12:06.039Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization_consent created
-2026-04-08T23:12:06.091Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table oauth_registered_client created
-2026-04-08T23:12:06.117Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature created
-2026-04-08T23:12:06.137Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_ability created
-2026-04-08T23:12:06.156Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_color created
-2026-04-08T23:12:06.167Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_habitat created
-2026-04-08T23:12:06.178Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_shape created
-2026-04-08T23:12:06.221Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_species created
-2026-04-08T23:12:06.233Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_stat created
-2026-04-08T23:12:06.246Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_element created
-2026-04-08T23:12:06.256Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table region created
-2026-04-08T23:12:06.282Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table location created
-2026-04-08T23:12:06.299Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table location_area created
-2026-04-08T23:12:06.326Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table location_area_encounter created
-2026-04-08T23:12:06.335Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table location_area_encounter_condition_value created
-2026-04-08T23:12:06.369Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_variant created
-2026-04-08T23:12:06.382Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_variant_type created
-2026-04-08T23:12:06.398Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table role created
-2026-04-08T23:12:06.405Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table role_menu_relation created
-2026-04-08T23:12:06.426Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table stat created
-2026-04-08T23:12:06.437Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table type created
-2026-04-08T23:12:06.448Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table type_effectiveness_entry created
-2026-04-08T23:12:06.536Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_evolution created
-2026-04-08T23:12:06.544Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table user_role_relation created
-2026-04-08T23:12:06.558Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table users created
-2026-04-08T23:12:06.563Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__state created
-2026-04-08T23:12:06.565Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__authorization_code_value created
-2026-04-08T23:12:06.566Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__access_token_value created
-2026-04-08T23:12:06.570Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__refresh_token_value created
-2026-04-08T23:12:06.571Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__oidc_id_token_value created
-2026-04-08T23:12:06.572Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__user_code_value created
-2026-04-08T23:12:06.574Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__device_code_value created
-2026-04-08T23:12:06.577Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_berry__berry_firmness_id created
-2026-04-08T23:12:06.578Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_berry__natural_gift_type_id created
-2026-04-08T23:12:06.579Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_encounter_condition_value__encounter_condition_id created
-2026-04-08T23:12:06.581Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_item__item_fling_effect_id created
-2026-04-08T23:12:06.582Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_item_attribute_relation__item_attribute_id created
-2026-04-08T23:12:06.584Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_item_category__item_pocket_id created
-2026-04-08T23:12:06.585Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_machine__item_id created
-2026-04-08T23:12:06.587Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_machine__move_id created
-2026-04-08T23:12:06.590Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_menu__parent_id created
-2026-04-08T23:12:06.592Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_menu__sorting_order__id created
-2026-04-08T23:12:06.593Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_ailment_id created
-2026-04-08T23:12:06.594Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_category_id created
-2026-04-08T23:12:06.597Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_damage_class_id created
-2026-04-08T23:12:06.598Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_target_id created
-2026-04-08T23:12:06.599Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_move__type_id created
-2026-04-08T23:12:06.603Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_nature__decreased_stat_id created
-2026-04-08T23:12:06.604Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_nature__hates_berry_flavor_id created
-2026-04-08T23:12:06.605Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_nature__increased_stat_id created
-2026-04-08T23:12:06.609Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_nature__likes_berry_flavor_id created
-2026-04-08T23:12:06.610Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__registered_client_id created
-2026-04-08T23:12:06.612Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization_consent__registered_client_id created
-2026-04-08T23:12:06.613Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature__creature_species_id created
-2026-04-08T23:12:06.615Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_ability__creature_id created
-2026-04-08T23:12:06.617Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__evolves_from_species_id created
-2026-04-08T23:12:06.618Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__growth_rate_id created
-2026-04-08T23:12:06.619Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_color_id created
-2026-04-08T23:12:06.620Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_habitat_id created
-2026-04-08T23:12:06.621Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_shape_id created
-2026-04-08T23:12:06.622Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_stat__stat_id created
-2026-04-08T23:12:06.623Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_element__type_id created
-2026-04-08T23:12:06.625Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location__region_id created
-2026-04-08T23:12:06.626Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_evolution_chain__baby_trigger_item_id created
-2026-04-08T23:12:06.627Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location_area__location_id created
-2026-04-08T23:12:06.628Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__evolution_chain_id created
-2026-04-08T23:12:06.629Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__from_creature_species_id created
-2026-04-08T23:12:06.630Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__to_creature_species_id created
-2026-04-08T23:12:06.632Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__trigger_id created
-2026-04-08T23:12:06.633Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__location_area_id created
-2026-04-08T23:12:06.634Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__creature_id created
-2026-04-08T23:12:06.635Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__encounter_method_id created
-2026-04-08T23:12:06.636Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter_cv__encounter_condition_value_id created
-2026-04-08T23:12:06.637Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_variant__creature_id created
-2026-04-08T23:12:06.638Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_variant_type__type_id created
-2026-04-08T23:12:06.640Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_role_menu_relation__menu_id created
-2026-04-08T23:12:06.641Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_stat__move_damage_class_id created
-2026-04-08T23:12:06.642Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_type_effectiveness_entry__attacking_type_id created
-2026-04-08T23:12:06.643Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_user_role_relation__role_id created
-2026-04-08T23:12:06.646Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (natural_gift_type_id)
-2026-04-08T23:12:06.648Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (berry_firmness_id)
-2026-04-08T23:12:06.649Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item (item_fling_effect_id)
-2026-04-08T23:12:06.651Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_category (item_pocket_id)
-2026-04-08T23:12:06.653Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to machine (move_id)
-2026-04-08T23:12:06.654Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
-2026-04-08T23:12:06.656Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_ailment_id)
-2026-04-08T23:12:06.657Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_target_id)
-2026-04-08T23:12:06.659Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (type_id)
-2026-04-08T23:12:06.660Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_damage_class_id)
-2026-04-08T23:12:06.662Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_category_id)
-2026-04-08T23:12:06.663Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (decreased_stat_id)
-2026-04-08T23:12:06.664Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (increased_stat_id)
-2026-04-08T23:12:06.666Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to oauth_authorization (registered_client_id)
-2026-04-08T23:12:06.668Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to oauth_authorization_consent (registered_client_id)
-2026-04-08T23:12:06.670Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature (creature_species_id)
-2026-04-08T23:12:06.671Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to evolution_chain (baby_trigger_item_id)
-2026-04-08T23:12:06.673Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_species (evolution_chain_id)
-2026-04-08T23:12:06.674Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_stat (stat_id)
-2026-04-08T23:12:06.675Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_element (type_id)
-2026-04-08T23:12:06.676Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_variant_type (type_id)
-2026-04-08T23:12:06.678Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (user_id)
-2026-04-08T23:12:06.680Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_species (evolves_from_species_id)
-2026-04-08T23:12:06.682Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to ability(internal_name)
-2026-04-08T23:12:06.683Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry(internal_name)
-2026-04-08T23:12:06.685Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry_firmness(internal_name)
-2026-04-08T23:12:06.686Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry_flavor(internal_name)
-2026-04-08T23:12:06.687Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to egg_group(internal_name)
-2026-04-08T23:12:06.688Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_condition(internal_name)
-2026-04-08T23:12:06.689Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_condition_value(internal_name)
-2026-04-08T23:12:06.690Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_method(internal_name)
-2026-04-08T23:12:06.691Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to evolution_trigger(internal_name)
-2026-04-08T23:12:06.693Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to gender(internal_name)
-2026-04-08T23:12:06.694Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to growth_rate(internal_name)
-2026-04-08T23:12:06.695Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_attribute(internal_name)
-2026-04-08T23:12:06.696Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_category(internal_name)
-2026-04-08T23:12:06.697Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_fling_effect(internal_name)
-2026-04-08T23:12:06.698Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_pocket(internal_name)
-2026-04-08T23:12:06.700Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to menu(key)
-2026-04-08T23:12:06.701Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move(internal_name)
-2026-04-08T23:12:06.702Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_ailment(internal_name)
-2026-04-08T23:12:06.703Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_category(internal_name)
-2026-04-08T23:12:06.704Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_damage_class(internal_name)
-2026-04-08T23:12:06.705Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_learn_method(internal_name)
-2026-04-08T23:12:06.707Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_target(internal_name)
-2026-04-08T23:12:06.708Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to nature(internal_name)
-2026-04-08T23:12:06.709Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature(internal_name)
-2026-04-08T23:12:06.710Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_color(internal_name)
-2026-04-08T23:12:06.714Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_habitat(internal_name)
-2026-04-08T23:12:06.716Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_shape(internal_name)
-2026-04-08T23:12:06.717Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_variant(internal_name)
-2026-04-08T23:12:06.719Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_evolution(evolution_chain_id,from_creature_species_id,to_creature_species_id,detail_sort_order)
-2026-04-08T23:12:06.720Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_species(internal_name)
-2026-04-08T23:12:06.721Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to location(internal_name)
-2026-04-08T23:12:06.722Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to location_area(internal_name)
-2026-04-08T23:12:06.725Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to region(internal_name)
-2026-04-08T23:12:06.727Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to stat(internal_name)
-2026-04-08T23:12:06.728Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to type(internal_name)
-2026-04-08T23:12:07.191Z  WARN 2908 --- [    Test worker] liquibase.resource                       : Error handling URI syntax for file inside jar. Defaulting to previous behavior.
+  Total Memory: 15993 MB
+2026-04-10T19:21:48.475Z  INFO 3427 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-04-10T19:21:48.635Z  INFO 3427 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 8359cc240cff96e6147e587affb65a28981847df54fd56b5471a1f2d451b82ba
+2026-04-10T19:21:48.963Z  INFO 3427 --- [    Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.487701947S
+2026-04-10T19:21:48.968Z  INFO 3427 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-04-10T19:21:48.968Z  INFO 3427 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-04-10T19:21:48.969Z  INFO 3427 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-04-10T19:21:48.976Z  INFO 3427 --- [    Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-04-10T19:21:48.999Z  INFO 3427 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 1dd04620235b959143f49e9c29cb35e15e44254568b6df990eb0d94040d390a1
+2026-04-10T19:21:50.071Z  INFO 3427 --- [    Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.095502692S
+2026-04-10T19:21:50.072Z  INFO 3427 --- [    Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:32771/test?loggerLevel=OFF)
+2026-04-10T19:21:50.335Z  INFO 3427 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-10T19:21:50.534Z  INFO 3427 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@315b4c8b
+2026-04-10T19:21:50.538Z  INFO 3427 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-10T19:21:51.076Z  WARN 3427 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥和私钥路径，将在首次使用时生成随机密钥对
+2026-04-10T19:21:51.077Z  WARN 3427 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : 未配置公钥或私钥，使用随机生成的密钥对，重启后之前签发的 token 将无法解析
+2026-04-10T19:21:51.467Z  INFO 3427 --- [    Test worker] i.g.l.a.o.a.a.JWKSourceAutoConfiguration : JWKSet 初始化完成，kid: mPjf0fklJwZyQEDXL6e83EA_kcpoZ1noJX8mSkLZy7I, 算法: RS256
+2026-04-10T19:21:52.398Z  INFO 3427 --- [    Test worker] liquibase.database                       : Set default schema name to public
+2026-04-10T19:21:53.235Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/versions/0.0.1/0.0.1.yaml
+2026-04-10T19:21:53.640Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-04-10T19:21:53.680Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-04-10T19:21:53.700Z  INFO 3427 --- [    Test worker] liquibase.snapshot                       : Creating snapshot
+2026-04-10T19:21:53.981Z  INFO 3427 --- [    Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-04-10T19:21:53.983Z  INFO 3427 --- [    Test worker] liquibase.command                        : Using deploymentId: 5848912213
+2026-04-10T19:21:53.986Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-04-10T19:21:54.534Z  INFO 3427 --- [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu
+2026-04-10T19:21:54.549Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table ability created
+2026-04-10T19:21:54.567Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table effect_definition created
+2026-04-10T19:21:54.579Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table authentication_log created
+2026-04-10T19:21:54.595Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table berry created
+2026-04-10T19:21:54.600Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table berry_firmness created
+2026-04-10T19:21:54.605Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table berry_flavor created
+2026-04-10T19:21:54.612Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table egg_group created
+2026-04-10T19:21:54.617Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table encounter_condition created
+2026-04-10T19:21:54.624Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table encounter_condition_value created
+2026-04-10T19:21:54.630Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table encounter_method created
+2026-04-10T19:21:54.634Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table evolution_chain created
+2026-04-10T19:21:54.639Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table evolution_trigger created
+2026-04-10T19:21:54.644Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table gender created
+2026-04-10T19:21:54.649Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table growth_rate created
+2026-04-10T19:21:54.658Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item created
+2026-04-10T19:21:54.664Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item_attribute created
+2026-04-10T19:21:54.669Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item_attribute_relation created
+2026-04-10T19:21:54.676Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item_category created
+2026-04-10T19:21:54.683Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item_fling_effect created
+2026-04-10T19:21:54.688Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table item_pocket created
+2026-04-10T19:21:54.693Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table machine created
+2026-04-10T19:21:54.720Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table menu created
+2026-04-10T19:21:54.746Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move created
+2026-04-10T19:21:54.751Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move_ailment created
+2026-04-10T19:21:54.761Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move_category created
+2026-04-10T19:21:54.767Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move_damage_class created
+2026-04-10T19:21:54.775Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move_learn_method created
+2026-04-10T19:21:54.782Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table move_target created
+2026-04-10T19:21:54.790Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table nature created
+2026-04-10T19:21:54.833Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization created
+2026-04-10T19:21:54.839Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table oauth_authorization_consent created
+2026-04-10T19:21:54.868Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table oauth_registered_client created
+2026-04-10T19:21:54.878Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature created
+2026-04-10T19:21:54.885Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_ability created
+2026-04-10T19:21:54.891Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_color created
+2026-04-10T19:21:54.896Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_habitat created
+2026-04-10T19:21:54.901Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_shape created
+2026-04-10T19:21:54.922Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_species created
+2026-04-10T19:21:54.929Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_stat created
+2026-04-10T19:21:54.933Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_element created
+2026-04-10T19:21:54.937Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table region created
+2026-04-10T19:21:54.943Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table location created
+2026-04-10T19:21:54.949Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table location_area created
+2026-04-10T19:21:54.958Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table location_area_encounter created
+2026-04-10T19:21:54.963Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table location_area_encounter_condition_value created
+2026-04-10T19:21:54.978Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_variant created
+2026-04-10T19:21:54.983Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_variant_type created
+2026-04-10T19:21:54.989Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table role created
+2026-04-10T19:21:54.993Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table role_menu_relation created
+2026-04-10T19:21:54.999Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table permission created
+2026-04-10T19:21:55.002Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table role_permission_relation created
+2026-04-10T19:21:55.010Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table stat created
+2026-04-10T19:21:55.014Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table type created
+2026-04-10T19:21:55.020Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table type_effectiveness_entry created
+2026-04-10T19:21:55.049Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_evolution created
+2026-04-10T19:21:55.054Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table user_role_relation created
+2026-04-10T19:21:55.062Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table users created
+2026-04-10T19:21:55.064Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__state created
+2026-04-10T19:21:55.065Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__authorization_code_value created
+2026-04-10T19:21:55.067Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__access_token_value created
+2026-04-10T19:21:55.068Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__refresh_token_value created
+2026-04-10T19:21:55.069Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__oidc_id_token_value created
+2026-04-10T19:21:55.071Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__user_code_value created
+2026-04-10T19:21:55.072Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__device_code_value created
+2026-04-10T19:21:55.074Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_berry__berry_firmness_id created
+2026-04-10T19:21:55.075Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_berry__natural_gift_type_id created
+2026-04-10T19:21:55.076Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_encounter_condition_value__encounter_condition_id created
+2026-04-10T19:21:55.077Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_item__item_fling_effect_id created
+2026-04-10T19:21:55.079Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_item_attribute_relation__item_attribute_id created
+2026-04-10T19:21:55.080Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_item_category__item_pocket_id created
+2026-04-10T19:21:55.081Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_machine__item_id created
+2026-04-10T19:21:55.083Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_machine__move_id created
+2026-04-10T19:21:55.084Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_menu__parent_id created
+2026-04-10T19:21:55.085Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_menu__sorting_order__id created
+2026-04-10T19:21:55.086Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_menu__type created
+2026-04-10T19:21:55.088Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_menu__active_menu created
+2026-04-10T19:21:55.089Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_ailment_id created
+2026-04-10T19:21:55.090Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_category_id created
+2026-04-10T19:21:55.091Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_damage_class_id created
+2026-04-10T19:21:55.093Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_move__move_target_id created
+2026-04-10T19:21:55.094Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_move__type_id created
+2026-04-10T19:21:55.095Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_nature__decreased_stat_id created
+2026-04-10T19:21:55.096Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_nature__hates_berry_flavor_id created
+2026-04-10T19:21:55.097Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_nature__increased_stat_id created
+2026-04-10T19:21:55.099Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_nature__likes_berry_flavor_id created
+2026-04-10T19:21:55.100Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization__registered_client_id created
+2026-04-10T19:21:55.101Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_oauth_authorization_consent__registered_client_id created
+2026-04-10T19:21:55.102Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature__creature_species_id created
+2026-04-10T19:21:55.103Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_ability__creature_id created
+2026-04-10T19:21:55.104Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__evolves_from_species_id created
+2026-04-10T19:21:55.105Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__growth_rate_id created
+2026-04-10T19:21:55.106Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_color_id created
+2026-04-10T19:21:55.107Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_habitat_id created
+2026-04-10T19:21:55.108Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_species__creature_shape_id created
+2026-04-10T19:21:55.109Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_stat__stat_id created
+2026-04-10T19:21:55.110Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_element__type_id created
+2026-04-10T19:21:55.111Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location__region_id created
+2026-04-10T19:21:55.112Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_evolution_chain__baby_trigger_item_id created
+2026-04-10T19:21:55.113Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location_area__location_id created
+2026-04-10T19:21:55.114Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__evolution_chain_id created
+2026-04-10T19:21:55.116Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__from_creature_species_id created
+2026-04-10T19:21:55.117Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__to_creature_species_id created
+2026-04-10T19:21:55.118Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_evolution__trigger_id created
+2026-04-10T19:21:55.119Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__location_area_id created
+2026-04-10T19:21:55.120Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__creature_id created
+2026-04-10T19:21:55.122Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter__encounter_method_id created
+2026-04-10T19:21:55.123Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_location_area_encounter_cv__encounter_condition_value_id created
+2026-04-10T19:21:55.124Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_variant__creature_id created
+2026-04-10T19:21:55.125Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_variant_type__type_id created
+2026-04-10T19:21:55.126Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_role_menu_relation__menu_id created
+2026-04-10T19:21:55.127Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_permission__menu_id created
+2026-04-10T19:21:55.128Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_role_permission_relation__permission_id created
+2026-04-10T19:21:55.130Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_stat__move_damage_class_id created
+2026-04-10T19:21:55.131Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_type_effectiveness_entry__attacking_type_id created
+2026-04-10T19:21:55.132Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_user_role_relation__role_id created
+2026-04-10T19:21:55.135Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (natural_gift_type_id)
+2026-04-10T19:21:55.136Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to berry (berry_firmness_id)
+2026-04-10T19:21:55.138Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item (item_fling_effect_id)
+2026-04-10T19:21:55.139Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to item_category (item_pocket_id)
+2026-04-10T19:21:55.141Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to machine (move_id)
+2026-04-10T19:21:55.143Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
+2026-04-10T19:21:55.144Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_ailment_id)
+2026-04-10T19:21:55.146Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_target_id)
+2026-04-10T19:21:55.148Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (type_id)
+2026-04-10T19:21:55.150Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_damage_class_id)
+2026-04-10T19:21:55.152Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to move (move_category_id)
+2026-04-10T19:21:55.154Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (decreased_stat_id)
+2026-04-10T19:21:55.156Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to nature (increased_stat_id)
+2026-04-10T19:21:55.158Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to oauth_authorization (registered_client_id)
+2026-04-10T19:21:55.160Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to oauth_authorization_consent (registered_client_id)
+2026-04-10T19:21:55.162Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature (creature_species_id)
+2026-04-10T19:21:55.164Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to evolution_chain (baby_trigger_item_id)
+2026-04-10T19:21:55.166Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_species (evolution_chain_id)
+2026-04-10T19:21:55.167Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_stat (stat_id)
+2026-04-10T19:21:55.169Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_element (type_id)
+2026-04-10T19:21:55.172Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_variant_type (type_id)
+2026-04-10T19:21:55.174Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to user_role_relation (user_id)
+2026-04-10T19:21:55.175Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_species (evolves_from_species_id)
+2026-04-10T19:21:55.177Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to ability(internal_name)
+2026-04-10T19:21:55.179Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry(internal_name)
+2026-04-10T19:21:55.180Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry_firmness(internal_name)
+2026-04-10T19:21:55.181Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to berry_flavor(internal_name)
+2026-04-10T19:21:55.182Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to egg_group(internal_name)
+2026-04-10T19:21:55.183Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_condition(internal_name)
+2026-04-10T19:21:55.185Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_condition_value(internal_name)
+2026-04-10T19:21:55.186Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to encounter_method(internal_name)
+2026-04-10T19:21:55.187Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to evolution_trigger(internal_name)
+2026-04-10T19:21:55.188Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to gender(internal_name)
+2026-04-10T19:21:55.190Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to growth_rate(internal_name)
+2026-04-10T19:21:55.191Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_attribute(internal_name)
+2026-04-10T19:21:55.194Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_category(internal_name)
+2026-04-10T19:21:55.195Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_fling_effect(internal_name)
+2026-04-10T19:21:55.196Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to item_pocket(internal_name)
+2026-04-10T19:21:55.198Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to menu(key)
+2026-04-10T19:21:55.207Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move(internal_name)
+2026-04-10T19:21:55.208Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_ailment(internal_name)
+2026-04-10T19:21:55.209Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_category(internal_name)
+2026-04-10T19:21:55.210Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_damage_class(internal_name)
+2026-04-10T19:21:55.211Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_learn_method(internal_name)
+2026-04-10T19:21:55.212Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to move_target(internal_name)
+2026-04-10T19:21:55.214Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to nature(internal_name)
+2026-04-10T19:21:55.215Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature(internal_name)
+2026-04-10T19:21:55.216Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_color(internal_name)
+2026-04-10T19:21:55.217Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_habitat(internal_name)
+2026-04-10T19:21:55.218Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_shape(internal_name)
+2026-04-10T19:21:55.219Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_variant(internal_name)
+2026-04-10T19:21:55.221Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_evolution(evolution_chain_id,from_creature_species_id,to_creature_species_id,detail_sort_order)
+2026-04-10T19:21:55.222Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_species(internal_name)
+2026-04-10T19:21:55.223Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to location(internal_name)
+2026-04-10T19:21:55.224Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to location_area(internal_name)
+2026-04-10T19:21:55.225Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to region(internal_name)
+2026-04-10T19:21:55.226Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to stat(internal_name)
+2026-04-10T19:21:55.227Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to type(internal_name)
+2026-04-10T19:21:55.402Z  WARN 3427 --- [    Test worker] liquibase.resource                       : Error handling URI syntax for file inside jar. Defaulting to previous behavior.
 
 java.net.URISyntaxException: Illegal character in path at index 33: /db/changelog/versions/0.0.1/When this Pokémon has full HP, regular damage (not fixed damage!) from moves is halved.
 
@@ -550,7 +519,7 @@ This ability cannot be nullified.
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-04-08T23:12:07.549Z  WARN 2908 --- [    Test worker] liquibase.resource                       : Error handling URI syntax for file inside jar. Defaulting to previous behavior.
+2026-04-10T19:21:55.501Z  WARN 3427 --- [    Test worker] liquibase.resource                       : Error handling URI syntax for file inside jar. Defaulting to previous behavior.
 
 java.net.URISyntaxException: Illegal character in path at index 33: /db/changelog/versions/0.0.1/When this Pokémon has full HP, regular damage (not fixed damage!) from moves is halved.
 
@@ -734,107 +703,107 @@ This ability cannot be nullified.
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-04-08T23:12:07.927Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/ability.csv' into table 'ability'
-2026-04-08T23:12:07.997Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_firmness.csv' into table 'berry_firmness'
-2026-04-08T23:12:08.042Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_flavor.csv' into table 'berry_flavor'
-2026-04-08T23:12:08.097Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition.csv' into table 'encounter_condition'
-2026-04-08T23:12:08.237Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition_value.csv' into table 'encounter_condition_value'
-2026-04-08T23:12:08.313Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_method.csv' into table 'encounter_method'
-2026-04-08T23:12:08.371Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/region.csv' into table 'region'
-2026-04-08T23:12:08.890Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location.csv' into table 'location'
-2026-04-08T23:12:09.465Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area.csv' into table 'location_area'
-2026-04-08T23:12:09.520Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_trigger.csv' into table 'evolution_trigger'
-2026-04-08T23:12:09.570Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/gender.csv' into table 'gender'
-2026-04-08T23:12:09.625Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/growth_rate.csv' into table 'growth_rate'
-2026-04-08T23:12:09.684Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute.csv' into table 'item_attribute'
-2026-04-08T23:12:09.739Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_pocket.csv' into table 'item_pocket'
-2026-04-08T23:12:09.833Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_category.csv' into table 'item_category'
-2026-04-08T23:12:09.875Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_fling_effect.csv' into table 'item_fling_effect'
-2026-04-08T23:12:11.034Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item.csv' into table 'item'
-2026-04-08T23:12:11.116Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_chain.csv' into table 'evolution_chain'
-2026-04-08T23:12:11.202Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute_relation.csv' into table 'item_attribute_relation'
-2026-04-08T23:12:11.233Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_ailment.csv' into table 'move_ailment'
-2026-04-08T23:12:11.263Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_category.csv' into table 'move_category'
-2026-04-08T23:12:11.287Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_damage_class.csv' into table 'move_damage_class'
-2026-04-08T23:12:11.321Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_learn_method.csv' into table 'move_learn_method'
-2026-04-08T23:12:11.362Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_target.csv' into table 'move_target'
-2026-04-08T23:12:11.413Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/stat.csv' into table 'stat'
-2026-04-08T23:12:11.475Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/nature.csv' into table 'nature'
-2026-04-08T23:12:11.516Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_color.csv' into table 'creature_color'
-2026-04-08T23:12:11.568Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_shape.csv' into table 'creature_shape'
-2026-04-08T23:12:11.614Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_habitat.csv' into table 'creature_habitat'
-2026-04-08T23:12:12.779Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_species.csv' into table 'creature_species'
-2026-04-08T23:12:13.321Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature.csv' into table 'creature'
-2026-04-08T23:12:13.380Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type.csv' into table 'type'
-2026-04-08T23:12:14.824Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_variant.csv' into table 'creature_variant'
-2026-04-08T23:12:15.195Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_element.csv' into table 'creature_element'
-2026-04-08T23:12:15.533Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_variant_type.csv' into table 'creature_variant_type'
-2026-04-08T23:12:16.424Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_stat.csv' into table 'creature_stat'
-2026-04-08T23:12:16.918Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_ability.csv' into table 'creature_ability'
-2026-04-08T23:12:28.475Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area_encounter.csv' into table 'location_area_encounter'
-2026-04-08T23:12:29.828Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area_encounter_condition_value.csv' into table 'location_area_encounter_condition_value'
-2026-04-08T23:12:30.458Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move.csv' into table 'move'
-2026-04-08T23:12:30.684Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_evolution.csv' into table 'creature_evolution'
-2026-04-08T23:12:30.730Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry.csv' into table 'berry'
-2026-04-08T23:12:30.792Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type_effectiveness_entry.csv' into table 'type_effectiveness_entry'
-2026-04-08T23:12:30.818Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/egg_group.csv' into table 'egg_group'
-2026-04-08T23:12:30.854Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/menu.csv' into table 'menu'
-2026-04-08T23:12:30.882Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/oauth_registered_client.csv' into table 'oauth_registered_client'
-2026-04-08T23:12:30.946Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role.csv' into table 'role'
-2026-04-08T23:12:30.987Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role_menu_relation.csv' into table 'role_menu_relation'
-2026-04-08T23:12:31.018Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/users.csv' into table 'users'
-2026-04-08T23:12:31.048Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/user_role_relation.csv' into table 'user_role_relation'
-2026-04-08T23:12:31.059Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu ran successfully in 25875ms
-2026-04-08T23:12:31.165Z  INFO 2908 --- [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1-game-capture::codex
-2026-04-08T23:12:31.202Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table player created
-2026-04-08T23:12:31.217Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table creature_storage_box created
-2026-04-08T23:12:31.230Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table player_inventory_item created
-2026-04-08T23:12:31.278Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table owned_creature created
-2026-04-08T23:12:31.296Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table owned_creature_stat created
-2026-04-08T23:12:31.310Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Table owned_creature_move created
-2026-04-08T23:12:31.313Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to player(user_id, slot_no)
-2026-04-08T23:12:31.319Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_storage_box(player_id, sorting_order)
-2026-04-08T23:12:31.325Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to player_inventory_item(player_id, item_id)
-2026-04-08T23:12:31.327Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to owned_creature_stat(owned_creature_id, stat_id)
-2026-04-08T23:12:31.331Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Unique constraint added to owned_creature_move(owned_creature_id, slot)
-2026-04-08T23:12:31.334Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__kind created
-2026-04-08T23:12:31.337Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__source_type created
-2026-04-08T23:12:31.341Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__enabled created
-2026-04-08T23:12:31.343Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_player__user_id created
-2026-04-08T23:12:31.347Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_creature_storage_box__player_id created
-2026-04-08T23:12:31.351Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_player_inventory_item__item_id created
-2026-04-08T23:12:31.355Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__player_id created
-2026-04-08T23:12:31.358Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__creature_species_id created
-2026-04-08T23:12:31.362Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__storage_box_id created
-2026-04-08T23:12:31.367Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature_stat__stat_id created
-2026-04-08T23:12:31.371Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature_move__move_id created
-2026-04-08T23:12:31.376Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player (user_id)
-2026-04-08T23:12:31.378Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_storage_box (player_id)
-2026-04-08T23:12:31.384Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player_inventory_item (player_id)
-2026-04-08T23:12:31.388Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player_inventory_item (item_id)
-2026-04-08T23:12:31.395Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (player_id)
-2026-04-08T23:12:31.398Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (creature_id)
-2026-04-08T23:12:31.411Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (creature_species_id)
-2026-04-08T23:12:31.414Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (nature_id)
-2026-04-08T23:12:31.418Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (storage_box_id)
-2026-04-08T23:12:31.420Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (capture_item_id)
-2026-04-08T23:12:31.424Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_stat (owned_creature_id)
-2026-04-08T23:12:31.429Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_stat (stat_id)
-2026-04-08T23:12:31.431Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_move (owned_creature_id)
-2026-04-08T23:12:31.436Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_move (move_id)
-2026-04-08T23:12:31.438Z  INFO 2908 --- [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1-game-capture::codex ran successfully in 273ms
-2026-04-08T23:12:31.493Z  INFO 2908 --- [    Test worker] liquibase.util                           : UPDATE SUMMARY
-2026-04-08T23:12:31.497Z  INFO 2908 --- [    Test worker] liquibase.util                           : Run:                          2
-2026-04-08T23:12:31.498Z  INFO 2908 --- [    Test worker] liquibase.util                           : Previously run:               0
-2026-04-08T23:12:31.498Z  INFO 2908 --- [    Test worker] liquibase.util                           : Filtered out:                 0
-2026-04-08T23:12:31.498Z  INFO 2908 --- [    Test worker] liquibase.util                           : -------------------------------
-2026-04-08T23:12:31.498Z  INFO 2908 --- [    Test worker] liquibase.util                           : Total change sets:            2
-2026-04-08T23:12:31.500Z  INFO 2908 --- [    Test worker] liquibase.util                           : Update summary generated
-2026-04-08T23:12:31.518Z  INFO 2908 --- [    Test worker] liquibase.command                        : Update command completed successfully.
-2026-04-08T23:12:31.523Z  INFO 2908 --- [    Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 110965
-2026-04-08T23:12:31.532Z  INFO 2908 --- [    Test worker] liquibase.lockservice                    : Successfully released change log lock
-2026-04-08T23:12:31.538Z  INFO 2908 --- [    Test worker] liquibase.command                        : Command execution complete
-2026-04-08T23:12:31.851Z  INFO 2908 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Started AuthenticationLogRepositoryTest in 61.159 seconds (process running for 70.89)
+2026-04-10T19:21:55.673Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/ability.csv' into table 'ability'
+2026-04-10T19:21:55.699Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_firmness.csv' into table 'berry_firmness'
+2026-04-10T19:21:55.722Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry_flavor.csv' into table 'berry_flavor'
+2026-04-10T19:21:55.745Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition.csv' into table 'encounter_condition'
+2026-04-10T19:21:55.786Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_condition_value.csv' into table 'encounter_condition_value'
+2026-04-10T19:21:55.815Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/encounter_method.csv' into table 'encounter_method'
+2026-04-10T19:21:55.848Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/region.csv' into table 'region'
+2026-04-10T19:21:56.034Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location.csv' into table 'location'
+2026-04-10T19:21:56.215Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area.csv' into table 'location_area'
+2026-04-10T19:21:56.234Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_trigger.csv' into table 'evolution_trigger'
+2026-04-10T19:21:56.250Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/gender.csv' into table 'gender'
+2026-04-10T19:21:56.266Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/growth_rate.csv' into table 'growth_rate'
+2026-04-10T19:21:56.282Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute.csv' into table 'item_attribute'
+2026-04-10T19:21:56.298Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_pocket.csv' into table 'item_pocket'
+2026-04-10T19:21:56.329Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_category.csv' into table 'item_category'
+2026-04-10T19:21:56.347Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_fling_effect.csv' into table 'item_fling_effect'
+2026-04-10T19:21:56.737Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item.csv' into table 'item'
+2026-04-10T19:21:56.776Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/evolution_chain.csv' into table 'evolution_chain'
+2026-04-10T19:21:56.824Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/item_attribute_relation.csv' into table 'item_attribute_relation'
+2026-04-10T19:21:56.840Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_ailment.csv' into table 'move_ailment'
+2026-04-10T19:21:56.856Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_category.csv' into table 'move_category'
+2026-04-10T19:21:56.872Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_damage_class.csv' into table 'move_damage_class'
+2026-04-10T19:21:56.886Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_learn_method.csv' into table 'move_learn_method'
+2026-04-10T19:21:56.901Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move_target.csv' into table 'move_target'
+2026-04-10T19:21:56.913Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/stat.csv' into table 'stat'
+2026-04-10T19:21:56.927Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/nature.csv' into table 'nature'
+2026-04-10T19:21:56.940Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_color.csv' into table 'creature_color'
+2026-04-10T19:21:56.950Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_shape.csv' into table 'creature_shape'
+2026-04-10T19:21:56.961Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_habitat.csv' into table 'creature_habitat'
+2026-04-10T19:21:57.200Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_species.csv' into table 'creature_species'
+2026-04-10T19:21:57.297Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature.csv' into table 'creature'
+2026-04-10T19:21:57.309Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type.csv' into table 'type'
+2026-04-10T19:21:57.637Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_variant.csv' into table 'creature_variant'
+2026-04-10T19:21:57.720Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_element.csv' into table 'creature_element'
+2026-04-10T19:21:57.842Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_variant_type.csv' into table 'creature_variant_type'
+2026-04-10T19:21:58.290Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_stat.csv' into table 'creature_stat'
+2026-04-10T19:21:58.495Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_ability.csv' into table 'creature_ability'
+2026-04-10T19:22:02.085Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area_encounter.csv' into table 'location_area_encounter'
+2026-04-10T19:22:02.624Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/location_area_encounter_condition_value.csv' into table 'location_area_encounter_condition_value'
+2026-04-10T19:22:02.792Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/move.csv' into table 'move'
+2026-04-10T19:22:02.863Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/creature_evolution.csv' into table 'creature_evolution'
+2026-04-10T19:22:02.879Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/berry.csv' into table 'berry'
+2026-04-10T19:22:02.899Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/type_effectiveness_entry.csv' into table 'type_effectiveness_entry'
+2026-04-10T19:22:02.909Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/egg_group.csv' into table 'egg_group'
+2026-04-10T19:22:02.942Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/menu.csv' into table 'menu'
+2026-04-10T19:22:02.952Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/oauth_registered_client.csv' into table 'oauth_registered_client'
+2026-04-10T19:22:02.961Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role.csv' into table 'role'
+2026-04-10T19:22:02.980Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/permission.csv' into table 'permission'
+2026-04-10T19:22:02.994Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role_menu_relation.csv' into table 'role_menu_relation'
+2026-04-10T19:22:03.004Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/role_permission_relation.csv' into table 'role_permission_relation'
+2026-04-10T19:22:03.013Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/users.csv' into table 'users'
+2026-04-10T19:22:03.022Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Data loaded from 'data/user_role_relation.csv' into table 'user_role_relation'
+2026-04-10T19:22:03.028Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table player created
+2026-04-10T19:22:03.034Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table creature_storage_box created
+2026-04-10T19:22:03.038Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table player_inventory_item created
+2026-04-10T19:22:03.050Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table owned_creature created
+2026-04-10T19:22:03.054Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table owned_creature_stat created
+2026-04-10T19:22:03.059Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Table owned_creature_move created
+2026-04-10T19:22:03.061Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to player(user_id, slot_no)
+2026-04-10T19:22:03.063Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to creature_storage_box(player_id, sorting_order)
+2026-04-10T19:22:03.064Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to player_inventory_item(player_id, item_id)
+2026-04-10T19:22:03.064Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to owned_creature_stat(owned_creature_id, stat_id)
+2026-04-10T19:22:03.065Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Unique constraint added to owned_creature_move(owned_creature_id, slot)
+2026-04-10T19:22:03.066Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__kind created
+2026-04-10T19:22:03.067Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__source_type created
+2026-04-10T19:22:03.068Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_effect_definition__enabled created
+2026-04-10T19:22:03.069Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_player__user_id created
+2026-04-10T19:22:03.070Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_creature_storage_box__player_id created
+2026-04-10T19:22:03.071Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_player_inventory_item__item_id created
+2026-04-10T19:22:03.072Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__player_id created
+2026-04-10T19:22:03.073Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__creature_species_id created
+2026-04-10T19:22:03.074Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature__storage_box_id created
+2026-04-10T19:22:03.075Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature_stat__stat_id created
+2026-04-10T19:22:03.076Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Index idx_owned_creature_move__move_id created
+2026-04-10T19:22:03.078Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player (user_id)
+2026-04-10T19:22:03.080Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to creature_storage_box (player_id)
+2026-04-10T19:22:03.081Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player_inventory_item (player_id)
+2026-04-10T19:22:03.082Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to player_inventory_item (item_id)
+2026-04-10T19:22:03.083Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (player_id)
+2026-04-10T19:22:03.084Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (creature_id)
+2026-04-10T19:22:03.085Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (creature_species_id)
+2026-04-10T19:22:03.087Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (nature_id)
+2026-04-10T19:22:03.088Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (storage_box_id)
+2026-04-10T19:22:03.090Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature (capture_item_id)
+2026-04-10T19:22:03.091Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_stat (owned_creature_id)
+2026-04-10T19:22:03.092Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_stat (stat_id)
+2026-04-10T19:22:03.094Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_move (owned_creature_id)
+2026-04-10T19:22:03.095Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : Foreign key constraint added to owned_creature_move (move_id)
+2026-04-10T19:22:03.101Z  INFO 3427 --- [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/versions/0.0.1/0.0.1.yaml::0.0.1::lishangbu ran successfully in 8562ms
+2026-04-10T19:22:03.115Z  INFO 3427 --- [    Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-04-10T19:22:03.115Z  INFO 3427 --- [    Test worker] liquibase.util                           : Run:                          1
+2026-04-10T19:22:03.116Z  INFO 3427 --- [    Test worker] liquibase.util                           : Previously run:               0
+2026-04-10T19:22:03.116Z  INFO 3427 --- [    Test worker] liquibase.util                           : Filtered out:                 0
+2026-04-10T19:22:03.116Z  INFO 3427 --- [    Test worker] liquibase.util                           : -------------------------------
+2026-04-10T19:22:03.116Z  INFO 3427 --- [    Test worker] liquibase.util                           : Total change sets:            1
+2026-04-10T19:22:03.117Z  INFO 3427 --- [    Test worker] liquibase.util                           : Update summary generated
+2026-04-10T19:22:03.120Z  INFO 3427 --- [    Test worker] liquibase.command                        : Update command completed successfully.
+2026-04-10T19:22:03.120Z  INFO 3427 --- [    Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 111007
+2026-04-10T19:22:03.123Z  INFO 3427 --- [    Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-04-10T19:22:03.124Z  INFO 3427 --- [    Test worker] liquibase.command                        : Command execution complete
+2026-04-10T19:22:03.200Z  INFO 3427 --- [    Test worker] .l.a.a.r.AuthenticationLogRepositoryTest : Started AuthenticationLogRepositoryTest in 18.632 seconds (process running for 23.577)
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-io.github.lishangbu.avalon.authorization.repository.AuthenticationLogRepositoryTest">Copy</button>
 </span>
@@ -849,7 +818,7 @@ This ability cannot be nullified.
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.4.1</a> at Apr 8, 2026, 11:19:30 PM</p>
+<a href="https://www.gradle.org">Gradle 9.4.1</a> at Apr 10, 2026, 7:23:30 PM</p>
 </div>
 </div>
 </body>

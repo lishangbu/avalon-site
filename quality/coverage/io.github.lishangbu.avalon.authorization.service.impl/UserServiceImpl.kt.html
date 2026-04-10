@@ -39,78 +39,94 @@ import org.springframework.transaction.annotation.Transactional
      */
 <span class="fc bfc" id="L40" title="All 2 branches covered.">    override fun getUserByUsername(username: String): CurrentUserView? = userRepository.loadByAccountWithRoles(username)?.let(::CurrentUserView)</span>
 
+    /** 获取当前用户的权限编码列表 */
+    override fun getCurrentPermissionCodes(username: String): List&lt;String&gt; =
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        userRepository</span>
+<span class="nc" id="L45">            .loadByAccountWithRoles(username)</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            ?.roles</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            ?.flatMap { role -&gt; role.permissions }</span>
+<span class="nc" id="L48">            ?.asSequence()</span>
+<span class="nc bnc" id="L49" title="All 4 branches missed.">            ?.filter { permission -&gt; permission.enabled != false }</span>
+<span class="nc bnc" id="L50" title="All 4 branches missed.">            ?.mapNotNull { permission -&gt; permission.code?.trim() }</span>
+<span class="nc bnc" id="L51" title="All 4 branches missed.">            ?.filter { code -&gt; code.isNotEmpty() }</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            ?.distinct()</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            ?.sorted()</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            ?.toList()</span>
+<span class="nc" id="L55">            ?: emptyList()</span>
+
     /** 按条件分页查询用户 */
     override fun getPageByCondition(
         specification: UserSpecification,
         pageable: Pageable,
-<span class="fc" id="L46">    ): Page&lt;UserView&gt; = userRepository.pageViews(specification, pageable)</span>
+<span class="fc" id="L61">    ): Page&lt;UserView&gt; = userRepository.pageViews(specification, pageable)</span>
 
     /** 按条件查询用户列表 */
-<span class="fc" id="L49">    override fun listByCondition(specification: UserSpecification): List&lt;UserView&gt; = userRepository.listViews(specification)</span>
+<span class="fc" id="L64">    override fun listByCondition(specification: UserSpecification): List&lt;UserView&gt; = userRepository.listViews(specification)</span>
 
     /** 按 ID 查询用户 */
-<span class="fc" id="L52">    override fun getById(id: Long): UserView? = userRepository.loadViewById(id)</span>
+<span class="fc" id="L67">    override fun getById(id: Long): UserView? = userRepository.loadViewById(id)</span>
 
     /** 保存用户 */
     @Transactional(rollbackFor = [Exception::class])
     override fun save(command: SaveUserInput): UserView {
-<span class="fc" id="L57">        val prepared = bindRoles(command.toEntity(), false)</span>
-<span class="fc" id="L58">        return userRepository.save(prepared, SaveMode.INSERT_ONLY).let(::reloadView)</span>
+<span class="fc" id="L72">        val prepared = bindRoles(command.toEntity(), false)</span>
+<span class="fc" id="L73">        return userRepository.save(prepared, SaveMode.INSERT_ONLY).let(::reloadView)</span>
     }
 
     /** 更新用户 */
     @Transactional(rollbackFor = [Exception::class])
     override fun update(command: UpdateUserInput): UserView {
-<span class="fc" id="L64">        val prepared = bindRoles(command.toEntity(), true)</span>
-<span class="fc" id="L65">        return userRepository.save(prepared).let(::reloadView)</span>
+<span class="fc" id="L79">        val prepared = bindRoles(command.toEntity(), true)</span>
+<span class="fc" id="L80">        return userRepository.save(prepared).let(::reloadView)</span>
     }
 
     /** 按 ID 删除用户 */
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc" id="L71">        userRepository.deleteById(id)</span>
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L86">        userRepository.deleteById(id)</span>
+<span class="fc" id="L87">    }</span>
 
     /** 绑定并补全角色信息 */
     private fun bindRoles(
         user: User,
         preserveWhenNull: Boolean,
     ): User {
-<span class="fc" id="L79">        val existing =</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">                user.readOrNull { id }?.let { userId -&gt; userRepository.findNullable(userId, AuthorizationFetchers.USER_WITH_ROLES) }</span>
+<span class="fc" id="L94">        val existing =</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">                user.readOrNull { id }?.let { userId -&gt; userRepository.findNullable(userId, AuthorizationFetchers.USER_WITH_ROLES) }</span>
             } else {
-<span class="fc" id="L83">                null</span>
+<span class="fc" id="L98">                null</span>
             }
 
-<span class="fc" id="L86">        val currentRoles = user.readOrNull { roles }</span>
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        val roleIds = currentRoles?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
-<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        val shouldLoadRoles = currentRoles != null</span>
-<span class="fc" id="L89">        val boundRoles =</span>
-<span class="fc" id="L90">            when {</span>
-<span class="pc bpc" id="L91" title="2 of 8 branches missed.">                currentRoles != null &amp;&amp; !roleIds.isNullOrEmpty() -&gt; roleRepository.findAllById(roleIds)</span>
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">                currentRoles != null -&gt; emptyList()</span>
-<span class="nc bnc" id="L93" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { roles } ?: emptyList()</span>
-<span class="nc" id="L94">                else -&gt; emptyList()</span>
+<span class="fc" id="L101">        val currentRoles = user.readOrNull { roles }</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        val roleIds = currentRoles?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        val shouldLoadRoles = currentRoles != null</span>
+<span class="fc" id="L104">        val boundRoles =</span>
+<span class="fc" id="L105">            when {</span>
+<span class="pc bpc" id="L106" title="2 of 8 branches missed.">                currentRoles != null &amp;&amp; !roleIds.isNullOrEmpty() -&gt; roleRepository.findAllById(roleIds)</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                currentRoles != null -&gt; emptyList()</span>
+<span class="nc bnc" id="L108" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { roles } ?: emptyList()</span>
+<span class="nc" id="L109">                else -&gt; emptyList()</span>
             }
 
-<span class="fc" id="L97">        val hashedPassword =</span>
-<span class="fc bfc" id="L98" title="All 4 branches covered.">            user.readOrNull { hashedPassword } ?: existing?.readOrNull { hashedPassword }</span>
+<span class="fc" id="L112">        val hashedPassword =</span>
+<span class="fc bfc" id="L113" title="All 4 branches covered.">            user.readOrNull { hashedPassword } ?: existing?.readOrNull { hashedPassword }</span>
 
-<span class="fc" id="L100">        return User {</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">            user.readOrNull { id }?.let { id = it }</span>
-<span class="fc bfc" id="L102" title="All 4 branches covered.">            username = user.readOrNull { username } ?: existing?.readOrNull { username }</span>
-<span class="fc bfc" id="L103" title="All 4 branches covered.">            phone = user.readOrNull { phone } ?: existing?.readOrNull { phone }</span>
-<span class="fc bfc" id="L104" title="All 4 branches covered.">            email = user.readOrNull { email } ?: existing?.readOrNull { email }</span>
-<span class="fc bfc" id="L105" title="All 4 branches covered.">            avatar = user.readOrNull { avatar } ?: existing?.readOrNull { avatar }</span>
-<span class="fc" id="L106">            this.hashedPassword = hashedPassword</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">            if (shouldLoadRoles) {</span>
-<span class="fc" id="L108">                roles()</span>
+<span class="fc" id="L115">        return User {</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">            user.readOrNull { id }?.let { id = it }</span>
+<span class="fc bfc" id="L117" title="All 4 branches covered.">            username = user.readOrNull { username } ?: existing?.readOrNull { username }</span>
+<span class="fc bfc" id="L118" title="All 4 branches covered.">            phone = user.readOrNull { phone } ?: existing?.readOrNull { phone }</span>
+<span class="fc bfc" id="L119" title="All 4 branches covered.">            email = user.readOrNull { email } ?: existing?.readOrNull { email }</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">            avatar = user.readOrNull { avatar } ?: existing?.readOrNull { avatar }</span>
+<span class="fc bfc" id="L121" title="All 6 branches covered.">            enabled = user.readOrNull { enabled } ?: existing?.readOrNull { enabled } ?: true</span>
+<span class="fc" id="L122">            this.hashedPassword = hashedPassword</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            if (shouldLoadRoles) {</span>
+<span class="fc" id="L124">                roles()</span>
             }
-<span class="fc" id="L110">            boundRoles.forEach { boundRole -&gt; roles().addBy(boundRole) }</span>
-<span class="fc" id="L111">        }</span>
+<span class="fc" id="L126">            boundRoles.forEach { boundRole -&gt; roles().addBy(boundRole) }</span>
+<span class="fc" id="L127">        }</span>
     }
 
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">    private fun reloadView(user: User): UserView = requireNotNull(userRepository.loadViewById(user.id)) { &quot;未找到 ID=${user.id} 对应的用户&quot; }</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">    private fun reloadView(user: User): UserView = requireNotNull(userRepository.loadViewById(user.id)) { &quot;未找到 ID=${user.id} 对应的用户&quot; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

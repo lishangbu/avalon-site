@@ -8,6 +8,7 @@ import io.github.lishangbu.avalon.authorization.entity.dto.SaveRoleInput
 import io.github.lishangbu.avalon.authorization.entity.dto.UpdateRoleInput
 import io.github.lishangbu.avalon.authorization.repository.AuthorizationFetchers
 import io.github.lishangbu.avalon.authorization.repository.MenuRepository
+import io.github.lishangbu.avalon.authorization.repository.PermissionRepository
 import io.github.lishangbu.avalon.authorization.repository.RoleRepository
 import io.github.lishangbu.avalon.authorization.service.RoleService
 import io.github.lishangbu.avalon.jimmer.support.readOrNull
@@ -17,73 +18,72 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-/**
- * 角色服务实现
- *
- * 负责角色及其菜单关联的查询与维护
- *
- * @author lishangbu
- * @since 2025/8/30
- */
-<span class="fc" id="L28">@Service</span>
-<span class="fc" id="L29">class RoleServiceImpl(</span>
-    /** 角色仓储 */
-<span class="fc" id="L31">    private val roleRepository: RoleRepository,</span>
-    /** 菜单仓储 */
-<span class="fc" id="L33">    private val menuRepository: MenuRepository,</span>
+/** 角色服务实现。 */
+<span class="fc" id="L22">@Service</span>
+<span class="fc" id="L23">class RoleServiceImpl(</span>
+<span class="fc" id="L24">    private val roleRepository: RoleRepository,</span>
+<span class="fc" id="L25">    private val menuRepository: MenuRepository,</span>
+<span class="fc" id="L26">    private val permissionRepository: PermissionRepository,</span>
 ) : RoleService {
-    /** 按条件分页查询角色 */
     override fun getPageByCondition(
         specification: RoleSpecification,
         pageable: Pageable,
-<span class="fc" id="L39">    ): Page&lt;RoleView&gt; = roleRepository.pageViews(specification, pageable)</span>
+<span class="fc" id="L31">    ): Page&lt;RoleView&gt; = roleRepository.pageViews(specification, pageable)</span>
 
-    /** 根据条件查询角色列表 */
-<span class="fc" id="L42">    override fun listByCondition(specification: RoleSpecification): List&lt;RoleView&gt; = roleRepository.listViews(specification)</span>
+<span class="fc" id="L33">    override fun listByCondition(specification: RoleSpecification): List&lt;RoleView&gt; = roleRepository.listViews(specification)</span>
 
-    /** 按 ID 查询角色 */
-<span class="fc" id="L45">    override fun getById(id: Long): RoleView? = roleRepository.loadViewById(id)</span>
+<span class="fc" id="L35">    override fun getById(id: Long): RoleView? = roleRepository.loadViewById(id)</span>
 
-    /** 保存角色 */
     @Transactional(rollbackFor = [Exception::class])
     override fun save(command: SaveRoleInput): RoleView {
-<span class="fc" id="L50">        val prepared = bindMenus(command.toEntity(), false)</span>
-<span class="fc" id="L51">        return roleRepository.save(prepared, SaveMode.INSERT_ONLY).let(::reloadView)</span>
+<span class="fc" id="L39">        val prepared = bindAssociations(command.toEntity(), false)</span>
+<span class="fc" id="L40">        return roleRepository.save(prepared, SaveMode.INSERT_ONLY).let(::reloadView)</span>
     }
 
-    /** 更新角色 */
     @Transactional(rollbackFor = [Exception::class])
     override fun update(command: UpdateRoleInput): RoleView {
-<span class="fc" id="L57">        val prepared = bindMenus(command.toEntity(), true)</span>
-<span class="fc" id="L58">        return roleRepository.save(prepared).let(::reloadView)</span>
+<span class="fc" id="L45">        val prepared = bindAssociations(command.toEntity(), true)</span>
+<span class="fc" id="L46">        return roleRepository.save(prepared).let(::reloadView)</span>
     }
 
-    /** 按 ID 删除角色 */
     @Transactional(rollbackFor = [Exception::class])
     override fun removeById(id: Long) {
-<span class="fc" id="L64">        roleRepository.deleteById(id)</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L51">        roleRepository.deleteById(id)</span>
+<span class="fc" id="L52">    }</span>
 
-    /** 返回绑定菜单列表 */
-    private fun bindMenus(
+    private fun bindAssociations(
         role: Role,
         preserveWhenNull: Boolean,
     ): Role {
-<span class="fc" id="L72">        val existing =</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">                role.readOrNull { id }?.let { roleId -&gt; roleRepository.findNullable(roleId, AuthorizationFetchers.ROLE_WITH_MENUS) }</span>
+<span class="fc" id="L58">        val existing =</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                role.readOrNull { id }?.let { roleId -&gt;</span>
+<span class="fc" id="L61">                    roleRepository.findNullable(roleId, AuthorizationFetchers.ROLE_WITH_BINDINGS)</span>
+                }
             } else {
-<span class="fc" id="L76">                null</span>
+<span class="fc" id="L64">                null</span>
             }
 
-<span class="fc" id="L79">        val currentMenus = role.readOrNull { menus }</span>
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        val menuIds = currentMenus?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        val shouldLoadMenus = currentMenus != null</span>
-<span class="fc" id="L82">        val boundMenus =</span>
+<span class="fc" id="L67">        val currentMenus = role.readOrNull { menus }</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        val menuIds = currentMenus?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        val shouldLoadMenus = currentMenus != null</span>
+<span class="fc" id="L70">        val boundMenus =</span>
+<span class="fc" id="L71">            when {</span>
+<span class="pc bpc" id="L72" title="2 of 8 branches missed.">                currentMenus != null &amp;&amp; !menuIds.isNullOrEmpty() -&gt; menuRepository.findAllById(menuIds)</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">                currentMenus != null -&gt; emptyList()</span>
+<span class="nc bnc" id="L74" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
+<span class="nc" id="L75">                else -&gt; emptyList()</span>
+            }
+
+<span class="fc" id="L78">        val currentPermissions = role.readOrNull { permissions }</span>
+<span class="fc" id="L79">        val permissionIds =</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">            currentPermissions?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        val shouldLoadPermissions = currentPermissions != null</span>
+<span class="fc" id="L82">        val boundPermissions =</span>
 <span class="fc" id="L83">            when {</span>
-<span class="pc bpc" id="L84" title="2 of 8 branches missed.">                currentMenus != null &amp;&amp; !menuIds.isNullOrEmpty() -&gt; menuRepository.findAllById(menuIds)</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                currentMenus != null -&gt; emptyList()</span>
-<span class="nc bnc" id="L86" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
+<span class="pc bpc" id="L84" title="4 of 8 branches missed.">                currentPermissions != null &amp;&amp; !permissionIds.isNullOrEmpty() -&gt; permissionRepository.findAllById(permissionIds)</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                currentPermissions != null -&gt; emptyList()</span>
+<span class="nc bnc" id="L86" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { permissions } ?: emptyList()</span>
 <span class="nc" id="L87">                else -&gt; emptyList()</span>
             }
 
@@ -92,13 +92,22 @@ import org.springframework.transaction.annotation.Transactional
 <span class="fc bfc" id="L92" title="All 4 branches covered.">            code = role.readOrNull { code } ?: existing?.readOrNull { code }</span>
 <span class="fc bfc" id="L93" title="All 4 branches covered.">            name = role.readOrNull { name } ?: existing?.readOrNull { name }</span>
 <span class="fc bfc" id="L94" title="All 4 branches covered.">            enabled = role.readOrNull { enabled } ?: existing?.readOrNull { enabled }</span>
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            if (shouldLoadMenus) {</span>
-<span class="fc" id="L96">                menus()</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (shouldLoadMenus) {</span>
+<span class="fc" id="L97">                menus()</span>
             }
-<span class="fc" id="L98">            boundMenus.forEach { boundMenu -&gt; menus().addBy(boundMenu) }</span>
-<span class="fc" id="L99">        }</span>
+<span class="fc" id="L99">            boundMenus.forEach { boundMenu -&gt; menus().addBy(boundMenu) }</span>
+
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            if (shouldLoadPermissions) {</span>
+<span class="fc" id="L102">                permissions()</span>
+            }
+<span class="pc" id="L104">            boundPermissions.forEach { boundPermission -&gt; permissions().addBy(boundPermission) }</span>
+<span class="fc" id="L105">        }</span>
     }
 
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">    private fun reloadView(role: Role): RoleView = requireNotNull(roleRepository.loadViewById(role.id)) { &quot;未找到 ID=${role.id} 对应的角色&quot; }</span>
+    private fun reloadView(role: Role): RoleView =
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        requireNotNull(roleRepository.loadViewById(role.id)) {</span>
+<span class="nc" id="L110">            &quot;未找到 ID=${role.id} 对应的角色&quot;</span>
+<span class="fc" id="L111">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
