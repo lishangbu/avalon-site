@@ -1,0 +1,606 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>StandardActionTypeIds</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-game-battle-engine::io.github.lishangbu.avalon.game.battle.engine.core.type/StandardActionTypeIds///PointingToDeclaration//-1879947025">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-game-battle-engine</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.battle.engine.core.type</a><span class="delimiter">/</span><span class="current">StandardActionTypeIds</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Standard</span><wbr><span>Action</span><wbr><span>Type</span><wbr><span><span>Ids</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">StandardActionTypeIds</a></div><p class="paragraph">第一版标准 action type 集合。</p><p class="paragraph">设计意图：</p><ul><li><p class="paragraph">与设计文档中的动作白名单保持一致。</p></li><li><p class="paragraph">供动作节点与执行器 registry 共享。</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1401504781%2FProperties%2F-1879947025" anchor-label="ADD_RELAY" id="1401504781%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-d-d_-r-e-l-a-y.html"><span>ADD_</span><wbr><span>RELAY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1401504781%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-d-d_-r-e-l-a-y.html">ADD_RELAY</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1834529142%2FProperties%2F-1879947025" anchor-label="ADD_STATUS" id="-1834529142%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-d-d_-s-t-a-t-u-s.html"><span>ADD_</span><wbr><span>STATUS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1834529142%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-d-d_-s-t-a-t-u-s.html">ADD_STATUS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="962057312%2FProperties%2F-1879947025" anchor-label="ADD_VOLATILE" id="962057312%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-d-d_-v-o-l-a-t-i-l-e.html"><span>ADD_</span><wbr><span>VOLATILE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962057312%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-d-d_-v-o-l-a-t-i-l-e.html">ADD_VOLATILE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="951280022%2FProperties%2F-1879947025" anchor-label="APPLY_CONDITION" id="951280022%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-p-p-l-y_-c-o-n-d-i-t-i-o-n.html"><span>APPLY_</span><wbr><span>CONDITION</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="951280022%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-p-p-l-y_-c-o-n-d-i-t-i-o-n.html">APPLY_CONDITION</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1190240573%2FProperties%2F-1879947025" anchor-label="BOOST" id="1190240573%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-o-o-s-t.html"><span><span>BOOST</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1190240573%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-b-o-o-s-t.html">BOOST</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1539887970%2FProperties%2F-1879947025" anchor-label="BOOST_FROM_RELAY" id="1539887970%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-o-o-s-t_-f-r-o-m_-r-e-l-a-y.html"><span>BOOST_</span><wbr><span>FROM_</span><wbr><span>RELAY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1539887970%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-b-o-o-s-t_-f-r-o-m_-r-e-l-a-y.html">BOOST_FROM_RELAY</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-882528553%2FProperties%2F-1879947025" anchor-label="CHANGE_TYPE" id="-882528553%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-a-n-g-e_-t-y-p-e.html"><span>CHANGE_</span><wbr><span>TYPE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-882528553%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-h-a-n-g-e_-t-y-p-e.html">CHANGE_TYPE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2117761672%2FProperties%2F-1879947025" anchor-label="CLEAR_BOOSTS" id="-2117761672%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-e-a-r_-b-o-o-s-t-s.html"><span>CLEAR_</span><wbr><span>BOOSTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2117761672%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-e-a-r_-b-o-o-s-t-s.html">CLEAR_BOOSTS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162741218%2FProperties%2F-1879947025" anchor-label="CLEAR_PROBE" id="162741218%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-e-a-r_-p-r-o-b-e.html"><span>CLEAR_</span><wbr><span>PROBE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162741218%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-e-a-r_-p-r-o-b-e.html">CLEAR_PROBE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1311892157%2FProperties%2F-1879947025" anchor-label="CLEAR_TERRAIN" id="1311892157%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-e-a-r_-t-e-r-r-a-i-n.html"><span>CLEAR_</span><wbr><span>TERRAIN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311892157%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-e-a-r_-t-e-r-r-a-i-n.html">CLEAR_TERRAIN</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-440188194%2FProperties%2F-1879947025" anchor-label="CLEAR_WEATHER" id="-440188194%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-e-a-r_-w-e-a-t-h-e-r.html"><span>CLEAR_</span><wbr><span>WEATHER</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-440188194%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-e-a-r_-w-e-a-t-h-e-r.html">CLEAR_WEATHER</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1977664028%2FProperties%2F-1879947025" anchor-label="CONSUME_ITEM" id="-1977664028%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-s-u-m-e_-i-t-e-m.html"><span>CONSUME_</span><wbr><span>ITEM</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1977664028%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-s-u-m-e_-i-t-e-m.html">CONSUME_ITEM</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1624861402%2FProperties%2F-1879947025" anchor-label="COPY_BOOSTS" id="-1624861402%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-b-o-o-s-t-s.html"><span>COPY_</span><wbr><span>BOOSTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1624861402%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-p-y_-b-o-o-s-t-s.html">COPY_BOOSTS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1786723349%2FProperties%2F-1879947025" anchor-label="DAMAGE" id="-1786723349%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-a-m-a-g-e.html"><span><span>DAMAGE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1786723349%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-a-m-a-g-e.html">DAMAGE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-609347122%2FProperties%2F-1879947025" anchor-label="FAIL_MOVE" id="-609347122%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-a-i-l_-m-o-v-e.html"><span>FAIL_</span><wbr><span>MOVE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-609347122%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-f-a-i-l_-m-o-v-e.html">FAIL_MOVE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-405075822%2FProperties%2F-1879947025" anchor-label="FORCE_SWITCH" id="-405075822%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-r-c-e_-s-w-i-t-c-h.html"><span>FORCE_</span><wbr><span>SWITCH</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-405075822%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-f-o-r-c-e_-s-w-i-t-c-h.html">FORCE_SWITCH</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1690070318%2FProperties%2F-1879947025" anchor-label="HEAL" id="-1690070318%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-e-a-l.html"><span><span>HEAL</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1690070318%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-h-e-a-l.html">HEAL</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1111013038%2FProperties%2F-1879947025" anchor-label="INVERT_BOOST_RELAY" id="1111013038%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-e-r-t_-b-o-o-s-t_-r-e-l-a-y.html"><span>INVERT_</span><wbr><span>BOOST_</span><wbr><span>RELAY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1111013038%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-n-v-e-r-t_-b-o-o-s-t_-r-e-l-a-y.html">INVERT_BOOST_RELAY</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-120331657%2FProperties%2F-1879947025" anchor-label="INVERT_STORED_BOOSTS" id="-120331657%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-e-r-t_-s-t-o-r-e-d_-b-o-o-s-t-s.html"><span>INVERT_</span><wbr><span>STORED_</span><wbr><span>BOOSTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-120331657%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-i-n-v-e-r-t_-s-t-o-r-e-d_-b-o-o-s-t-s.html">INVERT_STORED_BOOSTS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193991878%2FProperties%2F-1879947025" anchor-label="MODIFY_MULTIPLIER" id="-193991878%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-d-i-f-y_-m-u-l-t-i-p-l-i-e-r.html"><span>MODIFY_</span><wbr><span>MULTIPLIER</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193991878%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-o-d-i-f-y_-m-u-l-t-i-p-l-i-e-r.html">MODIFY_MULTIPLIER</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-253214987%2FProperties%2F-1879947025" anchor-label="PREPARE_BOOST_PASS" id="-253214987%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-e-p-a-r-e_-b-o-o-s-t_-p-a-s-s.html"><span>PREPARE_</span><wbr><span>BOOST_</span><wbr><span>PASS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-253214987%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-r-e-p-a-r-e_-b-o-o-s-t_-p-a-s-s.html">PREPARE_BOOST_PASS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1802150202%2FProperties%2F-1879947025" anchor-label="REMOVE_CONDITION" id="1802150202%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-m-o-v-e_-c-o-n-d-i-t-i-o-n.html"><span>REMOVE_</span><wbr><span>CONDITION</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1802150202%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-m-o-v-e_-c-o-n-d-i-t-i-o-n.html">REMOVE_CONDITION</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1052487437%2FProperties%2F-1879947025" anchor-label="REMOVE_STATUS" id="-1052487437%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-m-o-v-e_-s-t-a-t-u-s.html"><span>REMOVE_</span><wbr><span>STATUS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1052487437%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-m-o-v-e_-s-t-a-t-u-s.html">REMOVE_STATUS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="884859017%2FProperties%2F-1879947025" anchor-label="REMOVE_VOLATILE" id="884859017%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-m-o-v-e_-v-o-l-a-t-i-l-e.html"><span>REMOVE_</span><wbr><span>VOLATILE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="884859017%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-m-o-v-e_-v-o-l-a-t-i-l-e.html">REMOVE_VOLATILE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1361432151%2FProperties%2F-1879947025" anchor-label="RESTORE_PP" id="-1361432151%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-s-t-o-r-e_-p-p.html"><span>RESTORE_</span><wbr><span>PP</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1361432151%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-e-s-t-o-r-e_-p-p.html">RESTORE_PP</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1625312275%2FProperties%2F-1879947025" anchor-label="SET_PROBE" id="-1625312275%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-t_-p-r-o-b-e.html"><span>SET_</span><wbr><span>PROBE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1625312275%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-t_-p-r-o-b-e.html">SET_PROBE</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1600075732%2FProperties%2F-1879947025" anchor-label="SET_RELAY" id="-1600075732%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-t_-r-e-l-a-y.html"><span>SET_</span><wbr><span>RELAY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1600075732%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-t_-r-e-l-a-y.html">SET_RELAY</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="979403784%2FProperties%2F-1879947025" anchor-label="SET_TERRAIN" id="979403784%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-t_-t-e-r-r-a-i-n.html"><span>SET_</span><wbr><span>TERRAIN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="979403784%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-t_-t-e-r-r-a-i-n.html">SET_TERRAIN</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-772676567%2FProperties%2F-1879947025" anchor-label="SET_WEATHER" id="-772676567%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-t_-w-e-a-t-h-e-r.html"><span>SET_</span><wbr><span>WEATHER</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-772676567%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-t_-w-e-a-t-h-e-r.html">SET_WEATHER</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1798183034%2FProperties%2F-1879947025" anchor-label="STEAL_BOOSTS" id="1798183034%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-e-a-l_-b-o-o-s-t-s.html"><span>STEAL_</span><wbr><span>BOOSTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1798183034%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-t-e-a-l_-b-o-o-s-t-s.html">STEAL_BOOSTS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="409861956%2FProperties%2F-1879947025" anchor-label="SWAP_BOOSTS" id="409861956%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-w-a-p_-b-o-o-s-t-s.html"><span>SWAP_</span><wbr><span>BOOSTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="409861956%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-w-a-p_-b-o-o-s-t-s.html">SWAP_BOOSTS</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1525141843%2FProperties%2F-1879947025" anchor-label="TRIGGER_EVENT" id="-1525141843%2FProperties%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-r-i-g-g-e-r_-e-v-e-n-t.html"><span>TRIGGER_</span><wbr><span>EVENT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1525141843%2FProperties%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-t-r-i-g-g-e-r_-e-v-e-n-t.html">TRIGGER_EVENT</a><span class="token operator">: </span><a href="../-action-type-id/index.html">ActionTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

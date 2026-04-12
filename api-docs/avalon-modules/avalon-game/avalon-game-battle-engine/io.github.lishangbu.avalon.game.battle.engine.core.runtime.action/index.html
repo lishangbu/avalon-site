@@ -1,0 +1,635 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.lishangbu.avalon.game.battle.engine.core.runtime.action</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filter=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="avalon-game-battle-engine::io.github.lishangbu.avalon.game.battle.engine.core.runtime.action////PointingToDeclaration//-1879947025">
+  <div class="breadcrumbs"><a href="../index.html">avalon-game-battle-engine</a><span class="delimiter">/</span><span class="current">io.github.lishangbu.avalon.game.battle.engine.core.runtime.action</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-316686293%2FClasslikes%2F-1879947025" anchor-label="AddRelayActionExecutor" id="-316686293%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-add-relay-action-executor/index.html"><span>Add</span><wbr><span>Relay</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-316686293%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-add-relay-action-executor/index.html">AddRelayActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">add_relay</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1166672766%2FClasslikes%2F-1879947025" anchor-label="AddStatusActionExecutor" id="-1166672766%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-add-status-action-executor/index.html"><span>Add</span><wbr><span>Status</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1166672766%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-add-status-action-executor/index.html">AddStatusActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">add_status</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1238570856%2FClasslikes%2F-1879947025" anchor-label="AddVolatileActionExecutor" id="-1238570856%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-add-volatile-action-executor/index.html"><span>Add</span><wbr><span>Volatile</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1238570856%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-add-volatile-action-executor/index.html">AddVolatileActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">add_volatile</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1744537710%2FClasslikes%2F-1879947025" anchor-label="ApplyConditionActionExecutor" id="1744537710%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-apply-condition-action-executor/index.html"><span>Apply</span><wbr><span>Condition</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1744537710%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-apply-condition-action-executor/index.html">ApplyConditionActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">apply_condition</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1013826933%2FClasslikes%2F-1879947025" anchor-label="AttachedEffectDurationResolver" id="1013826933%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-attached-effect-duration-resolver/index.html"><span>Attached</span><wbr><span>Effect</span><wbr><span>Duration</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1013826933%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-attached-effect-duration-resolver/index.html">AttachedEffectDurationResolver</a></div><div class="brief "><p class="paragraph">附着效果持续回合解析器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1446315694%2FClasslikes%2F-1879947025" anchor-label="BoostActionExecutor" id="-1446315694%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-boost-action-executor/index.html"><span>Boost</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1446315694%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-boost-action-executor/index.html">BoostActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">boost</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1974046409%2FClasslikes%2F-1879947025" anchor-label="BoostFromRelayActionExecutor" id="-1974046409%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-boost-from-relay-action-executor/index.html"><span>Boost</span><wbr><span>From</span><wbr><span>Relay</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1974046409%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-boost-from-relay-action-executor/index.html">BoostFromRelayActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">boost_from_relay</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1678779793%2FClasslikes%2F-1879947025" anchor-label="ChangeTypeActionExecutor" id="1678779793%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-change-type-action-executor/index.html"><span>Change</span><wbr><span>Type</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1678779793%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-change-type-action-executor/index.html">ChangeTypeActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">change_type</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1260207128%2FClasslikes%2F-1879947025" anchor-label="ClearBoostsActionExecutor" id="1260207128%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-boosts-action-executor/index.html"><span>Clear</span><wbr><span>Boosts</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1260207128%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-boosts-action-executor/index.html">ClearBoostsActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">clear_boosts</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1082743064%2FClasslikes%2F-1879947025" anchor-label="ClearProbeActionExecutor" id="1082743064%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-probe-action-executor/index.html"><span>Clear</span><wbr><span>Probe</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1082743064%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-probe-action-executor/index.html">ClearProbeActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">clear_probe</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="985948659%2FClasslikes%2F-1879947025" anchor-label="ClearTerrainActionExecutor" id="985948659%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-terrain-action-executor/index.html"><span>Clear</span><wbr><span>Terrain</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="985948659%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-terrain-action-executor/index.html">ClearTerrainActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">clear_terrain</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1648987052%2FClasslikes%2F-1879947025" anchor-label="ClearWeatherActionExecutor" id="-1648987052%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clear-weather-action-executor/index.html"><span>Clear</span><wbr><span>Weather</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1648987052%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-clear-weather-action-executor/index.html">ClearWeatherActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">clear_weather</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-734774138%2FClasslikes%2F-1879947025" anchor-label="ConsumeItemActionExecutor" id="-734774138%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-consume-item-action-executor/index.html"><span>Consume</span><wbr><span>Item</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-734774138%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-consume-item-action-executor/index.html">ConsumeItemActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">consume_item</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="244395830%2FClasslikes%2F-1879947025" anchor-label="CopyBoostsActionExecutor" id="244395830%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-copy-boosts-action-executor/index.html"><span>Copy</span><wbr><span>Boosts</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="244395830%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-copy-boosts-action-executor/index.html">CopyBoostsActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">copy_boosts</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1634878220%2FClasslikes%2F-1879947025" anchor-label="DamageActionExecutor" id="1634878220%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-damage-action-executor/index.html"><span>Damage</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1634878220%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-damage-action-executor/index.html">DamageActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">damage</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="807160236%2FClasslikes%2F-1879947025" anchor-label="FailMoveActionExecutor" id="807160236%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-fail-move-action-executor/index.html"><span>Fail</span><wbr><span>Move</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="807160236%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-fail-move-action-executor/index.html">FailMoveActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">fail_move</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2095312310%2FClasslikes%2F-1879947025" anchor-label="ForceSwitchActionExecutor" id="2095312310%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-force-switch-action-executor/index.html"><span>Force</span><wbr><span>Switch</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2095312310%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-force-switch-action-executor/index.html">ForceSwitchActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">force_switch</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="27497267%2FClasslikes%2F-1879947025" anchor-label="HealActionExecutor" id="27497267%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-heal-action-executor/index.html"><span>Heal</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="27497267%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-heal-action-executor/index.html">HealActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">heal</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1121022985%2FClasslikes%2F-1879947025" anchor-label="InvertBoostRelayActionExecutor" id="-1121022985%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-invert-boost-relay-action-executor/index.html"><span>Invert</span><wbr><span>Boost</span><wbr><span>Relay</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1121022985%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-invert-boost-relay-action-executor/index.html">InvertBoostRelayActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">invert_boost_relay</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-77201646%2FClasslikes%2F-1879947025" anchor-label="InvertStoredBoostsActionExecutor" id="-77201646%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-invert-stored-boosts-action-executor/index.html"><span>Invert</span><wbr><span>Stored</span><wbr><span>Boosts</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-77201646%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-invert-stored-boosts-action-executor/index.html">InvertStoredBoostsActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">invert_stored_boosts</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1267718368%2FClasslikes%2F-1879947025" anchor-label="ModifyMultiplierActionExecutor" id="-1267718368%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-modify-multiplier-action-executor/index.html"><span>Modify</span><wbr><span>Multiplier</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1267718368%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-modify-multiplier-action-executor/index.html">ModifyMultiplierActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">modify_multiplier</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1639190510%2FClasslikes%2F-1879947025" anchor-label="PrepareBoostPassActionExecutor" id="1639190510%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-prepare-boost-pass-action-executor/index.html"><span>Prepare</span><wbr><span>Boost</span><wbr><span>Pass</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1639190510%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-prepare-boost-pass-action-executor/index.html">PrepareBoostPassActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">prepare_boost_pass</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="26550590%2FClasslikes%2F-1879947025" anchor-label="RemoveConditionActionExecutor" id="26550590%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-condition-action-executor/index.html"><span>Remove</span><wbr><span>Condition</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="26550590%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-remove-condition-action-executor/index.html">RemoveConditionActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">remove_condition</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="625980613%2FClasslikes%2F-1879947025" anchor-label="RemoveStatusActionExecutor" id="625980613%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-status-action-executor/index.html"><span>Remove</span><wbr><span>Status</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="625980613%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-remove-status-action-executor/index.html">RemoveStatusActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">remove_status</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-780559333%2FClasslikes%2F-1879947025" anchor-label="RemoveVolatileActionExecutor" id="-780559333%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remove-volatile-action-executor/index.html"><span>Remove</span><wbr><span>Volatile</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-780559333%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-remove-volatile-action-executor/index.html">RemoveVolatileActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">remove_volatile</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1986750183%2FClasslikes%2F-1879947025" anchor-label="RestorePpActionExecutor" id="1986750183%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-restore-pp-action-executor/index.html"><span>Restore</span><wbr><span>Pp</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1986750183%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-restore-pp-action-executor/index.html">RestorePpActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">restore_pp</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2043876243%2FClasslikes%2F-1879947025" anchor-label="SetProbeActionExecutor" id="-2043876243%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-probe-action-executor/index.html"><span>Set</span><wbr><span>Probe</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2043876243%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-set-probe-action-executor/index.html">SetProbeActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">set_probe</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1824905620%2FClasslikes%2F-1879947025" anchor-label="SetRelayActionExecutor" id="-1824905620%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-relay-action-executor/index.html"><span>Set</span><wbr><span>Relay</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1824905620%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-set-relay-action-executor/index.html">SetRelayActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">set_relay</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1513065464%2FClasslikes%2F-1879947025" anchor-label="SetTerrainActionExecutor" id="-1513065464%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-terrain-action-executor/index.html"><span>Set</span><wbr><span>Terrain</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1513065464%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-set-terrain-action-executor/index.html">SetTerrainActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">set_terrain</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="146966121%2FClasslikes%2F-1879947025" anchor-label="SetWeatherActionExecutor" id="146966121%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-weather-action-executor/index.html"><span>Set</span><wbr><span>Weather</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="146966121%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-set-weather-action-executor/index.html">SetWeatherActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">set_weather</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="787200433%2FClasslikes%2F-1879947025" anchor-label="StandardActionExecutors" id="787200433%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-standard-action-executors/index.html"><span>Standard</span><wbr><span>Action</span><wbr><span><span>Executors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787200433%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-standard-action-executors/index.html">StandardActionExecutors</a></div><div class="brief "><p class="paragraph">第一版标准动作执行器集合。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="154606678%2FClasslikes%2F-1879947025" anchor-label="StealBoostsActionExecutor" id="154606678%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-steal-boosts-action-executor/index.html"><span>Steal</span><wbr><span>Boosts</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="154606678%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-steal-boosts-action-executor/index.html">StealBoostsActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">steal_boosts</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1847829976%2FClasslikes%2F-1879947025" anchor-label="SwapBoostsActionExecutor" id="1847829976%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-swap-boosts-action-executor/index.html"><span>Swap</span><wbr><span>Boosts</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1847829976%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-swap-boosts-action-executor/index.html">SwapBoostsActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">swap_boosts</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="295476505%2FClasslikes%2F-1879947025" anchor-label="TriggerEventActionExecutor" id="295476505%2FClasslikes%2F-1879947025" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-battle-engine/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-battle-engine/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-trigger-event-action-executor/index.html"><span>Trigger</span><wbr><span>Event</span><wbr><span>Action</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="295476505%2FClasslikes%2F-1879947025"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-battle-engine/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-trigger-event-action-executor/index.html">TriggerEventActionExecutor</a> : <a href="../io.github.lishangbu.avalon.game.battle.engine.core.runtime/-action-executor/index.html">ActionExecutor</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">trigger_event</code> 动作执行器。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
