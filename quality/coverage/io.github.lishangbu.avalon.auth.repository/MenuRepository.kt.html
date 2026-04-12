@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.repository</a> &gt; <span class="el_source">MenuRepository.kt</span></div><h1>MenuRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.repository
+
+import io.github.lishangbu.avalon.auth.entity.*
+import io.github.lishangbu.avalon.auth.entity.dto.MenuTreeView
+import io.github.lishangbu.avalon.auth.entity.dto.MenuView
+import org.babyfish.jimmer.Specification
+import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.spring.repository.orderBy
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.ast.expression.isNull
+import org.springframework.data.domain.Sort
+
+/**
+ * 菜单仓储接口
+ *
+ * 定义菜单数据的查询与持久化操作
+ *
+ * @author lishangbu
+ * @since 2025/08/20
+ */
+interface MenuRepository : KRepository&lt;Menu, Long&gt; {
+    /** 按条件查询菜单列表 */
+    fun findAll(specification: Specification&lt;Menu&gt;?): List&lt;MenuView&gt; =
+<span class="nc" id="L24">        sql</span>
+<span class="nc" id="L25">            .createQuery(Menu::class) {</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">                specification?.let(::where)</span>
+<span class="nc" id="L27">                orderBy(DEFAULT_SORT)</span>
+<span class="nc" id="L28">                select(table.fetch(MenuView::class))</span>
+<span class="nc" id="L29">            }.execute()</span>
+
+    /** 按条件查询菜单视图列表 */
+    fun listViews(specification: Specification&lt;Menu&gt;?): List&lt;MenuView&gt; =
+<span class="fc" id="L33">        sql</span>
+<span class="fc" id="L34">            .createQuery(Menu::class) {</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                specification?.let(::where)</span>
+<span class="fc" id="L36">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L37">                select(table.fetch(MenuView::class))</span>
+<span class="fc" id="L38">            }.execute()</span>
+
+    /** 查询根节点菜单树 */
+    fun listTreeViews(): List&lt;MenuTreeView&gt; =
+<span class="fc" id="L42">        sql</span>
+<span class="fc" id="L43">            .createQuery(Menu::class) {</span>
+<span class="fc" id="L44">                where(table.parentId.isNull())</span>
+<span class="fc" id="L45">                orderBy(DEFAULT_SORT)</span>
+<span class="fc" id="L46">                select(table.fetch(MenuTreeView::class))</span>
+<span class="fc" id="L47">            }.execute()</span>
+
+    /** 判断是否存在子菜单 */
+    fun hasChildren(parentId: Long): Boolean =
+<span class="fc" id="L51">        sql</span>
+<span class="fc" id="L52">            .createQuery(Menu::class) {</span>
+<span class="fc" id="L53">                where(table.parentId eq parentId)</span>
+<span class="fc" id="L54">                select(table.id)</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            }.execute()</span>
+<span class="fc" id="L56">            .isNotEmpty()</span>
+
+    /** 按 ID 查询菜单视图 */
+    fun loadViewById(id: Long): MenuView? =
+<span class="fc" id="L60">        sql</span>
+<span class="fc" id="L61">            .createQuery(Menu::class) {</span>
+<span class="fc" id="L62">                where(table.id eq id)</span>
+<span class="fc" id="L63">                select(table.fetch(MenuView::class))</span>
+<span class="fc" id="L64">            }.execute()</span>
+<span class="fc" id="L65">            .firstOrNull()</span>
+
+    /** 按角色编码列表查询授权菜单视图 */
+    fun listViewsByRoleCodes(roleCodes: List&lt;String&gt;): List&lt;MenuView&gt; {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (roleCodes.isEmpty()) {</span>
+<span class="fc" id="L70">            return emptyList()</span>
+        }
+<span class="fc" id="L72">        val menus =</span>
+<span class="fc" id="L73">            roleCodes.flatMap { roleCode -&gt;</span>
+<span class="fc" id="L74">                sql</span>
+<span class="fc" id="L75">                    .createQuery(Role::class) {</span>
+<span class="fc" id="L76">                        where(table.code eq roleCode)</span>
+<span class="fc" id="L77">                        select(table.fetch(AuthorizationFetchers.ROLE_WITH_MENUS))</span>
+<span class="fc" id="L78">                    }.execute()</span>
+<span class="fc" id="L79">                    .flatMap { role -&gt; role.menus }</span>
+<span class="fc" id="L80">                    .map(::MenuView)</span>
+            }
+<span class="fc" id="L82">        return menus</span>
+<span class="fc" id="L83">            .distinctBy { it.id }</span>
+<span class="fc" id="L84">            .sortedWith(compareBy&lt;MenuView&gt; { it.sortingOrder ?: Int.MAX_VALUE }.thenBy { it.id })</span>
+    }
+
+    companion object {
+        private val DEFAULT_SORT: Sort =
+<span class="fc" id="L89">            Sort.by(Sort.Order.asc(&quot;sortingOrder&quot;), Sort.Order.asc(&quot;id&quot;))</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

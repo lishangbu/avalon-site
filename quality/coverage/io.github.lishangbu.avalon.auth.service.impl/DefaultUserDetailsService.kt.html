@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultUserDetailsService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.service.impl</a> &gt; <span class="el_source">DefaultUserDetailsService.kt</span></div><h1>DefaultUserDetailsService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.service.impl
+
+import io.github.lishangbu.avalon.auth.repository.UserRepository
+import io.github.lishangbu.avalon.oauth2.common.userdetails.UserInfo
+import org.springframework.security.core.authority.AuthorityUtils
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.stereotype.Service
+
+/**
+ * 用户服务
+ *
+ * @author lishangbu
+ * @since 2025/8/17
+ */
+<span class="fc" id="L17">@Service</span>
+<span class="fc" id="L18">class DefaultUserDetailsService(</span>
+    /** 用户仓储 */
+<span class="fc" id="L20">    private val userRepository: UserRepository,</span>
+) : UserDetailsService {
+    /**
+     * 根据用户名/手机号/邮箱加载用户详情
+     *
+     * @param username 登录账号
+     * @return 用户详情
+     * @throws UsernameNotFoundException 用户未找到时抛出
+     */
+    @Throws(UsernameNotFoundException::class)
+    override fun loadUserByUsername(username: String): UserDetails =
+<span class="fc" id="L31">        userRepository</span>
+<span class="fc" id="L32">            .loadByAccountWithRoles(username)</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            ?.let { user -&gt;</span>
+<span class="fc" id="L34">                UserInfo(</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                    user.username ?: &quot;&quot;,</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">                    user.hashedPassword ?: &quot;&quot;,</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                    if (user.roles.isEmpty()) {</span>
+<span class="fc" id="L38">                        AuthorityUtils.NO_AUTHORITIES</span>
+                    } else {
+<span class="fc" id="L40">                        AuthorityUtils.createAuthorityList(</span>
+<span class="fc" id="L41">                            *user.roles.mapNotNull { it.code }.toTypedArray(),</span>
+                        )
+                    },
+<span class="fc" id="L44">                )</span>
+<span class="fc" id="L45">            } ?: throw UsernameNotFoundException(&quot;账号或密码错误&quot;)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

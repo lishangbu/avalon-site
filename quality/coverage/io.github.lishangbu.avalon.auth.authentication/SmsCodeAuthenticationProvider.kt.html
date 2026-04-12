@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmsCodeAuthenticationProvider.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.authentication</a> &gt; <span class="el_source">SmsCodeAuthenticationProvider.kt</span></div><h1>SmsCodeAuthenticationProvider.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.authentication
+
+import io.github.lishangbu.avalon.auth.service.VerificationCodeService
+import io.github.lishangbu.avalon.oauth2.authorizationserver.authentication.SmsAuthenticationToken
+import io.github.lishangbu.avalon.oauth2.authorizationserver.exception.InvalidCaptchaException
+import io.github.lishangbu.avalon.oauth2.common.core.AuthorizationGrantTypeSupport
+import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.stereotype.Component
+
+/**
+ * 短信验证码认证提供者
+ *
+ * 使用 Redis 中的短信验证码进行认证
+ *
+ * @author lishangbu
+ * @since 2026/3/13
+ */
+<span class="fc" id="L22">@Component</span>
+<span class="fc" id="L23">class SmsCodeAuthenticationProvider(</span>
+    /** 验证码服务 */
+<span class="fc" id="L25">    private val verificationCodeService: VerificationCodeService,</span>
+    /** 用户详情服务 */
+<span class="fc" id="L27">    private val userDetailsService: UserDetailsService,</span>
+) : AuthenticationProvider {
+    /** 校验短信验证码并构造已认证令牌 */
+    @Throws(AuthenticationException::class)
+    override fun authenticate(authentication: Authentication): Authentication {
+<span class="fc" id="L32">        val smsAuthenticationToken = authentication as SmsAuthenticationToken</span>
+<span class="fc" id="L33">        val normalizedPhone = normalizePhone(smsAuthenticationToken.principal)</span>
+<span class="fc" id="L34">        val normalizedCode = resolveRequiredText(smsAuthenticationToken.credentials)</span>
+<span class="fc" id="L35">        verificationCodeService.verifyCode(</span>
+<span class="fc" id="L36">            normalizedPhone,</span>
+<span class="fc" id="L37">            normalizedCode,</span>
+<span class="fc" id="L38">            AuthorizationGrantTypeSupport.SMS.value,</span>
+        )
+<span class="fc" id="L40">        val userDetails: UserDetails = userDetailsService.loadUserByUsername(normalizedPhone)</span>
+<span class="fc" id="L41">        val authenticated =</span>
+<span class="fc" id="L42">            SmsAuthenticationToken(userDetails, null, userDetails.authorities).also {</span>
+<span class="fc" id="L43">                it.details = authentication.details</span>
+<span class="fc" id="L44">            }</span>
+<span class="fc" id="L45">        return authenticated</span>
+    }
+
+    /** 判断当前提供者是否支持短信验证码令牌 */
+<span class="nc" id="L49">    override fun supports(authentication: Class&lt;*&gt;): Boolean = SmsAuthenticationToken::class.java.isAssignableFrom(authentication)</span>
+
+    /** 解析必填文本 */
+    private fun resolveRequiredText(value: Any?): String =
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        value</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            ?.toString()</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            ?.trim()</span>
+<span class="fc bfc" id="L56" title="All 6 branches covered.">            ?.takeIf { it.isNotEmpty() }</span>
+<span class="fc" id="L57">            ?: throw InvalidCaptchaException(&quot;短信验证码不能为空&quot;)</span>
+
+    /** 规范化手机 */
+<span class="fc" id="L60">    private fun normalizePhone(phone: Any?): String = resolveRequiredText(phone)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultOAuth2AuthorizationConsentService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.service.impl</a> &gt; <span class="el_source">DefaultOAuth2AuthorizationConsentService.kt</span></div><h1>DefaultOAuth2AuthorizationConsentService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.service.impl
+
+import io.github.lishangbu.avalon.auth.entity.OauthAuthorizationConsent
+import io.github.lishangbu.avalon.auth.repository.OauthAuthorizationConsentRepository
+import org.springframework.dao.DataRetrievalFailureException
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+import org.springframework.stereotype.Service
+
+/**
+ * OAuth2 授权同意服务实现
+ *
+ * 负责 OAuth2AuthorizationConsent 的持久化、查询与删除
+ *
+ * @author lishangbu
+ * @since 2025/8/17
+ */
+<span class="fc" id="L22">@Service</span>
+<span class="fc" id="L23">class DefaultOAuth2AuthorizationConsentService(</span>
+    /** OAuth 授权同意仓储 */
+<span class="fc" id="L25">    private val oauth2AuthorizationConsentMapper: OauthAuthorizationConsentRepository,</span>
+    /** 注册客户端仓储 */
+<span class="fc" id="L27">    private val registeredClientRepository: RegisteredClientRepository,</span>
+) : OAuth2AuthorizationConsentService {
+    /** 保存 OAuth2 授权同意 */
+    override fun save(authorizationConsent: OAuth2AuthorizationConsent) {
+<span class="fc" id="L31">        oauth2AuthorizationConsentMapper.save(toEntity(authorizationConsent))</span>
+<span class="fc" id="L32">    }</span>
+
+    /** 删除 OAuth2 授权同意 */
+    override fun remove(authorizationConsent: OAuth2AuthorizationConsent) {
+<span class="fc" id="L36">        oauth2AuthorizationConsentMapper.deleteByRegisteredClientIdAndPrincipalName(</span>
+<span class="fc" id="L37">            authorizationConsent.registeredClientId,</span>
+<span class="fc" id="L38">            authorizationConsent.principalName,</span>
+        )
+<span class="fc" id="L40">    }</span>
+
+    /** 按 ID 查询默认 OAuth2 授权同意 */
+    override fun findById(
+        registeredClientId: String,
+        principalName: String,
+    ): OAuth2AuthorizationConsent? {
+<span class="fc bfc" id="L47" title="All 4 branches covered.">        require(registeredClientId.isNotBlank()) { &quot;registeredClientId cannot be empty&quot; }</span>
+<span class="fc bfc" id="L48" title="All 4 branches covered.">        require(principalName.isNotBlank()) { &quot;principalName cannot be empty&quot; }</span>
+<span class="fc" id="L49">        return oauth2AuthorizationConsentMapper</span>
+<span class="fc" id="L50">            .findByRegisteredClientIdAndPrincipalName(registeredClientId, principalName)</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            ?.let(::toObject)</span>
+    }
+
+    /** 返回转换为对象 */
+    private fun toObject(oauthAuthorizationConsent: OauthAuthorizationConsent): OAuth2AuthorizationConsent {
+<span class="fc" id="L56">        val registeredClientId =</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            requireNotNull(oauthAuthorizationConsent.id.registeredClientId) {</span>
+<span class="fc" id="L58">                &quot;registeredClientId cannot be null&quot;</span>
+            }
+<span class="fc" id="L60">        val principalName =</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            requireNotNull(oauthAuthorizationConsent.id.principalName) {</span>
+<span class="fc" id="L62">                &quot;principalName cannot be null&quot;</span>
+            }
+<span class="fc" id="L64">        val registeredClient: RegisteredClient? =</span>
+<span class="fc" id="L65">            registeredClientRepository.findById(registeredClientId)</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (registeredClient == null) {</span>
+<span class="fc" id="L67">            throw DataRetrievalFailureException(</span>
+                &quot;The RegisteredClient with id '&quot; +
+<span class="fc" id="L69">                    registeredClientId +</span>
+                    &quot;' was not found in the OauthRegisteredClientRepository.&quot;,
+            )
+        }
+
+<span class="fc" id="L74">        val builder = OAuth2AuthorizationConsent.withId(registeredClientId, principalName)</span>
+<span class="fc" id="L75">        oauthAuthorizationConsent.authorities</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">            ?.splitToSequence(',')</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            ?.forEach { authority -&gt; builder.authority(SimpleGrantedAuthority(authority)) }</span>
+
+<span class="fc" id="L79">        return builder.build()</span>
+    }
+
+    /** 返回转换为实体 */
+    private fun toEntity(authorizationConsent: OAuth2AuthorizationConsent): OauthAuthorizationConsent {
+<span class="fc" id="L84">        val authorities: MutableSet&lt;String&gt; = linkedSetOf()</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (authority: GrantedAuthority in authorizationConsent.authorities) {</span>
+<span class="fc" id="L86">            val authorityValue = authority.authority</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (authorityValue != null) {</span>
+<span class="fc" id="L88">                authorities.add(authorityValue)</span>
+            }
+        }
+<span class="fc" id="L91">        return OauthAuthorizationConsent {</span>
+<span class="fc" id="L92">            id {</span>
+<span class="fc" id="L93">                registeredClientId = authorizationConsent.registeredClientId</span>
+<span class="fc" id="L94">                principalName = authorizationConsent.principalName</span>
+<span class="fc" id="L95">            }</span>
+<span class="fc" id="L96">            this.authorities = authorities.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L97">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OauthRegisteredClientServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.service.impl</a> &gt; <span class="el_source">OauthRegisteredClientServiceImpl.kt</span></div><h1>OauthRegisteredClientServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.service.impl
+
+import io.github.lishangbu.avalon.auth.entity.OauthRegisteredClient
+import io.github.lishangbu.avalon.auth.entity.dto.OauthRegisteredClientSpecification
+import io.github.lishangbu.avalon.auth.entity.dto.OauthRegisteredClientView
+import io.github.lishangbu.avalon.auth.entity.dto.SaveOauthRegisteredClientInput
+import io.github.lishangbu.avalon.auth.entity.dto.UpdateOauthRegisteredClientInput
+import io.github.lishangbu.avalon.auth.repository.Oauth2RegisteredClientRepository
+import io.github.lishangbu.avalon.auth.service.OauthRegisteredClientService
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
+import org.babyfish.jimmer.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.time.Instant
+import java.util.*
+
+/**
+ * OAuth2 注册客户端服务实现
+ *
+ * 负责 OAuth2 注册客户端的查询与维护
+ *
+ * @author lishangbu
+ * @since 2026/3/19
+ */
+<span class="fc" id="L26">@Service</span>
+<span class="fc" id="L27">class OauthRegisteredClientServiceImpl(</span>
+    /** OAuth2 注册客户端仓储 */
+<span class="fc" id="L29">    private val oauth2RegisteredClientRepository: Oauth2RegisteredClientRepository,</span>
+) : OauthRegisteredClientService {
+    /** 按条件分页查询 OAuth2 注册客户端 */
+    override fun getPageByCondition(
+        specification: OauthRegisteredClientSpecification,
+        pageable: Pageable,
+<span class="fc" id="L35">    ): Page&lt;OauthRegisteredClientView&gt; = oauth2RegisteredClientRepository.pageViews(specification, pageable)</span>
+
+    /** 按条件查询 OAuth2 注册客户端列表 */
+<span class="fc" id="L38">    override fun listByCondition(specification: OauthRegisteredClientSpecification): List&lt;OauthRegisteredClientView&gt; = oauth2RegisteredClientRepository.listViews(specification)</span>
+
+    /** 按 ID 查询 OAuth2 注册客户端 */
+<span class="fc" id="L41">    override fun getById(id: String): OauthRegisteredClientView? = oauth2RegisteredClientRepository.loadViewById(id)</span>
+
+    /** 保存 OAuth2 注册客户端 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun save(command: SaveOauthRegisteredClientInput): OauthRegisteredClientView {
+<span class="fc" id="L46">        val registeredClient = command.toEntity()</span>
+<span class="fc" id="L47">        val now = Instant.now()</span>
+<span class="fc bfc" id="L48" title="All 8 branches covered.">        val newId = registeredClient.readOrNull { id }?.takeIf { it.isNotBlank() } ?: UUID.randomUUID().toString()</span>
+<span class="fc" id="L49">        val saved =</span>
+<span class="fc" id="L50">            OauthRegisteredClient {</span>
+<span class="fc" id="L51">                id = newId</span>
+<span class="fc" id="L52">                clientId = registeredClient.readOrNull { clientId }</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                clientIdIssuedAt = registeredClient.readOrNull { clientIdIssuedAt } ?: now</span>
+<span class="fc" id="L54">                clientSecret = registeredClient.readOrNull { clientSecret }</span>
+<span class="fc" id="L55">                clientSecretExpiresAt = registeredClient.readOrNull { clientSecretExpiresAt }</span>
+<span class="fc" id="L56">                clientName = registeredClient.readOrNull { clientName }</span>
+<span class="fc" id="L57">                clientAuthenticationMethods = registeredClient.readOrNull { clientAuthenticationMethods }</span>
+<span class="fc" id="L58">                authorizationGrantTypes = registeredClient.readOrNull { authorizationGrantTypes }</span>
+<span class="fc" id="L59">                redirectUris = registeredClient.readOrNull { redirectUris }</span>
+<span class="fc" id="L60">                postLogoutRedirectUris = registeredClient.readOrNull { postLogoutRedirectUris }</span>
+<span class="fc" id="L61">                scopes = registeredClient.readOrNull { scopes }</span>
+<span class="fc" id="L62">                requireProofKey = registeredClient.readOrNull { requireProofKey }</span>
+<span class="fc" id="L63">                requireAuthorizationConsent = registeredClient.readOrNull { requireAuthorizationConsent }</span>
+<span class="fc" id="L64">                jwkSetUrl = registeredClient.readOrNull { jwkSetUrl }</span>
+<span class="fc" id="L65">                tokenEndpointAuthenticationSigningAlgorithm =</span>
+<span class="fc" id="L66">                    registeredClient.readOrNull { tokenEndpointAuthenticationSigningAlgorithm }</span>
+<span class="fc" id="L67">                x509CertificateSubjectDn = registeredClient.readOrNull { x509CertificateSubjectDn }</span>
+<span class="fc" id="L68">                authorizationCodeTimeToLive = registeredClient.readOrNull { authorizationCodeTimeToLive }</span>
+<span class="fc" id="L69">                accessTokenTimeToLive = registeredClient.readOrNull { accessTokenTimeToLive }</span>
+<span class="fc" id="L70">                accessTokenFormat = registeredClient.readOrNull { accessTokenFormat }</span>
+<span class="fc" id="L71">                deviceCodeTimeToLive = registeredClient.readOrNull { deviceCodeTimeToLive }</span>
+<span class="fc" id="L72">                reuseRefreshTokens = registeredClient.readOrNull { reuseRefreshTokens }</span>
+<span class="fc" id="L73">                refreshTokenTimeToLive = registeredClient.readOrNull { refreshTokenTimeToLive }</span>
+<span class="fc" id="L74">                idTokenSignatureAlgorithm = registeredClient.readOrNull { idTokenSignatureAlgorithm }</span>
+<span class="fc" id="L75">                x509CertificateBoundAccessTokens =</span>
+<span class="fc" id="L76">                    registeredClient.readOrNull { x509CertificateBoundAccessTokens }</span>
+<span class="fc" id="L77">            }</span>
+<span class="fc" id="L78">        return oauth2RegisteredClientRepository.save(saved).let(::reloadView)</span>
+    }
+
+    /** 更新 OAuth2 注册客户端 */
+    @Transactional(rollbackFor = [Exception::class])
+<span class="fc" id="L83">    override fun update(command: UpdateOauthRegisteredClientInput): OauthRegisteredClientView = oauth2RegisteredClientRepository.save(command.toEntity()).let(::reloadView)</span>
+
+    /** 按 ID 删除 OAuth2 注册客户端 */
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: String) {
+<span class="fc" id="L88">        oauth2RegisteredClientRepository.deleteById(id)</span>
+<span class="fc" id="L89">    }</span>
+
+    private fun reloadView(registeredClient: OauthRegisteredClient): OauthRegisteredClientView =
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        requireNotNull(oauth2RegisteredClientRepository.loadViewById(registeredClient.id)) {</span>
+<span class="nc" id="L93">            &quot;未找到 ID=${registeredClient.id} 对应的 OAuth2 注册客户端&quot;</span>
+<span class="fc" id="L94">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

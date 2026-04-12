@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultRegisteredClientRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.service.impl</a> &gt; <span class="el_source">DefaultRegisteredClientRepository.kt</span></div><h1>DefaultRegisteredClientRepository.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.service.impl
+
+import io.github.lishangbu.avalon.auth.entity.OauthRegisteredClient
+import io.github.lishangbu.avalon.auth.repository.Oauth2RegisteredClientRepository
+import org.springframework.boot.convert.DurationStyle
+import org.springframework.security.oauth2.core.AuthorizationGrantType
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings
+import org.springframework.stereotype.Component
+import java.time.temporal.ChronoUnit
+
+/**
+ * RegisteredClient 仓储适配器
+ *
+ * 负责在 Spring Authorization Server 的 [RegisteredClient] 与持久化实体之间转换
+ *
+ * @author lishangbu
+ * @since 2025/8/17
+ */
+<span class="fc" id="L26">@Component</span>
+<span class="fc" id="L27">class DefaultRegisteredClientRepository(</span>
+    /** OAuth2 注册客户端仓储 */
+<span class="fc" id="L29">    private val oauth2RegisteredClientRepository: Oauth2RegisteredClientRepository,</span>
+) : RegisteredClientRepository {
+    /**
+     * 保存注册客户端
+     *
+     * @param registeredClient 注册客户端
+     */
+    override fun save(registeredClient: RegisteredClient) {
+<span class="fc" id="L37">        oauth2RegisteredClientRepository.save(toEntity(registeredClient))</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * 按 ID 查询注册客户端
+     *
+     * @param id 客户端 ID
+     * @return 注册客户端，未找到时返回 null
+     */
+    override fun findById(id: String): RegisteredClient? {
+<span class="fc bfc" id="L47" title="All 4 branches covered.">        require(id.isNotBlank()) { &quot;id cannot be empty&quot; }</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        return oauth2RegisteredClientRepository.findNullable(id)?.let(::toObject)</span>
+    }
+
+    /**
+     * 按客户端 ID 查询注册客户端
+     *
+     * @param clientId 客户端 ID
+     * @return 注册客户端，未找到时返回 null
+     */
+    override fun findByClientId(clientId: String): RegisteredClient? {
+<span class="fc bfc" id="L58" title="All 4 branches covered.">        require(clientId.isNotBlank()) { &quot;clientId cannot be empty&quot; }</span>
+<span class="fc" id="L59">        return oauth2RegisteredClientRepository</span>
+<span class="fc" id="L60">            .findByClientId(clientId)</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            ?.let(::toObject)</span>
+    }
+
+    /**
+     * 将实体转换为对象
+     *
+     * @param client 实体
+     * @return 对象
+     */
+    private fun toObject(client: OauthRegisteredClient): RegisteredClient {
+<span class="fc" id="L71">        val clientAuthenticationMethods = readCommaDelimitedSet(client.clientAuthenticationMethods)</span>
+<span class="fc" id="L72">        val authorizationGrantTypes = readCommaDelimitedSet(client.authorizationGrantTypes)</span>
+<span class="fc" id="L73">        val redirectUris = readCommaDelimitedSet(client.redirectUris)</span>
+<span class="fc" id="L74">        val postLogoutRedirectUris = readCommaDelimitedSet(client.postLogoutRedirectUris)</span>
+<span class="fc" id="L75">        val clientScopes = readCommaDelimitedSet(client.scopes)</span>
+
+<span class="fc" id="L77">        val builder =</span>
+            RegisteredClient
+<span class="fc" id="L79">                .withId(client.id)</span>
+<span class="fc" id="L80">                .clientId(client.clientId)</span>
+<span class="fc" id="L81">                .clientIdIssuedAt(client.clientIdIssuedAt)</span>
+<span class="fc" id="L82">                .clientSecret(client.clientSecret)</span>
+<span class="fc" id="L83">                .clientSecretExpiresAt(client.clientSecretExpiresAt)</span>
+<span class="fc" id="L84">                .clientName(client.clientName)</span>
+<span class="fc" id="L85">                .clientAuthenticationMethods { authenticationMethods -&gt;</span>
+<span class="fc" id="L86">                    clientAuthenticationMethods.forEach { authenticationMethod -&gt;</span>
+<span class="fc" id="L87">                        authenticationMethods.add(</span>
+<span class="fc" id="L88">                            resolveClientAuthenticationMethod(authenticationMethod),</span>
+                        )
+<span class="fc" id="L90">                    }</span>
+<span class="fc" id="L91">                }.authorizationGrantTypes { grantTypes -&gt;</span>
+<span class="fc" id="L92">                    authorizationGrantTypes.forEach { grantType -&gt;</span>
+<span class="fc" id="L93">                        grantTypes.add(resolveAuthorizationGrantType(grantType))</span>
+<span class="fc" id="L94">                    }</span>
+<span class="fc" id="L95">                }.redirectUris { uris -&gt; uris.addAll(redirectUris) }</span>
+<span class="fc" id="L96">                .postLogoutRedirectUris { uris -&gt; uris.addAll(postLogoutRedirectUris) }</span>
+<span class="fc" id="L97">                .scopes { scopes -&gt; scopes.addAll(clientScopes) }</span>
+
+<span class="fc" id="L99">        val clientSettingsBuilder = ClientSettings.builder()</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        client.requireProofKey?.let { clientSettingsBuilder.requireProofKey(it) }</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        client.requireAuthorizationConsent?.let {</span>
+<span class="fc" id="L102">            clientSettingsBuilder.requireAuthorizationConsent(it)</span>
+        }
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        client.jwkSetUrl?.let { clientSettingsBuilder.jwkSetUrl(it) }</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (client.tokenEndpointAuthenticationSigningAlgorithm != null) {</span>
+<span class="fc" id="L106">            val signatureAlgorithm =</span>
+<span class="fc" id="L107">                SignatureAlgorithm.from(client.tokenEndpointAuthenticationSigningAlgorithm)</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">            if (signatureAlgorithm != null) {</span>
+<span class="fc" id="L109">                clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(</span>
+<span class="fc" id="L110">                    signatureAlgorithm,</span>
+                )
+            } else {
+<span class="fc" id="L113">                val macAlgorithm =</span>
+<span class="fc" id="L114">                    MacAlgorithm.from(client.tokenEndpointAuthenticationSigningAlgorithm)</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                if (macAlgorithm != null) {</span>
+<span class="fc" id="L116">                    clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(macAlgorithm)</span>
+                }
+            }
+        }
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        client.x509CertificateSubjectDn?.let { clientSettingsBuilder.x509CertificateSubjectDN(it) }</span>
+<span class="fc" id="L121">        builder.clientSettings(clientSettingsBuilder.build())</span>
+
+<span class="fc" id="L123">        val tokenSettingsBuilder = TokenSettings.builder()</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        client.reuseRefreshTokens?.let { tokenSettingsBuilder.reuseRefreshTokens(it) }</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        client.x509CertificateBoundAccessTokens?.let {</span>
+<span class="fc" id="L126">            tokenSettingsBuilder.x509CertificateBoundAccessTokens(it)</span>
+        }
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        client.authorizationCodeTimeToLive?.let {</span>
+<span class="fc" id="L129">            tokenSettingsBuilder.authorizationCodeTimeToLive(</span>
+<span class="fc" id="L130">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
+<span class="fc" id="L131">            )</span>
+        }
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        client.accessTokenTimeToLive?.let {</span>
+<span class="fc" id="L134">            tokenSettingsBuilder.accessTokenTimeToLive(</span>
+<span class="fc" id="L135">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
+<span class="fc" id="L136">            )</span>
+        }
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        client.accessTokenFormat?.let {</span>
+<span class="fc" id="L139">            tokenSettingsBuilder.accessTokenFormat(OAuth2TokenFormat(it))</span>
+        }
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        client.deviceCodeTimeToLive?.let {</span>
+<span class="fc" id="L142">            tokenSettingsBuilder.deviceCodeTimeToLive(</span>
+<span class="fc" id="L143">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
+<span class="fc" id="L144">            )</span>
+        }
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        client.refreshTokenTimeToLive?.let {</span>
+<span class="fc" id="L147">            tokenSettingsBuilder.refreshTokenTimeToLive(</span>
+<span class="fc" id="L148">                DurationStyle.detectAndParse(it, ChronoUnit.SECONDS),</span>
+<span class="fc" id="L149">            )</span>
+        }
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        client.idTokenSignatureAlgorithm?.let {</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">            SignatureAlgorithm.from(it)?.let { alg -&gt;</span>
+<span class="fc" id="L153">                tokenSettingsBuilder.idTokenSignatureAlgorithm(alg)</span>
+<span class="fc" id="L154">            }</span>
+        }
+<span class="fc" id="L156">        builder.tokenSettings(tokenSettingsBuilder.build())</span>
+
+<span class="fc" id="L158">        return builder.build()</span>
+    }
+
+    /**
+     * 将对象转换为实体
+     *
+     * @param registeredClient 对象
+     * @return 实体
+     */
+    private fun toEntity(registeredClient: RegisteredClient): OauthRegisteredClient {
+<span class="fc" id="L168">        val clientAuthenticationMethodValues =</span>
+<span class="fc" id="L169">            registeredClient.clientAuthenticationMethods.map { it.value }</span>
+
+<span class="fc" id="L171">        val authorizationGrantTypeValues = registeredClient.authorizationGrantTypes.map { it.value }</span>
+<span class="fc" id="L172">        val registeredClientSettings = registeredClient.clientSettings</span>
+<span class="fc" id="L173">        val registeredClientTokenSettings = registeredClient.tokenSettings</span>
+
+<span class="fc" id="L175">        return OauthRegisteredClient {</span>
+<span class="fc" id="L176">            id = registeredClient.id</span>
+<span class="fc" id="L177">            clientId = registeredClient.clientId</span>
+<span class="fc" id="L178">            clientIdIssuedAt = registeredClient.clientIdIssuedAt</span>
+<span class="fc" id="L179">            clientSecret = registeredClient.clientSecret</span>
+<span class="fc" id="L180">            clientSecretExpiresAt = registeredClient.clientSecretExpiresAt</span>
+<span class="fc" id="L181">            clientName = registeredClient.clientName</span>
+<span class="fc" id="L182">            this.clientAuthenticationMethods = clientAuthenticationMethodValues.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L183">            this.authorizationGrantTypes = authorizationGrantTypeValues.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L184">            redirectUris = registeredClient.redirectUris.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L185">            postLogoutRedirectUris = registeredClient.postLogoutRedirectUris.joinToString(&quot;,&quot;)</span>
+<span class="fc" id="L186">            scopes = registeredClient.scopes.joinToString(&quot;,&quot;)</span>
+
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">            requireProofKey = registeredClientSettings?.isRequireProofKey</span>
+<span class="fc" id="L189">            requireAuthorizationConsent =</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">                registeredClientSettings?.isRequireAuthorizationConsent</span>
+<span class="fc" id="L191">            tokenEndpointAuthenticationSigningAlgorithm =</span>
+<span class="fc bfc" id="L192" title="All 4 branches covered.">                registeredClientSettings?.tokenEndpointAuthenticationSigningAlgorithm?.name</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">            jwkSetUrl = registeredClientSettings?.jwkSetUrl</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">            x509CertificateSubjectDn = registeredClientSettings?.x509CertificateSubjectDN</span>
+
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">            reuseRefreshTokens = registeredClientTokenSettings?.isReuseRefreshTokens</span>
+<span class="fc" id="L197">            x509CertificateBoundAccessTokens =</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">                registeredClientTokenSettings?.isX509CertificateBoundAccessTokens</span>
+<span class="fc" id="L199">            authorizationCodeTimeToLive =</span>
+<span class="pc bpc" id="L200" title="2 of 4 branches missed.">                registeredClientTokenSettings?.authorizationCodeTimeToLive?.toString()</span>
+<span class="fc" id="L201">            accessTokenTimeToLive =</span>
+<span class="pc bpc" id="L202" title="2 of 4 branches missed.">                registeredClientTokenSettings?.accessTokenTimeToLive?.toString()</span>
+<span class="pc bpc" id="L203" title="2 of 4 branches missed.">            accessTokenFormat = registeredClientTokenSettings?.accessTokenFormat?.value</span>
+<span class="pc bpc" id="L204" title="2 of 4 branches missed.">            deviceCodeTimeToLive = registeredClientTokenSettings?.deviceCodeTimeToLive?.toString()</span>
+<span class="fc" id="L205">            refreshTokenTimeToLive =</span>
+<span class="pc bpc" id="L206" title="2 of 4 branches missed.">                registeredClientTokenSettings?.refreshTokenTimeToLive?.toString()</span>
+<span class="fc" id="L207">            idTokenSignatureAlgorithm =</span>
+<span class="pc bpc" id="L208" title="2 of 4 branches missed.">                registeredClientTokenSettings?.idTokenSignatureAlgorithm?.name</span>
+<span class="fc" id="L209">        }</span>
+    }
+
+<span class="fc bfc" id="L212" title="All 6 branches covered.">    private fun readCommaDelimitedSet(value: String?): LinkedHashSet&lt;String&gt; = value?.splitToSequence(',')?.toCollection(linkedSetOf()) ?: linkedSetOf()</span>
+
+    companion object {
+        /**
+         * 解析授权类型
+         *
+         * @param authorizationGrantType 授权类型字符串
+         * @return 授权类型对象
+         */
+        private fun resolveAuthorizationGrantType(
+            authorizationGrantType: String,
+        ): AuthorizationGrantType =
+<span class="fc" id="L224">            when (authorizationGrantType) {</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">                AuthorizationGrantType.AUTHORIZATION_CODE.value -&gt; {</span>
+<span class="fc" id="L226">                    AuthorizationGrantType.AUTHORIZATION_CODE</span>
+                }
+
+<span class="fc bfc" id="L229" title="All 2 branches covered.">                AuthorizationGrantType.CLIENT_CREDENTIALS.value -&gt; {</span>
+<span class="fc" id="L230">                    AuthorizationGrantType.CLIENT_CREDENTIALS</span>
+                }
+
+<span class="fc bfc" id="L233" title="All 2 branches covered.">                AuthorizationGrantType.REFRESH_TOKEN.value -&gt; {</span>
+<span class="fc" id="L234">                    AuthorizationGrantType.REFRESH_TOKEN</span>
+                }
+
+                else -&gt; {
+<span class="fc" id="L238">                    AuthorizationGrantType(authorizationGrantType)</span>
+                }
+<span class="fc" id="L240">            }</span>
+
+        /**
+         * 解析客户端认证方法
+         *
+         * @param clientAuthenticationMethod 认证方法字符串
+         * @return 认证方法对象
+         */
+        private fun resolveClientAuthenticationMethod(
+            clientAuthenticationMethod: String,
+        ): ClientAuthenticationMethod =
+<span class="fc" id="L251">            when (clientAuthenticationMethod) {</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">                ClientAuthenticationMethod.CLIENT_SECRET_BASIC.value -&gt; {</span>
+<span class="fc" id="L253">                    ClientAuthenticationMethod.CLIENT_SECRET_BASIC</span>
+                }
+
+<span class="fc bfc" id="L256" title="All 2 branches covered.">                ClientAuthenticationMethod.CLIENT_SECRET_POST.value -&gt; {</span>
+<span class="fc" id="L257">                    ClientAuthenticationMethod.CLIENT_SECRET_POST</span>
+                }
+
+<span class="fc bfc" id="L260" title="All 2 branches covered.">                ClientAuthenticationMethod.NONE.value -&gt; {</span>
+<span class="fc" id="L261">                    ClientAuthenticationMethod.NONE</span>
+                }
+
+                else -&gt; {
+<span class="fc" id="L265">                    ClientAuthenticationMethod(clientAuthenticationMethod)</span>
+                }
+<span class="fc" id="L267">            }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

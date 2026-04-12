@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthorizationFetchers.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.repository</a> &gt; <span class="el_source">AuthorizationFetchers.kt</span></div><h1>AuthorizationFetchers.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.repository
+
+import io.github.lishangbu.avalon.auth.entity.*
+import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
+
+/** 认证模块常用抓取器。 */
+internal object AuthorizationFetchers {
+    /** 用户及角色抓取器。 */
+<span class="fc" id="L9">    val USER_WITH_ROLES =</span>
+<span class="fc" id="L10">        newFetcher(User::class).`by` {</span>
+<span class="fc" id="L11">            allScalarFields()</span>
+<span class="fc" id="L12">            roles {</span>
+<span class="fc" id="L13">                allScalarFields()</span>
+<span class="fc" id="L14">                permissions {</span>
+<span class="fc" id="L15">                    allScalarFields()</span>
+<span class="fc" id="L16">                    menu {</span>
+<span class="fc" id="L17">                        allScalarFields()</span>
+<span class="fc" id="L18">                    }</span>
+<span class="fc" id="L19">                }</span>
+<span class="fc" id="L20">            }</span>
+<span class="fc" id="L21">        }</span>
+
+    /** 角色及菜单抓取器。 */
+<span class="fc" id="L24">    val ROLE_WITH_MENUS =</span>
+<span class="fc" id="L25">        newFetcher(Role::class).`by` {</span>
+<span class="fc" id="L26">            allScalarFields()</span>
+<span class="fc" id="L27">            menus {</span>
+<span class="fc" id="L28">                allScalarFields()</span>
+<span class="fc" id="L29">                parent {</span>
+<span class="fc" id="L30">                    allScalarFields()</span>
+<span class="fc" id="L31">                }</span>
+<span class="fc" id="L32">            }</span>
+<span class="fc" id="L33">        }</span>
+
+    /** 角色的菜单与权限点抓取器。 */
+<span class="fc" id="L36">    val ROLE_WITH_BINDINGS =</span>
+<span class="fc" id="L37">        newFetcher(Role::class).`by` {</span>
+<span class="fc" id="L38">            allScalarFields()</span>
+<span class="fc" id="L39">            menus {</span>
+<span class="fc" id="L40">                allScalarFields()</span>
+<span class="fc" id="L41">                parent {</span>
+<span class="fc" id="L42">                    allScalarFields()</span>
+<span class="fc" id="L43">                }</span>
+<span class="fc" id="L44">            }</span>
+<span class="fc" id="L45">            permissions {</span>
+<span class="fc" id="L46">                allScalarFields()</span>
+<span class="fc" id="L47">                menu {</span>
+<span class="fc" id="L48">                    allScalarFields()</span>
+<span class="fc" id="L49">                }</span>
+<span class="fc" id="L50">            }</span>
+<span class="fc" id="L51">        }</span>
+
+    /** 菜单标量字段抓取器。 */
+<span class="fc" id="L54">    val MENU =</span>
+<span class="fc" id="L55">        newFetcher(Menu::class).`by` {</span>
+<span class="fc" id="L56">            allScalarFields()</span>
+<span class="fc" id="L57">            parent {</span>
+<span class="fc" id="L58">                allScalarFields()</span>
+<span class="fc" id="L59">            }</span>
+<span class="fc" id="L60">        }</span>
+
+    /** 权限点及所属菜单抓取器。 */
+<span class="nc" id="L63">    val PERMISSION_WITH_MENU =</span>
+<span class="fc" id="L64">        newFetcher(Permission::class).`by` {</span>
+<span class="fc" id="L65">            allScalarFields()</span>
+<span class="fc" id="L66">            menu {</span>
+<span class="fc" id="L67">                allScalarFields()</span>
+<span class="fc" id="L68">                parent {</span>
+<span class="fc" id="L69">                    allScalarFields()</span>
+<span class="fc" id="L70">                }</span>
+<span class="fc" id="L71">            }</span>
+<span class="fc" id="L72">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

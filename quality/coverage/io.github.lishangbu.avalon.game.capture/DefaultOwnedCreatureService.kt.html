@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultOwnedCreatureService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.capture</a> &gt; <span class="el_source">DefaultOwnedCreatureService.kt</span></div><h1>DefaultOwnedCreatureService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.capture
 
-import io.github.lishangbu.avalon.dataset.entity.dto.MoveSpecification
-import io.github.lishangbu.avalon.dataset.repository.MoveRepository
-import io.github.lishangbu.avalon.dataset.repository.StatRepository
+import io.github.lishangbu.avalon.dataset.api.game.service.GameMoveQueryPort
+import io.github.lishangbu.avalon.dataset.api.game.service.GameStatQueryPort
 import io.github.lishangbu.avalon.game.entity.CreatureStorageBox
 import io.github.lishangbu.avalon.game.entity.OwnedCreature
 import io.github.lishangbu.avalon.game.entity.OwnedCreatureMove
@@ -16,57 +15,57 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 
-<span class="fc" id="L19">@Service</span>
-<span class="fc" id="L20">open class DefaultOwnedCreatureService(</span>
-<span class="fc" id="L21">    private val creatureStorageBoxRepository: CreatureStorageBoxRepository,</span>
-<span class="fc" id="L22">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
-<span class="fc" id="L23">    private val ownedCreatureStatRepository: OwnedCreatureStatRepository,</span>
-<span class="fc" id="L24">    private val ownedCreatureMoveRepository: OwnedCreatureMoveRepository,</span>
-<span class="fc" id="L25">    private val statRepository: StatRepository,</span>
-<span class="fc" id="L26">    private val moveRepository: MoveRepository,</span>
+<span class="fc" id="L18">@Service</span>
+<span class="fc" id="L19">open class DefaultOwnedCreatureService(</span>
+<span class="fc" id="L20">    private val creatureStorageBoxRepository: CreatureStorageBoxRepository,</span>
+<span class="fc" id="L21">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
+<span class="fc" id="L22">    private val ownedCreatureStatRepository: OwnedCreatureStatRepository,</span>
+<span class="fc" id="L23">    private val ownedCreatureMoveRepository: OwnedCreatureMoveRepository,</span>
+<span class="fc" id="L24">    private val gameStatQueryPort: GameStatQueryPort,</span>
+<span class="fc" id="L25">    private val gameMoveQueryPort: GameMoveQueryPort,</span>
 ) {
     @Transactional(rollbackFor = [Exception::class])
     open fun capture(context: PreparedCaptureContext): CapturedCreatureSummary {
-<span class="fc" id="L30">        val now = Instant.now()</span>
-<span class="fc" id="L31">        val box = ensureDefaultBox(context.playerId, now)</span>
-<span class="fc" id="L32">        val slot = nextBoxSlot(box.id)</span>
-<span class="fc" id="L33">        val metadata = context.targetMetadata</span>
-<span class="fc" id="L34">        val ownedCreature =</span>
-<span class="fc" id="L35">            ownedCreatureRepository.save(</span>
-<span class="fc" id="L36">                OwnedCreature {</span>
-<span class="fc" id="L37">                    playerId = context.playerId</span>
-<span class="fc" id="L38">                    creatureId = metadata.creatureId</span>
-<span class="fc" id="L39">                    creatureSpeciesId = metadata.creatureSpeciesId</span>
-<span class="fc" id="L40">                    nickname = null</span>
-<span class="fc" id="L41">                    level = metadata.level</span>
-<span class="fc" id="L42">                    experience = metadata.requiredExperience</span>
-<span class="fc" id="L43">                    natureId = metadata.natureId</span>
-<span class="fc" id="L44">                    abilityInternalName = context.targetUnit.abilityId</span>
-<span class="fc" id="L45">                    currentHp = context.targetUnit.currentHp</span>
-<span class="fc" id="L46">                    maxHp = context.targetUnit.maxHp</span>
-<span class="fc" id="L47">                    statusState = context.targetUnit.statusState</span>
-<span class="fc" id="L48">                    storageType = STORAGE_TYPE_BOX</span>
-<span class="fc" id="L49">                    storageBoxId = box.id</span>
-<span class="fc" id="L50">                    storageSlot = slot</span>
-<span class="fc" id="L51">                    partySlot = null</span>
-<span class="fc" id="L52">                    capturedAt = now</span>
-<span class="fc" id="L53">                    captureItemId = context.ballItemId</span>
-<span class="fc" id="L54">                    captureSessionId = context.sessionId</span>
-<span class="fc" id="L55">                    sourceType = SOURCE_TYPE_CAPTURE</span>
-<span class="fc" id="L56">                    createdAt = now</span>
-<span class="fc" id="L57">                    updatedAt = now</span>
-<span class="fc" id="L58">                },</span>
-<span class="fc" id="L59">                SaveMode.INSERT_ONLY,</span>
+<span class="fc" id="L29">        val now = Instant.now()</span>
+<span class="fc" id="L30">        val box = ensureDefaultBox(context.playerId, now)</span>
+<span class="fc" id="L31">        val slot = nextBoxSlot(box.id)</span>
+<span class="fc" id="L32">        val metadata = context.targetMetadata</span>
+<span class="fc" id="L33">        val ownedCreature =</span>
+<span class="fc" id="L34">            ownedCreatureRepository.save(</span>
+<span class="fc" id="L35">                OwnedCreature {</span>
+<span class="fc" id="L36">                    playerId = context.playerId</span>
+<span class="fc" id="L37">                    creatureId = metadata.creatureId</span>
+<span class="fc" id="L38">                    creatureSpeciesId = metadata.creatureSpeciesId</span>
+<span class="fc" id="L39">                    nickname = null</span>
+<span class="fc" id="L40">                    level = metadata.level</span>
+<span class="fc" id="L41">                    experience = metadata.requiredExperience</span>
+<span class="fc" id="L42">                    natureId = metadata.natureId</span>
+<span class="fc" id="L43">                    abilityInternalName = context.targetUnit.abilityId</span>
+<span class="fc" id="L44">                    currentHp = context.targetUnit.currentHp</span>
+<span class="fc" id="L45">                    maxHp = context.targetUnit.maxHp</span>
+<span class="fc" id="L46">                    statusState = context.targetUnit.statusState</span>
+<span class="fc" id="L47">                    storageType = STORAGE_TYPE_BOX</span>
+<span class="fc" id="L48">                    storageBoxId = box.id</span>
+<span class="fc" id="L49">                    storageSlot = slot</span>
+<span class="fc" id="L50">                    partySlot = null</span>
+<span class="fc" id="L51">                    capturedAt = now</span>
+<span class="fc" id="L52">                    captureItemId = context.ballItemId</span>
+<span class="fc" id="L53">                    captureSessionId = context.sessionId</span>
+<span class="fc" id="L54">                    sourceType = SOURCE_TYPE_CAPTURE</span>
+<span class="fc" id="L55">                    createdAt = now</span>
+<span class="fc" id="L56">                    updatedAt = now</span>
+<span class="fc" id="L57">                },</span>
+<span class="fc" id="L58">                SaveMode.INSERT_ONLY,</span>
             )
-<span class="fc" id="L61">        saveStats(ownedCreature.id, metadata)</span>
-<span class="fc" id="L62">        saveMoves(ownedCreature.id, context)</span>
+<span class="fc" id="L60">        saveStats(ownedCreature.id, metadata)</span>
+<span class="fc" id="L61">        saveMoves(ownedCreature.id, context)</span>
 
-<span class="fc" id="L64">        return CapturedCreatureSummary(</span>
-<span class="fc" id="L65">            ownedCreatureId = ownedCreature.id.toString(),</span>
-<span class="fc" id="L66">            creatureId = metadata.creatureId.toString(),</span>
-<span class="fc" id="L67">            creatureSpeciesId = metadata.creatureSpeciesId.toString(),</span>
-<span class="fc" id="L68">            creatureInternalName = metadata.creatureInternalName,</span>
-<span class="fc" id="L69">            creatureName = metadata.creatureName,</span>
+<span class="fc" id="L63">        return CapturedCreatureSummary(</span>
+<span class="fc" id="L64">            ownedCreatureId = ownedCreature.id.toString(),</span>
+<span class="fc" id="L65">            creatureId = metadata.creatureId.toString(),</span>
+<span class="fc" id="L66">            creatureSpeciesId = metadata.creatureSpeciesId.toString(),</span>
+<span class="fc" id="L67">            creatureInternalName = metadata.creatureInternalName,</span>
+<span class="fc" id="L68">            creatureName = metadata.creatureName,</span>
         )
     }
 
@@ -74,78 +73,80 @@ import java.time.Instant
         playerId: Long,
         now: Instant,
     ): CreatureStorageBox =
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        creatureStorageBoxRepository</span>
-<span class="fc" id="L78">            .findAll()</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            .filter { box -&gt; box.playerId == playerId }</span>
-<span class="fc" id="L80">            .sortedWith(compareBy&lt;CreatureStorageBox&gt; { box -&gt; box.sortingOrder }.thenBy { box -&gt; box.id })</span>
-<span class="fc" id="L81">            .firstOrNull()</span>
-<span class="nc" id="L82">            ?: creatureStorageBoxRepository.save(</span>
-<span class="nc" id="L83">                CreatureStorageBox {</span>
-<span class="nc" id="L84">                    this.playerId = playerId</span>
-<span class="nc" id="L85">                    name = DEFAULT_BOX_NAME</span>
-<span class="nc" id="L86">                    sortingOrder = 1</span>
-<span class="nc" id="L87">                    capacity = DEFAULT_BOX_CAPACITY</span>
-<span class="nc" id="L88">                    createdAt = now</span>
-<span class="nc" id="L89">                    updatedAt = now</span>
-<span class="nc" id="L90">                },</span>
-<span class="nc" id="L91">                SaveMode.INSERT_ONLY,</span>
-<span class="fc" id="L92">            )</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        creatureStorageBoxRepository</span>
+<span class="fc" id="L77">            .findAll()</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            .filter { box -&gt; box.playerId == playerId }</span>
+<span class="fc" id="L79">            .sortedWith(compareBy&lt;CreatureStorageBox&gt; { box -&gt; box.sortingOrder }.thenBy { box -&gt; box.id })</span>
+<span class="fc" id="L80">            .firstOrNull()</span>
+<span class="nc" id="L81">            ?: creatureStorageBoxRepository.save(</span>
+<span class="nc" id="L82">                CreatureStorageBox {</span>
+<span class="nc" id="L83">                    this.playerId = playerId</span>
+<span class="nc" id="L84">                    name = DEFAULT_BOX_NAME</span>
+<span class="nc" id="L85">                    sortingOrder = 1</span>
+<span class="nc" id="L86">                    capacity = DEFAULT_BOX_CAPACITY</span>
+<span class="nc" id="L87">                    createdAt = now</span>
+<span class="nc" id="L88">                    updatedAt = now</span>
+<span class="nc" id="L89">                },</span>
+<span class="nc" id="L90">                SaveMode.INSERT_ONLY,</span>
+<span class="fc" id="L91">            )</span>
 
     private fun nextBoxSlot(storageBoxId: Long): Int =
-<span class="fc" id="L95">        (</span>
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            ownedCreatureRepository</span>
-<span class="fc" id="L97">                .findAll()</span>
-<span class="pc bnc" id="L98" title="All 4 branches missed.">                .filter { creature -&gt; creature.storageBoxId == storageBoxId }</span>
-<span class="pc" id="L99">                .mapNotNull { creature -&gt; creature.storageSlot }</span>
-<span class="fc" id="L100">                .maxOrNull()</span>
-<span class="fc" id="L101">                ?: 0</span>
-<span class="fc" id="L102">        ) + 1</span>
+<span class="fc" id="L94">        (</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            ownedCreatureRepository</span>
+<span class="fc" id="L96">                .findAll()</span>
+<span class="pc bnc" id="L97" title="All 4 branches missed.">                .filter { creature -&gt; creature.storageBoxId == storageBoxId }</span>
+<span class="pc" id="L98">                .mapNotNull { creature -&gt; creature.storageSlot }</span>
+<span class="fc" id="L99">                .maxOrNull()</span>
+<span class="fc" id="L100">                ?: 0</span>
+<span class="fc" id="L101">        ) + 1</span>
 
     private fun saveStats(
         ownedCreatureId: Long,
         metadata: BattleUnitMetadata,
     ) {
-<span class="pc" id="L108">        val statIds = statRepository.findAll().associateBy { stat -&gt; stat.internalName }</span>
-<span class="fc" id="L109">        metadata.calculatedStats.keys.union(metadata.ivs.keys).union(metadata.evs.keys).forEach { statInternalName -&gt;</span>
-<span class="nc" id="L110">            val statId =</span>
-<span class="nc bnc" id="L111" title="All 4 branches missed.">                requireNotNull(statIds[statInternalName]?.id) {</span>
-<span class="nc" id="L112">                    &quot;Stat '$statInternalName' was not found.&quot;</span>
-                }
-<span class="nc" id="L114">            ownedCreatureStatRepository.save(</span>
-<span class="nc" id="L115">                OwnedCreatureStat {</span>
-<span class="nc" id="L116">                    this.ownedCreatureId = ownedCreatureId</span>
-<span class="nc" id="L117">                    this.statId = statId</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">                    iv = metadata.ivs[statInternalName] ?: 31</span>
-<span class="nc bnc" id="L119" title="All 2 branches missed.">                    ev = metadata.evs[statInternalName] ?: 0</span>
-<span class="nc bnc" id="L120" title="All 2 branches missed.">                    calculatedValue = metadata.calculatedStats[statInternalName] ?: 0</span>
-<span class="nc" id="L121">                },</span>
-<span class="nc" id="L122">                SaveMode.INSERT_ONLY,</span>
+<span class="fc" id="L107">        val statIds =</span>
+<span class="fc" id="L108">            gameStatQueryPort.findStatIdsByInternalNames(</span>
+<span class="fc" id="L109">                metadata.calculatedStats.keys</span>
+<span class="fc" id="L110">                    .union(metadata.ivs.keys)</span>
+<span class="fc" id="L111">                    .union(metadata.evs.keys),</span>
             )
-<span class="nc" id="L124">        }</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L113">        metadata.calculatedStats.keys.union(metadata.ivs.keys).union(metadata.evs.keys).forEach { statInternalName -&gt;</span>
+<span class="nc" id="L114">            val statId =</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                requireNotNull(statIds[statInternalName]) {</span>
+<span class="nc" id="L116">                    &quot;Stat '$statInternalName' was not found.&quot;</span>
+                }
+<span class="nc" id="L118">            ownedCreatureStatRepository.save(</span>
+<span class="nc" id="L119">                OwnedCreatureStat {</span>
+<span class="nc" id="L120">                    this.ownedCreatureId = ownedCreatureId</span>
+<span class="nc" id="L121">                    this.statId = statId</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">                    iv = metadata.ivs[statInternalName] ?: 31</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">                    ev = metadata.evs[statInternalName] ?: 0</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                    calculatedValue = metadata.calculatedStats[statInternalName] ?: 0</span>
+<span class="nc" id="L125">                },</span>
+<span class="nc" id="L126">                SaveMode.INSERT_ONLY,</span>
+            )
+<span class="nc" id="L128">        }</span>
+<span class="fc" id="L129">    }</span>
 
     private fun saveMoves(
         ownedCreatureId: Long,
         context: PreparedCaptureContext,
     ) {
-<span class="fc" id="L131">        context.targetUnit.movePp.entries.toList().forEachIndexed { index, (moveInternalName, currentPp) -&gt;</span>
-<span class="nc" id="L132">            val moveView =</span>
-<span class="nc bnc" id="L133" title="All 2 branches missed.">                moveRepository</span>
-<span class="nc" id="L134">                    .listViews(MoveSpecification(internalName = moveInternalName))</span>
-<span class="nc" id="L135">                    .firstOrNull { view -&gt; view.internalName == moveInternalName }</span>
-<span class="nc" id="L136">                    ?: error(&quot;Move '$moveInternalName' was not found.&quot;)</span>
-<span class="nc" id="L137">            ownedCreatureMoveRepository.save(</span>
-<span class="nc" id="L138">                OwnedCreatureMove {</span>
-<span class="nc" id="L139">                    this.ownedCreatureId = ownedCreatureId</span>
-<span class="nc" id="L140">                    slot = index + 1</span>
-<span class="nc" id="L141">                    moveId = moveView.id.toLong()</span>
-<span class="nc" id="L142">                    this.currentPp = currentPp</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">                    maxPp = moveView.pp ?: currentPp</span>
-<span class="nc" id="L144">                },</span>
-<span class="nc" id="L145">                SaveMode.INSERT_ONLY,</span>
+<span class="fc" id="L135">        val movesByInternalName = gameMoveQueryPort.findMovesByInternalNames(context.targetUnit.movePp.keys)</span>
+<span class="fc" id="L136">        context.targetUnit.movePp.entries.toList().forEachIndexed { index, (moveInternalName, currentPp) -&gt;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            val moveView = requireNotNull(movesByInternalName[moveInternalName]) { &quot;Move '$moveInternalName' was not found.&quot; }</span>
+<span class="nc" id="L138">            ownedCreatureMoveRepository.save(</span>
+<span class="nc" id="L139">                OwnedCreatureMove {</span>
+<span class="nc" id="L140">                    this.ownedCreatureId = ownedCreatureId</span>
+<span class="nc" id="L141">                    slot = index + 1</span>
+<span class="nc" id="L142">                    moveId = moveView.id</span>
+<span class="nc" id="L143">                    this.currentPp = currentPp</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">                    maxPp = moveView.pp ?: currentPp</span>
+<span class="nc" id="L145">                },</span>
+<span class="nc" id="L146">                SaveMode.INSERT_ONLY,</span>
             )
-<span class="nc" id="L147">        }</span>
-<span class="fc" id="L148">    }</span>
+<span class="nc" id="L148">        }</span>
+<span class="fc" id="L149">    }</span>
 
     private companion object {
         const val DEFAULT_BOX_NAME: String = &quot;Box 1&quot;

@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleUnitImportService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.unit</a> &gt; <span class="el_source">SmartBattleUnitImportService.kt</span></div><h1>SmartBattleUnitImportService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.unit
 
-import io.github.lishangbu.avalon.dataset.entity.CreatureAbility
-import io.github.lishangbu.avalon.dataset.entity.CreatureElement
-import io.github.lishangbu.avalon.dataset.entity.CreatureStat
-import io.github.lishangbu.avalon.dataset.entity.Move
-import io.github.lishangbu.avalon.dataset.entity.dto.CreatureSpeciesView
-import io.github.lishangbu.avalon.dataset.entity.dto.CreatureSpecification
-import io.github.lishangbu.avalon.dataset.entity.dto.CreatureView
-import io.github.lishangbu.avalon.dataset.entity.dto.MoveSpecification
-import io.github.lishangbu.avalon.dataset.entity.dto.MoveView
-import io.github.lishangbu.avalon.dataset.entity.dto.NatureSpecification
-import io.github.lishangbu.avalon.dataset.entity.dto.NatureView
-import io.github.lishangbu.avalon.dataset.repository.AbilityRepository
-import io.github.lishangbu.avalon.dataset.repository.CreatureAbilityRepository
-import io.github.lishangbu.avalon.dataset.repository.CreatureElementRepository
-import io.github.lishangbu.avalon.dataset.repository.CreatureRepository
-import io.github.lishangbu.avalon.dataset.repository.CreatureSpeciesRepository
-import io.github.lishangbu.avalon.dataset.repository.CreatureStatRepository
-import io.github.lishangbu.avalon.dataset.repository.MoveRepository
-import io.github.lishangbu.avalon.dataset.repository.NatureRepository
-import io.github.lishangbu.avalon.dataset.repository.StatRepository
-import io.github.lishangbu.avalon.dataset.repository.TypeRepository
+import io.github.lishangbu.avalon.dataset.api.game.service.GameCreatureQueryPort
+import io.github.lishangbu.avalon.dataset.api.game.service.GameMoveQueryPort
+import io.github.lishangbu.avalon.dataset.api.game.service.GameNatureQueryPort
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleMoveSlotInput
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssembler
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssemblyRequest
@@ -34,201 +16,111 @@ import org.springframework.stereotype.Service
 /**
  * 基于真实数据的战斗单位智能导入服务。
  */
-<span class="nc" id="L37">@Service</span>
-<span class="nc" id="L38">class SmartBattleUnitImportService(</span>
-<span class="nc" id="L39">    private val creatureRepository: CreatureRepository,</span>
-<span class="nc" id="L40">    private val creatureSpeciesRepository: CreatureSpeciesRepository,</span>
-<span class="nc" id="L41">    private val creatureElementRepository: CreatureElementRepository,</span>
-<span class="nc" id="L42">    private val creatureStatRepository: CreatureStatRepository,</span>
-<span class="nc" id="L43">    private val creatureAbilityRepository: CreatureAbilityRepository,</span>
-<span class="nc" id="L44">    private val typeRepository: TypeRepository,</span>
-<span class="nc" id="L45">    private val statRepository: StatRepository,</span>
-<span class="nc" id="L46">    private val abilityRepository: AbilityRepository,</span>
-<span class="nc" id="L47">    private val natureRepository: NatureRepository,</span>
-<span class="nc" id="L48">    private val moveRepository: MoveRepository,</span>
-<span class="nc" id="L49">    private val statCalculatorFactory: StatCalculatorFactory,</span>
-<span class="nc" id="L50">    private val growthRateCalculatorFactory: GrowthRateCalculatorFactory,</span>
+<span class="nc" id="L19">@Service</span>
+<span class="nc" id="L20">class SmartBattleUnitImportService(</span>
+<span class="nc" id="L21">    private val gameCreatureQueryPort: GameCreatureQueryPort,</span>
+<span class="nc" id="L22">    private val gameNatureQueryPort: GameNatureQueryPort,</span>
+<span class="nc" id="L23">    private val gameMoveQueryPort: GameMoveQueryPort,</span>
+<span class="nc" id="L24">    private val statCalculatorFactory: StatCalculatorFactory,</span>
+<span class="nc" id="L25">    private val growthRateCalculatorFactory: GrowthRateCalculatorFactory,</span>
 ) : BattleUnitImporter {
     override fun importUnit(request: BattleUnitImportRequest): BattleUnitImportResult {
-<span class="nc" id="L53">        val creature = loadCreature(request)</span>
-<span class="nc" id="L54">        val nature = loadNature(request)</span>
-<span class="nc" id="L55">        val movePpDefaults = loadMovePpDefaults(request.moves)</span>
-<span class="nc" id="L56">        val assembled =</span>
-<span class="nc" id="L57">            BattleUnitAssembler.assemble(</span>
+<span class="nc" id="L28">        val creature = loadCreature(request)</span>
+<span class="nc" id="L29">        val nature = loadNature(request)</span>
+<span class="nc" id="L30">        val movePpDefaults = loadMovePpDefaults(request.moves)</span>
+<span class="nc" id="L31">        val assembled =</span>
+<span class="nc" id="L32">            BattleUnitAssembler.assemble(</span>
                 request =
-<span class="nc" id="L59">                    BattleUnitAssemblyRequest(</span>
-<span class="nc" id="L60">                        unitId = request.unitId,</span>
+<span class="nc" id="L34">                    BattleUnitAssemblyRequest(</span>
+<span class="nc" id="L35">                        unitId = request.unitId,</span>
                         metadata =
-<span class="nc" id="L62">                            io.github.lishangbu.avalon.game.battle.engine.model.UnitMetadataState(</span>
-<span class="nc" id="L63">                                level = request.metadata.level,</span>
-<span class="nc" id="L64">                                creatureId = request.metadata.creatureId,</span>
-<span class="nc" id="L65">                                creatureInternalName = request.metadata.creatureInternalName,</span>
-<span class="nc" id="L66">                                natureId = request.metadata.natureId,</span>
-<span class="nc" id="L67">                                captureContext = request.metadata.captureContext,</span>
-<span class="nc" id="L68">                                ivs = request.metadata.ivs,</span>
-<span class="nc" id="L69">                                evs = request.metadata.evs,</span>
+<span class="nc" id="L37">                            io.github.lishangbu.avalon.game.battle.engine.model.UnitMetadataState(</span>
+<span class="nc" id="L38">                                level = request.metadata.level,</span>
+<span class="nc" id="L39">                                creatureId = request.metadata.creatureId,</span>
+<span class="nc" id="L40">                                creatureInternalName = request.metadata.creatureInternalName,</span>
+<span class="nc" id="L41">                                natureId = request.metadata.natureId,</span>
+<span class="nc" id="L42">                                captureContext = request.metadata.captureContext,</span>
+<span class="nc" id="L43">                                ivs = request.metadata.ivs,</span>
+<span class="nc" id="L44">                                evs = request.metadata.evs,</span>
                             ),
-<span class="nc" id="L71">                        abilityInternalName = request.abilityInternalName,</span>
-<span class="nc" id="L72">                        itemId = request.itemId,</span>
-<span class="nc" id="L73">                        moves = request.moves.map { move -&gt; BattleMoveSlotInput(move.moveId, move.currentPp) },</span>
-<span class="nc" id="L74">                        currentHp = request.currentHp,</span>
-<span class="nc" id="L75">                        statusState = request.statusState,</span>
-<span class="nc" id="L76">                        volatileStates = request.volatileStates,</span>
-<span class="nc" id="L77">                        conditionStates = request.conditionStates,</span>
-<span class="nc" id="L78">                        boosts = request.boosts,</span>
-<span class="nc" id="L79">                        forceSwitchRequested = request.forceSwitchRequested,</span>
+<span class="nc" id="L46">                        abilityInternalName = request.abilityInternalName,</span>
+<span class="nc" id="L47">                        itemId = request.itemId,</span>
+<span class="nc" id="L48">                        moves = request.moves.map { move -&gt; BattleMoveSlotInput(move.moveId, move.currentPp) },</span>
+<span class="nc" id="L49">                        currentHp = request.currentHp,</span>
+<span class="nc" id="L50">                        statusState = request.statusState,</span>
+<span class="nc" id="L51">                        volatileStates = request.volatileStates,</span>
+<span class="nc" id="L52">                        conditionStates = request.conditionStates,</span>
+<span class="nc" id="L53">                        boosts = request.boosts,</span>
+<span class="nc" id="L54">                        forceSwitchRequested = request.forceSwitchRequested,</span>
                     ),
-<span class="nc" id="L81">                creature = creature,</span>
-<span class="nc" id="L82">                nature = nature,</span>
-<span class="nc" id="L83">                movePpDefaults = movePpDefaults,</span>
-<span class="nc" id="L84">                statCalculatorFactory = statCalculatorFactory,</span>
-<span class="nc" id="L85">                growthRateCalculatorFactory = growthRateCalculatorFactory,</span>
+<span class="nc" id="L56">                creature = creature,</span>
+<span class="nc" id="L57">                nature = nature,</span>
+<span class="nc" id="L58">                movePpDefaults = movePpDefaults,</span>
+<span class="nc" id="L59">                statCalculatorFactory = statCalculatorFactory,</span>
+<span class="nc" id="L60">                growthRateCalculatorFactory = growthRateCalculatorFactory,</span>
             )
 
-<span class="nc" id="L88">        return BattleUnitImportResult(</span>
-<span class="nc" id="L89">            unit = assembled.unit,</span>
-<span class="nc" id="L90">            creatureId = assembled.creatureId,</span>
-<span class="nc" id="L91">            creatureInternalName = assembled.creatureInternalName,</span>
-<span class="nc" id="L92">            creatureName = assembled.creatureName,</span>
-<span class="nc" id="L93">            level = assembled.level,</span>
-<span class="nc" id="L94">            requiredExperience = assembled.requiredExperience,</span>
-<span class="nc" id="L95">            calculatedStats = assembled.calculatedStats,</span>
+<span class="nc" id="L63">        return BattleUnitImportResult(</span>
+<span class="nc" id="L64">            unit = assembled.unit,</span>
+<span class="nc" id="L65">            creatureId = assembled.creatureId,</span>
+<span class="nc" id="L66">            creatureInternalName = assembled.creatureInternalName,</span>
+<span class="nc" id="L67">            creatureName = assembled.creatureName,</span>
+<span class="nc" id="L68">            level = assembled.level,</span>
+<span class="nc" id="L69">            requiredExperience = assembled.requiredExperience,</span>
+<span class="nc" id="L70">            calculatedStats = assembled.calculatedStats,</span>
         )
     }
 
     private fun loadCreature(request: BattleUnitImportRequest): CreatureUnitImportRecord {
-<span class="nc" id="L100">        val creature =</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">            when {</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">                request.metadata.creatureId != null -&gt; {</span>
-<span class="nc" id="L103">                    creatureRepository.loadViewById(request.metadata.creatureId)</span>
-                }
+<span class="nc" id="L75">        val creature =</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            when {</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                request.metadata.creatureId != null -&gt; gameCreatureQueryPort.findCreatureById(request.metadata.creatureId)</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                request.metadata.creatureInternalName != null -&gt; gameCreatureQueryPort.findCreatureByInternalName(request.metadata.creatureInternalName)</span>
+<span class="nc" id="L79">                else -&gt; error(&quot;Either creatureId or creatureInternalName must be provided.&quot;)</span>
+<span class="nc" id="L80">            } ?: error(&quot;Creature was not found for request '${request.unitId}'.&quot;)</span>
 
-<span class="nc bnc" id="L106" title="All 2 branches missed.">                request.metadata.creatureInternalName != null -&gt; {</span>
-<span class="nc" id="L107">                    creatureRepository</span>
-<span class="nc" id="L108">                        .listViews(CreatureSpecification(internalName = request.metadata.creatureInternalName))</span>
-<span class="nc" id="L109">                        .firstOrNull { view -&gt; view.internalName == request.metadata.creatureInternalName }</span>
-                }
-
-                else -&gt; {
-<span class="nc" id="L113">                    error(&quot;Either creatureId or creatureInternalName must be provided.&quot;)</span>
-                }
-            }
-<span class="nc" id="L116">                ?: error(&quot;Creature was not found for request '${request.unitId}'.&quot;)</span>
-
-<span class="nc" id="L118">        val creatureId = creature.id.toLong()</span>
-<span class="nc" id="L119">        val species = loadCreatureSpecies(creature)</span>
-<span class="nc" id="L120">        val typeRows = loadCreatureElements(creatureId)</span>
-<span class="nc" id="L121">        val statRows = loadCreatureStats(creatureId)</span>
-<span class="nc" id="L122">        val abilityRows = loadCreatureAbilities(creatureId)</span>
-
-<span class="nc" id="L124">        return CreatureUnitImportRecord(</span>
-<span class="nc" id="L125">            id = creatureId,</span>
-<span class="nc bnc" id="L126" title="All 4 branches missed.">            speciesId = species?.id?.toLong(),</span>
-<span class="nc bnc" id="L127" title="All 2 branches missed.">            internalName = requireNotNull(creature.internalName) { &quot;Creature internalName must not be null.&quot; },</span>
-<span class="nc bnc" id="L128" title="All 4 branches missed.">            name = creature.name ?: requireNotNull(creature.internalName),</span>
-<span class="nc" id="L129">            weight = creature.weight,</span>
-<span class="nc bnc" id="L130" title="All 4 branches missed.">            growthRateInternalName = species?.growthRate?.internalName,</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">            captureRate = species?.captureRate,</span>
-<span class="nc" id="L132">            typeIds = typeRows.mapNotNull { type -&gt; type.internalName },</span>
-<span class="nc" id="L133">            baseStats = statRows.associate { stat -&gt; stat.internalName to stat.baseStat },</span>
+<span class="nc" id="L82">        return CreatureUnitImportRecord(</span>
+<span class="nc" id="L83">            id = creature.id,</span>
+<span class="nc" id="L84">            speciesId = creature.speciesId,</span>
+<span class="nc" id="L85">            internalName = creature.internalName,</span>
+<span class="nc" id="L86">            name = creature.name,</span>
+<span class="nc" id="L87">            weight = creature.weight,</span>
+<span class="nc" id="L88">            growthRateInternalName = creature.growthRateInternalName,</span>
+<span class="nc" id="L89">            captureRate = creature.captureRate,</span>
+<span class="nc" id="L90">            typeIds = creature.typeInternalNames,</span>
+<span class="nc" id="L91">            baseStats = creature.baseStats,</span>
             abilityOptions =
-<span class="nc" id="L135">                abilityRows.map { ability -&gt;</span>
-<span class="nc" id="L136">                    CreatureAbilityOptionRecord(</span>
-<span class="nc" id="L137">                        internalName = ability.internalName,</span>
-<span class="nc" id="L138">                        slot = ability.slot,</span>
-<span class="nc" id="L139">                        hidden = ability.hidden,</span>
-<span class="nc" id="L140">                    )</span>
+<span class="nc" id="L93">                creature.abilityOptions.map { ability -&gt;</span>
+<span class="nc" id="L94">                    CreatureAbilityOptionRecord(</span>
+<span class="nc" id="L95">                        internalName = ability.internalName,</span>
+<span class="nc" id="L96">                        slot = ability.slot,</span>
+<span class="nc" id="L97">                        hidden = ability.hidden,</span>
+<span class="nc" id="L98">                    )</span>
                 },
         )
     }
 
-    private fun loadCreatureSpecies(creature: CreatureView): CreatureSpeciesView? {
-<span class="nc bnc" id="L146" title="All 4 branches missed.">        val speciesId = creature.creatureSpecies?.id?.toLong() ?: return null</span>
-<span class="nc" id="L147">        return creatureSpeciesRepository.loadViewById(speciesId)</span>
-    }
-
-    private fun loadCreatureElements(creatureId: Long): List&lt;io.github.lishangbu.avalon.dataset.entity.Type&gt; {
-<span class="nc bnc" id="L151" title="All 2 branches missed.">        val rows = creatureElementRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">        val slots = rows.associate { row -&gt; row.id.typeId to (row.slot ?: Int.MAX_VALUE) }</span>
-<span class="nc" id="L153">        return typeRepository</span>
-<span class="nc" id="L154">            .findAllById(slots.keys)</span>
-<span class="nc" id="L155">            .sortedBy { type -&gt; slots[type.id] ?: Int.MAX_VALUE }</span>
-    }
-
-    private fun loadCreatureStats(creatureId: Long): List&lt;CreatureStatResolved&gt; {
-<span class="nc bnc" id="L159" title="All 2 branches missed.">        val rows = creatureStatRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
-<span class="nc" id="L160">        val statsById = statRepository.findAllById(rows.map { row -&gt; row.id.statId }.toSet()).associateBy { stat -&gt; stat.id }</span>
-<span class="nc" id="L161">        return rows.mapNotNull { row -&gt;</span>
-<span class="nc bnc" id="L162" title="All 2 branches missed.">            val stat = statsById[row.id.statId] ?: return@mapNotNull null</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">            val internalName = stat.internalName ?: return@mapNotNull null</span>
-<span class="nc" id="L164">            CreatureStatResolved(</span>
-<span class="nc" id="L165">                internalName = internalName,</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">                baseStat = row.baseStat ?: 0,</span>
-<span class="nc" id="L167">            )</span>
-        }
-    }
-
-    private fun loadCreatureAbilities(creatureId: Long): List&lt;CreatureAbilityResolved&gt; {
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        val rows = creatureAbilityRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
-<span class="nc" id="L173">        val abilitiesById = abilityRepository.findAllById(rows.map { row -&gt; row.id.abilityId }.toSet()).associateBy { ability -&gt; ability.id }</span>
-<span class="nc" id="L174">        return rows</span>
-<span class="nc" id="L175">            .mapNotNull { row -&gt;</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">                val ability = abilitiesById[row.id.abilityId] ?: return@mapNotNull null</span>
-<span class="nc bnc" id="L177" title="All 2 branches missed.">                val internalName = ability.internalName ?: return@mapNotNull null</span>
-<span class="nc" id="L178">                CreatureAbilityResolved(</span>
-<span class="nc" id="L179">                    internalName = internalName,</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">                    slot = row.slot ?: Int.MAX_VALUE,</span>
-<span class="nc" id="L181">                    hidden = row.hidden == true,</span>
-<span class="nc" id="L182">                )</span>
-<span class="nc" id="L183">            }.sortedWith(compareBy&lt;CreatureAbilityResolved&gt; { ability -&gt; ability.hidden }.thenBy { ability -&gt; ability.slot })</span>
-    }
-
     private fun loadNature(request: BattleUnitImportRequest): NatureImportRecord? {
-<span class="nc" id="L187">        val nature =</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">            when {</span>
-<span class="nc bnc" id="L189" title="All 2 branches missed.">                request.metadata.natureId != null -&gt; {</span>
-<span class="nc" id="L190">                    natureRepository.loadViewById(request.metadata.natureId)</span>
-                }
+<span class="nc" id="L104">        val nature =</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            when {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">                request.metadata.natureId != null -&gt; gameNatureQueryPort.findNatureById(request.metadata.natureId)</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                request.metadata.natureInternalName != null -&gt; gameNatureQueryPort.findNatureByInternalName(request.metadata.natureInternalName)</span>
+<span class="nc" id="L108">                else -&gt; null</span>
+<span class="nc" id="L109">            } ?: return null</span>
 
-<span class="nc bnc" id="L193" title="All 2 branches missed.">                request.metadata.natureInternalName != null -&gt; {</span>
-<span class="nc" id="L194">                    natureRepository</span>
-<span class="nc" id="L195">                        .listViews(NatureSpecification(internalName = request.metadata.natureInternalName))</span>
-<span class="nc" id="L196">                        .firstOrNull { view -&gt; view.internalName == request.metadata.natureInternalName }</span>
-                }
-
-                else -&gt; {
-<span class="nc" id="L200">                    null</span>
-                }
-            }
-<span class="nc" id="L203">                ?: return null</span>
-
-<span class="nc" id="L205">        return NatureImportRecord(</span>
-<span class="nc" id="L206">            id = nature.id.toLong(),</span>
-<span class="nc bnc" id="L207" title="All 2 branches missed.">            internalName = requireNotNull(nature.internalName) { &quot;Nature internalName must not be null.&quot; },</span>
-<span class="nc bnc" id="L208" title="All 2 branches missed.">            increasedStatInternalName = nature.increasedStat?.internalName,</span>
-<span class="nc bnc" id="L209" title="All 2 branches missed.">            decreasedStatInternalName = nature.decreasedStat?.internalName,</span>
+<span class="nc" id="L111">        return NatureImportRecord(</span>
+<span class="nc" id="L112">            id = nature.id,</span>
+<span class="nc" id="L113">            internalName = nature.internalName,</span>
+<span class="nc" id="L114">            increasedStatInternalName = nature.increasedStatInternalName,</span>
+<span class="nc" id="L115">            decreasedStatInternalName = nature.decreasedStatInternalName,</span>
         )
     }
 
-    private fun loadMovePpDefaults(moves: List&lt;BattleMoveImportRequest&gt;): Map&lt;String, Int&gt; =
-<span class="nc" id="L214">        moves.associate { move -&gt;</span>
-<span class="nc bnc" id="L215" title="All 4 branches missed.">            move.moveId to (loadMove(move.moveId)?.pp ?: 0)</span>
-<span class="nc" id="L216">        }</span>
-
-    private fun loadMove(internalName: String): MoveView? =
-<span class="nc" id="L219">        moveRepository</span>
-<span class="nc" id="L220">            .listViews(MoveSpecification(internalName = internalName))</span>
-<span class="nc" id="L221">            .firstOrNull { move -&gt; move.internalName == internalName }</span>
-
-<span class="nc" id="L223">    private data class CreatureStatResolved(</span>
-<span class="nc" id="L224">        val internalName: String,</span>
-<span class="nc" id="L225">        val baseStat: Int,</span>
-    )
-
-<span class="nc" id="L228">    private data class CreatureAbilityResolved(</span>
-<span class="nc" id="L229">        val internalName: String,</span>
-<span class="nc" id="L230">        val slot: Int,</span>
-<span class="nc" id="L231">        val hidden: Boolean,</span>
-    )
+    private fun loadMovePpDefaults(moves: List&lt;BattleMoveImportRequest&gt;): Map&lt;String, Int&gt; {
+<span class="nc" id="L120">        val movesByInternalName = gameMoveQueryPort.findMovesByInternalNames(moves.map { move -&gt; move.moveId }.toSet())</span>
+<span class="nc" id="L121">        return moves.associate { move -&gt;</span>
+<span class="nc bnc" id="L122" title="All 4 branches missed.">            move.moveId to (movesByInternalName[move.moveId]?.pp ?: 0)</span>
+        }
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

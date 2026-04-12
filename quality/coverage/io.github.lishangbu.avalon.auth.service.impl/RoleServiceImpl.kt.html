@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoleServiceImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.auth.service.impl</a> &gt; <span class="el_source">RoleServiceImpl.kt</span></div><h1>RoleServiceImpl.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.auth.service.impl
+
+import io.github.lishangbu.avalon.auth.entity.Role
+import io.github.lishangbu.avalon.auth.entity.addBy
+import io.github.lishangbu.avalon.auth.entity.dto.RoleSpecification
+import io.github.lishangbu.avalon.auth.entity.dto.RoleView
+import io.github.lishangbu.avalon.auth.entity.dto.SaveRoleInput
+import io.github.lishangbu.avalon.auth.entity.dto.UpdateRoleInput
+import io.github.lishangbu.avalon.auth.repository.AuthorizationFetchers
+import io.github.lishangbu.avalon.auth.repository.MenuRepository
+import io.github.lishangbu.avalon.auth.repository.PermissionRepository
+import io.github.lishangbu.avalon.auth.repository.RoleRepository
+import io.github.lishangbu.avalon.auth.service.RoleService
+import io.github.lishangbu.avalon.jimmer.support.readOrNull
+import org.babyfish.jimmer.Page
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
+/** 角色服务实现。 */
+<span class="fc" id="L22">@Service</span>
+<span class="fc" id="L23">class RoleServiceImpl(</span>
+<span class="fc" id="L24">    private val roleRepository: RoleRepository,</span>
+<span class="fc" id="L25">    private val menuRepository: MenuRepository,</span>
+<span class="fc" id="L26">    private val permissionRepository: PermissionRepository,</span>
+) : RoleService {
+    override fun getPageByCondition(
+        specification: RoleSpecification,
+        pageable: Pageable,
+<span class="fc" id="L31">    ): Page&lt;RoleView&gt; = roleRepository.pageViews(specification, pageable)</span>
+
+<span class="fc" id="L33">    override fun listByCondition(specification: RoleSpecification): List&lt;RoleView&gt; = roleRepository.listViews(specification)</span>
+
+<span class="fc" id="L35">    override fun getById(id: Long): RoleView? = roleRepository.loadViewById(id)</span>
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun save(command: SaveRoleInput): RoleView {
+<span class="fc" id="L39">        val prepared = bindAssociations(command.toEntity(), false)</span>
+<span class="fc" id="L40">        return roleRepository.save(prepared, SaveMode.INSERT_ONLY).let(::reloadView)</span>
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun update(command: UpdateRoleInput): RoleView {
+<span class="fc" id="L45">        val prepared = bindAssociations(command.toEntity(), true)</span>
+<span class="fc" id="L46">        return roleRepository.save(prepared).let(::reloadView)</span>
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun removeById(id: Long) {
+<span class="fc" id="L51">        roleRepository.deleteById(id)</span>
+<span class="fc" id="L52">    }</span>
+
+    private fun bindAssociations(
+        role: Role,
+        preserveWhenNull: Boolean,
+    ): Role {
+<span class="fc" id="L58">        val existing =</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (preserveWhenNull) {</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                role.readOrNull { id }?.let { roleId -&gt;</span>
+<span class="fc" id="L61">                    roleRepository.findNullable(roleId, AuthorizationFetchers.ROLE_WITH_BINDINGS)</span>
+                }
+            } else {
+<span class="fc" id="L64">                null</span>
+            }
+
+<span class="fc" id="L67">        val currentMenus = role.readOrNull { menus }</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        val menuIds = currentMenus?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        val shouldLoadMenus = currentMenus != null</span>
+<span class="fc" id="L70">        val boundMenus =</span>
+<span class="fc" id="L71">            when {</span>
+<span class="pc bpc" id="L72" title="2 of 8 branches missed.">                currentMenus != null &amp;&amp; !menuIds.isNullOrEmpty() -&gt; menuRepository.findAllById(menuIds)</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">                currentMenus != null -&gt; emptyList()</span>
+<span class="nc bnc" id="L74" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { menus } ?: emptyList()</span>
+<span class="nc" id="L75">                else -&gt; emptyList()</span>
+            }
+
+<span class="fc" id="L78">        val currentPermissions = role.readOrNull { permissions }</span>
+<span class="fc" id="L79">        val permissionIds =</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">            currentPermissions?.mapNotNull { it.readOrNull { id } }?.toCollection(LinkedHashSet())</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        val shouldLoadPermissions = currentPermissions != null</span>
+<span class="fc" id="L82">        val boundPermissions =</span>
+<span class="fc" id="L83">            when {</span>
+<span class="pc bpc" id="L84" title="4 of 8 branches missed.">                currentPermissions != null &amp;&amp; !permissionIds.isNullOrEmpty() -&gt; permissionRepository.findAllById(permissionIds)</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                currentPermissions != null -&gt; emptyList()</span>
+<span class="nc bnc" id="L86" title="All 6 branches missed.">                preserveWhenNull -&gt; existing?.readOrNull { permissions } ?: emptyList()</span>
+<span class="nc" id="L87">                else -&gt; emptyList()</span>
+            }
+
+<span class="fc" id="L90">        return Role {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            role.readOrNull { id }?.let { id = it }</span>
+<span class="fc bfc" id="L92" title="All 4 branches covered.">            code = role.readOrNull { code } ?: existing?.readOrNull { code }</span>
+<span class="fc bfc" id="L93" title="All 4 branches covered.">            name = role.readOrNull { name } ?: existing?.readOrNull { name }</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">            enabled = role.readOrNull { enabled } ?: existing?.readOrNull { enabled }</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (shouldLoadMenus) {</span>
+<span class="fc" id="L97">                menus()</span>
+            }
+<span class="fc" id="L99">            boundMenus.forEach { boundMenu -&gt; menus().addBy(boundMenu) }</span>
+
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            if (shouldLoadPermissions) {</span>
+<span class="fc" id="L102">                permissions()</span>
+            }
+<span class="pc" id="L104">            boundPermissions.forEach { boundPermission -&gt; permissions().addBy(boundPermission) }</span>
+<span class="fc" id="L105">        }</span>
+    }
+
+    private fun reloadView(role: Role): RoleView =
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        requireNotNull(roleRepository.loadViewById(role.id)) {</span>
+<span class="nc" id="L110">            &quot;未找到 ID=${role.id} 对应的角色&quot;</span>
+<span class="fc" id="L111">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
