@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionExecutionSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionActionExecutionSupport.kt</span></div><h1>BattleSessionActionExecutionSupport.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.MoveResolutionResult
+
+/**
+ * session action 执行辅助组件。
+ *
+ * 设计意图：
+ * - 作为 session action 执行相关 helper 的稳定门面；
+ * - 对外继续维持一个 Bean/构造入口，避免 Spring 配置和测试装配反复跟着改签名；
+ * - 具体职责拆给独立的小组件，让代码按“一个执行职责一个文件”继续收口。
+ */
+<span class="fc" id="L14">class BattleSessionActionExecutionSupport(</span>
+<span class="fc" id="L15">    private val effectExecutionCoordinator: BattleSessionEffectExecutionCoordinator = BattleSessionEffectExecutionCoordinator(),</span>
+<span class="fc" id="L16">    private val directDamageApplier: BattleSessionDirectDamageApplier = BattleSessionDirectDamageApplier(),</span>
+<span class="fc" id="L17">    private val switchActionExecutor: BattleSessionSwitchActionExecutor = BattleSessionSwitchActionExecutor(),</span>
+<span class="fc" id="L18">    private val runActionExecutor: BattleSessionRunActionExecutor = BattleSessionRunActionExecutor(),</span>
+<span class="fc" id="L19">) {</span>
+    /**
+     * 执行一个已经具备目标信息的 effect。
+     *
+     * @param session 当前 battle session。
+     * @param effectId 当前执行的 effect 标识。
+     * @param actorUnitId 行动发起者单位标识。
+     * @param targetUnitId 调用方提供的目标单位标识。
+     * @param accuracy 命中值输入。
+     * @param evasion 回避值输入。
+     * @param basePower 基础威力输入。
+     * @param damage 基础伤害输入。
+     * @param attributes 透传给 battle flow 的扩展属性。
+     * @return effect 结算完成后的聚合结果。
+     */
+    fun executeResolvedEffect(
+        session: BattleSession,
+        effectId: String,
+        actorUnitId: String,
+        targetUnitId: String,
+        accuracy: Int?,
+        evasion: Int?,
+        basePower: Int,
+        damage: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): MoveResolutionResult =
+<span class="fc" id="L45">        effectExecutionCoordinator.executeResolvedEffect(</span>
+<span class="fc" id="L46">            session = session,</span>
+<span class="fc" id="L47">            effectId = effectId,</span>
+<span class="fc" id="L48">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L49">            targetUnitId = targetUnitId,</span>
+<span class="fc" id="L50">            accuracy = accuracy,</span>
+<span class="fc" id="L51">            evasion = evasion,</span>
+<span class="fc" id="L52">            basePower = basePower,</span>
+<span class="fc" id="L53">            damage = damage,</span>
+<span class="fc" id="L54">            attributes = attributes,</span>
+<span class="fc" id="L55">        )</span>
+
+    /**
+     * 将直接伤害 mutation 应用到当前快照。
+     *
+     * 设计意图：
+     * - move resolution 主流程当前只把“最终伤害数字”算出来，还没有把这一步自动接进 mutation interceptor 链；
+     * - 因此这里在真正扣血前，手动为目标派发一次 `on_damage`；
+     * - 与 `DamageBattleMutationInterceptor` 不同，这里是单目标直接扣血路径，可以安全支持数值 relay 覆盖。
+     */
+    fun applyDirectDamage(
+        session: BattleSession,
+        sourceId: String,
+        targetId: String,
+        damage: Int,
+<span class="nc" id="L70">    ): BattleRuntimeSnapshot = directDamageApplier.apply(session, sourceId, targetId, damage)</span>
+
+    /**
+     * 记录一次 move 或 item 的最终结算结果。
+     */
+    fun recordMoveExecution(
+        session: BattleSession,
+        moveId: String,
+        attackerId: String,
+        targetId: String,
+        result: MoveResolutionResult,
+    ) {
+<span class="fc" id="L82">        session.recordLog(</span>
+<span class="fc" id="L83">            &quot;Executed move $moveId from $attackerId to $targetId. &quot; +</span>
+<span class="fc" id="L84">                &quot;hit=${result.hitSuccessful}, critical=${result.criticalHit}, &quot; +</span>
+<span class="fc" id="L85">                &quot;basePower=${result.basePower}, &quot; +</span>
+<span class="fc bfc" id="L86" title="All 4 branches covered.">                (result.damageRoll?.let { &quot;damageRoll=$it, &quot; } ?: &quot;&quot;) +</span>
+<span class="fc" id="L87">                &quot;damage=${result.damage}.&quot;,</span>
+        )
+<span class="fc" id="L89">        session.recordEvent(</span>
+<span class="fc" id="L90">            BattleSessionMoveExecutedPayload(</span>
+<span class="fc" id="L91">                moveId = moveId,</span>
+<span class="fc" id="L92">                attackerId = attackerId,</span>
+<span class="fc" id="L93">                targetId = targetId,</span>
+<span class="fc" id="L94">                hitSuccessful = result.hitSuccessful,</span>
+<span class="fc" id="L95">                criticalHit = result.criticalHit,</span>
+<span class="fc" id="L96">                basePower = result.basePower,</span>
+<span class="fc" id="L97">                damageRoll = result.damageRoll,</span>
+<span class="fc" id="L98">                damage = result.damage,</span>
+            ),
+        )
+<span class="fc" id="L101">    }</span>
+
+    /**
+     * 执行 switch 动作并更新当前 active 列表。
+     */
+    fun applySwitchAction(
+        session: BattleSession,
+        action: BattleSessionSwitchAction,
+<span class="fc" id="L109">    ): BattleRuntimeSnapshot = switchActionExecutor.apply(session, action)</span>
+
+    /**
+     * 执行逃跑动作。
+     */
+    fun applyRunAction(
+        session: BattleSession,
+        action: BattleSessionRunAction,
+<span class="fc" id="L117">    ): BattleRuntimeSnapshot = runActionExecutor.apply(session, action)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionItemAction.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionItemAction.kt</span></div><h1>BattleSessionItemAction.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+/**
+ * BattleSession 中最小可用的物品使用行动。
+ *
+ * @property itemId 物品效果定义标识。
+ * @property actorUnitId 使用者单位标识。
+ * @property targetId 目标单位标识。
+ * @property priority 行动优先级。
+ * @property speed 排序所需速度值。
+ * @property attributes 传递给 battle flow 的扩展属性。
+ */
+<span class="fc" id="L13">data class BattleSessionItemAction(</span>
+<span class="fc" id="L14">    val itemId: String,</span>
+<span class="fc" id="L15">    val actorUnitId: String,</span>
+<span class="fc" id="L16">    val targetId: String,</span>
+<span class="fc" id="L17">    override val kind: BattleSessionActionKind = BattleSessionActionKind.ITEM,</span>
+<span class="pc" id="L18">    override val priority: Int = 0,</span>
+<span class="pc" id="L19">    override val speed: Int = 0,</span>
+<span class="pc" id="L20">    val attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L21">) : BattleSessionEffectAction {</span>
+    /**
+     * 提交当前 action 的单位标识。
+     */
+    override val submittingUnitId: String
+<span class="fc" id="L26">        get() = actorUnitId</span>
+
+    /**
+     * 当前 action 的目标单位标识。
+     */
+    override val targetUnitId: String
+<span class="fc" id="L32">        get() = targetId</span>
+
+    /**
+     * 当前 action 对应的 effect 标识。
+     */
+    override val effectId: String
+<span class="nc" id="L38">        get() = itemId</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

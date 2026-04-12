@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionLifecycleCoordinator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionLifecycleCoordinator.kt</span></div><h1>BattleSessionLifecycleCoordinator.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * 管理回合末推进和手动替补提交流程。
+ *
+ * 它负责会话生命周期中两类“跨多步状态变更”的流程：
+ * - 回合结束后的 residual、替补和 turn 递增
+ * - 玩家对待处理替补请求提交具体 replacement choice
+ */
+<span class="fc" id="L12">internal class BattleSessionLifecycleCoordinator(</span>
+<span class="fc" id="L13">    private val session: BattleSession,</span>
+<span class="fc" id="L14">    private val sideConditionDurationManager: BattleSideConditionDurationManager = BattleSideConditionDurationManager(),</span>
+<span class="fc" id="L15">    private val fieldEffectDurationManager: BattleFieldEffectDurationManager = BattleFieldEffectDurationManager(),</span>
+<span class="fc" id="L16">    private val unitEffectDurationManager: BattleUnitEffectDurationManager = BattleUnitEffectDurationManager(),</span>
+<span class="fc" id="L17">) {</span>
+    /**
+     * 提交一个手动替补选择。
+     *
+     * @param sideId 需要替补的 side
+     * @param incomingUnitId 被选中的替补单位
+     * @return 更新后的 battle snapshot
+     */
+    fun submitReplacementChoice(
+        sideId: String,
+        incomingUnitId: String,
+    ): BattleRuntimeSnapshot {
+        // 手动替补只允许发生在当前回合已经被打断、明确等待 replacement 的阶段。
+<span class="fc" id="L30">        session.ensureAwaitingReplacement()</span>
+<span class="fc" id="L31">        val request =</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            requireNotNull(session.replacementRequests.firstOrNull { candidate -&gt; candidate.sideId == sideId }) {</span>
+<span class="nc" id="L33">                &quot;No replacement request found for side '$sideId'.&quot;</span>
+            }
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        require(incomingUnitId in request.candidateUnitIds) {</span>
+<span class="nc" id="L36">            &quot;Unit '$incomingUnitId' is not a valid replacement candidate for side '$sideId'.&quot;</span>
+        }
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[sideId]) { &quot;Side '$sideId' was not found.&quot; }</span>
+<span class="fc" id="L39">        val outgoingUnitId = request.outgoingUnitIds.firstOrNull()</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (outgoingUnitId != null) {</span>
+<span class="fc" id="L41">            val outgoingUnit = session.currentSnapshot.units[outgoingUnitId]</span>
+<span class="pc bpc" id="L42" title="2 of 4 branches missed.">            if ((outgoingUnit?.currentHp ?: 0) &gt; 0) {</span>
+<span class="nc" id="L43">                session.currentSnapshot = session.processSwitchOut(outgoingUnitId, session.currentSnapshot)</span>
+            }
+<span class="fc" id="L45">            session.currentSnapshot = BattleSessionSwitchBoostStateSupport.clearOutgoingBoosts(session.currentSnapshot, outgoingUnitId)</span>
+        }
+<span class="fc" id="L47">        val nextActiveIds = listOf(incomingUnitId)</span>
+<span class="fc" id="L48">        val nextSides = session.currentSnapshot.sides + (sideId to side.copy(activeUnitIds = nextActiveIds))</span>
+<span class="fc" id="L49">        val replacedSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
+<span class="fc" id="L50">        session.currentSnapshot =</span>
+<span class="fc" id="L51">            session.clearForceSwitchRequests(</span>
+<span class="fc" id="L52">                snapshot = replacedSnapshot,</span>
+                unitIds =
+<span class="fc" id="L54">                    buildList {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                        outgoingUnitId?.let(::add)</span>
+<span class="fc" id="L56">                        add(incomingUnitId)</span>
+<span class="fc" id="L57">                    },</span>
+            )
+<span class="fc" id="L59">        session.currentSnapshot =</span>
+<span class="fc" id="L60">            BattleSessionSwitchBoostStateSupport.applyIncomingBoostCarry(</span>
+<span class="fc" id="L61">                snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L62">                outgoingUnitId = outgoingUnitId,</span>
+<span class="fc" id="L63">                incomingUnitId = incomingUnitId,</span>
+            )
+<span class="fc" id="L65">        session.currentSnapshot = session.processSwitchIn(incomingUnitId, session.currentSnapshot)</span>
+<span class="fc" id="L66">        session.replacementRequests.removeIf { candidate -&gt; candidate.sideId == sideId }</span>
+<span class="fc" id="L67">        session.recordLog(&quot;Submitted replacement choice for side $sideId: $incomingUnitId.&quot;)</span>
+<span class="fc" id="L68">        session.recordEvent(</span>
+<span class="fc" id="L69">            BattleSessionAutoReplacedPayload(</span>
+<span class="fc" id="L70">                sideId = sideId,</span>
+<span class="fc" id="L71">                after = nextActiveIds,</span>
+<span class="fc" id="L72">                manual = true,</span>
+            ),
+        )
+<span class="fc" id="L75">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 推进到回合结束。
+     *
+     * 流程顺序固定为：
+     * 1. residual phase
+     * 2. 濒死/替补处理
+     * 3. turn + 1
+     */
+    fun endTurn(): BattleRuntimeSnapshot {
+<span class="fc" id="L87">        session.ensureRunning()</span>
+<span class="fc" id="L88">        val residualSnapshot = session.battleFlowEngine.resolveResidualPhase(session.currentSnapshot)</span>
+<span class="fc" id="L89">        val advancedField = fieldEffectDurationManager.advance(residualSnapshot)</span>
+<span class="fc" id="L90">        val advancedSide = sideConditionDurationManager.advance(advancedField.snapshot)</span>
+<span class="fc" id="L91">        val advancedUnit = unitEffectDurationManager.advance(advancedSide.snapshot)</span>
+<span class="fc" id="L92">        val advancedDurationSnapshot =</span>
+<span class="fc" id="L93">            applyDurationExpirationMutations(</span>
+<span class="fc" id="L94">                snapshot = advancedUnit.snapshot,</span>
+                expirationMutations =
+<span class="fc" id="L96">                    advancedField.expirationMutations +</span>
+<span class="fc" id="L97">                        advancedSide.expirationMutations +</span>
+<span class="fc" id="L98">                        advancedUnit.expirationMutations,</span>
+            )
+<span class="fc" id="L100">        session.currentSnapshot = session.resolveFaintAndReplacement(advancedDurationSnapshot)</span>
+<span class="fc" id="L101">        session.currentSnapshot =</span>
+<span class="fc" id="L102">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L103">                battle = session.currentSnapshot.battle.copy(turn = session.currentSnapshot.battle.turn + 1),</span>
+            )
+<span class="fc" id="L105">        session.recordLog(&quot;Turn ended. Advanced to turn ${session.currentSnapshot.battle.turn}.&quot;)</span>
+<span class="fc" id="L106">        session.recordEvent(BattleSessionTurnEndedPayload)</span>
+<span class="fc" id="L107">        return session.currentSnapshot</span>
+    }
+
+    /**
+     * 把 duration 到期产生的移除 mutation 重新送回正式生命周期链。
+     *
+     * 这样“显式 remove”与“回合末自然到期 remove”都会走同一套 interceptor/applier。
+     */
+    private fun applyDurationExpirationMutations(
+        snapshot: BattleRuntimeSnapshot,
+        expirationMutations: List&lt;BattleSessionScopedMutation&gt;,
+    ): BattleRuntimeSnapshot {
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (expirationMutations.isEmpty()) {</span>
+<span class="fc" id="L120">            return snapshot</span>
+        }
+<span class="fc" id="L122">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L123">        expirationMutations.forEach { scopedMutation -&gt;</span>
+<span class="fc" id="L124">            currentSnapshot =</span>
+<span class="fc" id="L125">                session.applyMutations(</span>
+<span class="fc" id="L126">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L127">                    selfId = scopedMutation.selfId,</span>
+<span class="fc" id="L128">                    targetId = scopedMutation.targetId,</span>
+<span class="fc" id="L129">                    sourceId = scopedMutation.sourceId,</span>
+<span class="fc" id="L130">                    mutations = listOf(scopedMutation.mutation),</span>
+                )
+<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">        return currentSnapshot</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BoostFromRelayActionExecutor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.action</a> &gt; <span class="el_source">BoostFromRelayActionExecutor.kt</span></div><h1>BoostFromRelayActionExecutor.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.action
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleBoostRelaySelectionValues
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.BoostFromRelayActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.BoostMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.ActionExecutor
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.ActionResult
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleBoostContextSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ActionTypeId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardActionTypeIds
+
+/**
+ * `boost_from_relay` 动作执行器。
+ *
+ * 说明：
+ * - 只在当前 relay 本身是 boost map 时生效；
+ * - 会先按统一规则规范化 boost 负载，再根据 selection 过滤；
+ * - 如果过滤后为空，则不生成 mutation，但也不会报错。
+ */
+<span class="fc" id="L22">class BoostFromRelayActionExecutor : ActionExecutor {</span>
+<span class="fc" id="L23">    override val type: ActionTypeId = StandardActionTypeIds.BOOST_FROM_RELAY</span>
+
+    override fun execute(
+        action: ActionNode,
+        context: EventContext,
+    ): ActionResult {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        require(action is BoostFromRelayActionNode) { &quot;Action must be BoostFromRelayActionNode.&quot; }</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        val normalizedBoosts = BattleBoostContextSupport.normalizeBoostMap(context.relay) ?: return ActionResult()</span>
+<span class="fc" id="L31">        val selectedBoosts =</span>
+<span class="pc bpc" id="L32" title="3 of 4 branches missed.">            when (action.selection) {</span>
+<span class="nc" id="L33">                BattleBoostRelaySelectionValues.ALL -&gt; normalizedBoosts</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">                BattleBoostRelaySelectionValues.POSITIVE -&gt; normalizedBoosts.filterValues { delta -&gt; delta &gt; 0 }</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                BattleBoostRelaySelectionValues.NEGATIVE -&gt; normalizedBoosts.filterValues { delta -&gt; delta &lt; 0 }</span>
+<span class="nc" id="L36">                else -&gt; emptyMap()</span>
+            }
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (selectedBoosts.isEmpty()) {</span>
+<span class="nc" id="L39">            return ActionResult()</span>
+        }
+<span class="fc" id="L41">        return ActionResult(</span>
+<span class="fc" id="L42">            mutations = listOf(BoostMutation(action.target, selectedBoosts)),</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

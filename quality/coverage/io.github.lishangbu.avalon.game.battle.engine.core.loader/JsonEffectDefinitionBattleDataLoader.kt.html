@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonEffectDefinitionBattleDataLoader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.loader</a> &gt; <span class="el_source">JsonEffectDefinitionBattleDataLoader.kt</span></div><h1>JsonEffectDefinitionBattleDataLoader.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.loader
+
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.HookRule
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.AddRelayActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.AddStatusActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.AddVolatileActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ApplyConditionActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.BoostActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.BoostFromRelayActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ChangeTypeActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ClearBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ClearProbeActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ClearTerrainActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ClearWeatherActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ConsumeItemActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.CopyBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.DamageActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.FailMoveActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ForceSwitchActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.InvertBoostRelayActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.InvertStoredBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ModifyMultiplierActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.PrepareBoostPassActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.RemoveConditionActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.RemoveStatusActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.RemoveVolatileActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.RestorePpActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.SetProbeActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.SetRelayActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.SetTerrainActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.SetWeatherActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.StealBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.SwapBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.TriggerEventActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.AllConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.AnyConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.AttributeEqualsConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.BattleFormatIsConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.BoostCompareConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.ChanceConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasAbilityConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasItemConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasStatusConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasTypeConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasVolatileConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HpRatioConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.MoveHasTagConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.NotConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.StatCompareConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.TargetRelationConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.TerrainIsConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.TurnCompareConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.WeatherIsConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ActionTypeId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ActorId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ConditionTypeId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.EffectKindId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.HookName
+import io.github.lishangbu.avalon.game.battle.engine.core.type.SpecialHandlerId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.ObjectMapper
+
+/**
+ * 从 JSON 资源加载 [EffectDefinition] 的基础实现。
+ *
+ * 设计意图：
+ * - 为第一版测试与样例数据提供真实文件加载入口。
+ * - 先支持当前已落地测试需要的 DSL 子集，再逐步扩展。
+ *
+ * 当前支持的条件类型：
+ * - `all`
+ * - `any`
+ * - `not`
+ * - `chance`
+ * - `hp_ratio`
+ * - `has_status`
+ * - `has_volatile`
+ * - `has_type`
+ * - `has_item`
+ * - `has_ability`
+ * - `weather_is`
+ * - `terrain_is`
+ * - `boost_compare`
+ * - `stat_compare`
+ * - `move_has_tag`
+ * - `target_relation`
+ * - `turn_compare`
+ * - `battle_format_is`
+ *
+ * 当前支持的动作类型：
+ * - `add_status`
+ * - `remove_status`
+ * - `add_volatile`
+ * - `remove_volatile`
+ * - `damage`
+ * - `heal`
+ * - `boost`
+ * - `clear_boosts`
+ * - `set_weather`
+ * - `clear_weather`
+ * - `set_terrain`
+ * - `clear_terrain`
+ * - `consume_item`
+ * - `restore_pp`
+ * - `change_type`
+ * - `force_switch`
+ * - `fail_move`
+ * - `trigger_event`
+ * - `apply_condition`
+ * - `remove_condition`
+ * - `modify_multiplier`
+ * - `add_relay`
+ * - `set_relay`
+ * - `invert_boost_relay`
+ * - `boost_from_relay`
+ * - `copy_boosts`
+ * - `swap_boosts`
+ * - `invert_stored_boosts`
+ * - `steal_boosts`
+ * - `prepare_boost_pass`
+ * - `set_probe`
+ * - `clear_probe`
+ *
+ * @property resourcePaths 要加载的 classpath 资源路径列表。
+ * @property objectMapper JSON 解析器。
+ */
+<span class="fc" id="L131">class JsonEffectDefinitionBattleDataLoader(</span>
+<span class="fc" id="L132">    private val resourcePaths: List&lt;String&gt;,</span>
+<span class="fc" id="L133">    private val objectMapper: ObjectMapper = ObjectMapper(),</span>
+<span class="fc" id="L134">) : BattleDataLoader {</span>
+<span class="fc" id="L135">    override fun loadEffects(): List&lt;EffectDefinition&gt; = resourcePaths.map(::loadEffect)</span>
+
+    private fun loadEffect(resourcePath: String): EffectDefinition {
+<span class="fc" id="L138">        val stream =</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            requireNotNull(javaClass.classLoader.getResourceAsStream(resourcePath)) {</span>
+<span class="nc" id="L140">                &quot;Resource '$resourcePath' was not found.&quot;</span>
+            }
+<span class="pc" id="L142">        val rootNode = stream.use(objectMapper::readTree)</span>
+<span class="fc" id="L143">        return parseEffect(rootNode)</span>
+    }
+
+    private fun parseEffect(rootNode: JsonNode): EffectDefinition =
+<span class="fc" id="L147">        EffectDefinition(</span>
+<span class="fc" id="L148">            id = rootNode.requiredText(&quot;id&quot;),</span>
+<span class="fc" id="L149">            kind = EffectKindId(rootNode.requiredText(&quot;kind&quot;)),</span>
+<span class="fc" id="L150">            name = rootNode.requiredText(&quot;name&quot;),</span>
+<span class="fc" id="L151">            tags = rootNode.readStringSet(&quot;tags&quot;),</span>
+<span class="fc" id="L152">            data = rootNode.readObjectMap(&quot;data&quot;),</span>
+            hooks =
+<span class="fc" id="L154">                rootNode.path(&quot;hooks&quot;).properties().asSequence().associate { entry -&gt;</span>
+<span class="fc" id="L155">                    HookName(entry.key) to entry.value.mapArray(::parseHookRule)</span>
+                },
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">            specialHandler = rootNode.optionalText(&quot;specialHandler&quot;)?.let(::SpecialHandlerId),</span>
+<span class="fc" id="L158">        )</span>
+
+    private fun parseHookRule(node: JsonNode): HookRule =
+<span class="fc" id="L161">        HookRule(</span>
+<span class="fc" id="L162">            priority = node.path(&quot;priority&quot;).asInt(0),</span>
+<span class="fc" id="L163">            subOrder = node.path(&quot;subOrder&quot;).asInt(0),</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">            condition = node.get(&quot;if&quot;)?.let(::parseCondition),</span>
+<span class="fc" id="L165">            thenActions = node.path(&quot;then&quot;).mapArray(::parseAction),</span>
+<span class="fc" id="L166">            elseActions = node.path(&quot;else&quot;).mapArray(::parseAction),</span>
+<span class="fc" id="L167">            tags = node.readStringSet(&quot;tags&quot;),</span>
+<span class="fc" id="L168">        )</span>
+
+    private fun parseCondition(node: JsonNode): ConditionNode {
+<span class="fc" id="L171">        val typeId = ConditionTypeId(node.requiredText(&quot;type&quot;))</span>
+<span class="pc bpc" id="L172" title="5 of 20 branches missed.">        return when (typeId.value) {</span>
+            &quot;all&quot; -&gt; {
+<span class="fc" id="L174">                AllConditionNode(</span>
+<span class="fc" id="L175">                    conditions = node.path(&quot;conditions&quot;).mapArray(::parseCondition),</span>
+                )
+            }
+
+            &quot;any&quot; -&gt; {
+<span class="fc" id="L180">                AnyConditionNode(</span>
+<span class="fc" id="L181">                    conditions = node.path(&quot;conditions&quot;).mapArray(::parseCondition),</span>
+                )
+            }
+
+            &quot;chance&quot; -&gt; {
+<span class="fc" id="L186">                ChanceConditionNode(</span>
+<span class="fc" id="L187">                    value = node.path(&quot;value&quot;).asInt(),</span>
+                )
+            }
+
+            &quot;not&quot; -&gt; {
+<span class="fc" id="L192">                NotConditionNode(</span>
+<span class="fc" id="L193">                    condition = parseCondition(node.required(&quot;condition&quot;)),</span>
+                )
+            }
+
+            &quot;hp_ratio&quot; -&gt; {
+<span class="fc" id="L198">                HpRatioConditionNode(</span>
+<span class="fc" id="L199">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L200">                    operator = node.requiredText(&quot;operator&quot;),</span>
+<span class="fc" id="L201">                    value = node.path(&quot;value&quot;).asDouble(),</span>
+                )
+            }
+
+            &quot;has_status&quot; -&gt; {
+<span class="fc" id="L206">                HasStatusConditionNode(</span>
+<span class="fc" id="L207">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L208">                    value = node.optionalText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;has_volatile&quot; -&gt; {
+<span class="fc" id="L213">                HasVolatileConditionNode(</span>
+<span class="fc" id="L214">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L215">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;has_type&quot; -&gt; {
+<span class="fc" id="L220">                HasTypeConditionNode(</span>
+<span class="fc" id="L221">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L222">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;has_item&quot; -&gt; {
+<span class="fc" id="L227">                HasItemConditionNode(</span>
+<span class="fc" id="L228">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L229">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;has_ability&quot; -&gt; {
+<span class="nc" id="L234">                HasAbilityConditionNode(</span>
+<span class="nc" id="L235">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="nc" id="L236">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;weather_is&quot; -&gt; {
+<span class="fc" id="L241">                WeatherIsConditionNode(</span>
+<span class="fc" id="L242">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;terrain_is&quot; -&gt; {
+<span class="nc" id="L247">                TerrainIsConditionNode(</span>
+<span class="nc" id="L248">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;boost_compare&quot; -&gt; {
+<span class="nc" id="L253">                BoostCompareConditionNode(</span>
+<span class="nc" id="L254">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="nc" id="L255">                    stat = node.requiredText(&quot;stat&quot;),</span>
+<span class="nc" id="L256">                    operator = node.requiredText(&quot;operator&quot;),</span>
+<span class="nc" id="L257">                    value = node.path(&quot;value&quot;).asInt(),</span>
+                )
+            }
+
+            &quot;stat_compare&quot; -&gt; {
+<span class="fc" id="L262">                StatCompareConditionNode(</span>
+<span class="fc" id="L263">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="fc" id="L264">                    stat = node.requiredText(&quot;stat&quot;),</span>
+<span class="fc" id="L265">                    operator = node.requiredText(&quot;operator&quot;),</span>
+<span class="fc" id="L266">                    value = node.path(&quot;value&quot;).asInt(),</span>
+                )
+            }
+
+            &quot;move_has_tag&quot; -&gt; {
+<span class="nc" id="L271">                MoveHasTagConditionNode(</span>
+<span class="nc" id="L272">                    actor = ActorId(node.requiredText(&quot;actor&quot;)),</span>
+<span class="nc" id="L273">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;target_relation&quot; -&gt; {
+<span class="fc" id="L278">                TargetRelationConditionNode(</span>
+<span class="fc" id="L279">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;attribute_equals&quot; -&gt; {
+<span class="fc" id="L284">                AttributeEqualsConditionNode(</span>
+<span class="fc" id="L285">                    key = node.requiredText(&quot;key&quot;),</span>
+<span class="fc" id="L286">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;turn_compare&quot; -&gt; {
+<span class="fc" id="L291">                TurnCompareConditionNode(</span>
+<span class="fc" id="L292">                    operator = node.requiredText(&quot;operator&quot;),</span>
+<span class="fc" id="L293">                    value = node.path(&quot;value&quot;).asInt(),</span>
+                )
+            }
+
+            &quot;battle_format_is&quot; -&gt; {
+<span class="pc" id="L298">                BattleFormatIsConditionNode(</span>
+<span class="fc" id="L299">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            else -&gt; {
+<span class="nc" id="L304">                error(&quot;Unsupported condition type '${typeId.value}'.&quot;)</span>
+            }
+        }
+    }
+
+    private fun parseAction(node: JsonNode): ActionNode {
+<span class="fc" id="L310">        val typeId = ActionTypeId(node.requiredText(&quot;type&quot;))</span>
+<span class="pc bpc" id="L311" title="6 of 33 branches missed.">        return when (typeId.value) {</span>
+            &quot;add_status&quot; -&gt; {
+<span class="fc" id="L313">                AddStatusActionNode(</span>
+<span class="fc" id="L314">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L315">                    value = node.requiredText(&quot;value&quot;),</span>
+<span class="fc" id="L316">                    duration = node.optionalInt(&quot;duration&quot;),</span>
+                )
+            }
+
+            &quot;remove_status&quot; -&gt; {
+<span class="fc" id="L321">                RemoveStatusActionNode(</span>
+<span class="fc" id="L322">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                )
+            }
+
+            &quot;add_volatile&quot; -&gt; {
+<span class="fc" id="L327">                AddVolatileActionNode(</span>
+<span class="fc" id="L328">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L329">                    value = node.requiredText(&quot;value&quot;),</span>
+<span class="fc" id="L330">                    duration = node.optionalInt(&quot;duration&quot;),</span>
+                )
+            }
+
+            &quot;remove_volatile&quot; -&gt; {
+<span class="fc" id="L335">                RemoveVolatileActionNode(</span>
+<span class="fc" id="L336">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L337">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;damage&quot; -&gt; {
+<span class="fc" id="L342">                DamageActionNode(</span>
+<span class="fc" id="L343">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L344">                    mode = node.optionalText(&quot;mode&quot;),</span>
+<span class="fc" id="L345">                    value = node.path(&quot;value&quot;).asDouble(),</span>
+                )
+            }
+
+            &quot;heal&quot; -&gt; {
+<span class="fc" id="L350">                io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.HealActionNode(</span>
+<span class="fc" id="L351">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L352">                    mode = node.optionalText(&quot;mode&quot;),</span>
+<span class="fc" id="L353">                    value = node.path(&quot;value&quot;).asDouble(),</span>
+                )
+            }
+
+            &quot;boost&quot; -&gt; {
+<span class="fc" id="L358">                BoostActionNode(</span>
+<span class="fc" id="L359">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                    stats =
+<span class="fc" id="L361">                        node.required(&quot;stats&quot;).properties().asSequence().associate { entry -&gt;</span>
+<span class="fc" id="L362">                            entry.key to entry.value.asInt()</span>
+                        },
+                )
+            }
+
+            &quot;clear_boosts&quot; -&gt; {
+<span class="fc" id="L368">                ClearBoostsActionNode(</span>
+<span class="fc" id="L369">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                )
+            }
+
+            &quot;set_weather&quot; -&gt; {
+<span class="fc" id="L374">                SetWeatherActionNode(</span>
+<span class="fc" id="L375">                    value = node.requiredText(&quot;value&quot;),</span>
+<span class="fc" id="L376">                    duration = node.optionalInt(&quot;duration&quot;),</span>
+                )
+            }
+
+            &quot;clear_weather&quot; -&gt; {
+<span class="nc" id="L381">                ClearWeatherActionNode()</span>
+            }
+
+            &quot;set_terrain&quot; -&gt; {
+<span class="fc" id="L385">                SetTerrainActionNode(</span>
+<span class="fc" id="L386">                    value = node.requiredText(&quot;value&quot;),</span>
+<span class="fc" id="L387">                    duration = node.optionalInt(&quot;duration&quot;),</span>
+                )
+            }
+
+            &quot;clear_terrain&quot; -&gt; {
+<span class="nc" id="L392">                ClearTerrainActionNode()</span>
+            }
+
+            &quot;consume_item&quot; -&gt; {
+<span class="fc" id="L396">                ConsumeItemActionNode(</span>
+<span class="fc" id="L397">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                )
+            }
+
+            &quot;restore_pp&quot; -&gt; {
+<span class="nc" id="L402">                RestorePpActionNode(</span>
+<span class="nc" id="L403">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="nc" id="L404">                    moveId = node.optionalText(&quot;moveId&quot;),</span>
+<span class="nc" id="L405">                    value = node.path(&quot;value&quot;).asInt(),</span>
+                )
+            }
+
+            &quot;change_type&quot; -&gt; {
+<span class="fc" id="L410">                ChangeTypeActionNode(</span>
+<span class="fc" id="L411">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L412">                    values = node.path(&quot;values&quot;).mapArray { child -&gt; child.asString() },</span>
+                )
+            }
+
+            &quot;force_switch&quot; -&gt; {
+<span class="fc" id="L417">                ForceSwitchActionNode(</span>
+<span class="fc" id="L418">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                )
+            }
+
+            &quot;fail_move&quot; -&gt; {
+<span class="fc" id="L423">                FailMoveActionNode()</span>
+            }
+
+            &quot;trigger_event&quot; -&gt; {
+<span class="nc" id="L427">                TriggerEventActionNode(</span>
+<span class="nc" id="L428">                    hookName = HookName(node.requiredText(&quot;hookName&quot;)),</span>
+                )
+            }
+
+            &quot;apply_condition&quot; -&gt; {
+<span class="fc" id="L433">                ApplyConditionActionNode(</span>
+<span class="fc" id="L434">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L435">                    value = node.requiredText(&quot;value&quot;),</span>
+<span class="fc" id="L436">                    duration = node.optionalInt(&quot;duration&quot;),</span>
+                )
+            }
+
+            &quot;remove_condition&quot; -&gt; {
+<span class="fc" id="L441">                RemoveConditionActionNode(</span>
+<span class="fc" id="L442">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L443">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;modify_multiplier&quot; -&gt; {
+<span class="fc" id="L448">                ModifyMultiplierActionNode(</span>
+<span class="fc" id="L449">                    value = node.path(&quot;value&quot;).asDouble(),</span>
+<span class="fc" id="L450">                    rounding = node.optionalText(&quot;rounding&quot;),</span>
+                )
+            }
+
+            &quot;add_relay&quot; -&gt; {
+<span class="fc" id="L455">                AddRelayActionNode(</span>
+<span class="fc" id="L456">                    value = node.path(&quot;value&quot;).asDouble(),</span>
+                )
+            }
+
+            &quot;set_relay&quot; -&gt; {
+<span class="fc" id="L461">                SetRelayActionNode(</span>
+<span class="fc" id="L462">                    value = readLiteral(node.required(&quot;value&quot;)),</span>
+                )
+            }
+
+            &quot;invert_boost_relay&quot; -&gt; {
+<span class="fc" id="L467">                InvertBoostRelayActionNode</span>
+            }
+
+            &quot;boost_from_relay&quot; -&gt; {
+<span class="fc" id="L471">                BoostFromRelayActionNode(</span>
+<span class="fc" id="L472">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="pc bpc" id="L473" title="1 of 2 branches missed.">                    selection = node.optionalText(&quot;selection&quot;) ?: &quot;all&quot;,</span>
+                )
+            }
+
+            &quot;copy_boosts&quot; -&gt; {
+<span class="fc" id="L478">                CopyBoostsActionNode(</span>
+<span class="fc" id="L479">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L480">                    from = TargetSelectorId(node.requiredText(&quot;from&quot;)),</span>
+<span class="pc bpc" id="L481" title="1 of 2 branches missed.">                    selection = node.optionalText(&quot;selection&quot;) ?: &quot;all&quot;,</span>
+<span class="fc" id="L482">                    stats = node.readStringSet(&quot;stats&quot;),</span>
+                )
+            }
+
+            &quot;swap_boosts&quot; -&gt; {
+<span class="fc" id="L487">                SwapBoostsActionNode(</span>
+<span class="fc" id="L488">                    left = TargetSelectorId(node.requiredText(&quot;left&quot;)),</span>
+<span class="fc" id="L489">                    right = TargetSelectorId(node.requiredText(&quot;right&quot;)),</span>
+<span class="fc" id="L490">                    stats = node.readStringSet(&quot;stats&quot;),</span>
+                )
+            }
+
+            &quot;invert_stored_boosts&quot; -&gt; {
+<span class="fc" id="L495">                InvertStoredBoostsActionNode(</span>
+<span class="fc" id="L496">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L497">                    stats = node.readStringSet(&quot;stats&quot;),</span>
+                )
+            }
+
+            &quot;steal_boosts&quot; -&gt; {
+<span class="fc" id="L502">                StealBoostsActionNode(</span>
+<span class="fc" id="L503">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L504">                    from = TargetSelectorId(node.requiredText(&quot;from&quot;)),</span>
+<span class="pc bpc" id="L505" title="1 of 2 branches missed.">                    selection = node.optionalText(&quot;selection&quot;) ?: &quot;positive&quot;,</span>
+<span class="fc" id="L506">                    stats = node.readStringSet(&quot;stats&quot;),</span>
+                )
+            }
+
+            &quot;prepare_boost_pass&quot; -&gt; {
+<span class="fc" id="L511">                PrepareBoostPassActionNode(</span>
+<span class="fc" id="L512">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+                )
+            }
+
+            &quot;set_probe&quot; -&gt; {
+<span class="fc" id="L517">                SetProbeActionNode(</span>
+<span class="fc" id="L518">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="fc" id="L519">                    key = node.requiredText(&quot;key&quot;),</span>
+<span class="fc" id="L520">                    value = node.requiredText(&quot;value&quot;),</span>
+                )
+            }
+
+            &quot;clear_probe&quot; -&gt; {
+<span class="nc" id="L525">                ClearProbeActionNode(</span>
+<span class="nc" id="L526">                    target = TargetSelectorId(node.requiredText(&quot;target&quot;)),</span>
+<span class="nc" id="L527">                    key = node.requiredText(&quot;key&quot;),</span>
+                )
+            }
+
+            else -&gt; {
+<span class="nc" id="L532">                error(&quot;Unsupported action type '${typeId.value}'.&quot;)</span>
+            }
+        }
+    }
+
+    private fun JsonNode.required(name: String): JsonNode =
+<span class="nc bnc" id="L538" title="All 2 branches missed.">        requireNotNull(get(name)) {</span>
+<span class="nc" id="L539">            &quot;Field '$name' is required.&quot;</span>
+<span class="nc" id="L540">        }</span>
+
+<span class="fc" id="L542">    private fun JsonNode.requiredText(name: String): String = required(name).asString()</span>
+
+<span class="fc bfc" id="L544" title="All 2 branches covered.">    private fun JsonNode.optionalText(name: String): String? = get(name)?.asString()</span>
+
+<span class="pc bpc" id="L546" title="4 of 6 branches missed.">    private fun JsonNode.optionalInt(name: String): Int? = get(name)?.takeIf(JsonNode::isInt)?.asInt()</span>
+
+    private fun JsonNode.readStringSet(name: String): Set&lt;String&gt; =
+<span class="fc" id="L549">        path(name)</span>
+<span class="fc" id="L550">            .mapArray { it.asString() }</span>
+<span class="fc" id="L551">            .toSet()</span>
+
+    private fun JsonNode.readObjectMap(name: String): Map&lt;String, Any?&gt; =
+<span class="fc" id="L554">        path(name)</span>
+<span class="fc" id="L555">            .properties()</span>
+<span class="fc" id="L556">            .asSequence()</span>
+<span class="fc" id="L557">            .associate { entry -&gt; entry.key to readLiteral(entry.value) }</span>
+
+    private fun readLiteral(node: JsonNode): Any? =
+<span class="fc" id="L560">        when {</span>
+<span class="fc bfc" id="L561" title="All 2 branches covered.">            node.isObject -&gt; {</span>
+<span class="fc" id="L562">                node</span>
+<span class="fc" id="L563">                    .properties()</span>
+<span class="fc" id="L564">                    .asSequence()</span>
+<span class="fc" id="L565">                    .associate { entry -&gt; entry.key to readLiteral(entry.value) }</span>
+            }
+
+<span class="fc bfc" id="L568" title="All 2 branches covered.">            node.isArray -&gt; {</span>
+<span class="fc" id="L569">                node.mapArray(::readLiteral)</span>
+            }
+
+            else -&gt; {
+<span class="fc" id="L573">                readScalar(node)</span>
+            }
+<span class="fc" id="L575">        }</span>
+
+    private fun readScalar(node: JsonNode): Any? =
+<span class="fc" id="L578">        when {</span>
+<span class="fc bfc" id="L579" title="All 2 branches covered.">            node.isNull -&gt; null</span>
+<span class="fc bfc" id="L580" title="All 2 branches covered.">            node.isInt -&gt; node.asInt()</span>
+<span class="pc bpc" id="L581" title="1 of 2 branches missed.">            node.isLong -&gt; node.asLong()</span>
+<span class="pc bpc" id="L582" title="2 of 6 branches missed.">            node.isDouble || node.isFloat || node.isBigDecimal -&gt; node.asDouble()</span>
+<span class="fc bfc" id="L583" title="All 2 branches covered.">            node.isBoolean -&gt; node.asBoolean()</span>
+<span class="fc" id="L584">            else -&gt; node.asString()</span>
+<span class="fc" id="L585">        }</span>
+
+<span class="fc bfc" id="L587" title="All 2 branches covered.">    private fun &lt;T&gt; JsonNode.mapArray(transform: (JsonNode) -&gt; T): List&lt;T&gt; = if (isArray) asSequence().map(transform).toList() else emptyList()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

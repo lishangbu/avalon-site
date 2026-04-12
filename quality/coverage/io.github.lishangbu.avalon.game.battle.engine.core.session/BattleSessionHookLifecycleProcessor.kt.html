@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionHookLifecycleProcessor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionHookLifecycleProcessor.kt</span></div><h1>BattleSessionHookLifecycleProcessor.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleFlowPhaseProcessor
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * 会话层生命周期 Hook 调度器。
+ *
+ * 设计意图：
+ * - 把“不是 move pipeline 自身阶段的一组生命周期 hook”统一收敛到一个小组件里；
+ * - 避免把 `BattleSession`、`BattleSessionActionExecutionSupport`、
+ *   `BattleSessionReplacementResolver` 等多个编排类继续堆成一个大文件；
+ * - 让 `before_turn / switch_in / switch_out / faint` 这些生命周期点都走同一条
+ *   attached-effect 扫描链，从而复用当前 battle-engine 已有的 rule、condition、
+ *   mutation interceptor 与 mutation apply 体系。
+ *
+ * 当前约定：
+ * - 这些生命周期 hook 都通过 `processAttachedEffects(...)` 触发，而不是构造一个伪 move；
+ * - `on_faint` 需要保证同一次倒下只派发一次，因此这里会在 `UnitState.sessionState` 中写入
+ *   一个内部工作位；
+ * - 如果某个单位在后续流程中被重新拉回可战斗状态，该内部标记会在下一次扫描时自动清理，
+ *   以便后续再次倒下时仍然能正确触发 `on_faint`。
+ */
+<span class="fc" id="L25">internal class BattleSessionHookLifecycleProcessor(</span>
+<span class="fc" id="L26">    private val session: BattleSession,</span>
+<span class="fc" id="L27">    private val battleFlowPhaseProcessor: BattleFlowPhaseProcessor,</span>
+) {
+    private val attachedHookDispatcher: BattleSessionAttachedHookDispatcher =
+<span class="fc" id="L30">        BattleSessionAttachedHookDispatcher(battleFlowPhaseProcessor)</span>
+<span class="fc" id="L31">    private val faintHookStateManager: BattleSessionFaintHookStateManager = BattleSessionFaintHookStateManager()</span>
+
+    /**
+     * 在回合正式执行 action 之前，对当前全部 active 单位派发一次 `on_before_turn`。
+     *
+     * 这样当前 active 槽位上的 ability / item / status / weather / terrain
+     * 都有机会在本回合开始前做统一修正。
+     */
+<span class="nc" id="L39">    fun processBeforeTurn(snapshot: BattleRuntimeSnapshot = session.currentSnapshot): BattleRuntimeSnapshot =</span>
+<span class="fc" id="L40">        attachedHookDispatcher.processHookForUnitIds(</span>
+<span class="fc" id="L41">            snapshot = snapshot,</span>
+<span class="fc" id="L42">            unitIds = activeUnitIds(snapshot),</span>
+<span class="fc" id="L43">            hookName = StandardHookNames.ON_BEFORE_TURN.value,</span>
+<span class="fc" id="L44">        )</span>
+
+    /**
+     * 对指定单位派发一次 `on_switch_out`。
+     *
+     * 这个 hook 只在“主动离场”的编排点调用：
+     * - 玩家提交 `switch`
+     * - 强制换人导致活着的 active 单位被替下
+     *
+     * 对于已经倒下的单位，当前不把它视为正常的 switch-out 生命周期。
+     */
+<span class="nc" id="L55">    fun processSwitchOut(</span>
+        unitId: String,
+<span class="nc" id="L57">        snapshot: BattleRuntimeSnapshot = session.currentSnapshot,</span>
+<span class="fc" id="L58">    ): BattleRuntimeSnapshot = attachedHookDispatcher.processHookForUnit(snapshot, unitId, StandardHookNames.ON_SWITCH_OUT.value)</span>
+
+    /**
+     * 对指定单位派发一次 `on_switch_in`。
+     *
+     * 这个 hook 会在单位已经进入 `activeUnitIds` 之后触发，
+     * 这样 attached effect 在读取当前 snapshot 时能看到“它已经在场”这一事实。
+     */
+<span class="nc" id="L66">    fun processSwitchIn(</span>
+        unitId: String,
+<span class="nc" id="L68">        snapshot: BattleRuntimeSnapshot = session.currentSnapshot,</span>
+<span class="fc" id="L69">    ): BattleRuntimeSnapshot = attachedHookDispatcher.processHookForUnit(snapshot, unitId, StandardHookNames.ON_SWITCH_IN.value)</span>
+
+    /**
+     * 扫描当前快照里全部“尚未派发过 faint hook 的倒下单位”，并逐个触发 `on_faint`。
+     *
+     * 这里使用循环而不是一次性快照列表，原因是：
+     * - `on_faint` 自己也可能继续产生 mutation；
+     * - 这些 mutation 又可能让新的单位在同一轮流程中倒下；
+     * - 因此需要在每一轮 hook 写回后重新读取当前 snapshot，直到没有新的未处理倒下单位。
+     */
+<span class="nc" id="L79">    fun processFaintHooks(snapshot: BattleRuntimeSnapshot = session.currentSnapshot): BattleRuntimeSnapshot {</span>
+<span class="fc" id="L80">        var currentSnapshot = faintHookStateManager.clearRecoveredFaintFlags(snapshot)</span>
+
+<span class="fc" id="L82">        while (true) {</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            val faintedUnitId = faintHookStateManager.firstUnhandledFaintedUnitId(currentSnapshot) ?: return currentSnapshot</span>
+<span class="fc" id="L84">            currentSnapshot = attachedHookDispatcher.processHookForUnit(currentSnapshot, faintedUnitId, StandardHookNames.ON_FAINT.value)</span>
+<span class="fc" id="L85">            val updatedUnit = currentSnapshot.units[faintedUnitId]</span>
+<span class="fc" id="L86">            currentSnapshot =</span>
+<span class="pc bpc" id="L87" title="2 of 4 branches missed.">                if ((updatedUnit?.currentHp ?: 0) &lt;= 0) {</span>
+<span class="fc" id="L88">                    faintHookStateManager.markFaintHookProcessed(currentSnapshot, faintedUnitId)</span>
+                } else {
+<span class="nc" id="L90">                    faintHookStateManager.clearFaintHookProcessed(currentSnapshot, faintedUnitId)</span>
+                }
+        }
+    }
+
+    /**
+     * 返回当前 battle 中全部 active 单位，保持 side 顺序与 active 槽位顺序稳定。
+     */
+    private fun activeUnitIds(snapshot: BattleRuntimeSnapshot): List&lt;String&gt; =
+<span class="fc" id="L99">        snapshot.sides.values</span>
+<span class="fc" id="L100">            .flatMap { side -&gt; side.activeUnitIds }</span>
+<span class="fc" id="L101">            .distinct()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

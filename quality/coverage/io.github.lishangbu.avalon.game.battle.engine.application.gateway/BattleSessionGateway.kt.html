@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionGateway.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application.gateway</a> &gt; <span class="el_source">BattleSessionGateway.kt</span></div><h1>BattleSessionGateway.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.application.gateway
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionChoice
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionQuery
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionTurnResult
+
+/**
+ * BattleSession 内部网关接口。
+ *
+ * 设计意图：
+ * - 为上层调用方提供稳定的会话 API。
+ * - 屏蔽 BattleSession 内部装配、存储和查询细节。
+ */
+interface BattleSessionGateway {
+    fun createSession(
+        sessionId: String,
+        formatId: String,
+    ): BattleSessionQuery
+
+<span class="pc" id="L22">    fun configureSession(</span>
+        sessionId: String,
+        battleKind: BattleType,
+<span class="fc" id="L25">        capturableSideId: String? = null,</span>
+    ): BattleSessionQuery
+
+    fun startSession(sessionId: String): BattleSessionQuery
+
+    fun registerSide(
+        sessionId: String,
+        sideId: String,
+    ): BattleSessionQuery
+
+<span class="fc" id="L35">    fun registerUnit(</span>
+        sessionId: String,
+        sideId: String,
+        unit: UnitState,
+<span class="fc" id="L39">        active: Boolean = true,</span>
+    ): BattleSessionQuery
+
+    fun submitChoice(
+        sessionId: String,
+        choice: BattleSessionChoice,
+    ): BattleSessionQuery
+
+    fun submitChoices(
+        sessionId: String,
+        choices: List&lt;BattleSessionChoice&gt;,
+    ): BattleSessionQuery
+
+    fun submitReplacementChoice(
+        sessionId: String,
+        sideId: String,
+        incomingUnitId: String,
+    ): BattleSessionQuery
+
+    fun markSessionSettled(sessionId: String): BattleSessionQuery
+
+    fun resolveTurn(sessionId: String): BattleSessionTurnResult
+
+    fun querySession(sessionId: String): BattleSessionQuery
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

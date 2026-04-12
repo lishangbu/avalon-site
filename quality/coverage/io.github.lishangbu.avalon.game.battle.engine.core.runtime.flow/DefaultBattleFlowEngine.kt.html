@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleFlowEngine.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow</a> &gt; <span class="el_source">DefaultBattleFlowEngine.kt</span></div><h1>DefaultBattleFlowEngine.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleAttributeKeys
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleTargetRelationValues
+import io.github.lishangbu.avalon.game.battle.engine.core.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleMoveDataReader
+import io.github.lishangbu.avalon.game.battle.engine.spi.effect.EffectDefinitionRepository
+
+/**
+ * 默认 battle 主流程实现。
+ *
+ * 设计意图：
+ * - 在 battle 层真正消费 effect 定义，而不只停留在规则处理器单测。
+ * - 通过 move resolution pipeline、mutation interceptor chain 和 hit policy 拆解 battle flow 主流程。
+ *
+ * @property effectRepository effect 定义查询入口。
+ * @property phaseProcessor battle hook phase 处理器。
+ * @property moveResolutionPipeline 单次出招主流程 pipeline。
+ */
+<span class="fc" id="L20">class DefaultBattleFlowEngine(</span>
+<span class="fc" id="L21">    private val effectRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L22">    private val phaseProcessor: BattleFlowPhaseProcessor,</span>
+<span class="fc" id="L23">    private val moveResolutionPipeline: BattleMoveResolutionPipeline,</span>
+) : BattleFlowEngine {
+    /**
+     * 推进一次完整的 move resolution。
+     */
+    override fun resolveMoveAction(
+        snapshot: BattleRuntimeSnapshot,
+        moveId: String,
+        attackerId: String,
+        targetId: String,
+        accuracy: Int?,
+        evasion: Int?,
+        basePower: Int,
+        damage: Int,
+        attributes: Map&lt;String, Any?&gt;,
+    ): MoveResolutionResult {
+<span class="fc" id="L39">        val moveEffect = effectRepository.get(moveId)</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        val resolvedAccuracy = accuracy ?: BattleMoveDataReader.readAccuracy(moveEffect.data)</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        val resolvedEvasion = evasion ?: DEFAULT_EVASION</span>
+<span class="fc" id="L42">        val context =</span>
+<span class="fc" id="L43">            BattleMoveResolutionContext(</span>
+<span class="fc" id="L44">                snapshot = snapshot,</span>
+<span class="fc" id="L45">                moveEffect = moveEffect,</span>
+<span class="fc" id="L46">                attackerId = attackerId,</span>
+<span class="fc" id="L47">                targetId = targetId,</span>
+<span class="fc" id="L48">                sourceId = attackerId,</span>
+<span class="fc" id="L49">                attributes = attributes.withDefaultBattleAttributes(targetRelation = BattleTargetRelationValues.FOE),</span>
+<span class="fc" id="L50">                accuracy = resolvedAccuracy,</span>
+<span class="fc" id="L51">                evasion = resolvedEvasion,</span>
+<span class="fc" id="L52">                basePower = basePower,</span>
+<span class="fc" id="L53">                damage = damage,</span>
+            )
+<span class="fc" id="L55">        return moveResolutionPipeline.resolve(context)</span>
+    }
+
+    /**
+     * 以只关心命中与 hook 的简化参数推进一次 move resolution。
+     */
+    override fun resolveMoveHit(
+        snapshot: BattleRuntimeSnapshot,
+        moveId: String,
+        attackerId: String,
+        targetId: String,
+        attributes: Map&lt;String, Any?&gt;,
+    ): BattleRuntimeSnapshot =
+<span class="fc" id="L68">        resolveMoveAction(</span>
+<span class="fc" id="L69">            snapshot = snapshot,</span>
+<span class="fc" id="L70">            moveId = moveId,</span>
+<span class="fc" id="L71">            attackerId = attackerId,</span>
+<span class="fc" id="L72">            targetId = targetId,</span>
+<span class="fc" id="L73">            accuracy = null,</span>
+<span class="fc" id="L74">            evasion = null,</span>
+<span class="fc" id="L75">            basePower = 0,</span>
+<span class="fc" id="L76">            damage = 0,</span>
+<span class="fc" id="L77">            attributes = attributes,</span>
+<span class="fc" id="L78">        ).snapshot</span>
+
+    /**
+     * 推进一次 residual phase。
+     */
+    override fun resolveResidualPhase(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot {
+<span class="fc" id="L84">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L85">        val unitIds = currentSnapshot.units.keys.toList()</span>
+<span class="fc" id="L86">        unitIds.forEach { unitId -&gt;</span>
+<span class="fc" id="L87">            currentSnapshot =</span>
+<span class="fc" id="L88">                phaseProcessor</span>
+<span class="fc" id="L89">                    .processAttachedEffects(</span>
+<span class="fc" id="L90">                        snapshot = currentSnapshot,</span>
+<span class="fc" id="L91">                        unitId = unitId,</span>
+<span class="fc" id="L92">                        hookName = StandardHookNames.ON_RESIDUAL.value,</span>
+<span class="fc" id="L93">                        targetId = null,</span>
+<span class="fc" id="L94">                        sourceId = null,</span>
+<span class="fc" id="L95">                        relay = null,</span>
+<span class="fc" id="L96">                        attributes = emptyMap(),</span>
+<span class="fc" id="L97">                    ).snapshot</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        return currentSnapshot</span>
+    }
+
+    /**
+     * 为 battle attributes 补上默认的 targetRelation。
+     */
+    private fun Map&lt;String, Any?&gt;.withDefaultBattleAttributes(targetRelation: String): Map&lt;String, Any?&gt; =
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (containsKey(BattleAttributeKeys.TARGET_RELATION)) {</span>
+<span class="fc" id="L107">            this</span>
+        } else {
+<span class="fc" id="L109">            this + (BattleAttributeKeys.TARGET_RELATION to targetRelation)</span>
+<span class="fc" id="L110">        }</span>
+
+    private companion object {
+        private const val DEFAULT_EVASION: Int = 100
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

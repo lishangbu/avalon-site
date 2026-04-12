@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InMemoryBattleSessionChoiceHandlerRegistry.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">InMemoryBattleSessionChoiceHandlerRegistry.kt</span></div><h1>InMemoryBattleSessionChoiceHandlerRegistry.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import kotlin.reflect.KClass
+
+/**
+ * 基于内存 Map 的 `BattleSessionChoiceHandlerRegistry` 实现。
+ *
+ * @property entries choice 类型到处理器的不可变映射。
+ */
+<span class="fc" id="L10">class InMemoryBattleSessionChoiceHandlerRegistry(</span>
+    handlers: List&lt;BattleSessionChoiceHandler&gt;,
+) : BattleSessionChoiceHandlerRegistry {
+    private val entries: Map&lt;KClass&lt;out BattleSessionChoice&gt;, BattleSessionChoiceHandler&gt; =
+<span class="fc" id="L14">        handlers.associateBy(BattleSessionChoiceHandler::choiceType)</span>
+
+<span class="fc" id="L16">    init {</span>
+<span class="pc bpc" id="L17" title="2 of 4 branches missed.">        require(entries.size == handlers.size) {</span>
+<span class="nc" id="L18">            &quot;Duplicate BattleSessionChoiceHandler registrations were found.&quot;</span>
+        }
+<span class="fc" id="L20">    }</span>
+
+    /**
+     * 返回与当前 choice 运行时类型匹配的处理器。
+     */
+    override fun get(choice: BattleSessionChoice): BattleSessionChoiceHandler =
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        entries[choice::class]</span>
+<span class="pc" id="L27">            ?: error(&quot;No BattleSessionChoiceHandler registered for '${choice::class.qualifiedName}'.&quot;)</span>
+
+    companion object {
+        /**
+         * 创建 battle-engine 内置的默认 choice handler registry。
+         *
+         * @param commandFactory battle session 命令工厂。
+         * @return 包含标准 choice 提交处理器的内存注册中心。
+         */
+        fun createDefault(commandFactory: BattleSessionCommandFactory): InMemoryBattleSessionChoiceHandlerRegistry =
+<span class="fc" id="L37">            InMemoryBattleSessionChoiceHandlerRegistry(</span>
+                handlers =
+<span class="fc" id="L39">                    listOf(</span>
+<span class="fc" id="L40">                        BattleSessionMoveChoiceHandler(commandFactory),</span>
+<span class="fc" id="L41">                        BattleSessionSwitchChoiceHandler(commandFactory),</span>
+<span class="fc" id="L42">                        BattleSessionItemChoiceHandler(commandFactory),</span>
+<span class="fc" id="L43">                        BattleSessionCaptureChoiceHandler(commandFactory),</span>
+<span class="fc" id="L44">                        BattleSessionRunChoiceHandler(commandFactory),</span>
+<span class="fc" id="L45">                        BattleSessionWaitChoiceHandler(commandFactory),</span>
+                    ),
+<span class="fc" id="L47">            )</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

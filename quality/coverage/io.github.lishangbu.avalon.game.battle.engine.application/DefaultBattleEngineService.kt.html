@@ -1,44 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleEngineService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application</a> &gt; <span class="el_source">DefaultBattleEngineService.kt</span></div><h1>DefaultBattleEngineService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.application
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleEngineService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application</a> &gt; <span class="el_source">DefaultBattleEngineService.kt</span></div><h1>DefaultBattleEngineService.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.application
 
-import io.github.lishangbu.avalon.game.battle.engine.model.BattleLifecycle
-import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
-import io.github.lishangbu.avalon.game.battle.engine.service.BattleAiChoiceProvider
-import io.github.lishangbu.avalon.game.battle.engine.service.BattleSessionService
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnResult
-import io.github.lishangbu.avalon.game.battle.engine.session.CaptureChoice
-import io.github.lishangbu.avalon.game.battle.engine.session.RunChoice
-import io.github.lishangbu.avalon.game.battle.engine.session.SwitchChoice
-import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQuery
+import io.github.lishangbu.avalon.game.battle.engine.application.gateway.BattleSessionGateway
+import io.github.lishangbu.avalon.game.battle.engine.core.model.BattleLifecycle
+import io.github.lishangbu.avalon.game.battle.engine.core.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionQuery
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionTurnResult
+import io.github.lishangbu.avalon.game.battle.engine.core.session.CaptureChoice
+import io.github.lishangbu.avalon.game.battle.engine.core.session.RunChoice
+import io.github.lishangbu.avalon.game.battle.engine.core.session.SwitchChoice
+import io.github.lishangbu.avalon.game.battle.engine.core.session.target.BattleSessionTargetQuery
+import io.github.lishangbu.avalon.game.battle.engine.spi.ai.BattleAiChoiceProvider
 
 /**
  * battle-engine 默认应用门面。
  *
  * 设计意图：
  * - 对外提供稳定的程序化入口，把建局、智能 choice 解析、回合推进与结算计划生成统一收口；
- * - 内部仍然复用 `BattleSessionService` 这类更细粒度的基础设施，不把底层细节暴露给 game；
+ * - 内部仍然复用 `BattleSessionGateway` 这类更细粒度的基础设施，不把底层细节暴露给 game；
  * - 为 controller、game.init、game.settlement 提供明确的调用边界。
  */
 <span class="fc" id="L22">class DefaultBattleEngineService(</span>
-<span class="fc" id="L23">    private val battleSessionService: BattleSessionService,</span>
+<span class="fc" id="L23">    private val battleSessionGateway: BattleSessionGateway,</span>
 <span class="fc" id="L24">    private val battleChoiceResolver: BattleChoiceResolver,</span>
 <span class="fc" id="L25">    private val battleAiChoiceProviders: List&lt;BattleAiChoiceProvider&gt;,</span>
 <span class="fc" id="L26">    private val battleSettlementPlanners: List&lt;BattleSettlementPlanner&gt;,</span>
 ) : BattleEngineService {
     override fun initializeSession(command: InitializeBattleCommand): BattleSessionQuery {
 <span class="pc bpc" id="L29" title="2 of 4 branches missed.">        require(command.sides.isNotEmpty()) { &quot;At least one side must be provided.&quot; }</span>
-<span class="fc" id="L30">        battleSessionService.createSession(command.sessionId, command.formatId)</span>
-<span class="fc" id="L31">        battleSessionService.configureSession(</span>
+<span class="fc" id="L30">        battleSessionGateway.createSession(command.sessionId, command.formatId)</span>
+<span class="fc" id="L31">        battleSessionGateway.configureSession(</span>
 <span class="fc" id="L32">            sessionId = command.sessionId,</span>
 <span class="fc" id="L33">            battleKind = command.battleKind,</span>
 <span class="fc" id="L34">            capturableSideId = command.capturableSideId,</span>
         )
 
 <span class="fc" id="L37">        command.sides.forEach { side -&gt;</span>
-<span class="fc" id="L38">            battleSessionService.registerSide(command.sessionId, side.sideId)</span>
+<span class="fc" id="L38">            battleSessionGateway.registerSide(command.sessionId, side.sideId)</span>
 <span class="fc" id="L39">            val normalizedActiveIds = normalizeActiveUnitIds(side)</span>
 <span class="fc" id="L40">            side.units.forEach { unit -&gt;</span>
-<span class="fc" id="L41">                battleSessionService.registerUnit(</span>
+<span class="fc" id="L41">                battleSessionGateway.registerUnit(</span>
 <span class="fc" id="L42">                    sessionId = command.sessionId,</span>
 <span class="fc" id="L43">                    sideId = side.sideId,</span>
 <span class="fc" id="L44">                    unit = unit,</span>
@@ -48,15 +48,15 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="fc" id="L48">        }</span>
 
 <span class="pc bpc" id="L50" title="1 of 2 branches missed.">        return if (command.autoStart) {</span>
-<span class="fc" id="L51">            battleSessionService.startSession(command.sessionId)</span>
+<span class="fc" id="L51">            battleSessionGateway.startSession(command.sessionId)</span>
         } else {
-<span class="nc" id="L53">            battleSessionService.querySession(command.sessionId)</span>
+<span class="nc" id="L53">            battleSessionGateway.querySession(command.sessionId)</span>
         }
     }
 
-<span class="nc" id="L57">    override fun startSession(sessionId: String): BattleSessionQuery = battleSessionService.startSession(sessionId)</span>
+<span class="nc" id="L57">    override fun startSession(sessionId: String): BattleSessionQuery = battleSessionGateway.startSession(sessionId)</span>
 
-<span class="nc" id="L59">    override fun querySession(sessionId: String): BattleSessionQuery = battleSessionService.querySession(sessionId)</span>
+<span class="nc" id="L59">    override fun querySession(sessionId: String): BattleSessionQuery = battleSessionGateway.querySession(sessionId)</span>
 
     override fun queryTargets(
         sessionId: String,
@@ -64,7 +64,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         actorUnitId: String,
     ): BattleSessionTargetQuery =
 <span class="nc" id="L66">        battleChoiceResolver.queryTargets(</span>
-<span class="nc" id="L67">            session = battleSessionService.querySession(sessionId),</span>
+<span class="nc" id="L67">            session = battleSessionGateway.querySession(sessionId),</span>
 <span class="nc" id="L68">            effectId = effectId,</span>
 <span class="nc" id="L69">            actorUnitId = actorUnitId,</span>
 <span class="nc" id="L70">        )</span>
@@ -73,25 +73,25 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         sessionId: String,
         command: SubmitMoveChoiceCommand,
     ): BattleSessionQuery {
-<span class="nc" id="L76">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="nc" id="L76">        val session = battleSessionGateway.querySession(sessionId)</span>
 <span class="nc" id="L77">        val choice = battleChoiceResolver.createMoveChoice(session, command)</span>
-<span class="nc" id="L78">        return battleSessionService.submitChoice(sessionId, choice)</span>
+<span class="nc" id="L78">        return battleSessionGateway.submitChoice(sessionId, choice)</span>
     }
 
     override fun submitItemChoice(
         sessionId: String,
         command: SubmitItemChoiceCommand,
     ): BattleSessionQuery {
-<span class="nc" id="L85">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="nc" id="L85">        val session = battleSessionGateway.querySession(sessionId)</span>
 <span class="nc" id="L86">        val choice = battleChoiceResolver.createItemChoice(session, command)</span>
-<span class="nc" id="L87">        return battleSessionService.submitChoice(sessionId, choice)</span>
+<span class="nc" id="L87">        return battleSessionGateway.submitChoice(sessionId, choice)</span>
     }
 
     override fun submitCaptureChoice(
         sessionId: String,
         command: SubmitCaptureChoiceCommand,
     ): BattleSessionQuery {
-<span class="nc" id="L94">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="nc" id="L94">        val session = battleSessionGateway.querySession(sessionId)</span>
 <span class="nc" id="L95">        val resolvedSourceUnitId = resolveCaptureSourceUnitId(session, command.sourceUnitId, command.targetId)</span>
 <span class="nc" id="L96">        val speed =</span>
 <span class="nc bnc" id="L97" title="All 2 branches missed.">            command.speed ?: (</span>
@@ -99,7 +99,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="nc bnc" id="L99" title="All 2 branches missed.">                    ?.stats</span>
 <span class="nc bnc" id="L100" title="All 2 branches missed.">                    ?.get(&quot;speed&quot;) ?: 0</span>
             )
-<span class="nc" id="L102">        return battleSessionService.submitChoice(</span>
+<span class="nc" id="L102">        return battleSessionGateway.submitChoice(</span>
 <span class="nc" id="L103">            sessionId,</span>
 <span class="nc" id="L104">            CaptureChoice(</span>
 <span class="nc" id="L105">                playerId = command.playerId,</span>
@@ -116,7 +116,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         sessionId: String,
         command: SubmitSwitchChoiceCommand,
     ): BattleSessionQuery =
-<span class="nc" id="L119">        battleSessionService.submitChoice(</span>
+<span class="nc" id="L119">        battleSessionGateway.submitChoice(</span>
 <span class="nc" id="L120">            sessionId,</span>
 <span class="nc" id="L121">            SwitchChoice(</span>
 <span class="nc" id="L122">                sideId = command.sideId,</span>
@@ -131,32 +131,32 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         sessionId: String,
         command: SubmitRunChoiceCommand,
     ): BattleSessionQuery =
-<span class="fc" id="L134">        battleSessionService.submitChoice(</span>
+<span class="fc" id="L134">        battleSessionGateway.submitChoice(</span>
 <span class="fc" id="L135">            sessionId,</span>
 <span class="fc" id="L136">            RunChoice(</span>
 <span class="fc" id="L137">                sideId = command.sideId,</span>
 <span class="pc bpc" id="L138" title="1 of 2 branches missed.">                priority = command.priority ?: 0,</span>
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">                speed = command.speed ?: resolveRunSpeed(battleSessionService.querySession(sessionId), command.sideId),</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">                speed = command.speed ?: resolveRunSpeed(battleSessionGateway.querySession(sessionId), command.sideId),</span>
             ),
 <span class="fc" id="L141">        )</span>
 
     override fun submitReplacementChoice(
         sessionId: String,
         command: SubmitReplacementChoiceCommand,
-<span class="nc" id="L146">    ): BattleSessionQuery = battleSessionService.submitReplacementChoice(sessionId, command.sideId, command.incomingUnitId)</span>
+<span class="nc" id="L146">    ): BattleSessionQuery = battleSessionGateway.submitReplacementChoice(sessionId, command.sideId, command.incomingUnitId)</span>
 
     override fun resolveTurn(sessionId: String): BattleSessionTurnResult {
-<span class="fc" id="L149">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="fc" id="L149">        val session = battleSessionGateway.querySession(sessionId)</span>
 <span class="fc" id="L150">        resolveAiChoiceProvider(session.snapshot.battle.battleKind)</span>
 <span class="fc" id="L151">            .provide(session)</span>
 <span class="fc" id="L152">            .forEach { choice -&gt;</span>
-<span class="fc" id="L153">                battleSessionService.submitChoice(sessionId = sessionId, choice = choice)</span>
+<span class="fc" id="L153">                battleSessionGateway.submitChoice(sessionId = sessionId, choice = choice)</span>
 <span class="fc" id="L154">            }</span>
-<span class="fc" id="L155">        return battleSessionService.resolveTurn(sessionId)</span>
+<span class="fc" id="L155">        return battleSessionGateway.resolveTurn(sessionId)</span>
     }
 
     override fun buildSettlementPlan(sessionId: String): BattleSettlementPlan {
-<span class="fc" id="L159">        val session = battleSessionService.querySession(sessionId)</span>
+<span class="fc" id="L159">        val session = battleSessionGateway.querySession(sessionId)</span>
 <span class="fc" id="L160">        val lifecycle = session.snapshot.battle.lifecycle</span>
 <span class="pc bpc" id="L161" title="4 of 6 branches missed.">        require(lifecycle == BattleLifecycle.ENDED_UNSETTLED || lifecycle == BattleLifecycle.SETTLED) {</span>
 <span class="nc" id="L162">            &quot;Battle '$sessionId' must be in lifecycle '${BattleLifecycle.ENDED_UNSETTLED.name}' &quot; +</span>
@@ -165,7 +165,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="fc" id="L165">        return resolveSettlementPlanner(session.snapshot.battle.battleKind).buildPlan(sessionId, session)</span>
     }
 
-<span class="nc" id="L168">    override fun markSessionSettled(sessionId: String): BattleSessionQuery = battleSessionService.markSessionSettled(sessionId)</span>
+<span class="nc" id="L168">    override fun markSessionSettled(sessionId: String): BattleSessionQuery = battleSessionGateway.markSessionSettled(sessionId)</span>
 
     private fun normalizeActiveUnitIds(side: InitializeBattleSideCommand): Set&lt;String&gt; {
 <span class="pc bpc" id="L171" title="2 of 4 branches missed.">        require(side.units.isNotEmpty()) { &quot;Side '${side.sideId}' must contain at least one unit.&quot; }</span>

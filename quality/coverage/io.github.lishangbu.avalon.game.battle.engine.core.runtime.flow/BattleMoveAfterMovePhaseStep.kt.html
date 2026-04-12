@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMoveAfterMovePhaseStep.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow</a> &gt; <span class="el_source">BattleMoveAfterMovePhaseStep.kt</span></div><h1>BattleMoveAfterMovePhaseStep.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleAttributeKeys
+import io.github.lishangbu.avalon.game.battle.engine.core.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleMoveDataReader
+
+/**
+ * 出招收尾 hook phase step。
+ *
+ * @property phaseProcessor battle hook phase 处理器。
+ */
+<span class="fc" id="L12">class BattleMoveAfterMovePhaseStep(</span>
+<span class="fc" id="L13">    private val phaseProcessor: BattleFlowPhaseProcessor,</span>
+) : BattleMoveResolutionStep {
+<span class="fc" id="L15">    override val order: Int = 500</span>
+
+    override fun execute(context: BattleMoveResolutionContext) {
+<span class="fc" id="L18">        val moveType = BattleMoveDataReader.readType(context.moveEffect.data)</span>
+<span class="fc" id="L19">        val damageClass = BattleMoveDataReader.readDamageClass(context.moveEffect.data)</span>
+<span class="fc" id="L20">        val result =</span>
+<span class="fc" id="L21">            phaseProcessor.processPhase(</span>
+<span class="fc" id="L22">                snapshot = context.snapshot,</span>
+<span class="fc" id="L23">                hookName = StandardHookNames.ON_AFTER_MOVE.value,</span>
+<span class="fc" id="L24">                moveEffect = context.moveEffect,</span>
+<span class="fc" id="L25">                selfId = context.attackerId,</span>
+<span class="fc" id="L26">                targetId = context.targetId,</span>
+<span class="fc" id="L27">                sourceId = context.sourceId,</span>
+<span class="fc" id="L28">                relay = null,</span>
+                attributes =
+<span class="fc" id="L30">                    context.attributes +</span>
+<span class="fc" id="L31">                        mapOf(</span>
+<span class="fc" id="L32">                            BattleAttributeKeys.MOVE_TYPE to moveType,</span>
+<span class="fc" id="L33">                            BattleAttributeKeys.DAMAGE_CLASS to damageClass,</span>
+<span class="fc" id="L34">                            BattleAttributeKeys.CRITICAL_HIT to context.criticalHit,</span>
+<span class="fc" id="L35">                            BattleAttributeKeys.HIT_SUCCESSFUL to context.hitSuccessful,</span>
+<span class="fc" id="L36">                            BattleAttributeKeys.DAMAGE to context.damage,</span>
+<span class="fc" id="L37">                            BattleAttributeKeys.BASE_POWER to context.basePower,</span>
+                        ),
+            )
+<span class="fc" id="L40">        context.snapshot = result.snapshot</span>
+<span class="fc" id="L41">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

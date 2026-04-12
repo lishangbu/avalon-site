@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleEffectAssembler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.effect</a> &gt; <span class="el_source">SmartBattleEffectAssembler.kt</span></div><h1>SmartBattleEffectAssembler.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.effect
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleEffectAssembler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.effect</a> &gt; <span class="el_source">SmartBattleEffectAssembler.kt</span></div><h1>SmartBattleEffectAssembler.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.service.effect
 
-import io.github.lishangbu.avalon.game.battle.engine.dsl.ActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.ConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
-import io.github.lishangbu.avalon.game.battle.engine.dsl.HookRule
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.AddStatusActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.AddVolatileActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.ApplyConditionActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.BoostActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.ConsumeItemActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.action.HealActionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.AllConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.ChanceConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.HasItemConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.HpRatioConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.dsl.condition.TargetRelationConditionNode
-import io.github.lishangbu.avalon.game.battle.engine.event.StandardHookNames
-import io.github.lishangbu.avalon.game.battle.engine.type.ActorId
-import io.github.lishangbu.avalon.game.battle.engine.type.StandardEffectKindIds
-import io.github.lishangbu.avalon.game.battle.engine.type.StandardTargetSelectorIds
-import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.HookRule
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.AddStatusActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.AddVolatileActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ApplyConditionActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.BoostActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.ConsumeItemActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.HealActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.AllConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.ChanceConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HasItemConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.HpRatioConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.condition.TargetRelationConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.event.StandardHookNames
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ActorId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardEffectKindIds
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardTargetSelectorIds
+import io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId
 
 <span class="fc" id="L24">internal data class MoveImportRecord(</span>
 <span class="fc" id="L25">    val internalName: String,</span>
@@ -59,7 +59,7 @@ import io.github.lishangbu.avalon.game.battle.engine.type.TargetSelectorId
 
 internal object SmartBattleEffectAssembler {
     fun fromMove(record: MoveImportRecord): EffectDefinition {
-<span class="fc" id="L62">        val hooks = linkedMapOf&lt;io.github.lishangbu.avalon.game.battle.engine.type.HookName, MutableList&lt;HookRule&gt;&gt;()</span>
+<span class="fc" id="L62">        val hooks = linkedMapOf&lt;io.github.lishangbu.avalon.game.battle.engine.core.type.HookName, MutableList&lt;HookRule&gt;&gt;()</span>
 <span class="fc" id="L63">        val secondaryEffectAction = moveSecondaryEffectAction(record)</span>
 <span class="pc bpc" id="L64" title="1 of 2 branches missed.">        val secondaryEffectChance = record.ailmentChance ?: record.effectChance</span>
 

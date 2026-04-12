@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionBeforeTurnStep.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionBeforeTurnStep.kt</span></div><h1>BattleSessionBeforeTurnStep.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+/**
+ * 回合开始前生命周期步骤。
+ *
+ * 设计意图：
+ * - 把 `on_before_turn` 从 move 结算链中独立出来，作为整个回合在 action 执行前的统一阶段；
+ * - 让当前 active 单位身上的 attached effect 可以在真正执行动作前完成一次集中修正；
+ * - 保持 turn pipeline 的阶段语义清晰：先校验，再 before-turn，再执行动作，最后 end-turn。
+ */
+<span class="fc" id="L11">class BattleSessionBeforeTurnStep : BattleSessionTurnStep {</span>
+    /**
+     * 该步骤位于 turn 校验之后、action 执行之前。
+     */
+<span class="fc" id="L15">    override val order: Int = 50</span>
+
+    /**
+     * 在 battle 尚未结束时，对当前全部 active 单位派发 `on_before_turn`。
+     */
+    override fun execute(context: BattleSessionTurnContext) {
+<span class="fc" id="L21">        context.snapshot =</span>
+<span class="fc" id="L22">            if (context.session.currentSnapshot.battle.lifecycle</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                    .isEnded()</span>
+            ) {
+<span class="nc" id="L25">                context.session.currentSnapshot</span>
+            } else {
+<span class="fc" id="L27">                context.session.processBeforeTurn()</span>
+            }
+<span class="fc" id="L29">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

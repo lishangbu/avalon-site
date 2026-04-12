@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionChoiceRestrictionSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session.specification</a> &gt; <span class="el_source">BattleSessionChoiceRestrictionSupport.kt</span></div><h1>BattleSessionChoiceRestrictionSupport.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session.specification
+
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleMoveDataReader
+
+/**
+ * move/item 选择限制共享辅助。
+ *
+ * 设计意图：
+ * - 收口 `taunt / heal-block / embargo` 这类限制状态的公共判定逻辑；
+ * - 避免相同字符串键和标签判定在多个 specification 中继续散落；
+ * - 后续继续补 `disable / encore / torment / magic-room` 时，也能沿这个入口扩展。
+ */
+internal object BattleSessionChoiceRestrictionSupport {
+<span class="fc" id="L16">    private val healingMoveTags: Set&lt;String&gt; = setOf(&quot;healing&quot;, &quot;recovery&quot;)</span>
+
+<span class="fc" id="L18">    fun hasTaunt(unit: UnitState): Boolean = hasAttachedState(unit, TAUNT_EFFECT_ID)</span>
+
+<span class="fc" id="L20">    fun hasHealBlock(unit: UnitState): Boolean = hasAttachedState(unit, HEAL_BLOCK_EFFECT_ID)</span>
+
+<span class="fc" id="L22">    fun hasEmbargo(unit: UnitState): Boolean = hasAttachedState(unit, EMBARGO_EFFECT_ID)</span>
+
+    fun isStatusMove(effect: EffectDefinition): Boolean =
+<span class="pc bpc" id="L25" title="4 of 6 branches missed.">        BattleMoveDataReader.readDamageClass(effect.data)?.equals(&quot;status&quot;, ignoreCase = true) == true ||</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">            &quot;status&quot; in effect.tags</span>
+
+<span class="fc" id="L28">    fun isHealingMove(effect: EffectDefinition): Boolean = effect.tags.any { tag -&gt; tag in healingMoveTags }</span>
+
+    private fun hasAttachedState(
+        unit: UnitState,
+        effectId: String,
+<span class="pc bpc" id="L33" title="1 of 4 branches missed.">    ): Boolean = effectId in unit.volatileStates || effectId in unit.conditionStates</span>
+
+    private const val TAUNT_EFFECT_ID: String = &quot;taunt&quot;
+    private const val HEAL_BLOCK_EFFECT_ID: String = &quot;heal-block&quot;
+    private const val EMBARGO_EFFECT_ID: String = &quot;embargo&quot;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

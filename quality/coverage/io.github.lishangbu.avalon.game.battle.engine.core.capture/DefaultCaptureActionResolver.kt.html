@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultCaptureActionResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.capture</a> &gt; <span class="el_source">DefaultCaptureActionResolver.kt</span></div><h1>DefaultCaptureActionResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.capture
+
+import io.github.lishangbu.avalon.game.battle.engine.core.capture.CaptureFormulaService
+import io.github.lishangbu.avalon.game.battle.engine.core.capture.DefaultCaptureFormulaService
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSession
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionCaptureAction
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionCaptureResult
+import io.github.lishangbu.avalon.game.battle.engine.spi.capture.CaptureActionResolver
+import io.github.lishangbu.avalon.game.battle.engine.spi.capture.CaptureFormulaInputResolver
+
+/**
+ * 引擎内置的默认 capture action resolver。
+ *
+ * 业务层只需要提供公式输入，具体公式计算由 battle-engine 负责。
+ */
+<span class="fc" id="L16">class DefaultCaptureActionResolver(</span>
+<span class="fc" id="L17">    private val captureFormulaInputResolver: CaptureFormulaInputResolver,</span>
+<span class="fc" id="L18">    private val captureFormulaService: CaptureFormulaService = DefaultCaptureFormulaService(),</span>
+<span class="fc" id="L19">) : CaptureActionResolver {</span>
+    override fun resolve(
+        session: BattleSession,
+        action: BattleSessionCaptureAction,
+    ): BattleSessionCaptureResult {
+<span class="fc" id="L24">        val formulaInput =</span>
+<span class="fc" id="L25">            captureFormulaInputResolver.resolve(</span>
+<span class="fc" id="L26">                sessionId = session.currentSnapshot.battle.id,</span>
+<span class="fc" id="L27">                snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L28">                action = action,</span>
+            )
+<span class="fc" id="L30">        val formulaResult = captureFormulaService.calculate(formulaInput, session::nextCaptureShakeRoll)</span>
+<span class="fc" id="L31">        return BattleSessionCaptureResult(</span>
+<span class="fc" id="L32">            success = formulaResult.success,</span>
+<span class="fc" id="L33">            playerId = action.playerId,</span>
+<span class="fc" id="L34">            ballItemId = action.ballItemId,</span>
+<span class="fc" id="L35">            sourceUnitId = action.sourceUnitId,</span>
+<span class="fc" id="L36">            targetId = action.targetId,</span>
+<span class="fc" id="L37">            shakes = formulaResult.shakes,</span>
+<span class="fc" id="L38">            reason = formulaResult.reason,</span>
+<span class="fc" id="L39">            finalRate = formulaResult.finalRate,</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

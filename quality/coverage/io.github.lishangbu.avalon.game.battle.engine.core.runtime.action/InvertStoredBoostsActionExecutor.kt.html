@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InvertStoredBoostsActionExecutor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.action</a> &gt; <span class="el_source">InvertStoredBoostsActionExecutor.kt</span></div><h1>InvertStoredBoostsActionExecutor.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.action
+
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.action.InvertStoredBoostsActionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.SetBoostsMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.ActionExecutor
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.ActionResult
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleStoredBoostSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.EventContextTargetResolver
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ActionTypeId
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardActionTypeIds
+
+/**
+ * `invert_stored_boosts` 动作执行器。
+ */
+<span class="fc" id="L17">class InvertStoredBoostsActionExecutor : ActionExecutor {</span>
+<span class="fc" id="L18">    override val type: ActionTypeId = StandardActionTypeIds.INVERT_STORED_BOOSTS</span>
+
+    override fun execute(
+        action: ActionNode,
+        context: EventContext,
+    ): ActionResult {
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        require(action is InvertStoredBoostsActionNode) { &quot;Action must be InvertStoredBoostsActionNode.&quot; }</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        val targetUnit = EventContextTargetResolver.resolveSingleUnit(action.target, context) ?: return ActionResult()</span>
+<span class="fc" id="L26">        return ActionResult(</span>
+            mutations =
+<span class="fc" id="L28">                listOf(</span>
+<span class="fc" id="L29">                    SetBoostsMutation(</span>
+<span class="fc" id="L30">                        action.target,</span>
+<span class="fc" id="L31">                        BattleStoredBoostSupport.invert(targetUnit.boosts, action.stats),</span>
+                    ),
+                ),
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

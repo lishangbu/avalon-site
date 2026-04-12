@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActionResult.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime</a> &gt; <span class="el_source">ActionResult.kt</span></div><h1>ActionResult.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime
+
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.BattleMutation
+
+/**
+ * 单个动作执行后的结果。
+ *
+ * 设计意图：
+ * - 统一表达动作是否中断流程以及是否修改 relay。
+ * - 让动作执行器与上层 Hook 处理器之间的返回值协议保持稳定。
+ *
+ * @property cancelled 当前动作是否请求中断后续流程。
+ * @property relay 动作返回的新 relay 值，空值表示不修改。
+ * @property mutations 当前动作产生的结构化变更列表。
+ */
+<span class="fc" id="L16">data class ActionResult(</span>
+<span class="fc" id="L17">    val cancelled: Boolean = false,</span>
+<span class="fc" id="L18">    val relay: Any? = null,</span>
+<span class="fc" id="L19">    val mutations: List&lt;BattleMutation&gt; = emptyList(),</span>
+<span class="fc" id="L20">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

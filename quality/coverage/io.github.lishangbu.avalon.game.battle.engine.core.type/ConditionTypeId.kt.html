@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConditionTypeId.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.type</a> &gt; <span class="el_source">ConditionTypeId.kt</span></div><h1>ConditionTypeId.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.type
+
+/**
+ * Condition 节点类型标识。
+ *
+ * 设计意图：
+ * - 作为条件 DSL 节点与解释器之间的桥接键。
+ * - 用类型化 ID 替代到处散写的字符串。
+ *
+ * @property value 条件类型名称，例如 `all`、`hp_ratio`。
+ */
+@JvmInline
+value class ConditionTypeId(
+    val value: String,
+) {
+    init {
+<span class="pc bpc" id="L17" title="2 of 4 branches missed.">        require(value.isNotBlank()) { &quot;Condition type id must not be blank.&quot; }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

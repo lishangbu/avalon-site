@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionEffectAttributeResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionEffectAttributeResolver.kt</span></div><h1>BattleSessionEffectAttributeResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleAttributeKeys
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleTargetRelationValues
+
+/**
+ * session effect attributes 补全器。
+ *
+ * 设计意图：
+ * - 把 move/item 执行前的随机字段补全与目标关系推导从执行主逻辑中拆出来；
+ * - 保持 `BattleSessionActionExecutionSupport` 更聚焦于动作编排本身。
+ */
+internal object BattleSessionEffectAttributeResolver {
+    fun completeRandomAttributes(
+        session: BattleSession,
+        accuracy: Int?,
+        attributes: Map&lt;String, Any?&gt;,
+    ): Map&lt;String, Any?&gt; {
+<span class="fc" id="L19">        var resolvedAttributes = attributes</span>
+<span class="fc bfc" id="L20" title="All 4 branches covered.">        if (accuracy != null &amp;&amp; resolvedAttributes[BattleAttributeKeys.ACCURACY_ROLL] == null) {</span>
+<span class="fc" id="L21">            resolvedAttributes += BattleAttributeKeys.ACCURACY_ROLL to session.nextPercentageRoll()</span>
+        }
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (resolvedAttributes[BattleAttributeKeys.CHANCE_ROLL] == null) {</span>
+<span class="fc" id="L24">            resolvedAttributes += BattleAttributeKeys.CHANCE_ROLL to session.nextPercentageRoll()</span>
+        }
+<span class="fc" id="L26">        return resolvedAttributes</span>
+    }
+
+    fun withResolvedTargetCount(
+        attributes: Map&lt;String, Any?&gt;,
+        targetCount: Int,
+    ): Map&lt;String, Any?&gt; =
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (BattleAttributeKeys.TARGET_COUNT in attributes) {</span>
+<span class="nc" id="L34">            attributes</span>
+        } else {
+<span class="fc" id="L36">            attributes + (BattleAttributeKeys.TARGET_COUNT to targetCount)</span>
+<span class="fc" id="L37">        }</span>
+
+    fun withDerivedTargetRelation(
+        attributes: Map&lt;String, Any?&gt;,
+        session: BattleSession,
+        actorUnitId: String,
+        targetUnitId: String,
+    ): Map&lt;String, Any?&gt; {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (BattleAttributeKeys.TARGET_RELATION in attributes) {</span>
+<span class="fc" id="L46">            return attributes</span>
+        }
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        val actorSideId = session.sideIdOfUnit(actorUnitId) ?: return attributes</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        val targetSideId = session.sideIdOfUnit(targetUnitId) ?: return attributes</span>
+<span class="fc" id="L50">        val relation =</span>
+<span class="fc" id="L51">            when {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                actorUnitId == targetUnitId -&gt; BattleTargetRelationValues.SELF</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                actorSideId == targetSideId -&gt; BattleTargetRelationValues.ALLY</span>
+<span class="fc" id="L54">                else -&gt; BattleTargetRelationValues.FOE</span>
+            }
+<span class="fc" id="L56">        return attributes + (BattleAttributeKeys.TARGET_RELATION to relation)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

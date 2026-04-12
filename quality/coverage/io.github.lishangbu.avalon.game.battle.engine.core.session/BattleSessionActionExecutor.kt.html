@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionActionExecutor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionActionExecutor.kt</span></div><h1>BattleSessionActionExecutor.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+/**
+ * 会话层 action 执行协调器。
+ *
+ * 设计意图：
+ * - 负责遍历当前回合动作队列，并把具体执行委托给 `BattleSessionActionHandler`。
+ * - 让真正的 action 行为扩展点转移到 registry + handler 体系中。
+ *
+ * @property session 当前 battle session。
+ * @property actionHandlerRegistry action 执行处理器注册中心。
+ */
+<span class="fc" id="L13">internal class BattleSessionActionExecutor(</span>
+<span class="fc" id="L14">    private val session: BattleSession,</span>
+<span class="fc" id="L15">    private val actionHandlerRegistry: BattleSessionActionHandlerRegistry,</span>
+) {
+    /**
+     * 统一处理“入队时合法，但执行前已经被战场变化淘汰”的动作。
+     */
+    private val actionInvalidationResolver: BattleSessionActionInvalidationResolver =
+<span class="fc" id="L21">        BattleSessionActionInvalidationResolver(session)</span>
+
+    /**
+     * 执行当前回合动作队列中的所有 action。
+     *
+     * 队列顺序已经由 `BattleSessionActionQueue` 保证，这里只负责逐个分发与汇总。
+     *
+     * @return 当前回合所有已执行 action 的结果列表。
+     */
+    fun executeQueuedActions(): List&lt;BattleSessionActionExecutionResult&gt; {
+<span class="fc" id="L31">        session.ensureRunning()</span>
+<span class="fc" id="L32">        val actions = session.actionQueue.drain(session.currentSnapshot)</span>
+<span class="fc" id="L33">        val results = mutableListOf&lt;BattleSessionActionExecutionResult&gt;()</span>
+<span class="fc" id="L34">        actions.forEach { action -&gt;</span>
+<span class="fc" id="L35">            val preparedAction =</span>
+<span class="fc" id="L36">                when (action) {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                    is BattleSessionMoveAction -&gt; BattleSessionMoveOrderAttributeResolver.enrich(action, results.map(BattleSessionActionExecutionResult::action))</span>
+<span class="fc" id="L38">                    else -&gt; action</span>
+                }
+<span class="fc" id="L40">            val skippedReason = actionInvalidationResolver.resolve(preparedAction)</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if (skippedReason != null) {</span>
+<span class="fc" id="L42">                session.recordSkippedAction(preparedAction, skippedReason)</span>
+<span class="fc" id="L43">                results +=</span>
+<span class="fc" id="L44">                    BattleSessionActionExecutionResult(</span>
+<span class="fc" id="L45">                        action = preparedAction,</span>
+<span class="fc" id="L46">                        snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L47">                        skippedReason = skippedReason,</span>
+                    )
+<span class="fc" id="L49">                return@forEach</span>
+            }
+<span class="fc" id="L51">            val handler = actionHandlerRegistry.get(preparedAction)</span>
+<span class="fc" id="L52">            results += handler.execute(preparedAction, session)</span>
+<span class="fc" id="L53">            if (session.currentSnapshot.battle.lifecycle</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                    .isEnded()</span>
+            ) {
+<span class="fc" id="L56">                return results</span>
+            }
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">        return results</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

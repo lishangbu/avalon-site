@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionChoiceValidator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionChoiceValidator.kt</span></div><h1>BattleSessionChoiceValidator.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionCaptureChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionItemChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionMoveChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionRunChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionTargetChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionTurnReadySpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionUnitChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionValidationResult
+
+/**
+ * 负责所有“当前这个输入是否合法”的校验逻辑。
+ *
+ * 这样 `BattleSession` 的主文件就不需要同时承担：
+ * - 状态推进
+ * - 输入收集
+ * - 输入合法性判断
+ *
+ * @property session 当前 battle session。
+ * @property turnReadySpecification 回合结算前置规格。
+ * @property unitChoiceSpecification active 单位行动提交规格。
+ * @property runChoiceSpecification side 逃跑提交规格。
+ * @property targetChoiceSpecification effect 目标合法性规格。
+ * @property captureChoiceSpecification 捕捉动作合法性规格。
+ * @property moveChoiceSpecification 招式选择限制规格。
+ * @property itemChoiceSpecification 物品选择限制规格。
+ */
+<span class="fc" id="L30">internal class BattleSessionChoiceValidator(</span>
+<span class="fc" id="L31">    private val session: BattleSession,</span>
+<span class="fc" id="L32">    private val turnReadySpecification: BattleSessionTurnReadySpecification,</span>
+<span class="fc" id="L33">    private val unitChoiceSpecification: BattleSessionUnitChoiceSpecification,</span>
+<span class="fc" id="L34">    private val runChoiceSpecification: BattleSessionRunChoiceSpecification,</span>
+<span class="fc" id="L35">    private val targetChoiceSpecification: BattleSessionTargetChoiceSpecification,</span>
+<span class="fc" id="L36">    private val captureChoiceSpecification: BattleSessionCaptureChoiceSpecification,</span>
+<span class="fc" id="L37">    private val moveChoiceSpecification: BattleSessionMoveChoiceSpecification,</span>
+<span class="fc" id="L38">    private val itemChoiceSpecification: BattleSessionItemChoiceSpecification,</span>
+) {
+    /**
+     * 确认当前回合已经满足结算条件。
+     */
+    fun ensureTurnReady() {
+<span class="fc" id="L44">        turnReadySpecification.validate(session).requireSatisfied()</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * 确认某个 active 单位本回合还允许继续提交行动。
+     *
+     * @param unitId 待提交行动的单位 ID
+     */
+    fun ensureUnitCanSubmitChoice(unitId: String) {
+<span class="fc" id="L53">        unitChoiceSpecification.validate(session, unitId).requireSatisfied()</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * 确认某个 side 允许提交逃跑选择。
+     *
+     * @param sideId 待逃跑的 side ID
+     */
+    fun ensureSideCanSubmitRunChoice(sideId: String) {
+<span class="fc" id="L62">        runChoiceSpecification.validate(session, sideId).requireSatisfied()</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * 确认目标是否符合 effect 的 targeting 规则。
+     *
+     * @param effectId effect ID
+     * @param actorUnitId 发起单位 ID
+     * @param targetUnitId 目标单位 ID
+     */
+    fun ensureTargetIsLegalForAction(
+        effectId: String,
+        actorUnitId: String,
+        targetUnitId: String,
+    ) {
+<span class="fc" id="L77">        targetChoiceSpecification.validate(session, effectId, actorUnitId, targetUnitId).requireSatisfied()</span>
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * 确认当前允许提交捕捉动作。
+     */
+    fun ensureCaptureIsLegal(
+        playerId: String,
+        sourceUnitId: String,
+        targetUnitId: String,
+    ) {
+<span class="fc" id="L88">        captureChoiceSpecification.validate(session, playerId, sourceUnitId, targetUnitId).requireSatisfied()</span>
+<span class="fc" id="L89">        ensureUnitCanSubmitChoice(sourceUnitId)</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * 确认当前单位允许选择该招式。
+     */
+    fun ensureMoveChoiceIsLegal(
+        moveId: String,
+        actorUnitId: String,
+    ) {
+<span class="fc" id="L99">        moveChoiceSpecification.validate(session, moveId, actorUnitId).requireSatisfied()</span>
+<span class="fc" id="L100">    }</span>
+
+    /**
+     * 确认当前单位允许使用该物品。
+     */
+    fun ensureItemChoiceIsLegal(
+        itemId: String,
+        actorUnitId: String,
+    ) {
+<span class="fc" id="L109">        itemChoiceSpecification.validate(session, itemId, actorUnitId).requireSatisfied()</span>
+<span class="fc" id="L110">    }</span>
+
+    /**
+     * 确认某条规格校验已经通过。
+     *
+     * @receiver 需要被转换为 `require` 断言的校验结果。
+     */
+    private fun BattleSessionValidationResult.requireSatisfied() {
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        require(satisfied) {</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">            message ?: &quot;Battle session validation failed.&quot;</span>
+        }
+<span class="fc" id="L121">    }</span>
+
+    /**
+     * 根据动作反推出它属于哪个 side。
+     */
+    fun submittedSideId(action: BattleSessionAction): String? =
+<span class="nc" id="L127">        when (action) {</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            is BattleSessionSideAction -&gt; action.sideId</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">            is BattleSessionSubmittingAction -&gt; sideIdOfUnit(action.submittingUnitId)</span>
+<span class="nc" id="L130">            else -&gt; null</span>
+<span class="nc" id="L131">        }</span>
+
+    /**
+     * 根据单位 ID 反查其所属 side。
+     */
+    fun sideIdOfUnit(unitId: String): String? =
+<span class="fc" id="L137">        session.currentSnapshot.sides.values</span>
+<span class="fc" id="L138">            .firstOrNull { side -&gt; unitId in side.unitIds }</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            ?.id</span>
+
+    /**
+     * 统计某个 side 当前已经由哪些 active 单位提交过行动。
+     */
+    fun submittedUnitIdsForSide(side: SideState): List&lt;String&gt; {
+<span class="fc" id="L145">        val pending = session.pendingActions()</span>
+<span class="fc bfc" id="L146" title="All 6 branches covered.">        if (pending.any { action -&gt; action is BattleSessionRunAction &amp;&amp; action.sideId == side.id }) {</span>
+<span class="fc" id="L147">            return side.activeUnitIds</span>
+        }
+<span class="fc" id="L149">        return pending</span>
+<span class="fc" id="L150">            .filterIsInstance&lt;BattleSessionSubmittingAction&gt;()</span>
+<span class="fc" id="L151">            .map(BattleSessionSubmittingAction::submittingUnitId)</span>
+<span class="fc" id="L152">            .filter { unitId -&gt; unitId in side.activeUnitIds }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

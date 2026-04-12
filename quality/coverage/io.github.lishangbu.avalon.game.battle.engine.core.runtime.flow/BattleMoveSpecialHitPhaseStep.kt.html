@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMoveSpecialHitPhaseStep.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow</a> &gt; <span class="el_source">BattleMoveSpecialHitPhaseStep.kt</span></div><h1>BattleMoveSpecialHitPhaseStep.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow
+
+/**
+ * 特殊命中规则 phase step。
+ *
+ * 设计意图：
+ * - 在常规命中判定前收口高优先级命中规则与特殊公式；
+ * - 避免把 `alwaysHit / lock-on / no-guard / OHKO` 这类逻辑硬塞进通用命中率公式；
+ * - 让天气必中与天气命中率改写继续通过 move data 配置扩展。
+ */
+<span class="fc" id="L11">class BattleMoveSpecialHitPhaseStep(</span>
+<span class="fc" id="L12">    private val specialHitRuleResolver: BattleMoveSpecialHitRuleResolver,</span>
+) : BattleMoveResolutionStep {
+    /**
+     * 当前步骤在 pipeline 中的执行顺序。
+     */
+<span class="fc" id="L17">    override val order: Int = 50</span>
+
+    /**
+     * 在标准命中策略执行前，尝试收口本次特殊命中规则。
+     */
+    override fun execute(context: BattleMoveResolutionContext) {
+<span class="fc" id="L23">        val resolution = specialHitRuleResolver.resolve(context)</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        resolution.resolvedAccuracy?.let { resolvedAccuracy -&gt;</span>
+<span class="fc" id="L25">            context.accuracy = resolvedAccuracy</span>
+<span class="fc" id="L26">        }</span>
+<span class="fc" id="L27">        context.forcedHitSuccessful = resolution.forcedHitSuccessful</span>
+<span class="fc" id="L28">        context.skipAccuracyEvasionModifiers = resolution.skipAccuracyEvasionModifiers</span>
+<span class="fc" id="L29">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

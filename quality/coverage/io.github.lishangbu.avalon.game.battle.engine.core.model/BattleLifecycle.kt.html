@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleLifecycle.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.model</a> &gt; <span class="el_source">BattleLifecycle.kt</span></div><h1>BattleLifecycle.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.model
+
+/**
+ * 战斗会话的全局生命周期。
+ *
+ * 设计意图：
+ * - 用一个显式阶段描述整场 battle 目前处于“初始化、运行、已结束待结算、已结算”中的哪一段；
+ * - 让上层不再通过 `started / ended / settled` 三个布尔字段自行拼装阶段语义；
+ * - 为 session API 的调用边界提供统一判定依据。
+ *
+ * 这里刻意只表达“全局稳定阶段”，不把 `RESOLVING_TURN` 这类同步瞬时过程态持久化进 state，
+ * 避免状态恢复时引入额外复杂度。
+ */
+enum class BattleLifecycle {
+    /**
+     * 会话已创建，但仍处于 side/unit 注册与业务配置阶段。
+     */
+<span class="fc" id="L18">    INITIALIZING,</span>
+
+    /**
+     * 战斗已经正式开始，允许进入回合循环。
+     */
+<span class="fc" id="L23">    RUNNING,</span>
+
+    /**
+     * 胜负或结束原因已经确定，但战后资源、副作用尚未统一结算。
+     */
+<span class="fc" id="L28">    ENDED_UNSETTLED,</span>
+
+    /**
+     * 战后副作用已经全部完成，整场 battle 生命周期彻底结束。
+     */
+<span class="fc" id="L33">    SETTLED,</span>
+    ;
+
+    /**
+     * 当前 battle 是否仍处于建局阶段。
+     */
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    fun isInitializing(): Boolean = this == INITIALIZING</span>
+
+    /**
+     * 当前 battle 是否正处于回合循环阶段。
+     */
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">    fun isRunning(): Boolean = this == RUNNING</span>
+
+    /**
+     * 当前 battle 是否已经结束。
+     *
+     * 说明：
+     * - 只要进入 `ENDED_UNSETTLED` 或 `SETTLED`，都视为战斗结果已经确定；
+     * - 结算完成与否只影响后置副作用，不影响“是否已终局”。
+     */
+<span class="pc bpc" id="L53" title="1 of 4 branches missed.">    fun isEnded(): Boolean = this == ENDED_UNSETTLED || this == SETTLED</span>
+
+    /**
+     * 当前 battle 是否已经完成最终结算。
+     */
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    fun isSettled(): Boolean = this == SETTLED</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MutationTargetSelectorResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.support</a> &gt; <span class="el_source">MutationTargetSelectorResolver.kt</span></div><h1>MutationTargetSelectorResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.support
+
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply.MutationApplicationContext
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardTargetSelectorIds
+import io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId
+
+/**
+ * mutation 应用阶段的目标选择器解析器。
+ *
+ * 设计意图：
+ * - 在 apply 层把 DSL selector 解析为具体 unit id 集合。
+ * - 保持动作执行层与状态提交层之间的职责分离。
+ */
+object MutationTargetSelectorResolver {
+    fun resolve(
+        selector: TargetSelectorId,
+        context: MutationApplicationContext,
+    ): List&lt;String&gt; =
+<span class="fc" id="L19">        when (selector) {</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">            StandardTargetSelectorIds.SELF -&gt; {</span>
+<span class="fc" id="L21">                listOfNotNull(context.selfId)</span>
+            }
+
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            StandardTargetSelectorIds.TARGET -&gt; {</span>
+<span class="fc" id="L25">                listOfNotNull(context.targetId)</span>
+            }
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">            StandardTargetSelectorIds.SOURCE -&gt; {</span>
+<span class="fc" id="L29">                listOfNotNull(context.sourceId)</span>
+            }
+
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            StandardTargetSelectorIds.ALL -&gt; {</span>
+<span class="fc" id="L33">                listOfNotNull(context.selfId, context.targetId, context.sourceId).distinct()</span>
+            }
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            StandardTargetSelectorIds.SIDE -&gt; {</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                context.side?.activeUnitIds.orEmpty()</span>
+            }
+
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            StandardTargetSelectorIds.FOE_SIDE -&gt; {</span>
+<span class="nc bnc" id="L41" title="All 4 branches missed.">                context.foeSide?.activeUnitIds.orEmpty()</span>
+            }
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            StandardTargetSelectorIds.ALL_ALLIES -&gt; {</span>
+<span class="nc" id="L45">                context.side</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                    ?.activeUnitIds</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                    .orEmpty()</span>
+<span class="nc" id="L48">                    .filterNot { id -&gt; id == context.selfId }</span>
+            }
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            StandardTargetSelectorIds.ALL_FOES -&gt; {</span>
+<span class="nc bnc" id="L52" title="All 4 branches missed.">                context.foeSide?.activeUnitIds.orEmpty()</span>
+            }
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            StandardTargetSelectorIds.ALLY -&gt; {</span>
+<span class="nc" id="L56">                context.side</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                    ?.activeUnitIds</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                    .orEmpty()</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                    .firstOrNull { id -&gt; id != context.selfId }</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                    ?.let(::listOf)</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                    .orEmpty()</span>
+            }
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            StandardTargetSelectorIds.FOE -&gt; {</span>
+<span class="nc bnc" id="L65" title="All 4 branches missed.">                context.targetId?.let(::listOf) ?: context.foeSide</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                    ?.activeUnitIds</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                    ?.take(1)</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                    .orEmpty()</span>
+            }
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            StandardTargetSelectorIds.FIELD -&gt; {</span>
+<span class="nc" id="L72">                emptyList()</span>
+            }
+
+            else -&gt; {
+<span class="nc" id="L76">                error(&quot;Unsupported target selector '${selector.value}'.&quot;)</span>
+            }
+<span class="fc" id="L78">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

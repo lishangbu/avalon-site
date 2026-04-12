@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSideConditionDurationManager.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSideConditionDurationManager.kt</span></div><h1>BattleSideConditionDurationManager.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RemoveSideConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardTargetSelectorIds
+
+/**
+ * side condition 持续回合推进器。
+ *
+ * 设计意图：
+ * - 在回合末统一衰减并清理带固定持续时间的 side condition。
+ * - 把 duration 语义从 `BattleSessionLifecycleCoordinator` 中拆出来，避免回合流程代码继续膨胀。
+ *
+ * 当前约定：
+ * - `duration = null` 视为无固定回合数，不会在这里被自动移除；
+ * - 每次 `endTurn()` 完成 residual 后，所有 side condition 的剩余回合数减 1；
+ * - 当剩余回合数降到 0 时，该 side condition 会被从 side 上移除。
+ */
+<span class="fc" id="L21">internal class BattleSideConditionDurationManager {</span>
+    /**
+     * 推进当前快照中全部 side condition 的剩余持续时间。
+     */
+    fun advance(snapshot: BattleRuntimeSnapshot): BattleEffectDurationAdvanceResult {
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (snapshot.sides.isEmpty()) {</span>
+<span class="nc" id="L27">            return BattleEffectDurationAdvanceResult(snapshot)</span>
+        }
+<span class="fc" id="L29">        val expirationMutations = mutableListOf&lt;BattleSessionScopedMutation&gt;()</span>
+<span class="fc" id="L30">        val nextSides =</span>
+<span class="fc" id="L31">            snapshot.sides.mapValues { (_, side) -&gt;</span>
+<span class="fc" id="L32">                advanceSide(side, expirationMutations)</span>
+            }
+<span class="fc" id="L34">        val nextSnapshot =</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (nextSides == snapshot.sides) {</span>
+<span class="fc" id="L36">                snapshot</span>
+            } else {
+<span class="fc" id="L38">                snapshot.copy(sides = nextSides)</span>
+            }
+<span class="fc" id="L40">        return BattleEffectDurationAdvanceResult(</span>
+<span class="fc" id="L41">            snapshot = nextSnapshot,</span>
+<span class="fc" id="L42">            expirationMutations = expirationMutations,</span>
+        )
+    }
+
+    /**
+     * 推进单个 side 上全部 side condition 的剩余持续时间。
+     */
+    private fun advanceSide(
+        side: SideState,
+        expirationMutations: MutableList&lt;BattleSessionScopedMutation&gt;,
+    ): SideState {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (side.conditionStates.isEmpty()) {</span>
+<span class="fc" id="L54">            return side</span>
+        }
+<span class="fc" id="L56">        val contextUnitId = (side.activeUnitIds + side.unitIds).distinct().firstOrNull()</span>
+
+<span class="fc" id="L58">        val nextStates = linkedMapOf&lt;String, AttachedEffectState&gt;()</span>
+<span class="fc" id="L59">        side.conditionStates.values</span>
+<span class="fc" id="L60">            .sortedBy(AttachedEffectState::effectOrder)</span>
+<span class="fc" id="L61">            .forEach { state -&gt;</span>
+<span class="fc" id="L62">                val nextState =</span>
+<span class="fc" id="L63">                    advanceState(state) { expiredState -&gt;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                        if (contextUnitId != null) {</span>
+<span class="fc" id="L65">                            expirationMutations +=</span>
+<span class="fc" id="L66">                                BattleSessionScopedMutation(</span>
+<span class="fc" id="L67">                                    selfId = contextUnitId,</span>
+<span class="fc" id="L68">                                    targetId = contextUnitId,</span>
+<span class="fc" id="L69">                                    sourceId = expiredState.sourceId,</span>
+                                    mutation =
+<span class="fc" id="L71">                                        RemoveSideConditionMutation(</span>
+<span class="fc" id="L72">                                            target = StandardTargetSelectorIds.SIDE,</span>
+<span class="fc" id="L73">                                            conditionEffectId = expiredState.effectId,</span>
+                                        ),
+                                )
+                        }
+<span class="fc" id="L77">                    }</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">                if (nextState != null) {</span>
+<span class="fc" id="L79">                    nextStates[nextState.effectId] = nextState</span>
+                }
+<span class="fc" id="L81">            }</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        return if (nextStates == side.conditionStates) {</span>
+<span class="fc" id="L83">            side</span>
+        } else {
+<span class="fc" id="L85">            side.copy(</span>
+<span class="fc" id="L86">                conditionStates = nextStates,</span>
+            )
+        }
+    }
+
+    /**
+     * 推进单个 side condition 的剩余回合。
+     *
+     * 返回空值表示该 condition 已在本次回合结束时自然到期。
+     */
+<span class="nc" id="L96">    private fun advanceState(</span>
+        state: AttachedEffectState,
+<span class="nc" id="L98">        onExpired: (AttachedEffectState) -&gt; Unit = {},</span>
+    ): AttachedEffectState? {
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        val duration = state.duration ?: return state</span>
+<span class="fc" id="L101">        val nextDuration = duration - 1</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        return if (nextDuration &gt; 0) {</span>
+<span class="fc" id="L103">            state.copy(duration = nextDuration)</span>
+        } else {
+<span class="fc" id="L105">            onExpired(state)</span>
+<span class="fc" id="L106">            state</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

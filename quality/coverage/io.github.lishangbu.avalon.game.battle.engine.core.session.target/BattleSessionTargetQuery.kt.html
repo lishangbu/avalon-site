@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionTargetQuery.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session.target</a> &gt; <span class="el_source">BattleSessionTargetQuery.kt</span></div><h1>BattleSessionTargetQuery.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session.target
+
+/**
+ * BattleSession 对外目标查询结果。
+ *
+ * @property effectId 被查询的 effect 标识。
+ * @property actorUnitId 当前出手单位标识。
+ * @property mode 解析后的目标模式。
+ * @property availableTargetUnitIds 当前允许选择的单位目标集合。
+ * @property requiresExplicitTarget 当前是否要求调用方显式给出目标单位。
+ */
+<span class="fc" id="L12">data class BattleSessionTargetQuery(</span>
+<span class="fc" id="L13">    val effectId: String,</span>
+<span class="fc" id="L14">    val actorUnitId: String,</span>
+<span class="fc" id="L15">    val mode: BattleSessionTargetMode,</span>
+<span class="fc" id="L16">    val availableTargetUnitIds: List&lt;String&gt;,</span>
+<span class="fc" id="L17">    val requiresExplicitTarget: Boolean,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

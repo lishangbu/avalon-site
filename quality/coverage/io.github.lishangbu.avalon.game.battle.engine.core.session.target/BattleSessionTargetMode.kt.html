@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionTargetMode.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session.target</a> &gt; <span class="el_source">BattleSessionTargetMode.kt</span></div><h1>BattleSessionTargetMode.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session.target
+
+/**
+ * BattleSession 级别的目标模式。
+ *
+ * 设计意图：
+ * - 把 effect `data.target` 的语义收敛成稳定的内部目标模型。
+ * - 让 session 查询和合法性校验都基于同一套模式工作。
+ */
+enum class BattleSessionTargetMode {
+<span class="fc" id="L11">    SELF,</span>
+<span class="fc" id="L12">    ALLY,</span>
+<span class="fc" id="L13">    FOE,</span>
+<span class="fc" id="L14">    ALL_ALLIES,</span>
+<span class="fc" id="L15">    ALL_FOES,</span>
+<span class="fc" id="L16">    ALL_OTHER_POKEMON,</span>
+<span class="fc" id="L17">    ALL_POKEMON,</span>
+<span class="fc" id="L18">    SIDE,</span>
+<span class="fc" id="L19">    FOE_SIDE,</span>
+<span class="fc" id="L20">    FIELD,</span>
+<span class="fc" id="L21">    UNKNOWN,</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

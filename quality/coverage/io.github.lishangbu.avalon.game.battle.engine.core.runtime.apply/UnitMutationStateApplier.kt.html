@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnitMutationStateApplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply</a> &gt; <span class="el_source">UnitMutationStateApplier.kt</span></div><h1>UnitMutationStateApplier.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.AddVolatileMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ApplyConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.BoostMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ChangeTypeMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ClearBoostsMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ClearProbeMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ConsumeItemMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.DamageMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ForceSwitchMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.HealMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RemoveConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RemoveStatusMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RemoveVolatileMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RestorePpMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.SetBoostsMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.SetProbeMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.SetStatusMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.SetSwitchBoostCarryMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleStatStageSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.MutationTargetSelectorResolver
+
+/**
+ * unit 级 mutation 写回助手。
+ *
+ * 设计意图：
+ * - 把 `DefaultMutationApplier` 里所有单位状态写回逻辑收口到一个独立文件；
+ * - 保持 `DefaultMutationApplier` 只负责分发 mutation 类型，而不是继续堆所有具体状态变换细节。
+ */
+internal object UnitMutationStateApplier {
+    fun applyDamage(
+        mutation: DamageMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L39">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L40">            val damage = calculateAmount(unit.maxHp, mutation.mode, mutation.value)</span>
+<span class="fc" id="L41">            unit.copy(currentHp = (unit.currentHp - damage).coerceAtLeast(0))</span>
+<span class="fc" id="L42">        }</span>
+
+    fun applyHeal(
+        mutation: HealMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L49">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L50">            val healing = calculateAmount(unit.maxHp, mutation.mode, mutation.value)</span>
+<span class="fc" id="L51">            unit.copy(currentHp = (unit.currentHp + healing).coerceAtMost(unit.maxHp))</span>
+<span class="fc" id="L52">        }</span>
+
+    fun applySetStatus(
+        mutation: SetStatusMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L59">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L60">            unit.copy(</span>
+                statusState =
+<span class="fc" id="L62">                    AttachedEffectState(</span>
+<span class="fc" id="L63">                        effectId = mutation.statusEffectId,</span>
+<span class="fc" id="L64">                        sourceId = mutation.sourceId,</span>
+<span class="fc" id="L65">                        duration = mutation.duration,</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                        effectOrder = unit.statusState?.effectOrder ?: 1,</span>
+                    ),
+<span class="fc" id="L68">            )</span>
+<span class="fc" id="L69">        }</span>
+
+    fun applyRemoveStatus(
+        mutation: RemoveStatusMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L76">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L77">            unit.copy(statusState = null)</span>
+<span class="fc" id="L78">        }</span>
+
+    fun applyAddVolatile(
+        mutation: AddVolatileMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L85">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L86">            val existingState = unit.volatileStates[mutation.volatileEffectId]</span>
+<span class="fc" id="L87">            val nextOrder =</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">                existingState?.effectOrder</span>
+<span class="pc bpc" id="L89" title="6 of 8 branches missed.">                    ?: ((unit.volatileStates.values.maxOfOrNull(AttachedEffectState::effectOrder) ?: 0) + 1)</span>
+<span class="fc" id="L90">            unit.copy(</span>
+                volatileStates =
+<span class="fc" id="L92">                    unit.volatileStates +</span>
+                        (
+<span class="fc" id="L94">                            mutation.volatileEffectId to</span>
+<span class="fc" id="L95">                                AttachedEffectState(</span>
+<span class="fc" id="L96">                                    effectId = mutation.volatileEffectId,</span>
+<span class="fc" id="L97">                                    sourceId = mutation.sourceId,</span>
+<span class="fc" id="L98">                                    duration = mutation.duration,</span>
+<span class="fc" id="L99">                                    effectOrder = nextOrder,</span>
+                                )
+                        ),
+<span class="fc" id="L102">            )</span>
+<span class="fc" id="L103">        }</span>
+
+    fun applyRemoveVolatile(
+        mutation: RemoveVolatileMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L110">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L111">            unit.copy(volatileStates = unit.volatileStates - mutation.volatileEffectId)</span>
+<span class="fc" id="L112">        }</span>
+
+    fun applyBoost(
+        mutation: BoostMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L119">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L120">            unit.copy(</span>
+                boosts =
+<span class="fc" id="L122">                    BattleStatStageSupport.applyBoostDeltas(</span>
+<span class="fc" id="L123">                        currentBoosts = unit.boosts,</span>
+<span class="fc" id="L124">                        deltas = mutation.boosts,</span>
+                    ),
+<span class="fc" id="L126">            )</span>
+<span class="fc" id="L127">        }</span>
+
+    fun applyClearBoosts(
+        mutation: ClearBoostsMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L134">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L135">            unit.copy(boosts = emptyMap())</span>
+<span class="fc" id="L136">        }</span>
+
+    fun applySetBoosts(
+        mutation: SetBoostsMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L143">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L144">            unit.copy(</span>
+<span class="fc" id="L145">                boosts = BattleStatStageSupport.normalizeStoredBoosts(mutation.boosts),</span>
+<span class="fc" id="L146">            )</span>
+<span class="fc" id="L147">        }</span>
+
+    fun applyConsumeItem(
+        mutation: ConsumeItemMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L154">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L155">            unit.copy(itemId = null)</span>
+<span class="fc" id="L156">        }</span>
+
+    fun applyRestorePp(
+        mutation: RestorePpMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L163">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">            if (mutation.moveId == null) {</span>
+<span class="nc" id="L165">                unit</span>
+            } else {
+<span class="fc" id="L167">                val nextPp = unit.movePp.toMutableMap()</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">                nextPp[mutation.moveId] = (nextPp[mutation.moveId] ?: 0) + mutation.value</span>
+<span class="fc" id="L169">                unit.copy(movePp = nextPp)</span>
+<span class="fc" id="L170">            }</span>
+<span class="fc" id="L171">        }</span>
+
+    fun applyChangeType(
+        mutation: ChangeTypeMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L178">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L179">            unit.copy(typeIds = mutation.values.toSet())</span>
+<span class="fc" id="L180">        }</span>
+
+    fun applyForceSwitch(
+        mutation: ForceSwitchMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L187">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L188">            unit.copy(forceSwitchRequested = true)</span>
+<span class="fc" id="L189">        }</span>
+
+    fun applySetSwitchBoostCarry(
+        mutation: SetSwitchBoostCarryMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L196">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L197">            unit.copy(</span>
+                sessionState =
+<span class="fc" id="L199">                    unit.sessionState.copy(</span>
+<span class="fc" id="L200">                        pendingSwitchBoostCarry = BattleStatStageSupport.normalizeStoredBoosts(mutation.boosts),</span>
+                    ),
+<span class="fc" id="L202">            )</span>
+<span class="fc" id="L203">        }</span>
+
+    fun applyAddCondition(
+        mutation: ApplyConditionMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L210">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L211">            val existingState = unit.conditionStates[mutation.conditionEffectId]</span>
+<span class="fc" id="L212">            val nextOrder =</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">                existingState?.effectOrder</span>
+<span class="pc bpc" id="L214" title="6 of 8 branches missed.">                    ?: ((unit.conditionStates.values.maxOfOrNull(AttachedEffectState::effectOrder) ?: 0) + 1)</span>
+<span class="fc" id="L215">            unit.copy(</span>
+                conditionStates =
+<span class="fc" id="L217">                    unit.conditionStates +</span>
+                        (
+<span class="fc" id="L219">                            mutation.conditionEffectId to</span>
+<span class="fc" id="L220">                                AttachedEffectState(</span>
+<span class="fc" id="L221">                                    effectId = mutation.conditionEffectId,</span>
+<span class="fc" id="L222">                                    sourceId = mutation.sourceId,</span>
+<span class="fc" id="L223">                                    duration = mutation.duration,</span>
+<span class="fc" id="L224">                                    effectOrder = nextOrder,</span>
+                                )
+                        ),
+<span class="fc" id="L227">            )</span>
+<span class="fc" id="L228">        }</span>
+
+    fun applyRemoveCondition(
+        mutation: RemoveConditionMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L235">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L236">            unit.copy(conditionStates = unit.conditionStates - mutation.conditionEffectId)</span>
+<span class="fc" id="L237">        }</span>
+
+    fun applySetProbe(
+        mutation: SetProbeMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="fc" id="L244">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="fc" id="L245">            unit.copy(debugState = unit.debugState.copy(probes = unit.debugState.probes + (mutation.key to mutation.value)))</span>
+<span class="fc" id="L246">        }</span>
+
+    fun applyClearProbe(
+        mutation: ClearProbeMutation,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+    ): Map&lt;String, UnitState&gt; =
+<span class="nc" id="L253">        updateTargets(mutation.target, context, units) { unit -&gt;</span>
+<span class="nc" id="L254">            unit.copy(debugState = unit.debugState.copy(probes = unit.debugState.probes - mutation.key))</span>
+<span class="nc" id="L255">        }</span>
+
+    private fun updateTargets(
+        selector: io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId,
+        context: MutationApplicationContext,
+        units: Map&lt;String, UnitState&gt;,
+        transform: (UnitState) -&gt; UnitState,
+    ): Map&lt;String, UnitState&gt; {
+<span class="fc" id="L263">        val targetIds = MutationTargetSelectorResolver.resolve(selector, context)</span>
+<span class="pc bpc" id="L264" title="1 of 2 branches missed.">        if (targetIds.isEmpty()) {</span>
+<span class="nc" id="L265">            return units</span>
+        }
+<span class="fc" id="L267">        val nextUnits = units.toMutableMap()</span>
+<span class="fc" id="L268">        targetIds.forEach { unitId -&gt;</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">            val unit = requireNotNull(nextUnits[unitId]) { &quot;Target unit '$unitId' was not found.&quot; }</span>
+<span class="fc" id="L270">            nextUnits[unitId] = transform(unit)</span>
+<span class="fc" id="L271">        }</span>
+<span class="fc" id="L272">        return nextUnits</span>
+    }
+
+    private fun calculateAmount(
+        maxHp: Int,
+        mode: String?,
+        value: Double,
+    ): Int =
+<span class="fc" id="L280">        when (mode) {</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">            &quot;max_hp_ratio&quot; -&gt; (maxHp * value).toInt()</span>
+<span class="fc" id="L282">            else -&gt; value.toInt()</span>
+<span class="fc" id="L283">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

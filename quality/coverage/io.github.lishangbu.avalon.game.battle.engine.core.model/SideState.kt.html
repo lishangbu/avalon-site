@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SideState.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.model</a> &gt; <span class="el_source">SideState.kt</span></div><h1>SideState.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.model
+
+/**
+ * Side 级运行时状态骨架。
+ *
+ * 设计意图：
+ * - 表示一方阵营的局内状态。
+ * - 与战斗单位、场地状态解耦，避免把所有字段堆进 BattleState。
+ *
+ * @property id Side 唯一标识。
+ * @property unitIds 当前 side 名下全部单位标识列表。
+ * @property activeUnitIds 当前处于 active 槽位的单位标识列表。
+ * @property conditionStates 当前 side condition 的运行时状态表。
+ */
+<span class="fc" id="L15">data class SideState(</span>
+<span class="fc" id="L16">    val id: String,</span>
+<span class="fc" id="L17">    val unitIds: List&lt;String&gt; = emptyList(),</span>
+<span class="fc" id="L18">    val activeUnitIds: List&lt;String&gt; = emptyList(),</span>
+<span class="fc" id="L19">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L20">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

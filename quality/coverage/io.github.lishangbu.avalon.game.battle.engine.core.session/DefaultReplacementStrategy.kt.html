@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultReplacementStrategy.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">DefaultReplacementStrategy.kt</span></div><h1>DefaultReplacementStrategy.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+
+/**
+ * 默认替补策略。
+ *
+ * 设计意图：
+ * - 维持当前最小 session 的行为不变。
+ * - 当 active 单位倒下，或被 `forceSwitchMutation` 标记为必须换下后，
+ *   按 `side.unitIds` 顺序选择第一个仍存活的 bench 顶上。
+ */
+<span class="fc" id="L14">class DefaultReplacementStrategy : ReplacementStrategy {</span>
+    override fun selectActiveUnitIds(
+        side: SideState,
+        units: Map&lt;String, UnitState&gt;,
+    ): List&lt;String&gt; {
+<span class="fc" id="L19">        val activeIds = side.activeUnitIds</span>
+<span class="fc" id="L20">        val replaceRequiredIds =</span>
+<span class="fc" id="L21">            activeIds.filter { unitId -&gt;</span>
+<span class="fc" id="L22">                val unit = units[unitId]</span>
+<span class="pc bpc" id="L23" title="2 of 10 branches missed.">                (unit?.currentHp ?: 0) &lt;= 0 || unit?.forceSwitchRequested == true</span>
+            }
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (replaceRequiredIds.isEmpty()) {</span>
+<span class="fc" id="L26">            return activeIds</span>
+        }
+
+<span class="fc" id="L29">        val remainingBench =</span>
+<span class="fc" id="L30">            side.unitIds</span>
+<span class="fc" id="L31">                .filterNot { unitId -&gt; unitId in activeIds }</span>
+<span class="pc bpc" id="L32" title="2 of 4 branches missed.">                .filter { unitId -&gt; (units[unitId]?.currentHp ?: 0) &gt; 0 }</span>
+<span class="fc" id="L33">                .toMutableList()</span>
+
+<span class="fc" id="L35">        val rebuiltActive = activeIds.toMutableList()</span>
+<span class="fc" id="L36">        replaceRequiredIds.forEach { outgoingUnitId -&gt;</span>
+<span class="fc" id="L37">            val index = rebuiltActive.indexOf(outgoingUnitId)</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if (index &gt;= 0) {</span>
+<span class="fc" id="L39">                rebuiltActive.removeAt(index)</span>
+<span class="fc bfc" id="L40" title="All 4 branches covered.">                if (remainingBench.isNotEmpty()) {</span>
+<span class="fc" id="L41">                    rebuiltActive.add(index, remainingBench.removeAt(0))</span>
+                }
+            }
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">        return rebuiltActive</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

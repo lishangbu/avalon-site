@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionRunAttemptResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionRunAttemptResolver.kt</span></div><h1>BattleSessionRunAttemptResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleItemIds
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleStatIds
+import io.github.lishangbu.avalon.game.battle.engine.core.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.core.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleFieldConditionSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleHeldItemRuntimeSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleStatAliasResolver
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleStatStageSupport
+import kotlin.math.floor
+import kotlin.math.roundToInt
+
+/**
+ * session 逃跑判定解析器。
+ *
+ * 设计意图：
+ * - 把逃跑公式、阻断条件和速度推导从 `BattleSessionActionExecutionSupport` 中拆出；
+ * - 让 run action 执行只保留“成功/失败后如何写回 session”这一层编排逻辑。
+ */
+internal object BattleSessionRunAttemptResolver {
+<span class="nc" id="L23">    val directTrapConditions: Set&lt;String&gt; =</span>
+<span class="fc" id="L24">        setOf(</span>
+<span class="fc" id="L25">            &quot;trapped&quot;,</span>
+<span class="fc" id="L26">            &quot;partially-trapped&quot;,</span>
+<span class="fc" id="L27">            &quot;cannot-escape&quot;,</span>
+        )
+
+    fun resolve(
+        session: BattleSession,
+        action: BattleSessionRunAction,
+    ): BattleSessionRunResolution {
+<span class="fc" id="L34">        val battle = session.currentSnapshot.battle</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (battle.battleKind != BattleType.WILD) {</span>
+<span class="nc" id="L36">            return BattleSessionRunResolution(success = false, reason = &quot;run-not-allowed&quot;)</span>
+        }
+<span class="fc" id="L38">        val side =</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">            session.currentSnapshot.sides[action.sideId]</span>
+<span class="nc" id="L40">                ?: return BattleSessionRunResolution(success = false, reason = &quot;side-not-found&quot;)</span>
+<span class="fc" id="L41">        val opponents =</span>
+<span class="fc" id="L42">            session.currentSnapshot.sides.values</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">                .filter { other -&gt; other.id != action.sideId }</span>
+<span class="fc" id="L44">        val runner = resolveRunnerUnit(session, side)</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (runner == null) {</span>
+<span class="nc" id="L46">            return BattleSessionRunResolution(success = false, reason = &quot;runner-not-found&quot;)</span>
+        }
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (guaranteedRunSuccess(runner, session)) {</span>
+<span class="nc" id="L49">            return BattleSessionRunResolution(</span>
+<span class="nc" id="L50">                success = true,</span>
+<span class="nc" id="L51">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L52">                reason = &quot;guaranteed&quot;,</span>
+            )
+        }
+<span class="fc" id="L55">        blockedRunReason(runner, opponents, session)</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            ?.let { reason -&gt;</span>
+<span class="fc" id="L57">                return BattleSessionRunResolution(</span>
+<span class="fc" id="L58">                    success = false,</span>
+<span class="fc" id="L59">                    runnerUnitId = runner.id,</span>
+<span class="fc" id="L60">                    reason = reason,</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">                    failedAttempts = (battle.failedRunAttempts[action.sideId] ?: 0) + 1,</span>
+                )
+            }
+
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        val failedAttempts = (battle.failedRunAttempts[action.sideId] ?: 0) + 1</span>
+<span class="fc" id="L66">        val runnerSpeed = effectiveSpeed(runner).coerceAtLeast(1)</span>
+<span class="fc" id="L67">        val opponentSpeed =</span>
+<span class="fc" id="L68">            opponents</span>
+<span class="fc" id="L69">                .flatMap(SideState::activeUnitIds)</span>
+<span class="fc" id="L70">                .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="pc bpc" id="L71" title="4 of 6 branches missed.">                .maxOfOrNull(::effectiveSpeed)</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">                ?.coerceAtLeast(1)</span>
+<span class="nc" id="L73">                ?: 1</span>
+<span class="fc" id="L74">        val scaledOpponentSpeed = ((opponentSpeed / 4) % 256).coerceAtLeast(1)</span>
+<span class="fc" id="L75">        val escapeValue = floor((runnerSpeed * 32.0) / scaledOpponentSpeed.toDouble()).toInt() + (30 * failedAttempts)</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (escapeValue &gt; 255) {</span>
+<span class="fc" id="L77">            return BattleSessionRunResolution(</span>
+<span class="fc" id="L78">                success = true,</span>
+<span class="fc" id="L79">                runnerUnitId = runner.id,</span>
+<span class="fc" id="L80">                reason = &quot;formula&quot;,</span>
+<span class="fc" id="L81">                failedAttempts = failedAttempts,</span>
+<span class="fc" id="L82">                escapeValue = escapeValue,</span>
+            )
+        }
+<span class="nc" id="L85">        val roll = session.nextRandomInt(256)</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        return if (roll &lt; escapeValue) {</span>
+<span class="nc" id="L87">            BattleSessionRunResolution(</span>
+<span class="nc" id="L88">                success = true,</span>
+<span class="nc" id="L89">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L90">                reason = &quot;formula&quot;,</span>
+<span class="nc" id="L91">                failedAttempts = failedAttempts,</span>
+<span class="nc" id="L92">                escapeValue = escapeValue,</span>
+<span class="nc" id="L93">                roll = roll,</span>
+            )
+        } else {
+<span class="nc" id="L96">            BattleSessionRunResolution(</span>
+<span class="nc" id="L97">                success = false,</span>
+<span class="nc" id="L98">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L99">                reason = &quot;formula&quot;,</span>
+<span class="nc" id="L100">                failedAttempts = failedAttempts,</span>
+<span class="nc" id="L101">                escapeValue = escapeValue,</span>
+<span class="nc" id="L102">                roll = roll,</span>
+            )
+        }
+    }
+
+    private fun resolveRunnerUnit(
+        session: BattleSession,
+        side: SideState,
+    ): UnitState? =
+<span class="fc" id="L111">        side.activeUnitIds</span>
+<span class="fc" id="L112">            .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="pc" id="L113">            .maxByOrNull(::effectiveSpeed)</span>
+
+    private fun guaranteedRunSuccess(
+        unit: UnitState,
+        session: BattleSession,
+    ): Boolean =
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        &quot;ghost&quot; in unit.typeIds ||</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">            unit.abilityId == &quot;run-away&quot; ||</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            BattleHeldItemRuntimeSupport.hasActiveItem(unit, session.currentSnapshot.field, BattleItemIds.SMOKE_BALL)</span>
+
+    private fun blockedRunReason(
+        runner: UnitState,
+        opponents: List&lt;SideState&gt;,
+        session: BattleSession,
+    ): String? {
+<span class="pc bpc" id="L128" title="1 of 6 branches missed.">        if (directTrapConditions.any { it in runner.conditionStates || it in runner.volatileStates }) {</span>
+<span class="fc" id="L129">            return &quot;direct-trap&quot;</span>
+        }
+<span class="fc" id="L131">        val opponentUnits =</span>
+<span class="fc" id="L132">            opponents</span>
+<span class="fc" id="L133">                .flatMap(SideState::activeUnitIds)</span>
+<span class="fc" id="L134">                .mapNotNull(session.currentSnapshot.units::get)</span>
+<span class="fc" id="L135">        val shadowTagged =</span>
+<span class="fc" id="L136">            opponentUnits.any { unit -&gt;</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">                unit.abilityId == &quot;shadow-tag&quot; &amp;&amp;</span>
+<span class="pc bnc" id="L138" title="All 2 branches missed.">                    runner.abilityId != &quot;shadow-tag&quot;</span>
+            }
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (shadowTagged) {</span>
+<span class="nc" id="L141">            return &quot;shadow-tag&quot;</span>
+        }
+<span class="fc" id="L143">        val arenaTrapped =</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            opponentUnits.any { unit -&gt; unit.abilityId == &quot;arena-trap&quot; } &amp;&amp;</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                isGrounded(runner, session)</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        return if (arenaTrapped) {</span>
+<span class="fc" id="L147">            &quot;arena-trap&quot;</span>
+        } else {
+<span class="fc" id="L149">            null</span>
+        }
+    }
+
+    private fun isGrounded(
+        unit: UnitState,
+        session: BattleSession,
+    ): Boolean {
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (BattleFieldConditionSupport.hasGravity(session.currentSnapshot)) {</span>
+<span class="fc" id="L158">            return true</span>
+        }
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if (&quot;flying&quot; in unit.typeIds) {</span>
+<span class="nc" id="L161">            return false</span>
+        }
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        if (unit.abilityId == &quot;levitate&quot;) {</span>
+<span class="nc" id="L164">            return false</span>
+        }
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (BattleHeldItemRuntimeSupport.hasActiveItem(unit, session.currentSnapshot.field, BattleItemIds.AIR_BALLOON)) {</span>
+<span class="nc" id="L167">            return false</span>
+        }
+<span class="pc bpc" id="L169" title="3 of 4 branches missed.">        if (&quot;magnet-rise&quot; in unit.volatileStates || &quot;magnet-rise&quot; in unit.conditionStates) {</span>
+<span class="fc" id="L170">            return false</span>
+        }
+<span class="nc" id="L172">        return true</span>
+    }
+
+    private fun effectiveSpeed(unit: UnitState): Int {
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        val baseSpeed = BattleStatAliasResolver.readValue(unit.stats, BattleStatIds.SPEED) ?: 0</span>
+<span class="fc" id="L177">        val stage = BattleStatStageSupport.readStage(unit.boosts, BattleStatIds.SPEED)</span>
+<span class="fc" id="L178">        return (baseSpeed * BattleStatStageSupport.stageMultiplier(stage)).roundToInt()</span>
+    }
+}
+
+/**
+ * 一次 session 逃跑尝试的解析结果。
+ */
+<span class="fc" id="L185">internal data class BattleSessionRunResolution(</span>
+<span class="fc" id="L186">    val success: Boolean,</span>
+<span class="fc" id="L187">    val reason: String,</span>
+<span class="pc" id="L188">    val runnerUnitId: String? = null,</span>
+<span class="pc" id="L189">    val failedAttempts: Int? = null,</span>
+<span class="fc" id="L190">    val escapeValue: Int? = null,</span>
+<span class="fc" id="L191">    val roll: Int? = null,</span>
+<span class="fc" id="L192">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

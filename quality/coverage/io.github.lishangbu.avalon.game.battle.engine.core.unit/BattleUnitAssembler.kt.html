@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleUnitAssembler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.unit</a> &gt; <span class="el_source">BattleUnitAssembler.kt</span></div><h1>BattleUnitAssembler.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.unit
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitDebugState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitMetadataState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.UnitState
+import io.github.lishangbu.avalon.game.calculator.growthrate.GrowthRateCalculatorFactory
+import io.github.lishangbu.avalon.game.calculator.stat.StatCalculatorFactory
+
+<span class="fc" id="L10">data class CreatureAbilityOptionRecord(</span>
+<span class="fc" id="L11">    val internalName: String,</span>
+<span class="pc" id="L12">    val slot: Int,</span>
+<span class="fc" id="L13">    val hidden: Boolean,</span>
+)
+
+<span class="fc" id="L16">data class CreatureUnitImportRecord(</span>
+<span class="fc" id="L17">    val id: Long,</span>
+<span class="fc" id="L18">    val speciesId: Long?,</span>
+<span class="fc" id="L19">    val internalName: String,</span>
+<span class="fc" id="L20">    val name: String,</span>
+<span class="fc" id="L21">    val weight: Int?,</span>
+<span class="fc" id="L22">    val growthRateInternalName: String?,</span>
+<span class="fc" id="L23">    val captureRate: Int?,</span>
+<span class="fc" id="L24">    val typeIds: List&lt;String&gt;,</span>
+<span class="fc" id="L25">    val baseStats: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L26">    val abilityOptions: List&lt;CreatureAbilityOptionRecord&gt;,</span>
+)
+
+<span class="fc" id="L29">data class NatureImportRecord(</span>
+<span class="fc" id="L30">    val id: Long?,</span>
+<span class="pc" id="L31">    val internalName: String,</span>
+<span class="fc" id="L32">    val increasedStatInternalName: String?,</span>
+<span class="fc" id="L33">    val decreasedStatInternalName: String?,</span>
+)
+
+<span class="fc" id="L36">data class BattleMoveSlotInput(</span>
+<span class="fc" id="L37">    val moveId: String,</span>
+<span class="fc" id="L38">    val currentPp: Int? = null,</span>
+<span class="fc" id="L39">)</span>
+
+<span class="fc" id="L41">data class BattleUnitAssemblyRequest(</span>
+<span class="fc" id="L42">    val unitId: String,</span>
+<span class="fc" id="L43">    val metadata: UnitMetadataState,</span>
+<span class="fc" id="L44">    val abilityInternalName: String? = null,</span>
+<span class="fc" id="L45">    val itemId: String? = null,</span>
+<span class="fc" id="L46">    val moves: List&lt;BattleMoveSlotInput&gt; = emptyList(),</span>
+<span class="fc" id="L47">    val currentHp: Int? = null,</span>
+<span class="fc" id="L48">    val statusState: AttachedEffectState? = null,</span>
+<span class="fc" id="L49">    val volatileStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L50">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
+<span class="fc" id="L51">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L52">    val debugState: UnitDebugState = UnitDebugState(),</span>
+<span class="fc" id="L53">    val forceSwitchRequested: Boolean = false,</span>
+<span class="fc" id="L54">)</span>
+
+<span class="fc" id="L56">data class BattleUnitAssemblyResult(</span>
+<span class="fc" id="L57">    val unit: UnitState,</span>
+<span class="pc" id="L58">    val creatureId: Long,</span>
+<span class="pc" id="L59">    val creatureInternalName: String,</span>
+<span class="pc" id="L60">    val creatureName: String,</span>
+<span class="pc" id="L61">    val level: Int,</span>
+<span class="fc" id="L62">    val requiredExperience: Int,</span>
+<span class="pc" id="L63">    val calculatedStats: Map&lt;String, Int&gt;,</span>
+)
+
+object BattleUnitAssembler {
+    private const val DEFAULT_IV: Int = 31
+    private const val DEFAULT_EV: Int = 0
+    private const val NEUTRAL_NATURE: Int = 100
+    private const val INCREASED_NATURE: Int = 110
+    private const val DECREASED_NATURE: Int = 90
+
+    fun assemble(
+        request: BattleUnitAssemblyRequest,
+        creature: CreatureUnitImportRecord,
+        nature: NatureImportRecord?,
+        movePpDefaults: Map&lt;String, Int&gt;,
+        statCalculatorFactory: StatCalculatorFactory,
+        growthRateCalculatorFactory: GrowthRateCalculatorFactory,
+    ): BattleUnitAssemblyResult {
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        val level = requireNotNull(request.metadata.level) { &quot;Battle unit metadata.level must not be null.&quot; }</span>
+<span class="pc bpc" id="L82" title="3 of 6 branches missed.">        require(level in 1..100) { &quot;Battle unit level must be between 1 and 100.&quot; }</span>
+
+<span class="fc" id="L84">        val calculatedStats =</span>
+<span class="fc" id="L85">            creature.baseStats.mapValues { (statInternalName, baseStat) -&gt;</span>
+<span class="fc" id="L86">                statCalculatorFactory.calculateStat(</span>
+<span class="fc" id="L87">                    internalName = statInternalName,</span>
+<span class="fc" id="L88">                    base = baseStat,</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">                    dv = request.metadata.ivs[statInternalName] ?: DEFAULT_IV,</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                    stateExp = request.metadata.evs[statInternalName] ?: DEFAULT_EV,</span>
+<span class="fc" id="L91">                    level = level,</span>
+<span class="fc" id="L92">                    nature = natureModifier(statInternalName, nature),</span>
+<span class="fc" id="L93">                )</span>
+            }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        val maxHp = (calculatedStats[&quot;hp&quot;] ?: 0).coerceAtLeast(1)</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        val currentHp = (request.currentHp ?: maxHp).coerceIn(0, maxHp)</span>
+<span class="fc" id="L97">        val selectedAbilityId = selectAbilityId(request.abilityInternalName, creature.abilityOptions)</span>
+<span class="fc" id="L98">        val requiredExperience =</span>
+<span class="fc" id="L99">            growthRateCalculatorFactory.calculateGrowthRate(</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">                internalName = creature.growthRateInternalName.orEmpty(),</span>
+<span class="fc" id="L101">                level = level,</span>
+            )
+<span class="fc" id="L103">        return BattleUnitAssemblyResult(</span>
+            unit =
+<span class="fc" id="L105">                UnitState(</span>
+<span class="fc" id="L106">                    id = request.unitId,</span>
+<span class="fc" id="L107">                    currentHp = currentHp,</span>
+<span class="fc" id="L108">                    maxHp = maxHp,</span>
+<span class="fc" id="L109">                    statusState = request.statusState,</span>
+<span class="fc" id="L110">                    abilityId = selectedAbilityId,</span>
+<span class="fc" id="L111">                    itemId = request.itemId,</span>
+<span class="fc" id="L112">                    typeIds = creature.typeIds.toSet(),</span>
+<span class="fc" id="L113">                    volatileStates = normalizeStateMap(request.volatileStates),</span>
+<span class="fc" id="L114">                    conditionStates = normalizeStateMap(request.conditionStates),</span>
+<span class="fc" id="L115">                    boosts = request.boosts,</span>
+<span class="fc" id="L116">                    stats = calculatedStats,</span>
+                    movePp =
+<span class="fc" id="L118">                        request.moves.associate { slot -&gt;</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">                            val defaultPp = movePpDefaults[slot.moveId] ?: 0</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">                            slot.moveId to (slot.currentPp ?: defaultPp)</span>
+                        },
+                    metadata =
+<span class="fc" id="L123">                        UnitMetadataState(</span>
+<span class="fc" id="L124">                            creatureId = creature.id,</span>
+<span class="fc" id="L125">                            creatureSpeciesId = creature.speciesId,</span>
+<span class="fc" id="L126">                            creatureInternalName = creature.internalName,</span>
+<span class="fc" id="L127">                            creatureName = creature.name,</span>
+<span class="fc" id="L128">                            level = level,</span>
+<span class="fc" id="L129">                            requiredExperience = requiredExperience,</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">                            natureId = nature?.id,</span>
+<span class="fc" id="L131">                            captureRate = creature.captureRate,</span>
+<span class="fc" id="L132">                            weight = creature.weight,</span>
+<span class="fc" id="L133">                            captureContext = request.metadata.captureContext,</span>
+<span class="fc" id="L134">                            ivs = request.metadata.ivs,</span>
+<span class="fc" id="L135">                            evs = request.metadata.evs,</span>
+                        ),
+<span class="fc" id="L137">                    debugState = request.debugState,</span>
+<span class="fc" id="L138">                    forceSwitchRequested = request.forceSwitchRequested,</span>
+                ),
+<span class="fc" id="L140">            creatureId = creature.id,</span>
+<span class="fc" id="L141">            creatureInternalName = creature.internalName,</span>
+<span class="fc" id="L142">            creatureName = creature.name,</span>
+<span class="fc" id="L143">            level = level,</span>
+<span class="fc" id="L144">            requiredExperience = requiredExperience,</span>
+<span class="fc" id="L145">            calculatedStats = calculatedStats,</span>
+        )
+    }
+
+    private fun natureModifier(
+        statInternalName: String,
+        nature: NatureImportRecord?,
+    ): Int =
+<span class="fc" id="L153">        when (statInternalName) {</span>
+<span class="fc bfc" id="L154" title="All 4 branches covered.">            nature?.increasedStatInternalName -&gt; INCREASED_NATURE</span>
+<span class="fc bfc" id="L155" title="All 4 branches covered.">            nature?.decreasedStatInternalName -&gt; DECREASED_NATURE</span>
+<span class="fc" id="L156">            else -&gt; NEUTRAL_NATURE</span>
+<span class="fc" id="L157">        }</span>
+
+    private fun selectAbilityId(
+        requestedAbilityInternalName: String?,
+        abilityOptions: List&lt;CreatureAbilityOptionRecord&gt;,
+    ): String? {
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        if (requestedAbilityInternalName != null) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            return requireNotNull(</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                abilityOptions.firstOrNull { option -&gt; option.internalName == requestedAbilityInternalName }?.internalName,</span>
+            ) {
+<span class="nc" id="L167">                &quot;Creature does not provide ability '$requestedAbilityInternalName'.&quot;</span>
+            }
+        }
+
+<span class="fc" id="L171">        return abilityOptions</span>
+<span class="fc" id="L172">            .sortedWith(compareBy&lt;CreatureAbilityOptionRecord&gt; { option -&gt; option.hidden }.thenBy { option -&gt; option.slot })</span>
+<span class="fc" id="L173">            .firstOrNull()</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">            ?.internalName</span>
+    }
+
+    /**
+     * 规范化导入入口传入的挂载效果状态表。
+     *
+     * 设计意图：
+     * - 以 `AttachedEffectState.effectId` 为唯一真值来源，不信任外层 map key；
+     * - 按 `effectOrder` 固定遍历顺序，避免导入结果受 map 实现细节影响；
+     * - 导入边界直接接收完整 runtime state，不再做额外字符串镜像提升。
+     */
+    private fun normalizeStateMap(states: Map&lt;String, AttachedEffectState&gt;): Map&lt;String, AttachedEffectState&gt; =
+<span class="fc" id="L186">        states.values</span>
+<span class="fc" id="L187">            .sortedBy(AttachedEffectState::effectOrder)</span>
+<span class="fc" id="L188">            .associateBy(AttachedEffectState::effectId)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

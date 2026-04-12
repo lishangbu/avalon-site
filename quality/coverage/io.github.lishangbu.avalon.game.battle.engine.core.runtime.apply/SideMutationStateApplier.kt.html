@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SideMutationStateApplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply</a> &gt; <span class="el_source">SideMutationStateApplier.kt</span></div><h1>SideMutationStateApplier.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply
+
+import io.github.lishangbu.avalon.game.battle.engine.core.model.AttachedEffectState
+import io.github.lishangbu.avalon.game.battle.engine.core.model.SideState
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.ApplySideConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.RemoveSideConditionMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.type.StandardTargetSelectorIds
+
+/**
+ * side 级 mutation 写回助手。
+ */
+internal object SideMutationStateApplier {
+    fun applyAddSideCondition(
+        mutation: ApplySideConditionMutation,
+        context: MutationApplicationContext,
+        sides: Map&lt;String, SideState&gt;,
+    ): Map&lt;String, SideState&gt; =
+<span class="fc" id="L18">        updateSideTargets(mutation.target, context, sides) { side -&gt;</span>
+<span class="fc" id="L19">            val existingState = side.conditionStates[mutation.conditionEffectId]</span>
+<span class="fc" id="L20">            val nextOrder =</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">                existingState?.effectOrder</span>
+<span class="pc bpc" id="L22" title="6 of 8 branches missed.">                    ?: ((side.conditionStates.values.maxOfOrNull(AttachedEffectState::effectOrder) ?: 0) + 1)</span>
+<span class="fc" id="L23">            val nextState =</span>
+<span class="fc" id="L24">                AttachedEffectState(</span>
+<span class="fc" id="L25">                    effectId = mutation.conditionEffectId,</span>
+<span class="fc" id="L26">                    sourceId = mutation.sourceId,</span>
+<span class="fc" id="L27">                    duration = mutation.duration,</span>
+<span class="fc" id="L28">                    effectOrder = nextOrder,</span>
+                )
+<span class="fc" id="L30">            side.copy(</span>
+<span class="fc" id="L31">                conditionStates = side.conditionStates + (mutation.conditionEffectId to nextState),</span>
+<span class="fc" id="L32">            )</span>
+<span class="fc" id="L33">        }</span>
+
+    fun applyRemoveSideCondition(
+        mutation: RemoveSideConditionMutation,
+        context: MutationApplicationContext,
+        sides: Map&lt;String, SideState&gt;,
+    ): Map&lt;String, SideState&gt; =
+<span class="fc" id="L40">        updateSideTargets(mutation.target, context, sides) { side -&gt;</span>
+<span class="fc" id="L41">            side.copy(conditionStates = side.conditionStates - mutation.conditionEffectId)</span>
+<span class="fc" id="L42">        }</span>
+
+    private fun updateSideTargets(
+        selector: io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId,
+        context: MutationApplicationContext,
+        sides: Map&lt;String, SideState&gt;,
+        transform: (SideState) -&gt; SideState,
+    ): Map&lt;String, SideState&gt; {
+<span class="fc" id="L50">        val targetSideIds =</span>
+<span class="fc" id="L51">            when (selector) {</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">                StandardTargetSelectorIds.SIDE -&gt; listOfNotNull(context.side?.id)</span>
+<span class="nc bnc" id="L53" title="All 4 branches missed.">                StandardTargetSelectorIds.FOE_SIDE -&gt; listOfNotNull(context.foeSide?.id)</span>
+<span class="nc" id="L54">                else -&gt; error(&quot;Unsupported side condition target selector '${selector.value}'.&quot;)</span>
+            }
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (targetSideIds.isEmpty()) {</span>
+<span class="nc" id="L57">            return sides</span>
+        }
+<span class="fc" id="L59">        val nextSides = sides.toMutableMap()</span>
+<span class="fc" id="L60">        targetSideIds.forEach { sideId -&gt;</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            val side = requireNotNull(nextSides[sideId]) { &quot;Target side '$sideId' was not found.&quot; }</span>
+<span class="fc" id="L62">            nextSides[sideId] = transform(side)</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">        return nextSides</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

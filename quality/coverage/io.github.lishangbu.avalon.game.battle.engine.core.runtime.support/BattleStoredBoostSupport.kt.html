@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleStoredBoostSupport.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.support</a> &gt; <span class="el_source">BattleStoredBoostSupport.kt</span></div><h1>BattleStoredBoostSupport.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.support
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleBoostRelaySelectionValues
+
+/**
+ * 既有 stored boosts 的读取、筛选与迁移支持组件。
+ *
+ * 设计意图：
+ * - 把 `psych-up / power-swap / guard-swap / heart-swap / topsy-turvy / spectral-thief`
+ *   这类基于“当前已持有能力阶级”的规则收口到统一 helper；
+ * - 避免多个 action executor 各自重复实现 boost map 归一、过滤、交换和偷取逻辑；
+ * - 保持所有 stored boost 改写都共享同一套别名、上下限和 0 值清理规则。
+ */
+object BattleStoredBoostSupport {
+    /**
+     * 一次 boost 转移的结果。
+     *
+     * @property sourceBoosts 转移后来源单位的 boosts。
+     * @property targetBoosts 转移后目标单位的 boosts。
+     * @property transferredBoosts 本次真正被转移的 boost 子集。
+     */
+<span class="fc" id="L22">    data class TransferResult(</span>
+<span class="fc" id="L23">        val sourceBoosts: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L24">        val targetBoosts: Map&lt;String, Int&gt;,</span>
+<span class="fc" id="L25">        val transferredBoosts: Map&lt;String, Int&gt;,</span>
+    )
+
+    /**
+     * 读取并规范化一份 stored boosts。
+     */
+<span class="fc" id="L31">    fun normalize(boosts: Map&lt;String, Int&gt;): Map&lt;String, Int&gt; = BattleStatStageSupport.normalizeStoredBoosts(boosts)</span>
+
+    /**
+     * 按 selection 与 stats 子集筛选 stored boosts。
+     */
+<span class="nc" id="L36">    fun select(</span>
+        boosts: Map&lt;String, Int&gt;,
+<span class="nc" id="L38">        selection: String = BattleBoostRelaySelectionValues.ALL,</span>
+<span class="nc" id="L39">        stats: Set&lt;String&gt; = emptySet(),</span>
+    ): Map&lt;String, Int&gt; {
+<span class="fc" id="L41">        val normalizedBoosts = normalize(boosts)</span>
+<span class="fc" id="L42">        val canonicalStats =</span>
+<span class="fc" id="L43">            stats</span>
+<span class="pc" id="L44">                .map(BattleStatAliasResolver::canonicalBoostId)</span>
+<span class="fc" id="L45">                .toSet()</span>
+<span class="fc" id="L46">        return normalizedBoosts.filter { (statId, stage) -&gt;</span>
+<span class="pc bpc" id="L47" title="3 of 4 branches missed.">            (canonicalStats.isEmpty() || statId in canonicalStats) &amp;&amp;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">                matchesSelection(stage, selection)</span>
+        }
+    }
+
+    /**
+     * 用 replacement 替换 current 中指定 stat 子集的 boosts。
+     */
+    fun replaceSelected(
+        current: Map&lt;String, Int&gt;,
+        replacement: Map&lt;String, Int&gt;,
+        selectedStats: Set&lt;String&gt;,
+    ): Map&lt;String, Int&gt; {
+<span class="fc" id="L60">        val normalizedCurrent = normalize(current)</span>
+<span class="fc" id="L61">        val normalizedReplacement = normalize(replacement)</span>
+<span class="fc" id="L62">        val canonicalStats =</span>
+<span class="fc" id="L63">            selectedStats</span>
+<span class="fc" id="L64">                .map(BattleStatAliasResolver::canonicalBoostId)</span>
+<span class="fc" id="L65">                .toSet()</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if (canonicalStats.isEmpty()) {</span>
+<span class="nc" id="L67">            return normalizedCurrent</span>
+        }
+<span class="fc" id="L69">        val nextBoosts = normalizedCurrent.toMutableMap()</span>
+<span class="fc" id="L70">        canonicalStats.forEach(nextBoosts::remove)</span>
+<span class="fc" id="L71">        normalizedReplacement</span>
+<span class="fc" id="L72">            .filterKeys { statId -&gt; statId in canonicalStats }</span>
+<span class="fc" id="L73">            .forEach { (statId, stage) -&gt;</span>
+<span class="fc" id="L74">                nextBoosts[statId] = stage</span>
+<span class="fc" id="L75">            }</span>
+<span class="fc" id="L76">        return normalize(nextBoosts)</span>
+    }
+
+    /**
+     * 把指定 stat 子集取反。
+     */
+<span class="nc" id="L82">    fun invert(</span>
+        boosts: Map&lt;String, Int&gt;,
+<span class="nc" id="L84">        stats: Set&lt;String&gt; = emptySet(),</span>
+    ): Map&lt;String, Int&gt; {
+<span class="fc" id="L86">        val normalizedBoosts = normalize(boosts)</span>
+<span class="fc" id="L87">        val selectedStats = resolveSelectedStats(normalizedBoosts, emptyMap(), stats)</span>
+<span class="fc" id="L88">        val invertedSelection =</span>
+<span class="fc" id="L89">            selectedStats.associateWith { statId -&gt;</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">                -(normalizedBoosts[statId] ?: 0)</span>
+            }
+<span class="fc" id="L92">        return replaceSelected(normalizedBoosts, invertedSelection, selectedStats)</span>
+    }
+
+    /**
+     * 交换两份 boosts 的指定 stat 子集。
+     */
+<span class="nc" id="L98">    fun swap(</span>
+        left: Map&lt;String, Int&gt;,
+        right: Map&lt;String, Int&gt;,
+<span class="nc" id="L101">        stats: Set&lt;String&gt; = emptySet(),</span>
+    ): Pair&lt;Map&lt;String, Int&gt;, Map&lt;String, Int&gt;&gt; {
+<span class="fc" id="L103">        val normalizedLeft = normalize(left)</span>
+<span class="fc" id="L104">        val normalizedRight = normalize(right)</span>
+<span class="fc" id="L105">        val selectedStats = resolveSelectedStats(normalizedLeft, normalizedRight, stats)</span>
+<span class="fc" id="L106">        val leftSelected = normalizedLeft.filterKeys { statId -&gt; statId in selectedStats }</span>
+<span class="fc" id="L107">        val rightSelected = normalizedRight.filterKeys { statId -&gt; statId in selectedStats }</span>
+<span class="fc" id="L108">        return replaceSelected(normalizedLeft, rightSelected, selectedStats) to</span>
+<span class="fc" id="L109">            replaceSelected(normalizedRight, leftSelected, selectedStats)</span>
+    }
+
+    /**
+     * 从 source 中取出指定 boosts，并把它们加到 target 身上。
+     *
+     * 当前主要用于 Spectral Thief 这类“偷取对方正向强化”的规则。
+     */
+<span class="fc" id="L117">    fun steal(</span>
+        source: Map&lt;String, Int&gt;,
+        target: Map&lt;String, Int&gt;,
+<span class="fc" id="L120">        selection: String = BattleBoostRelaySelectionValues.POSITIVE,</span>
+<span class="fc" id="L121">        stats: Set&lt;String&gt; = emptySet(),</span>
+    ): TransferResult {
+<span class="fc" id="L123">        val normalizedSource = normalize(source)</span>
+<span class="fc" id="L124">        val transferredBoosts = select(normalizedSource, selection, stats)</span>
+<span class="fc" id="L125">        val sourceNext =</span>
+<span class="fc" id="L126">            normalizedSource.filterKeys { statId -&gt;</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">                statId !in transferredBoosts.keys</span>
+            }
+<span class="fc" id="L129">        val targetNext =</span>
+<span class="fc" id="L130">            BattleStatStageSupport.applyBoostDeltas(</span>
+<span class="fc" id="L131">                currentBoosts = normalize(target),</span>
+<span class="fc" id="L132">                deltas = transferredBoosts,</span>
+            )
+<span class="fc" id="L134">        return TransferResult(</span>
+<span class="fc" id="L135">            sourceBoosts = normalize(sourceNext),</span>
+<span class="fc" id="L136">            targetBoosts = targetNext,</span>
+<span class="fc" id="L137">            transferredBoosts = transferredBoosts,</span>
+        )
+    }
+
+    /**
+     * 统计当前 boosts 中全部正向 stage 的总和。
+     */
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">    fun sumPositiveStages(boosts: Map&lt;String, Int&gt;): Int = normalize(boosts).values.filter { stage -&gt; stage &gt; 0 }.sum()</span>
+
+    private fun resolveSelectedStats(
+        left: Map&lt;String, Int&gt;,
+        right: Map&lt;String, Int&gt;,
+        stats: Set&lt;String&gt;,
+    ): Set&lt;String&gt; =
+<span class="fc bfc" id="L151" title="All 4 branches covered.">        if (stats.isNotEmpty()) {</span>
+<span class="fc" id="L152">            stats</span>
+<span class="fc" id="L153">                .map(BattleStatAliasResolver::canonicalBoostId)</span>
+<span class="fc" id="L154">                .toSet()</span>
+        } else {
+<span class="fc" id="L156">            (left.keys + right.keys).toSet()</span>
+<span class="fc" id="L157">        }</span>
+
+    private fun matchesSelection(
+        stage: Int,
+        selection: String,
+    ): Boolean =
+<span class="pc bpc" id="L163" title="2 of 4 branches missed.">        when (selection) {</span>
+<span class="fc" id="L164">            BattleBoostRelaySelectionValues.ALL -&gt; true</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            BattleBoostRelaySelectionValues.POSITIVE -&gt; stage &gt; 0</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            BattleBoostRelaySelectionValues.NEGATIVE -&gt; stage &lt; 0</span>
+<span class="nc" id="L167">            else -&gt; false</span>
+<span class="fc" id="L168">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

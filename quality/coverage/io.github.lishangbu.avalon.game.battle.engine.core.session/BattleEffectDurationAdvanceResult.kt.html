@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleEffectDurationAdvanceResult.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleEffectDurationAdvanceResult.kt</span></div><h1>BattleEffectDurationAdvanceResult.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.mutation.BattleMutation
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * 一轮 duration 推进后的聚合结果。
+ *
+ * @property snapshot 已完成“未到期 effect 递减”的快照。
+ * @property expirationMutations 本轮因为 duration 到期而需要继续提交的移除 mutation。
+ */
+<span class="pc" id="L12">internal data class BattleEffectDurationAdvanceResult(</span>
+<span class="fc" id="L13">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="pc" id="L14">    val expirationMutations: List&lt;BattleSessionScopedMutation&gt; = emptyList(),</span>
+<span class="nc" id="L15">)</span>
+
+/**
+ * 带 session 上下文的 mutation 请求。
+ *
+ * 设计意图：
+ * - 让 end-turn duration 到期移除也能携带 `self / target / source` 语义进入 interceptor；
+ * - 避免 field / side / unit 三类 duration manager 自己重复拼装 mutation 提交上下文。
+ */
+<span class="fc" id="L24">internal data class BattleSessionScopedMutation(</span>
+<span class="fc" id="L25">    val selfId: String?,</span>
+<span class="fc" id="L26">    val targetId: String?,</span>
+<span class="fc" id="L27">    val sourceId: String?,</span>
+<span class="fc" id="L28">    val mutation: BattleMutation,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

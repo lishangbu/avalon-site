@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionValidationResult.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session.specification</a> &gt; <span class="el_source">BattleSessionValidationResult.kt</span></div><h1>BattleSessionValidationResult.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session.specification
+
+/**
+ * battle session 校验结果。
+ *
+ * @property satisfied 当前规格是否满足。
+ * @property message 当规格不满足时返回的人类可读错误信息。
+ */
+<span class="fc" id="L9">data class BattleSessionValidationResult(</span>
+<span class="fc" id="L10">    val satisfied: Boolean,</span>
+<span class="fc" id="L11">    val message: String? = null,</span>
+<span class="fc" id="L12">) {</span>
+    companion object {
+        /**
+         * 创建一个通过的校验结果。
+         *
+         * @return 表示规格已满足的结果对象。
+         */
+<span class="fc" id="L19">        fun satisfied(): BattleSessionValidationResult = BattleSessionValidationResult(satisfied = true)</span>
+
+        /**
+         * 创建一个失败的校验结果。
+         *
+         * @param message 当前规格不满足时的错误信息。
+         * @return 表示规格未满足的结果对象。
+         */
+        fun rejected(message: String): BattleSessionValidationResult =
+<span class="fc" id="L28">            BattleSessionValidationResult(</span>
+<span class="fc" id="L29">                satisfied = false,</span>
+<span class="fc" id="L30">                message = message,</span>
+<span class="fc" id="L31">            )</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

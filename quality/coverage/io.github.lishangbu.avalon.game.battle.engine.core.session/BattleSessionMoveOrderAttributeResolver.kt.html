@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionMoveOrderAttributeResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionMoveOrderAttributeResolver.kt</span></div><h1>BattleSessionMoveOrderAttributeResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.constant.BattleAttributeKeys
+
+/**
+ * move action 的行动先后顺序 attribute 补全器。
+ *
+ * 设计意图：
+ * - 把 `zoom-lens` 这类依赖“是否后手出招”的规则从 battle flow 主链中解耦；
+ * - 统一在 session action 真正执行前补齐 `movesAfterTarget` 上下文，
+ *   避免每个 handler 各自推导一次；
+ * - 保持 direct flow 调用仍可通过显式 attributes 自行覆写。
+ */
+internal object BattleSessionMoveOrderAttributeResolver {
+    /**
+     * 为当前 move action 补齐行动顺序相关 attributes。
+     *
+     * 规则说明：
+     * - 只要目标单位在当前回合的已执行 action 列表中出现过，
+     *   就认为本次出招相对该目标属于“后手”；
+     * - 若调用方已经显式传入 `movesAfterTarget`，则以调用方输入为准。
+     */
+    fun enrich(
+        action: BattleSessionMoveAction,
+        executedActions: List&lt;BattleSessionAction&gt;,
+    ): BattleSessionMoveAction {
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (BattleAttributeKeys.MOVES_AFTER_TARGET in action.attributes) {</span>
+<span class="nc" id="L28">            return action</span>
+        }
+<span class="fc" id="L30">        val movesAfterTarget =</span>
+<span class="fc" id="L31">            executedActions.any { executedAction -&gt;</span>
+<span class="pc bpc" id="L32" title="2 of 4 branches missed.">                (executedAction as? BattleSessionSubmittingAction)?.submittingUnitId == action.targetId</span>
+            }
+<span class="fc" id="L34">        return action.copy(</span>
+<span class="fc" id="L35">            attributes = action.attributes + (BattleAttributeKeys.MOVES_AFTER_TARGET to movesAfterTarget),</span>
+        )
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

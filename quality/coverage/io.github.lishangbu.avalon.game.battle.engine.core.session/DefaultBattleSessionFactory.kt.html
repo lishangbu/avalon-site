@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleSessionFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">DefaultBattleSessionFactory.kt</span></div><h1>DefaultBattleSessionFactory.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.apply.MutationApplier
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleFlowEngine
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleFlowPhaseProcessor
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleMutationInterceptorChain
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSession
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionActionExecutionSupport
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionActionHandlerRegistry
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionActionSortingStrategy
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionChoiceHandlerRegistry
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionCommandFactory
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionEventPublisher
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionState
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSessionTurnPipeline
+import io.github.lishangbu.avalon.game.battle.engine.core.session.ReplacementStrategy
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionCaptureChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionItemChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionMoveChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionRunChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionTargetChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionTurnReadySpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.specification.BattleSessionUnitChoiceSpecification
+import io.github.lishangbu.avalon.game.battle.engine.core.session.target.BattleSessionTargetQueryService
+import io.github.lishangbu.avalon.game.battle.engine.spi.capture.CaptureActionResolver
+import io.github.lishangbu.avalon.game.battle.engine.spi.effect.EffectDefinitionRepository
+
+/**
+ * 默认 BattleSession 工厂。
+ *
+ * 设计意图：
+ * - 统一装配 battle flow、processor、mutation apply 和 replacement strategy。
+ * - 为 gateway 与 application 层提供一个简单且稳定的 session 创建入口。
+ */
+<span class="fc" id="L35">class DefaultBattleSessionFactory(</span>
+<span class="fc" id="L36">    private val effectRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L37">    private val battleFlowEngine: BattleFlowEngine,</span>
+<span class="fc" id="L38">    private val battleFlowPhaseProcessor: BattleFlowPhaseProcessor,</span>
+<span class="fc" id="L39">    private val battleMutationInterceptorChain: BattleMutationInterceptorChain,</span>
+<span class="fc" id="L40">    private val captureActionResolver: CaptureActionResolver,</span>
+<span class="fc" id="L41">    private val mutationApplier: MutationApplier,</span>
+<span class="fc" id="L42">    private val replacementStrategy: ReplacementStrategy,</span>
+<span class="fc" id="L43">    private val actionExecutionSupport: BattleSessionActionExecutionSupport,</span>
+<span class="fc" id="L44">    private val choiceHandlerRegistry: BattleSessionChoiceHandlerRegistry,</span>
+<span class="fc" id="L45">    private val actionHandlerRegistry: BattleSessionActionHandlerRegistry,</span>
+<span class="fc" id="L46">    private val turnPipeline: BattleSessionTurnPipeline,</span>
+<span class="fc" id="L47">    private val turnReadySpecification: BattleSessionTurnReadySpecification,</span>
+<span class="fc" id="L48">    private val unitChoiceSpecification: BattleSessionUnitChoiceSpecification,</span>
+<span class="fc" id="L49">    private val runChoiceSpecification: BattleSessionRunChoiceSpecification,</span>
+<span class="fc" id="L50">    private val targetChoiceSpecification: BattleSessionTargetChoiceSpecification,</span>
+<span class="fc" id="L51">    private val captureChoiceSpecification: BattleSessionCaptureChoiceSpecification,</span>
+<span class="fc" id="L52">    private val moveChoiceSpecification: BattleSessionMoveChoiceSpecification,</span>
+<span class="fc" id="L53">    private val itemChoiceSpecification: BattleSessionItemChoiceSpecification,</span>
+<span class="fc" id="L54">    private val targetQueryService: BattleSessionTargetQueryService,</span>
+<span class="fc" id="L55">    private val actionSortingStrategy: BattleSessionActionSortingStrategy,</span>
+<span class="fc" id="L56">    private val eventPublisher: BattleSessionEventPublisher,</span>
+<span class="fc" id="L57">    private val commandFactory: BattleSessionCommandFactory,</span>
+) : BattleSessionFactory {
+    override fun create(
+        sessionId: String,
+        formatId: String,
+    ): BattleSession =
+<span class="fc" id="L63">        BattleSession(</span>
+<span class="fc" id="L64">            effectRepository = effectRepository,</span>
+<span class="fc" id="L65">            battleFlowEngine = battleFlowEngine,</span>
+<span class="fc" id="L66">            battleFlowPhaseProcessor = battleFlowPhaseProcessor,</span>
+<span class="fc" id="L67">            mutationInterceptorChain = battleMutationInterceptorChain,</span>
+<span class="fc" id="L68">            mutationApplier = mutationApplier,</span>
+<span class="fc" id="L69">            replacementStrategy = replacementStrategy,</span>
+<span class="fc" id="L70">            captureActionResolver = captureActionResolver,</span>
+<span class="fc" id="L71">            actionExecutionSupport = actionExecutionSupport,</span>
+<span class="fc" id="L72">            choiceHandlerRegistry = choiceHandlerRegistry,</span>
+<span class="fc" id="L73">            actionHandlerRegistry = actionHandlerRegistry,</span>
+<span class="fc" id="L74">            turnPipeline = turnPipeline,</span>
+<span class="fc" id="L75">            turnReadySpecification = turnReadySpecification,</span>
+<span class="fc" id="L76">            unitChoiceSpecification = unitChoiceSpecification,</span>
+<span class="fc" id="L77">            runChoiceSpecification = runChoiceSpecification,</span>
+<span class="fc" id="L78">            targetChoiceSpecification = targetChoiceSpecification,</span>
+<span class="fc" id="L79">            captureChoiceSpecification = captureChoiceSpecification,</span>
+<span class="fc" id="L80">            moveChoiceSpecification = moveChoiceSpecification,</span>
+<span class="fc" id="L81">            itemChoiceSpecification = itemChoiceSpecification,</span>
+<span class="fc" id="L82">            targetQueryService = targetQueryService,</span>
+<span class="fc" id="L83">            actionSortingStrategy = actionSortingStrategy,</span>
+<span class="fc" id="L84">            eventPublisher = eventPublisher,</span>
+<span class="fc" id="L85">            commandFactory = commandFactory,</span>
+<span class="fc" id="L86">            battleId = sessionId,</span>
+<span class="fc" id="L87">            formatId = formatId,</span>
+<span class="fc" id="L88">        )</span>
+
+    override fun restore(state: BattleSessionState): BattleSession =
+<span class="nc" id="L91">        create(</span>
+<span class="nc" id="L92">            sessionId = state.snapshot.battle.id,</span>
+<span class="nc" id="L93">            formatId = state.snapshot.battle.formatId,</span>
+<span class="nc" id="L94">        ).also { session -&gt;</span>
+<span class="nc" id="L95">            session.restoreState(state)</span>
+<span class="nc" id="L96">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

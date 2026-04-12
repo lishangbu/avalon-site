@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionCaptureResourceUsage.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionCaptureResourceUsage.kt</span></div><h1>BattleSessionCaptureResourceUsage.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+/**
+ * 捕捉动作资源账本条目。
+ *
+ * @property playerId 发起捕捉的玩家标识。
+ * @property sourceUnitId 扔球单位标识。
+ * @property ballItemId 使用的球类道具标识。
+ * @property targetUnitId 被捕捉的目标单位标识。
+ * @property quantity 本次消耗的球数量。
+ * @property success 本次捕捉是否成功。
+ * @property shakes 本次捕捉的摇晃次数。
+ * @property reason 本次捕捉结果原因。
+ * @property finalRate 本次捕捉的最终概率。
+ */
+<span class="fc" id="L16">data class BattleSessionCaptureResourceUsage(</span>
+<span class="fc" id="L17">    val playerId: String,</span>
+<span class="fc" id="L18">    val sourceUnitId: String,</span>
+<span class="fc" id="L19">    val ballItemId: String,</span>
+<span class="fc" id="L20">    val targetUnitId: String,</span>
+<span class="fc" id="L21">    val quantity: Int = 1,</span>
+<span class="fc" id="L22">    val success: Boolean,</span>
+<span class="fc" id="L23">    val shakes: Int,</span>
+<span class="fc" id="L24">    val reason: String,</span>
+<span class="fc" id="L25">    val finalRate: Double,</span>
+<span class="fc" id="L26">) : BattleSessionResourceUsage {</span>
+    /**
+     * 当前账本条目的业务种类。
+     */
+<span class="fc" id="L30">    override val kind: BattleSessionResourceUsageKind = BattleSessionResourceUsageKind.CAPTURE</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

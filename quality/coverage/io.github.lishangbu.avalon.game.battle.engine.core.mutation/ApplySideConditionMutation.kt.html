@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApplySideConditionMutation.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.mutation</a> &gt; <span class="el_source">ApplySideConditionMutation.kt</span></div><h1>ApplySideConditionMutation.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.mutation
+
+import io.github.lishangbu.avalon.game.battle.engine.core.type.TargetSelectorId
+
+/**
+ * side condition 挂载变更。
+ *
+ * @property target 目标 side 选择器，只允许 `side` 或 `foe_side`。
+ * @property conditionEffectId 需要挂载的 side condition effect 标识。
+ * @property duration 可选的剩余持续回合数。
+ * @property sourceId 可选的来源单位标识。
+ */
+<span class="pc" id="L13">data class ApplySideConditionMutation(</span>
+<span class="fc" id="L14">    val target: TargetSelectorId,</span>
+<span class="fc" id="L15">    val conditionEffectId: String,</span>
+<span class="pc" id="L16">    val duration: Int? = null,</span>
+<span class="pc" id="L17">    val sourceId: String? = null,</span>
+<span class="nc" id="L18">) : BattleMutation</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

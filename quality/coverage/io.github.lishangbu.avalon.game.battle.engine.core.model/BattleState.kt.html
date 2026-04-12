@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleState.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.model</a> &gt; <span class="el_source">BattleState.kt</span></div><h1>BattleState.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.model
+
+/**
+ * 战斗级运行时状态的最小骨架。
+ *
+ * 设计意图：
+ * - 承载整场战斗的全局状态。
+ * - 作为事件上下文与快照系统的根节点。
+ *
+ * 当前版本只保留最核心字段，后续可逐步扩展。
+ *
+ * @property id 战斗实例唯一标识。
+ * @property formatId 当前战斗采用的规则集标识。
+ * @property lifecycle 当前 battle 的全局生命周期阶段。
+ * @property turn 当前回合数。
+ * @property winner 战斗赢家标识，未结束时可为空。
+ */
+<span class="fc" id="L18">data class BattleState(</span>
+<span class="fc" id="L19">    val id: String,</span>
+<span class="fc" id="L20">    val formatId: String,</span>
+<span class="fc" id="L21">    val battleKind: BattleType = BattleType.TRAINER,</span>
+<span class="fc" id="L22">    val randomState: BattleRandomState = BattleRandomState.seeded(id, formatId),</span>
+<span class="fc" id="L23">    val lifecycle: BattleLifecycle = BattleLifecycle.INITIALIZING,</span>
+<span class="fc" id="L24">    val turn: Int = 0,</span>
+<span class="fc" id="L25">    val winner: String? = null,</span>
+<span class="fc" id="L26">    val endedReason: String? = null,</span>
+<span class="fc" id="L27">    val capturableSideId: String? = null,</span>
+<span class="fc" id="L28">    val capturedUnitId: String? = null,</span>
+<span class="fc" id="L29">    val failedRunAttempts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L30">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

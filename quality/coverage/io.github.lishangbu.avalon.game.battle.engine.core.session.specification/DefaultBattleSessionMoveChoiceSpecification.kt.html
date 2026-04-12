@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultBattleSessionMoveChoiceSpecification.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session.specification</a> &gt; <span class="el_source">DefaultBattleSessionMoveChoiceSpecification.kt</span></div><h1>DefaultBattleSessionMoveChoiceSpecification.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session.specification
+
+import io.github.lishangbu.avalon.game.battle.engine.core.session.BattleSession
+import io.github.lishangbu.avalon.game.battle.engine.spi.effect.EffectDefinitionRepository
+
+/**
+ * 默认 move 选择限制规格。
+ *
+ * 当前已覆盖最常见的一组限制类状态：
+ * - `taunt`：禁止状态招式；
+ * - `heal-block`：禁止回复类招式。
+ */
+<span class="fc" id="L13">class DefaultBattleSessionMoveChoiceSpecification(</span>
+<span class="fc" id="L14">    private val effectRepository: EffectDefinitionRepository,</span>
+) : BattleSessionMoveChoiceSpecification {
+    override fun validate(
+        session: BattleSession,
+        moveId: String,
+        actorUnitId: String,
+    ): BattleSessionValidationResult {
+<span class="fc" id="L21">        val actor =</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">            session.currentSnapshot.units[actorUnitId]</span>
+<span class="nc" id="L23">                ?: return BattleSessionValidationResult.rejected(</span>
+<span class="nc" id="L24">                    &quot;Actor unit '$actorUnitId' was not found.&quot;,</span>
+                )
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (!effectRepository.contains(moveId)) {</span>
+<span class="nc" id="L27">            return BattleSessionValidationResult.rejected(&quot;Move '$moveId' was not found.&quot;)</span>
+        }
+<span class="fc" id="L29">        val move = effectRepository.get(moveId)</span>
+
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (BattleSessionChoiceRestrictionSupport.hasTaunt(actor) &amp;&amp;</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            BattleSessionChoiceRestrictionSupport.isStatusMove(move)</span>
+        ) {
+<span class="fc" id="L34">            return BattleSessionValidationResult.rejected(</span>
+<span class="fc" id="L35">                &quot;Unit '$actorUnitId' is taunted and cannot use status move '$moveId'.&quot;,</span>
+            )
+        }
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (BattleSessionChoiceRestrictionSupport.hasHealBlock(actor) &amp;&amp;</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            BattleSessionChoiceRestrictionSupport.isHealingMove(move)</span>
+        ) {
+<span class="fc" id="L42">            return BattleSessionValidationResult.rejected(</span>
+<span class="fc" id="L43">                &quot;Unit '$actorUnitId' is under heal block and cannot use healing move '$moveId'.&quot;,</span>
+            )
+        }
+
+<span class="fc" id="L47">        return BattleSessionValidationResult.satisfied()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleUnitImportService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.unit</a> &gt; <span class="el_source">SmartBattleUnitImportService.kt</span></div><h1>SmartBattleUnitImportService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.unit
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleUnitImportService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.unit</a> &gt; <span class="el_source">SmartBattleUnitImportService.kt</span></div><h1>SmartBattleUnitImportService.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.service.unit
 
 import io.github.lishangbu.avalon.dataset.api.service.CreatureReader
 import io.github.lishangbu.avalon.dataset.api.service.MoveReader
 import io.github.lishangbu.avalon.dataset.api.service.NatureReader
-import io.github.lishangbu.avalon.game.battle.engine.unit.BattleMoveSlotInput
-import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssembler
-import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssemblyRequest
-import io.github.lishangbu.avalon.game.battle.engine.unit.CreatureAbilityOptionRecord
-import io.github.lishangbu.avalon.game.battle.engine.unit.CreatureUnitImportRecord
-import io.github.lishangbu.avalon.game.battle.engine.unit.NatureImportRecord
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.BattleMoveSlotInput
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.BattleUnitAssembler
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.BattleUnitAssemblyRequest
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.CreatureAbilityOptionRecord
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.CreatureUnitImportRecord
+import io.github.lishangbu.avalon.game.battle.engine.core.unit.NatureImportRecord
 import io.github.lishangbu.avalon.game.calculator.growthrate.GrowthRateCalculatorFactory
 import io.github.lishangbu.avalon.game.calculator.stat.StatCalculatorFactory
 import org.springframework.stereotype.Service
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service
 <span class="nc" id="L34">                    BattleUnitAssemblyRequest(</span>
 <span class="nc" id="L35">                        unitId = request.unitId,</span>
                         metadata =
-<span class="nc" id="L37">                            io.github.lishangbu.avalon.game.battle.engine.model.UnitMetadataState(</span>
+<span class="nc" id="L37">                            io.github.lishangbu.avalon.game.battle.engine.core.model.UnitMetadataState(</span>
 <span class="nc" id="L38">                                level = request.metadata.level,</span>
 <span class="nc" id="L39">                                creatureId = request.metadata.creatureId,</span>
 <span class="nc" id="L40">                                creatureInternalName = request.metadata.creatureInternalName,</span>

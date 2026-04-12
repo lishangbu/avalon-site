@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AttachedEffectDurationResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime.action</a> &gt; <span class="el_source">AttachedEffectDurationResolver.kt</span></div><h1>AttachedEffectDurationResolver.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime.action
+
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.core.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.support.BattleHeldItemRuntimeSupport
+
+/**
+ * 附着效果持续回合解析器。
+ *
+ * 设计意图：
+ * - 优先尊重动作节点显式声明的 `duration`；
+ * - 当动作未显式声明时，再尝试从目标 effect 定义的 `data` 中读取默认持续回合；
+ * - 支持最小一档的“持有特定道具时延长持续回合”语义，避免把 5/8 之类常量继续散落在 move fixture 中。
+ *
+ * 当前约定的数据字段：
+ * - `defaultDuration`: 默认持续回合
+ * - `durationExtensionItemId`: 可延长该效果的道具 id
+ * - `extendedDuration`: 持有延长道具时的持续回合
+ */
+object AttachedEffectDurationResolver {
+    fun resolve(
+        explicitDuration: Int?,
+        effectId: String,
+        context: EventContext,
+    ): Int? {
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (explicitDuration != null) {</span>
+<span class="fc" id="L27">            return explicitDuration</span>
+        }
+<span class="fc bfc" id="L29" title="All 4 branches covered.">        val effectDefinition = context.effectLookup?.invoke(effectId) ?: return null</span>
+<span class="fc" id="L30">        return resolveFromEffectDefinition(effectDefinition, context)</span>
+    }
+
+    private fun resolveFromEffectDefinition(
+        effectDefinition: EffectDefinition,
+        context: EventContext,
+    ): Int? {
+<span class="fc bfc" id="L37" title="All 4 branches covered.">        val defaultDuration = (effectDefinition.data[&quot;defaultDuration&quot;] as? Number)?.toInt() ?: return null</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        val extensionItemId = effectDefinition.data[&quot;durationExtensionItemId&quot;]?.toString()</span>
+<span class="fc bfc" id="L39" title="All 4 branches covered.">        val extendedDuration = (effectDefinition.data[&quot;extendedDuration&quot;] as? Number)?.toInt()</span>
+<span class="fc" id="L40">        val field = context.field</span>
+<span class="fc" id="L41">        val holderItemId =</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (field == null) {</span>
+<span class="nc bnc" id="L43" title="All 6 branches missed.">                context.source?.itemId ?: context.self?.itemId</span>
+            } else {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                BattleHeldItemRuntimeSupport.activeItemId(context.source, field)</span>
+<span class="fc" id="L46">                    ?: BattleHeldItemRuntimeSupport.activeItemId(context.self, field)</span>
+            }
+<span class="pc bpc" id="L48" title="1 of 6 branches missed.">        return if (extensionItemId != null &amp;&amp; extendedDuration != null &amp;&amp; holderItemId == extensionItemId) {</span>
+<span class="fc" id="L49">            extendedDuration</span>
+        } else {
+<span class="fc" id="L51">            defaultDuration</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

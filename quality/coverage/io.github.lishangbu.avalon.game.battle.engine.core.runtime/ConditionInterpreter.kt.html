@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConditionInterpreter.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.runtime</a> &gt; <span class="el_source">ConditionInterpreter.kt</span></div><h1>ConditionInterpreter.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.runtime
+
+import io.github.lishangbu.avalon.game.battle.engine.core.dsl.ConditionNode
+import io.github.lishangbu.avalon.game.battle.engine.core.event.EventContext
+import io.github.lishangbu.avalon.game.battle.engine.core.type.ConditionTypeId
+
+/**
+ * 条件解释器接口。
+ *
+ * 设计意图：
+ * - 负责把某类 [ConditionNode] 在给定 [EventContext] 中求值为布尔结果。
+ * - 通过 [type] 与 registry 建立一一对应关系。
+ *
+ * 该接口只负责求值，不负责动作执行和状态变更。
+ */
+fun interface ConditionInterpreter {
+    /**
+     * 在指定上下文中计算条件是否成立。
+     */
+    fun evaluate(
+        condition: ConditionNode,
+        context: EventContext,
+    ): Boolean
+
+    /**
+     * 当前解释器对应的条件类型标识。
+     */
+    val type: ConditionTypeId
+<span class="nc" id="L29">        get() = error(&quot;ConditionInterpreter.type must be overridden by concrete implementations.&quot;)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

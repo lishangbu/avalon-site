@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionAttachedHookDispatcher.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.core.session</a> &gt; <span class="el_source">BattleSessionAttachedHookDispatcher.kt</span></div><h1>BattleSessionAttachedHookDispatcher.kt</h1><pre class="source lang-java linenums">﻿package io.github.lishangbu.avalon.game.battle.engine.core.session
+
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleFlowPhaseProcessor
+import io.github.lishangbu.avalon.game.battle.engine.core.runtime.flow.BattleRuntimeSnapshot
+
+/**
+ * session attached-effect 生命周期 hook 派发器。
+ *
+ * 设计意图：
+ * - 收敛 `processAttachedEffects(...)` 的会话层调用方式；
+ * - 让 `before_turn / switch_in / switch_out / faint` 这类生命周期点共用同一条
+ *   简单调度路径；
+ * - 使 `BattleSessionHookLifecycleProcessor` 更聚焦于“该派发给谁”，而不是“如何派发”。
+ */
+<span class="fc" id="L15">internal class BattleSessionAttachedHookDispatcher(</span>
+<span class="fc" id="L16">    private val battleFlowPhaseProcessor: BattleFlowPhaseProcessor,</span>
+) {
+    fun processHookForUnitIds(
+        snapshot: BattleRuntimeSnapshot,
+        unitIds: List&lt;String&gt;,
+        hookName: String,
+    ): BattleRuntimeSnapshot {
+<span class="fc" id="L23">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L24">        unitIds.forEach { unitId -&gt;</span>
+<span class="fc" id="L25">            currentSnapshot = processHookForUnit(currentSnapshot, unitId, hookName)</span>
+<span class="fc" id="L26">        }</span>
+<span class="fc" id="L27">        return currentSnapshot</span>
+    }
+
+    fun processHookForUnit(
+        snapshot: BattleRuntimeSnapshot,
+        unitId: String,
+        hookName: String,
+    ): BattleRuntimeSnapshot {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (unitId !in snapshot.units) {</span>
+<span class="nc" id="L36">            return snapshot</span>
+        }
+<span class="fc" id="L38">        return battleFlowPhaseProcessor</span>
+<span class="fc" id="L39">            .processAttachedEffects(</span>
+<span class="fc" id="L40">                snapshot = snapshot,</span>
+<span class="fc" id="L41">                unitId = unitId,</span>
+<span class="fc" id="L42">                hookName = hookName,</span>
+<span class="fc" id="L43">                targetId = null,</span>
+<span class="fc" id="L44">                sourceId = unitId,</span>
+<span class="fc" id="L45">                relay = null,</span>
+<span class="fc" id="L46">                attributes = emptyMap(),</span>
+<span class="fc" id="L47">            ).snapshot</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
