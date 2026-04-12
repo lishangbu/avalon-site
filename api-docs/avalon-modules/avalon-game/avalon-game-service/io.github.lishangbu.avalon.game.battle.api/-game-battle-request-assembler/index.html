@@ -93,7 +93,7 @@
   <div class="breadcrumbs"><a href="../../index.html">avalon-game-service</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.game.battle.api</a><span class="delimiter">/</span><span class="current">GameBattleRequestAssembler</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Game</span><wbr><span>Battle</span><wbr><span>Request</span><wbr><span><span>Assembler</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Component///PointingToDeclaration/"><span class="token annotation builtin">Component</span></span></div></div><span class="token keyword">class </span><a href="index.html">GameBattleRequestAssembler</a></div><p class="paragraph">battle 接口层请求组装器。</p><p class="paragraph">设计意图：</p><ul><li><p class="paragraph">把 controller 接收到的前端 request view 映射为 battle 应用层使用的请求模型。</p></li><li><p class="paragraph">让 <code class="lang-kotlin">DefaultGameBattleService</code> 只关心 battle 业务编排，不直接依赖接口入参结构。</p></li></ul></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.springframework.stereotype/Component///PointingToDeclaration/"><span class="token annotation builtin">Component</span></span></div></div><span class="token keyword">class </span><a href="index.html">GameBattleRequestAssembler</a></div><p class="paragraph">battle 接口层请求组装器。</p><p class="paragraph">设计意图：</p><ul><li><p class="paragraph">把 controller 接收到的前端 request view 映射为 battle 应用层使用的请求模型。</p></li><li><p class="paragraph">让 controller 不直接拼装 engine command 和初始化输入，保持接口层职责单一。</p></li></ul></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -129,7 +129,97 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-create-imported-session-request.html"><span class="token function">toCreateImportedSessionRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-create-imported-battle-session-api-request/index.html">CreateImportedBattleSessionApiRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle/-create-imported-battle-session-request/index.html">CreateImportedBattleSessionRequest</a></div><div class="brief "><p class="paragraph">把导入建局 API 请求映射为 battle 内部请求。</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-create-imported-session-request.html"><span class="token function">toCreateImportedSessionRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-create-imported-battle-session-api-request/index.html">CreateImportedBattleSessionApiRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.lishangbu.avalon.game.battle.init/-create-imported-battle-session-request/index.html">CreateImportedBattleSessionRequest</a></div><div class="brief "><p class="paragraph">把导入建局 API 请求映射为 battle 内部请求。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1529941520%2FFunctions%2F379126637" anchor-label="toSubmitCaptureChoiceCommand" id="-1529941520%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-capture-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Capture</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1529941520%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-capture-choice-command.html"><span class="token function">toSubmitCaptureChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-smart-capture-choice-request/index.html">SmartCaptureChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-capture-choice-command/index.html">SubmitCaptureChoiceCommand</a></div><div class="brief "><p class="paragraph">把智能捕捉 API 请求映射为引擎应用命令。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="228404676%2FFunctions%2F379126637" anchor-label="toSubmitItemChoiceCommand" id="228404676%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-item-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Item</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="228404676%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-item-choice-command.html"><span class="token function">toSubmitItemChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-smart-item-choice-request/index.html">SmartItemChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-item-choice-command/index.html">SubmitItemChoiceCommand</a></div><div class="brief "><p class="paragraph">把智能用道具 API 请求映射为引擎应用命令。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="614456580%2FFunctions%2F379126637" anchor-label="toSubmitMoveChoiceCommand" id="614456580%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-move-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Move</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="614456580%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-move-choice-command.html"><span class="token function">toSubmitMoveChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-smart-move-choice-request/index.html">SmartMoveChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-move-choice-command/index.html">SubmitMoveChoiceCommand</a></div><div class="brief "><p class="paragraph">把智能出招 API 请求映射为引擎应用命令。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="469202529%2FFunctions%2F379126637" anchor-label="toSubmitReplacementChoiceCommand" id="469202529%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-replacement-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Replacement</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="469202529%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-replacement-choice-command.html"><span class="token function">toSubmitReplacementChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-submit-replacement-choice-request/index.html">SubmitReplacementChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-replacement-choice-command/index.html">SubmitReplacementChoiceCommand</a></div><div class="brief "><p class="paragraph">把替补 API 请求映射为引擎应用命令。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-896218431%2FFunctions%2F379126637" anchor-label="toSubmitRunChoiceCommand" id="-896218431%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-run-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Run</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-896218431%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-run-choice-command.html"><span class="token function">toSubmitRunChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-submit-run-choice-request/index.html">SubmitRunChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-run-choice-command/index.html">SubmitRunChoiceCommand</a></div><div class="brief "><p class="paragraph">把逃跑 API 请求映射为引擎应用命令。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1268942165%2FFunctions%2F379126637" anchor-label="toSubmitSwitchChoiceCommand" id="-1268942165%2FFunctions%2F379126637" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-game:avalon-game-service/main" data-filterable-set=":avalon-modules:avalon-game:avalon-game-service/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-submit-switch-choice-command.html"><span>to</span><wbr><span>Submit</span><wbr><span>Switch</span><wbr><span>Choice</span><wbr><span><span>Command</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1268942165%2FFunctions%2F379126637"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-game:avalon-game-service/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-submit-switch-choice-command.html"><span class="token function">toSubmitSwitchChoiceCommand</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-submit-switch-choice-request/index.html">SubmitSwitchChoiceRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../avalon-modules/avalon-game/avalon-game-battle-engine/io.github.lishangbu.avalon.game.battle.engine.application/-submit-switch-choice-command/index.html">SubmitSwitchChoiceCommand</a></div><div class="brief "><p class="paragraph">把换人 API 请求映射为引擎应用命令。</p></div></div></div>
                 </div>
               </div>
             </div>
