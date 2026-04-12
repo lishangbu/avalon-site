@@ -1,0 +1,695 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.lishangbu.avalon.dataset.service</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset/main" data-filter=":avalon-modules:avalon-dataset/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="avalon-dataset::io.github.lishangbu.avalon.dataset.service////PointingToDeclaration//-348784775">
+  <div class="breadcrumbs"><a href="../index.html">avalon-dataset</a><span class="delimiter">/</span><span class="current">io.github.lishangbu.avalon.dataset.service</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="940244573%2FClasslikes%2F-348784775" anchor-label="AbilityService" id="940244573%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ability-service/index.html"><span>Ability</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="940244573%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-ability-service/index.html">AbilityService</a></div><div class="brief "><p class="paragraph">特性服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1330105666%2FClasslikes%2F-348784775" anchor-label="BerryFirmnessService" id="-1330105666%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-firmness-service/index.html"><span>Berry</span><wbr><span>Firmness</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1330105666%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-firmness-service/index.html">BerryFirmnessService</a></div><div class="brief "><p class="paragraph">树果硬度服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="713936647%2FClasslikes%2F-348784775" anchor-label="BerryFlavorService" id="713936647%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-flavor-service/index.html"><span>Berry</span><wbr><span>Flavor</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="713936647%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-flavor-service/index.html">BerryFlavorService</a></div><div class="brief "><p class="paragraph">树果风味服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-399585783%2FClasslikes%2F-348784775" anchor-label="BerryService" id="-399585783%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-service/index.html"><span>Berry</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-399585783%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-berry-service/index.html">BerryService</a></div><div class="brief "><p class="paragraph">树果应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="114376279%2FClasslikes%2F-348784775" anchor-label="CreatureColorService" id="114376279%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-color-service/index.html"><span>Creature</span><wbr><span>Color</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="114376279%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-color-service/index.html">CreatureColorService</a></div><div class="brief "><p class="paragraph">生物颜色服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-36916625%2FClasslikes%2F-348784775" anchor-label="CreatureEvolutionService" id="-36916625%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-evolution-service/index.html"><span>Creature</span><wbr><span>Evolution</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-36916625%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-evolution-service/index.html">CreatureEvolutionService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-397471333%2FClasslikes%2F-348784775" anchor-label="CreatureHabitatService" id="-397471333%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-habitat-service/index.html"><span>Creature</span><wbr><span>Habitat</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-397471333%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-habitat-service/index.html">CreatureHabitatService</a></div><div class="brief "><p class="paragraph">生物栖息地服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1012031388%2FClasslikes%2F-348784775" anchor-label="CreatureService" id="-1012031388%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-service/index.html"><span>Creature</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1012031388%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-service/index.html">CreatureService</a></div><div class="brief "><p class="paragraph">生物应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2123438443%2FClasslikes%2F-348784775" anchor-label="CreatureShapeService" id="-2123438443%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-shape-service/index.html"><span>Creature</span><wbr><span>Shape</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2123438443%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-shape-service/index.html">CreatureShapeService</a></div><div class="brief "><p class="paragraph">生物形状服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-872145360%2FClasslikes%2F-348784775" anchor-label="CreatureSpeciesService" id="-872145360%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-species-service/index.html"><span>Creature</span><wbr><span>Species</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-872145360%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-species-service/index.html">CreatureSpeciesService</a></div><div class="brief "><p class="paragraph">生物种族应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1721726599%2FClasslikes%2F-348784775" anchor-label="CreatureVariantService" id="-1721726599%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-variant-service/index.html"><span>Creature</span><wbr><span>Variant</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1721726599%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creature-variant-service/index.html">CreatureVariantService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-347635479%2FClasslikes%2F-348784775" anchor-label="EffectDefinitionService" id="-347635479%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-effect-definition-service/index.html"><span>Effect</span><wbr><span>Definition</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-347635479%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-effect-definition-service/index.html">EffectDefinitionService</a></div><div class="brief "><p class="paragraph">战斗效果定义应用服务。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1619661215%2FClasslikes%2F-348784775" anchor-label="EggGroupService" id="1619661215%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-egg-group-service/index.html"><span>Egg</span><wbr><span>Group</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1619661215%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-egg-group-service/index.html">EggGroupService</a></div><div class="brief "><p class="paragraph">蛋组服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-899670515%2FClasslikes%2F-348784775" anchor-label="EncounterConditionService" id="-899670515%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition-service/index.html"><span>Encounter</span><wbr><span>Condition</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-899670515%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-encounter-condition-service/index.html">EncounterConditionService</a></div><div class="brief "><p class="paragraph">遭遇条件服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-229536676%2FClasslikes%2F-348784775" anchor-label="EncounterConditionValueService" id="-229536676%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition-value-service/index.html"><span>Encounter</span><wbr><span>Condition</span><wbr><span>Value</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-229536676%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-encounter-condition-value-service/index.html">EncounterConditionValueService</a></div><div class="brief "><p class="paragraph">遭遇条件值服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1833561639%2FClasslikes%2F-348784775" anchor-label="EncounterMethodService" id="1833561639%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-method-service/index.html"><span>Encounter</span><wbr><span>Method</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1833561639%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-encounter-method-service/index.html">EncounterMethodService</a></div><div class="brief "><p class="paragraph">遭遇方式服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1709551253%2FClasslikes%2F-348784775" anchor-label="EvolutionChainService" id="-1709551253%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-chain-service/index.html"><span>Evolution</span><wbr><span>Chain</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1709551253%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-evolution-chain-service/index.html">EvolutionChainService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-412839710%2FClasslikes%2F-348784775" anchor-label="EvolutionTriggerService" id="-412839710%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-trigger-service/index.html"><span>Evolution</span><wbr><span>Trigger</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-412839710%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-evolution-trigger-service/index.html">EvolutionTriggerService</a></div><div class="brief "><p class="paragraph">进化触发方式服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1866066650%2FClasslikes%2F-348784775" anchor-label="GenderService" id="-1866066650%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gender-service/index.html"><span>Gender</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1866066650%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-gender-service/index.html">GenderService</a></div><div class="brief "><p class="paragraph">性别服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-953141972%2FClasslikes%2F-348784775" anchor-label="GrowthRateService" id="-953141972%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-growth-rate-service/index.html"><span>Growth</span><wbr><span>Rate</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-953141972%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-growth-rate-service/index.html">GrowthRateService</a></div><div class="brief "><p class="paragraph">成长速率服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="475466940%2FClasslikes%2F-348784775" anchor-label="ItemAttributeService" id="475466940%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-attribute-service/index.html"><span>Item</span><wbr><span>Attribute</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="475466940%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-item-attribute-service/index.html">ItemAttributeService</a></div><div class="brief "><p class="paragraph">道具属性服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1546909910%2FClasslikes%2F-348784775" anchor-label="ItemCategoryService" id="1546909910%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-category-service/index.html"><span>Item</span><wbr><span>Category</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1546909910%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-item-category-service/index.html">ItemCategoryService</a></div><div class="brief "><p class="paragraph">道具类别服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="13497133%2FClasslikes%2F-348784775" anchor-label="ItemFlingEffectService" id="13497133%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-fling-effect-service/index.html"><span>Item</span><wbr><span>Fling</span><wbr><span>Effect</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13497133%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-item-fling-effect-service/index.html">ItemFlingEffectService</a></div><div class="brief "><p class="paragraph">道具投掷效果服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="259025006%2FClasslikes%2F-348784775" anchor-label="ItemPocketService" id="259025006%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-pocket-service/index.html"><span>Item</span><wbr><span>Pocket</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="259025006%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-item-pocket-service/index.html">ItemPocketService</a></div><div class="brief "><p class="paragraph">道具口袋服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="364841912%2FClasslikes%2F-348784775" anchor-label="ItemService" id="364841912%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-service/index.html"><span>Item</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="364841912%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-item-service/index.html">ItemService</a></div><div class="brief "><p class="paragraph">道具应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1338187143%2FClasslikes%2F-348784775" anchor-label="LocationAreaService" id="1338187143%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-area-service/index.html"><span>Location</span><wbr><span>Area</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1338187143%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-location-area-service/index.html">LocationAreaService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1725936678%2FClasslikes%2F-348784775" anchor-label="LocationService" id="-1725936678%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-service/index.html"><span>Location</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1725936678%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-location-service/index.html">LocationService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-947649212%2FClasslikes%2F-348784775" anchor-label="MoveAilmentService" id="-947649212%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-ailment-service/index.html"><span>Move</span><wbr><span>Ailment</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-947649212%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-ailment-service/index.html">MoveAilmentService</a></div><div class="brief "><p class="paragraph">招式异常服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="106275732%2FClasslikes%2F-348784775" anchor-label="MoveCategoryService" id="106275732%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-category-service/index.html"><span>Move</span><wbr><span>Category</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="106275732%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-category-service/index.html">MoveCategoryService</a></div><div class="brief "><p class="paragraph">招式类别服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-77056789%2FClasslikes%2F-348784775" anchor-label="MoveDamageClassService" id="-77056789%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-damage-class-service/index.html"><span>Move</span><wbr><span>Damage</span><wbr><span>Class</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-77056789%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-damage-class-service/index.html">MoveDamageClassService</a></div><div class="brief "><p class="paragraph">招式伤害分类服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1915121177%2FClasslikes%2F-348784775" anchor-label="MoveLearnMethodService" id="-1915121177%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-learn-method-service/index.html"><span>Move</span><wbr><span>Learn</span><wbr><span>Method</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1915121177%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-learn-method-service/index.html">MoveLearnMethodService</a></div><div class="brief "><p class="paragraph">招式学习方式服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="81679478%2FClasslikes%2F-348784775" anchor-label="MoveService" id="81679478%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-service/index.html"><span>Move</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="81679478%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-service/index.html">MoveService</a></div><div class="brief "><p class="paragraph">招式应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1790453081%2FClasslikes%2F-348784775" anchor-label="MoveTargetService" id="-1790453081%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-target-service/index.html"><span>Move</span><wbr><span>Target</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1790453081%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-move-target-service/index.html">MoveTargetService</a></div><div class="brief "><p class="paragraph">招式目标服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="804357900%2FClasslikes%2F-348784775" anchor-label="NatureService" id="804357900%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nature-service/index.html"><span>Nature</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="804357900%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-nature-service/index.html">NatureService</a></div><div class="brief "><p class="paragraph">性格服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-5063335%2FClasslikes%2F-348784775" anchor-label="RegionService" id="-5063335%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region-service/index.html"><span>Region</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-5063335%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-region-service/index.html">RegionService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1807960539%2FClasslikes%2F-348784775" anchor-label="StatCalculatorService" id="1807960539%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stat-calculator-service/index.html"><span>Stat</span><wbr><span>Calculator</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1807960539%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-stat-calculator-service/index.html">StatCalculatorService</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="480137977%2FClasslikes%2F-348784775" anchor-label="StatService" id="480137977%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stat-service/index.html"><span>Stat</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="480137977%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-stat-service/index.html">StatService</a></div><div class="brief "><p class="paragraph">能力值服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-934165537%2FClasslikes%2F-348784775" anchor-label="TypeService" id="-934165537%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-service/index.html"><span>Type</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-934165537%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-type-service/index.html">TypeService</a></div><div class="brief "><p class="paragraph">属性应用服务</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

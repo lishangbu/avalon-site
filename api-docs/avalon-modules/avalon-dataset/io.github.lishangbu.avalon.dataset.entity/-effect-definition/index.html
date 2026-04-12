@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>EffectDefinition</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset/main" data-filter=":avalon-modules:avalon-dataset/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-dataset::io.github.lishangbu.avalon.dataset.entity/EffectDefinition///PointingToDeclaration//-348784775">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-dataset</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.dataset.entity</a><span class="delimiter">/</span><span class="current">EffectDefinition</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Effect</span><wbr><span><span>Definition</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="index.html">EffectDefinition</a></div><p class="paragraph">战斗效果定义。</p><p class="paragraph">这张表不是为某一类数据源单独建模，而是把 battle-engine 最终需要消费的 effect 聚合统一收口到一个地方，后续无论来源是招式、特性、道具、状态、天气还是未来的装备， 都可以复用同一套结构。</p><p class="paragraph">字段设计约束：</p><ul><li><p class="paragraph"><code class="lang-kotlin">internalName</code> 是业务侧稳定主键，用来和 battle-engine 中的 effect id 对齐。</p></li><li><p class="paragraph"><code class="lang-kotlin">kind</code> 描述 effect 的大类，例如 <code class="lang-kotlin">move</code>、<code class="lang-kotlin">ability</code>、<code class="lang-kotlin">status</code>。</p></li><li><p class="paragraph"><code class="lang-kotlin">source*</code> 字段只负责追踪来源，不强绑定到具体数据表，避免破坏扩展性。</p></li><li><p class="paragraph"><code class="lang-kotlin">tagsJson / dataJson / hooksJson</code> 保留 battle DSL 的原始 JSON 文本，避免把 DSL 过早拆成多表。</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="584519869%2FProperties%2F-348784775" anchor-label="dataJson" id="584519869%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="data-json.html"><span>data</span><wbr><span><span>Json</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="584519869%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Serialized///PointingToDeclaration/"><span class="token annotation builtin">Serialized</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="data-json.html">dataJson</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">元数据 JSON。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1451978518%2FProperties%2F-348784775" anchor-label="enabled" id="-1451978518%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enabled.html"><span><span>enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1451978518%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="enabled.html">enabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">当前定义是否启用。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="84577235%2FProperties%2F-348784775" anchor-label="hooksJson" id="84577235%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hooks-json.html"><span>hooks</span><wbr><span><span>Json</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="84577235%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Serialized///PointingToDeclaration/"><span class="token annotation builtin">Serialized</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="hooks-json.html">hooksJson</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Hook 规则 JSON。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-510761740%2FProperties%2F-348784775" anchor-label="id" id="-510761740%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-510761740%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Id///PointingToDeclaration/"><span class="token annotation builtin">Id</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="id.html">id</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">数据库主键。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1680749241%2FProperties%2F-348784775" anchor-label="internalName" id="-1680749241%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="internal-name.html"><span>internal</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1680749241%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="internal-name.html">internalName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">效果内部名称，同时也是 battle-engine 使用的稳定 effect id。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="793873435%2FProperties%2F-348784775" anchor-label="kind" id="793873435%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="kind.html"><span><span>kind</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="793873435%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="kind.html">kind</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">效果类别，例如 <code class="lang-kotlin">move</code>、<code class="lang-kotlin">ability</code>、<code class="lang-kotlin">item</code>、<code class="lang-kotlin">status</code>。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-314490620%2FProperties%2F-348784775" anchor-label="name" id="-314490620%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314490620%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">效果显示名称。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1739591377%2FProperties%2F-348784775" anchor-label="remark" id="-1739591377%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remark.html"><span><span>remark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1739591377%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="remark.html">remark</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">供策划或开发标记补充说明的备注。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2123857718%2FProperties%2F-348784775" anchor-label="sourceEntityId" id="2123857718%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source-entity-id.html"><span>source</span><wbr><span>Entity</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123857718%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="source-entity-id.html">sourceEntityId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">来源对象在源表中的主键 ID，只做弱关联追踪。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1824613268%2FProperties%2F-348784775" anchor-label="sourceInternalName" id="-1824613268%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source-internal-name.html"><span>source</span><wbr><span>Internal</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1824613268%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="source-internal-name.html">sourceInternalName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">来源对象的内部名称，用于追踪 effect 是由哪条源数据派生而来。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1791409318%2FProperties%2F-348784775" anchor-label="sourceType" id="-1791409318%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source-type.html"><span>source</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1791409318%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="source-type.html">sourceType</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">来源类型，例如 <code class="lang-kotlin">move</code>、<code class="lang-kotlin">ability</code>、<code class="lang-kotlin">item</code>，无来源时允许为空。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1145004926%2FProperties%2F-348784775" anchor-label="specialHandler" id="1145004926%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="special-handler.html"><span>special</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1145004926%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="special-handler.html">specialHandler</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">battle-engine 中需要走特例分支时使用的处理器标识。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-56314194%2FProperties%2F-348784775" anchor-label="tagsJson" id="-56314194%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tags-json.html"><span>tags</span><wbr><span><span>Json</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-56314194%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Serialized///PointingToDeclaration/"><span class="token annotation builtin">Serialized</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="tags-json.html">tagsJson</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">标签 JSON。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

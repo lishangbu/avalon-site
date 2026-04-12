@@ -1,0 +1,890 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.lishangbu.avalon.dataset.entity</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset/main" data-filter=":avalon-modules:avalon-dataset/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="avalon-dataset::io.github.lishangbu.avalon.dataset.entity////PointingToDeclaration//-348784775">
+  <div class="breadcrumbs"><a href="../index.html">avalon-dataset</a><span class="delimiter">/</span><span class="current">io.github.lishangbu.avalon.dataset.entity</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-333010044%2FClasslikes%2F-348784775" anchor-label="Ability" id="-333010044%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ability/index.html"><span><span>Ability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-333010044%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-ability/index.html">Ability</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="782477912%2FClasslikes%2F-348784775" anchor-label="Berry" id="782477912%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry/index.html"><span><span>Berry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="782477912%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-berry/index.html">Berry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1521917117%2FClasslikes%2F-348784775" anchor-label="BerryFirmness" id="-1521917117%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-firmness/index.html"><span>Berry</span><wbr><span><span>Firmness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1521917117%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-berry-firmness/index.html">BerryFirmness</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-277668838%2FClasslikes%2F-348784775" anchor-label="BerryFlavor" id="-277668838%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-berry-flavor/index.html"><span>Berry</span><wbr><span><span>Flavor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-277668838%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-berry-flavor/index.html">BerryFlavor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1012674763%2FClasslikes%2F-348784775" anchor-label="Creature" id="-1012674763%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature/index.html"><span><span>Creature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1012674763%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature/index.html">Creature</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-471923997%2FClasslikes%2F-348784775" anchor-label="CreatureAbility" id="-471923997%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-ability/index.html"><span>Creature</span><wbr><span><span>Ability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-471923997%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-ability/index.html">CreatureAbility</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1248386440%2FClasslikes%2F-348784775" anchor-label="CreatureAbilityId" id="1248386440%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-ability-id/index.html"><span>Creature</span><wbr><span>Ability</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1248386440%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-creature-ability-id/index.html">CreatureAbilityId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1460059702%2FClasslikes%2F-348784775" anchor-label="CreatureColor" id="-1460059702%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-color/index.html"><span>Creature</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1460059702%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-color/index.html">CreatureColor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-672405167%2FClasslikes%2F-348784775" anchor-label="CreatureElement" id="-672405167%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-element/index.html"><span>Creature</span><wbr><span><span>Element</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-672405167%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-element/index.html">CreatureElement</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1859510390%2FClasslikes%2F-348784775" anchor-label="CreatureElementId" id="1859510390%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-element-id/index.html"><span>Creature</span><wbr><span>Element</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1859510390%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-creature-element-id/index.html">CreatureElementId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-730763598%2FClasslikes%2F-348784775" anchor-label="CreatureEvolution" id="-730763598%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-evolution/index.html"><span>Creature</span><wbr><span><span>Evolution</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-730763598%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-evolution/index.html">CreatureEvolution</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="374869510%2FClasslikes%2F-348784775" anchor-label="CreatureHabitat" id="374869510%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-habitat/index.html"><span>Creature</span><wbr><span><span>Habitat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="374869510%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-habitat/index.html">CreatureHabitat</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1524712268%2FClasslikes%2F-348784775" anchor-label="CreatureShape" id="1524712268%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-shape/index.html"><span>Creature</span><wbr><span><span>Shape</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1524712268%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-shape/index.html">CreatureShape</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1096495343%2FClasslikes%2F-348784775" anchor-label="CreatureSpecies" id="-1096495343%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-species/index.html"><span>Creature</span><wbr><span><span>Species</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1096495343%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-species/index.html">CreatureSpecies</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-96002751%2FClasslikes%2F-348784775" anchor-label="CreatureStat" id="-96002751%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-stat/index.html"><span>Creature</span><wbr><span><span>Stat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-96002751%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-stat/index.html">CreatureStat</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1731450982%2FClasslikes%2F-348784775" anchor-label="CreatureStatId" id="1731450982%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-stat-id/index.html"><span>Creature</span><wbr><span>Stat</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1731450982%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-creature-stat-id/index.html">CreatureStatId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1654615064%2FClasslikes%2F-348784775" anchor-label="CreatureVariant" id="-1654615064%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-variant/index.html"><span>Creature</span><wbr><span><span>Variant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1654615064%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-variant/index.html">CreatureVariant</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2025490866%2FClasslikes%2F-348784775" anchor-label="CreatureVariantType" id="-2025490866%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-variant-type/index.html"><span>Creature</span><wbr><span>Variant</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2025490866%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-creature-variant-type/index.html">CreatureVariantType</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1375722957%2FClasslikes%2F-348784775" anchor-label="CreatureVariantTypeId" id="-1375722957%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creature-variant-type-id/index.html"><span>Creature</span><wbr><span>Variant</span><wbr><span>Type</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1375722957%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-creature-variant-type-id/index.html">CreatureVariantTypeId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="520707664%2FClasslikes%2F-348784775" anchor-label="EffectDefinition" id="520707664%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-effect-definition/index.html"><span>Effect</span><wbr><span><span>Definition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="520707664%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-effect-definition/index.html">EffectDefinition</a></div><div class="brief "><p class="paragraph">战斗效果定义。</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-968066470%2FClasslikes%2F-348784775" anchor-label="EggGroup" id="-968066470%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-egg-group/index.html"><span>Egg</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-968066470%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-egg-group/index.html">EggGroup</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="824600236%2FClasslikes%2F-348784775" anchor-label="EncounterCondition" id="824600236%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition/index.html"><span>Encounter</span><wbr><span><span>Condition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="824600236%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-condition/index.html">EncounterCondition</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-572709275%2FClasslikes%2F-348784775" anchor-label="EncounterConditionValue" id="-572709275%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-condition-value/index.html"><span>Encounter</span><wbr><span>Condition</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-572709275%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-condition-value/index.html">EncounterConditionValue</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1223096058%2FClasslikes%2F-348784775" anchor-label="EncounterMethod" id="1223096058%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encounter-method/index.html"><span>Encounter</span><wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1223096058%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-encounter-method/index.html">EncounterMethod</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-493414642%2FClasslikes%2F-348784775" anchor-label="EvolutionChain" id="-493414642%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-chain/index.html"><span>Evolution</span><wbr><span><span>Chain</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-493414642%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-evolution-chain/index.html">EvolutionChain</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-746101641%2FClasslikes%2F-348784775" anchor-label="EvolutionTrigger" id="-746101641%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-evolution-trigger/index.html"><span>Evolution</span><wbr><span><span>Trigger</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-746101641%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-evolution-trigger/index.html">EvolutionTrigger</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1129632845%2FClasslikes%2F-348784775" anchor-label="Gender" id="-1129632845%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gender/index.html"><span><span>Gender</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1129632845%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-gender/index.html">Gender</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="848523373%2FClasslikes%2F-348784775" anchor-label="GrowthRate" id="848523373%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-growth-rate/index.html"><span>Growth</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="848523373%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-growth-rate/index.html">GrowthRate</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1905250207%2FClasslikes%2F-348784775" anchor-label="Item" id="-1905250207%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item/index.html"><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1905250207%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-item/index.html">Item</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-572478715%2FClasslikes%2F-348784775" anchor-label="ItemAttribute" id="-572478715%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-attribute/index.html"><span>Item</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-572478715%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-item-attribute/index.html">ItemAttribute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="62700803%2FClasslikes%2F-348784775" anchor-label="ItemCategory" id="62700803%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-category/index.html"><span>Item</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="62700803%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-item-category/index.html">ItemCategory</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1978657972%2FClasslikes%2F-348784775" anchor-label="ItemFlingEffect" id="1978657972%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-fling-effect/index.html"><span>Item</span><wbr><span>Fling</span><wbr><span><span>Effect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1978657972%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-item-fling-effect/index.html">ItemFlingEffect</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="950371179%2FClasslikes%2F-348784775" anchor-label="ItemPocket" id="950371179%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-pocket/index.html"><span>Item</span><wbr><span><span>Pocket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="950371179%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-item-pocket/index.html">ItemPocket</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2000978817%2FClasslikes%2F-348784775" anchor-label="Location" id="-2000978817%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location/index.html"><span><span>Location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2000978817%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-location/index.html">Location</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-558494350%2FClasslikes%2F-348784775" anchor-label="LocationArea" id="-558494350%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-area/index.html"><span>Location</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-558494350%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-location-area/index.html">LocationArea</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="630520413%2FClasslikes%2F-348784775" anchor-label="LocationAreaEncounter" id="630520413%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-area-encounter/index.html"><span>Location</span><wbr><span>Area</span><wbr><span><span>Encounter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="630520413%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-location-area-encounter/index.html">LocationAreaEncounter</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="213380327%2FClasslikes%2F-348784775" anchor-label="LocationAreaEncounterConditionValue" id="213380327%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-area-encounter-condition-value/index.html"><span>Location</span><wbr><span>Area</span><wbr><span>Encounter</span><wbr><span>Condition</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="213380327%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-location-area-encounter-condition-value/index.html">LocationAreaEncounterConditionValue</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1599121780%2FClasslikes%2F-348784775" anchor-label="LocationAreaEncounterConditionValueId" id="-1599121780%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-location-area-encounter-condition-value-id/index.html"><span>Location</span><wbr><span>Area</span><wbr><span>Encounter</span><wbr><span>Condition</span><wbr><span>Value</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1599121780%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-location-area-encounter-condition-value-id/index.html">LocationAreaEncounterConditionValueId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="324298503%2FClasslikes%2F-348784775" anchor-label="Machine" id="324298503%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-machine/index.html"><span><span>Machine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="324298503%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-machine/index.html">Machine</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1060249955%2FClasslikes%2F-348784775" anchor-label="Move" id="1060249955%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move/index.html"><span><span>Move</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1060249955%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move/index.html">Move</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1353760893%2FClasslikes%2F-348784775" anchor-label="MoveAilment" id="1353760893%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-ailment/index.html"><span>Move</span><wbr><span><span>Ailment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1353760893%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move-ailment/index.html">MoveAilment</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-125400059%2FClasslikes%2F-348784775" anchor-label="MoveCategory" id="-125400059%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-category/index.html"><span>Move</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125400059%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move-category/index.html">MoveCategory</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1219298486%2FClasslikes%2F-348784775" anchor-label="MoveDamageClass" id="1219298486%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-damage-class/index.html"><span>Move</span><wbr><span>Damage</span><wbr><span><span>Class</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219298486%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move-damage-class/index.html">MoveDamageClass</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1115419846%2FClasslikes%2F-348784775" anchor-label="MoveLearnMethod" id="-1115419846%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-learn-method/index.html"><span>Move</span><wbr><span>Learn</span><wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1115419846%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move-learn-method/index.html">MoveLearnMethod</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1361629358%2FClasslikes%2F-348784775" anchor-label="MoveTarget" id="-1361629358%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-move-target/index.html"><span>Move</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1361629358%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-move-target/index.html">MoveTarget</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="321613965%2FClasslikes%2F-348784775" anchor-label="Nature" id="321613965%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nature/index.html"><span><span>Nature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="321613965%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-nature/index.html">Nature</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1800865504%2FClasslikes%2F-348784775" anchor-label="Region" id="1800865504%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region/index.html"><span><span>Region</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1800865504%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-region/index.html">Region</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1396449344%2FClasslikes%2F-348784775" anchor-label="Stat" id="1396449344%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stat/index.html"><span><span>Stat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1396449344%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-stat/index.html">Stat</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1889879578%2FClasslikes%2F-348784775" anchor-label="Type" id="1889879578%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type/index.html"><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1889879578%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-type/index.html">Type</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1472677286%2FClasslikes%2F-348784775" anchor-label="TypeEffectivenessEntry" id="1472677286%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-effectiveness-entry/index.html"><span>Type</span><wbr><span>Effectiveness</span><wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1472677286%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="-type-effectiveness-entry/index.html">TypeEffectivenessEntry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1699445643%2FClasslikes%2F-348784775" anchor-label="TypeEffectivenessEntryId" id="1699445643%2FClasslikes%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-effectiveness-entry-id/index.html"><span>Type</span><wbr><span>Effectiveness</span><wbr><span>Entry</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1699445643%2FClasslikes%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Embeddable///PointingToDeclaration/"><span class="token annotation builtin">Embeddable</span></span></div></div><span class="token keyword">interface </span><a href="-type-effectiveness-entry-id/index.html">TypeEffectivenessEntryId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

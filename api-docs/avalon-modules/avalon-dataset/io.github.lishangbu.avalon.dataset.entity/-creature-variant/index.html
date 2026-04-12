@@ -1,0 +1,396 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CreatureVariant</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    avalon
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.0.1-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":avalon-modules:avalon-dataset/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":avalon-modules:avalon-dataset/main" data-filter=":avalon-modules:avalon-dataset/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    avalon
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="avalon-dataset::io.github.lishangbu.avalon.dataset.entity/CreatureVariant///PointingToDeclaration//-348784775">
+  <div class="breadcrumbs"><a href="../../index.html">avalon-dataset</a><span class="delimiter">/</span><a href="../index.html">io.github.lishangbu.avalon.dataset.entity</a><span class="delimiter">/</span><span class="current">CreatureVariant</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Creature</span><wbr><span><span>Variant</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Entity///PointingToDeclaration/"><span class="token annotation builtin">Entity</span></span></div></div><span class="token keyword">interface </span><a href="index.html">CreatureVariant</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1039430263%2FProperties%2F-348784775" anchor-label="backDefault" id="-1039430263%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="back-default.html"><span>back</span><wbr><span><span>Default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1039430263%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="back-default.html">backDefault</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">背面默认图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1445748580%2FProperties%2F-348784775" anchor-label="backFemale" id="1445748580%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="back-female.html"><span>back</span><wbr><span><span>Female</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1445748580%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="back-female.html">backFemale</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">背面雌性图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="88231755%2FProperties%2F-348784775" anchor-label="backShiny" id="88231755%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="back-shiny.html"><span>back</span><wbr><span><span>Shiny</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88231755%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="back-shiny.html">backShiny</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">背面闪光图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="704272095%2FProperties%2F-348784775" anchor-label="backShinyFemale" id="704272095%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="back-shiny-female.html"><span>back</span><wbr><span>Shiny</span><wbr><span><span>Female</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="704272095%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="back-shiny-female.html">backShinyFemale</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">背面闪光雌性图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="502983443%2FProperties%2F-348784775" anchor-label="battleOnly" id="502983443%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="battle-only.html"><span>battle</span><wbr><span><span>Only</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="502983443%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="battle-only.html">battleOnly</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">是否仅战斗形态</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1372832200%2FProperties%2F-348784775" anchor-label="creature" id="-1372832200%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="creature.html"><span><span>creature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1372832200%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/ManyToOne///PointingToDeclaration/"><span class="token annotation builtin">ManyToOne</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="creature.html">creature</a><span class="token operator">: </span><a href="../-creature/index.html">Creature</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">生物</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="176939166%2FProperties%2F-348784775" anchor-label="defaultForm" id="176939166%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="default-form.html"><span>default</span><wbr><span><span>Form</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="176939166%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="default-form.html">defaultForm</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">是否默认形态</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1773725944%2FProperties%2F-348784775" anchor-label="formName" id="-1773725944%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="form-name.html"><span>form</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1773725944%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="form-name.html">formName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">形态名称</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-708889735%2FProperties%2F-348784775" anchor-label="formOrder" id="-708889735%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="form-order.html"><span>form</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-708889735%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="form-order.html">formOrder</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">形态顺序</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-633771073%2FProperties%2F-348784775" anchor-label="frontDefault" id="-633771073%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="front-default.html"><span>front</span><wbr><span><span>Default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-633771073%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="front-default.html">frontDefault</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">正面默认图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1035017618%2FProperties%2F-348784775" anchor-label="frontFemale" id="-1035017618%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="front-female.html"><span>front</span><wbr><span><span>Female</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1035017618%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="front-female.html">frontFemale</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">正面雌性图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2070002943%2FProperties%2F-348784775" anchor-label="frontShiny" id="-2070002943%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="front-shiny.html"><span>front</span><wbr><span><span>Shiny</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2070002943%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="front-shiny.html">frontShiny</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">正面闪光图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1627248107%2FProperties%2F-348784775" anchor-label="frontShinyFemale" id="-1627248107%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="front-shiny-female.html"><span>front</span><wbr><span>Shiny</span><wbr><span><span>Female</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1627248107%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="front-shiny-female.html">frontShinyFemale</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">正面闪光雌性图片</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1211377756%2FProperties%2F-348784775" anchor-label="id" id="1211377756%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1211377756%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.babyfish.jimmer.sql/Id///PointingToDeclaration/"><span class="token annotation builtin">Id</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="id.html">id</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">ID</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1766354607%2FProperties%2F-348784775" anchor-label="internalName" id="1766354607%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="internal-name.html"><span>internal</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1766354607%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="internal-name.html">internalName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">内部名称</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2083279461%2FProperties%2F-348784775" anchor-label="mega" id="2083279461%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mega.html"><span><span>mega</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2083279461%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="mega.html">mega</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">是否超级进化形态</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1099156076%2FProperties%2F-348784775" anchor-label="name" id="1099156076%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1099156076%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">名称</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1438676909%2FProperties%2F-348784775" anchor-label="sortingOrder" id="1438676909%2FProperties%2F-348784775" data-filterable-set=":avalon-modules:avalon-dataset/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":avalon-modules:avalon-dataset/main" data-filterable-set=":avalon-modules:avalon-dataset/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sorting-order.html"><span>sorting</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1438676909%2FProperties%2F-348784775"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":avalon-modules:avalon-dataset/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="sorting-order.html">sortingOrder</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">排序顺序</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
