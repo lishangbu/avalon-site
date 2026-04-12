@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocalMoveReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.api</a> &gt; <span class="el_source">LocalMoveReader.kt</span></div><h1>LocalMoveReader.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.api
+
+import io.github.lishangbu.avalon.dataset.api.model.MoveInfo
+import io.github.lishangbu.avalon.dataset.api.service.MoveReader
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.MoveView
+import io.github.lishangbu.avalon.dataset.repository.MoveRepository
+import org.springframework.stereotype.Service
+
+<span class="nc" id="L10">@Service</span>
+<span class="nc" id="L11">class LocalMoveReader(</span>
+<span class="nc" id="L12">    private val moveRepository: MoveRepository,</span>
+) : MoveReader {
+    override fun findMoveByInternalName(internalName: String): MoveInfo? =
+<span class="nc" id="L15">        moveRepository</span>
+<span class="nc" id="L16">            .listViews(MoveSpecification(internalName = internalName))</span>
+<span class="nc" id="L17">            .firstOrNull { move -&gt; move.internalName == internalName }</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">            ?.toMoveInfo()</span>
+
+    override fun findMovesByInternalNames(internalNames: Set&lt;String&gt;): Map&lt;String, MoveInfo&gt; =
+<span class="nc" id="L21">        internalNames</span>
+<span class="nc" id="L22">            .mapNotNull { internalName -&gt;</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">                findMoveByInternalName(internalName)?.let { move -&gt; internalName to move }</span>
+<span class="nc" id="L24">            }.toMap(LinkedHashMap())</span>
+
+    private fun MoveView.toMoveInfo(): MoveInfo =
+<span class="nc" id="L27">        MoveInfo(</span>
+<span class="nc" id="L28">            id = id.toLong(),</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">            internalName = requireNotNull(internalName) { &quot;Move id=$id is missing internalName.&quot; },</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">            name = name ?: requireNotNull(internalName),</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            typeInternalName = type?.internalName,</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            damageClassInternalName = moveDamageClass?.internalName,</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            targetInternalName = moveTarget?.internalName,</span>
+<span class="nc" id="L34">            accuracy = accuracy,</span>
+<span class="nc" id="L35">            effectChance = effectChance,</span>
+<span class="nc" id="L36">            pp = pp,</span>
+<span class="nc" id="L37">            priority = priority,</span>
+<span class="nc" id="L38">            power = power,</span>
+<span class="nc" id="L39">            shortEffect = shortEffect,</span>
+<span class="nc" id="L40">            effect = effect,</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            ailmentInternalName = moveAilment?.internalName,</span>
+<span class="nc" id="L42">            ailmentChance = ailmentChance,</span>
+<span class="nc" id="L43">            healing = healing,</span>
+<span class="nc" id="L44">            drain = drain,</span>
+<span class="nc" id="L45">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

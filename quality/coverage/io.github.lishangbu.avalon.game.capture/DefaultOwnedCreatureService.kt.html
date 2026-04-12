@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultOwnedCreatureService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.capture</a> &gt; <span class="el_source">DefaultOwnedCreatureService.kt</span></div><h1>DefaultOwnedCreatureService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.capture
 
-import io.github.lishangbu.avalon.dataset.api.game.service.GameMoveQueryPort
-import io.github.lishangbu.avalon.dataset.api.game.service.GameStatQueryPort
+import io.github.lishangbu.avalon.dataset.api.service.MoveReader
+import io.github.lishangbu.avalon.dataset.api.service.StatReader
 import io.github.lishangbu.avalon.game.entity.CreatureStorageBox
 import io.github.lishangbu.avalon.game.entity.OwnedCreature
 import io.github.lishangbu.avalon.game.entity.OwnedCreatureMove
@@ -21,8 +21,8 @@ import java.time.Instant
 <span class="fc" id="L21">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
 <span class="fc" id="L22">    private val ownedCreatureStatRepository: OwnedCreatureStatRepository,</span>
 <span class="fc" id="L23">    private val ownedCreatureMoveRepository: OwnedCreatureMoveRepository,</span>
-<span class="fc" id="L24">    private val gameStatQueryPort: GameStatQueryPort,</span>
-<span class="fc" id="L25">    private val gameMoveQueryPort: GameMoveQueryPort,</span>
+<span class="fc" id="L24">    private val statReader: StatReader,</span>
+<span class="fc" id="L25">    private val moveReader: MoveReader,</span>
 ) {
     @Transactional(rollbackFor = [Exception::class])
     open fun capture(context: PreparedCaptureContext): CapturedCreatureSummary {
@@ -105,7 +105,7 @@ import java.time.Instant
         metadata: BattleUnitMetadata,
     ) {
 <span class="fc" id="L107">        val statIds =</span>
-<span class="fc" id="L108">            gameStatQueryPort.findStatIdsByInternalNames(</span>
+<span class="fc" id="L108">            statReader.findStatIdsByInternalNames(</span>
 <span class="fc" id="L109">                metadata.calculatedStats.keys</span>
 <span class="fc" id="L110">                    .union(metadata.ivs.keys)</span>
 <span class="fc" id="L111">                    .union(metadata.evs.keys),</span>
@@ -132,16 +132,16 @@ import java.time.Instant
         ownedCreatureId: Long,
         context: PreparedCaptureContext,
     ) {
-<span class="fc" id="L135">        val movesByInternalName = gameMoveQueryPort.findMovesByInternalNames(context.targetUnit.movePp.keys)</span>
+<span class="fc" id="L135">        val movesByInternalName = moveReader.findMovesByInternalNames(context.targetUnit.movePp.keys)</span>
 <span class="fc" id="L136">        context.targetUnit.movePp.entries.toList().forEachIndexed { index, (moveInternalName, currentPp) -&gt;</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">            val moveView = requireNotNull(movesByInternalName[moveInternalName]) { &quot;Move '$moveInternalName' was not found.&quot; }</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            val moveData = requireNotNull(movesByInternalName[moveInternalName]) { &quot;Move '$moveInternalName' was not found.&quot; }</span>
 <span class="nc" id="L138">            ownedCreatureMoveRepository.save(</span>
 <span class="nc" id="L139">                OwnedCreatureMove {</span>
 <span class="nc" id="L140">                    this.ownedCreatureId = ownedCreatureId</span>
 <span class="nc" id="L141">                    slot = index + 1</span>
-<span class="nc" id="L142">                    moveId = moveView.id</span>
+<span class="nc" id="L142">                    moveId = moveData.id</span>
 <span class="nc" id="L143">                    this.currentPp = currentPp</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">                    maxPp = moveView.pp ?: currentPp</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">                    maxPp = moveData.pp ?: currentPp</span>
 <span class="nc" id="L145">                },</span>
 <span class="nc" id="L146">                SaveMode.INSERT_ONLY,</span>
             )

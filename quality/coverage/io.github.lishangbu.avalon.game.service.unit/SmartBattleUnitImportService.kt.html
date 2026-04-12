@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartBattleUnitImportService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.service.unit</a> &gt; <span class="el_source">SmartBattleUnitImportService.kt</span></div><h1>SmartBattleUnitImportService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.service.unit
 
-import io.github.lishangbu.avalon.dataset.api.game.service.GameCreatureQueryPort
-import io.github.lishangbu.avalon.dataset.api.game.service.GameMoveQueryPort
-import io.github.lishangbu.avalon.dataset.api.game.service.GameNatureQueryPort
+import io.github.lishangbu.avalon.dataset.api.service.CreatureReader
+import io.github.lishangbu.avalon.dataset.api.service.MoveReader
+import io.github.lishangbu.avalon.dataset.api.service.NatureReader
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleMoveSlotInput
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssembler
 import io.github.lishangbu.avalon.game.battle.engine.unit.BattleUnitAssemblyRequest
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service
  */
 <span class="nc" id="L19">@Service</span>
 <span class="nc" id="L20">class SmartBattleUnitImportService(</span>
-<span class="nc" id="L21">    private val gameCreatureQueryPort: GameCreatureQueryPort,</span>
-<span class="nc" id="L22">    private val gameNatureQueryPort: GameNatureQueryPort,</span>
-<span class="nc" id="L23">    private val gameMoveQueryPort: GameMoveQueryPort,</span>
+<span class="nc" id="L21">    private val creatureReader: CreatureReader,</span>
+<span class="nc" id="L22">    private val natureReader: NatureReader,</span>
+<span class="nc" id="L23">    private val moveReader: MoveReader,</span>
 <span class="nc" id="L24">    private val statCalculatorFactory: StatCalculatorFactory,</span>
 <span class="nc" id="L25">    private val growthRateCalculatorFactory: GrowthRateCalculatorFactory,</span>
 ) : BattleUnitImporter {
@@ -74,8 +74,8 @@ import org.springframework.stereotype.Service
     private fun loadCreature(request: BattleUnitImportRequest): CreatureUnitImportRecord {
 <span class="nc" id="L75">        val creature =</span>
 <span class="nc bnc" id="L76" title="All 2 branches missed.">            when {</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">                request.metadata.creatureId != null -&gt; gameCreatureQueryPort.findCreatureById(request.metadata.creatureId)</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">                request.metadata.creatureInternalName != null -&gt; gameCreatureQueryPort.findCreatureByInternalName(request.metadata.creatureInternalName)</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                request.metadata.creatureId != null -&gt; creatureReader.findCreatureById(request.metadata.creatureId)</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                request.metadata.creatureInternalName != null -&gt; creatureReader.findCreatureByInternalName(request.metadata.creatureInternalName)</span>
 <span class="nc" id="L79">                else -&gt; error(&quot;Either creatureId or creatureInternalName must be provided.&quot;)</span>
 <span class="nc" id="L80">            } ?: error(&quot;Creature was not found for request '${request.unitId}'.&quot;)</span>
 
@@ -103,8 +103,8 @@ import org.springframework.stereotype.Service
     private fun loadNature(request: BattleUnitImportRequest): NatureImportRecord? {
 <span class="nc" id="L104">        val nature =</span>
 <span class="nc bnc" id="L105" title="All 2 branches missed.">            when {</span>
-<span class="nc bnc" id="L106" title="All 2 branches missed.">                request.metadata.natureId != null -&gt; gameNatureQueryPort.findNatureById(request.metadata.natureId)</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">                request.metadata.natureInternalName != null -&gt; gameNatureQueryPort.findNatureByInternalName(request.metadata.natureInternalName)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">                request.metadata.natureId != null -&gt; natureReader.findNatureById(request.metadata.natureId)</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                request.metadata.natureInternalName != null -&gt; natureReader.findNatureByInternalName(request.metadata.natureInternalName)</span>
 <span class="nc" id="L108">                else -&gt; null</span>
 <span class="nc" id="L109">            } ?: return null</span>
 
@@ -117,7 +117,7 @@ import org.springframework.stereotype.Service
     }
 
     private fun loadMovePpDefaults(moves: List&lt;BattleMoveImportRequest&gt;): Map&lt;String, Int&gt; {
-<span class="nc" id="L120">        val movesByInternalName = gameMoveQueryPort.findMovesByInternalNames(moves.map { move -&gt; move.moveId }.toSet())</span>
+<span class="nc" id="L120">        val movesByInternalName = moveReader.findMovesByInternalNames(moves.map { move -&gt; move.moveId }.toSet())</span>
 <span class="nc" id="L121">        return moves.associate { move -&gt;</span>
 <span class="nc bnc" id="L122" title="All 4 branches missed.">            move.moveId to (movesByInternalName[move.moveId]?.pp ?: 0)</span>
         }

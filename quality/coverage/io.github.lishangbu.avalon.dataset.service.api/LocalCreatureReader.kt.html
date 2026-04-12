@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocalCreatureReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.api</a> &gt; <span class="el_source">LocalCreatureReader.kt</span></div><h1>LocalCreatureReader.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.api
+
+import io.github.lishangbu.avalon.dataset.api.model.CreatureAbilityOptionInfo
+import io.github.lishangbu.avalon.dataset.api.model.CreatureInfo
+import io.github.lishangbu.avalon.dataset.api.service.CreatureReader
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.CreatureView
+import io.github.lishangbu.avalon.dataset.repository.AbilityRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureAbilityRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureElementRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureSpeciesRepository
+import io.github.lishangbu.avalon.dataset.repository.CreatureStatRepository
+import io.github.lishangbu.avalon.dataset.repository.StatRepository
+import io.github.lishangbu.avalon.dataset.repository.TypeRepository
+import org.springframework.stereotype.Service
+
+<span class="nc" id="L18">@Service</span>
+<span class="nc" id="L19">class LocalCreatureReader(</span>
+<span class="nc" id="L20">    private val creatureRepository: CreatureRepository,</span>
+<span class="nc" id="L21">    private val creatureSpeciesRepository: CreatureSpeciesRepository,</span>
+<span class="nc" id="L22">    private val creatureElementRepository: CreatureElementRepository,</span>
+<span class="nc" id="L23">    private val creatureStatRepository: CreatureStatRepository,</span>
+<span class="nc" id="L24">    private val creatureAbilityRepository: CreatureAbilityRepository,</span>
+<span class="nc" id="L25">    private val abilityRepository: AbilityRepository,</span>
+<span class="nc" id="L26">    private val typeRepository: TypeRepository,</span>
+<span class="nc" id="L27">    private val statRepository: StatRepository,</span>
+) : CreatureReader {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">    override fun findCreatureById(id: Long): CreatureInfo? = creatureRepository.loadViewById(id)?.toCreatureInfo()</span>
+
+    override fun findCreatureByInternalName(internalName: String): CreatureInfo? =
+<span class="nc" id="L32">        creatureRepository</span>
+<span class="nc" id="L33">            .listViews(CreatureSpecification(internalName = internalName))</span>
+<span class="nc" id="L34">            .firstOrNull { creature -&gt; creature.internalName == internalName }</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            ?.toCreatureInfo()</span>
+
+    private fun CreatureView.toCreatureInfo(): CreatureInfo {
+<span class="nc" id="L38">        val creatureId = id.toLong()</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        val species = creatureSpecies?.id?.toLong()?.let(creatureSpeciesRepository::loadViewById)</span>
+<span class="nc" id="L40">        return CreatureInfo(</span>
+<span class="nc" id="L41">            id = creatureId,</span>
+<span class="nc bnc" id="L42" title="All 4 branches missed.">            speciesId = species?.id?.toLong(),</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            internalName = requireNotNull(internalName) { &quot;Creature id=$creatureId is missing internalName.&quot; },</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">            name = name ?: requireNotNull(internalName),</span>
+<span class="nc" id="L45">            weight = weight,</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">            growthRateInternalName = species?.growthRate?.internalName,</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            captureRate = species?.captureRate,</span>
+<span class="nc" id="L48">            typeInternalNames = loadCreatureElements(creatureId),</span>
+<span class="nc" id="L49">            baseStats = loadCreatureStats(creatureId),</span>
+<span class="nc" id="L50">            abilityOptions = loadCreatureAbilities(creatureId),</span>
+        )
+    }
+
+    private fun loadCreatureElements(creatureId: Long): List&lt;String&gt; {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        val rows = creatureElementRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        val slots = rows.associate { row -&gt; row.id.typeId to (row.slot ?: Int.MAX_VALUE) }</span>
+<span class="nc" id="L57">        return typeRepository</span>
+<span class="nc" id="L58">            .findAllById(slots.keys)</span>
+<span class="nc" id="L59">            .sortedBy { type -&gt; slots[type.id] ?: Int.MAX_VALUE }</span>
+<span class="nc" id="L60">            .mapNotNull { type -&gt; type.internalName }</span>
+    }
+
+    private fun loadCreatureStats(creatureId: Long): Map&lt;String, Int&gt; {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        val rows = creatureStatRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
+<span class="nc" id="L65">        val statsById = statRepository.findAllById(rows.map { row -&gt; row.id.statId }.toSet()).associateBy { stat -&gt; stat.id }</span>
+<span class="nc" id="L66">        return rows</span>
+<span class="nc" id="L67">            .mapNotNull { row -&gt;</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                val stat = statsById[row.id.statId] ?: return@mapNotNull null</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                val internalName = stat.internalName ?: return@mapNotNull null</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                internalName to (row.baseStat ?: 0)</span>
+<span class="nc" id="L71">            }.toMap(LinkedHashMap())</span>
+    }
+
+    private fun loadCreatureAbilities(creatureId: Long): List&lt;CreatureAbilityOptionInfo&gt; {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        val rows = creatureAbilityRepository.findAll().filter { row -&gt; row.id.creatureId == creatureId }</span>
+<span class="nc" id="L76">        val abilitiesById = abilityRepository.findAllById(rows.map { row -&gt; row.id.abilityId }.toSet()).associateBy { ability -&gt; ability.id }</span>
+<span class="nc" id="L77">        return rows</span>
+<span class="nc" id="L78">            .mapNotNull { row -&gt;</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                val ability = abilitiesById[row.id.abilityId] ?: return@mapNotNull null</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                val internalName = ability.internalName ?: return@mapNotNull null</span>
+<span class="nc" id="L81">                CreatureAbilityOptionInfo(</span>
+<span class="nc" id="L82">                    internalName = internalName,</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                    slot = row.slot ?: Int.MAX_VALUE,</span>
+<span class="nc" id="L84">                    hidden = row.hidden == true,</span>
+<span class="nc" id="L85">                )</span>
+<span class="nc" id="L86">            }.sortedWith(compareBy&lt;CreatureAbilityOptionInfo&gt; { ability -&gt; ability.hidden }.thenBy { ability -&gt; ability.slot })</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

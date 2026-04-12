@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocalItemReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.dataset.service.api</a> &gt; <span class="el_source">LocalItemReader.kt</span></div><h1>LocalItemReader.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.dataset.service.api
+
+import io.github.lishangbu.avalon.dataset.api.model.ItemInfo
+import io.github.lishangbu.avalon.dataset.api.service.ItemReader
+import io.github.lishangbu.avalon.dataset.entity.dto.ItemSpecification
+import io.github.lishangbu.avalon.dataset.entity.dto.ItemView
+import io.github.lishangbu.avalon.dataset.repository.ItemRepository
+import org.springframework.stereotype.Service
+
+<span class="nc" id="L10">@Service</span>
+<span class="nc" id="L11">class LocalItemReader(</span>
+<span class="nc" id="L12">    private val itemRepository: ItemRepository,</span>
+) : ItemReader {
+    override fun findItemByInternalName(internalName: String): ItemInfo? =
+<span class="nc" id="L15">        itemRepository</span>
+<span class="nc" id="L16">            .listViews(ItemSpecification(internalName = internalName))</span>
+<span class="nc" id="L17">            .firstOrNull { item -&gt; item.internalName == internalName }</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">            ?.toItemInfo()</span>
+
+    override fun findItemsByIds(ids: Set&lt;Long&gt;): Map&lt;Long, ItemInfo&gt; =
+<span class="nc" id="L21">        ids</span>
+<span class="nc" id="L22">            .mapNotNull { id -&gt;</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">                itemRepository.loadViewById(id)?.toItemInfo()?.let { item -&gt; id to item }</span>
+<span class="nc" id="L24">            }.toMap(LinkedHashMap())</span>
+
+    private fun ItemView.toItemInfo(): ItemInfo =
+<span class="nc" id="L27">        ItemInfo(</span>
+<span class="nc" id="L28">            id = id.toLong(),</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">            internalName = requireNotNull(internalName) { &quot;Item id=$id is missing internalName.&quot; },</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">            name = name ?: requireNotNull(internalName),</span>
+<span class="nc" id="L31">            shortEffect = shortEffect,</span>
+<span class="nc" id="L32">            effect = effect,</span>
+<span class="nc" id="L33">            text = text,</span>
+<span class="nc" id="L34">            attributeInternalNames = itemAttributes.mapNotNull { attribute -&gt; attribute.internalName }.toSet(),</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            flingEffectInternalName = itemFlingEffect?.internalName,</span>
+<span class="nc" id="L36">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

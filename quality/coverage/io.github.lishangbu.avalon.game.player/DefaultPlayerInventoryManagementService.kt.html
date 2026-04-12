@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultPlayerInventoryManagementService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.player</a> &gt; <span class="el_source">DefaultPlayerInventoryManagementService.kt</span></div><h1>DefaultPlayerInventoryManagementService.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.player
 
-import io.github.lishangbu.avalon.dataset.api.game.service.GameItemQueryPort
+import io.github.lishangbu.avalon.dataset.api.service.ItemReader
 import io.github.lishangbu.avalon.game.entity.PlayerInventoryItem
 import io.github.lishangbu.avalon.game.repository.PlayerInventoryItemRepository
 import io.github.lishangbu.avalon.game.repository.PlayerRepository
@@ -13,7 +13,7 @@ import java.time.Instant
 <span class="nc" id="L13">class DefaultPlayerInventoryManagementService(</span>
 <span class="nc" id="L14">    private val playerRepository: PlayerRepository,</span>
 <span class="nc" id="L15">    private val playerInventoryItemRepository: PlayerInventoryItemRepository,</span>
-<span class="nc" id="L16">    private val gameItemQueryPort: GameItemQueryPort,</span>
+<span class="nc" id="L16">    private val itemReader: ItemReader,</span>
 ) : PlayerInventoryManagementService {
     override fun listByPlayerId(playerId: String): List&lt;PlayerInventoryItemView&gt; {
 <span class="nc bnc" id="L19" title="All 2 branches missed.">        val parsedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
@@ -24,7 +24,7 @@ import java.time.Instant
 <span class="nc bnc" id="L24" title="All 2 branches missed.">        if (inventoryItems.isEmpty()) {</span>
 <span class="nc" id="L25">            return emptyList()</span>
         }
-<span class="nc" id="L27">        val itemsById = gameItemQueryPort.findItemsByIds(inventoryItems.map { inventoryItem -&gt; inventoryItem.itemId }.toSet())</span>
+<span class="nc" id="L27">        val itemsById = itemReader.findItemsByIds(inventoryItems.map { inventoryItem -&gt; inventoryItem.itemId }.toSet())</span>
 <span class="nc" id="L28">        return inventoryItems</span>
 <span class="nc" id="L29">            .sortedBy { inventoryItem -&gt; inventoryItem.itemId }</span>
 <span class="nc" id="L30">            .map { inventoryItem -&gt;</span>
@@ -49,8 +49,8 @@ import java.time.Instant
 <span class="nc bnc" id="L49" title="All 2 branches missed.">        requireNotNull(playerRepository.findNullable(playerId)) {</span>
 <span class="nc" id="L50">            &quot;Player '$playerId' was not found.&quot;</span>
         }
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        val itemView = gameItemQueryPort.findItemByInternalName(command.itemInternalName) ?: error(&quot;Item '${command.itemInternalName}' was not found.&quot;)</span>
-<span class="nc" id="L53">        val itemId = itemView.id</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        val itemData = itemReader.findItemByInternalName(command.itemInternalName) ?: error(&quot;Item '${command.itemInternalName}' was not found.&quot;)</span>
+<span class="nc" id="L53">        val itemId = itemData.id</span>
 <span class="nc" id="L54">        val existing =</span>
 <span class="nc" id="L55">            playerInventoryItemRepository</span>
 <span class="nc" id="L56">                .findAll()</span>
@@ -78,8 +78,8 @@ import java.time.Instant
 <span class="nc" id="L78">        return PlayerInventoryItemView(</span>
 <span class="nc" id="L79">            playerId = saved.playerId.toString(),</span>
 <span class="nc" id="L80">            itemId = itemId.toString(),</span>
-<span class="nc" id="L81">            itemInternalName = itemView.internalName,</span>
-<span class="nc" id="L82">            itemName = itemView.name,</span>
+<span class="nc" id="L81">            itemInternalName = itemData.internalName,</span>
+<span class="nc" id="L82">            itemName = itemData.name,</span>
 <span class="nc" id="L83">            quantity = saved.quantity,</span>
         )
     }
