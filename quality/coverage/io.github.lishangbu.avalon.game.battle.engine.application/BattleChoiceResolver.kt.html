@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleChoiceResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application</a> &gt; <span class="el_source">BattleChoiceResolver.kt</span></div><h1>BattleChoiceResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.application
+
+import io.github.lishangbu.avalon.game.battle.engine.dsl.EffectDefinition
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+import io.github.lishangbu.avalon.game.battle.engine.repository.EffectDefinitionRepository
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+import io.github.lishangbu.avalon.game.battle.engine.session.ItemChoice
+import io.github.lishangbu.avalon.game.battle.engine.session.MoveChoice
+import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQuery
+import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessionTargetQueryService
+import kotlin.math.roundToInt
+
+/**
+ * battle-engine 应用层的智能 choice 解析器。
+ *
+ * 设计意图：
+ * - 把“基于当前快照自动补齐目标、速度、优先级、命中参数”这组能力收回引擎；
+ * - 让 game/controller 不再自己拼 `MoveChoice`、`ItemChoice` 的细节；
+ * - 使 choice 的默认规则与目标解析直接复用引擎的 effect repository 和 target query 服务。
+ */
+<span class="fc" id="L21">class BattleChoiceResolver(</span>
+<span class="fc" id="L22">    private val effectDefinitionRepository: EffectDefinitionRepository,</span>
+<span class="fc" id="L23">    private val targetQueryService: BattleSessionTargetQueryService,</span>
+) {
+    fun queryTargets(
+        session: BattleSessionQuery,
+        effectId: String,
+        actorUnitId: String,
+    ): BattleSessionTargetQuery =
+<span class="fc" id="L30">        targetQueryService.resolve(</span>
+<span class="fc" id="L31">            snapshot = session.snapshot,</span>
+<span class="fc" id="L32">            effectId = effectId,</span>
+<span class="fc" id="L33">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L34">        )</span>
+
+    fun createMoveChoice(
+        session: BattleSessionQuery,
+        command: SubmitMoveChoiceCommand,
+    ): MoveChoice {
+<span class="fc" id="L40">        val effect = effectDefinitionRepository.get(command.moveId)</span>
+<span class="fc" id="L41">        val attacker = requireUnit(session, command.attackerId)</span>
+<span class="fc" id="L42">        val targetQuery = queryTargets(session, command.moveId, command.attackerId)</span>
+<span class="fc" id="L43">        val targetId = resolveTargetId(command.targetId, targetQuery, command.attackerId)</span>
+<span class="fc" id="L44">        val target = requireUnit(session, targetId)</span>
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">        val basePower = command.basePower ?: effect.intData(&quot;basePower&quot;) ?: 0</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        val moveAccuracy = command.accuracy ?: defaultAccuracy(effect, attacker)</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        val targetEvasion = command.evasion ?: defaultEvasion(target)</span>
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">        val priority = command.priority ?: effect.intData(&quot;priority&quot;) ?: 0</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        val speed = command.speed ?: effectiveStat(attacker, &quot;speed&quot;)</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        val damage = command.damage ?: 0</span>
+
+<span class="fc" id="L52">        return MoveChoice(</span>
+<span class="fc" id="L53">            moveId = command.moveId,</span>
+<span class="fc" id="L54">            attackerId = command.attackerId,</span>
+<span class="fc" id="L55">            targetId = targetId,</span>
+<span class="fc" id="L56">            priority = priority,</span>
+<span class="fc" id="L57">            speed = speed,</span>
+<span class="fc" id="L58">            accuracy = moveAccuracy,</span>
+<span class="fc" id="L59">            evasion = targetEvasion,</span>
+<span class="fc" id="L60">            basePower = basePower,</span>
+<span class="fc" id="L61">            damage = damage,</span>
+            attributes =
+<span class="fc" id="L63">                command.attributes +</span>
+<span class="fc" id="L64">                    mapOfNotNull(</span>
+<span class="fc" id="L65">                        &quot;accuracyRoll&quot; to command.accuracyRoll,</span>
+<span class="fc" id="L66">                        &quot;chanceRoll&quot; to command.chanceRoll,</span>
+<span class="fc" id="L67">                        &quot;criticalRoll&quot; to command.criticalRoll,</span>
+<span class="fc" id="L68">                        &quot;damageRoll&quot; to command.damageRoll,</span>
+<span class="fc" id="L69">                        &quot;criticalHit&quot; to command.criticalHit,</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">                        &quot;computeDamage&quot; to (command.damage == null),</span>
+                    ),
+        )
+    }
+
+    fun createItemChoice(
+        session: BattleSessionQuery,
+        command: SubmitItemChoiceCommand,
+    ): ItemChoice {
+<span class="nc" id="L79">        val actor = requireUnit(session, command.actorUnitId)</span>
+<span class="nc" id="L80">        val targetQuery = queryTargets(session, command.itemId, command.actorUnitId)</span>
+<span class="nc" id="L81">        val targetId = resolveTargetId(command.targetId, targetQuery, command.actorUnitId)</span>
+<span class="nc" id="L82">        val effect = effectDefinitionRepository.get(command.itemId)</span>
+<span class="nc" id="L83">        return ItemChoice(</span>
+<span class="nc" id="L84">            itemId = command.itemId,</span>
+<span class="nc" id="L85">            actorUnitId = command.actorUnitId,</span>
+<span class="nc" id="L86">            targetId = targetId,</span>
+<span class="nc bnc" id="L87" title="All 4 branches missed.">            priority = command.priority ?: effect.intData(&quot;priority&quot;) ?: 0,</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            speed = command.speed ?: effectiveStat(actor, &quot;speed&quot;),</span>
+<span class="nc" id="L89">            attributes = command.attributes + mapOfNotNull(&quot;chanceRoll&quot; to command.chanceRoll),</span>
+        )
+    }
+
+    private fun resolveTargetId(
+        requestedTargetId: String?,
+        targetQuery: BattleSessionTargetQuery,
+        actorUnitId: String,
+    ): String {
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (requestedTargetId != null) {</span>
+<span class="nc" id="L99">            return requestedTargetId</span>
+        }
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (!targetQuery.requiresExplicitTarget) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            return targetQuery.availableTargetUnitIds.firstOrNull() ?: actorUnitId</span>
+        }
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (targetQuery.availableTargetUnitIds.size == 1) {</span>
+<span class="pc" id="L105">            return targetQuery.availableTargetUnitIds.single()</span>
+        }
+<span class="nc" id="L107">        error(&quot;Effect '${targetQuery.effectId}' requires an explicit target for actor '${targetQuery.actorUnitId}'.&quot;)</span>
+    }
+
+    private fun defaultAccuracy(
+        effect: EffectDefinition,
+        attacker: UnitState,
+    ): Int? {
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        val baseAccuracy = effect.intData(&quot;accuracy&quot;) ?: return null</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        return (baseAccuracy * stageMultiplier(attacker.boosts[&quot;accuracy&quot;] ?: 0)).roundToInt()</span>
+    }
+
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">    private fun defaultEvasion(target: UnitState): Int = (100.0 * stageMultiplier(target.boosts[&quot;evasion&quot;] ?: 0)).roundToInt()</span>
+
+    private fun effectiveStat(
+        unit: UnitState,
+        statName: String,
+    ): Int {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        val baseStat = unit.stats[statName] ?: return 0</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        val stage = unit.boosts[statName] ?: 0</span>
+<span class="fc" id="L126">        return (baseStat * stageMultiplier(stage)).roundToInt()</span>
+    }
+
+    private fun stageMultiplier(stage: Int): Double {
+<span class="fc" id="L130">        val normalized = stage.coerceIn(-6, 6)</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        return if (normalized &gt;= 0) {</span>
+<span class="fc" id="L132">            (2.0 + normalized) / 2.0</span>
+        } else {
+<span class="nc" id="L134">            2.0 / (2.0 - normalized)</span>
+        }
+    }
+
+    private fun requireUnit(
+        session: BattleSessionQuery,
+        unitId: String,
+    ): UnitState =
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        requireNotNull(session.snapshot.units[unitId]) {</span>
+<span class="nc" id="L143">            &quot;Unit '$unitId' was not found in battle snapshot.&quot;</span>
+<span class="fc" id="L144">        }</span>
+
+    private fun EffectDefinition.intData(key: String): Int? =
+<span class="fc" id="L147">        when (val value = data[key]) {</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">            is Int -&gt; value</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">            is Long -&gt; value.toInt()</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">            is Double -&gt; value.roundToInt()</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">            is Float -&gt; value.roundToInt()</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">            is Number -&gt; value.toInt()</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">            is String -&gt; value.toIntOrNull()</span>
+<span class="fc" id="L154">            else -&gt; null</span>
+<span class="fc" id="L155">        }</span>
+
+<span class="fc bfc" id="L157" title="All 2 branches covered.">    private fun mapOfNotNull(vararg entries: Pair&lt;String, Any?&gt;): Map&lt;String, Any&gt; = entries.mapNotNull { (key, value) -&gt; value?.let { key to it } }.toMap()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

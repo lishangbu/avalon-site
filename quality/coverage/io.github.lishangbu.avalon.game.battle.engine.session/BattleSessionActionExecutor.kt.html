@@ -28,7 +28,7 @@
      * @return 当前回合所有已执行 action 的结果列表。
      */
     fun executeQueuedActions(): List&lt;BattleSessionActionExecutionResult&gt; {
-<span class="fc" id="L31">        session.ensureStarted()</span>
+<span class="fc" id="L31">        session.ensureRunning()</span>
 <span class="fc" id="L32">        val actions = session.actionQueue.drain(session.currentSnapshot)</span>
 <span class="fc" id="L33">        val results = mutableListOf&lt;BattleSessionActionExecutionResult&gt;()</span>
 <span class="fc" id="L34">        actions.forEach { action -&gt;</span>
@@ -50,11 +50,13 @@
             }
 <span class="fc" id="L51">            val handler = actionHandlerRegistry.get(preparedAction)</span>
 <span class="fc" id="L52">            results += handler.execute(preparedAction, session)</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
-<span class="fc" id="L54">                return results</span>
+<span class="fc" id="L53">            if (session.currentSnapshot.battle.lifecycle</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                    .isEnded()</span>
+            ) {
+<span class="fc" id="L56">                return results</span>
             }
-<span class="fc" id="L56">        }</span>
-<span class="fc" id="L57">        return results</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">        return results</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

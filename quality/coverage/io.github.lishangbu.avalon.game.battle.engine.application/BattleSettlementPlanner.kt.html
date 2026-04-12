@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSettlementPlanner.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application</a> &gt; <span class="el_source">BattleSettlementPlanner.kt</span></div><h1>BattleSettlementPlanner.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.application
+
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
+
+/**
+ * 引擎内部的结算计划生成器。
+ *
+ * 设计意图：
+ * - 根据不同 battle type 规划出战后必须执行的标准任务；
+ * - 保持“是否需要捕捉账本结算”这类 battle 规则判断留在引擎，而不是散落在 game 层。
+ */
+interface BattleSettlementPlanner {
+    fun supports(battleKind: BattleType): Boolean
+
+    fun buildPlan(
+        sessionId: String,
+        session: BattleSessionQuery,
+    ): BattleSettlementPlan
+}
+
+/**
+ * trainer / pvp / dungeon 共用的标准结算规划。
+ */
+<span class="fc" id="L25">class StandardBattleSettlementPlanner : BattleSettlementPlanner {</span>
+<span class="pc bpc" id="L26" title="3 of 6 branches missed.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.TRAINER || battleKind == BattleType.PVP || battleKind == BattleType.DUNGEON</span>
+
+    override fun buildPlan(
+        sessionId: String,
+        session: BattleSessionQuery,
+    ): BattleSettlementPlan =
+<span class="nc" id="L32">        BattleSettlementPlan(</span>
+<span class="nc" id="L33">            sessionId = sessionId,</span>
+<span class="nc" id="L34">            battleKind = session.snapshot.battle.battleKind,</span>
+<span class="nc" id="L35">            endedReason = session.snapshot.battle.endedReason,</span>
+<span class="nc" id="L36">            session = session,</span>
+            tasks =
+<span class="nc" id="L38">                if (session.snapshot.battle.lifecycle</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">                        .isSettled()</span>
+                ) {
+<span class="nc" id="L41">                    emptyList()</span>
+                } else {
+<span class="nc" id="L43">                    listOf(BattleSettlementTask.MARK_SESSION_SETTLED)</span>
+                },
+<span class="nc" id="L45">        )</span>
+}
+
+/**
+ * wild battle 的结算规划。
+ *
+ * 与普通 battle 相比，wild battle 需要先处理捕捉账本，再把 session 标记为已结算。
+ */
+<span class="fc" id="L53">class WildBattleSettlementPlanner : BattleSettlementPlanner {</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.WILD</span>
+
+    override fun buildPlan(
+        sessionId: String,
+        session: BattleSessionQuery,
+    ): BattleSettlementPlan =
+<span class="fc" id="L60">        BattleSettlementPlan(</span>
+<span class="fc" id="L61">            sessionId = sessionId,</span>
+<span class="fc" id="L62">            battleKind = session.snapshot.battle.battleKind,</span>
+<span class="fc" id="L63">            endedReason = session.snapshot.battle.endedReason,</span>
+<span class="fc" id="L64">            session = session,</span>
+            tasks =
+<span class="fc" id="L66">                if (session.snapshot.battle.lifecycle</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                        .isSettled()</span>
+                ) {
+<span class="nc" id="L69">                    emptyList()</span>
+                } else {
+<span class="fc" id="L71">                    listOf(</span>
+<span class="fc" id="L72">                        BattleSettlementTask.SETTLE_CAPTURE_LEDGER,</span>
+<span class="fc" id="L73">                        BattleSettlementTask.MARK_SESSION_SETTLED,</span>
+                    )
+                },
+<span class="fc" id="L76">        )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

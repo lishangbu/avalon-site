@@ -22,11 +22,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
 <span class="fc" id="L22">data class GameBattleSessionView(</span>
 <span class="fc" id="L23">    val snapshot: GameBattleSnapshotView,</span>
 <span class="fc" id="L24">    val turnStatus: BattleSessionTurnStatus?,</span>
-<span class="fc" id="L25">    val pendingActions: List&lt;GameBattleActionView&gt;,</span>
+<span class="pc" id="L25">    val pendingActions: List&lt;GameBattleActionView&gt;,</span>
 <span class="pc" id="L26">    val choiceStatuses: List&lt;GameBattleChoiceStatusView&gt;,</span>
 <span class="pc" id="L27">    val replacementRequests: List&lt;GameBattleReplacementRequestView&gt;,</span>
 <span class="fc" id="L28">    val resourceLedger: List&lt;GameBattleResourceUsageView&gt;,</span>
-<span class="fc" id="L29">    val captureResourceLedger: List&lt;GameBattleCaptureResourceUsageView&gt;,</span>
+<span class="pc" id="L29">    val captureResourceLedger: List&lt;GameBattleCaptureResourceUsageView&gt;,</span>
 <span class="pc" id="L30">    val battleLogs: List&lt;String&gt;,</span>
 <span class="fc" id="L31">    val events: List&lt;GameBattleEventView&gt;,</span>
 )
@@ -40,7 +40,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property sides 当前全部 side 视图列表。
  */
 <span class="fc" id="L42">data class GameBattleSnapshotView(</span>
-<span class="fc" id="L43">    val battle: GameBattleStateView,</span>
+<span class="pc" id="L43">    val battle: GameBattleStateView,</span>
 <span class="fc" id="L44">    val field: GameBattleFieldView,</span>
 <span class="fc" id="L45">    val units: List&lt;GameBattleUnitView&gt;,</span>
 <span class="fc" id="L46">    val sides: List&lt;GameBattleSideView&gt;,</span>
@@ -53,28 +53,22 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property formatId 当前战斗采用的规则集标识。
  * @property battleKind 当前战斗种类。
  * @property lifecycle 当前战斗所处的全局生命周期阶段。
- * @property started 战斗是否已经开始。
  * @property turn 当前回合数。
- * @property ended 战斗是否已经结束。
- * @property settled 战斗是否已经完成结算。
  * @property winner 战斗赢家标识。
  * @property endedReason 战斗结束原因。
  * @property capturableSideId 可被捕捉的 side 标识。
  * @property capturedUnitId 已被捕捉的目标单位标识。
  */
-<span class="fc" id="L65">data class GameBattleStateView(</span>
-<span class="pc" id="L66">    val id: String,</span>
-<span class="pc" id="L67">    val formatId: String,</span>
-<span class="pc" id="L68">    val battleKind: BattleType,</span>
-<span class="pc" id="L69">    val lifecycle: BattleLifecycle,</span>
-<span class="fc" id="L70">    val started: Boolean,</span>
-<span class="pc" id="L71">    val turn: Int,</span>
-<span class="fc" id="L72">    val ended: Boolean,</span>
-<span class="pc" id="L73">    val settled: Boolean,</span>
-<span class="pc" id="L74">    val winner: String?,</span>
-<span class="fc" id="L75">    val endedReason: String?,</span>
-<span class="pc" id="L76">    val capturableSideId: String?,</span>
-<span class="pc" id="L77">    val capturedUnitId: String?,</span>
+<span class="fc" id="L62">data class GameBattleStateView(</span>
+<span class="pc" id="L63">    val id: String,</span>
+<span class="pc" id="L64">    val formatId: String,</span>
+<span class="pc" id="L65">    val battleKind: BattleType,</span>
+<span class="pc" id="L66">    val lifecycle: BattleLifecycle,</span>
+<span class="pc" id="L67">    val turn: Int,</span>
+<span class="pc" id="L68">    val winner: String?,</span>
+<span class="pc" id="L69">    val endedReason: String?,</span>
+<span class="pc" id="L70">    val capturableSideId: String?,</span>
+<span class="pc" id="L71">    val capturedUnitId: String?,</span>
 )
 
 /**
@@ -83,9 +77,9 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property weatherState 当前天气运行时状态。
  * @property terrainState 当前地形运行时状态。
  */
-<span class="fc" id="L86">data class GameBattleFieldView(</span>
-<span class="fc" id="L87">    val weatherState: AttachedEffectState?,</span>
-<span class="fc" id="L88">    val terrainState: AttachedEffectState?,</span>
+<span class="fc" id="L80">data class GameBattleFieldView(</span>
+<span class="fc" id="L81">    val weatherState: AttachedEffectState?,</span>
+<span class="fc" id="L82">    val terrainState: AttachedEffectState?,</span>
 )
 
 /**
@@ -106,21 +100,21 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property movePp 当前招式剩余 PP。
  * @property forceSwitchRequested 当前单位是否被标记为强制替换。
  */
-<span class="fc" id="L109">data class GameBattleUnitView(</span>
-<span class="fc" id="L110">    val id: String,</span>
-<span class="fc" id="L111">    val currentHp: Int,</span>
-<span class="pc" id="L112">    val maxHp: Int,</span>
-<span class="pc" id="L113">    val metadata: UnitMetadataState,</span>
-<span class="pc" id="L114">    val statusState: AttachedEffectState?,</span>
-<span class="pc" id="L115">    val abilityId: String?,</span>
-<span class="pc" id="L116">    val itemId: String?,</span>
-<span class="pc" id="L117">    val typeIds: List&lt;String&gt;,</span>
-<span class="pc" id="L118">    val volatileStates: Map&lt;String, AttachedEffectState&gt;,</span>
-<span class="fc" id="L119">    val conditionStates: Map&lt;String, AttachedEffectState&gt;,</span>
-<span class="pc" id="L120">    val boosts: Map&lt;String, Int&gt;,</span>
-<span class="pc" id="L121">    val stats: Map&lt;String, Int&gt;,</span>
-<span class="pc" id="L122">    val movePp: Map&lt;String, Int&gt;,</span>
-<span class="pc" id="L123">    val forceSwitchRequested: Boolean,</span>
+<span class="fc" id="L103">data class GameBattleUnitView(</span>
+<span class="pc" id="L104">    val id: String,</span>
+<span class="pc" id="L105">    val currentHp: Int,</span>
+<span class="pc" id="L106">    val maxHp: Int,</span>
+<span class="pc" id="L107">    val metadata: UnitMetadataState,</span>
+<span class="pc" id="L108">    val statusState: AttachedEffectState?,</span>
+<span class="pc" id="L109">    val abilityId: String?,</span>
+<span class="pc" id="L110">    val itemId: String?,</span>
+<span class="pc" id="L111">    val typeIds: List&lt;String&gt;,</span>
+<span class="pc" id="L112">    val volatileStates: Map&lt;String, AttachedEffectState&gt;,</span>
+<span class="fc" id="L113">    val conditionStates: Map&lt;String, AttachedEffectState&gt;,</span>
+<span class="pc" id="L114">    val boosts: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L115">    val stats: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L116">    val movePp: Map&lt;String, Int&gt;,</span>
+<span class="pc" id="L117">    val forceSwitchRequested: Boolean,</span>
 )
 
 /**
@@ -131,11 +125,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property activeUnitIds 当前处于 active 槽位的单位标识列表。
  * @property conditionStates 当前 side condition 运行时状态表。
  */
-<span class="fc" id="L134">data class GameBattleSideView(</span>
-<span class="pc" id="L135">    val id: String,</span>
-<span class="pc" id="L136">    val unitIds: List&lt;String&gt;,</span>
-<span class="pc" id="L137">    val activeUnitIds: List&lt;String&gt;,</span>
-<span class="fc" id="L138">    val conditionStates: Map&lt;String, AttachedEffectState&gt;,</span>
+<span class="fc" id="L128">data class GameBattleSideView(</span>
+<span class="pc" id="L129">    val id: String,</span>
+<span class="pc" id="L130">    val unitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L131">    val activeUnitIds: List&lt;String&gt;,</span>
+<span class="fc" id="L132">    val conditionStates: Map&lt;String, AttachedEffectState&gt;,</span>
 )
 
 /**
@@ -149,14 +143,14 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property submittedActionCount 当前回合已经提交的行动数量。
  * @property ready 当前 side 是否已满足回合结算前置条件。
  */
-<span class="fc" id="L152">data class GameBattleChoiceStatusView(</span>
-<span class="pc" id="L153">    val sideId: String,</span>
-<span class="pc" id="L154">    val activeUnitIds: List&lt;String&gt;,</span>
-<span class="pc" id="L155">    val submittedUnitIds: List&lt;String&gt;,</span>
-<span class="pc" id="L156">    val missingUnitIds: List&lt;String&gt;,</span>
-<span class="pc" id="L157">    val requiredActionCount: Int,</span>
-<span class="pc" id="L158">    val submittedActionCount: Int,</span>
-<span class="pc" id="L159">    val ready: Boolean,</span>
+<span class="fc" id="L146">data class GameBattleChoiceStatusView(</span>
+<span class="pc" id="L147">    val sideId: String,</span>
+<span class="pc" id="L148">    val activeUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L149">    val submittedUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L150">    val missingUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L151">    val requiredActionCount: Int,</span>
+<span class="pc" id="L152">    val submittedActionCount: Int,</span>
+<span class="pc" id="L153">    val ready: Boolean,</span>
 )
 
 /**
@@ -166,9 +160,9 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnSt
  * @property outgoingUnitIds 当前需要下场的单位列表。
  * @property candidateUnitIds 当前可选替补单位列表。
  */
-<span class="nc" id="L169">data class GameBattleReplacementRequestView(</span>
-<span class="nc" id="L170">    val sideId: String,</span>
-<span class="nc" id="L171">    val outgoingUnitIds: List&lt;String&gt;,</span>
-<span class="nc" id="L172">    val candidateUnitIds: List&lt;String&gt;,</span>
+<span class="nc" id="L163">data class GameBattleReplacementRequestView(</span>
+<span class="nc" id="L164">    val sideId: String,</span>
+<span class="nc" id="L165">    val outgoingUnitIds: List&lt;String&gt;,</span>
+<span class="nc" id="L166">    val candidateUnitIds: List&lt;String&gt;,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

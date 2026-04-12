@@ -4,22 +4,19 @@ import io.github.lishangbu.avalon.dataset.api.model.SpeciesInfo
 import io.github.lishangbu.avalon.dataset.api.service.ItemReader
 import io.github.lishangbu.avalon.dataset.api.service.SpeciesReader
 import io.github.lishangbu.avalon.game.battle.engine.capture.CaptureContext
-import io.github.lishangbu.avalon.game.battle.engine.capture.CaptureFormulaInput
 import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
-import io.github.lishangbu.avalon.game.battle.engine.service.CaptureFormulaInputResolver
-import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionCaptureAction
 import io.github.lishangbu.avalon.game.repository.OwnedCreatureRepository
 import io.github.lishangbu.avalon.game.repository.PlayerRepository
 import org.springframework.stereotype.Service
 
-<span class="fc" id="L16">@Service</span>
-<span class="fc" id="L17">open class DefaultCapturePreparationService(</span>
-<span class="fc" id="L18">    private val itemReader: ItemReader,</span>
-<span class="fc" id="L19">    private val speciesReader: SpeciesReader,</span>
-<span class="fc" id="L20">    private val playerRepository: PlayerRepository,</span>
-<span class="fc" id="L21">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
-) : CaptureFormulaInputResolver {
+<span class="fc" id="L13">@Service</span>
+<span class="fc" id="L14">open class DefaultCapturePreparationService(</span>
+<span class="fc" id="L15">    private val itemReader: ItemReader,</span>
+<span class="fc" id="L16">    private val speciesReader: SpeciesReader,</span>
+<span class="fc" id="L17">    private val playerRepository: PlayerRepository,</span>
+<span class="fc" id="L18">    private val ownedCreatureRepository: OwnedCreatureRepository,</span>
+) {
     /**
      * 解析捕捉扣库存所需的最小上下文。
      *
@@ -29,126 +26,98 @@ import org.springframework.stereotype.Service
         playerId: String,
         ballItemId: String,
     ): CaptureInventoryContext {
-<span class="fc" id="L32">        val resolvedPlayerId = requirePlayer(playerId)</span>
-<span class="fc" id="L33">        val item = loadItem(ballItemId)</span>
-<span class="fc" id="L34">        return CaptureInventoryContext(</span>
-<span class="fc" id="L35">            playerId = resolvedPlayerId,</span>
-<span class="fc" id="L36">            ballItemId = item.id,</span>
-<span class="fc" id="L37">            ballItemInternalName = item.internalName,</span>
+<span class="fc" id="L29">        val resolvedPlayerId = requirePlayer(playerId)</span>
+<span class="fc" id="L30">        val item = loadItem(ballItemId)</span>
+<span class="fc" id="L31">        return CaptureInventoryContext(</span>
+<span class="fc" id="L32">            playerId = resolvedPlayerId,</span>
+<span class="fc" id="L33">            ballItemId = item.id,</span>
+<span class="fc" id="L34">            ballItemInternalName = item.internalName,</span>
         )
     }
 
-<span class="fc" id="L41">    open fun prepare(</span>
+<span class="fc" id="L38">    open fun prepare(</span>
         sessionId: String,
         snapshot: BattleRuntimeSnapshot,
         command: CaptureCommand,
-<span class="fc" id="L45">        inventoryContext: CaptureInventoryContext = resolveInventoryContext(command.playerId, command.ballItemId),</span>
+<span class="fc" id="L42">        inventoryContext: CaptureInventoryContext = resolveInventoryContext(command.playerId, command.ballItemId),</span>
     ): PreparedCaptureContext {
-<span class="fc" id="L47">        val targetUnit =</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            requireNotNull(snapshot.units[command.targetUnitId]) {</span>
-<span class="nc" id="L49">                &quot;Target unit '${command.targetUnitId}' was not found.&quot;</span>
+<span class="fc" id="L44">        val targetUnit =</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">            requireNotNull(snapshot.units[command.targetUnitId]) {</span>
+<span class="nc" id="L46">                &quot;Target unit '${command.targetUnitId}' was not found.&quot;</span>
             }
-<span class="fc" id="L51">        val sourceUnit =</span>
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            command.sourceUnitId?.let { sourceUnitId -&gt;</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">                requireNotNull(snapshot.units[sourceUnitId]) {</span>
-<span class="nc" id="L54">                    &quot;Source unit '$sourceUnitId' was not found.&quot;</span>
-<span class="nc" id="L55">                }</span>
+<span class="fc" id="L48">        val sourceUnit =</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            command.sourceUnitId?.let { sourceUnitId -&gt;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                requireNotNull(snapshot.units[sourceUnitId]) {</span>
+<span class="nc" id="L51">                    &quot;Source unit '$sourceUnitId' was not found.&quot;</span>
+<span class="nc" id="L52">                }</span>
             }
-<span class="fc" id="L57">        val targetMetadata = readBattleUnitMetadata(targetUnit)</span>
-<span class="fc" id="L58">        val species = loadSpecies(targetMetadata.creatureSpeciesId)</span>
-<span class="pc bpc" id="L59" title="3 of 4 branches missed.">        val captureRate = species.captureRate ?: targetMetadata.captureRate ?: 0</span>
-<span class="fc" id="L60">        val alreadyCaught =</span>
-<span class="fc" id="L61">            ownedCreatureRepository</span>
-<span class="fc" id="L62">                .findAll()</span>
-<span class="fc" id="L63">                .any { ownedCreature -&gt;</span>
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                    ownedCreature.playerId == inventoryContext.playerId &amp;&amp;</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                        ownedCreature.creatureSpeciesId == targetMetadata.creatureSpeciesId</span>
+<span class="fc" id="L54">        val targetMetadata = readBattleUnitMetadata(targetUnit)</span>
+<span class="fc" id="L55">        val species = loadSpecies(targetMetadata.creatureSpeciesId)</span>
+<span class="pc bpc" id="L56" title="3 of 4 branches missed.">        val captureRate = species.captureRate ?: targetMetadata.captureRate ?: 0</span>
+<span class="fc" id="L57">        val alreadyCaught =</span>
+<span class="fc" id="L58">            ownedCreatureRepository</span>
+<span class="fc" id="L59">                .findAll()</span>
+<span class="fc" id="L60">                .any { ownedCreature -&gt;</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">                    ownedCreature.playerId == inventoryContext.playerId &amp;&amp;</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                        ownedCreature.creatureSpeciesId == targetMetadata.creatureSpeciesId</span>
                 }
 
-<span class="fc" id="L68">        return PreparedCaptureContext(</span>
-<span class="fc" id="L69">            sessionId = sessionId,</span>
-<span class="fc" id="L70">            playerId = inventoryContext.playerId,</span>
-<span class="fc" id="L71">            ballItemId = inventoryContext.ballItemId,</span>
-<span class="fc" id="L72">            ballItemInternalName = inventoryContext.ballItemInternalName,</span>
-<span class="fc" id="L73">            targetUnitId = command.targetUnitId,</span>
-<span class="fc" id="L74">            sourceUnitId = command.sourceUnitId,</span>
-<span class="fc" id="L75">            snapshot = snapshot,</span>
-<span class="fc" id="L76">            targetUnit = targetUnit,</span>
-<span class="fc" id="L77">            sourceUnit = sourceUnit,</span>
-<span class="fc" id="L78">            targetMetadata = targetMetadata.copy(captureRate = captureRate),</span>
+<span class="fc" id="L65">        return PreparedCaptureContext(</span>
+<span class="fc" id="L66">            sessionId = sessionId,</span>
+<span class="fc" id="L67">            playerId = inventoryContext.playerId,</span>
+<span class="fc" id="L68">            ballItemId = inventoryContext.ballItemId,</span>
+<span class="fc" id="L69">            ballItemInternalName = inventoryContext.ballItemInternalName,</span>
+<span class="fc" id="L70">            targetUnitId = command.targetUnitId,</span>
+<span class="fc" id="L71">            sourceUnitId = command.sourceUnitId,</span>
+<span class="fc" id="L72">            snapshot = snapshot,</span>
+<span class="fc" id="L73">            targetUnit = targetUnit,</span>
+<span class="fc" id="L74">            sourceUnit = sourceUnit,</span>
+<span class="fc" id="L75">            targetMetadata = targetMetadata.copy(captureRate = captureRate),</span>
             battleContext =
-<span class="fc" id="L80">                CaptureContext(</span>
-<span class="fc" id="L81">                    alreadyCaught = alreadyCaught,</span>
-<span class="fc" id="L82">                    isFishingEncounter = targetUnit.metadata.captureContext.isFishingEncounter,</span>
-<span class="fc" id="L83">                    isSurfEncounter = targetUnit.metadata.captureContext.isSurfEncounter,</span>
-<span class="fc" id="L84">                    isNight = targetUnit.metadata.captureContext.isNight,</span>
-<span class="fc" id="L85">                    isCave = targetUnit.metadata.captureContext.isCave,</span>
-<span class="fc" id="L86">                    isUltraBeast = targetUnit.metadata.captureContext.isUltraBeast,</span>
-<span class="fc" id="L87">                    targetLevel = targetMetadata.level,</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">                    targetWeight = targetUnit.metadata.captureContext.targetWeight ?: targetUnit.metadata.weight,</span>
-<span class="fc" id="L89">                    targetTypes = targetUnit.typeIds,</span>
+<span class="fc" id="L77">                CaptureContext(</span>
+<span class="fc" id="L78">                    alreadyCaught = alreadyCaught,</span>
+<span class="fc" id="L79">                    isFishingEncounter = targetUnit.metadata.captureContext.isFishingEncounter,</span>
+<span class="fc" id="L80">                    isSurfEncounter = targetUnit.metadata.captureContext.isSurfEncounter,</span>
+<span class="fc" id="L81">                    isNight = targetUnit.metadata.captureContext.isNight,</span>
+<span class="fc" id="L82">                    isCave = targetUnit.metadata.captureContext.isCave,</span>
+<span class="fc" id="L83">                    isUltraBeast = targetUnit.metadata.captureContext.isUltraBeast,</span>
+<span class="fc" id="L84">                    targetLevel = targetMetadata.level,</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">                    targetWeight = targetUnit.metadata.captureContext.targetWeight ?: targetUnit.metadata.weight,</span>
+<span class="fc" id="L86">                    targetTypes = targetUnit.typeIds,</span>
                 ),
-        )
-    }
-
-    override fun resolve(
-        sessionId: String,
-        snapshot: BattleRuntimeSnapshot,
-        action: BattleSessionCaptureAction,
-    ): CaptureFormulaInput {
-<span class="nc" id="L99">        val prepared =</span>
-<span class="nc" id="L100">            prepare(</span>
-<span class="nc" id="L101">                sessionId = sessionId,</span>
-<span class="nc" id="L102">                snapshot = snapshot,</span>
-                command =
-<span class="nc" id="L104">                    CaptureCommand(</span>
-<span class="nc" id="L105">                        playerId = action.playerId,</span>
-<span class="nc" id="L106">                        ballItemId = action.ballItemId,</span>
-<span class="nc" id="L107">                        targetUnitId = action.targetId,</span>
-<span class="nc" id="L108">                        sourceUnitId = action.sourceUnitId,</span>
-                    ),
-            )
-<span class="nc" id="L111">        return CaptureFormulaInput(</span>
-<span class="nc" id="L112">            currentHp = prepared.targetUnit.currentHp,</span>
-<span class="nc" id="L113">            maxHp = prepared.targetUnit.maxHp,</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            captureRate = prepared.targetMetadata.captureRate ?: 0,</span>
-<span class="nc" id="L115">            statusState = prepared.targetUnit.statusState,</span>
-<span class="nc" id="L116">            ballItemInternalName = prepared.ballItemInternalName,</span>
-<span class="nc" id="L117">            turn = snapshot.battle.turn,</span>
-<span class="nc" id="L118">            battleContext = prepared.battleContext,</span>
         )
     }
 
     private fun loadItem(internalName: String) =
         itemReader.findItemByInternalName(internalName)
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">            ?: error(&quot;Capture ball '$internalName' was not found.&quot;)</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            ?: error(&quot;Capture ball '$internalName' was not found.&quot;)</span>
 
     private fun requirePlayer(playerId: String): Long {
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        val resolvedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        requireNotNull(playerRepository.findNullable(resolvedPlayerId)) {</span>
-<span class="nc" id="L129">            &quot;Player '$resolvedPlayerId' was not found.&quot;</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        val resolvedPlayerId = playerId.toLongOrNull() ?: error(&quot;playerId must be a valid long value.&quot;)</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        requireNotNull(playerRepository.findNullable(resolvedPlayerId)) {</span>
+<span class="nc" id="L98">            &quot;Player '$resolvedPlayerId' was not found.&quot;</span>
         }
-<span class="fc" id="L131">        return resolvedPlayerId</span>
+<span class="fc" id="L100">        return resolvedPlayerId</span>
     }
 
     private fun loadSpecies(speciesId: Long): SpeciesInfo =
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        requireNotNull(speciesReader.findSpeciesById(speciesId)) {</span>
-<span class="nc" id="L136">            &quot;Creature species '$speciesId' was not found.&quot;</span>
-<span class="fc" id="L137">        }</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        requireNotNull(speciesReader.findSpeciesById(speciesId)) {</span>
+<span class="nc" id="L105">            &quot;Creature species '$speciesId' was not found.&quot;</span>
+<span class="fc" id="L106">        }</span>
 
     private fun readBattleUnitMetadata(unit: UnitState): BattleUnitMetadata =
-<span class="fc" id="L140">        BattleUnitMetadata(</span>
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">            creatureId = requireNotNull(unit.metadata.creatureId) { &quot;Unit '${unit.id}' is missing required metadata 'creatureId'.&quot; },</span>
-<span class="pc bpc" id="L142" title="1 of 2 branches missed.">            creatureSpeciesId = requireNotNull(unit.metadata.creatureSpeciesId) { &quot;Unit '${unit.id}' is missing required metadata 'creatureSpeciesId'.&quot; },</span>
-<span class="pc bpc" id="L143" title="1 of 2 branches missed.">            creatureInternalName = requireNotNull(unit.metadata.creatureInternalName) { &quot;Unit '${unit.id}' is missing required metadata 'creatureInternalName'.&quot; },</span>
-<span class="pc bpc" id="L144" title="1 of 2 branches missed.">            creatureName = requireNotNull(unit.metadata.creatureName) { &quot;Unit '${unit.id}' is missing required metadata 'creatureName'.&quot; },</span>
-<span class="pc bpc" id="L145" title="1 of 2 branches missed.">            level = requireNotNull(unit.metadata.level) { &quot;Unit '${unit.id}' is missing required metadata 'level'.&quot; },</span>
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            requiredExperience = unit.metadata.requiredExperience ?: 0,</span>
-<span class="fc" id="L147">            natureId = unit.metadata.natureId,</span>
-<span class="fc" id="L148">            captureRate = unit.metadata.captureRate,</span>
-<span class="fc" id="L149">            ivs = unit.metadata.ivs,</span>
-<span class="fc" id="L150">            evs = unit.metadata.evs,</span>
-<span class="fc" id="L151">            calculatedStats = unit.stats,</span>
-<span class="fc" id="L152">        )</span>
+<span class="fc" id="L109">        BattleUnitMetadata(</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">            creatureId = requireNotNull(unit.metadata.creatureId) { &quot;Unit '${unit.id}' is missing required metadata 'creatureId'.&quot; },</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            creatureSpeciesId = requireNotNull(unit.metadata.creatureSpeciesId) { &quot;Unit '${unit.id}' is missing required metadata 'creatureSpeciesId'.&quot; },</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            creatureInternalName = requireNotNull(unit.metadata.creatureInternalName) { &quot;Unit '${unit.id}' is missing required metadata 'creatureInternalName'.&quot; },</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">            creatureName = requireNotNull(unit.metadata.creatureName) { &quot;Unit '${unit.id}' is missing required metadata 'creatureName'.&quot; },</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">            level = requireNotNull(unit.metadata.level) { &quot;Unit '${unit.id}' is missing required metadata 'level'.&quot; },</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            requiredExperience = unit.metadata.requiredExperience ?: 0,</span>
+<span class="fc" id="L116">            natureId = unit.metadata.natureId,</span>
+<span class="fc" id="L117">            captureRate = unit.metadata.captureRate,</span>
+<span class="fc" id="L118">            ivs = unit.metadata.ivs,</span>
+<span class="fc" id="L119">            evs = unit.metadata.evs,</span>
+<span class="fc" id="L120">            calculatedStats = unit.stats,</span>
+<span class="fc" id="L121">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

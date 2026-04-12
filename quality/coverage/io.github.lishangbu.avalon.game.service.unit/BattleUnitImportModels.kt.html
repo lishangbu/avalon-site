@@ -6,13 +6,13 @@ import io.github.lishangbu.avalon.game.battle.engine.model.UnitMetadataState
 import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 
 /** 单个招式槽位导入参数。 */
-<span class="pc" id="L9">data class BattleMoveImportRequest(</span>
-<span class="fc" id="L10">    val moveId: String,</span>
-<span class="pc" id="L11">    val currentPp: Int? = null,</span>
+<span class="nc" id="L9">data class BattleMoveImportRequest(</span>
+<span class="nc" id="L10">    val moveId: String,</span>
+<span class="nc" id="L11">    val currentPp: Int? = null,</span>
 <span class="nc" id="L12">)</span>
 
 /** 单位导入边界上的结构化元数据。 */
-<span class="pc" id="L15">data class BattleUnitImportMetadata(</span>
+<span class="fc" id="L15">data class BattleUnitImportMetadata(</span>
 <span class="fc" id="L16">    val level: Int,</span>
 <span class="pc" id="L17">    val creatureId: Long? = null,</span>
 <span class="pc" id="L18">    val creatureInternalName: String? = null,</span>
@@ -21,10 +21,10 @@ import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 <span class="pc" id="L21">    val captureContext: UnitCaptureContextState = UnitCaptureContextState(),</span>
 <span class="pc" id="L22">    val ivs: Map&lt;String, Int&gt; = emptyMap(),</span>
 <span class="pc" id="L23">    val evs: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="nc" id="L24">)</span>
+<span class="fc" id="L24">)</span>
 
 /** 真实数据智能导入战斗单位时所需的输入。 */
-<span class="pc" id="L27">data class BattleUnitImportRequest(</span>
+<span class="fc" id="L27">data class BattleUnitImportRequest(</span>
 <span class="fc" id="L28">    val unitId: String,</span>
 <span class="fc" id="L29">    val metadata: BattleUnitImportMetadata,</span>
 <span class="pc" id="L30">    val abilityInternalName: String? = null,</span>
@@ -36,7 +36,7 @@ import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
 <span class="pc" id="L36">    val conditionStates: Map&lt;String, AttachedEffectState&gt; = emptyMap(),</span>
 <span class="pc" id="L37">    val boosts: Map&lt;String, Int&gt; = emptyMap(),</span>
 <span class="pc" id="L38">    val forceSwitchRequested: Boolean = false,</span>
-<span class="nc" id="L39">)</span>
+<span class="fc" id="L39">)</span>
 
 /** 智能导入后的战斗单位结果。 */
 <span class="fc" id="L42">data class BattleUnitImportResult(</span>

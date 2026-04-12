@@ -33,24 +33,28 @@ enum class BattleLifecycle {
 <span class="fc" id="L33">    SETTLED,</span>
     ;
 
-    companion object {
-        /**
-         * 兼容旧字段的默认阶段推导。
-         *
-         * 这样旧测试或旧构造代码即使还只传 `started / ended / settled`，
-         * 也能在不显式填写 lifecycle 时得到一致的阶段默认值。
-         */
-        fun fromFlags(
-            started: Boolean,
-            ended: Boolean,
-            settled: Boolean,
-        ): BattleLifecycle =
-<span class="fc" id="L48">            when {</span>
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">                settled -&gt; SETTLED</span>
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">                ended -&gt; ENDED_UNSETTLED</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">                started -&gt; RUNNING</span>
-<span class="fc" id="L52">                else -&gt; INITIALIZING</span>
-<span class="fc" id="L53">            }</span>
-    }
+    /**
+     * 当前 battle 是否仍处于建局阶段。
+     */
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    fun isInitializing(): Boolean = this == INITIALIZING</span>
+
+    /**
+     * 当前 battle 是否正处于回合循环阶段。
+     */
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">    fun isRunning(): Boolean = this == RUNNING</span>
+
+    /**
+     * 当前 battle 是否已经结束。
+     *
+     * 说明：
+     * - 只要进入 `ENDED_UNSETTLED` 或 `SETTLED`，都视为战斗结果已经确定；
+     * - 结算完成与否只影响后置副作用，不影响“是否已终局”。
+     */
+<span class="pc bpc" id="L53" title="1 of 4 branches missed.">    fun isEnded(): Boolean = this == ENDED_UNSETTLED || this == SETTLED</span>
+
+    /**
+     * 当前 battle 是否已经完成最终结算。
+     */
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    fun isSettled(): Boolean = this == SETTLED</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

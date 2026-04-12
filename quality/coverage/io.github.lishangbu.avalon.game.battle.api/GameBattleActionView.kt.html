@@ -18,7 +18,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionAction
  * @property incomingUnitId 即将上场单位标识。
  */
 <span class="pc" id="L20">data class GameBattleActionView(</span>
-<span class="fc" id="L21">    val kind: BattleSessionActionKind,</span>
+<span class="pc" id="L21">    val kind: BattleSessionActionKind,</span>
 <span class="pc" id="L22">    val priority: Int,</span>
 <span class="pc" id="L23">    val speed: Int,</span>
 <span class="pc" id="L24">    val submittingUnitId: String? = null,</span>
@@ -43,15 +43,15 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionAction
  * @property damageRoll 本次伤害浮动使用的随机倍率；未参与伤害浮动时为空。
  * @property damage 经过修正后的伤害。
  */
-<span class="pc" id="L46">data class GameBattleMoveResolutionView(</span>
-<span class="pc" id="L47">    val cancelled: Boolean,</span>
-<span class="fc" id="L48">    val hitSuccessful: Boolean,</span>
-<span class="fc" id="L49">    val criticalHit: Boolean,</span>
-<span class="pc" id="L50">    val accuracy: Int?,</span>
-<span class="pc" id="L51">    val evasion: Int?,</span>
-<span class="pc" id="L52">    val basePower: Int,</span>
-<span class="pc" id="L53">    val damageRoll: Int? = null,</span>
-<span class="fc" id="L54">    val damage: Int,</span>
+<span class="nc" id="L46">data class GameBattleMoveResolutionView(</span>
+<span class="nc" id="L47">    val cancelled: Boolean,</span>
+<span class="nc" id="L48">    val hitSuccessful: Boolean,</span>
+<span class="nc" id="L49">    val criticalHit: Boolean,</span>
+<span class="nc" id="L50">    val accuracy: Int?,</span>
+<span class="nc" id="L51">    val evasion: Int?,</span>
+<span class="nc" id="L52">    val basePower: Int,</span>
+<span class="nc" id="L53">    val damageRoll: Int? = null,</span>
+<span class="nc" id="L54">    val damage: Int,</span>
 <span class="nc" id="L55">)</span>
 
 /**
@@ -66,15 +66,15 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionAction
  * @property reason 本次捕捉结果原因。
  * @property finalRate 本次捕捉的最终概率。
  */
-<span class="fc" id="L69">data class GameBattleCaptureExecutionView(</span>
-<span class="pc" id="L70">    val success: Boolean,</span>
-<span class="pc" id="L71">    val playerId: String,</span>
-<span class="pc" id="L72">    val ballItemId: String,</span>
-<span class="pc" id="L73">    val sourceUnitId: String,</span>
-<span class="pc" id="L74">    val targetId: String,</span>
-<span class="pc" id="L75">    val shakes: Int,</span>
-<span class="pc" id="L76">    val reason: String,</span>
-<span class="pc" id="L77">    val finalRate: Double,</span>
+<span class="nc" id="L69">data class GameBattleCaptureExecutionView(</span>
+<span class="nc" id="L70">    val success: Boolean,</span>
+<span class="nc" id="L71">    val playerId: String,</span>
+<span class="nc" id="L72">    val ballItemId: String,</span>
+<span class="nc" id="L73">    val sourceUnitId: String,</span>
+<span class="nc" id="L74">    val targetId: String,</span>
+<span class="nc" id="L75">    val shakes: Int,</span>
+<span class="nc" id="L76">    val reason: String,</span>
+<span class="nc" id="L77">    val finalRate: Double,</span>
 )
 
 /**
@@ -87,7 +87,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionAction
  * @property skippedReason 如果该动作在轮到执行前已失效，则记录跳过原因。
  */
 <span class="pc" id="L89">data class GameBattleActionExecutionResultView(</span>
-<span class="fc" id="L90">    val action: GameBattleActionView,</span>
+<span class="pc" id="L90">    val action: GameBattleActionView,</span>
 <span class="pc" id="L91">    val snapshot: GameBattleSnapshotView,</span>
 <span class="pc" id="L92">    val moveResult: GameBattleMoveResolutionView? = null,</span>
 <span class="pc" id="L93">    val captureResult: GameBattleCaptureExecutionView? = null,</span>
@@ -102,6 +102,6 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionAction
  */
 <span class="fc" id="L103">data class GameBattleTurnResultView(</span>
 <span class="fc" id="L104">    val actionResults: List&lt;GameBattleActionExecutionResultView&gt;,</span>
-<span class="fc" id="L105">    val snapshot: GameBattleSnapshotView,</span>
+<span class="pc" id="L105">    val snapshot: GameBattleSnapshotView,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

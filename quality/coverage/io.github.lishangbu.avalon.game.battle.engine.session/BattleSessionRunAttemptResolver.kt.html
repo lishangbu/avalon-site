@@ -45,11 +45,11 @@ internal object BattleSessionRunAttemptResolver {
 <span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (runner == null) {</span>
 <span class="nc" id="L46">            return BattleSessionRunResolution(success = false, reason = &quot;runner-not-found&quot;)</span>
         }
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (guaranteedRunSuccess(runner, session)) {</span>
-<span class="fc" id="L49">            return BattleSessionRunResolution(</span>
-<span class="fc" id="L50">                success = true,</span>
-<span class="fc" id="L51">                runnerUnitId = runner.id,</span>
-<span class="fc" id="L52">                reason = &quot;guaranteed&quot;,</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (guaranteedRunSuccess(runner, session)) {</span>
+<span class="nc" id="L49">            return BattleSessionRunResolution(</span>
+<span class="nc" id="L50">                success = true,</span>
+<span class="nc" id="L51">                runnerUnitId = runner.id,</span>
+<span class="nc" id="L52">                reason = &quot;guaranteed&quot;,</span>
             )
         }
 <span class="fc" id="L55">        blockedRunReason(runner, opponents, session)</span>
@@ -118,7 +118,7 @@ internal object BattleSessionRunAttemptResolver {
     ): Boolean =
 <span class="pc bpc" id="L119" title="1 of 2 branches missed.">        &quot;ghost&quot; in unit.typeIds ||</span>
 <span class="pc bpc" id="L120" title="1 of 2 branches missed.">            unit.abilityId == &quot;run-away&quot; ||</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">            BattleHeldItemRuntimeSupport.hasActiveItem(unit, session.currentSnapshot.field, BattleItemIds.SMOKE_BALL)</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            BattleHeldItemRuntimeSupport.hasActiveItem(unit, session.currentSnapshot.field, BattleItemIds.SMOKE_BALL)</span>
 
     private fun blockedRunReason(
         runner: UnitState,
@@ -186,7 +186,7 @@ internal object BattleSessionRunAttemptResolver {
 <span class="fc" id="L186">    val success: Boolean,</span>
 <span class="fc" id="L187">    val reason: String,</span>
 <span class="pc" id="L188">    val runnerUnitId: String? = null,</span>
-<span class="fc" id="L189">    val failedAttempts: Int? = null,</span>
+<span class="pc" id="L189">    val failedAttempts: Int? = null,</span>
 <span class="fc" id="L190">    val escapeValue: Int? = null,</span>
 <span class="fc" id="L191">    val roll: Int? = null,</span>
 <span class="fc" id="L192">)</span>

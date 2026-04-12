@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
         session: BattleSession,
     ): List&lt;BattleSessionAction&gt; {
 <span class="pc bpc" id="L25" title="2 of 4 branches missed.">        val runChoice = choice as? RunChoice ?: error(&quot;Expected RunChoice but got '${choice::class.qualifiedName}'.&quot;)</span>
-<span class="fc" id="L26">        session.ensureStarted()</span>
+<span class="fc" id="L26">        session.ensureRunning()</span>
 <span class="fc" id="L27">        session.ensureSideCanSubmitRunChoice(runChoice.sideId)</span>
 <span class="fc" id="L28">        session.actionQueue.enqueue(commandFactory.createAction(runChoice))</span>
 <span class="fc" id="L29">        session.recordLog(&quot;Queued run action for side ${runChoice.sideId}.&quot;)</span>

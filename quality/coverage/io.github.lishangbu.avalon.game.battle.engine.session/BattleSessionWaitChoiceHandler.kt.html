@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
         session: BattleSession,
     ): List&lt;BattleSessionAction&gt; {
 <span class="pc bpc" id="L25" title="2 of 4 branches missed.">        val waitChoice = choice as? WaitChoice ?: error(&quot;Expected WaitChoice but got '${choice::class.qualifiedName}'.&quot;)</span>
-<span class="fc" id="L26">        session.ensureStarted()</span>
+<span class="fc" id="L26">        session.ensureRunning()</span>
 <span class="fc" id="L27">        session.ensureUnitCanSubmitChoice(waitChoice.unitId)</span>
 <span class="fc" id="L28">        session.actionQueue.enqueue(commandFactory.createAction(waitChoice))</span>
 <span class="fc" id="L29">        session.recordLog(&quot;Queued wait action for unit ${waitChoice.unitId}.&quot;)</span>

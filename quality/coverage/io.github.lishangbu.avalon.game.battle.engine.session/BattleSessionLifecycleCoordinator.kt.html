@@ -84,7 +84,7 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
      * 3. turn + 1
      */
     fun endTurn(): BattleRuntimeSnapshot {
-<span class="fc" id="L87">        session.ensureStarted()</span>
+<span class="fc" id="L87">        session.ensureRunning()</span>
 <span class="fc" id="L88">        val residualSnapshot = session.battleFlowEngine.resolveResidualPhase(session.currentSnapshot)</span>
 <span class="fc" id="L89">        val advancedField = fieldEffectDurationManager.advance(residualSnapshot)</span>
 <span class="fc" id="L90">        val advancedSide = sideConditionDurationManager.advance(advancedField.snapshot)</span>

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component
 
 <span class="fc" id="L8">@Component</span>
 class NoopBattleAiChoiceProvider : BattleAiChoiceProvider {
-<span class="pc bpc" id="L10" title="3 of 4 branches missed.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.TRAINER || battleKind == BattleType.PVP</span>
+<span class="pc bpc" id="L10" title="3 of 6 branches missed.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.TRAINER || battleKind == BattleType.PVP || battleKind == BattleType.DUNGEON</span>
 
-<span class="fc" id="L12">    override fun provide(session: BattleSessionQuery): List&lt;BattleSessionChoice&gt; = emptyList()</span>
+<span class="nc" id="L12">    override fun provide(session: BattleSessionQuery): List&lt;BattleSessionChoice&gt; = emptyList()</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

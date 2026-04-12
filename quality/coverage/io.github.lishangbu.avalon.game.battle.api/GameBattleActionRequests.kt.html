@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBattleActionRequests.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.api</a> &gt; <span class="el_source">GameBattleActionRequests.kt</span></div><h1>GameBattleActionRequests.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.api
+
+/**
+ * 面向前端的智能出招请求。
+ */
+<span class="fc" id="L6">data class SmartMoveChoiceRequest(</span>
+<span class="fc" id="L7">    val attackerId: String,</span>
+<span class="fc" id="L8">    val moveId: String,</span>
+<span class="pc" id="L9">    val targetId: String? = null,</span>
+<span class="fc" id="L10">    val priority: Int? = null,</span>
+<span class="fc" id="L11">    val speed: Int? = null,</span>
+<span class="fc" id="L12">    val accuracy: Int? = null,</span>
+<span class="fc" id="L13">    val evasion: Int? = null,</span>
+<span class="fc" id="L14">    val basePower: Int? = null,</span>
+<span class="fc" id="L15">    val damage: Int? = null,</span>
+<span class="fc" id="L16">    val accuracyRoll: Int? = null,</span>
+<span class="fc" id="L17">    val chanceRoll: Int? = null,</span>
+<span class="fc" id="L18">    val criticalRoll: Int? = null,</span>
+<span class="pc" id="L19">    val damageRoll: Int? = null,</span>
+<span class="fc" id="L20">    val criticalHit: Boolean? = null,</span>
+<span class="fc" id="L21">    val attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L22">)</span>
+
+/**
+ * 面向前端的智能用道具请求。
+ */
+<span class="fc" id="L27">data class SmartItemChoiceRequest(</span>
+<span class="fc" id="L28">    val actorUnitId: String,</span>
+<span class="fc" id="L29">    val itemId: String,</span>
+<span class="pc" id="L30">    val targetId: String? = null,</span>
+<span class="fc" id="L31">    val priority: Int? = null,</span>
+<span class="fc" id="L32">    val speed: Int? = null,</span>
+<span class="fc" id="L33">    val chanceRoll: Int? = null,</span>
+<span class="fc" id="L34">    val attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L35">)</span>
+
+/**
+ * 面向前端的智能捕捉请求。
+ */
+<span class="fc" id="L40">data class SmartCaptureChoiceRequest(</span>
+<span class="fc" id="L41">    val playerId: String,</span>
+<span class="fc" id="L42">    val ballItemId: String,</span>
+<span class="pc" id="L43">    val sourceUnitId: String? = null,</span>
+<span class="fc" id="L44">    val targetId: String,</span>
+<span class="fc" id="L45">    val priority: Int? = null,</span>
+<span class="fc" id="L46">    val speed: Int? = null,</span>
+<span class="fc" id="L47">)</span>
+
+/**
+ * 面向前端的换人请求。
+ */
+<span class="fc" id="L52">data class SubmitSwitchChoiceRequest(</span>
+<span class="fc" id="L53">    val sideId: String,</span>
+<span class="fc" id="L54">    val outgoingUnitId: String,</span>
+<span class="fc" id="L55">    val incomingUnitId: String,</span>
+<span class="fc" id="L56">    val priority: Int? = null,</span>
+<span class="fc" id="L57">    val speed: Int? = null,</span>
+<span class="fc" id="L58">)</span>
+
+/**
+ * 面向前端的逃跑请求。
+ */
+<span class="fc" id="L63">data class SubmitRunChoiceRequest(</span>
+<span class="fc" id="L64">    val sideId: String,</span>
+<span class="fc" id="L65">    val priority: Int? = null,</span>
+<span class="fc" id="L66">    val speed: Int? = null,</span>
+<span class="fc" id="L67">)</span>
+
+/**
+ * 面向前端的替补上场请求。
+ */
+<span class="fc" id="L72">data class SubmitReplacementChoiceRequest(</span>
+<span class="fc" id="L73">    val sideId: String,</span>
+<span class="fc" id="L74">    val incomingUnitId: String,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

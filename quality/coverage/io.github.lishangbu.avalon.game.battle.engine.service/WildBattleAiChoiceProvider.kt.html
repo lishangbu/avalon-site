@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 <span class="fc" id="L11">@Component</span>
 class WildBattleAiChoiceProvider : BattleAiChoiceProvider {
-<span class="fc bfc" id="L13" title="All 2 branches covered.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.WILD</span>
+<span class="pc bpc" id="L13" title="1 of 2 branches missed.">    override fun supports(battleKind: BattleType): Boolean = battleKind == BattleType.WILD</span>
 
     override fun provide(session: BattleSessionQuery): List&lt;BattleSessionChoice&gt; {
 <span class="pc bpc" id="L16" title="1 of 2 branches missed.">        val capturableSideId = session.snapshot.battle.capturableSideId ?: return emptyList()</span>

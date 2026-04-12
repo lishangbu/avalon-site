@@ -31,7 +31,7 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleMoveD
     ): MoveResolutionResult {
 <span class="fc" id="L32">        val targetQuery = session.queryTargets(effectId, actorUnitId)</span>
 <span class="fc" id="L33">        val effect = session.effectRepository.get(effectId)</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        val resolvedAccuracy = accuracy ?: BattleMoveDataReader.readAccuracy(effect.data)</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        val resolvedAccuracy = accuracy ?: BattleMoveDataReader.readAccuracy(effect.data)</span>
 <span class="fc" id="L35">        val resolvedTargetIds =</span>
 <span class="fc" id="L36">            when {</span>
 <span class="fc bfc" id="L37" title="All 2 branches covered.">                targetQuery.requiresExplicitTarget -&gt; listOf(targetUnitId)</span>
@@ -74,12 +74,14 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleMoveD
 <span class="fc" id="L74">            val finalResult = result.copy(snapshot = session.currentSnapshot)</span>
 <span class="fc" id="L75">            session.recordMoveExecution(effectId, actorUnitId, resolvedTargetId, finalResult)</span>
 <span class="fc" id="L76">            aggregatedResult = aggregateResult(aggregatedResult, finalResult, session.currentSnapshot)</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">            if (session.currentSnapshot.battle.ended) {</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
+<span class="fc" id="L77">            if (session.currentSnapshot.battle.lifecycle</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                    .isEnded()</span>
+            ) {
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">                return requireNotNull(aggregatedResult)</span>
             }
-<span class="fc" id="L80">        }</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
-<span class="nc" id="L82">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
+<span class="fc" id="L82">        }</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        return requireNotNull(aggregatedResult) {</span>
+<span class="nc" id="L84">            &quot;No targets were resolved for effect '$effectId'.&quot;</span>
         }
     }
 
@@ -96,19 +98,19 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.support.BattleMoveD
         next: MoveResolutionResult,
         latestSnapshot: io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot,
     ): MoveResolutionResult =
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (current == null) {</span>
-<span class="fc" id="L100">            next</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (current == null) {</span>
+<span class="fc" id="L102">            next</span>
         } else {
-<span class="fc" id="L102">            current.copy(</span>
-<span class="fc" id="L103">                snapshot = latestSnapshot,</span>
-<span class="pc bpc" id="L104" title="3 of 4 branches missed.">                hitSuccessful = current.hitSuccessful || next.hitSuccessful,</span>
-<span class="pc bpc" id="L105" title="2 of 4 branches missed.">                criticalHit = current.criticalHit || next.criticalHit,</span>
-<span class="fc" id="L106">                accuracy = next.accuracy,</span>
-<span class="fc" id="L107">                evasion = next.evasion,</span>
-<span class="fc" id="L108">                basePower = next.basePower,</span>
-<span class="fc" id="L109">                damageRoll = next.damageRoll,</span>
-<span class="fc" id="L110">                damage = next.damage,</span>
+<span class="fc" id="L104">            current.copy(</span>
+<span class="fc" id="L105">                snapshot = latestSnapshot,</span>
+<span class="pc bpc" id="L106" title="3 of 4 branches missed.">                hitSuccessful = current.hitSuccessful || next.hitSuccessful,</span>
+<span class="pc bpc" id="L107" title="2 of 4 branches missed.">                criticalHit = current.criticalHit || next.criticalHit,</span>
+<span class="fc" id="L108">                accuracy = next.accuracy,</span>
+<span class="fc" id="L109">                evasion = next.evasion,</span>
+<span class="fc" id="L110">                basePower = next.basePower,</span>
+<span class="fc" id="L111">                damageRoll = next.damageRoll,</span>
+<span class="fc" id="L112">                damage = next.damage,</span>
             )
-<span class="fc" id="L112">        }</span>
+<span class="fc" id="L114">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

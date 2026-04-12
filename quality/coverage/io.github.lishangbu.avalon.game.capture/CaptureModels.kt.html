@@ -14,13 +14,13 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
 
 <span class="fc" id="L15">data class CapturedCreatureSummary(</span>
 <span class="fc" id="L16">    val ownedCreatureId: String,</span>
-<span class="fc" id="L17">    val creatureId: String,</span>
-<span class="fc" id="L18">    val creatureSpeciesId: String,</span>
-<span class="fc" id="L19">    val creatureInternalName: String,</span>
-<span class="fc" id="L20">    val creatureName: String,</span>
+<span class="pc" id="L17">    val creatureId: String,</span>
+<span class="pc" id="L18">    val creatureSpeciesId: String,</span>
+<span class="pc" id="L19">    val creatureInternalName: String,</span>
+<span class="pc" id="L20">    val creatureName: String,</span>
 )
 
-<span class="pc" id="L23">data class CaptureBattleResult(</span>
+<span class="fc" id="L23">data class CaptureBattleResult(</span>
 <span class="fc" id="L24">    val success: Boolean,</span>
 <span class="fc" id="L25">    val sessionId: String,</span>
 <span class="fc" id="L26">    val targetUnitId: String,</span>
@@ -30,8 +30,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
 <span class="fc" id="L30">    val battleEnded: Boolean,</span>
 <span class="fc" id="L31">    val finalRate: Double,</span>
 <span class="pc" id="L32">    val session: BattleSessionQuery,</span>
-<span class="pc" id="L33">    val capturedCreature: CapturedCreatureSummary? = null,</span>
-<span class="nc" id="L34">)</span>
+<span class="fc" id="L33">    val capturedCreature: CapturedCreatureSummary? = null,</span>
+<span class="fc" id="L34">)</span>
 
 <span class="fc" id="L36">data class BattleUnitMetadata(</span>
 <span class="fc" id="L37">    val creatureId: Long,</span>

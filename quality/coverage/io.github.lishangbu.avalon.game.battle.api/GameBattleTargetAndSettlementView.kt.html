@@ -15,7 +15,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="pc" id="L15">    val effectId: String,</span>
 <span class="pc" id="L16">    val actorUnitId: String,</span>
 <span class="pc" id="L17">    val mode: BattleSessionTargetMode,</span>
-<span class="fc" id="L18">    val availableTargetUnitIds: List&lt;String&gt;,</span>
+<span class="pc" id="L18">    val availableTargetUnitIds: List&lt;String&gt;,</span>
 <span class="pc" id="L19">    val requiresExplicitTarget: Boolean,</span>
 )
 
@@ -28,12 +28,12 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
  * @property creatureInternalName 生物内部名称。
  * @property creatureName 生物展示名称。
  */
-<span class="fc" id="L31">data class GameBattleCapturedCreatureView(</span>
-<span class="pc" id="L32">    val ownedCreatureId: String,</span>
-<span class="pc" id="L33">    val creatureId: String,</span>
-<span class="pc" id="L34">    val creatureSpeciesId: String,</span>
-<span class="pc" id="L35">    val creatureInternalName: String,</span>
-<span class="pc" id="L36">    val creatureName: String,</span>
+<span class="nc" id="L31">data class GameBattleCapturedCreatureView(</span>
+<span class="nc" id="L32">    val ownedCreatureId: String,</span>
+<span class="nc" id="L33">    val creatureId: String,</span>
+<span class="nc" id="L34">    val creatureSpeciesId: String,</span>
+<span class="nc" id="L35">    val creatureInternalName: String,</span>
+<span class="nc" id="L36">    val creatureName: String,</span>
 )
 
 /**
@@ -50,10 +50,10 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
  * @property capturedCreature 如果捕捉成功并已落库，则附带被捕捉生物摘要。
  */
 <span class="pc" id="L52">data class GameBattleCaptureResultView(</span>
-<span class="fc" id="L53">    val success: Boolean,</span>
+<span class="pc" id="L53">    val success: Boolean,</span>
 <span class="pc" id="L54">    val sessionId: String,</span>
-<span class="fc" id="L55">    val targetUnitId: String,</span>
-<span class="fc" id="L56">    val ballItemId: String,</span>
+<span class="pc" id="L55">    val targetUnitId: String,</span>
+<span class="pc" id="L56">    val ballItemId: String,</span>
 <span class="pc" id="L57">    val shakes: Int,</span>
 <span class="pc" id="L58">    val reason: String,</span>
 <span class="pc" id="L59">    val battleEnded: Boolean,</span>
@@ -73,8 +73,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
 <span class="pc" id="L73">data class GameBattleSettlementView(</span>
 <span class="pc" id="L74">    val sessionId: String,</span>
 <span class="pc" id="L75">    val endedReason: String?,</span>
-<span class="fc" id="L76">    val settled: Boolean,</span>
-<span class="fc" id="L77">    val session: GameBattleSessionView,</span>
+<span class="pc" id="L76">    val settled: Boolean,</span>
+<span class="pc" id="L77">    val session: GameBattleSessionView,</span>
 <span class="pc" id="L78">    val captureResult: GameBattleCaptureResultView? = null,</span>
 <span class="nc" id="L79">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

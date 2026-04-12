@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBattleController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.controller</a> &gt; <span class="el_source">GameBattleController.kt</span></div><h1>GameBattleController.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.controller
 
-import io.github.lishangbu.avalon.game.battle.GameBattleService
-import io.github.lishangbu.avalon.game.battle.SmartCaptureChoiceRequest
-import io.github.lishangbu.avalon.game.battle.SmartItemChoiceRequest
-import io.github.lishangbu.avalon.game.battle.SmartMoveChoiceRequest
-import io.github.lishangbu.avalon.game.battle.SubmitReplacementChoiceRequest
-import io.github.lishangbu.avalon.game.battle.SubmitRunChoiceRequest
-import io.github.lishangbu.avalon.game.battle.SubmitSwitchChoiceRequest
 import io.github.lishangbu.avalon.game.battle.api.CreateImportedBattleSessionApiRequest
+import io.github.lishangbu.avalon.game.battle.api.GameBattleRequestAssembler
 import io.github.lishangbu.avalon.game.battle.api.GameBattleSessionView
 import io.github.lishangbu.avalon.game.battle.api.GameBattleSettlementView
 import io.github.lishangbu.avalon.game.battle.api.GameBattleTargetQueryView
 import io.github.lishangbu.avalon.game.battle.api.GameBattleTurnResultView
+import io.github.lishangbu.avalon.game.battle.api.GameBattleViewAssembler
+import io.github.lishangbu.avalon.game.battle.api.SmartCaptureChoiceRequest
+import io.github.lishangbu.avalon.game.battle.api.SmartItemChoiceRequest
+import io.github.lishangbu.avalon.game.battle.api.SmartMoveChoiceRequest
+import io.github.lishangbu.avalon.game.battle.api.SubmitReplacementChoiceRequest
+import io.github.lishangbu.avalon.game.battle.api.SubmitRunChoiceRequest
+import io.github.lishangbu.avalon.game.battle.api.SubmitSwitchChoiceRequest
+import io.github.lishangbu.avalon.game.battle.engine.application.BattleEngineService
+import io.github.lishangbu.avalon.game.battle.init.BattleInitializationService
+import io.github.lishangbu.avalon.game.battle.settlement.BattleSettlementExecutor
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,28 +25,37 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /** 游戏对战业务控制器。 */
-<span class="fc" id="L24">@RestController</span>
+<span class="fc" id="L28">@RestController</span>
 @RequestMapping(&quot;/game/battle&quot;)
-<span class="fc" id="L26">class GameBattleController(</span>
-<span class="fc" id="L27">    private val gameBattleService: GameBattleService,</span>
+<span class="fc" id="L30">class GameBattleController(</span>
+<span class="fc" id="L31">    private val battleInitializationService: BattleInitializationService,</span>
+<span class="fc" id="L32">    private val battleEngineService: BattleEngineService,</span>
+<span class="fc" id="L33">    private val battleSettlementExecutor: BattleSettlementExecutor,</span>
+<span class="fc" id="L34">    private val gameBattleRequestAssembler: GameBattleRequestAssembler,</span>
+<span class="fc" id="L35">    private val gameBattleViewAssembler: GameBattleViewAssembler,</span>
 ) {
     /** 使用真实数据直接创建并导入战斗会话。 */
     @PostMapping(&quot;/sessions/imported&quot;)
     fun createImportedSession(
         @RequestBody request: CreateImportedBattleSessionApiRequest,
-<span class="fc" id="L33">    ): GameBattleSessionView = gameBattleService.createImportedSession(request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L42">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L43">            battleInitializationService.createImportedSession(</span>
+<span class="fc" id="L44">                gameBattleRequestAssembler.toCreateImportedSessionRequest(request),</span>
+            ),
+<span class="fc" id="L46">        )</span>
 
     /** 启动已创建的战斗会话。 */
     @PostMapping(&quot;/sessions/{sessionId}/start&quot;)
     fun startSession(
         @PathVariable sessionId: String,
-<span class="fc" id="L39">    ): GameBattleSessionView = gameBattleService.startSession(sessionId)</span>
+<span class="fc" id="L52">    ): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleEngineService.startSession(sessionId))</span>
 
     /** 查询当前战斗会话。 */
     @GetMapping(&quot;/sessions/{sessionId}&quot;)
     fun querySession(
         @PathVariable sessionId: String,
-<span class="fc" id="L45">    ): GameBattleSessionView = gameBattleService.querySession(sessionId)</span>
+<span class="fc" id="L58">    ): GameBattleSessionView = gameBattleViewAssembler.toSessionView(battleEngineService.querySession(sessionId))</span>
 
     /** 查询当前 effect 在会话中的可选目标。 */
     @GetMapping(&quot;/sessions/{sessionId}/targets&quot;)
@@ -50,42 +63,75 @@ import org.springframework.web.bind.annotation.RestController
         @PathVariable sessionId: String,
         @RequestParam effectId: String,
         @RequestParam actorUnitId: String,
-<span class="fc" id="L53">    ): GameBattleTargetQueryView = gameBattleService.queryTargets(sessionId, effectId, actorUnitId)</span>
+    ): GameBattleTargetQueryView =
+<span class="fc" id="L67">        gameBattleViewAssembler.toTargetQueryView(</span>
+<span class="fc" id="L68">            battleEngineService.queryTargets(sessionId, effectId, actorUnitId),</span>
+<span class="fc" id="L69">        )</span>
 
     /** 提交智能出招。 */
     @PostMapping(&quot;/sessions/{sessionId}/choices/move&quot;)
     fun submitMoveChoice(
         @PathVariable sessionId: String,
         @RequestBody request: SmartMoveChoiceRequest,
-<span class="fc" id="L60">    ): GameBattleSessionView = gameBattleService.submitMoveChoice(sessionId, request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L77">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L78">            battleEngineService.submitMoveChoice(</span>
+<span class="fc" id="L79">                sessionId,</span>
+<span class="fc" id="L80">                gameBattleRequestAssembler.toSubmitMoveChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L82">        )</span>
 
     /** 提交智能用道具。 */
     @PostMapping(&quot;/sessions/{sessionId}/choices/item&quot;)
     fun submitItemChoice(
         @PathVariable sessionId: String,
         @RequestBody request: SmartItemChoiceRequest,
-<span class="fc" id="L67">    ): GameBattleSessionView = gameBattleService.submitItemChoice(sessionId, request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L90">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L91">            battleEngineService.submitItemChoice(</span>
+<span class="fc" id="L92">                sessionId,</span>
+<span class="fc" id="L93">                gameBattleRequestAssembler.toSubmitItemChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L95">        )</span>
 
     /** 提交捕捉动作。 */
     @PostMapping(&quot;/sessions/{sessionId}/choices/capture&quot;)
     fun submitCaptureChoice(
         @PathVariable sessionId: String,
         @RequestBody request: SmartCaptureChoiceRequest,
-<span class="fc" id="L74">    ): GameBattleSessionView = gameBattleService.submitCaptureChoice(sessionId, request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L103">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L104">            battleEngineService.submitCaptureChoice(</span>
+<span class="fc" id="L105">                sessionId,</span>
+<span class="fc" id="L106">                gameBattleRequestAssembler.toSubmitCaptureChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L108">        )</span>
 
     /** 提交换人。 */
     @PostMapping(&quot;/sessions/{sessionId}/choices/switch&quot;)
     fun submitSwitchChoice(
         @PathVariable sessionId: String,
         @RequestBody request: SubmitSwitchChoiceRequest,
-<span class="fc" id="L81">    ): GameBattleSessionView = gameBattleService.submitSwitchChoice(sessionId, request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L116">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L117">            battleEngineService.submitSwitchChoice(</span>
+<span class="fc" id="L118">                sessionId,</span>
+<span class="fc" id="L119">                gameBattleRequestAssembler.toSubmitSwitchChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L121">        )</span>
 
     /** 提交逃跑。 */
     @PostMapping(&quot;/sessions/{sessionId}/choices/run&quot;)
     fun submitRunChoice(
         @PathVariable sessionId: String,
         @RequestBody request: SubmitRunChoiceRequest,
-<span class="fc" id="L88">    ): GameBattleSessionView = gameBattleService.submitRunChoice(sessionId, request)</span>
+    ): GameBattleSessionView =
+<span class="fc" id="L129">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L130">            battleEngineService.submitRunChoice(</span>
+<span class="fc" id="L131">                sessionId,</span>
+<span class="fc" id="L132">                gameBattleRequestAssembler.toSubmitRunChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L134">        )</span>
 
     /** 提交替补上场。 */
     @PostMapping(&quot;/sessions/{sessionId}/replacement&quot;)
@@ -93,22 +139,28 @@ import org.springframework.web.bind.annotation.RestController
         @PathVariable sessionId: String,
         @RequestBody request: SubmitReplacementChoiceRequest,
     ): GameBattleSessionView =
-<span class="fc" id="L96">        gameBattleService.submitReplacementChoice(</span>
-<span class="fc" id="L97">            sessionId = sessionId,</span>
-<span class="fc" id="L98">            sideId = request.sideId,</span>
-<span class="fc" id="L99">            incomingUnitId = request.incomingUnitId,</span>
-<span class="fc" id="L100">        )</span>
+<span class="fc" id="L142">        gameBattleViewAssembler.toSessionView(</span>
+<span class="fc" id="L143">            battleEngineService.submitReplacementChoice(</span>
+<span class="fc" id="L144">                sessionId,</span>
+<span class="fc" id="L145">                gameBattleRequestAssembler.toSubmitReplacementChoiceCommand(request),</span>
+            ),
+<span class="fc" id="L147">        )</span>
 
     /** 结算当前回合。 */
     @PostMapping(&quot;/sessions/{sessionId}/resolve-turn&quot;)
     fun resolveTurn(
         @PathVariable sessionId: String,
-<span class="fc" id="L106">    ): GameBattleTurnResultView = gameBattleService.resolveTurn(sessionId)</span>
+<span class="fc" id="L153">    ): GameBattleTurnResultView = gameBattleViewAssembler.toTurnResultView(battleEngineService.resolveTurn(sessionId))</span>
 
     /** 对已结束 battle 执行统一结算。 */
     @PostMapping(&quot;/sessions/{sessionId}/settle&quot;)
     fun settleSession(
         @PathVariable sessionId: String,
-<span class="fc" id="L112">    ): GameBattleSettlementView = gameBattleService.settleSession(sessionId)</span>
+    ): GameBattleSettlementView =
+<span class="fc" id="L160">        gameBattleViewAssembler.toSettlementView(</span>
+<span class="fc" id="L161">            battleSettlementExecutor.execute(</span>
+<span class="fc" id="L162">                battleEngineService.buildSettlementPlan(sessionId),</span>
+            ),
+<span class="fc" id="L164">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

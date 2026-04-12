@@ -59,24 +59,23 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
 <span class="fc" id="L59">            session.currentSnapshot.copy(</span>
                 battle =
 <span class="fc" id="L61">                    session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L62">                        ended = true,</span>
-<span class="fc" id="L63">                        lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
-<span class="fc" id="L64">                        winner = survivingOpponent,</span>
-<span class="fc" id="L65">                        endedReason = &quot;run&quot;,</span>
+<span class="fc" id="L62">                        lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
+<span class="fc" id="L63">                        winner = survivingOpponent,</span>
+<span class="fc" id="L64">                        endedReason = &quot;run&quot;,</span>
                     ),
             )
-<span class="fc" id="L68">        session.recordLog(</span>
-<span class="fc" id="L69">            &quot;Executed run action for side ${action.sideId}. &quot; +</span>
-<span class="fc" id="L70">                &quot;runner=${resolution.runnerUnitId} reason=${resolution.reason}. Winner: $survivingOpponent.&quot;,</span>
+<span class="fc" id="L67">        session.recordLog(</span>
+<span class="fc" id="L68">            &quot;Executed run action for side ${action.sideId}. &quot; +</span>
+<span class="fc" id="L69">                &quot;runner=${resolution.runnerUnitId} reason=${resolution.reason}. Winner: $survivingOpponent.&quot;,</span>
         )
-<span class="fc" id="L72">        session.recordEvent(</span>
-<span class="fc" id="L73">            BattleSessionBattleEndedPayload(</span>
-<span class="fc" id="L74">                winner = survivingOpponent,</span>
-<span class="fc" id="L75">                actionType = BattleSessionActionEventKind.RUN,</span>
-<span class="fc" id="L76">                runner = action.sideId,</span>
+<span class="fc" id="L71">        session.recordEvent(</span>
+<span class="fc" id="L72">            BattleSessionBattleEndedPayload(</span>
+<span class="fc" id="L73">                winner = survivingOpponent,</span>
+<span class="fc" id="L74">                actionType = BattleSessionActionEventKind.RUN,</span>
+<span class="fc" id="L75">                runner = action.sideId,</span>
             ),
         )
-<span class="fc" id="L79">        return session.currentSnapshot</span>
+<span class="fc" id="L78">        return session.currentSnapshot</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

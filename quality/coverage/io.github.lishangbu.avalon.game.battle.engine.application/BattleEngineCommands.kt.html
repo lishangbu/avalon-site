@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleEngineCommands.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.application</a> &gt; <span class="el_source">BattleEngineCommands.kt</span></div><h1>BattleEngineCommands.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.application
+
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleType
+import io.github.lishangbu.avalon.game.battle.engine.model.UnitState
+
+/**
+ * 引擎初始化时单个 side 的输入。
+ *
+ * 这里直接要求调用方提供已经装配完成的 `UnitState`，
+ * 让 battle-engine 不再认识数据库实体或 dataset 读取细节。
+ */
+<span class="fc" id="L12">data class InitializeBattleSideCommand(</span>
+<span class="fc" id="L13">    val sideId: String,</span>
+<span class="fc" id="L14">    val units: List&lt;UnitState&gt;,</span>
+<span class="fc" id="L15">    val activeUnitIds: Set&lt;String&gt; = emptySet(),</span>
+<span class="fc" id="L16">)</span>
+
+/**
+ * 引擎建局命令。
+ *
+ * 设计意图：
+ * - 把原先 `create/configure/registerSide/registerUnit/start` 这一串低层步骤收成一个稳定入口；
+ * - 让 game 模块只负责把真实数据装配成命令，而不再手动驱动引擎内部生命周期。
+ */
+<span class="fc" id="L25">data class InitializeBattleCommand(</span>
+<span class="fc" id="L26">    val sessionId: String,</span>
+<span class="fc" id="L27">    val formatId: String,</span>
+<span class="fc" id="L28">    val sides: List&lt;InitializeBattleSideCommand&gt;,</span>
+<span class="fc" id="L29">    val battleKind: BattleType = BattleType.TRAINER,</span>
+<span class="fc" id="L30">    val capturableSideId: String? = null,</span>
+<span class="fc" id="L31">    val autoStart: Boolean = true,</span>
+<span class="fc" id="L32">)</span>
+
+/**
+ * 智能出招命令。
+ */
+<span class="fc" id="L37">data class SubmitMoveChoiceCommand(</span>
+<span class="fc" id="L38">    val attackerId: String,</span>
+<span class="fc" id="L39">    val moveId: String,</span>
+<span class="fc" id="L40">    val targetId: String? = null,</span>
+<span class="fc" id="L41">    val priority: Int? = null,</span>
+<span class="fc" id="L42">    val speed: Int? = null,</span>
+<span class="fc" id="L43">    val accuracy: Int? = null,</span>
+<span class="fc" id="L44">    val evasion: Int? = null,</span>
+<span class="fc" id="L45">    val basePower: Int? = null,</span>
+<span class="fc" id="L46">    val damage: Int? = null,</span>
+<span class="pc" id="L47">    val accuracyRoll: Int? = null,</span>
+<span class="fc" id="L48">    val chanceRoll: Int? = null,</span>
+<span class="pc" id="L49">    val criticalRoll: Int? = null,</span>
+<span class="pc" id="L50">    val damageRoll: Int? = null,</span>
+<span class="fc" id="L51">    val criticalHit: Boolean? = null,</span>
+<span class="fc" id="L52">    val attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="fc" id="L53">)</span>
+
+/**
+ * 智能用道具命令。
+ */
+<span class="pc" id="L58">data class SubmitItemChoiceCommand(</span>
+<span class="pc" id="L59">    val actorUnitId: String,</span>
+<span class="pc" id="L60">    val itemId: String,</span>
+<span class="pc" id="L61">    val targetId: String? = null,</span>
+<span class="pc" id="L62">    val priority: Int? = null,</span>
+<span class="pc" id="L63">    val speed: Int? = null,</span>
+<span class="pc" id="L64">    val chanceRoll: Int? = null,</span>
+<span class="pc" id="L65">    val attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
+<span class="nc" id="L66">)</span>
+
+/**
+ * 智能捕捉命令。
+ */
+<span class="pc" id="L71">data class SubmitCaptureChoiceCommand(</span>
+<span class="pc" id="L72">    val playerId: String,</span>
+<span class="pc" id="L73">    val ballItemId: String,</span>
+<span class="pc" id="L74">    val sourceUnitId: String? = null,</span>
+<span class="pc" id="L75">    val targetId: String,</span>
+<span class="pc" id="L76">    val priority: Int? = null,</span>
+<span class="pc" id="L77">    val speed: Int? = null,</span>
+<span class="nc" id="L78">)</span>
+
+/**
+ * 换人命令。
+ */
+<span class="pc" id="L83">data class SubmitSwitchChoiceCommand(</span>
+<span class="pc" id="L84">    val sideId: String,</span>
+<span class="pc" id="L85">    val outgoingUnitId: String,</span>
+<span class="pc" id="L86">    val incomingUnitId: String,</span>
+<span class="pc" id="L87">    val priority: Int? = null,</span>
+<span class="pc" id="L88">    val speed: Int? = null,</span>
+<span class="nc" id="L89">)</span>
+
+/**
+ * 逃跑命令。
+ */
+<span class="fc" id="L94">data class SubmitRunChoiceCommand(</span>
+<span class="fc" id="L95">    val sideId: String,</span>
+<span class="fc" id="L96">    val priority: Int? = null,</span>
+<span class="fc" id="L97">    val speed: Int? = null,</span>
+<span class="fc" id="L98">)</span>
+
+/**
+ * 替补上场命令。
+ */
+<span class="fc" id="L103">data class SubmitReplacementChoiceCommand(</span>
+<span class="pc" id="L104">    val sideId: String,</span>
+<span class="pc" id="L105">    val incomingUnitId: String,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

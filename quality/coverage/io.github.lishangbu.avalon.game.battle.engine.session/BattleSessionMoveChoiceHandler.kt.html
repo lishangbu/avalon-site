@@ -27,7 +27,7 @@ import kotlin.reflect.KClass
         session: BattleSession,
     ): List&lt;BattleSessionAction&gt; {
 <span class="pc bpc" id="L29" title="2 of 4 branches missed.">        val moveChoice = choice as? MoveChoice ?: error(&quot;Expected MoveChoice but got '${choice::class.qualifiedName}'.&quot;)</span>
-<span class="fc" id="L30">        session.ensureStarted()</span>
+<span class="fc" id="L30">        session.ensureRunning()</span>
 <span class="fc" id="L31">        session.ensureUnitCanSubmitChoice(moveChoice.attackerId)</span>
 <span class="fc" id="L32">        session.ensureMoveChoiceIsLegal(</span>
 <span class="fc" id="L33">            moveId = moveChoice.moveId,</span>

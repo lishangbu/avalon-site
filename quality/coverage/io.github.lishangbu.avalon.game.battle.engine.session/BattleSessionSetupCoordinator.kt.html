@@ -56,103 +56,101 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
         // 一旦 start，整场 battle 就从结构搭建阶段切到正式运行阶段。
 <span class="fc" id="L57">        val battle =</span>
 <span class="fc" id="L58">            session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L59">                started = true,</span>
-<span class="fc" id="L60">                turn = 1,</span>
-<span class="fc" id="L61">                lifecycle = BattleLifecycle.RUNNING,</span>
+<span class="fc" id="L59">                turn = 1,</span>
+<span class="fc" id="L60">                lifecycle = BattleLifecycle.RUNNING,</span>
             )
-<span class="fc" id="L63">        session.currentSnapshot = session.currentSnapshot.copy(battle = battle)</span>
-<span class="fc" id="L64">        session.recordLog(&quot;Battle ${battle.id} started at turn ${battle.turn}.&quot;)</span>
-<span class="fc" id="L65">        session.recordEvent(BattleSessionStartedPayload)</span>
-<span class="fc" id="L66">        return session.currentSnapshot</span>
+<span class="fc" id="L62">        session.currentSnapshot = session.currentSnapshot.copy(battle = battle)</span>
+<span class="fc" id="L63">        session.recordLog(&quot;Battle ${battle.id} started at turn ${battle.turn}.&quot;)</span>
+<span class="fc" id="L64">        session.recordEvent(BattleSessionStartedPayload)</span>
+<span class="fc" id="L65">        return session.currentSnapshot</span>
     }
 
     /**
      * 注册一个 side。
      */
     fun registerSide(sideId: String): BattleRuntimeSnapshot {
-<span class="fc" id="L73">        session.ensureInitializing()</span>
-<span class="fc" id="L74">        val nextSides = session.currentSnapshot.sides + (sideId to SideState(id = sideId))</span>
-<span class="fc" id="L75">        session.currentSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
-<span class="fc" id="L76">        session.recordLog(&quot;Registered side $sideId.&quot;)</span>
-<span class="fc" id="L77">        session.recordEvent(BattleSessionSideRegisteredPayload(sideId = sideId))</span>
-<span class="fc" id="L78">        return session.currentSnapshot</span>
+<span class="fc" id="L72">        session.ensureInitializing()</span>
+<span class="fc" id="L73">        val nextSides = session.currentSnapshot.sides + (sideId to SideState(id = sideId))</span>
+<span class="fc" id="L74">        session.currentSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
+<span class="fc" id="L75">        session.recordLog(&quot;Registered side $sideId.&quot;)</span>
+<span class="fc" id="L76">        session.recordEvent(BattleSessionSideRegisteredPayload(sideId = sideId))</span>
+<span class="fc" id="L77">        return session.currentSnapshot</span>
     }
 
     /**
      * 配置当前 battle 的业务语义。
      */
-<span class="nc" id="L84">    fun configureBattle(</span>
+<span class="nc" id="L83">    fun configureBattle(</span>
         battleKind: BattleType,
-<span class="nc" id="L86">        capturableSideId: String? = null,</span>
+<span class="nc" id="L85">        capturableSideId: String? = null,</span>
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L88">        session.ensureInitializing()</span>
-<span class="fc" id="L89">        session.currentSnapshot =</span>
-<span class="fc" id="L90">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L87">        session.ensureInitializing()</span>
+<span class="fc" id="L88">        session.currentSnapshot =</span>
+<span class="fc" id="L89">            session.currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L92">                    session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L93">                        battleKind = battleKind,</span>
-<span class="fc" id="L94">                        capturableSideId = capturableSideId,</span>
+<span class="fc" id="L91">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L92">                        battleKind = battleKind,</span>
+<span class="fc" id="L93">                        capturableSideId = capturableSideId,</span>
                     ),
             )
-<span class="fc" id="L97">        session.recordLog(&quot;Configured battle kind=${battleKind.name} capturableSideId=$capturableSideId.&quot;)</span>
-<span class="fc" id="L98">        return session.currentSnapshot</span>
+<span class="fc" id="L96">        session.recordLog(&quot;Configured battle kind=${battleKind.name} capturableSideId=$capturableSideId.&quot;)</span>
+<span class="fc" id="L97">        return session.currentSnapshot</span>
     }
 
     /**
      * 注册一个单位并挂到指定 side。
      */
-<span class="nc" id="L104">    fun registerUnit(</span>
+<span class="nc" id="L103">    fun registerUnit(</span>
         sideId: String,
         unit: UnitState,
-<span class="nc" id="L107">        active: Boolean = true,</span>
+<span class="nc" id="L106">        active: Boolean = true,</span>
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L109">        session.ensureInitializing()</span>
-<span class="fc" id="L110">        val side =</span>
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            requireNotNull(session.currentSnapshot.sides[sideId]) {</span>
-<span class="nc" id="L112">                &quot;Side '$sideId' must be registered before units can be added.&quot;</span>
+<span class="fc" id="L108">        session.ensureInitializing()</span>
+<span class="fc" id="L109">        val side =</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">            requireNotNull(session.currentSnapshot.sides[sideId]) {</span>
+<span class="nc" id="L111">                &quot;Side '$sideId' must be registered before units can be added.&quot;</span>
             }
-<span class="fc" id="L114">        val nextUnits = session.currentSnapshot.units + (unit.id to unit)</span>
-<span class="fc" id="L115">        val nextSide =</span>
-<span class="fc bfc" id="L116" title="All 2 branches covered.">            if (active) {</span>
-<span class="fc" id="L117">                side.copy(</span>
-<span class="fc" id="L118">                    unitIds = (side.unitIds + unit.id).distinct(),</span>
-<span class="fc" id="L119">                    activeUnitIds = (side.activeUnitIds + unit.id).distinct(),</span>
+<span class="fc" id="L113">        val nextUnits = session.currentSnapshot.units + (unit.id to unit)</span>
+<span class="fc" id="L114">        val nextSide =</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            if (active) {</span>
+<span class="fc" id="L116">                side.copy(</span>
+<span class="fc" id="L117">                    unitIds = (side.unitIds + unit.id).distinct(),</span>
+<span class="fc" id="L118">                    activeUnitIds = (side.activeUnitIds + unit.id).distinct(),</span>
                 )
             } else {
-<span class="fc" id="L122">                side.copy(unitIds = (side.unitIds + unit.id).distinct())</span>
+<span class="fc" id="L121">                side.copy(unitIds = (side.unitIds + unit.id).distinct())</span>
             }
-<span class="fc" id="L124">        session.currentSnapshot =</span>
-<span class="fc" id="L125">            session.currentSnapshot.copy(</span>
-<span class="fc" id="L126">                units = nextUnits,</span>
-<span class="fc" id="L127">                sides = session.currentSnapshot.sides + (sideId to nextSide),</span>
+<span class="fc" id="L123">        session.currentSnapshot =</span>
+<span class="fc" id="L124">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L125">                units = nextUnits,</span>
+<span class="fc" id="L126">                sides = session.currentSnapshot.sides + (sideId to nextSide),</span>
             )
-<span class="fc" id="L129">        session.recordLog(&quot;Registered unit ${unit.id} to side $sideId.&quot;)</span>
-<span class="fc" id="L130">        session.recordEvent(</span>
-<span class="fc" id="L131">            BattleSessionUnitRegisteredPayload(</span>
-<span class="fc" id="L132">                sideId = sideId,</span>
-<span class="fc" id="L133">                unitId = unit.id,</span>
-<span class="fc" id="L134">                active = active,</span>
+<span class="fc" id="L128">        session.recordLog(&quot;Registered unit ${unit.id} to side $sideId.&quot;)</span>
+<span class="fc" id="L129">        session.recordEvent(</span>
+<span class="fc" id="L130">            BattleSessionUnitRegisteredPayload(</span>
+<span class="fc" id="L131">                sideId = sideId,</span>
+<span class="fc" id="L132">                unitId = unit.id,</span>
+<span class="fc" id="L133">                active = active,</span>
             ),
         )
-<span class="fc" id="L137">        return session.currentSnapshot</span>
+<span class="fc" id="L136">        return session.currentSnapshot</span>
     }
 
     /**
      * 标记当前 battle 已完成结算。
      */
     fun markSettled(): BattleRuntimeSnapshot {
-<span class="fc" id="L144">        session.ensureEndedUnsettled()</span>
+<span class="fc" id="L143">        session.ensureEndedUnsettled()</span>
         // 只有“已结束但未结算”的 battle 才允许推进到最终结算完成态。
-<span class="fc" id="L146">        session.currentSnapshot =</span>
-<span class="fc" id="L147">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L145">        session.currentSnapshot =</span>
+<span class="fc" id="L146">            session.currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L149">                    session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L150">                        settled = true,</span>
-<span class="fc" id="L151">                        lifecycle = BattleLifecycle.SETTLED,</span>
+<span class="fc" id="L148">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L149">                        lifecycle = BattleLifecycle.SETTLED,</span>
                     ),
             )
-<span class="fc" id="L154">        session.recordLog(&quot;Battle settlement completed.&quot;)</span>
-<span class="fc" id="L155">        return session.currentSnapshot</span>
+<span class="fc" id="L152">        session.recordLog(&quot;Battle settlement completed.&quot;)</span>
+<span class="fc" id="L153">        return session.currentSnapshot</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

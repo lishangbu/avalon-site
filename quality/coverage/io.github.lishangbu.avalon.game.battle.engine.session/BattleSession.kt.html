@@ -209,7 +209,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         effectId: String,
         actorUnitId: String,
     ): BattleSessionTargetQuery {
-<span class="fc" id="L212">        ensureStarted()</span>
+<span class="fc" id="L212">        ensureRunning()</span>
 <span class="fc" id="L213">        return targetQueryService.resolve(</span>
 <span class="fc" id="L214">            snapshot = currentSnapshot,</span>
 <span class="fc" id="L215">            effectId = effectId,</span>
@@ -364,7 +364,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         damage: Int,
 <span class="fc" id="L365">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): MoveResolutionResult {
-<span class="fc" id="L367">        ensureStarted()</span>
+<span class="fc" id="L367">        ensureRunning()</span>
 <span class="fc" id="L368">        return executeResolvedEffect(</span>
 <span class="fc" id="L369">            effectId = moveId,</span>
 <span class="fc" id="L370">            actorUnitId = attackerId,</span>
@@ -404,7 +404,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         damage: Int,
 <span class="fc" id="L405">        attributes: Map&lt;String, Any?&gt; = emptyMap(),</span>
     ): List&lt;BattleSessionAction&gt; {
-<span class="fc" id="L407">        ensureStarted()</span>
+<span class="fc" id="L407">        ensureRunning()</span>
 <span class="fc" id="L408">        ensureUnitCanSubmitChoice(attackerId)</span>
 <span class="fc" id="L409">        ensureMoveChoiceIsLegal(moveId = moveId, actorUnitId = attackerId)</span>
 <span class="fc" id="L410">        ensureTargetIsLegalForAction(effectId = moveId, actorUnitId = attackerId, targetUnitId = targetId)</span>
@@ -665,7 +665,7 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         reason: String,
         finalRate: Double,
     ): BattleRuntimeSnapshot {
-<span class="nc" id="L668">        ensureStarted()</span>
+<span class="nc" id="L668">        ensureRunning()</span>
 <span class="nc" id="L669">        recordLog(</span>
 <span class="nc" id="L670">            &quot;Capture failed: item=$ballItemId target=$targetUnitId shakes=$shakes reason=$reason finalRate=$finalRate.&quot;,</span>
         )
@@ -685,24 +685,23 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 以捕捉成功结束当前 battle。
      */
     internal fun finishByCapture(targetUnitId: String): BattleRuntimeSnapshot {
-<span class="fc" id="L688">        ensureStarted()</span>
+<span class="fc" id="L688">        ensureRunning()</span>
         // 捕捉成功会立即终止 battle，但资源扣减与落库存仍要留到统一 settlement 再做。
 <span class="fc" id="L690">        currentSnapshot =</span>
 <span class="fc" id="L691">            currentSnapshot.copy(</span>
                 battle =
 <span class="fc" id="L693">                    currentSnapshot.battle.copy(</span>
-<span class="fc" id="L694">                        ended = true,</span>
-<span class="fc" id="L695">                        lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
-<span class="fc" id="L696">                        winner = null,</span>
-<span class="fc" id="L697">                        endedReason = &quot;capture&quot;,</span>
-<span class="fc" id="L698">                        capturedUnitId = targetUnitId,</span>
+<span class="fc" id="L694">                        lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
+<span class="fc" id="L695">                        winner = null,</span>
+<span class="fc" id="L696">                        endedReason = &quot;capture&quot;,</span>
+<span class="fc" id="L697">                        capturedUnitId = targetUnitId,</span>
                     ),
             )
-<span class="fc" id="L701">        recordLog(&quot;Battle ended by capture. target=$targetUnitId.&quot;)</span>
-<span class="fc" id="L702">        recordEvent(</span>
-<span class="fc" id="L703">            BattleSessionCaptureSucceededPayload(targetUnitId = targetUnitId),</span>
+<span class="fc" id="L700">        recordLog(&quot;Battle ended by capture. target=$targetUnitId.&quot;)</span>
+<span class="fc" id="L701">        recordEvent(</span>
+<span class="fc" id="L702">            BattleSessionCaptureSucceededPayload(targetUnitId = targetUnitId),</span>
         )
-<span class="fc" id="L705">        return currentSnapshot</span>
+<span class="fc" id="L704">        return currentSnapshot</span>
     }
 
     /**
@@ -714,24 +713,24 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         action: BattleSessionAction,
         reason: String,
     ) {
-<span class="fc" id="L717">        val actionType = BattleSessionActionEventKind.valueOf(action.kind.name)</span>
-<span class="pc bpc" id="L718" title="2 of 4 branches missed.">        val submittingUnitId = (action as? BattleSessionSubmittingAction)?.submittingUnitId</span>
-<span class="pc bpc" id="L719" title="2 of 4 branches missed.">        val sideId = (action as? BattleSessionSideAction)?.sideId</span>
-<span class="fc" id="L720">        recordLog(</span>
-<span class="fc" id="L721">            &quot;Skipped ${action.kind.name.lowercase()} action&quot; +</span>
-<span class="pc bpc" id="L722" title="2 of 4 branches missed.">                (submittingUnitId?.let { &quot; from $it&quot; } ?: &quot;&quot;) +</span>
-<span class="pc bpc" id="L723" title="2 of 4 branches missed.">                (sideId?.let { &quot; on side $it&quot; } ?: &quot;&quot;) +</span>
-<span class="fc" id="L724">                &quot;. reason=$reason&quot;,</span>
+<span class="fc" id="L716">        val actionType = BattleSessionActionEventKind.valueOf(action.kind.name)</span>
+<span class="pc bpc" id="L717" title="2 of 4 branches missed.">        val submittingUnitId = (action as? BattleSessionSubmittingAction)?.submittingUnitId</span>
+<span class="pc bpc" id="L718" title="2 of 4 branches missed.">        val sideId = (action as? BattleSessionSideAction)?.sideId</span>
+<span class="fc" id="L719">        recordLog(</span>
+<span class="fc" id="L720">            &quot;Skipped ${action.kind.name.lowercase()} action&quot; +</span>
+<span class="pc bpc" id="L721" title="2 of 4 branches missed.">                (submittingUnitId?.let { &quot; from $it&quot; } ?: &quot;&quot;) +</span>
+<span class="pc bpc" id="L722" title="2 of 4 branches missed.">                (sideId?.let { &quot; on side $it&quot; } ?: &quot;&quot;) +</span>
+<span class="fc" id="L723">                &quot;. reason=$reason&quot;,</span>
         )
-<span class="fc" id="L726">        recordEvent(</span>
-<span class="fc" id="L727">            BattleSessionActionSkippedPayload(</span>
-<span class="fc" id="L728">                actionType = actionType,</span>
-<span class="fc" id="L729">                submittingUnitId = submittingUnitId,</span>
-<span class="fc" id="L730">                sideId = sideId,</span>
-<span class="fc" id="L731">                reason = reason,</span>
+<span class="fc" id="L725">        recordEvent(</span>
+<span class="fc" id="L726">            BattleSessionActionSkippedPayload(</span>
+<span class="fc" id="L727">                actionType = actionType,</span>
+<span class="fc" id="L728">                submittingUnitId = submittingUnitId,</span>
+<span class="fc" id="L729">                sideId = sideId,</span>
+<span class="fc" id="L730">                reason = reason,</span>
             ),
         )
-<span class="fc" id="L734">    }</span>
+<span class="fc" id="L733">    }</span>
 
     /**
      * 从当前 session RNG 中消费一个 `[0, bound)` 范围内的整数。
@@ -740,31 +739,31 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 因而该结果可以随着 session state 一起被导出和恢复。
      */
     internal fun nextRandomInt(bound: Int): Int {
-<span class="fc" id="L743">        val randomResult = currentSnapshot.battle.randomState.nextInt(bound)</span>
-<span class="fc" id="L744">        currentSnapshot =</span>
-<span class="fc" id="L745">            currentSnapshot.copy(</span>
+<span class="fc" id="L742">        val randomResult = currentSnapshot.battle.randomState.nextInt(bound)</span>
+<span class="fc" id="L743">        currentSnapshot =</span>
+<span class="fc" id="L744">            currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L747">                    currentSnapshot.battle.copy(</span>
-<span class="fc" id="L748">                        randomState = randomResult.nextState,</span>
+<span class="fc" id="L746">                    currentSnapshot.battle.copy(</span>
+<span class="fc" id="L747">                        randomState = randomResult.nextState,</span>
                     ),
             )
-<span class="fc" id="L751">        return randomResult.value</span>
+<span class="fc" id="L750">        return randomResult.value</span>
     }
 
     /**
      * 生成一个 `[1, 100]` 的百分比判定值。
      */
-<span class="fc" id="L757">    internal fun nextPercentageRoll(): Int = nextRandomInt(100) + 1</span>
+<span class="fc" id="L756">    internal fun nextPercentageRoll(): Int = nextRandomInt(100) + 1</span>
 
     /**
      * 生成一个 `[0, 65535]` 的捕捉摇晃判定值。
      */
-<span class="fc" id="L762">    internal fun nextCaptureShakeRoll(): Int = nextRandomInt(65536)</span>
+<span class="fc" id="L761">    internal fun nextCaptureShakeRoll(): Int = nextRandomInt(65536)</span>
 
     /**
      * 标记当前 battle 已完成结算。
      */
-<span class="fc" id="L767">    fun markSettled(): BattleRuntimeSnapshot = setupCoordinator.markSettled()</span>
+<span class="fc" id="L766">    fun markSettled(): BattleRuntimeSnapshot = setupCoordinator.markSettled()</span>
 
     /**
      * 推导当前回合内状态。
@@ -774,11 +773,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * - turn status 只回答运行中的这一回合正卡在哪个输入阶段。
      */
     internal fun turnStatus(): BattleSessionTurnStatus? =
-<span class="fc" id="L777">        BattleSessionTurnStatus.from(</span>
-<span class="fc" id="L778">            lifecycle = currentSnapshot.battle.lifecycle,</span>
-<span class="fc bfc" id="L779" title="All 2 branches covered.">            hasPendingReplacement = replacementRequests.isNotEmpty(),</span>
-<span class="pc bpc" id="L780" title="2 of 6 branches missed.">            readyToResolve = choiceStatuses().isNotEmpty() &amp;&amp; isTurnReady(),</span>
-<span class="fc" id="L781">        )</span>
+<span class="fc" id="L776">        BattleSessionTurnStatus.from(</span>
+<span class="fc" id="L777">            lifecycle = currentSnapshot.battle.lifecycle,</span>
+<span class="fc bfc" id="L778" title="All 2 branches covered.">            hasPendingReplacement = replacementRequests.isNotEmpty(),</span>
+<span class="pc bpc" id="L779" title="2 of 6 branches missed.">            readyToResolve = choiceStatuses().isNotEmpty() &amp;&amp; isTurnReady(),</span>
+<span class="fc" id="L780">        )</span>
 
     /**
      * 确认当前会话仍处于初始化阶段。
@@ -787,11 +786,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 一旦进入 `RUNNING`，这些结构性输入就不应再被修改。
      */
     internal fun ensureInitializing() {
-<span class="fc bfc" id="L790" title="All 4 branches covered.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.INITIALIZING) {</span>
+<span class="fc bfc" id="L789" title="All 4 branches covered.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.INITIALIZING) {</span>
             &quot;Battle session must be in lifecycle '${BattleLifecycle.INITIALIZING.name}' &quot; +
-<span class="fc" id="L792">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
+<span class="fc" id="L791">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
         }
-<span class="fc" id="L794">    }</span>
+<span class="fc" id="L793">    }</span>
 
     /**
      * 确认当前会话正处于运行阶段。
@@ -799,12 +798,12 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 这里优先使用显式 lifecycle，而不是继续依赖 `started / ended` 的布尔组合，
      * 这样调用边界会更清晰，也便于后续继续收口状态机。
      */
-    internal fun ensureStarted() {
-<span class="pc bpc" id="L803" title="2 of 4 branches missed.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.RUNNING) {</span>
+    internal fun ensureRunning() {
+<span class="pc bpc" id="L802" title="2 of 4 branches missed.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.RUNNING) {</span>
             &quot;Battle session must be in lifecycle '${BattleLifecycle.RUNNING.name}' &quot; +
-<span class="nc" id="L805">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
+<span class="nc" id="L804">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
         }
-<span class="fc" id="L807">    }</span>
+<span class="fc" id="L806">    }</span>
 
     /**
      * 确认当前会话已经结束但尚未完成战后结算。
@@ -812,11 +811,11 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 资源扣减、奖励发放、落库存等副作用都应该只在这个阶段发生。
      */
     internal fun ensureEndedUnsettled() {
-<span class="fc bfc" id="L815" title="All 4 branches covered.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.ENDED_UNSETTLED) {</span>
+<span class="fc bfc" id="L814" title="All 4 branches covered.">        require(currentSnapshot.battle.lifecycle == BattleLifecycle.ENDED_UNSETTLED) {</span>
             &quot;Battle session must be in lifecycle '${BattleLifecycle.ENDED_UNSETTLED.name}' &quot; +
-<span class="fc" id="L817">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
+<span class="fc" id="L816">                &quot;but was '${currentSnapshot.battle.lifecycle.name}'.&quot;</span>
         }
-<span class="fc" id="L819">    }</span>
+<span class="fc" id="L818">    }</span>
 
     /**
      * 确认当前回合仍在等待行动输入。
@@ -825,65 +824,65 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * 否则外部调用方很难判断“当前失败是规则限制还是时机不对”。
      */
     internal fun ensureAwaitingChoices() {
-<span class="fc" id="L828">        val status = turnStatus()</span>
-<span class="fc bfc" id="L829" title="All 4 branches covered.">        require(status == BattleSessionTurnStatus.AWAITING_CHOICES) {</span>
+<span class="fc" id="L827">        val status = turnStatus()</span>
+<span class="fc bfc" id="L828" title="All 4 branches covered.">        require(status == BattleSessionTurnStatus.AWAITING_CHOICES) {</span>
             &quot;Battle session must be in turn status '${BattleSessionTurnStatus.AWAITING_CHOICES.name}' &quot; +
-<span class="pc bpc" id="L831" title="2 of 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
+<span class="pc bpc" id="L830" title="2 of 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
         }
-<span class="fc" id="L833">    }</span>
+<span class="fc" id="L832">    }</span>
 
     /**
      * 确认当前回合正处于等待替补阶段。
      */
     internal fun ensureAwaitingReplacement() {
-<span class="fc" id="L839">        val status = turnStatus()</span>
-<span class="pc bpc" id="L840" title="2 of 4 branches missed.">        require(status == BattleSessionTurnStatus.AWAITING_REPLACEMENT) {</span>
+<span class="fc" id="L838">        val status = turnStatus()</span>
+<span class="pc bpc" id="L839" title="2 of 4 branches missed.">        require(status == BattleSessionTurnStatus.AWAITING_REPLACEMENT) {</span>
             &quot;Battle session must be in turn status '${BattleSessionTurnStatus.AWAITING_REPLACEMENT.name}' &quot; +
-<span class="nc bnc" id="L842" title="All 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
+<span class="nc bnc" id="L841" title="All 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
         }
-<span class="fc" id="L844">    }</span>
+<span class="fc" id="L843">    }</span>
 
     /**
      * 确认当前回合已经可以进入正式结算。
      */
     internal fun ensureReadyToResolve() {
-<span class="fc" id="L850">        val status = turnStatus()</span>
-<span class="fc bfc" id="L851" title="All 4 branches covered.">        require(status == BattleSessionTurnStatus.READY_TO_RESOLVE) {</span>
+<span class="fc" id="L849">        val status = turnStatus()</span>
+<span class="fc bfc" id="L850" title="All 4 branches covered.">        require(status == BattleSessionTurnStatus.READY_TO_RESOLVE) {</span>
             &quot;Battle session must be in turn status '${BattleSessionTurnStatus.READY_TO_RESOLVE.name}' &quot; +
-<span class="pc bpc" id="L853" title="2 of 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
+<span class="pc bpc" id="L852" title="2 of 4 branches missed.">                &quot;but was '${status?.name ?: &quot;null&quot;}'.&quot;</span>
         }
-<span class="fc" id="L855">    }</span>
+<span class="fc" id="L854">    }</span>
 
     internal fun ensureTurnReady() {
-<span class="fc" id="L858">        ensureReadyToResolve()</span>
-<span class="fc" id="L859">        choiceValidator.ensureTurnReady()</span>
-<span class="fc" id="L860">    }</span>
+<span class="fc" id="L857">        ensureReadyToResolve()</span>
+<span class="fc" id="L858">        choiceValidator.ensureTurnReady()</span>
+<span class="fc" id="L859">    }</span>
 
-<span class="fc" id="L862">    internal fun ensureUnitCanSubmitChoice(unitId: String) = choiceValidator.ensureUnitCanSubmitChoice(unitId)</span>
+<span class="fc" id="L861">    internal fun ensureUnitCanSubmitChoice(unitId: String) = choiceValidator.ensureUnitCanSubmitChoice(unitId)</span>
 
-<span class="fc" id="L864">    internal fun ensureSideCanSubmitRunChoice(sideId: String) = choiceValidator.ensureSideCanSubmitRunChoice(sideId)</span>
+<span class="fc" id="L863">    internal fun ensureSideCanSubmitRunChoice(sideId: String) = choiceValidator.ensureSideCanSubmitRunChoice(sideId)</span>
 
     internal fun ensureTargetIsLegalForAction(
         effectId: String,
         actorUnitId: String,
         targetUnitId: String,
-<span class="fc" id="L870">    ) = choiceValidator.ensureTargetIsLegalForAction(effectId, actorUnitId, targetUnitId)</span>
+<span class="fc" id="L869">    ) = choiceValidator.ensureTargetIsLegalForAction(effectId, actorUnitId, targetUnitId)</span>
 
     internal fun ensureCaptureIsLegal(
         playerId: String,
         sourceUnitId: String,
         targetUnitId: String,
-<span class="fc" id="L876">    ) = choiceValidator.ensureCaptureIsLegal(playerId, sourceUnitId, targetUnitId)</span>
+<span class="fc" id="L875">    ) = choiceValidator.ensureCaptureIsLegal(playerId, sourceUnitId, targetUnitId)</span>
 
     internal fun ensureMoveChoiceIsLegal(
         moveId: String,
         actorUnitId: String,
-<span class="fc" id="L881">    ) = choiceValidator.ensureMoveChoiceIsLegal(moveId, actorUnitId)</span>
+<span class="fc" id="L880">    ) = choiceValidator.ensureMoveChoiceIsLegal(moveId, actorUnitId)</span>
 
     internal fun ensureItemChoiceIsLegal(
         itemId: String,
         actorUnitId: String,
-<span class="fc" id="L886">    ) = choiceValidator.ensureItemChoiceIsLegal(itemId, actorUnitId)</span>
+<span class="fc" id="L885">    ) = choiceValidator.ensureItemChoiceIsLegal(itemId, actorUnitId)</span>
 
     internal fun executeResolvedEffect(
         effectId: String,
@@ -895,23 +894,23 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         damage: Int,
         attributes: Map&lt;String, Any?&gt;,
     ): MoveResolutionResult =
-<span class="fc" id="L898">        actionExecutionSupport.executeResolvedEffect(</span>
-<span class="fc" id="L899">            session = this,</span>
-<span class="fc" id="L900">            effectId = effectId,</span>
-<span class="fc" id="L901">            actorUnitId = actorUnitId,</span>
-<span class="fc" id="L902">            targetUnitId = targetUnitId,</span>
-<span class="fc" id="L903">            accuracy = accuracy,</span>
-<span class="fc" id="L904">            evasion = evasion,</span>
-<span class="fc" id="L905">            basePower = basePower,</span>
-<span class="fc" id="L906">            damage = damage,</span>
-<span class="fc" id="L907">            attributes = attributes,</span>
-<span class="fc" id="L908">        )</span>
+<span class="fc" id="L897">        actionExecutionSupport.executeResolvedEffect(</span>
+<span class="fc" id="L898">            session = this,</span>
+<span class="fc" id="L899">            effectId = effectId,</span>
+<span class="fc" id="L900">            actorUnitId = actorUnitId,</span>
+<span class="fc" id="L901">            targetUnitId = targetUnitId,</span>
+<span class="fc" id="L902">            accuracy = accuracy,</span>
+<span class="fc" id="L903">            evasion = evasion,</span>
+<span class="fc" id="L904">            basePower = basePower,</span>
+<span class="fc" id="L905">            damage = damage,</span>
+<span class="fc" id="L906">            attributes = attributes,</span>
+<span class="fc" id="L907">        )</span>
 
     internal fun applyDirectDamage(
         sourceId: String,
         targetId: String,
         damage: Int,
-<span class="nc" id="L914">    ): BattleRuntimeSnapshot = actionExecutionSupport.applyDirectDamage(this, sourceId, targetId, damage)</span>
+<span class="nc" id="L913">    ): BattleRuntimeSnapshot = actionExecutionSupport.applyDirectDamage(this, sourceId, targetId, damage)</span>
 
     internal fun applyMutations(
         snapshot: BattleRuntimeSnapshot,
@@ -919,63 +918,63 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         targetId: String?,
         sourceId: String?,
         mutations: List&lt;io.github.lishangbu.avalon.game.battle.engine.mutation.BattleMutation&gt;,
-<span class="fc" id="L922">    ): BattleRuntimeSnapshot = mutationProcessor.apply(snapshot, selfId, targetId, sourceId, mutations)</span>
+<span class="fc" id="L921">    ): BattleRuntimeSnapshot = mutationProcessor.apply(snapshot, selfId, targetId, sourceId, mutations)</span>
 
-<span class="fc" id="L924">    internal fun resolveFaintAndReplacement(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot = replacementResolver.resolveFaintAndReplacement(snapshot)</span>
+<span class="fc" id="L923">    internal fun resolveFaintAndReplacement(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot = replacementResolver.resolveFaintAndReplacement(snapshot)</span>
 
-<span class="nc" id="L926">    internal fun updateWinnerIfNeeded(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot = replacementResolver.updateWinnerIfNeeded(snapshot)</span>
+<span class="nc" id="L925">    internal fun updateWinnerIfNeeded(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot = replacementResolver.updateWinnerIfNeeded(snapshot)</span>
 
-<span class="fc" id="L928">    internal fun processBeforeTurn(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
-<span class="fc" id="L929">        currentSnapshot = hookLifecycleProcessor.processBeforeTurn(snapshot)</span>
-<span class="fc" id="L930">        return currentSnapshot</span>
+<span class="fc" id="L927">    internal fun processBeforeTurn(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
+<span class="fc" id="L928">        currentSnapshot = hookLifecycleProcessor.processBeforeTurn(snapshot)</span>
+<span class="fc" id="L929">        return currentSnapshot</span>
     }
 
-<span class="nc" id="L933">    internal fun processSwitchOut(</span>
+<span class="nc" id="L932">    internal fun processSwitchOut(</span>
         unitId: String,
-<span class="nc" id="L935">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+<span class="nc" id="L934">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L937">        currentSnapshot = hookLifecycleProcessor.processSwitchOut(unitId, snapshot)</span>
-<span class="fc" id="L938">        return currentSnapshot</span>
+<span class="fc" id="L936">        currentSnapshot = hookLifecycleProcessor.processSwitchOut(unitId, snapshot)</span>
+<span class="fc" id="L937">        return currentSnapshot</span>
     }
 
-<span class="nc" id="L941">    internal fun processSwitchIn(</span>
+<span class="nc" id="L940">    internal fun processSwitchIn(</span>
         unitId: String,
-<span class="nc" id="L943">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+<span class="nc" id="L942">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L945">        currentSnapshot = hookLifecycleProcessor.processSwitchIn(unitId, snapshot)</span>
-<span class="fc" id="L946">        return currentSnapshot</span>
+<span class="fc" id="L944">        currentSnapshot = hookLifecycleProcessor.processSwitchIn(unitId, snapshot)</span>
+<span class="fc" id="L945">        return currentSnapshot</span>
     }
 
-<span class="nc" id="L949">    internal fun processFaintHooks(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
-<span class="fc" id="L950">        currentSnapshot = hookLifecycleProcessor.processFaintHooks(snapshot)</span>
-<span class="fc" id="L951">        return currentSnapshot</span>
+<span class="nc" id="L948">    internal fun processFaintHooks(snapshot: BattleRuntimeSnapshot = currentSnapshot): BattleRuntimeSnapshot {</span>
+<span class="fc" id="L949">        currentSnapshot = hookLifecycleProcessor.processFaintHooks(snapshot)</span>
+<span class="fc" id="L950">        return currentSnapshot</span>
     }
 
-<span class="nc" id="L954">    internal fun clearForceSwitchRequests(</span>
-<span class="nc" id="L955">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
+<span class="nc" id="L953">    internal fun clearForceSwitchRequests(</span>
+<span class="nc" id="L954">        snapshot: BattleRuntimeSnapshot = currentSnapshot,</span>
         unitIds: Collection&lt;String&gt;,
     ): BattleRuntimeSnapshot {
-<span class="pc bpc" id="L958" title="1 of 2 branches missed.">        if (unitIds.isEmpty()) {</span>
-<span class="nc" id="L959">            return snapshot</span>
+<span class="pc bpc" id="L957" title="1 of 2 branches missed.">        if (unitIds.isEmpty()) {</span>
+<span class="nc" id="L958">            return snapshot</span>
         }
-<span class="fc" id="L961">        val nextUnits = snapshot.units.toMutableMap()</span>
-<span class="fc" id="L962">        var changed = false</span>
-<span class="fc" id="L963">        unitIds.distinct().forEach { unitId -&gt;</span>
-<span class="pc bpc" id="L964" title="1 of 2 branches missed.">            val unit = nextUnits[unitId] ?: return@forEach</span>
-<span class="fc bfc" id="L965" title="All 2 branches covered.">            if (!unit.forceSwitchRequested) {</span>
-<span class="fc" id="L966">                return@forEach</span>
+<span class="fc" id="L960">        val nextUnits = snapshot.units.toMutableMap()</span>
+<span class="fc" id="L961">        var changed = false</span>
+<span class="fc" id="L962">        unitIds.distinct().forEach { unitId -&gt;</span>
+<span class="pc bpc" id="L963" title="1 of 2 branches missed.">            val unit = nextUnits[unitId] ?: return@forEach</span>
+<span class="fc bfc" id="L964" title="All 2 branches covered.">            if (!unit.forceSwitchRequested) {</span>
+<span class="fc" id="L965">                return@forEach</span>
             }
-<span class="fc" id="L968">            nextUnits[unitId] = unit.copy(forceSwitchRequested = false)</span>
-<span class="fc" id="L969">            changed = true</span>
-<span class="fc" id="L970">        }</span>
-<span class="fc" id="L971">        val nextSnapshot =</span>
-<span class="fc bfc" id="L972" title="All 2 branches covered.">            if (changed) {</span>
-<span class="fc" id="L973">                snapshot.copy(units = nextUnits)</span>
+<span class="fc" id="L967">            nextUnits[unitId] = unit.copy(forceSwitchRequested = false)</span>
+<span class="fc" id="L968">            changed = true</span>
+<span class="fc" id="L969">        }</span>
+<span class="fc" id="L970">        val nextSnapshot =</span>
+<span class="fc bfc" id="L971" title="All 2 branches covered.">            if (changed) {</span>
+<span class="fc" id="L972">                snapshot.copy(units = nextUnits)</span>
             } else {
-<span class="fc" id="L975">                snapshot</span>
+<span class="fc" id="L974">                snapshot</span>
             }
-<span class="fc" id="L977">        currentSnapshot = nextSnapshot</span>
-<span class="fc" id="L978">        return nextSnapshot</span>
+<span class="fc" id="L976">        currentSnapshot = nextSnapshot</span>
+<span class="fc" id="L977">        return nextSnapshot</span>
     }
 
     internal fun recordMoveExecution(
@@ -983,23 +982,23 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
         attackerId: String,
         targetId: String,
         result: MoveResolutionResult,
-<span class="fc" id="L986">    ) = actionExecutionSupport.recordMoveExecution(this, moveId, attackerId, targetId, result)</span>
+<span class="fc" id="L985">    ) = actionExecutionSupport.recordMoveExecution(this, moveId, attackerId, targetId, result)</span>
 
-<span class="fc" id="L988">    internal fun applySwitchAction(action: BattleSessionSwitchAction): BattleRuntimeSnapshot = actionExecutionSupport.applySwitchAction(this, action)</span>
+<span class="fc" id="L987">    internal fun applySwitchAction(action: BattleSessionSwitchAction): BattleRuntimeSnapshot = actionExecutionSupport.applySwitchAction(this, action)</span>
 
-<span class="nc" id="L990">    internal fun applyRunAction(action: BattleSessionRunAction): BattleRuntimeSnapshot = actionExecutionSupport.applyRunAction(this, action)</span>
+<span class="nc" id="L989">    internal fun applyRunAction(action: BattleSessionRunAction): BattleRuntimeSnapshot = actionExecutionSupport.applyRunAction(this, action)</span>
 
     internal fun recordResourceUsage(usage: BattleSessionResourceUsage) {
-<span class="fc" id="L993">        publicationRecorder.recordResourceUsage(usage)</span>
-<span class="fc" id="L994">    }</span>
+<span class="fc" id="L992">        publicationRecorder.recordResourceUsage(usage)</span>
+<span class="fc" id="L993">    }</span>
 
     internal fun recordLog(message: String) {
-<span class="fc" id="L997">        publicationRecorder.recordLog(message)</span>
-<span class="fc" id="L998">    }</span>
+<span class="fc" id="L996">        publicationRecorder.recordLog(message)</span>
+<span class="fc" id="L997">    }</span>
 
     internal fun recordEvent(payload: BattleSessionEventPayload) {
-<span class="fc" id="L1001">        publicationRecorder.recordEvent(payload)</span>
-<span class="fc" id="L1002">    }</span>
+<span class="fc" id="L1000">        publicationRecorder.recordEvent(payload)</span>
+<span class="fc" id="L1001">    }</span>
 
     /**
      * 发布一条 session 内部事件。
@@ -1007,8 +1006,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param publication 本次需要投影到各个读模型的事件载体。
      */
     internal fun publish(publication: BattleSessionPublication) {
-<span class="nc" id="L1010">        publicationRecorder.publish(publication)</span>
-<span class="nc" id="L1011">    }</span>
+<span class="nc" id="L1009">        publicationRecorder.publish(publication)</span>
+<span class="nc" id="L1010">    }</span>
 
     /**
      * 供 projector 追加一条 battle log。
@@ -1016,8 +1015,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param message 已经完成格式化的 battle log 文本。
      */
     internal fun appendBattleLog(message: String) {
-<span class="fc" id="L1019">        publicationRecorder.appendBattleLog(message)</span>
-<span class="fc" id="L1020">    }</span>
+<span class="fc" id="L1018">        publicationRecorder.appendBattleLog(message)</span>
+<span class="fc" id="L1019">    }</span>
 
     /**
      * 供 projector 追加一条结构化事件。
@@ -1025,8 +1024,8 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param event 已经完成组装的结构化事件对象。
      */
     internal fun appendEventLog(event: BattleSessionEvent) {
-<span class="fc" id="L1028">        publicationRecorder.appendEventLog(event)</span>
-<span class="fc" id="L1029">    }</span>
+<span class="fc" id="L1027">        publicationRecorder.appendEventLog(event)</span>
+<span class="fc" id="L1028">    }</span>
 
     /**
      * 供 projector 追加一条资源账本记录。
@@ -1034,13 +1033,13 @@ import io.github.lishangbu.avalon.game.battle.engine.session.target.BattleSessio
      * @param usage 已经完成组装的资源账本条目。
      */
     internal fun appendResourceUsage(usage: BattleSessionResourceUsage) {
-<span class="fc" id="L1037">        publicationRecorder.appendResourceUsage(usage)</span>
-<span class="fc" id="L1038">    }</span>
+<span class="fc" id="L1036">        publicationRecorder.appendResourceUsage(usage)</span>
+<span class="fc" id="L1037">    }</span>
 
-<span class="nc" id="L1040">    internal fun submittedSideId(action: BattleSessionAction): String? = choiceValidator.submittedSideId(action)</span>
+<span class="nc" id="L1039">    internal fun submittedSideId(action: BattleSessionAction): String? = choiceValidator.submittedSideId(action)</span>
 
-<span class="fc" id="L1042">    internal fun sideIdOfUnit(unitId: String): String? = choiceValidator.sideIdOfUnit(unitId)</span>
+<span class="fc" id="L1041">    internal fun sideIdOfUnit(unitId: String): String? = choiceValidator.sideIdOfUnit(unitId)</span>
 
-<span class="fc" id="L1044">    internal fun submittedUnitIdsForSide(side: SideState): List&lt;String&gt; = choiceValidator.submittedUnitIdsForSide(side)</span>
+<span class="fc" id="L1043">    internal fun submittedUnitIdsForSide(side: SideState): List&lt;String&gt; = choiceValidator.submittedUnitIdsForSide(side)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

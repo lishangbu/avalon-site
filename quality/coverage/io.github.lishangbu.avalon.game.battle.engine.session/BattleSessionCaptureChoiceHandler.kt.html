@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
         session: BattleSession,
     ): List&lt;BattleSessionAction&gt; {
 <span class="pc bpc" id="L25" title="2 of 4 branches missed.">        val captureChoice = choice as? CaptureChoice ?: error(&quot;Expected CaptureChoice but got '${choice::class.qualifiedName}'.&quot;)</span>
-<span class="fc" id="L26">        session.ensureStarted()</span>
+<span class="fc" id="L26">        session.ensureRunning()</span>
 <span class="fc" id="L27">        session.ensureUnitCanSubmitChoice(captureChoice.sourceUnitId)</span>
 <span class="fc" id="L28">        session.ensureCaptureIsLegal(</span>
 <span class="fc" id="L29">            playerId = captureChoice.playerId,</span>
