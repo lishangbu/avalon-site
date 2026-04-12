@@ -30,53 +30,61 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L30">        val successfulUsage = resolveSuccessfulUsage(session)</span>
 
 <span class="fc" id="L32">        captureUsages.forEach { usage -&gt;</span>
-<span class="fc" id="L33">            val prepared = prepareCaptureContext(sessionId, session, usage)</span>
+            // 失败尝试只需要扣库存，不必重复装配完整的目标精灵上下文。
+<span class="fc" id="L34">            val inventoryContext =</span>
+<span class="fc" id="L35">                capturePreparationService.resolveInventoryContext(</span>
+<span class="fc" id="L36">                    playerId = usage.playerId,</span>
+<span class="fc" id="L37">                    ballItemId = usage.ballItemId,</span>
+                )
 
             // 结算阶段再次校验库存，避免预校验与真实落库之间被并发消耗破坏一致性。
-<span class="fc" id="L36">            playerInventoryService.ensureAvailable(prepared.playerId, prepared.ballItemId, usage.quantity)</span>
-<span class="fc" id="L37">            playerInventoryService.consume(prepared.playerId, prepared.ballItemId, usage.quantity)</span>
+<span class="fc" id="L41">            playerInventoryService.ensureAvailable(inventoryContext.playerId, inventoryContext.ballItemId, usage.quantity)</span>
+<span class="fc" id="L42">            playerInventoryService.consume(inventoryContext.playerId, inventoryContext.ballItemId, usage.quantity)</span>
 
-<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (usage == successfulUsage) {</span>
-<span class="fc" id="L40">                captureSummary = ownedCreatureService.capture(prepared)</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (usage == successfulUsage) {</span>
+                // 只有最终成功那次捕捉，才需要装配完整上下文去落库存档。
+<span class="fc" id="L46">                captureSummary = ownedCreatureService.capture(prepareCaptureContext(sessionId, session, usage, inventoryContext))</span>
             }
-<span class="fc" id="L42">        }</span>
+<span class="fc" id="L48">        }</span>
 
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
-<span class="fc" id="L45">            CaptureBattleResult(</span>
-<span class="fc" id="L46">                success = true,</span>
-<span class="fc" id="L47">                sessionId = sessionId,</span>
-<span class="fc" id="L48">                targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L49">                ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L50">                shakes = usage.shakes,</span>
-<span class="fc" id="L51">                reason = usage.reason,</span>
-<span class="fc" id="L52">                battleEnded = true,</span>
-<span class="fc" id="L53">                finalRate = usage.finalRate,</span>
-<span class="fc" id="L54">                session = session,</span>
-<span class="fc" id="L55">                capturedCreature = captureSummary,</span>
-<span class="fc" id="L56">            )</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        return successfulUsage?.let { usage -&gt;</span>
+<span class="fc" id="L51">            CaptureBattleResult(</span>
+<span class="fc" id="L52">                success = true,</span>
+<span class="fc" id="L53">                sessionId = sessionId,</span>
+<span class="fc" id="L54">                targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L55">                ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L56">                shakes = usage.shakes,</span>
+<span class="fc" id="L57">                reason = usage.reason,</span>
+<span class="fc" id="L58">                battleEnded = true,</span>
+<span class="fc" id="L59">                finalRate = usage.finalRate,</span>
+<span class="fc" id="L60">                session = session,</span>
+<span class="fc" id="L61">                capturedCreature = captureSummary,</span>
+<span class="fc" id="L62">            )</span>
         }
     }
 
     private fun resolveSuccessfulUsage(session: BattleSessionQuery): BattleSessionCaptureResourceUsage? =
-<span class="fc" id="L61">        session.captureResourceLedger.lastOrNull { usage -&gt;</span>
-<span class="pc bpc" id="L62" title="2 of 4 branches missed.">            usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
-<span class="fc" id="L63">        }</span>
+<span class="fc" id="L67">        session.captureResourceLedger.lastOrNull { usage -&gt;</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">            usage.success &amp;&amp; usage.targetUnitId == session.snapshot.battle.capturedUnitId</span>
+<span class="fc" id="L69">        }</span>
 
     private fun prepareCaptureContext(
         sessionId: String,
         session: BattleSessionQuery,
         usage: BattleSessionCaptureResourceUsage,
+        inventoryContext: CaptureInventoryContext,
     ): PreparedCaptureContext =
-<span class="fc" id="L70">        capturePreparationService.prepare(</span>
-<span class="fc" id="L71">            sessionId = sessionId,</span>
-<span class="fc" id="L72">            snapshot = session.snapshot,</span>
+<span class="fc" id="L77">        capturePreparationService.prepare(</span>
+<span class="fc" id="L78">            sessionId = sessionId,</span>
+<span class="fc" id="L79">            snapshot = session.snapshot,</span>
             command =
-<span class="fc" id="L74">                CaptureCommand(</span>
-<span class="fc" id="L75">                    playerId = usage.playerId,</span>
-<span class="fc" id="L76">                    ballItemId = usage.ballItemId,</span>
-<span class="fc" id="L77">                    targetUnitId = usage.targetUnitId,</span>
-<span class="fc" id="L78">                    sourceUnitId = usage.sourceUnitId,</span>
+<span class="fc" id="L81">                CaptureCommand(</span>
+<span class="fc" id="L82">                    playerId = usage.playerId,</span>
+<span class="fc" id="L83">                    ballItemId = usage.ballItemId,</span>
+<span class="fc" id="L84">                    targetUnitId = usage.targetUnitId,</span>
+<span class="fc" id="L85">                    sourceUnitId = usage.sourceUnitId,</span>
                 ),
-<span class="fc" id="L80">        )</span>
+<span class="fc" id="L87">            inventoryContext = inventoryContext,</span>
+<span class="fc" id="L88">        )</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

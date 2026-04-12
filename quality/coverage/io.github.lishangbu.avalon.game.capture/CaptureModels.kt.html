@@ -47,17 +47,30 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionQuery
 <span class="fc" id="L47">    val calculatedStats: Map&lt;String, Int&gt;,</span>
 )
 
-<span class="fc" id="L50">data class PreparedCaptureContext(</span>
-<span class="fc" id="L51">    val sessionId: String,</span>
-<span class="fc" id="L52">    val playerId: Long,</span>
-<span class="fc" id="L53">    val ballItemId: Long,</span>
-<span class="pc" id="L54">    val ballItemInternalName: String,</span>
-<span class="pc" id="L55">    val targetUnitId: String,</span>
-<span class="pc" id="L56">    val sourceUnitId: String?,</span>
-<span class="pc" id="L57">    val snapshot: BattleRuntimeSnapshot,</span>
-<span class="fc" id="L58">    val targetUnit: UnitState,</span>
-<span class="pc" id="L59">    val sourceUnit: UnitState?,</span>
-<span class="fc" id="L60">    val targetMetadata: BattleUnitMetadata,</span>
-<span class="fc" id="L61">    val battleContext: CaptureContext,</span>
+/**
+ * 捕捉结算里用于扣库存的最小上下文。
+ *
+ * 说明：
+ * - battle 结束后统一扣资源时，并不总是需要完整的目标精灵元数据。
+ * - 先把玩家和球的真实主键解析出来，可以避免每次失败尝试都重复查物种信息。
+ */
+<span class="fc" id="L57">data class CaptureInventoryContext(</span>
+<span class="fc" id="L58">    val playerId: Long,</span>
+<span class="fc" id="L59">    val ballItemId: Long,</span>
+<span class="fc" id="L60">    val ballItemInternalName: String,</span>
+)
+
+<span class="fc" id="L63">data class PreparedCaptureContext(</span>
+<span class="fc" id="L64">    val sessionId: String,</span>
+<span class="fc" id="L65">    val playerId: Long,</span>
+<span class="fc" id="L66">    val ballItemId: Long,</span>
+<span class="pc" id="L67">    val ballItemInternalName: String,</span>
+<span class="pc" id="L68">    val targetUnitId: String,</span>
+<span class="pc" id="L69">    val sourceUnitId: String?,</span>
+<span class="pc" id="L70">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L71">    val targetUnit: UnitState,</span>
+<span class="pc" id="L72">    val sourceUnit: UnitState?,</span>
+<span class="fc" id="L73">    val targetMetadata: BattleUnitMetadata,</span>
+<span class="fc" id="L74">    val battleContext: CaptureContext,</span>
 )
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

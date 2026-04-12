@@ -9,11 +9,13 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.MoveResolution
  * @property action 被执行的原始行动。
  * @property snapshot 执行该行动后的最新快照。
  * @property moveResult 如果该行动是 move，则附带其主流程结果。
+ * @property skippedReason 如果该行动在轮到执行前已经失效，则记录跳过原因。
  */
-<span class="fc" id="L13">data class BattleSessionActionExecutionResult(</span>
-<span class="fc" id="L14">    val action: BattleSessionAction,</span>
-<span class="fc" id="L15">    val snapshot: BattleRuntimeSnapshot,</span>
-<span class="fc" id="L16">    val moveResult: MoveResolutionResult? = null,</span>
-<span class="fc" id="L17">    val captureResult: BattleSessionCaptureResult? = null,</span>
-<span class="fc" id="L18">)</span>
+<span class="fc" id="L14">data class BattleSessionActionExecutionResult(</span>
+<span class="fc" id="L15">    val action: BattleSessionAction,</span>
+<span class="fc" id="L16">    val snapshot: BattleRuntimeSnapshot,</span>
+<span class="fc" id="L17">    val moveResult: MoveResolutionResult? = null,</span>
+<span class="fc" id="L18">    val captureResult: BattleSessionCaptureResult? = null,</span>
+<span class="fc" id="L19">    val skippedReason: String? = null,</span>
+<span class="fc" id="L20">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

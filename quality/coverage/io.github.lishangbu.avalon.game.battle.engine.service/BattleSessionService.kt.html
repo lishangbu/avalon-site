@@ -19,10 +19,10 @@ interface BattleSessionService {
         formatId: String,
     ): BattleSessionQuery
 
-<span class="nc" id="L22">    fun configureSession(</span>
+<span class="pc" id="L22">    fun configureSession(</span>
         sessionId: String,
         battleKind: BattleType,
-<span class="nc" id="L25">        capturableSideId: String? = null,</span>
+<span class="fc" id="L25">        capturableSideId: String? = null,</span>
     ): BattleSessionQuery
 
     fun startSession(sessionId: String): BattleSessionQuery
@@ -53,20 +53,6 @@ interface BattleSessionService {
         sessionId: String,
         sideId: String,
         incomingUnitId: String,
-    ): BattleSessionQuery
-
-    fun recordCaptureFailure(
-        sessionId: String,
-        ballItemId: String,
-        targetUnitId: String,
-        shakes: Int,
-        reason: String,
-        finalRate: Double,
-    ): BattleSessionQuery
-
-    fun finishSessionByCapture(
-        sessionId: String,
-        targetUnitId: String,
     ): BattleSessionQuery
 
     fun markSessionSettled(sessionId: String): BattleSessionQuery

@@ -90,49 +90,27 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionTurnRe
         sideId: String,
         incomingUnitId: String,
     ): BattleSessionQuery {
-<span class="nc" id="L93">        val session = requireSession(sessionId)</span>
-<span class="nc" id="L94">        session.submitReplacementChoice(sideId, incomingUnitId)</span>
-<span class="nc" id="L95">        return session.query()</span>
-    }
-
-    override fun recordCaptureFailure(
-        sessionId: String,
-        ballItemId: String,
-        targetUnitId: String,
-        shakes: Int,
-        reason: String,
-        finalRate: Double,
-    ): BattleSessionQuery {
-<span class="nc" id="L106">        val session = requireSession(sessionId)</span>
-<span class="nc" id="L107">        session.recordCaptureFailure(ballItemId, targetUnitId, shakes, reason, finalRate)</span>
-<span class="nc" id="L108">        return session.query()</span>
-    }
-
-    override fun finishSessionByCapture(
-        sessionId: String,
-        targetUnitId: String,
-    ): BattleSessionQuery {
-<span class="nc" id="L115">        val session = requireSession(sessionId)</span>
-<span class="nc" id="L116">        session.finishByCapture(targetUnitId)</span>
-<span class="nc" id="L117">        return session.query()</span>
+<span class="fc" id="L93">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L94">        session.submitReplacementChoice(sideId, incomingUnitId)</span>
+<span class="fc" id="L95">        return session.query()</span>
     }
 
     override fun markSessionSettled(sessionId: String): BattleSessionQuery {
-<span class="fc" id="L121">        val session = requireSession(sessionId)</span>
-<span class="fc" id="L122">        session.markSettled()</span>
-<span class="fc" id="L123">        return session.query()</span>
+<span class="fc" id="L99">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L100">        session.markSettled()</span>
+<span class="fc" id="L101">        return session.query()</span>
     }
 
     override fun resolveTurn(sessionId: String): BattleSessionTurnResult {
-<span class="fc" id="L127">        val session = requireSession(sessionId)</span>
-<span class="fc" id="L128">        return session.resolveTurn()</span>
+<span class="fc" id="L105">        val session = requireSession(sessionId)</span>
+<span class="fc" id="L106">        return session.resolveTurn()</span>
     }
 
-<span class="fc" id="L131">    override fun querySession(sessionId: String): BattleSessionQuery = requireSession(sessionId).query()</span>
+<span class="fc" id="L109">    override fun querySession(sessionId: String): BattleSessionQuery = requireSession(sessionId).query()</span>
 
     private fun requireSession(sessionId: String): BattleSession =
-<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        requireNotNull(sessionStore.find(sessionId)) {</span>
-<span class="nc" id="L135">            &quot;Session '$sessionId' was not found.&quot;</span>
-<span class="fc" id="L136">        }</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        requireNotNull(sessionStore.find(sessionId)) {</span>
+<span class="nc" id="L113">            &quot;Session '$sessionId' was not found.&quot;</span>
+<span class="fc" id="L114">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -15,9 +15,9 @@ import io.github.lishangbu.avalon.game.battle.engine.session.BattleSession
      */
     override fun validate(session: BattleSession): BattleSessionValidationResult {
 <span class="fc" id="L17">        val missingUnitIds = session.pendingChoiceUnitIds()</span>
-<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (missingUnitIds.isNotEmpty()) {</span>
-<span class="fc" id="L19">            return BattleSessionValidationResult.rejected(</span>
-<span class="fc" id="L20">                &quot;Cannot resolve turn because these active units have not submitted actions: $missingUnitIds&quot;,</span>
+<span class="pc bpc" id="L18" title="2 of 4 branches missed.">        if (missingUnitIds.isNotEmpty()) {</span>
+<span class="nc" id="L19">            return BattleSessionValidationResult.rejected(</span>
+<span class="nc" id="L20">                &quot;Cannot resolve turn because these active units have not submitted actions: $missingUnitIds&quot;,</span>
             )
         }
 <span class="pc bpc" id="L23" title="2 of 4 branches missed.">        if (session.replacementRequests.isNotEmpty()) {</span>

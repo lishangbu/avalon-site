@@ -27,6 +27,21 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
 <span class="fc" id="L27">    val eventLogs: List&lt;BattleSessionEvent&gt;,</span>
 ) {
     /**
+     * 当前运行中回合的派生状态。
+     *
+     * 说明：
+     * - 这是 session 级的运行时视图，不落到 `BattleState`。
+     * - 只有 battle 进入 `RUNNING` 之后，这个值才有意义。
+     */
+    val turnStatus: BattleSessionTurnStatus?
+        get() =
+<span class="fc" id="L38">            BattleSessionTurnStatus.from(</span>
+<span class="fc" id="L39">                lifecycle = snapshot.battle.lifecycle,</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                hasPendingReplacement = replacementRequests.isNotEmpty(),</span>
+<span class="fc bfc" id="L41" title="All 6 branches covered.">                readyToResolve = choiceStatuses.isNotEmpty() &amp;&amp; choiceStatuses.all(BattleSessionChoiceStatus::ready),</span>
+<span class="fc" id="L42">            )</span>
+
+    /**
      * 结构化事件的强类型 payload 视图。
      *
      * 设计意图：
@@ -34,19 +49,19 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
      * - 保持 `eventLogs` 作为完整事件壳的同时，提供更贴近业务的 typed 访问入口。
      */
     val eventPayloads: List&lt;BattleSessionEventPayload&gt;
-<span class="fc" id="L37">        get() = eventLogs.map(BattleSessionEvent::payload)</span>
+<span class="fc" id="L52">        get() = eventLogs.map(BattleSessionEvent::payload)</span>
 
     /**
      * 已入队动作事件的强类型视图。
      */
     val queuedActionEvents: List&lt;BattleSessionQueuedActionPayload&gt;
-<span class="fc" id="L43">        get() = eventPayloads.filterIsInstance&lt;BattleSessionQueuedActionPayload&gt;()</span>
+<span class="fc" id="L58">        get() = eventPayloads.filterIsInstance&lt;BattleSessionQueuedActionPayload&gt;()</span>
 
     /**
      * 已执行动作事件的强类型视图。
      */
     val executedActionEvents: List&lt;BattleSessionExecutedActionPayload&gt;
-<span class="fc" id="L49">        get() = eventPayloads.filterIsInstance&lt;BattleSessionExecutedActionPayload&gt;()</span>
+<span class="fc" id="L64">        get() = eventPayloads.filterIsInstance&lt;BattleSessionExecutedActionPayload&gt;()</span>
 
     /**
      * 捕捉资源账本的强类型视图。
@@ -55,6 +70,6 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
      * - 让结算与投影逻辑可以直接消费捕捉账本，而不是再从泛型账本列表中手动筛选。
      */
     val captureResourceLedger: List&lt;BattleSessionCaptureResourceUsage&gt;
-<span class="fc" id="L58">        get() = resourceLedger.filterIsInstance&lt;BattleSessionCaptureResourceUsage&gt;()</span>
+<span class="fc" id="L73">        get() = resourceLedger.filterIsInstance&lt;BattleSessionCaptureResourceUsage&gt;()</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

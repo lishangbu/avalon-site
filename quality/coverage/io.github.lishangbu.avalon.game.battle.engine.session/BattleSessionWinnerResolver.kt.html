@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionWinnerResolver.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionWinnerResolver.kt</span></div><h1>BattleSessionWinnerResolver.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
 
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleLifecycle
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
 
 /**
@@ -11,39 +12,51 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
  * - 让 replacement resolver 不再同时承担替补与胜负决策两类职责；
  * - 便于后续扩展不同 battle 模式下的结束规则。
  */
-<span class="fc" id="L14">internal class BattleSessionWinnerResolver(</span>
-<span class="fc" id="L15">    private val session: BattleSession,</span>
+<span class="fc" id="L15">internal class BattleSessionWinnerResolver(</span>
+<span class="fc" id="L16">    private val session: BattleSession,</span>
 ) {
     /**
      * 根据当前快照更新胜者信息。
      */
     fun updateWinnerIfNeeded(snapshot: BattleRuntimeSnapshot): BattleRuntimeSnapshot {
-<span class="fc" id="L21">        val survivingSideIds =</span>
-<span class="fc" id="L22">            snapshot.sides.values</span>
-<span class="fc" id="L23">                .filter { side -&gt;</span>
-<span class="pc bpc" id="L24" title="1 of 4 branches missed.">                    side.unitIds.any { unitId -&gt; (snapshot.units[unitId]?.currentHp ?: 0) &gt; 0 }</span>
-<span class="fc" id="L25">                }.map { side -&gt; side.id }</span>
+<span class="fc" id="L22">        val survivingSideIds =</span>
+<span class="fc" id="L23">            snapshot.sides.values</span>
+<span class="fc" id="L24">                .filter { side -&gt;</span>
+<span class="pc bpc" id="L25" title="1 of 4 branches missed.">                    side.unitIds.any { unitId -&gt; (snapshot.units[unitId]?.currentHp ?: 0) &gt; 0 }</span>
+<span class="fc" id="L26">                }.map { side -&gt; side.id }</span>
 
-<span class="fc" id="L27">        return when {</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">            survivingSideIds.size == 1 -&gt; {</span>
-<span class="fc" id="L29">                val winnerId = survivingSideIds.single()</span>
-<span class="fc" id="L30">                session.recordLog(&quot;Battle ended. Winner: $winnerId.&quot;)</span>
-<span class="fc" id="L31">                session.recordEvent(BattleSessionBattleEndedPayload(winner = winnerId))</span>
-<span class="fc" id="L32">                snapshot.copy(</span>
-<span class="fc" id="L33">                    battle = snapshot.battle.copy(ended = true, winner = winnerId),</span>
+<span class="fc" id="L28">        return when {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            survivingSideIds.size == 1 -&gt; {</span>
+<span class="fc" id="L30">                val winnerId = survivingSideIds.single()</span>
+<span class="fc" id="L31">                session.recordLog(&quot;Battle ended. Winner: $winnerId.&quot;)</span>
+<span class="fc" id="L32">                session.recordEvent(BattleSessionBattleEndedPayload(winner = winnerId))</span>
+                // 这里只负责宣布 battle 已结束，不直接掺入战后资源、副作用结算。
+<span class="fc" id="L34">                snapshot.copy(</span>
+                    battle =
+<span class="fc" id="L36">                        snapshot.battle.copy(</span>
+<span class="fc" id="L37">                            ended = true,</span>
+<span class="fc" id="L38">                            lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
+<span class="fc" id="L39">                            winner = winnerId,</span>
+                        ),
                 )
             }
 
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            survivingSideIds.isEmpty() -&gt; {</span>
-<span class="nc" id="L38">                session.recordLog(&quot;Battle ended with no surviving sides.&quot;)</span>
-<span class="nc" id="L39">                session.recordEvent(BattleSessionBattleEndedPayload(winner = null))</span>
-<span class="nc" id="L40">                snapshot.copy(</span>
-<span class="nc" id="L41">                    battle = snapshot.battle.copy(ended = true, winner = null),</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            survivingSideIds.isEmpty() -&gt; {</span>
+<span class="nc" id="L45">                session.recordLog(&quot;Battle ended with no surviving sides.&quot;)</span>
+<span class="nc" id="L46">                session.recordEvent(BattleSessionBattleEndedPayload(winner = null))</span>
+                // 平局同样先进入“已结束待结算”，由上层决定是否还有额外副作用要处理。
+<span class="nc" id="L48">                snapshot.copy(</span>
+                    battle =
+<span class="nc" id="L50">                        snapshot.battle.copy(</span>
+<span class="nc" id="L51">                            ended = true,</span>
+<span class="nc" id="L52">                            lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
+<span class="nc" id="L53">                            winner = null,</span>
+                        ),
                 )
             }
 
             else -&gt; {
-<span class="fc" id="L46">                snapshot</span>
+<span class="fc" id="L59">                snapshot</span>
             }
         }
     }

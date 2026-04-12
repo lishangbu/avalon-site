@@ -26,52 +26,53 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
         sideId: String,
         incomingUnitId: String,
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L29">        session.ensureStarted()</span>
-<span class="fc" id="L30">        val request =</span>
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">            requireNotNull(session.replacementRequests.firstOrNull { candidate -&gt; candidate.sideId == sideId }) {</span>
-<span class="nc" id="L32">                &quot;No replacement request found for side '$sideId'.&quot;</span>
+        // 手动替补只允许发生在当前回合已经被打断、明确等待 replacement 的阶段。
+<span class="fc" id="L30">        session.ensureAwaitingReplacement()</span>
+<span class="fc" id="L31">        val request =</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            requireNotNull(session.replacementRequests.firstOrNull { candidate -&gt; candidate.sideId == sideId }) {</span>
+<span class="nc" id="L33">                &quot;No replacement request found for side '$sideId'.&quot;</span>
             }
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        require(incomingUnitId in request.candidateUnitIds) {</span>
-<span class="nc" id="L35">            &quot;Unit '$incomingUnitId' is not a valid replacement candidate for side '$sideId'.&quot;</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        require(incomingUnitId in request.candidateUnitIds) {</span>
+<span class="nc" id="L36">            &quot;Unit '$incomingUnitId' is not a valid replacement candidate for side '$sideId'.&quot;</span>
         }
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[sideId]) { &quot;Side '$sideId' was not found.&quot; }</span>
-<span class="fc" id="L38">        val outgoingUnitId = request.outgoingUnitIds.firstOrNull()</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (outgoingUnitId != null) {</span>
-<span class="fc" id="L40">            val outgoingUnit = session.currentSnapshot.units[outgoingUnitId]</span>
-<span class="pc bpc" id="L41" title="2 of 4 branches missed.">            if ((outgoingUnit?.currentHp ?: 0) &gt; 0) {</span>
-<span class="nc" id="L42">                session.currentSnapshot = session.processSwitchOut(outgoingUnitId, session.currentSnapshot)</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        val side = requireNotNull(session.currentSnapshot.sides[sideId]) { &quot;Side '$sideId' was not found.&quot; }</span>
+<span class="fc" id="L39">        val outgoingUnitId = request.outgoingUnitIds.firstOrNull()</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (outgoingUnitId != null) {</span>
+<span class="fc" id="L41">            val outgoingUnit = session.currentSnapshot.units[outgoingUnitId]</span>
+<span class="pc bpc" id="L42" title="2 of 4 branches missed.">            if ((outgoingUnit?.currentHp ?: 0) &gt; 0) {</span>
+<span class="nc" id="L43">                session.currentSnapshot = session.processSwitchOut(outgoingUnitId, session.currentSnapshot)</span>
             }
-<span class="fc" id="L44">            session.currentSnapshot = BattleSessionSwitchBoostStateSupport.clearOutgoingBoosts(session.currentSnapshot, outgoingUnitId)</span>
+<span class="fc" id="L45">            session.currentSnapshot = BattleSessionSwitchBoostStateSupport.clearOutgoingBoosts(session.currentSnapshot, outgoingUnitId)</span>
         }
-<span class="fc" id="L46">        val nextActiveIds = listOf(incomingUnitId)</span>
-<span class="fc" id="L47">        val nextSides = session.currentSnapshot.sides + (sideId to side.copy(activeUnitIds = nextActiveIds))</span>
-<span class="fc" id="L48">        val replacedSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
-<span class="fc" id="L49">        session.currentSnapshot =</span>
-<span class="fc" id="L50">            session.clearForceSwitchRequests(</span>
-<span class="fc" id="L51">                snapshot = replacedSnapshot,</span>
+<span class="fc" id="L47">        val nextActiveIds = listOf(incomingUnitId)</span>
+<span class="fc" id="L48">        val nextSides = session.currentSnapshot.sides + (sideId to side.copy(activeUnitIds = nextActiveIds))</span>
+<span class="fc" id="L49">        val replacedSnapshot = session.currentSnapshot.copy(sides = nextSides)</span>
+<span class="fc" id="L50">        session.currentSnapshot =</span>
+<span class="fc" id="L51">            session.clearForceSwitchRequests(</span>
+<span class="fc" id="L52">                snapshot = replacedSnapshot,</span>
                 unitIds =
-<span class="fc" id="L53">                    buildList {</span>
-<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                        outgoingUnitId?.let(::add)</span>
-<span class="fc" id="L55">                        add(incomingUnitId)</span>
-<span class="fc" id="L56">                    },</span>
+<span class="fc" id="L54">                    buildList {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                        outgoingUnitId?.let(::add)</span>
+<span class="fc" id="L56">                        add(incomingUnitId)</span>
+<span class="fc" id="L57">                    },</span>
             )
-<span class="fc" id="L58">        session.currentSnapshot =</span>
-<span class="fc" id="L59">            BattleSessionSwitchBoostStateSupport.applyIncomingBoostCarry(</span>
-<span class="fc" id="L60">                snapshot = session.currentSnapshot,</span>
-<span class="fc" id="L61">                outgoingUnitId = outgoingUnitId,</span>
-<span class="fc" id="L62">                incomingUnitId = incomingUnitId,</span>
+<span class="fc" id="L59">        session.currentSnapshot =</span>
+<span class="fc" id="L60">            BattleSessionSwitchBoostStateSupport.applyIncomingBoostCarry(</span>
+<span class="fc" id="L61">                snapshot = session.currentSnapshot,</span>
+<span class="fc" id="L62">                outgoingUnitId = outgoingUnitId,</span>
+<span class="fc" id="L63">                incomingUnitId = incomingUnitId,</span>
             )
-<span class="fc" id="L64">        session.currentSnapshot = session.processSwitchIn(incomingUnitId, session.currentSnapshot)</span>
-<span class="fc" id="L65">        session.replacementRequests.removeIf { candidate -&gt; candidate.sideId == sideId }</span>
-<span class="fc" id="L66">        session.recordLog(&quot;Submitted replacement choice for side $sideId: $incomingUnitId.&quot;)</span>
-<span class="fc" id="L67">        session.recordEvent(</span>
-<span class="fc" id="L68">            BattleSessionAutoReplacedPayload(</span>
-<span class="fc" id="L69">                sideId = sideId,</span>
-<span class="fc" id="L70">                after = nextActiveIds,</span>
-<span class="fc" id="L71">                manual = true,</span>
+<span class="fc" id="L65">        session.currentSnapshot = session.processSwitchIn(incomingUnitId, session.currentSnapshot)</span>
+<span class="fc" id="L66">        session.replacementRequests.removeIf { candidate -&gt; candidate.sideId == sideId }</span>
+<span class="fc" id="L67">        session.recordLog(&quot;Submitted replacement choice for side $sideId: $incomingUnitId.&quot;)</span>
+<span class="fc" id="L68">        session.recordEvent(</span>
+<span class="fc" id="L69">            BattleSessionAutoReplacedPayload(</span>
+<span class="fc" id="L70">                sideId = sideId,</span>
+<span class="fc" id="L71">                after = nextActiveIds,</span>
+<span class="fc" id="L72">                manual = true,</span>
             ),
         )
-<span class="fc" id="L74">        return session.currentSnapshot</span>
+<span class="fc" id="L75">        return session.currentSnapshot</span>
     }
 
     /**
@@ -83,27 +84,27 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
      * 3. turn + 1
      */
     fun endTurn(): BattleRuntimeSnapshot {
-<span class="fc" id="L86">        session.ensureStarted()</span>
-<span class="fc" id="L87">        val residualSnapshot = session.battleFlowEngine.resolveResidualPhase(session.currentSnapshot)</span>
-<span class="fc" id="L88">        val advancedField = fieldEffectDurationManager.advance(residualSnapshot)</span>
-<span class="fc" id="L89">        val advancedSide = sideConditionDurationManager.advance(advancedField.snapshot)</span>
-<span class="fc" id="L90">        val advancedUnit = unitEffectDurationManager.advance(advancedSide.snapshot)</span>
-<span class="fc" id="L91">        val advancedDurationSnapshot =</span>
-<span class="fc" id="L92">            applyDurationExpirationMutations(</span>
-<span class="fc" id="L93">                snapshot = advancedUnit.snapshot,</span>
+<span class="fc" id="L87">        session.ensureStarted()</span>
+<span class="fc" id="L88">        val residualSnapshot = session.battleFlowEngine.resolveResidualPhase(session.currentSnapshot)</span>
+<span class="fc" id="L89">        val advancedField = fieldEffectDurationManager.advance(residualSnapshot)</span>
+<span class="fc" id="L90">        val advancedSide = sideConditionDurationManager.advance(advancedField.snapshot)</span>
+<span class="fc" id="L91">        val advancedUnit = unitEffectDurationManager.advance(advancedSide.snapshot)</span>
+<span class="fc" id="L92">        val advancedDurationSnapshot =</span>
+<span class="fc" id="L93">            applyDurationExpirationMutations(</span>
+<span class="fc" id="L94">                snapshot = advancedUnit.snapshot,</span>
                 expirationMutations =
-<span class="fc" id="L95">                    advancedField.expirationMutations +</span>
-<span class="fc" id="L96">                        advancedSide.expirationMutations +</span>
-<span class="fc" id="L97">                        advancedUnit.expirationMutations,</span>
+<span class="fc" id="L96">                    advancedField.expirationMutations +</span>
+<span class="fc" id="L97">                        advancedSide.expirationMutations +</span>
+<span class="fc" id="L98">                        advancedUnit.expirationMutations,</span>
             )
-<span class="fc" id="L99">        session.currentSnapshot = session.resolveFaintAndReplacement(advancedDurationSnapshot)</span>
-<span class="fc" id="L100">        session.currentSnapshot =</span>
-<span class="fc" id="L101">            session.currentSnapshot.copy(</span>
-<span class="fc" id="L102">                battle = session.currentSnapshot.battle.copy(turn = session.currentSnapshot.battle.turn + 1),</span>
+<span class="fc" id="L100">        session.currentSnapshot = session.resolveFaintAndReplacement(advancedDurationSnapshot)</span>
+<span class="fc" id="L101">        session.currentSnapshot =</span>
+<span class="fc" id="L102">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L103">                battle = session.currentSnapshot.battle.copy(turn = session.currentSnapshot.battle.turn + 1),</span>
             )
-<span class="fc" id="L104">        session.recordLog(&quot;Turn ended. Advanced to turn ${session.currentSnapshot.battle.turn}.&quot;)</span>
-<span class="fc" id="L105">        session.recordEvent(BattleSessionTurnEndedPayload)</span>
-<span class="fc" id="L106">        return session.currentSnapshot</span>
+<span class="fc" id="L105">        session.recordLog(&quot;Turn ended. Advanced to turn ${session.currentSnapshot.battle.turn}.&quot;)</span>
+<span class="fc" id="L106">        session.recordEvent(BattleSessionTurnEndedPayload)</span>
+<span class="fc" id="L107">        return session.currentSnapshot</span>
     }
 
     /**
@@ -115,21 +116,21 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
         snapshot: BattleRuntimeSnapshot,
         expirationMutations: List&lt;BattleSessionScopedMutation&gt;,
     ): BattleRuntimeSnapshot {
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (expirationMutations.isEmpty()) {</span>
-<span class="fc" id="L119">            return snapshot</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (expirationMutations.isEmpty()) {</span>
+<span class="fc" id="L120">            return snapshot</span>
         }
-<span class="fc" id="L121">        var currentSnapshot = snapshot</span>
-<span class="fc" id="L122">        expirationMutations.forEach { scopedMutation -&gt;</span>
-<span class="fc" id="L123">            currentSnapshot =</span>
-<span class="fc" id="L124">                session.applyMutations(</span>
-<span class="fc" id="L125">                    snapshot = currentSnapshot,</span>
-<span class="fc" id="L126">                    selfId = scopedMutation.selfId,</span>
-<span class="fc" id="L127">                    targetId = scopedMutation.targetId,</span>
-<span class="fc" id="L128">                    sourceId = scopedMutation.sourceId,</span>
-<span class="fc" id="L129">                    mutations = listOf(scopedMutation.mutation),</span>
+<span class="fc" id="L122">        var currentSnapshot = snapshot</span>
+<span class="fc" id="L123">        expirationMutations.forEach { scopedMutation -&gt;</span>
+<span class="fc" id="L124">            currentSnapshot =</span>
+<span class="fc" id="L125">                session.applyMutations(</span>
+<span class="fc" id="L126">                    snapshot = currentSnapshot,</span>
+<span class="fc" id="L127">                    selfId = scopedMutation.selfId,</span>
+<span class="fc" id="L128">                    targetId = scopedMutation.targetId,</span>
+<span class="fc" id="L129">                    sourceId = scopedMutation.sourceId,</span>
+<span class="fc" id="L130">                    mutations = listOf(scopedMutation.mutation),</span>
                 )
-<span class="fc" id="L131">        }</span>
-<span class="fc" id="L132">        return currentSnapshot</span>
+<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">        return currentSnapshot</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

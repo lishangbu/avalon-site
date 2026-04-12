@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleSessionRunActionExecutor.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.engine.session</a> &gt; <span class="el_source">BattleSessionRunActionExecutor.kt</span></div><h1>BattleSessionRunActionExecutor.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.engine.session
 
+import io.github.lishangbu.avalon.game.battle.engine.model.BattleLifecycle
 import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeSnapshot
 
 /**
@@ -11,7 +12,7 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
  *   不再混在通用 action support 中；
  * - 保持 run 尝试细节仍由 `BattleSessionRunAttemptResolver` 负责。
  */
-<span class="fc" id="L14">class BattleSessionRunActionExecutor {</span>
+<span class="fc" id="L15">class BattleSessionRunActionExecutor {</span>
     /**
      * 执行逃跑动作。
      */
@@ -19,61 +20,63 @@ import io.github.lishangbu.avalon.game.battle.engine.runtime.flow.BattleRuntimeS
         session: BattleSession,
         action: BattleSessionRunAction,
     ): BattleRuntimeSnapshot {
-<span class="fc" id="L22">        val resolution = BattleSessionRunAttemptResolver.resolve(session, action)</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (!resolution.success) {</span>
-<span class="pc bpc" id="L24" title="3 of 4 branches missed.">            val failedAttempts = resolution.failedAttempts ?: session.currentSnapshot.battle.failedRunAttempts[action.sideId] ?: 0</span>
-<span class="fc" id="L25">            session.currentSnapshot =</span>
-<span class="fc" id="L26">                session.currentSnapshot.copy(</span>
+<span class="fc" id="L23">        val resolution = BattleSessionRunAttemptResolver.resolve(session, action)</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (!resolution.success) {</span>
+<span class="pc bpc" id="L25" title="3 of 4 branches missed.">            val failedAttempts = resolution.failedAttempts ?: session.currentSnapshot.battle.failedRunAttempts[action.sideId] ?: 0</span>
+<span class="fc" id="L26">            session.currentSnapshot =</span>
+<span class="fc" id="L27">                session.currentSnapshot.copy(</span>
                     battle =
-<span class="fc" id="L28">                        session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L29">                            failedRunAttempts = session.currentSnapshot.battle.failedRunAttempts + (action.sideId to failedAttempts),</span>
+<span class="fc" id="L29">                        session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L30">                            failedRunAttempts = session.currentSnapshot.battle.failedRunAttempts + (action.sideId to failedAttempts),</span>
                         ),
                 )
-<span class="fc" id="L32">            session.recordLog(</span>
-<span class="fc" id="L33">                &quot;Run failed for side ${action.sideId}. &quot; +</span>
-<span class="fc" id="L34">                    &quot;reason=${resolution.reason} runner=${resolution.runnerUnitId} &quot; +</span>
-<span class="fc" id="L35">                    &quot;failedAttempts=$failedAttempts&quot; +</span>
-<span class="pc bpc" id="L36" title="2 of 4 branches missed.">                    (resolution.escapeValue?.let { &quot; escapeValue=$it&quot; } ?: &quot;&quot;) +</span>
-<span class="pc bpc" id="L37" title="2 of 4 branches missed.">                    (resolution.roll?.let { &quot; roll=$it&quot; } ?: &quot;&quot;) +</span>
+<span class="fc" id="L33">            session.recordLog(</span>
+<span class="fc" id="L34">                &quot;Run failed for side ${action.sideId}. &quot; +</span>
+<span class="fc" id="L35">                    &quot;reason=${resolution.reason} runner=${resolution.runnerUnitId} &quot; +</span>
+<span class="fc" id="L36">                    &quot;failedAttempts=$failedAttempts&quot; +</span>
+<span class="pc bpc" id="L37" title="2 of 4 branches missed.">                    (resolution.escapeValue?.let { &quot; escapeValue=$it&quot; } ?: &quot;&quot;) +</span>
+<span class="pc bpc" id="L38" title="2 of 4 branches missed.">                    (resolution.roll?.let { &quot; roll=$it&quot; } ?: &quot;&quot;) +</span>
                     &quot;.&quot;,
             )
-<span class="fc" id="L40">            session.recordEvent(</span>
-<span class="fc" id="L41">                BattleSessionRunFailedPayload(</span>
-<span class="fc" id="L42">                    sideId = action.sideId,</span>
-<span class="fc" id="L43">                    runnerUnitId = resolution.runnerUnitId,</span>
-<span class="fc" id="L44">                    reason = resolution.reason,</span>
-<span class="fc" id="L45">                    failedAttempts = failedAttempts,</span>
-<span class="fc" id="L46">                    escapeValue = resolution.escapeValue,</span>
-<span class="fc" id="L47">                    roll = resolution.roll,</span>
+<span class="fc" id="L41">            session.recordEvent(</span>
+<span class="fc" id="L42">                BattleSessionRunFailedPayload(</span>
+<span class="fc" id="L43">                    sideId = action.sideId,</span>
+<span class="fc" id="L44">                    runnerUnitId = resolution.runnerUnitId,</span>
+<span class="fc" id="L45">                    reason = resolution.reason,</span>
+<span class="fc" id="L46">                    failedAttempts = failedAttempts,</span>
+<span class="fc" id="L47">                    escapeValue = resolution.escapeValue,</span>
+<span class="fc" id="L48">                    roll = resolution.roll,</span>
                 ),
             )
-<span class="fc" id="L50">            return session.currentSnapshot</span>
+<span class="fc" id="L51">            return session.currentSnapshot</span>
         }
 
-<span class="fc" id="L53">        val survivingOpponent =</span>
-<span class="fc" id="L54">            session.currentSnapshot.sides.keys</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">                .firstOrNull { sideId -&gt; sideId != action.sideId }</span>
-<span class="fc" id="L56">        session.currentSnapshot =</span>
-<span class="fc" id="L57">            session.currentSnapshot.copy(</span>
+<span class="fc" id="L54">        val survivingOpponent =</span>
+<span class="fc" id="L55">            session.currentSnapshot.sides.keys</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                .firstOrNull { sideId -&gt; sideId != action.sideId }</span>
+        // 逃跑成功时，胜负已经确定，但战后副作用仍然交给统一 settlement 处理。
+<span class="fc" id="L58">        session.currentSnapshot =</span>
+<span class="fc" id="L59">            session.currentSnapshot.copy(</span>
                 battle =
-<span class="fc" id="L59">                    session.currentSnapshot.battle.copy(</span>
-<span class="fc" id="L60">                        ended = true,</span>
-<span class="fc" id="L61">                        winner = survivingOpponent,</span>
-<span class="fc" id="L62">                        endedReason = &quot;run&quot;,</span>
+<span class="fc" id="L61">                    session.currentSnapshot.battle.copy(</span>
+<span class="fc" id="L62">                        ended = true,</span>
+<span class="fc" id="L63">                        lifecycle = BattleLifecycle.ENDED_UNSETTLED,</span>
+<span class="fc" id="L64">                        winner = survivingOpponent,</span>
+<span class="fc" id="L65">                        endedReason = &quot;run&quot;,</span>
                     ),
             )
-<span class="fc" id="L65">        session.recordLog(</span>
-<span class="fc" id="L66">            &quot;Executed run action for side ${action.sideId}. &quot; +</span>
-<span class="fc" id="L67">                &quot;runner=${resolution.runnerUnitId} reason=${resolution.reason}. Winner: $survivingOpponent.&quot;,</span>
+<span class="fc" id="L68">        session.recordLog(</span>
+<span class="fc" id="L69">            &quot;Executed run action for side ${action.sideId}. &quot; +</span>
+<span class="fc" id="L70">                &quot;runner=${resolution.runnerUnitId} reason=${resolution.reason}. Winner: $survivingOpponent.&quot;,</span>
         )
-<span class="fc" id="L69">        session.recordEvent(</span>
-<span class="fc" id="L70">            BattleSessionBattleEndedPayload(</span>
-<span class="fc" id="L71">                winner = survivingOpponent,</span>
-<span class="fc" id="L72">                actionType = BattleSessionActionEventKind.RUN,</span>
-<span class="fc" id="L73">                runner = action.sideId,</span>
+<span class="fc" id="L72">        session.recordEvent(</span>
+<span class="fc" id="L73">            BattleSessionBattleEndedPayload(</span>
+<span class="fc" id="L74">                winner = survivingOpponent,</span>
+<span class="fc" id="L75">                actionType = BattleSessionActionEventKind.RUN,</span>
+<span class="fc" id="L76">                runner = action.sideId,</span>
             ),
         )
-<span class="fc" id="L76">        return session.currentSnapshot</span>
+<span class="fc" id="L79">        return session.currentSnapshot</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

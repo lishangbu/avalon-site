@@ -11,24 +11,26 @@
  *
  * @property id 战斗实例唯一标识。
  * @property formatId 当前战斗采用的规则集标识。
+ * @property lifecycle 当前 battle 的全局生命周期阶段。
  * @property started 战斗是否已经开始。
  * @property turn 当前回合数。
  * @property ended 战斗是否已经结束。
  * @property winner 战斗赢家标识，未结束时可为空。
  */
-<span class="fc" id="L19">data class BattleState(</span>
-<span class="fc" id="L20">    val id: String,</span>
-<span class="fc" id="L21">    val formatId: String,</span>
-<span class="fc" id="L22">    val battleKind: BattleType = BattleType.TRAINER,</span>
-<span class="fc" id="L23">    val randomState: BattleRandomState = BattleRandomState.seeded(id, formatId),</span>
-<span class="fc" id="L24">    val started: Boolean = false,</span>
-<span class="fc" id="L25">    val turn: Int = 0,</span>
-<span class="fc" id="L26">    val ended: Boolean = false,</span>
-<span class="fc" id="L27">    val settled: Boolean = false,</span>
-<span class="fc" id="L28">    val winner: String? = null,</span>
-<span class="fc" id="L29">    val endedReason: String? = null,</span>
-<span class="fc" id="L30">    val capturableSideId: String? = null,</span>
-<span class="fc" id="L31">    val capturedUnitId: String? = null,</span>
-<span class="fc" id="L32">    val failedRunAttempts: Map&lt;String, Int&gt; = emptyMap(),</span>
-<span class="fc" id="L33">)</span>
+<span class="fc" id="L20">data class BattleState(</span>
+<span class="fc" id="L21">    val id: String,</span>
+<span class="fc" id="L22">    val formatId: String,</span>
+<span class="fc" id="L23">    val battleKind: BattleType = BattleType.TRAINER,</span>
+<span class="fc" id="L24">    val randomState: BattleRandomState = BattleRandomState.seeded(id, formatId),</span>
+<span class="fc" id="L25">    val started: Boolean = false,</span>
+<span class="fc" id="L26">    val turn: Int = 0,</span>
+<span class="fc" id="L27">    val ended: Boolean = false,</span>
+<span class="fc" id="L28">    val settled: Boolean = false,</span>
+<span class="fc" id="L29">    val lifecycle: BattleLifecycle = BattleLifecycle.fromFlags(started, ended, settled),</span>
+<span class="fc" id="L30">    val winner: String? = null,</span>
+<span class="fc" id="L31">    val endedReason: String? = null,</span>
+<span class="fc" id="L32">    val capturableSideId: String? = null,</span>
+<span class="fc" id="L33">    val capturedUnitId: String? = null,</span>
+<span class="fc" id="L34">    val failedRunAttempts: Map&lt;String, Int&gt; = emptyMap(),</span>
+<span class="fc" id="L35">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBattleEventView.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avalon</a> &gt; <a href="index.source.html" class="el_package">io.github.lishangbu.avalon.game.battle.api</a> &gt; <span class="el_source">GameBattleEventView.kt</span></div><h1>GameBattleEventView.kt</h1><pre class="source lang-java linenums">package io.github.lishangbu.avalon.game.battle.api
+
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionEventPayload
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionEventType
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionResourceUsage
+import io.github.lishangbu.avalon.game.battle.engine.session.BattleSessionResourceUsageKind
+
+/**
+ * 面向前端的 battle 事件视图。
+ *
+ * @property type 当前事件类型。
+ * @property turn 当前事件发生时的回合数。
+ * @property payload 当前事件的强类型 payload。
+ */
+<span class="fc" id="L15">data class GameBattleEventView(</span>
+<span class="pc" id="L16">    val type: BattleSessionEventType,</span>
+<span class="pc" id="L17">    val turn: Int,</span>
+<span class="fc" id="L18">    val payload: BattleSessionEventPayload,</span>
+)
+
+/**
+ * 面向前端的通用资源账本视图。
+ *
+ * @property kind 当前账本条目种类。
+ * @property payload 当前账本条目的强类型 payload。
+ */
+<span class="fc" id="L27">data class GameBattleResourceUsageView(</span>
+<span class="fc" id="L28">    val kind: BattleSessionResourceUsageKind,</span>
+<span class="fc" id="L29">    val payload: BattleSessionResourceUsage,</span>
+)
+
+/**
+ * 面向前端的捕捉资源账本视图。
+ *
+ * @property playerId 发起捕捉的玩家标识。
+ * @property sourceUnitId 扔球单位标识。
+ * @property ballItemId 使用的球类道具标识。
+ * @property targetUnitId 目标单位标识。
+ * @property quantity 本次消耗数量。
+ * @property success 本次捕捉是否成功。
+ * @property shakes 本次捕捉的摇晃次数。
+ * @property reason 本次捕捉结果原因。
+ * @property finalRate 本次捕捉的最终概率。
+ */
+<span class="fc" id="L45">data class GameBattleCaptureResourceUsageView(</span>
+<span class="pc" id="L46">    val playerId: String,</span>
+<span class="pc" id="L47">    val sourceUnitId: String,</span>
+<span class="pc" id="L48">    val ballItemId: String,</span>
+<span class="pc" id="L49">    val targetUnitId: String,</span>
+<span class="pc" id="L50">    val quantity: Int,</span>
+<span class="pc" id="L51">    val success: Boolean,</span>
+<span class="pc" id="L52">    val shakes: Int,</span>
+<span class="pc" id="L53">    val reason: String,</span>
+<span class="pc" id="L54">    val finalRate: Double,</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

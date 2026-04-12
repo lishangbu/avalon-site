@@ -10,10 +10,10 @@ import java.time.Instant
 <span class="fc" id="L10">open class DefaultPlayerInventoryService(</span>
 <span class="fc" id="L11">    private val playerInventoryItemRepository: PlayerInventoryItemRepository,</span>
 ) {
-<span class="fc" id="L13">    open fun ensureAvailable(</span>
+<span class="nc" id="L13">    open fun ensureAvailable(</span>
         playerId: Long,
         itemId: Long,
-<span class="fc" id="L16">        count: Int = 1,</span>
+<span class="nc" id="L16">        count: Int = 1,</span>
     ) {
 <span class="nc" id="L18">        val existing = requireInventoryItem(playerId, itemId)</span>
 <span class="nc bnc" id="L19" title="All 4 branches missed.">        require(existing.quantity &gt;= count) {</span>
